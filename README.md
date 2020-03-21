@@ -6,6 +6,7 @@ Add to a poetry project with:
 
 ```toml
 [tool.poetry.dev-dependencies]
+dash = {extras = ["testing"], version = "*, ^1.9"}
 dash_dev = {git = "https://github.com/KyleKing/dash_dev.git"}
 ```
 
