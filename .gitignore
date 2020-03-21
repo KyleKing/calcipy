@@ -1,3 +1,14 @@
+# ======
+# Custom
+.vscode/*
+
+coverage.json
+docs/dash_dev/*
+docs/coverage_html/*
+docs/test_report.html
+
+# ----------------------------------------------------------------------------------------------------------------------
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
