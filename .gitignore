@@ -1,11 +1,10 @@
 # ======
 # Custom
 .vscode/*
+.doit*
 
 coverage.json
-docs/dash_dev/*
-docs/coverage_html/*
-docs/test_report.html
+docs/*
 
 # ----------------------------------------------------------------------------------------------------------------------
 
