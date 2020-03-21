@@ -17,7 +17,7 @@ autopep8 = "*"
 beautifulsoup4 = "*"
 cohesion = "*"
 darglint = "*"
-dash = {extras = ["testing"], version = "*, ^1.9"}
+dash = {extras = ["testing"], version = "^1.9"}
 dash_daq = "*"
 dash-bootstrap-components = "*"
 diff-cover = "*"
