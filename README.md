@@ -23,7 +23,6 @@ Latest coverage table
 
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
-| dash_dev/0EX/__init__.py | 0 | 0 | 0 | 100.0 |
 | dash_dev/__init__.py | 1 | 0 | 0 | 100.0 |
 | dash_dev/conftest.py | 2 | 0 | 0 | 100.0 |
 | dash_dev/doit_base.py | 48 | 24 | 0 | 50.0 |
@@ -31,7 +30,7 @@ Latest coverage table
 | dash_dev/doit_lint.py | 14 | 14 | 0 | 0.0 |
 | dash_dev/doit_test.py | 13 | 7 | 0 | 46.2 |
 
-Generated on: 2020-03-21T15:11:02.296762
+Generated on: 2020-03-25T20:08:45.594164
 
 <!-- /COVERAGE -->
 

@@ -1,4 +1,10 @@
-"""DoIt Test Utilities."""
+"""DoIt Test Utilities.
+
+Run tests continuously with the below snippet (note: can't be run in DoIt because Ctrl C won't stop ptw)
+
+`poetry run ptw -- --last-failed --new-first`
+
+"""
 
 from .doit_base import DIG, debug_action, open_in_browser
 
