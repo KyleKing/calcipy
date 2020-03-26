@@ -49,6 +49,9 @@ class DoItGlobals:
         Args:
             cwd: path to working directory (ex: `Path(__file__).parent`)
 
+        Raises:
+            RuntimeError: if any files are missing
+
         """
         self.cwd = cwd
 
@@ -60,12 +63,12 @@ class DoItGlobals:
 
         self.src_examples_dir = self.cwd / 'tests/examples'
         self.tmp_examples_dir = self.cwd / f'{self.pkg_name}/0EX'
-        if not self.src_examples_dir.is_dir():
+        if not self.src_examples_dir.is_dir():  # PLANNED: raise an exception here
             RuntimeWarning(f'Expected example files in: {self.src_examples_dir}')
 
         self.gh_pages_dir = self.cwd.parent / f'{self.pkg_name}-gh-pages'
         if not self.gh_pages_dir.is_dir():
-            RuntimeWarning(f'Expected directory at: {self.gh_pages_dir}')
+            raise RuntimeError(f'Expected directory at: {self.gh_pages_dir}')
 
 
 DIG = DoItGlobals()
@@ -94,7 +97,7 @@ def debug_action(actions, verbosity=2):
 
     Args:
         actions: list of DoIt actions
-        verbosity: 2 is maximum, while 0 is disabled
+        verbosity: 2 is maximum, while 0 is disabled. Default is 2
 
     Returns:
         dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task

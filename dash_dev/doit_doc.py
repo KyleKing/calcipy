@@ -215,7 +215,7 @@ def write_coverage_to_readme():
     int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
     rows = [legend, ['--:'] * len(legend)]
     for file_path, file_obj in coverage['files'].items():
-        rows.append([file_path.replace('dash_charts/', '')]
+        rows.append([f'`{Path(file_path).resolve().relative_to(DIG.cwd)}`']
                     + [file_obj['summary'][key] for key in int_keys]
                     + [round(file_obj['summary']['percent_covered'], 1)])
     # Format table for Github Markdown
@@ -252,11 +252,21 @@ def task_document():
 def task_commit_docs():
     """Commit the documentation to gh-pages.
 
+    Checkout project a second time in a new directory. The directory should be in the same relative folder, but with
+    the appended string `'-gh-pages'`. Open the branch and create an orphan branch with:
+    `git checkout --orphan gh-pages`. Then commit code and publish to Github.
+
+    Successive calls of this method will push the latest version of documentation
+
     Returns:
         dict: DoIt task
 
+    Raises:
+        RuntimeError: if any files are missing
+
     """
-    assert DIG.gh_pages_dir.is_dir(), f'Expected directory: {DIG.gh_pages_dir}'
+    if not DIG.gh_pages_dir.is_dir():
+        raise RuntimeError(f'Expected directory: {DIG.gh_pages_dir}')
     return debug_action([
         f'cd {DIG.gh_pages_dir}; git add .; git commit -m "Chg: update pdoc files"; git push',
     ])

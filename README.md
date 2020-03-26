@@ -23,14 +23,14 @@ Latest coverage table
 
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
-| dash_dev/__init__.py | 1 | 0 | 0 | 100.0 |
-| dash_dev/conftest.py | 2 | 0 | 0 | 100.0 |
-| dash_dev/doit_base.py | 48 | 24 | 0 | 50.0 |
-| dash_dev/doit_doc.py | 96 | 96 | 0 | 0.0 |
-| dash_dev/doit_lint.py | 14 | 14 | 0 | 0.0 |
-| dash_dev/doit_test.py | 13 | 7 | 0 | 46.2 |
+| `dash_dev/__init__.py` | 1 | 0 | 0 | 100.0 |
+| `dash_dev/conftest.py` | 2 | 0 | 0 | 100.0 |
+| `dash_dev/doit_base.py` | 48 | 24 | 0 | 50.0 |
+| `dash_dev/doit_doc.py` | 98 | 98 | 0 | 0.0 |
+| `dash_dev/doit_lint.py` | 14 | 14 | 0 | 0.0 |
+| `dash_dev/doit_test.py` | 13 | 7 | 0 | 46.2 |
 
-Generated on: 2020-03-25T20:08:45.594164
+Generated on: 2020-03-25T22:46:28.137749
 
 <!-- /COVERAGE -->
 
@@ -38,5 +38,4 @@ Generated on: 2020-03-25T20:08:45.594164
 
 - Make sure gitchangelog.rc and other relevant files are populated to working directory if needed
 - Add tests
-- Add documentation and gh_pages
-- Better generalize. Specific snippets for `commit_docs` / handling the examples directory were very specific to `dash_charts` and could be generalized
+- Refactor and general cleanup. Is there a better way to handle `stage_examples` when no example files are needed?

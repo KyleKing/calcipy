@@ -22,7 +22,7 @@ DOIT_CONFIG = {
         'open_test_docs',  # Comment on/off as needed
         'document',  # Comment on/off as needed
         'open_docs',  # Comment on/off as needed
-        # 'commit_docs',  # Comment on/off as needed  # FIXME: See notes on function
+        'commit_docs',  # Comment on/off as needed
     ],
 }
 """DoIt Configuration Settings. Run with `poetry run doit`."""
