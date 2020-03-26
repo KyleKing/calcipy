@@ -252,14 +252,12 @@ def task_document():
 def task_commit_docs():
     """Commit the documentation to gh-pages.
 
-    FIXME: Need better way to change directory. Not working as-is
-
     Returns:
         dict: DoIt task
 
     """
+    assert DIG.gh_pages_dir.is_dir(), f'Expected directory: {DIG.gh_pages_dir}'
     return debug_action([
-        (NotImplementedError, ('Needs to be fixed!!', )),
         f'cd {DIG.gh_pages_dir}; git add .; git commit -m "Chg: update pdoc files"; git push',
     ])
 

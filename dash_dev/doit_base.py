@@ -63,7 +63,7 @@ class DoItGlobals:
         if not self.src_examples_dir.is_dir():
             RuntimeWarning(f'Expected example files in: {self.src_examples_dir}')
 
-        self.gh_pages_dir = self.cwd.parents[1] / f'{self.pkg_name}-gh-pages'
+        self.gh_pages_dir = self.cwd.parent / f'{self.pkg_name}-gh-pages'
         if not self.gh_pages_dir.is_dir():
             RuntimeWarning(f'Expected directory at: {self.gh_pages_dir}')
 
