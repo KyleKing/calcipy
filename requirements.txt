@@ -74,7 +74,7 @@ gitdb==4.0.2
 gitpython==3.1.0
 icecream==2.0.0
 idna==2.9
-importlib-metadata==1.5.1
+importlib-metadata==1.5.2
 inflect==4.1.0
 iniparse==0.5
 isort==4.3.21
@@ -109,6 +109,7 @@ pygments==2.6.1
 pyinotify==0.9.6; sys_platform == "linux"
 pyopenssl==19.1.0
 pyparsing==2.4.6
+pystache==0.5.4
 pytest==5.4.1
 pytest-cov==2.8.1
 pytest-html==2.1.1
@@ -142,4 +143,4 @@ waitress==1.4.3
 watchdog==0.10.2
 wcwidth==0.1.9
 werkzeug==1.0.0
-zipp==3.1.0; python_version < "3.8"
+zipp==3.1.0
