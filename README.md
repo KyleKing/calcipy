@@ -38,9 +38,5 @@ Generated on: 2020-08-15T16:41:20.185831
 
 ## TODO List
 
-- Queue
-  - Make sure gitchangelog.rc (and other relevant files) are pushed to directory - add note that they are automatically overwritten
-  - Allow for building of docs within master branch (see issue on pdoc for best practices with index.html redirect)
-
 - Planned
   - Add tests!
