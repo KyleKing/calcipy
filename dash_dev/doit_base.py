@@ -46,9 +46,6 @@ class DoItGlobals:
     tmp_examples_dir = None
     """Path to temporary directory to move examples while creating documentation. Set in `set_paths`."""
 
-    gh_pages_dir = None
-    """Path to gh_pages branch checkout of the project. Set in `set_paths`."""
-
     def set_paths(self, cwd):
         """Set data members based on working directory.
 
@@ -68,10 +65,6 @@ class DoItGlobals:
         self.tmp_examples_dir = self.cwd / f'{self.pkg_name}/0EX'
         if not self.src_examples_dir.is_dir():
             self.src_examples_dir = None  # If the directory is not present, disable this functionality
-
-        self.gh_pages_dir = self.cwd.parent / f'{self.pkg_name}-gh-pages'
-        if not self.gh_pages_dir.is_dir():
-            self.gh_pages_dir = None  # If the directory is not present, disable this functionality
 
 
 DIG = DoItGlobals()

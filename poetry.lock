@@ -143,6 +143,14 @@ version = "3.0.4"
 
 [[package]]
 category = "main"
+description = "Better version of repr/reprlib for short, cheap string representations."
+name = "cheap-repr"
+optional = false
+python-versions = "*"
+version = "0.4.1"
+
+[[package]]
+category = "main"
 description = "Composable command line interface toolkit"
 name = "click"
 optional = false
@@ -1556,6 +1564,24 @@ version = "3.0.4"
 
 [[package]]
 category = "main"
+description = "Powerful debugging tools for Python"
+name = "snoop"
+optional = false
+python-versions = "*"
+version = "0.2.4"
+
+[package.dependencies]
+asttokens = "*"
+cheap_repr = ">=0.4.0"
+executing = "*"
+pygments = "*"
+six = "*"
+
+[package.extras]
+tests = ["pytest", "littleutils", "numpy (>=1.16.3)", "pandas (>=0.24.2)", "birdseye", "django"]
+
+[[package]]
+category = "main"
 description = "This package provides 26 stemmers for 25 languages generated from Snowball algorithms."
 name = "snowballstemmer"
 optional = false
@@ -1725,7 +1751,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "8411a2e27a06bcab27be9763ed6eecb0cff590983a8813d973852984a82322ee"
+content-hash = "ebe343b4e4c050c8c1ba19866d7b0397ecbd17a21c91ad9a57b2158b77b1b49f"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1837,6 +1863,9 @@ cffi = [
 chardet = [
     {file = "chardet-3.0.4-py2.py3-none-any.whl", hash = "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"},
     {file = "chardet-3.0.4.tar.gz", hash = "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"},
+]
+cheap-repr = [
+    {file = "cheap_repr-0.4.1.tar.gz", hash = "sha256:675e6fc43bcad39f796f588d492bbc402baa4efde164fdb1b3f50264779278a6"},
 ]
 click = [
     {file = "click-7.1.2-py2.py3-none-any.whl", hash = "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"},
@@ -2426,6 +2455,9 @@ six = [
 smmap = [
     {file = "smmap-3.0.4-py2.py3-none-any.whl", hash = "sha256:54c44c197c819d5ef1991799a7e30b662d1e520f2ac75c9efbeb54a742214cf4"},
     {file = "smmap-3.0.4.tar.gz", hash = "sha256:9c98bbd1f9786d22f14b3d4126894d56befb835ec90cef151af566c7e19b5d24"},
+]
+snoop = [
+    {file = "snoop-0.2.4.tar.gz", hash = "sha256:89a60f95fac717cd7e4af7674478c6c31d33e40a159452a6db7c609993e535c9"},
 ]
 snowballstemmer = [
     {file = "snowballstemmer-2.0.0-py2.py3-none-any.whl", hash = "sha256:209f257d7533fdb3cb73bdbd24f436239ca3b2fa67d56f6ff88e86be08cc5ef0"},
