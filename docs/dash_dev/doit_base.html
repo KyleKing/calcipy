@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.4" />
+<title>dash_dev.doit_base API documentation</title>
+<meta name="description" content="General DoIt Utilities and Requirements." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+<style>
+a {
+text-decoration: underline;
+}
+h1,h2,h3,h4 {
+font-weight: 400;
+}
+h2 {
+margin: 0.50em 0 .25em 0;
+}
+dd p {
+margin: 5px 0;
+}
+dl dl:last-child {
+margin-bottom: 2.5em;
+}
+main {
+margin-bottom: 80vh;
+}
+#content {
+max-width: 1100px;
+}
+.source summary {
+background-color: #fafafa; /* match HLJS background */
+padding: 1px 5px;
+}
+.source summary:focus {
+outline: none !important;
+}
+.source pre {
+background-color: #fafafa; /* match HLJS background */
+}
+.source pre code {
+padding-bottom: 1em;
+}
+table, th, td {
+border: 1px solid #d4d4d4;
+padding: 0 5px;
+}
+</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dash_dev.doit_base</code></h1>
+</header>
+<section id="section-intro">
+<p>General DoIt Utilities and Requirements.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;General DoIt Utilities and Requirements.&#34;&#34;&#34;
+
+import webbrowser
+from pathlib import Path
+
+import toml
+from icecream import ic
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Global Variables
+
+
+class DoItGlobals:
+    &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
+
+    dash_dev_dir = Path(__file__).parent
+    &#34;&#34;&#34;Dash Dev package directory that contains.&#34;&#34;&#34;
+
+    flake8_path = dash_dev_dir / &#39;.flake8&#39;
+    &#34;&#34;&#34;Path to flake8 file. Default is for the flake8 file from dash_dev.&#34;&#34;&#34;
+
+    isort_path = dash_dev_dir / &#39;.isort.cfg&#39;
+    &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
+
+    path_gitchangelog = dash_dev_dir / &#39;.gitchangelog.rc&#39;
+    &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
+
+    cwd = None
+    &#34;&#34;&#34;Current directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    toml_pth = None
+    &#34;&#34;&#34;Path to `pyproject.toml` file for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    pkg_name = None
+    &#34;&#34;&#34;Name of the current package based on the poetry configuration file. Set in `set_paths`.&#34;&#34;&#34;
+
+    doc_dir = None
+    &#34;&#34;&#34;Path to documentation directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    staging_dir = None
+    &#34;&#34;&#34;Path to staging directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    src_examples_dir = None
+    &#34;&#34;&#34;Path to example code directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    tmp_examples_dir = None
+    &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
+
+    gh_pages_dir = None
+    &#34;&#34;&#34;Path to gh_pages branch checkout of the project. Set in `set_paths`.&#34;&#34;&#34;
+
+    def set_paths(self, cwd):
+        &#34;&#34;&#34;Set data members based on working directory.
+
+        Args:
+            cwd: path to working directory (ex: `Path(__file__).parent`)
+
+        &#34;&#34;&#34;
+        self.cwd = cwd
+
+        self.toml_pth = self.cwd / &#39;pyproject.toml&#39;
+        self.pkg_name = toml.load(self.toml_pth)[&#39;tool&#39;][&#39;poetry&#39;][&#39;name&#39;]
+
+        self.doc_dir = self.cwd / &#39;docs&#39;
+        self.staging_dir = self.doc_dir / self.pkg_name
+
+        self.src_examples_dir = self.cwd / &#39;tests/examples&#39;
+        self.tmp_examples_dir = self.cwd / f&#39;{self.pkg_name}/0EX&#39;
+        if not self.src_examples_dir.is_dir():
+            self.src_examples_dir = None  # If the directory is not present, disable this functionality
+
+        self.gh_pages_dir = self.cwd.parent / f&#39;{self.pkg_name}-gh-pages&#39;
+        if not self.gh_pages_dir.is_dir():
+            self.gh_pages_dir = None  # If the directory is not present, disable this functionality
+
+
+DIG = DoItGlobals()
+&#34;&#34;&#34;Global DoIt Globals class used to manage global variables.&#34;&#34;&#34;
+
+# ----------------------------------------------------------------------------------------------------------------------
+# General Utilities
+
+
+def show_cmd(task):
+    &#34;&#34;&#34;For debugging, log the full command to the console.
+
+    Args:
+        task: task dictionary passed by DoIt
+
+    Returns:
+        str: describing the sequence of actions
+
+    &#34;&#34;&#34;
+    actions = &#39;&#39;.join([f&#39;\n\t{act}&#39; for act in task.actions])
+    return f&#39;{task.name} &gt; [{actions}\n]\n&#39;
+
+
+def debug_action(actions, verbosity=2):
+    &#34;&#34;&#34;Enable verbose logging for the specified actions.
+
+    Args:
+        actions: list of DoIt actions
+        verbosity: 2 is maximum, while 0 is disabled. Default is 2
+
+    Returns:
+        dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task
+
+    &#34;&#34;&#34;
+    return {
+        &#39;actions&#39;: actions,
+        &#39;title&#39;: show_cmd,
+        &#39;verbosity&#39;: verbosity,
+    }
+
+
+def open_in_browser(file_path):
+    &#34;&#34;&#34;Open the path in the default web browser.
+
+    Args:
+        file_path: Path to file
+
+    &#34;&#34;&#34;
+    webbrowser.open(Path(file_path).as_uri())
+
+
+def if_found_unlink(file_path):
+    &#34;&#34;&#34;Remove file if it exists. Function is intended to a DoIt action.
+
+    Args:
+        file_path: Path to file to remove
+
+    &#34;&#34;&#34;
+    if file_path.is_file():
+        file_path.unlink()
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Manage Requirements
+
+
+def task_export_req():
+    &#34;&#34;&#34;Create a `requirements.txt` file for non-Poetry users and for Github security tools.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    req_path = DIG.toml_pth.parent / &#39;requirements.txt&#39;
+    return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])
+
+
+def dump_pur_results(pur_path):
+    &#34;&#34;&#34;Write the contents of the `pur` output file to STDOUT with icecream.
+
+    Args:
+        pur_path: Path to the pur output text file
+
+    &#34;&#34;&#34;
+    ic(pur_path.read_text())
+
+
+def task_check_req():
+    &#34;&#34;&#34;Use pur to check for the latest versions of available packages.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    req_path = DIG.toml_pth.parent / &#39;requirements.txt&#39;
+    pur_path = DIG.toml_pth.parent / &#39;tmp.txt&#39;
+    return debug_action([
+        f&#39;poetry run pur -r &#34;{req_path}&#34; &gt; &#34;{pur_path}&#34;&#39;,
+        (dump_pur_results, (pur_path, )),
+        (Path(pur_path).unlink, ),
+    ])</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-variables">Global variables</h2>
+<dl>
+<dt id="dash_dev.doit_base.DIG"><code class="name">var <span class="ident">DIG</span></code></dt>
+<dd>
+<div class="desc"><p>Global DoIt Globals class used to manage global variables.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="dash_dev.doit_base.debug_action"><code class="name flex">
+<span>def <span class="ident">debug_action</span></span>(<span>actions, verbosity=2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enable verbose logging for the specified actions.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>actions</code></strong></dt>
+<dd>list of DoIt actions</dd>
+<dt><strong><code>verbosity</code></strong></dt>
+<dd>2 is maximum, while 0 is disabled. Default is 2</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>keys <code>actions</code>, <code>title</code>, and <code>verbosity</code> for dict: DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def debug_action(actions, verbosity=2):
+    &#34;&#34;&#34;Enable verbose logging for the specified actions.
+
+    Args:
+        actions: list of DoIt actions
+        verbosity: 2 is maximum, while 0 is disabled. Default is 2
+
+    Returns:
+        dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task
+
+    &#34;&#34;&#34;
+    return {
+        &#39;actions&#39;: actions,
+        &#39;title&#39;: show_cmd,
+        &#39;verbosity&#39;: verbosity,
+    }</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.dump_pur_results"><code class="name flex">
+<span>def <span class="ident">dump_pur_results</span></span>(<span>pur_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Write the contents of the <code>pur</code> output file to STDOUT with icecream.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pur_path</code></strong></dt>
+<dd>Path to the pur output text file</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dump_pur_results(pur_path):
+    &#34;&#34;&#34;Write the contents of the `pur` output file to STDOUT with icecream.
+
+    Args:
+        pur_path: Path to the pur output text file
+
+    &#34;&#34;&#34;
+    ic(pur_path.read_text())</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.if_found_unlink"><code class="name flex">
+<span>def <span class="ident">if_found_unlink</span></span>(<span>file_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove file if it exists. Function is intended to a DoIt action.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong></dt>
+<dd>Path to file to remove</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def if_found_unlink(file_path):
+    &#34;&#34;&#34;Remove file if it exists. Function is intended to a DoIt action.
+
+    Args:
+        file_path: Path to file to remove
+
+    &#34;&#34;&#34;
+    if file_path.is_file():
+        file_path.unlink()</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.open_in_browser"><code class="name flex">
+<span>def <span class="ident">open_in_browser</span></span>(<span>file_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Open the path in the default web browser.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong></dt>
+<dd>Path to file</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_in_browser(file_path):
+    &#34;&#34;&#34;Open the path in the default web browser.
+
+    Args:
+        file_path: Path to file
+
+    &#34;&#34;&#34;
+    webbrowser.open(Path(file_path).as_uri())</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.show_cmd"><code class="name flex">
+<span>def <span class="ident">show_cmd</span></span>(<span>task)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>For debugging, log the full command to the console.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>task</code></strong></dt>
+<dd>task dictionary passed by DoIt</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>describing the sequence of actions</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_cmd(task):
+    &#34;&#34;&#34;For debugging, log the full command to the console.
+
+    Args:
+        task: task dictionary passed by DoIt
+
+    Returns:
+        str: describing the sequence of actions
+
+    &#34;&#34;&#34;
+    actions = &#39;&#39;.join([f&#39;\n\t{act}&#39; for act in task.actions])
+    return f&#39;{task.name} &gt; [{actions}\n]\n&#39;</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.task_check_req"><code class="name flex">
+<span>def <span class="ident">task_check_req</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Use pur to check for the latest versions of available packages.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def task_check_req():
+    &#34;&#34;&#34;Use pur to check for the latest versions of available packages.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    req_path = DIG.toml_pth.parent / &#39;requirements.txt&#39;
+    pur_path = DIG.toml_pth.parent / &#39;tmp.txt&#39;
+    return debug_action([
+        f&#39;poetry run pur -r &#34;{req_path}&#34; &gt; &#34;{pur_path}&#34;&#39;,
+        (dump_pur_results, (pur_path, )),
+        (Path(pur_path).unlink, ),
+    ])</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.task_export_req"><code class="name flex">
+<span>def <span class="ident">task_export_req</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a <code>requirements.txt</code> file for non-Poetry users and for Github security tools.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def task_export_req():
+    &#34;&#34;&#34;Create a `requirements.txt` file for non-Poetry users and for Github security tools.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    req_path = DIG.toml_pth.parent / &#39;requirements.txt&#39;
+    return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="dash_dev.doit_base.DoItGlobals"><code class="flex name class">
+<span>class <span class="ident">DoItGlobals</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Global Variables for DoIt.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DoItGlobals:
+    &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
+
+    dash_dev_dir = Path(__file__).parent
+    &#34;&#34;&#34;Dash Dev package directory that contains.&#34;&#34;&#34;
+
+    flake8_path = dash_dev_dir / &#39;.flake8&#39;
+    &#34;&#34;&#34;Path to flake8 file. Default is for the flake8 file from dash_dev.&#34;&#34;&#34;
+
+    isort_path = dash_dev_dir / &#39;.isort.cfg&#39;
+    &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
+
+    path_gitchangelog = dash_dev_dir / &#39;.gitchangelog.rc&#39;
+    &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
+
+    cwd = None
+    &#34;&#34;&#34;Current directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    toml_pth = None
+    &#34;&#34;&#34;Path to `pyproject.toml` file for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    pkg_name = None
+    &#34;&#34;&#34;Name of the current package based on the poetry configuration file. Set in `set_paths`.&#34;&#34;&#34;
+
+    doc_dir = None
+    &#34;&#34;&#34;Path to documentation directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    staging_dir = None
+    &#34;&#34;&#34;Path to staging directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    src_examples_dir = None
+    &#34;&#34;&#34;Path to example code directory for working project. Set in `set_paths`.&#34;&#34;&#34;
+
+    tmp_examples_dir = None
+    &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
+
+    gh_pages_dir = None
+    &#34;&#34;&#34;Path to gh_pages branch checkout of the project. Set in `set_paths`.&#34;&#34;&#34;
+
+    def set_paths(self, cwd):
+        &#34;&#34;&#34;Set data members based on working directory.
+
+        Args:
+            cwd: path to working directory (ex: `Path(__file__).parent`)
+
+        &#34;&#34;&#34;
+        self.cwd = cwd
+
+        self.toml_pth = self.cwd / &#39;pyproject.toml&#39;
+        self.pkg_name = toml.load(self.toml_pth)[&#39;tool&#39;][&#39;poetry&#39;][&#39;name&#39;]
+
+        self.doc_dir = self.cwd / &#39;docs&#39;
+        self.staging_dir = self.doc_dir / self.pkg_name
+
+        self.src_examples_dir = self.cwd / &#39;tests/examples&#39;
+        self.tmp_examples_dir = self.cwd / f&#39;{self.pkg_name}/0EX&#39;
+        if not self.src_examples_dir.is_dir():
+            self.src_examples_dir = None  # If the directory is not present, disable this functionality
+
+        self.gh_pages_dir = self.cwd.parent / f&#39;{self.pkg_name}-gh-pages&#39;
+        if not self.gh_pages_dir.is_dir():
+            self.gh_pages_dir = None  # If the directory is not present, disable this functionality</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="dash_dev.doit_base.DoItGlobals.cwd"><code class="name">var <span class="ident">cwd</span></code></dt>
+<dd>
+<div class="desc"><p>Current directory for working project. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.dash_dev_dir"><code class="name">var <span class="ident">dash_dev_dir</span></code></dt>
+<dd>
+<div class="desc"><p>Dash Dev package directory that contains.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.doc_dir"><code class="name">var <span class="ident">doc_dir</span></code></dt>
+<dd>
+<div class="desc"><p>Path to documentation directory for working project. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span></code></dt>
+<dd>
+<div class="desc"><p>Path to flake8 file. Default is for the flake8 file from dash_dev.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.gh_pages_dir"><code class="name">var <span class="ident">gh_pages_dir</span></code></dt>
+<dd>
+<div class="desc"><p>Path to gh_pages branch checkout of the project. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.isort_path"><code class="name">var <span class="ident">isort_path</span></code></dt>
+<dd>
+<div class="desc"><p>Path to isort file. Default is for the isort file from dash_dev.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.path_gitchangelog"><code class="name">var <span class="ident">path_gitchangelog</span></code></dt>
+<dd>
+<div class="desc"><p>Path to isort file. Default is for the isort file from dash_dev.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.pkg_name"><code class="name">var <span class="ident">pkg_name</span></code></dt>
+<dd>
+<div class="desc"><p>Name of the current package based on the poetry configuration file. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.src_examples_dir"><code class="name">var <span class="ident">src_examples_dir</span></code></dt>
+<dd>
+<div class="desc"><p>Path to example code directory for working project. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.staging_dir"><code class="name">var <span class="ident">staging_dir</span></code></dt>
+<dd>
+<div class="desc"><p>Path to staging directory for working project. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.tmp_examples_dir"><code class="name">var <span class="ident">tmp_examples_dir</span></code></dt>
+<dd>
+<div class="desc"><p>Path to temporary directory to move examples while creating documentation. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.toml_pth"><code class="name">var <span class="ident">toml_pth</span></code></dt>
+<dd>
+<div class="desc"><p>Path to <code>pyproject.toml</code> file for working project. Set in <code>set_paths</code>.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="dash_dev.doit_base.DoItGlobals.set_paths"><code class="name flex">
+<span>def <span class="ident">set_paths</span></span>(<span>self, cwd)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set data members based on working directory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>cwd</code></strong></dt>
+<dd>path to working directory (ex: <code>Path(__file__).parent</code>)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_paths(self, cwd):
+    &#34;&#34;&#34;Set data members based on working directory.
+
+    Args:
+        cwd: path to working directory (ex: `Path(__file__).parent`)
+
+    &#34;&#34;&#34;
+    self.cwd = cwd
+
+    self.toml_pth = self.cwd / &#39;pyproject.toml&#39;
+    self.pkg_name = toml.load(self.toml_pth)[&#39;tool&#39;][&#39;poetry&#39;][&#39;name&#39;]
+
+    self.doc_dir = self.cwd / &#39;docs&#39;
+    self.staging_dir = self.doc_dir / self.pkg_name
+
+    self.src_examples_dir = self.cwd / &#39;tests/examples&#39;
+    self.tmp_examples_dir = self.cwd / f&#39;{self.pkg_name}/0EX&#39;
+    if not self.src_examples_dir.is_dir():
+        self.src_examples_dir = None  # If the directory is not present, disable this functionality
+
+    self.gh_pages_dir = self.cwd.parent / f&#39;{self.pkg_name}-gh-pages&#39;
+    if not self.gh_pages_dir.is_dir():
+        self.gh_pages_dir = None  # If the directory is not present, disable this functionality</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dash_dev" href="index.html">dash_dev</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-variables">Global variables</a></h3>
+<ul class="">
+<li><code><a title="dash_dev.doit_base.DIG" href="#dash_dev.doit_base.DIG">DIG</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="dash_dev.doit_base.debug_action" href="#dash_dev.doit_base.debug_action">debug_action</a></code></li>
+<li><code><a title="dash_dev.doit_base.dump_pur_results" href="#dash_dev.doit_base.dump_pur_results">dump_pur_results</a></code></li>
+<li><code><a title="dash_dev.doit_base.if_found_unlink" href="#dash_dev.doit_base.if_found_unlink">if_found_unlink</a></code></li>
+<li><code><a title="dash_dev.doit_base.open_in_browser" href="#dash_dev.doit_base.open_in_browser">open_in_browser</a></code></li>
+<li><code><a title="dash_dev.doit_base.show_cmd" href="#dash_dev.doit_base.show_cmd">show_cmd</a></code></li>
+<li><code><a title="dash_dev.doit_base.task_check_req" href="#dash_dev.doit_base.task_check_req">task_check_req</a></code></li>
+<li><code><a title="dash_dev.doit_base.task_export_req" href="#dash_dev.doit_base.task_export_req">task_export_req</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="dash_dev.doit_base.DoItGlobals" href="#dash_dev.doit_base.DoItGlobals">DoItGlobals</a></code></h4>
+<ul class="two-column">
+<li><code><a title="dash_dev.doit_base.DoItGlobals.cwd" href="#dash_dev.doit_base.DoItGlobals.cwd">cwd</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.dash_dev_dir" href="#dash_dev.doit_base.DoItGlobals.dash_dev_dir">dash_dev_dir</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.doc_dir" href="#dash_dev.doit_base.DoItGlobals.doc_dir">doc_dir</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.flake8_path" href="#dash_dev.doit_base.DoItGlobals.flake8_path">flake8_path</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.gh_pages_dir" href="#dash_dev.doit_base.DoItGlobals.gh_pages_dir">gh_pages_dir</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.isort_path" href="#dash_dev.doit_base.DoItGlobals.isort_path">isort_path</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.path_gitchangelog" href="#dash_dev.doit_base.DoItGlobals.path_gitchangelog">path_gitchangelog</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.pkg_name" href="#dash_dev.doit_base.DoItGlobals.pkg_name">pkg_name</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.set_paths" href="#dash_dev.doit_base.DoItGlobals.set_paths">set_paths</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.src_examples_dir" href="#dash_dev.doit_base.DoItGlobals.src_examples_dir">src_examples_dir</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.staging_dir" href="#dash_dev.doit_base.DoItGlobals.staging_dir">staging_dir</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.tmp_examples_dir" href="#dash_dev.doit_base.DoItGlobals.tmp_examples_dir">tmp_examples_dir</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.toml_pth" href="#dash_dev.doit_base.DoItGlobals.toml_pth">toml_pth</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
+</footer>
+</body>
+</html>

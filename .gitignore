@@ -132,5 +132,7 @@ dmypy.json
 # Custom
 .vscode/*
 .doit*
-docs/*
+docs/coverage*
+docs/*.mako
+docs/*.html
 coverage.json
