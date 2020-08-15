@@ -1,10 +1,6 @@
-"""DoIt Test Utilities.
+"""DoIt Test Utilities."""
 
-Run tests continuously with the below snippet (note: can't be run in DoIt because Ctrl C won't stop ptw)
-
-`poetry run ptw -- --last-failed --new-first`
-
-"""
+from doit.tools import LongRunning
 
 from .doit_base import DIG, debug_action, open_in_browser
 
@@ -90,3 +86,42 @@ def task_test_keyword():
         }],
         'verbosity': 2,
     }
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Implement long running ptw tasks
+
+
+def ptw_task(cli_args):
+    """Return DoIt LongRunning `ptw` task.
+
+    Args:
+        cli_args: string CLI args to pass to `ptw`
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return {
+        'actions': [LongRunning(f'poetry run ptw -- {cli_args}')],
+        'verbosity': 2,
+    }
+
+
+def task_ptw_ff():
+    """Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return ptw_task('--last-failed --new-first -m "not CHROME" -v')
+
+
+def task_ptw_current():
+    """Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return ptw_task('--last-failed --new-first -m "CURRENT" -vv')

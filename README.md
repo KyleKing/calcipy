@@ -10,6 +10,8 @@ dash = {extras = ["testing"], version = "*, ^1.11"}
 dash_dev = {git = "https://github.com/KyleKing/dash_dev.git"}
 ```
 
+Then copy the [`dodo.py`](./dodo.py) file into your project and call with `poetry run doit`
+
 Where used:
 
 - [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts)
