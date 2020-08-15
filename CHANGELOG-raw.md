@@ -11,6 +11,8 @@
 
 ### Changes
 
+* Sync local improvements to coverage & linting. [Kyle King]
+
 * Update dependencies and documentation. [Kyle King]
 
 * Further improved commit_docs task. [Kyle King]

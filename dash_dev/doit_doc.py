@@ -1,6 +1,7 @@
 """DoIt Documentation Utilities."""
 
 import json
+import os
 import re
 import shutil
 import subprocess  # noqa: S404
@@ -23,6 +24,7 @@ def task_update_cl():
         dict: DoIt task
 
     """
+    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.path_gitchangelog.as_posix()
     return debug_action(['gitchangelog > CHANGELOG-raw.md'])
 
 
@@ -123,7 +125,7 @@ def clear_docs():
 
 def stage_documentation():  # noqa: CCR001
     """Copy the documentation files from the staging to the output."""
-    if DIG.gh_pages_dir.is_dir():
+    if DIG.gh_pages_dir and DIG.gh_pages_dir.is_dir():
         tmp_dir = Path(tempfile.mkdtemp())
         (DIG.gh_pages_dir / '.git').rename(tmp_dir / '.git')
         try:
@@ -138,13 +140,14 @@ def stage_documentation():  # noqa: CCR001
 
 def stage_examples():
     """Format the code examples as docstrings to be loaded into the documentation."""
-    DIG.tmp_examples_dir.mkdir(exist_ok=False)
-    (DIG.tmp_examples_dir / '__init__.py').write_text('"""Code Examples (documentation-only, not in package)."""')
-    for file_path in DIG.src_examples_dir.glob('*.py'):
-        content = file_path.read_text().replace('"', r'\"')  # read and escape quotes
-        dest_fn = DIG.tmp_examples_dir / file_path.name
-        docstring = f'From file: `{file_path.relative_to(DIG.cwd.parent)}`'
-        dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
+    if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
+        DIG.tmp_examples_dir.mkdir(exist_ok=False)
+        (DIG.tmp_examples_dir / '__init__.py').write_text('"""Code Examples (documentation-only, not in package)."""')
+        for file_path in DIG.src_examples_dir.glob('*.py'):
+            content = file_path.read_text().replace('"', r'\"')  # read and escape quotes
+            dest_fn = DIG.tmp_examples_dir / file_path.name
+            docstring = f'From file: `{file_path.relative_to(DIG.cwd.parent)}`'
+            dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
 
 
 def clear_examples():
@@ -290,7 +293,7 @@ def task_commit_docs():
 
     """
     if not DIG.gh_pages_dir.is_dir():
-        raise RuntimeError(f'Expected directory: {DIG.gh_pages_dir}')
+        raise RuntimeError(f'For commit_docs, expected checkout of the gh-pages branch at: {DIG.gh_pages_dir}')
     return debug_action([
         f'cd {DIG.gh_pages_dir}; git add .; git commit -m "Chg: update pdoc files"; git push',
     ])
