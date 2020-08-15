@@ -1,13 +1,3 @@
-# ======
-# Custom
-.vscode/*
-.doit*
-
-coverage.json
-docs/*
-
-# ----------------------------------------------------------------------------------------------------------------------
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -137,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ==============
+# Custom
+.vscode/*
+.doit*
+docs/*
+coverage.json

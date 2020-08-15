@@ -3,6 +3,7 @@
 import json
 import re
 import shutil
+import subprocess  # noqa: S404
 import tempfile
 from pathlib import Path
 
@@ -59,17 +60,27 @@ def task_remove_tag():
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Documentation
 
-PDocConfig = """<%!
+PDOC_CONFIG = """<%!
     show_inherited_members = True
     hljs_stylename = 'atom-one-light'
 %>"""
+"""PDOC3 configuration."""
 
-PDocHead = """<style>
+PDOC_HEAD = """<style>
     a {
         text-decoration: underline;
     }
     h1,h2,h3,h4 {
         font-weight: 400;
+    }
+    h2 {
+        margin: 0.50em 0 .25em 0;
+    }
+    dd p {
+        margin: 5px 0;
+    }
+    dl dl:last-child {
+        margin-bottom: 2.5em;
     }
     main {
         margin-bottom: 80vh;
@@ -78,25 +89,30 @@ PDocHead = """<style>
         max-width: 1100px;
     }
     .source summary {
-        background-color: #fafafa; /* match HLJS backgd */
+        background-color: #fafafa; /* match HLJS background */
         padding: 1px 5px;
     }
     .source summary:focus {
         outline: none !important;
     }
     .source pre {
-        background-color: #fafafa; /* match HLJS backgd */
+        background-color: #fafafa; /* match HLJS background */
     }
     .source pre code {
         padding-bottom: 1em;
     }
+    table, th, td {
+       border: 1px solid #d4d4d4;
+       padding: 0 5px;
+    }
 </style>"""
+"""PDOC3 custom CSS styles."""
 
 
 def write_pdoc_config_files():
     """Write the head and config mako files for pdoc."""
-    (DIG.doc_dir / 'head.mako').write_text(PDocHead)
-    (DIG.doc_dir / 'config.mako').write_text(PDocConfig)
+    (DIG.doc_dir / 'head.mako').write_text(PDOC_HEAD)
+    (DIG.doc_dir / 'config.mako').write_text(PDOC_CONFIG)
 
 
 def clear_docs():
@@ -105,7 +121,7 @@ def clear_docs():
         shutil.rmtree(DIG.staging_dir)
 
 
-def stage_documentation():
+def stage_documentation():  # noqa: CCR001
     """Copy the documentation files from the staging to the output."""
     if DIG.gh_pages_dir.is_dir():
         tmp_dir = Path(tempfile.mkdtemp())
@@ -208,22 +224,31 @@ def write_code_to_readme():
 
 def write_coverage_to_readme():
     """Read the coverage.json file and write a Markdown table to the README file."""
-    # Read coverage information from json file
-    coverage = json.loads((DIG.cwd / 'coverage.json').read_text())
-    # Collect raw data
-    legend = ['File', 'Statements', 'Missing', 'Excluded', 'Coverage']
-    int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
-    rows = [legend, ['--:'] * len(legend)]
-    for file_path, file_obj in coverage['files'].items():
-        rows.append([f'`{Path(file_path).resolve().relative_to(DIG.cwd)}`']
-                    + [file_obj['summary'][key] for key in int_keys]
-                    + [round(file_obj['summary']['percent_covered'], 1)])
-    # Format table for Github Markdown
-    table_lines = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
-    table_lines.extend(['', f"Generated on: {coverage['meta']['timestamp']}"])
-    # Replace coverage section in README
-    comment_pattern = re.compile(r'<!-- /?(COVERAGE) -->')
-    write_to_readme(comment_pattern, {'COVERAGE': table_lines})
+    # Create the 'coverage.json' file from .coverage SQL database. Suppress errors if failed
+    try:
+        subprocess.run('poetry run python -m coverage json', shell=True, check=True)  # noqa: DUO116,S602,S607
+    except subprocess.CalledProcessError:
+        pass
+
+    coverage_path = (DIG.cwd / 'coverage.json')
+    if coverage_path.is_file():
+        # Read coverage information from json file
+        coverage = json.loads(coverage_path.read_text())
+        # Collect raw data
+        legend = ['File', 'Statements', 'Missing', 'Excluded', 'Coverage']
+        int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
+        rows = [legend, ['--:'] * len(legend)]
+        for file_path, file_obj in coverage['files'].items():
+            rel_path = Path(file_path).resolve().relative_to(DIG.cwd)
+            rows.append([f'`{rel_path}`']
+                        + [file_obj['summary'][key] for key in int_keys]
+                        + [round(file_obj['summary']['percent_covered'], 1)])
+        # Format table for Github Markdown
+        table_lines = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
+        table_lines.extend(['', f"Generated on: {coverage['meta']['timestamp']}"])
+        # Replace coverage section in README
+        comment_pattern = re.compile(r'<!-- /?(COVERAGE) -->')
+        write_to_readme(comment_pattern, {'COVERAGE': table_lines})
 
 
 def task_document():
@@ -241,7 +266,6 @@ def task_document():
         (write_pdoc_config_files, ()),
         (stage_examples, ()),
         (write_code_to_readme, ()),
-        'coverage json',  # creates 'coverage.json' file
         (write_coverage_to_readme, ()),
         f'poetry run pdoc3 {args}',
         (clear_examples, ()),

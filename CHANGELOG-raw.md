@@ -11,11 +11,15 @@
 
 ### Changes
 
+* Update dependencies and documentation. [Kyle King]
+
 * Further improved commit_docs task. [Kyle King]
 
 * Set Dash version & update whitelist. [Kyle King]
 
 ### Fix
+
+* Changelog creation. [Kyle King]
 
 * Commit_docs task. [Kyle King]
 

@@ -1,6 +1,25 @@
 """DoIt Linting Utilities."""
 
+from icecream import ic
+
 from .doit_base import DIG, debug_action, if_found_unlink
+
+# ----------------------------------------------------------------------------------------------------------------------
+# General
+
+
+def glob_path_list():
+    """Find all Python files in project at the base directory, then relevant sub directories.
+
+    Returns:
+        list: List of paths to Python files (`*.py`)
+
+    """
+    path_list = [*DIG.cwd.glob('*.py')]
+    for dir_name in [DIG.pkg_name, 'tests', 'examples', 'scripts', 'notebooks']:
+        path_list.extend([*(DIG.cwd / dir_name).rglob('*.py')])
+    return path_list
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Linting
@@ -42,13 +61,69 @@ def lint(path_list, flake8_path=DIG.flake8_path):
 
 
 def task_lint():
-    """Configure linting as a task.
+    """Configure `lint` as a task.
 
     Returns:
         dict: DoIt task
 
     """
-    path_list = [*DIG.cwd.glob('*.py')]
-    for base_path in [DIG.cwd / DIG.pkg_name, DIG.cwd / 'tests']:
-        path_list.extend([*base_path.glob('**/*.py')])
-    return lint(path_list)
+    return lint(glob_path_list())
+
+
+def radon_lint(path_list):
+    """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
+
+    Args:
+        path_list: list of file paths to lint
+
+    Returns:
+        dict: DoIt task
+
+    """
+    actions = []
+    for args in ['mi', 'cc --total-average -nb', 'hal']:
+        actions.extend(
+            [(ic, (f'# Radon with args: {args}', ))]
+            + [f'poetry run radon {args} "{fn}"' for fn in path_list],
+        )
+    return debug_action(actions)
+
+
+def task_radon_lint():
+    """Configure `radon_lint` as a task.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return radon_lint(glob_path_list())
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Formatting
+
+
+def auto_format(path_list):
+    """Format code with isort and autopep8.
+
+    Args:
+        path_list: list of file paths to modify
+
+    Returns:
+        dict: DoIt task
+
+    """
+    actions = [f'poetry run isort "{fn}" --settings-path "{DIG.isort_path}"' for fn in path_list]
+    kwargs = f'--in-place --aggressive --global-config {DIG.flake8_path}'
+    actions.extend([f'poetry run autopep8 "{fn}" {kwargs}' for fn in path_list])
+    return debug_action(actions)
+
+
+def task_auto_format():
+    """Configure `auto_format` as a task.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return auto_format(glob_path_list())

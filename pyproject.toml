@@ -1,3 +1,7 @@
+[build-system]
+requires = [ "poetry>=1.0",]
+build-backend = "poetry.core.masonry.api"
+
 [tool.isort]
 line_length = 120
 length_sort = false
@@ -7,8 +11,15 @@ default_section = "THIRDPARTY"
 name = "dash_dev"
 version = "0.0.1"
 description = "Development package for development of Plotly/Dash applications"
-authors = ["Kyle King <KyleKing@users.noreply.github.com>"]
+license = "MIT"
+authors = [ "Kyle King <https://github.com/KyleKing>",]
+maintainers = []
+readme = "README.md"
 repository = "https://github.com/kyleking/dash_dev"
+documentation = "https://kyleking.me/dash_dev/"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/kyleking/dash_dev/issues"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -38,6 +49,7 @@ flake8-debugger = "*"
 flake8-deprecated = "*"
 flake8-docstrings = "*"
 flake8-eradicate = "*"
+flake8-expression-complexity = "*"
 flake8-fixme = "*"
 flake8-functions = "*"
 flake8-isort = "*"
@@ -67,11 +79,12 @@ pep8-naming = "*"
 proselint = "*"
 pur = "*"
 pystache = "*"
-pytest = "5.3.5"
+pytest = "*"
 pytest-cov = "*"
 pytest-html = "*"
 pytest-testmon = "*"
 pytest-watch = "*"
+pytest-xdist = "*"
 pyupgrade = "*"
 radon = "*"
 rope = "*"
@@ -81,7 +94,3 @@ transitions = "*"
 vulture = "*"
 
 [tool.poetry.dev-dependencies]
-
-[build-system]
-requires = ["poetry>=1.0"]
-build-backend = "poetry.masonry.api"

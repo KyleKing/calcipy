@@ -19,6 +19,9 @@ class DoItGlobals:
     flake8_path = dash_dev_dir / '.flake8'
     """Path to flake8 file. Default is for the flake8 file from dash_dev."""
 
+    isort_path = dash_dev_dir / '.isort.cfg'
+    """Path to isort file. Default is for the isort file from dash_dev."""
+
     cwd = None
     """Current directory for working project. Set in `set_paths`."""
 
