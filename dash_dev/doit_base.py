@@ -60,6 +60,7 @@ class DoItGlobals:
 
         self.doc_dir = self.cwd / 'docs'
         self.staging_dir = self.doc_dir / self.pkg_name
+        self.staging_dir.mkdir(exist_ok=True, parents=True)
 
         self.src_examples_dir = self.cwd / 'tests/examples'
         self.tmp_examples_dir = self.cwd / f'{self.pkg_name}/0EX'

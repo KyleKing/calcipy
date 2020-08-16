@@ -5,11 +5,21 @@
 
 ### New
 
+* Add ptw as a DoIt LongRunning task. [Kyle King]
+
+* Initialize index.html as redirect. [Kyle King]
+
+  - Based on https://github.com/pdoc3/pdoc/issues/55#issuecomment-614247015
+
 * Implement source code from dash_charts. [Kyle King]
 
 * Initialize poetry project. [Kyle King]
 
 ### Changes
+
+* Add the HTML documentation to git control. [Kyle King]
+
+* Move gitchangelog to package. [Kyle King]
 
 * Sync local improvements to coverage & linting. [Kyle King]
 
@@ -20,6 +30,8 @@
 * Set Dash version & update whitelist. [Kyle King]
 
 ### Fix
+
+* Remove DIG.gh_pages_dir & task_commit_docs. [Kyle King]
 
 * Changelog creation. [Kyle King]
 

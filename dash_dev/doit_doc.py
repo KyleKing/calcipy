@@ -5,7 +5,6 @@ import os
 import re
 import shutil
 import subprocess  # noqa: S404
-import tempfile
 from pathlib import Path
 
 import toml
@@ -228,9 +227,8 @@ def write_coverage_to_readme():
         rows = [legend, ['--:'] * len(legend)]
         for file_path, file_obj in coverage['files'].items():
             rel_path = Path(file_path).resolve().relative_to(DIG.cwd)
-            rows.append([f'`{rel_path}`']
-                        + [file_obj['summary'][key] for key in int_keys]
-                        + [round(file_obj['summary']['percent_covered'], 1)])
+            per = round(file_obj['summary']['percent_covered'], 1)
+            rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown
         table_lines = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
         table_lines.extend(['', f"Generated on: {coverage['meta']['timestamp']}"])

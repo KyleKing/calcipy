@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.4" />
 <title>dash_dev.conftest API documentation</title>
-<meta name="description" content="PyTest configuration." />
+<meta name="description" content="PyTest configuration …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
@@ -63,15 +63,26 @@ padding: 0 5px;
 </header>
 <section id="section-intro">
 <p>PyTest configuration.</p>
+<p>To use, create a file <code>tests/conftest.py</code> and add this import:</p>
+<pre><code class="py">from dash_dev.conftest import pytest_configure  # noqa: F401
+</code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;PyTest configuration.&#34;&#34;&#34;
+<pre><code class="python">&#34;&#34;&#34;PyTest configuration.
+
+To use, create a file `tests/conftest.py` and add this import:
+
+```py
+from dash_dev.conftest import pytest_configure  # noqa: F401
+```
+
+&#34;&#34;&#34;
 
 
 def pytest_configure(config):
-    &#34;&#34;&#34;Configure pytest with custom markers.
+    &#34;&#34;&#34;Configure pytest with custom markers (CHROME, CURRENT, and SLOW).
 
     Args:
         config: pytest configuration object
@@ -79,7 +90,15 @@ def pytest_configure(config):
     &#34;&#34;&#34;
     config.addinivalue_line(
         &#39;markers&#39;,
-        &#39;CHROME: marks tests that opens a Chrome window to be skipped with `-m &#34;not CHROME&#34;`&#39;,
+        &#39;SLOW: tests that take a long time (&gt;15s) and can be skipped with `-m &#34;not SLOW&#34;`&#39;,
+    )
+    config.addinivalue_line(
+        &#39;markers&#39;,
+        &#39;CHROME: tests that open a Chrome window and can be skipped with `-m &#34;not CHROME&#34;`&#39;,
+    )
+    config.addinivalue_line(
+        &#39;markers&#39;,
+        &#39;CURRENT: tests that are currently being developed. Useful for TDD with ptw `poetry run ptw -- -m CURRENT`&#39;,
     )</code></pre>
 </details>
 </section>
@@ -94,7 +113,7 @@ def pytest_configure(config):
 <span>def <span class="ident">pytest_configure</span></span>(<span>config)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure pytest with custom markers.</p>
+<div class="desc"><p>Configure pytest with custom markers (CHROME, CURRENT, and SLOW).</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>config</code></strong></dt>
@@ -105,7 +124,7 @@ def pytest_configure(config):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def pytest_configure(config):
-    &#34;&#34;&#34;Configure pytest with custom markers.
+    &#34;&#34;&#34;Configure pytest with custom markers (CHROME, CURRENT, and SLOW).
 
     Args:
         config: pytest configuration object
@@ -113,7 +132,15 @@ def pytest_configure(config):
     &#34;&#34;&#34;
     config.addinivalue_line(
         &#39;markers&#39;,
-        &#39;CHROME: marks tests that opens a Chrome window to be skipped with `-m &#34;not CHROME&#34;`&#39;,
+        &#39;SLOW: tests that take a long time (&gt;15s) and can be skipped with `-m &#34;not SLOW&#34;`&#39;,
+    )
+    config.addinivalue_line(
+        &#39;markers&#39;,
+        &#39;CHROME: tests that open a Chrome window and can be skipped with `-m &#34;not CHROME&#34;`&#39;,
+    )
+    config.addinivalue_line(
+        &#39;markers&#39;,
+        &#39;CURRENT: tests that are currently being developed. Useful for TDD with ptw `poetry run ptw -- -m CURRENT`&#39;,
     )</code></pre>
 </details>
 </dd>

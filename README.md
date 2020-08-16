@@ -27,18 +27,13 @@ Latest coverage table
 
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
-| `dash_dev/__init__.py` | 1 | 0 | 0 | 100.0 |
-| `dash_dev/conftest.py` | 2 | 0 | 0 | 100.0 |
-| `dash_dev/doit_base.py` | 50 | 25 | 0 | 50.0 |
-| `dash_dev/doit_doc.py` | 109 | 109 | 0 | 0.0 |
-| `dash_dev/doit_lint.py` | 31 | 31 | 0 | 0.0 |
-| `dash_dev/doit_test.py` | 13 | 7 | 0 | 46.2 |
+| `dash_dev/__init__.py` | 1 | 0 | 0 | 100.0% |
+| `dash_dev/conftest.py` | 4 | 0 | 0 | 100.0% |
+| `dash_dev/doit_base.py` | 47 | 2 | 0 | 95.7% |
+| `dash_dev/doit_doc.py` | 95 | 59 | 0 | 37.9% |
+| `dash_dev/doit_lint.py` | 31 | 17 | 0 | 45.2% |
+| `dash_dev/doit_test.py` | 20 | 9 | 0 | 55.0% |
 
-Generated on: 2020-08-15T16:41:20.185831
+Generated on: 2020-08-15T20:02:35.039293
 
 <!-- /COVERAGE -->
-
-## TODO List
-
-- Planned
-  - Add tests!

@@ -115,9 +115,6 @@ class DoItGlobals:
     tmp_examples_dir = None
     &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
 
-    gh_pages_dir = None
-    &#34;&#34;&#34;Path to gh_pages branch checkout of the project. Set in `set_paths`.&#34;&#34;&#34;
-
     def set_paths(self, cwd):
         &#34;&#34;&#34;Set data members based on working directory.
 
@@ -132,15 +129,12 @@ class DoItGlobals:
 
         self.doc_dir = self.cwd / &#39;docs&#39;
         self.staging_dir = self.doc_dir / self.pkg_name
+        self.staging_dir.mkdir(exist_ok=True, parents=True)
 
         self.src_examples_dir = self.cwd / &#39;tests/examples&#39;
         self.tmp_examples_dir = self.cwd / f&#39;{self.pkg_name}/0EX&#39;
         if not self.src_examples_dir.is_dir():
             self.src_examples_dir = None  # If the directory is not present, disable this functionality
-
-        self.gh_pages_dir = self.cwd.parent / f&#39;{self.pkg_name}-gh-pages&#39;
-        if not self.gh_pages_dir.is_dir():
-            self.gh_pages_dir = None  # If the directory is not present, disable this functionality
 
 
 DIG = DoItGlobals()
@@ -507,9 +501,6 @@ def task_check_req():
     tmp_examples_dir = None
     &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
 
-    gh_pages_dir = None
-    &#34;&#34;&#34;Path to gh_pages branch checkout of the project. Set in `set_paths`.&#34;&#34;&#34;
-
     def set_paths(self, cwd):
         &#34;&#34;&#34;Set data members based on working directory.
 
@@ -524,15 +515,12 @@ def task_check_req():
 
         self.doc_dir = self.cwd / &#39;docs&#39;
         self.staging_dir = self.doc_dir / self.pkg_name
+        self.staging_dir.mkdir(exist_ok=True, parents=True)
 
         self.src_examples_dir = self.cwd / &#39;tests/examples&#39;
         self.tmp_examples_dir = self.cwd / f&#39;{self.pkg_name}/0EX&#39;
         if not self.src_examples_dir.is_dir():
-            self.src_examples_dir = None  # If the directory is not present, disable this functionality
-
-        self.gh_pages_dir = self.cwd.parent / f&#39;{self.pkg_name}-gh-pages&#39;
-        if not self.gh_pages_dir.is_dir():
-            self.gh_pages_dir = None  # If the directory is not present, disable this functionality</code></pre>
+            self.src_examples_dir = None  # If the directory is not present, disable this functionality</code></pre>
 </details>
 <h3>Class variables</h3>
 <dl>
@@ -551,10 +539,6 @@ def task_check_req():
 <dt id="dash_dev.doit_base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span></code></dt>
 <dd>
 <div class="desc"><p>Path to flake8 file. Default is for the flake8 file from dash_dev.</p></div>
-</dd>
-<dt id="dash_dev.doit_base.DoItGlobals.gh_pages_dir"><code class="name">var <span class="ident">gh_pages_dir</span></code></dt>
-<dd>
-<div class="desc"><p>Path to gh_pages branch checkout of the project. Set in <code>set_paths</code>.</p></div>
 </dd>
 <dt id="dash_dev.doit_base.DoItGlobals.isort_path"><code class="name">var <span class="ident">isort_path</span></code></dt>
 <dd>
@@ -615,15 +599,12 @@ def task_check_req():
 
     self.doc_dir = self.cwd / &#39;docs&#39;
     self.staging_dir = self.doc_dir / self.pkg_name
+    self.staging_dir.mkdir(exist_ok=True, parents=True)
 
     self.src_examples_dir = self.cwd / &#39;tests/examples&#39;
     self.tmp_examples_dir = self.cwd / f&#39;{self.pkg_name}/0EX&#39;
     if not self.src_examples_dir.is_dir():
-        self.src_examples_dir = None  # If the directory is not present, disable this functionality
-
-    self.gh_pages_dir = self.cwd.parent / f&#39;{self.pkg_name}-gh-pages&#39;
-    if not self.gh_pages_dir.is_dir():
-        self.gh_pages_dir = None  # If the directory is not present, disable this functionality</code></pre>
+        self.src_examples_dir = None  # If the directory is not present, disable this functionality</code></pre>
 </details>
 </dd>
 </dl>
@@ -667,7 +648,6 @@ def task_check_req():
 <li><code><a title="dash_dev.doit_base.DoItGlobals.dash_dev_dir" href="#dash_dev.doit_base.DoItGlobals.dash_dev_dir">dash_dev_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.doc_dir" href="#dash_dev.doit_base.DoItGlobals.doc_dir">doc_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.flake8_path" href="#dash_dev.doit_base.DoItGlobals.flake8_path">flake8_path</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.gh_pages_dir" href="#dash_dev.doit_base.DoItGlobals.gh_pages_dir">gh_pages_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.isort_path" href="#dash_dev.doit_base.DoItGlobals.isort_path">isort_path</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.path_gitchangelog" href="#dash_dev.doit_base.DoItGlobals.path_gitchangelog">path_gitchangelog</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.pkg_name" href="#dash_dev.doit_base.DoItGlobals.pkg_name">pkg_name</a></code></li>

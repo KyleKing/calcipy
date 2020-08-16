@@ -11,6 +11,7 @@ brotli==1.0.7
 certifi==2020.6.20
 cffi==1.14.2
 chardet==3.0.4
+cheap-repr==0.4.1
 click==7.1.2
 cloudpickle==1.5.0
 cognitive-complexity==1.2.0
@@ -135,6 +136,7 @@ rope==0.17.0
 selenium==3.141.0
 six==1.15.0
 smmap==3.0.4
+snoop==0.2.4
 snowballstemmer==2.0.0
 soupsieve==2.0.1
 sqlparse==0.3.1

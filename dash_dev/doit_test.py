@@ -114,7 +114,7 @@ def task_ptw_ff():
         dict: DoIt task
 
     """
-    return ptw_task('--last-failed --new-first -m "not CHROME" -v')
+    return ptw_task('--last-failed --new-first -m "not CHROME" -vv')
 
 
 def task_ptw_current():
