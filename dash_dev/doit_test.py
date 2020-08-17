@@ -107,8 +107,22 @@ def ptw_task(cli_args):
     }
 
 
+def task_ptw_not_chrome():
+    """Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+
+    kwargs: `-m 'not CHROME' -vvv`
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return ptw_task('-m "not CHROME" -vvv')
+
+
 def task_ptw_ff():
     """Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+
+    kwargs: `--last-failed --new-first -m 'not CHROME' -vv`
 
     Returns:
         dict: DoIt task
@@ -120,8 +134,10 @@ def task_ptw_ff():
 def task_ptw_current():
     """Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
+    kwargs: `-m 'CURRENT' -vv`
+
     Returns:
         dict: DoIt task
 
     """
-    return ptw_task('--last-failed --new-first -m "CURRENT" -vv')
+    return ptw_task('-m "CURRENT" -vv')

@@ -5,6 +5,8 @@
 
 ### New
 
+* Vastly expanded test coverage. [Kyle King]
+
 * Add ptw as a DoIt LongRunning task. [Kyle King]
 
 * Initialize index.html as redirect. [Kyle King]
@@ -16,6 +18,8 @@
 * Initialize poetry project. [Kyle King]
 
 ### Changes
+
+* Create the index.html with redirect. [Kyle King]
 
 * Add the HTML documentation to git control. [Kyle King]
 

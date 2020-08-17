@@ -77,15 +77,20 @@ from .doit_base import DIG, debug_action, if_found_unlink
 # General
 
 
-def glob_path_list():
+def glob_path_list(dir_names=None):
     &#34;&#34;&#34;Find all Python files in project at the base directory, then relevant sub directories.
+
+    Args:
+        dir_names: list of string directory names to parse in DIG.cwd. Default is `[pkg_name, tests, examples, scripts]`
 
     Returns:
         list: List of paths to Python files (`*.py`)
 
     &#34;&#34;&#34;
+    if dir_names is None:
+        dir_names = [DIG.pkg_name, &#39;tests&#39;, &#39;examples&#39;, &#39;scripts&#39;]
     path_list = [*DIG.cwd.glob(&#39;*.py&#39;)]
-    for dir_name in [DIG.pkg_name, &#39;tests&#39;, &#39;examples&#39;, &#39;scripts&#39;, &#39;notebooks&#39;]:
+    for dir_name in dir_names:
         path_list.extend([*(DIG.cwd / dir_name).rglob(&#39;*.py&#39;)])
     return path_list
 
@@ -94,27 +99,48 @@ def glob_path_list():
 # Linting
 
 
-def check_linting_errors(flake8_log_path):
+def check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
     &#34;&#34;&#34;Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
     Args:
         flake8_log_path: path to flake8 log file created with flag: `--output-file=flake8_log_path`
+        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Raises:
         RuntimeError: if flake8 log file contains any text results
 
     &#34;&#34;&#34;
-    if len(flake8_log_path.read_text().strip()) &gt; 0:
-        raise RuntimeError(f&#39;Found Linting Errors. Review: {flake8_log_path}&#39;)
+    flake8_full_path = flake8_log_path.parent / f&#39;{flake8_log_path.stem}-full{flake8_log_path.suffix}&#39;
+    log_contents = flake8_log_path.read_text().strip()
+    review_info = f&#39;. Review: {flake8_log_path}&#39;
+    if ignore_errors is not None:
+        # Backup the full list of errors
+        flake8_full_path.write_text(log_contents)
+        # Exclude the errors specificed to be ignored by the user
+        lines = []
+        for line in log_contents.split(&#39;\n&#39;):
+            if not any(f&#39;: {error_code}&#39; in line for error_code in ignore_errors):
+                lines.append(line)
+        log_contents = &#39;\n&#39;.join(lines)
+        flake8_log_path.write_text(log_contents)
+        review_info = (f&#39; even when ignoring {ignore_errors}.\nReview: {flake8_log_path}&#39;
+                       f&#39;\nNote: the full list linting errors are reported in {flake8_full_path}&#39;)
+    else:
+        if_found_unlink(flake8_full_path)
+
+    # Raise an exception if any errors were found. Remove the files if not
+    if len(log_contents) &gt; 0:
+        raise RuntimeError(f&#39;Found Linting Errors{review_info}&#39;)
     if_found_unlink(flake8_log_path)
 
 
-def lint(path_list, flake8_path=DIG.flake8_path):
+def lint(path_list, flake8_path=DIG.flake8_path, ignore_errors=None):
     &#34;&#34;&#34;Lint specified files creating summary log file of errors.
 
     Args:
         path_list: list of file paths to lint
         flake8_path: path to flake8 configuration file. Default is `DIG.flake8_path`
+        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Returns:
         dict: DoIt task
@@ -125,7 +151,7 @@ def lint(path_list, flake8_path=DIG.flake8_path):
     return debug_action([
         (if_found_unlink, (flake8_log_path, )),
         *[f&#39;poetry run flake8 &#34;{fn}&#34; {flags}&#39; for fn in path_list],
-        (check_linting_errors, (flake8_log_path, )),
+        (check_linting_errors, (flake8_log_path, ignore_errors)),
     ])
 
 
@@ -241,7 +267,7 @@ def task_auto_format():
 </details>
 </dd>
 <dt id="dash_dev.doit_lint.check_linting_errors"><code class="name flex">
-<span>def <span class="ident">check_linting_errors</span></span>(<span>flake8_log_path)</span>
+<span>def <span class="ident">check_linting_errors</span></span>(<span>flake8_log_path, ignore_errors=None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Check for errors reported in flake8 log file. Removes log file if no errors detected.</p>
@@ -249,6 +275,8 @@ def task_auto_format():
 <dl>
 <dt><strong><code>flake8_log_path</code></strong></dt>
 <dd>path to flake8 log file created with flag: <code>--output-file=flake8_log_path</code></dd>
+<dt><strong><code>ignore_errors</code></strong></dt>
+<dd>list of error codes to ignore (beyond the flake8 config settings). Default is None</dd>
 </dl>
 <h2 id="raises">Raises</h2>
 <dl>
@@ -259,26 +287,51 @@ def task_auto_format():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def check_linting_errors(flake8_log_path):
+<pre><code class="python">def check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
     &#34;&#34;&#34;Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
     Args:
         flake8_log_path: path to flake8 log file created with flag: `--output-file=flake8_log_path`
+        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Raises:
         RuntimeError: if flake8 log file contains any text results
 
     &#34;&#34;&#34;
-    if len(flake8_log_path.read_text().strip()) &gt; 0:
-        raise RuntimeError(f&#39;Found Linting Errors. Review: {flake8_log_path}&#39;)
+    flake8_full_path = flake8_log_path.parent / f&#39;{flake8_log_path.stem}-full{flake8_log_path.suffix}&#39;
+    log_contents = flake8_log_path.read_text().strip()
+    review_info = f&#39;. Review: {flake8_log_path}&#39;
+    if ignore_errors is not None:
+        # Backup the full list of errors
+        flake8_full_path.write_text(log_contents)
+        # Exclude the errors specificed to be ignored by the user
+        lines = []
+        for line in log_contents.split(&#39;\n&#39;):
+            if not any(f&#39;: {error_code}&#39; in line for error_code in ignore_errors):
+                lines.append(line)
+        log_contents = &#39;\n&#39;.join(lines)
+        flake8_log_path.write_text(log_contents)
+        review_info = (f&#39; even when ignoring {ignore_errors}.\nReview: {flake8_log_path}&#39;
+                       f&#39;\nNote: the full list linting errors are reported in {flake8_full_path}&#39;)
+    else:
+        if_found_unlink(flake8_full_path)
+
+    # Raise an exception if any errors were found. Remove the files if not
+    if len(log_contents) &gt; 0:
+        raise RuntimeError(f&#39;Found Linting Errors{review_info}&#39;)
     if_found_unlink(flake8_log_path)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_lint.glob_path_list"><code class="name flex">
-<span>def <span class="ident">glob_path_list</span></span>(<span>)</span>
+<span>def <span class="ident">glob_path_list</span></span>(<span>dir_names=None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Find all Python files in project at the base directory, then relevant sub directories.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dir_names</code></strong></dt>
+<dd>list of string directory names to parse in DIG.cwd. Default is <code>[pkg_name, tests, examples, scripts]</code></dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>list</code></dt>
@@ -288,21 +341,26 @@ def task_auto_format():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def glob_path_list():
+<pre><code class="python">def glob_path_list(dir_names=None):
     &#34;&#34;&#34;Find all Python files in project at the base directory, then relevant sub directories.
+
+    Args:
+        dir_names: list of string directory names to parse in DIG.cwd. Default is `[pkg_name, tests, examples, scripts]`
 
     Returns:
         list: List of paths to Python files (`*.py`)
 
     &#34;&#34;&#34;
+    if dir_names is None:
+        dir_names = [DIG.pkg_name, &#39;tests&#39;, &#39;examples&#39;, &#39;scripts&#39;]
     path_list = [*DIG.cwd.glob(&#39;*.py&#39;)]
-    for dir_name in [DIG.pkg_name, &#39;tests&#39;, &#39;examples&#39;, &#39;scripts&#39;, &#39;notebooks&#39;]:
+    for dir_name in dir_names:
         path_list.extend([*(DIG.cwd / dir_name).rglob(&#39;*.py&#39;)])
     return path_list</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_lint.lint"><code class="name flex">
-<span>def <span class="ident">lint</span></span>(<span>path_list, flake8_path=PosixPath('/Users/kyleking/Developer/Werk/__LocalProjects/dash_dev/dash_dev/.flake8'))</span>
+<span>def <span class="ident">lint</span></span>(<span>path_list, flake8_path=PosixPath('/Users/kyleking/Developer/Werk/__LocalProjects/dash_dev/dash_dev/.flake8'), ignore_errors=None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Lint specified files creating summary log file of errors.</p>
@@ -312,6 +370,8 @@ def task_auto_format():
 <dd>list of file paths to lint</dd>
 <dt><strong><code>flake8_path</code></strong></dt>
 <dd>path to flake8 configuration file. Default is <code>DIG.flake8_path</code></dd>
+<dt><strong><code>ignore_errors</code></strong></dt>
+<dd>list of error codes to ignore (beyond the flake8 config settings). Default is None</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -322,12 +382,13 @@ def task_auto_format():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def lint(path_list, flake8_path=DIG.flake8_path):
+<pre><code class="python">def lint(path_list, flake8_path=DIG.flake8_path, ignore_errors=None):
     &#34;&#34;&#34;Lint specified files creating summary log file of errors.
 
     Args:
         path_list: list of file paths to lint
         flake8_path: path to flake8 configuration file. Default is `DIG.flake8_path`
+        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Returns:
         dict: DoIt task
@@ -338,7 +399,7 @@ def task_auto_format():
     return debug_action([
         (if_found_unlink, (flake8_log_path, )),
         *[f&#39;poetry run flake8 &#34;{fn}&#34; {flags}&#39; for fn in path_list],
-        (check_linting_errors, (flake8_log_path, )),
+        (check_linting_errors, (flake8_log_path, ignore_errors)),
     ])</code></pre>
 </details>
 </dd>

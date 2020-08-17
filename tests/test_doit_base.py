@@ -89,6 +89,8 @@ def test_if_found_unlink():
 
 def test_task_export_req():
     """Test task_export_req."""
+    DIG.set_paths(DIG_CWD)
+
     result = doit_base.task_export_req()
 
     assert result['actions'][0].startswith('poetry export -f requirements.txt')
@@ -96,6 +98,8 @@ def test_task_export_req():
 
 def test_task_check_req():
     """Test task_check_req."""
+    DIG.set_paths(DIG_CWD)
+
     result = doit_base.task_check_req()
 
     assert result['actions'][0].startswith('poetry run pur')

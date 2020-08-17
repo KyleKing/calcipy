@@ -176,8 +176,22 @@ def ptw_task(cli_args):
     }
 
 
+def task_ptw_not_chrome():
+    &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+
+    kwargs: `-m &#39;not CHROME&#39; -vvv`
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    return ptw_task(&#39;-m &#34;not CHROME&#34; -vvv&#39;)
+
+
 def task_ptw_ff():
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+
+    kwargs: `--last-failed --new-first -m &#39;not CHROME&#39; -vv`
 
     Returns:
         dict: DoIt task
@@ -189,11 +203,13 @@ def task_ptw_ff():
 def task_ptw_current():
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
+    kwargs: `-m &#39;CURRENT&#39; -vv`
+
     Returns:
         dict: DoIt task
 
     &#34;&#34;&#34;
-    return ptw_task(&#39;--last-failed --new-first -m &#34;CURRENT&#34; -vv&#39;)</code></pre>
+    return ptw_task(&#39;-m &#34;CURRENT&#34; -vv&#39;)</code></pre>
 </details>
 </section>
 <section>
@@ -299,6 +315,7 @@ def task_ptw_current():
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run only tests tagged with the CURRENT marker.</p>
+<p>kwargs: <code>-m 'CURRENT' -vv</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>dict</code></dt>
@@ -311,11 +328,13 @@ def task_ptw_current():
 <pre><code class="python">def task_ptw_current():
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
+    kwargs: `-m &#39;CURRENT&#39; -vv`
+
     Returns:
         dict: DoIt task
 
     &#34;&#34;&#34;
-    return ptw_task(&#39;--last-failed --new-first -m &#34;CURRENT&#34; -vv&#39;)</code></pre>
+    return ptw_task(&#39;-m &#34;CURRENT&#34; -vv&#39;)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_ptw_ff"><code class="name flex">
@@ -323,6 +342,7 @@ def task_ptw_current():
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run failed first and skip the CHROME marker.</p>
+<p>kwargs: <code>--last-failed --new-first -m 'not CHROME' -vv</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>dict</code></dt>
@@ -335,11 +355,40 @@ def task_ptw_current():
 <pre><code class="python">def task_ptw_ff():
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
+    kwargs: `--last-failed --new-first -m &#39;not CHROME&#39; -vv`
+
     Returns:
         dict: DoIt task
 
     &#34;&#34;&#34;
     return ptw_task(&#39;--last-failed --new-first -m &#34;not CHROME&#34; -vv&#39;)</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_test.task_ptw_not_chrome"><code class="name flex">
+<span>def <span class="ident">task_ptw_not_chrome</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run failed first and skip the CHROME marker.</p>
+<p>kwargs: <code>-m 'not CHROME' -vvv</code></p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def task_ptw_not_chrome():
+    &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+
+    kwargs: `-m &#39;not CHROME&#39; -vvv`
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    return ptw_task(&#39;-m &#34;not CHROME&#34; -vvv&#39;)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_test"><code class="name flex">
@@ -461,6 +510,7 @@ def task_ptw_current():
 <li><code><a title="dash_dev.doit_test.task_open_test_docs" href="#dash_dev.doit_test.task_open_test_docs">task_open_test_docs</a></code></li>
 <li><code><a title="dash_dev.doit_test.task_ptw_current" href="#dash_dev.doit_test.task_ptw_current">task_ptw_current</a></code></li>
 <li><code><a title="dash_dev.doit_test.task_ptw_ff" href="#dash_dev.doit_test.task_ptw_ff">task_ptw_ff</a></code></li>
+<li><code><a title="dash_dev.doit_test.task_ptw_not_chrome" href="#dash_dev.doit_test.task_ptw_not_chrome">task_ptw_not_chrome</a></code></li>
 <li><code><a title="dash_dev.doit_test.task_test" href="#dash_dev.doit_test.task_test">task_test</a></code></li>
 <li><code><a title="dash_dev.doit_test.task_test_keyword" href="#dash_dev.doit_test.task_test_keyword">task_test_keyword</a></code></li>
 <li><code><a title="dash_dev.doit_test.task_test_marker" href="#dash_dev.doit_test.task_test_marker">task_test_marker</a></code></li>

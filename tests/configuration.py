@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 import snoop
 
-from dash_dev.doit_base import DIG, DoItGlobals
+from dash_dev.doit_base import DoItGlobals
 
 TEST_DIR = Path(__file__).parent
 """Path to the `test` directory that contains this file and all other tests."""
@@ -15,8 +15,6 @@ TEST_DATA_DIR = TEST_DIR / 'data'
 
 DIG_CWD = TEST_DATA_DIR / 'doit_project'
 """Local directory used for testing the DoIt globals."""
-
-DIG.set_paths(DIG_CWD)  # Warning: This modifies the global `DIG` which is necessary for some tests
 
 TEST_SNOOPER = snoop.Config(out=TEST_DIR / 'test.log', overwrite=True)
 """Snoop configuration for logging to a test.log file in the test directory."""

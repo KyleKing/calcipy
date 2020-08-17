@@ -7,6 +7,8 @@ from pathlib import Path
 from dash_dev import doit_doc
 from dash_dev.doit_base import DIG
 
+from .configuration import DIG_CWD
+
 
 def test_task_update_cl():
     """Test task_update_cl."""
@@ -19,6 +21,8 @@ def test_task_update_cl():
 
 def test_task_create_tag():
     """Test task_create_tag."""
+    DIG.set_paths(DIG_CWD)
+
     result = doit_doc.task_create_tag()
 
     assert len(result['actions']) == 3
@@ -29,6 +33,8 @@ def test_task_create_tag():
 
 def test_task_remove_tag():
     """Test task_remove_tag."""
+    DIG.set_paths(DIG_CWD)
+
     result = doit_doc.task_remove_tag()
 
     assert len(result['actions']) == 3
