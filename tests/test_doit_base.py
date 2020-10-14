@@ -11,8 +11,8 @@ from .configuration import DIG_CWD, TEST_DATA_DIR
 
 def test_dig_props():
     """Test the DIG global variable from DoItGlobals."""
-    public_props = ['cwd', 'dash_dev_dir', 'doc_dir', 'flake8_path', 'isort_path', 'path_gitchangelog', 'pkg_name',
-                    'set_paths', 'src_examples_dir', 'staging_dir', 'tmp_examples_dir', 'toml_pth']
+    public_props = ['dash_dev_dir', 'doc_dir', 'flake8_path', 'path_gitchangelog', 'pkg_name',
+                    'set_paths', 'source_path', 'src_examples_dir', 'staging_dir', 'tmp_examples_dir', 'toml_path']
     dig = DoItGlobals()
 
     result = [prop for prop in dir(dig) if not prop.startswith('_')]
@@ -33,12 +33,11 @@ def test_dig_paths():
 
     # Test the properties set by default
     assert dig.dash_dev_dir.name == 'dash_dev'
-    assert dig.flake8_path == dig.dash_dev_dir / '.flake8'
-    assert dig.isort_path == dig.dash_dev_dir / '.isort.cfg'
+    assert dig.flake8_path == dig.dash_dev_dir / '../.flake8'
     assert dig.path_gitchangelog == dig.dash_dev_dir / '.gitchangelog.rc'
     # Test the properties set by set_paths
-    assert dig.cwd == DIG_CWD
-    assert dig.toml_pth == DIG_CWD / 'pyproject.toml'
+    assert dig.source_path == DIG_CWD
+    assert dig.toml_path == DIG_CWD / 'pyproject.toml'
     assert dig.pkg_name == pkg_name
     assert dig.doc_dir == DIG_CWD / 'docs'
     assert dig.staging_dir == DIG_CWD / 'docs' / pkg_name

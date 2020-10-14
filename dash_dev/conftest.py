@@ -1,16 +1,18 @@
-"""PyTest configuration.
+"""Custom Pytest Configuration.
 
-To use, create a file `tests/conftest.py` and add this import:
+To use the custom markers, create a file `tests/conftest.py` and add this import:
 
 ```py
 from dash_dev.conftest import pytest_configure  # noqa: F401
 ```
 
+For HTML Reports, see: https://pypi.org/project/pytest-html/.
+
 """
 
 
 def pytest_configure(config):
-    """Configure pytest with custom markers (CHROME, CURRENT, and SLOW).
+    """Configure pytest with custom markers (SLOW, CHROME, and CURRENT).
 
     Args:
         config: pytest configuration object

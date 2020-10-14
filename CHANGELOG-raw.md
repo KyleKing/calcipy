@@ -5,6 +5,8 @@
 
 ### New
 
+* Improve linting & test tasks. [Kyle King]
+
 * Vastly expanded test coverage. [Kyle King]
 
 * Add ptw as a DoIt LongRunning task. [Kyle King]

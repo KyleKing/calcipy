@@ -12,7 +12,7 @@ def glob_path_list(dir_names=None):
     """Find all Python files in project at the base directory, then relevant sub directories.
 
     Args:
-        dir_names: list of string directory names to parse in DIG.cwd. Default is `[pkg_name, tests, examples, scripts]`
+        dir_names: list of string directory names to parse in DIG.source_path. Default is `[pkg_name, tests, examples, scripts]`
 
     Returns:
         list: List of paths to Python files (`*.py`)
@@ -20,9 +20,9 @@ def glob_path_list(dir_names=None):
     """
     if dir_names is None:
         dir_names = [DIG.pkg_name, 'tests', 'examples', 'scripts']
-    path_list = [*DIG.cwd.glob('*.py')]
+    path_list = [*DIG.source_path.glob('*.py')]
     for dir_name in dir_names:
-        path_list.extend([*(DIG.cwd / dir_name).rglob('*.py')])
+        path_list.extend([*(DIG.source_path / dir_name).rglob('*.py')])
     return path_list
 
 
@@ -77,7 +77,7 @@ def lint(path_list, flake8_path=DIG.flake8_path, ignore_errors=None):
         dict: DoIt task
 
     """
-    flake8_log_path = DIG.cwd / 'flake8.log'
+    flake8_log_path = DIG.source_path / 'flake8.log'
     flags = f'--config={flake8_path}  --output-file={flake8_log_path} --exit-zero'
     return debug_action([
         (if_found_unlink, (flake8_log_path, )),
@@ -139,7 +139,7 @@ def auto_format(path_list):
         dict: DoIt task
 
     """
-    actions = [f'poetry run isort "{fn}" --settings-path "{DIG.isort_path}"' for fn in path_list]
+    actions = [f'poetry run isort "{fn}" --settings-path "{DIG.toml_path}"' for fn in path_list]
     kwargs = f'--in-place --aggressive --global-config {DIG.flake8_path}'
     actions.extend([f'poetry run autopep8 "{fn}" {kwargs}' for fn in path_list])
     return debug_action(actions)

@@ -13,18 +13,7 @@ from transitions import Machine
 from .doit_base import DIG, debug_action, open_in_browser
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Manage Changelog
-
-
-def task_update_cl():
-    """Update a Changelog file with the raw Git history.
-
-    Returns:
-        dict: DoIt task
-
-    """
-    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.path_gitchangelog.as_posix()
-    return debug_action(['gitchangelog > CHANGELOG-raw.md'])
+# Manage Tags
 
 
 def task_create_tag():
@@ -34,7 +23,7 @@ def task_create_tag():
         dict: DoIt task
 
     """
-    version = toml.load(DIG.toml_pth)['tool']['poetry']['version']
+    version = toml.load(DIG.toml_path)['tool']['poetry']['version']
     message = 'New Revision from PyProject.toml'
     return debug_action([
         f'git tag -a {version} -m "{message}"',
@@ -50,7 +39,7 @@ def task_remove_tag():
         dict: DoIt task
 
     """
-    version = toml.load(DIG.toml_pth)['tool']['poetry']['version']
+    version = toml.load(DIG.toml_path)['tool']['poetry']['version']
     return debug_action([
         f'git tag -d "{version}"',
         'git tag -n10 --list',
@@ -59,7 +48,7 @@ def task_remove_tag():
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Manage Documentation
+# Manage PDoc
 
 PDOC_CONFIG = """<%!
     show_inherited_members = True
@@ -115,29 +104,23 @@ def write_pdoc_config_files():
     (DIG.doc_dir / 'head.mako').write_text(PDOC_HEAD)
     (DIG.doc_dir / 'config.mako').write_text(PDOC_CONFIG)
 
-
-def clear_docs():
-    """Clear the documentation directory before running pdoc."""
-    if DIG.staging_dir.is_dir():
-        shutil.rmtree(DIG.staging_dir)
+# ----------------------------------------------------------------------------------------------------------------------
+# Manage Changelog
 
 
-def stage_examples():
-    """Format the code examples as docstrings to be loaded into the documentation."""
-    if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
-        DIG.tmp_examples_dir.mkdir(exist_ok=False)
-        (DIG.tmp_examples_dir / '__init__.py').write_text('"""Code Examples (documentation-only, not in package)."""')
-        for file_path in DIG.src_examples_dir.glob('*.py'):
-            content = file_path.read_text().replace('"', r'\"')  # read and escape quotes
-            dest_fn = DIG.tmp_examples_dir / file_path.name
-            docstring = f'From file: `{file_path.relative_to(DIG.cwd.parent)}`'
-            dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
+def task_update_cl():
+    """Update a Changelog file with the raw Git history.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.path_gitchangelog.as_posix()
+    return debug_action(['gitchangelog > CHANGELOG-raw.md'])
 
 
-def clear_examples():
-    """Clear the examples from within the package directory."""
-    if DIG.tmp_examples_dir.is_dir():
-        shutil.rmtree(DIG.tmp_examples_dir)
+# ----------------------------------------------------------------------------------------------------------------------
+# Manage README Updates
 
 
 class ReadMeMachine:  # noqa: H601
@@ -192,7 +175,7 @@ def write_to_readme(comment_pattern, new_text):
         new_text: dictionary with comment string as key
 
     """
-    readme_path = DIG.cwd / 'README.md'
+    readme_path = DIG.source_path / 'README.md'
     lines = readme_path.read_text().split('\n')
     readme_lines = ReadMeMachine().parse(lines, comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
@@ -202,7 +185,7 @@ def write_code_to_readme():
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
     fn = 'tests/examples/readme.py'
-    script_path = DIG.cwd / fn
+    script_path = DIG.source_path / fn
     if script_path.is_file():
         source_code = ['```py', *script_path.read_text().split('\n'), '```']
         new_text = {f'CODE:{fn}': [f'    {line}'.rstrip() for line in source_code]}
@@ -217,7 +200,7 @@ def write_coverage_to_readme():
     except subprocess.CalledProcessError:
         pass
 
-    coverage_path = (DIG.cwd / 'coverage.json')
+    coverage_path = (DIG.source_path / 'coverage.json')
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -226,7 +209,7 @@ def write_coverage_to_readme():
         int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
         rows = [legend, ['--:'] * len(legend)]
         for file_path, file_obj in coverage['files'].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.cwd)
+            rel_path = Path(file_path).resolve().relative_to(DIG.source_path).as_posix()
             per = round(file_obj['summary']['percent_covered'], 1)
             rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown
@@ -239,12 +222,40 @@ def write_coverage_to_readme():
 
 def write_redirect_html():
     """Create an index.html file in the project directory that redirects to the pdoc output."""
-    index_path = DIG.cwd / 'index.html'
+    index_path = DIG.source_path / 'index.html'
     index_path.write_text(f"""<!-- Do not modify this file. It is automatically generated by dash_dev
 If using github pages, make sure to check in this file to git and the files docs/{DIG.pkg_name}/*.html -->
 
 <meta http-equiv="refresh" content="0; url=./docs/{DIG.pkg_name}/" />
 """)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Main Documentation Tasks
+
+
+def clear_docs():
+    """Clear the documentation directory before running pdoc."""
+    if DIG.staging_dir.is_dir():
+        shutil.rmtree(DIG.staging_dir)
+
+
+def clear_examples():
+    """Clear the examples from within the package directory."""
+    if DIG.tmp_examples_dir.is_dir():
+        shutil.rmtree(DIG.tmp_examples_dir)
+
+
+def stage_examples():
+    """Format the code examples as docstrings to be loaded into the documentation."""
+    if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
+        DIG.tmp_examples_dir.mkdir(exist_ok=False)
+        (DIG.tmp_examples_dir / '__init__.py').write_text('"""Code Examples (documentation-only, not in package)."""')
+        for file_path in DIG.src_examples_dir.glob('*.py'):
+            content = file_path.read_text().replace('"', r'\"')  # read and escape quotes
+            dest_fn = DIG.tmp_examples_dir / file_path.name
+            docstring = f'From file: `{file_path.relative_to(DIG.source_path.parent)}`'
+            dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
 
 
 def task_document():

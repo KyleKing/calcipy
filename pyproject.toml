@@ -1,11 +1,14 @@
 [build-system]
-requires = [ "poetry>=1.0",]
+requires = [ "poetry-core>=1.0",]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 line_length = 120
 length_sort = false
 default_section = "THIRDPARTY"
+# combine_as_imports = true
+# force_grid_wrap = 0
+# multi_line_output = 0
 
 [tool.poetry]
 name = "dash_dev"
@@ -64,7 +67,6 @@ flake8-printf-formatting = "*"
 flake8-pytest-style = "*"
 flake8-quotes = "*"
 flake8-return = "*"
-flake8-spellcheck = "*"
 flake8-sql = "*"
 flake8-string-format = "*"
 flake8-tuple = "*"

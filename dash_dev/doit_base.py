@@ -16,19 +16,16 @@ class DoItGlobals:
     dash_dev_dir = Path(__file__).parent
     """Dash Dev package directory that contains."""
 
-    flake8_path = dash_dev_dir / '.flake8'
+    flake8_path = dash_dev_dir / '../.flake8'
     """Path to flake8 file. Default is for the flake8 file from dash_dev."""
-
-    isort_path = dash_dev_dir / '.isort.cfg'
-    """Path to isort file. Default is for the isort file from dash_dev."""
 
     path_gitchangelog = dash_dev_dir / '.gitchangelog.rc'
     """Path to isort file. Default is for the isort file from dash_dev."""
 
-    cwd = None
+    source_path = None
     """Current directory for working project. Set in `set_paths`."""
 
-    toml_pth = None
+    toml_path = None
     """Path to `pyproject.toml` file for working project. Set in `set_paths`."""
 
     pkg_name = None
@@ -46,24 +43,24 @@ class DoItGlobals:
     tmp_examples_dir = None
     """Path to temporary directory to move examples while creating documentation. Set in `set_paths`."""
 
-    def set_paths(self, cwd):
+    def set_paths(self, source_path):
         """Set data members based on working directory.
 
         Args:
-            cwd: path to working directory (ex: `Path(__file__).parent`)
+            source_path: path to working directory (ex: `Path(__file__).parent`)
 
         """
-        self.cwd = cwd
+        self.source_path = source_path
 
-        self.toml_pth = self.cwd / 'pyproject.toml'
-        self.pkg_name = toml.load(self.toml_pth)['tool']['poetry']['name']
+        self.toml_path = self.source_path / 'pyproject.toml'
+        self.pkg_name = toml.load(self.toml_path)['tool']['poetry']['name']
 
-        self.doc_dir = self.cwd / 'docs'
+        self.doc_dir = self.source_path / 'docs'
         self.staging_dir = self.doc_dir / self.pkg_name
         self.staging_dir.mkdir(exist_ok=True, parents=True)
 
-        self.src_examples_dir = self.cwd / 'tests/examples'
-        self.tmp_examples_dir = self.cwd / f'{self.pkg_name}/0EX'
+        self.src_examples_dir = self.source_path / 'tests/examples'
+        self.tmp_examples_dir = self.source_path / f'{self.pkg_name}/0EX'
         if not self.src_examples_dir.is_dir():
             self.src_examples_dir = None  # If the directory is not present, disable this functionality
 
@@ -138,7 +135,7 @@ def task_export_req():
         dict: DoIt task
 
     """
-    req_path = DIG.toml_pth.parent / 'requirements.txt'
+    req_path = DIG.toml_path.parent / 'requirements.txt'
     return debug_action([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])
 
 
@@ -159,8 +156,8 @@ def task_check_req():
         dict: DoIt task
 
     """
-    req_path = DIG.toml_pth.parent / 'requirements.txt'
-    pur_path = DIG.toml_pth.parent / 'tmp.txt'
+    req_path = DIG.toml_path.parent / 'requirements.txt'
+    pur_path = DIG.toml_path.parent / 'tmp.txt'
     return debug_action([
         f'poetry run pur -r "{req_path}" > "{pur_path}"',
         (dump_pur_results, (pur_path, )),

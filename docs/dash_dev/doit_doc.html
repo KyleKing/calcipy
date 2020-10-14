@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.4" />
+<meta name="generator" content="pdoc 0.9.1" />
 <title>dash_dev.doit_doc API documentation</title>
 <meta name="description" content="DoIt Documentation Utilities." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
-<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
 <script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 <style>
 a {
@@ -82,18 +82,7 @@ from transitions import Machine
 from .doit_base import DIG, debug_action, open_in_browser
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Manage Changelog
-
-
-def task_update_cl():
-    &#34;&#34;&#34;Update a Changelog file with the raw Git history.
-
-    Returns:
-        dict: DoIt task
-
-    &#34;&#34;&#34;
-    os.environ[&#39;GITCHANGELOG_CONFIG_FILENAME&#39;] = DIG.path_gitchangelog.as_posix()
-    return debug_action([&#39;gitchangelog &gt; CHANGELOG-raw.md&#39;])
+# Manage Tags
 
 
 def task_create_tag():
@@ -103,7 +92,7 @@ def task_create_tag():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_pth)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
+    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     message = &#39;New Revision from PyProject.toml&#39;
     return debug_action([
         f&#39;git tag -a {version} -m &#34;{message}&#34;&#39;,
@@ -119,7 +108,7 @@ def task_remove_tag():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_pth)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
+    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     return debug_action([
         f&#39;git tag -d &#34;{version}&#34;&#39;,
         &#39;git tag -n10 --list&#39;,
@@ -128,7 +117,7 @@ def task_remove_tag():
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Manage Documentation
+# Manage PDoc
 
 PDOC_CONFIG = &#34;&#34;&#34;&lt;%!
     show_inherited_members = True
@@ -184,29 +173,23 @@ def write_pdoc_config_files():
     (DIG.doc_dir / &#39;head.mako&#39;).write_text(PDOC_HEAD)
     (DIG.doc_dir / &#39;config.mako&#39;).write_text(PDOC_CONFIG)
 
-
-def clear_docs():
-    &#34;&#34;&#34;Clear the documentation directory before running pdoc.&#34;&#34;&#34;
-    if DIG.staging_dir.is_dir():
-        shutil.rmtree(DIG.staging_dir)
+# ----------------------------------------------------------------------------------------------------------------------
+# Manage Changelog
 
 
-def stage_examples():
-    &#34;&#34;&#34;Format the code examples as docstrings to be loaded into the documentation.&#34;&#34;&#34;
-    if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
-        DIG.tmp_examples_dir.mkdir(exist_ok=False)
-        (DIG.tmp_examples_dir / &#39;__init__.py&#39;).write_text(&#39;&#34;&#34;&#34;Code Examples (documentation-only, not in package).&#34;&#34;&#34;&#39;)
-        for file_path in DIG.src_examples_dir.glob(&#39;*.py&#39;):
-            content = file_path.read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # read and escape quotes
-            dest_fn = DIG.tmp_examples_dir / file_path.name
-            docstring = f&#39;From file: `{file_path.relative_to(DIG.cwd.parent)}`&#39;
-            dest_fn.write_text(f&#39;&#34;&#34;&#34;{docstring}\n```\n{content}\n```\n&#34;&#34;&#34;&#39;)
+def task_update_cl():
+    &#34;&#34;&#34;Update a Changelog file with the raw Git history.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    os.environ[&#39;GITCHANGELOG_CONFIG_FILENAME&#39;] = DIG.path_gitchangelog.as_posix()
+    return debug_action([&#39;gitchangelog &gt; CHANGELOG-raw.md&#39;])
 
 
-def clear_examples():
-    &#34;&#34;&#34;Clear the examples from within the package directory.&#34;&#34;&#34;
-    if DIG.tmp_examples_dir.is_dir():
-        shutil.rmtree(DIG.tmp_examples_dir)
+# ----------------------------------------------------------------------------------------------------------------------
+# Manage README Updates
 
 
 class ReadMeMachine:  # noqa: H601
@@ -261,7 +244,7 @@ def write_to_readme(comment_pattern, new_text):
         new_text: dictionary with comment string as key
 
     &#34;&#34;&#34;
-    readme_path = DIG.cwd / &#39;README.md&#39;
+    readme_path = DIG.source_path / &#39;README.md&#39;
     lines = readme_path.read_text().split(&#39;\n&#39;)
     readme_lines = ReadMeMachine().parse(lines, comment_pattern, new_text)
     readme_path.write_text(&#39;\n&#39;.join(readme_lines))
@@ -271,7 +254,7 @@ def write_code_to_readme():
     &#34;&#34;&#34;Replace commented sections in README with linked file contents.&#34;&#34;&#34;
     comment_pattern = re.compile(r&#39;\s*&lt;!-- /?(CODE:.*) --&gt;&#39;)
     fn = &#39;tests/examples/readme.py&#39;
-    script_path = DIG.cwd / fn
+    script_path = DIG.source_path / fn
     if script_path.is_file():
         source_code = [&#39;```py&#39;, *script_path.read_text().split(&#39;\n&#39;), &#39;```&#39;]
         new_text = {f&#39;CODE:{fn}&#39;: [f&#39;    {line}&#39;.rstrip() for line in source_code]}
@@ -286,7 +269,7 @@ def write_coverage_to_readme():
     except subprocess.CalledProcessError:
         pass
 
-    coverage_path = (DIG.cwd / &#39;coverage.json&#39;)
+    coverage_path = (DIG.source_path / &#39;coverage.json&#39;)
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -295,7 +278,7 @@ def write_coverage_to_readme():
         int_keys = [&#39;num_statements&#39;, &#39;missing_lines&#39;, &#39;excluded_lines&#39;]
         rows = [legend, [&#39;--:&#39;] * len(legend)]
         for file_path, file_obj in coverage[&#39;files&#39;].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.cwd)
+            rel_path = Path(file_path).resolve().relative_to(DIG.source_path).as_posix()
             per = round(file_obj[&#39;summary&#39;][&#39;percent_covered&#39;], 1)
             rows.append([f&#39;`{rel_path}`&#39;] + [file_obj[&#39;summary&#39;][key] for key in int_keys] + [f&#39;{per}%&#39;])
         # Format table for Github Markdown
@@ -308,12 +291,40 @@ def write_coverage_to_readme():
 
 def write_redirect_html():
     &#34;&#34;&#34;Create an index.html file in the project directory that redirects to the pdoc output.&#34;&#34;&#34;
-    index_path = DIG.cwd / &#39;index.html&#39;
+    index_path = DIG.source_path / &#39;index.html&#39;
     index_path.write_text(f&#34;&#34;&#34;&lt;!-- Do not modify this file. It is automatically generated by dash_dev
 If using github pages, make sure to check in this file to git and the files docs/{DIG.pkg_name}/*.html --&gt;
 
 &lt;meta http-equiv=&#34;refresh&#34; content=&#34;0; url=./docs/{DIG.pkg_name}/&#34; /&gt;
 &#34;&#34;&#34;)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Main Documentation Tasks
+
+
+def clear_docs():
+    &#34;&#34;&#34;Clear the documentation directory before running pdoc.&#34;&#34;&#34;
+    if DIG.staging_dir.is_dir():
+        shutil.rmtree(DIG.staging_dir)
+
+
+def clear_examples():
+    &#34;&#34;&#34;Clear the examples from within the package directory.&#34;&#34;&#34;
+    if DIG.tmp_examples_dir.is_dir():
+        shutil.rmtree(DIG.tmp_examples_dir)
+
+
+def stage_examples():
+    &#34;&#34;&#34;Format the code examples as docstrings to be loaded into the documentation.&#34;&#34;&#34;
+    if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
+        DIG.tmp_examples_dir.mkdir(exist_ok=False)
+        (DIG.tmp_examples_dir / &#39;__init__.py&#39;).write_text(&#39;&#34;&#34;&#34;Code Examples (documentation-only, not in package).&#34;&#34;&#34;&#39;)
+        for file_path in DIG.src_examples_dir.glob(&#39;*.py&#39;):
+            content = file_path.read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # read and escape quotes
+            dest_fn = DIG.tmp_examples_dir / file_path.name
+            docstring = f&#39;From file: `{file_path.relative_to(DIG.source_path.parent)}`&#39;
+            dest_fn.write_text(f&#39;&#34;&#34;&#34;{docstring}\n```\n{content}\n```\n&#34;&#34;&#34;&#39;)
 
 
 def task_document():
@@ -415,7 +426,7 @@ def task_open_docs():
         for file_path in DIG.src_examples_dir.glob(&#39;*.py&#39;):
             content = file_path.read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # read and escape quotes
             dest_fn = DIG.tmp_examples_dir / file_path.name
-            docstring = f&#39;From file: `{file_path.relative_to(DIG.cwd.parent)}`&#39;
+            docstring = f&#39;From file: `{file_path.relative_to(DIG.source_path.parent)}`&#39;
             dest_fn.write_text(f&#39;&#34;&#34;&#34;{docstring}\n```\n{content}\n```\n&#34;&#34;&#34;&#39;)</code></pre>
 </details>
 </dd>
@@ -440,7 +451,7 @@ def task_open_docs():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_pth)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
+    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     message = &#39;New Revision from PyProject.toml&#39;
     return debug_action([
         f&#39;git tag -a {version} -m &#34;{message}&#34;&#39;,
@@ -532,7 +543,7 @@ def task_open_docs():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_pth)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
+    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     return debug_action([
         f&#39;git tag -d &#34;{version}&#34;&#39;,
         &#39;git tag -n10 --list&#39;,
@@ -578,7 +589,7 @@ def task_open_docs():
     &#34;&#34;&#34;Replace commented sections in README with linked file contents.&#34;&#34;&#34;
     comment_pattern = re.compile(r&#39;\s*&lt;!-- /?(CODE:.*) --&gt;&#39;)
     fn = &#39;tests/examples/readme.py&#39;
-    script_path = DIG.cwd / fn
+    script_path = DIG.source_path / fn
     if script_path.is_file():
         source_code = [&#39;```py&#39;, *script_path.read_text().split(&#39;\n&#39;), &#39;```&#39;]
         new_text = {f&#39;CODE:{fn}&#39;: [f&#39;    {line}&#39;.rstrip() for line in source_code]}
@@ -602,7 +613,7 @@ def task_open_docs():
     except subprocess.CalledProcessError:
         pass
 
-    coverage_path = (DIG.cwd / &#39;coverage.json&#39;)
+    coverage_path = (DIG.source_path / &#39;coverage.json&#39;)
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -611,7 +622,7 @@ def task_open_docs():
         int_keys = [&#39;num_statements&#39;, &#39;missing_lines&#39;, &#39;excluded_lines&#39;]
         rows = [legend, [&#39;--:&#39;] * len(legend)]
         for file_path, file_obj in coverage[&#39;files&#39;].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.cwd)
+            rel_path = Path(file_path).resolve().relative_to(DIG.source_path).as_posix()
             per = round(file_obj[&#39;summary&#39;][&#39;percent_covered&#39;], 1)
             rows.append([f&#39;`{rel_path}`&#39;] + [file_obj[&#39;summary&#39;][key] for key in int_keys] + [f&#39;{per}%&#39;])
         # Format table for Github Markdown
@@ -648,7 +659,7 @@ def task_open_docs():
 </summary>
 <pre><code class="python">def write_redirect_html():
     &#34;&#34;&#34;Create an index.html file in the project directory that redirects to the pdoc output.&#34;&#34;&#34;
-    index_path = DIG.cwd / &#39;index.html&#39;
+    index_path = DIG.source_path / &#39;index.html&#39;
     index_path.write_text(f&#34;&#34;&#34;&lt;!-- Do not modify this file. It is automatically generated by dash_dev
 If using github pages, make sure to check in this file to git and the files docs/{DIG.pkg_name}/*.html --&gt;
 
@@ -680,7 +691,7 @@ If using github pages, make sure to check in this file to git and the files docs
         new_text: dictionary with comment string as key
 
     &#34;&#34;&#34;
-    readme_path = DIG.cwd / &#39;README.md&#39;
+    readme_path = DIG.source_path / &#39;README.md&#39;
     lines = readme_path.read_text().split(&#39;\n&#39;)
     readme_lines = ReadMeMachine().parse(lines, comment_pattern, new_text)
     readme_path.write_text(&#39;\n&#39;.join(readme_lines))</code></pre>
@@ -868,7 +879,7 @@ If using github pages, make sure to check in this file to git and the files docs
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
 </footer>
 </body>
 </html>

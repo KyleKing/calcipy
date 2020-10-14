@@ -29,11 +29,11 @@ Latest coverage table
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 1 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 4 | 0 | 0 | 100.0% |
-| `dash_dev/doit_base.py` | 47 | 2 | 0 | 95.7% |
+| `dash_dev/doit_base.py` | 46 | 2 | 0 | 95.7% |
 | `dash_dev/doit_doc.py` | 98 | 59 | 0 | 39.8% |
 | `dash_dev/doit_lint.py` | 46 | 12 | 0 | 73.9% |
 | `dash_dev/doit_test.py` | 22 | 10 | 0 | 54.5% |
 
-Generated on: 2020-08-17T07:09:09.170896
+Generated on: 2020-10-13T21:43:49.182010
 
 <!-- /COVERAGE -->
