@@ -23,6 +23,16 @@ class DoItGlobals:
     path_gitchangelog = dash_dev_dir / '.gitchangelog.rc'
     """Path to isort file. Default is for the isort file from dash_dev."""
 
+    lint_paths = []
+    """Current directory for source code (working project). Set in `set_paths`."""
+
+    external_doc_dirs = ['examples', 'scripts', 'tests']
+    """List of subdir names relative to `source_path` containing Python code that should be in the documentation.
+
+    Note: for nested directories, combine subdirectires into a single string, ex: `('examples', 'examples/sub_dir')`
+
+    """
+
     source_path = None
     """Current directory for source code (working project). Set in `set_paths`."""
 
@@ -37,9 +47,6 @@ class DoItGlobals:
 
     doc_dir = None
     """Path to documentation directory for working project. Set in `set_paths`."""
-
-    staging_dir = None
-    """Path to staging directory for working project. Set in `set_paths`."""
 
     src_examples_dir = None
     """Path to example code directory for working project. Set in `set_paths`."""
@@ -64,6 +71,7 @@ class DoItGlobals:
         # Define the output directory with relevant subdirectories
         self.test_path = self.source_path / 'tests'
         self.doc_dir = self.source_path / 'docs' if doc_dir is None else doc_dir
+        ensure_dir(self.doc_dir)
         self.coverage_path = self.doc_dir / 'cov_html/index.html'
         self.test_report_path = self.doc_dir / 'test_report.html'
 
@@ -79,6 +87,10 @@ class DoItGlobals:
         self.tmp_examples_dir = self.source_path / f'{self.pkg_name}/0EX'
         if not self.src_examples_dir.is_dir():
             self.src_examples_dir = None  # If the directory is not present, disable this functionality
+
+        # Create list of directories and paths to isort and format
+        self.lint_paths = [self.source_path / subdir for subdir in [self.pkg_name] + self.external_doc_dirs]
+        self.lint_paths.extend([self.test_path] + [*self.source_path.glob('*.py')])
 
 
 DIG = DoItGlobals()

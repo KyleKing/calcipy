@@ -11,21 +11,21 @@ from dash_dev.doit_base import DIG
 from .configuration import DIG_CWD
 
 
-def test_glob_path_list():
-    """Test glob_path_list."""
+def test_collect_py_files():
+    """Test collect_py_files."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = doit_lint.glob_path_list()
+    result = doit_lint.collect_py_files(add_paths=(), excluded_files=None, subdirectories=None)
 
     assert len(result) == 2
-    assert DIG_CWD / 'test_file.py' in result
-    assert DIG_CWD / 'tests/test_file_2.py' in result
+    assert str(DIG_CWD / 'test_file.py') in result
+    assert str(DIG_CWD / 'tests/test_file_2.py') in result
 
 
-def test_lint():
-    """Test lint."""
-    result = doit_lint.lint(
-        path_list=[DIG_CWD / 'test_file.py', DIG_CWD / 'tests/test_file_2.py'],
+def test_lint_project():
+    """Test lint_project."""
+    result = doit_lint.lint_project(
+        package_files=[DIG_CWD / 'test_file.py', DIG_CWD / 'tests/test_file_2.py'],
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
 

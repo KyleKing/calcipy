@@ -6,22 +6,32 @@ from .doit_base import DIG, debug_action, echo, if_found_unlink
 # General
 
 
-def glob_path_list(dir_names=None):
-    """Find all Python files in project at the base directory, then relevant sub directories.
+def collect_py_files(add_paths=(), excluded_files=None, subdirectories=None):
+    """Collect the tracked files for linting and formatting. Return as list of string paths.
 
     Args:
-        dir_names: list of string directory names to parse in DIG.source_path. Default is `[pkg_name, tests, examples, scripts]`
+        add_paths: List of absolute paths to additional Python files to process. Default is an empty list
+        excluded_files: filenames to skip when collecting files. Default is `[__init__.py]`
+        subdirectories: folder names to recursively check for Python files. Default is
+            `[DIG.pkg_name] + DIG.external_doc_dirs`
 
     Returns:
-        list: List of paths to Python files (`*.py`)
+        list: of string path names
+
+    Raises:
+        RuntimeError: if the add_paths argument is not a list or tuple
 
     """
-    if dir_names is None:
-        dir_names = [DIG.pkg_name, 'tests', 'examples', 'scripts']
-    path_list = [*DIG.source_path.glob('*.py')]
-    for dir_name in dir_names:
-        path_list.extend([*(DIG.source_path / dir_name).rglob('*.py')])
-    return path_list
+    if not isinstance(add_paths, (list, tuple)):
+        raise RuntimeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
+    if excluded_files is None:
+        excluded_files = ['__init__.py']
+    if subdirectories is None:
+        subdirectories = [DIG.pkg_name] + DIG.external_doc_dirs
+    package_files = [*add_paths] + [*DIG.source_path.glob('*.py')]
+    for subdir in subdirectories:  # Capture files in package and in tests directory
+        package_files.extend([*(DIG.source_path / subdir).rglob('*.py')])
+    return [str(file_path) for file_path in package_files if file_path.name not in excluded_files]
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -100,11 +110,11 @@ def check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
     if_found_unlink(flake8_log_path)
 
 
-def lint(path_list, flake8_path=DIG.flake8_path, ignore_errors=None):
+def lint_project(package_files, flake8_path=DIG.flake8_path, ignore_errors=None):
     """Lint specified files creating summary log file of errors.
 
     Args:
-        path_list: list of file paths to lint
+        package_files: list of file paths to lint
         flake8_path: path to flake8 configuration file. Default is `DIG.flake8_path`
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
@@ -115,20 +125,12 @@ def lint(path_list, flake8_path=DIG.flake8_path, ignore_errors=None):
     flake8_log_path = DIG.source_path / 'flake8.log'
     flags = f'--config={flake8_path}  --output-file={flake8_log_path} --exit-zero'
     return debug_action([
+        # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
         (if_found_unlink, (flake8_log_path, )),
-        *[f'poetry run flake8 "{fn}" {flags}' for fn in path_list],
+        # FIXME: lint all files, then filter in the output file for those not in the supplied list
+        *[f'poetry run flake8 "{fn}" {flags}' for fn in package_files],
         (check_linting_errors, (flake8_log_path, ignore_errors)),
     ])
-
-
-def task_lint():
-    """Configure `lint` as a task.
-
-    Returns:
-        dict: DoIt task
-
-    """
-    return lint(glob_path_list())
 
 
 def radon_lint(package_files):
@@ -150,41 +152,20 @@ def radon_lint(package_files):
     return debug_action(actions)
 
 
-def task_radon_lint():
-    """Configure `radon_lint` as a task.
-
-    Returns:
-        dict: DoIt task
-
-    """
-    return radon_lint(glob_path_list())
-
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Formatting
 
 
-def auto_format(path_list):
+def task_auto_format():
     """Format code with isort and autopep8.
 
-    Args:
-        path_list: list of file paths to modify
-
     Returns:
         dict: DoIt task
 
     """
-    actions = [f'poetry run isort "{fn}" --settings-path "{DIG.toml_path}"' for fn in path_list]
-    kwargs = f'--in-place --aggressive --global-config {DIG.flake8_path}'
-    actions.extend([f'poetry run autopep8 "{fn}" {kwargs}' for fn in path_list])
+    run = 'poetry run python -m'
+    actions = []
+    for pth in [*set(DIG.lint_paths)]:
+        actions.append(f'{run} isort "{pth}"')
+        actions.extend([f'{run} autopep8 "{fn}" --in-place --aggressive' for fn in pth.rglob('*.py')])
     return debug_action(actions)
-
-
-def task_auto_format():
-    """Configure `auto_format` as a task.
-
-    Returns:
-        dict: DoIt task
-
-    """
-    return auto_format(glob_path_list())

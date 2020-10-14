@@ -20,6 +20,18 @@ def task_test():
     ], verbosity=2)
 
 
+def task_test_all():
+    """Run tests with Pytest.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return debug_action([
+        f'poetry run pytest "{DIG.test_path}" --ff -vv',
+    ], verbosity=2)
+
+
 def task_test_marker():
     r"""Specify a marker to run a subset of tests.
 
