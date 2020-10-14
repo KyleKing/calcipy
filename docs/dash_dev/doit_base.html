@@ -86,8 +86,8 @@ class DoItGlobals:
     dash_dev_dir = Path(__file__).parent
     &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
 
-    flake8_path = dash_dev_dir / &#39;../.flake8&#39;
-    &#34;&#34;&#34;Path to flake8 file. Default is for the flake8 file from dash_dev.&#34;&#34;&#34;
+    flake8_path = None
+    &#34;&#34;&#34;Path to flake8 file. Set in `set_paths()` based on source_path &#34;&#34;&#34;
 
     path_gitchangelog = dash_dev_dir / &#39;.gitchangelog.rc&#39;
     &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
@@ -149,6 +149,7 @@ class DoItGlobals:
         ensure_dir(self.doc_dir)
         self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
         self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
+        self.flake8_path = self.source_path / &#39;.flake8&#39;
 
         self.toml_path = self.source_path / &#39;pyproject.toml&#39;
         if not self.toml_path.is_file():
@@ -657,8 +658,8 @@ def task_check_req():
     dash_dev_dir = Path(__file__).parent
     &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
 
-    flake8_path = dash_dev_dir / &#39;../.flake8&#39;
-    &#34;&#34;&#34;Path to flake8 file. Default is for the flake8 file from dash_dev.&#34;&#34;&#34;
+    flake8_path = None
+    &#34;&#34;&#34;Path to flake8 file. Set in `set_paths()` based on source_path &#34;&#34;&#34;
 
     path_gitchangelog = dash_dev_dir / &#39;.gitchangelog.rc&#39;
     &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
@@ -720,6 +721,7 @@ def task_check_req():
         ensure_dir(self.doc_dir)
         self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
         self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
+        self.flake8_path = self.source_path / &#39;.flake8&#39;
 
         self.toml_path = self.source_path / &#39;pyproject.toml&#39;
         if not self.toml_path.is_file():
@@ -761,7 +763,7 @@ def task_check_req():
 </dd>
 <dt id="dash_dev.doit_base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span></code></dt>
 <dd>
-<div class="desc"><p>Path to flake8 file. Default is for the flake8 file from dash_dev.</p></div>
+<div class="desc"><p>Path to flake8 file. Set in <code>set_paths()</code> based on source_path</p></div>
 </dd>
 <dt id="dash_dev.doit_base.DoItGlobals.lint_paths"><code class="name">var <span class="ident">lint_paths</span></code></dt>
 <dd>
@@ -845,6 +847,7 @@ def task_check_req():
     ensure_dir(self.doc_dir)
     self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
     self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
+    self.flake8_path = self.source_path / &#39;.flake8&#39;
 
     self.toml_path = self.source_path / &#39;pyproject.toml&#39;
     if not self.toml_path.is_file():

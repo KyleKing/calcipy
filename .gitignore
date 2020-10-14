@@ -167,7 +167,6 @@ coverage.json
 
 # Ignore doc outputs
 docs/*
-!docs/dash_dev/*
 
 # Ignore DOIT cache files
 **/.doit.*
@@ -184,3 +183,7 @@ docs/*
 
 # Ignore temporary files
 /tmp.txt
+
+# Track hosted documentation
+!docs/*/*.html
+!index.html

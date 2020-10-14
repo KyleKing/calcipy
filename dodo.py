@@ -23,9 +23,9 @@ DOIT_CONFIG = {
         'auto_format',  # Comment on/off as needed
         'lint_pre_commit',  # Comment on/off as needed
         'coverage',  # Comment on/off as needed
-        'open_test_docs',  # Comment on/off as needed
+        # 'open_test_docs',  # Comment on/off as needed
         'document',  # Comment on/off as needed
-        'open_docs',  # Comment on/off as needed
+        # 'open_docs',  # Comment on/off as needed
     ],
 }
 """DoIt Configuration Settings. Run with `poetry run doit`."""

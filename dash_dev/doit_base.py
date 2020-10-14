@@ -7,6 +7,10 @@ from pathlib import Path
 import toml
 from icecream import ic
 
+# TODO: Show dodo.py in the documentation
+# TODO: Show README.md in the documentation (may need to update paths?)
+# TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
@@ -17,8 +21,8 @@ class DoItGlobals:
     dash_dev_dir = Path(__file__).parent
     """The dash_dev directory (may be within `.venv`)."""
 
-    flake8_path = dash_dev_dir / '../.flake8'
-    """Path to flake8 file. Default is for the flake8 file from dash_dev."""
+    flake8_path = None
+    """Path to flake8 file. Set in `set_paths()` based on source_path """
 
     path_gitchangelog = dash_dev_dir / '.gitchangelog.rc'
     """Path to isort file. Default is for the isort file from dash_dev."""
@@ -80,6 +84,7 @@ class DoItGlobals:
         ensure_dir(self.doc_dir)
         self.coverage_path = self.doc_dir / 'cov_html/index.html'
         self.test_report_path = self.doc_dir / 'test_report.html'
+        self.flake8_path = self.source_path / '.flake8'
 
         self.toml_path = self.source_path / 'pyproject.toml'
         if not self.toml_path.is_file():
@@ -88,7 +93,6 @@ class DoItGlobals:
         if '-' in self.pkg_name:
             raise RuntimeError(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}')
 
-        # TODO: Make more generic
         self.src_examples_dir = self.source_path / 'tests/examples'
         self.tmp_examples_dir = self.source_path / f'{self.pkg_name}/0EX'
         if not self.src_examples_dir.is_dir():

@@ -34,7 +34,7 @@ def test_dig_paths():
 
     # Test the properties set by default
     assert dig.dash_dev_dir.name == 'dash_dev'
-    assert dig.flake8_path == dig.dash_dev_dir / '../.flake8'
+    assert dig.flake8_path == DIG_CWD / '.flake8'
     assert dig.path_gitchangelog == dig.dash_dev_dir / '.gitchangelog.rc'
     # Test the properties set by set_paths
     assert dig.source_path == DIG_CWD

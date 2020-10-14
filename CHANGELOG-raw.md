@@ -5,6 +5,8 @@
 
 ### New
 
+* Dump isort & flake8 settings in source path. [Kyle King]
+
 * Improve linting & test tasks. [Kyle King]
 
 * Vastly expanded test coverage. [Kyle King]

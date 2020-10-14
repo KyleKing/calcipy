@@ -96,4 +96,4 @@ vulture = "*"
 
 [tool.poetry.dependencies.dash]
 extras = [ "testing",]
-version = "*, ^1.9"
+version = "*, ^1.16"
