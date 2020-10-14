@@ -167,6 +167,18 @@ def debug_action(actions, verbosity=2):
     }
 
 
+def write_text(file_path, text):
+    """file_path.write_text wrapper for DoIt.
+
+    Args:
+        file_path: Path to the file
+        text: string to write to file
+
+    """
+    file_path.write_text(text)
+    return  # Indicates that action completed when called from DoIt task
+
+
 def open_in_browser(file_path):
     """Open the path in the default web browser.
 

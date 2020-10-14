@@ -181,3 +181,6 @@ docs/*
 # Other common ignore rules
 **/secret.json
 **/*.html
+
+# Ignore temporary files
+/tmp.txt

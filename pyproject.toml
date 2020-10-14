@@ -6,9 +6,6 @@ build-backend = "poetry.core.masonry.api"
 line_length = 120
 length_sort = false
 default_section = "THIRDPARTY"
-# combine_as_imports = true
-# force_grid_wrap = 0
-# multi_line_output = 0
 
 [tool.poetry]
 name = "dash_dev"
@@ -31,7 +28,6 @@ autopep8 = "*"
 beautifulsoup4 = "*"
 cohesion = "*"
 darglint = "*"
-dash = {extras = ["testing"], version = "*, ^1.9"}
 diff-cover = "*"
 dlint = "*"
 doit = "*"
@@ -97,3 +93,7 @@ transitions = "*"
 vulture = "*"
 
 [tool.poetry.dev-dependencies]
+
+[tool.poetry.dependencies.dash]
+extras = [ "testing",]
+version = "*, ^1.9"

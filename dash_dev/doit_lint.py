@@ -1,6 +1,8 @@
 """DoIt Linting Utilities."""
 
-from .doit_base import DIG, debug_action, echo, if_found_unlink
+import toml
+
+from .doit_base import DIG, debug_action, echo, if_found_unlink, write_text
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
@@ -36,7 +38,6 @@ def collect_py_files(add_paths=(), excluded_files=None, subdirectories=None):
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Configuration Settings
-# FIXME: Write these settings to local user configuration files as tasks (optionally run in the dodo script)
 
 FLAKE8 = """
 [flake8]
@@ -67,13 +68,27 @@ select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 """
 """Flake8 configuration file settings."""
 
-ISORT = """
-[tool.isort]
-line_length = 120
-length_sort = false
-default_section = 'THIRDPARTY'
-"""
+ISORT = {
+    'line_length': 120,
+    'length_sort': False,
+    'default_section': 'THIRDPARTY',
+}
 """ISort configuration file settings."""
+
+
+def task_set_lint_config():
+    """Lint specified files creating summary log file of errors.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    user_toml = toml.load(DIG.toml_path)
+    user_toml['tool']['isort'] = ISORT
+    return debug_action([
+        (write_text, (DIG.flake8_path, FLAKE8.strip())),
+        (write_text, (DIG.toml_path, toml.dumps(user_toml))),
+    ])
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -223,7 +238,7 @@ def task_auto_format():
     run = 'poetry run python -m'
     actions = []
     for lint_path in DIG.lint_paths:
-        actions.append(f'{run} isort "{lint_path}"')
+        actions.append(f'{run} isort "{lint_path}" --settings-path {DIG.toml_path}')
         for fn in list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
     return debug_action(actions)

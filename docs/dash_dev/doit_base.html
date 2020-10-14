@@ -236,6 +236,18 @@ def debug_action(actions, verbosity=2):
     }
 
 
+def write_text(file_path, text):
+    &#34;&#34;&#34;file_path.write_text wrapper for DoIt.
+
+    Args:
+        file_path: Path to the file
+        text: string to write to file
+
+    &#34;&#34;&#34;
+    file_path.write_text(text)
+    return  # Indicates that action completed when called from DoIt task
+
+
 def open_in_browser(file_path):
     &#34;&#34;&#34;Open the path in the default web browser.
 
@@ -597,6 +609,34 @@ def task_check_req():
     return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
 </details>
 </dd>
+<dt id="dash_dev.doit_base.write_text"><code class="name flex">
+<span>def <span class="ident">write_text</span></span>(<span>file_path, text)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>file_path.write_text wrapper for DoIt.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong></dt>
+<dd>Path to the file</dd>
+<dt><strong><code>text</code></strong></dt>
+<dd>string to write to file</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_text(file_path, text):
+    &#34;&#34;&#34;file_path.write_text wrapper for DoIt.
+
+    Args:
+        file_path: Path to the file
+        text: string to write to file
+
+    &#34;&#34;&#34;
+    file_path.write_text(text)
+    return  # Indicates that action completed when called from DoIt task</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -905,6 +945,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_base.show_cmd" href="#dash_dev.doit_base.show_cmd">show_cmd</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_check_req" href="#dash_dev.doit_base.task_check_req">task_check_req</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_export_req" href="#dash_dev.doit_base.task_export_req">task_export_req</a></code></li>
+<li><code><a title="dash_dev.doit_base.write_text" href="#dash_dev.doit_base.write_text">write_text</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>

@@ -69,7 +69,9 @@ padding: 0 5px;
 </summary>
 <pre><code class="python">&#34;&#34;&#34;DoIt Linting Utilities.&#34;&#34;&#34;
 
-from .doit_base import DIG, debug_action, echo, if_found_unlink
+import toml
+
+from .doit_base import DIG, debug_action, echo, if_found_unlink, write_text
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
@@ -105,7 +107,6 @@ def collect_py_files(add_paths=(), excluded_files=None, subdirectories=None):
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Configuration Settings
-# FIXME: Write these settings to local user configuration files as tasks (optionally run in the dodo script)
 
 FLAKE8 = &#34;&#34;&#34;
 [flake8]
@@ -136,13 +137,27 @@ select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 &#34;&#34;&#34;
 &#34;&#34;&#34;Flake8 configuration file settings.&#34;&#34;&#34;
 
-ISORT = &#34;&#34;&#34;
-[tool.isort]
-line_length = 120
-length_sort = false
-default_section = &#39;THIRDPARTY&#39;
-&#34;&#34;&#34;
+ISORT = {
+    &#39;line_length&#39;: 120,
+    &#39;length_sort&#39;: False,
+    &#39;default_section&#39;: &#39;THIRDPARTY&#39;,
+}
 &#34;&#34;&#34;ISort configuration file settings.&#34;&#34;&#34;
+
+
+def task_set_lint_config():
+    &#34;&#34;&#34;Lint specified files creating summary log file of errors.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    user_toml = toml.load(DIG.toml_path)
+    user_toml[&#39;tool&#39;][&#39;isort&#39;] = ISORT
+    return debug_action([
+        (write_text, (DIG.flake8_path, FLAKE8.strip())),
+        (write_text, (DIG.toml_path, toml.dumps(user_toml))),
+    ])
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -292,7 +307,7 @@ def task_auto_format():
     run = &#39;poetry run python -m&#39;
     actions = []
     for lint_path in DIG.lint_paths:
-        actions.append(f&#39;{run} isort &#34;{lint_path}&#34;&#39;)
+        actions.append(f&#39;{run} isort &#34;{lint_path}&#34; --settings-path {DIG.toml_path}&#39;)
         for fn in list_lint_file_paths([lint_path]):
             actions.append(f&#39;{run} autopep8 &#34;{fn}&#34; --in-place --aggressive&#39;)
     return debug_action(actions)</code></pre>
@@ -537,7 +552,7 @@ def task_auto_format():
     run = &#39;poetry run python -m&#39;
     actions = []
     for lint_path in DIG.lint_paths:
-        actions.append(f&#39;{run} isort &#34;{lint_path}&#34;&#39;)
+        actions.append(f&#39;{run} isort &#34;{lint_path}&#34; --settings-path {DIG.toml_path}&#39;)
         for fn in list_lint_file_paths([lint_path]):
             actions.append(f&#39;{run} autopep8 &#34;{fn}&#34; --in-place --aggressive&#39;)
     return debug_action(actions)</code></pre>
@@ -637,6 +652,35 @@ def task_auto_format():
     return debug_action(actions)</code></pre>
 </details>
 </dd>
+<dt id="dash_dev.doit_lint.task_set_lint_config"><code class="name flex">
+<span>def <span class="ident">task_set_lint_config</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Lint specified files creating summary log file of errors.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def task_set_lint_config():
+    &#34;&#34;&#34;Lint specified files creating summary log file of errors.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    user_toml = toml.load(DIG.toml_path)
+    user_toml[&#39;tool&#39;][&#39;isort&#39;] = ISORT
+    return debug_action([
+        (write_text, (DIG.flake8_path, FLAKE8.strip())),
+        (write_text, (DIG.toml_path, toml.dumps(user_toml))),
+    ])</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -715,6 +759,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_lint.task_lint_pre_commit" href="#dash_dev.doit_lint.task_lint_pre_commit">task_lint_pre_commit</a></code></li>
 <li><code><a title="dash_dev.doit_lint.task_lint_project" href="#dash_dev.doit_lint.task_lint_project">task_lint_project</a></code></li>
 <li><code><a title="dash_dev.doit_lint.task_radon_lint" href="#dash_dev.doit_lint.task_radon_lint">task_radon_lint</a></code></li>
+<li><code><a title="dash_dev.doit_lint.task_set_lint_config" href="#dash_dev.doit_lint.task_set_lint_config">task_set_lint_config</a></code></li>
 </ul>
 </li>
 </ul>

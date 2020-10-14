@@ -21,6 +21,8 @@
 
 ### Changes
 
+* Implement linting tasks in package. [Kyle King]
+
 * Push local changes for linting. [Kyle King]
 
 * Add DIG.test_path. [Kyle King]
