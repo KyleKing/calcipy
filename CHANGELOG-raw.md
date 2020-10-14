@@ -21,6 +21,14 @@
 
 ### Changes
 
+* Push local changes for linting. [Kyle King]
+
+* Add DIG.test_path. [Kyle King]
+
+* Incremental changes from local. [Kyle King]
+
+* Apply and cleanup local changes. [Kyle King]
+
 * Create the index.html with redirect. [Kyle King]
 
 * Add the HTML documentation to git control. [Kyle King]

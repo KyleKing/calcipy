@@ -5,6 +5,8 @@ import toml
 from dash_dev import __version__
 
 
-def test_version():  # noqa: AAA01
+def test_version():
     """Check that PyProject and __version__ are equivalent."""
-    assert toml.load('pyproject.toml')['tool']['poetry']['version'] == __version__
+    result = toml.load('pyproject.toml')['tool']['poetry']['version']
+
+    assert result == __version__

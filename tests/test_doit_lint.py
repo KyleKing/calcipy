@@ -24,12 +24,14 @@ def test_collect_py_files():
 
 def test_lint_project():
     """Test lint_project."""
+    DIG.set_paths(source_path=DIG_CWD)
+
     result = doit_lint.lint_project(
-        package_files=[DIG_CWD / 'test_file.py', DIG_CWD / 'tests/test_file_2.py'],
+        lint_paths=[DIG_CWD / 'test_file.py', DIG_CWD / 'tests/test_file_2.py'],
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
 
-    assert len(result['actions']) == 4  # There are two files that are parsed
+    assert len(result) == 4  # There are two files that are parsed
 
 
 FLAKE8_LOG = """doit_project/test_file.py:3:1: F401 'doit' imported but unused

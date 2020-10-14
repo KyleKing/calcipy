@@ -48,6 +48,12 @@ class DoItGlobals:
     doc_dir = None
     """Path to documentation directory for working project. Set in `set_paths`."""
 
+    coverage_path = None
+    """Path to the coverage index.html file. Set in `set_paths`."""
+
+    test_report_path = None
+    """Path to the test report file. Set in `set_paths`."""
+
     src_examples_dir = None
     """Path to example code directory for working project. Set in `set_paths`."""
 
@@ -89,8 +95,10 @@ class DoItGlobals:
             self.src_examples_dir = None  # If the directory is not present, disable this functionality
 
         # Create list of directories and paths to isort and format
-        self.lint_paths = [self.source_path / subdir for subdir in [self.pkg_name] + self.external_doc_dirs]
+        subdirs = [self.pkg_name] + self.external_doc_dirs
+        self.lint_paths = [self.source_path / subdir for subdir in subdirs]
         self.lint_paths.extend([self.test_path] + [*self.source_path.glob('*.py')])
+        self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
 
 
 DIG = DoItGlobals()

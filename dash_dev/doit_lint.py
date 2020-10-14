@@ -35,7 +35,8 @@ def collect_py_files(add_paths=(), excluded_files=None, subdirectories=None):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Linting
+# Configuration Settings
+# FIXME: Write these settings to local user configuration files as tasks (optionally run in the dodo script)
 
 FLAKE8 = """
 [flake8]
@@ -66,13 +67,36 @@ select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 """
 """Flake8 configuration file settings."""
 
-ISORT = '''
+ISORT = """
 [tool.isort]
 line_length = 120
 length_sort = false
-default_section = "THIRDPARTY"
-'''
+default_section = 'THIRDPARTY'
+"""
 """ISort configuration file settings."""
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Linting
+
+
+def list_lint_file_paths(path_list):
+    """Create a list of all Python files specified in the path_list.
+
+    Args:
+        path_list: list of paths to directories or files
+
+    Returns:
+        list: list of file Paths
+
+    """
+    file_paths = []
+    for path_item in path_list:
+        if path_item.is_dir():
+            file_paths.extend([*path_item.rglob('*.py')])
+        else:
+            file_paths.append(path_item)
+    return file_paths
 
 
 def check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
@@ -110,11 +134,11 @@ def check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
     if_found_unlink(flake8_log_path)
 
 
-def lint_project(package_files, flake8_path=DIG.flake8_path, ignore_errors=None):
+def lint_project(lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None):
     """Lint specified files creating summary log file of errors.
 
     Args:
-        package_files: list of file paths to lint
+        lint_paths: list of file and directory paths to lint
         flake8_path: path to flake8 configuration file. Default is `DIG.flake8_path`
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
@@ -122,22 +146,55 @@ def lint_project(package_files, flake8_path=DIG.flake8_path, ignore_errors=None)
         dict: DoIt task
 
     """
+    # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
     flake8_log_path = DIG.source_path / 'flake8.log'
+    actions = [(if_found_unlink, (flake8_log_path, ))]
+    run = 'poetry run python -m'
     flags = f'--config={flake8_path}  --output-file={flake8_log_path} --exit-zero'
-    return debug_action([
-        # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
-        (if_found_unlink, (flake8_log_path, )),
-        # FIXME: lint all files, then filter in the output file for those not in the supplied list
-        *[f'poetry run flake8 "{fn}" {flags}' for fn in package_files],
-        (check_linting_errors, (flake8_log_path, ignore_errors)),
-    ])
+    for lint_path in list_lint_file_paths(lint_paths):
+        actions.append(f'{run} flake8 "{lint_path}" {flags}')
+    actions.append((check_linting_errors, (flake8_log_path, ignore_errors)))
+    return actions
 
 
-def radon_lint(package_files):
+def task_lint_project():
+    """Lint files from DIG creating summary log file of errors.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return debug_action(lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None))
+
+
+def task_lint_pre_commit():
+    """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    ignore_errors = [
+        'AAA01',  # AAA01 / act block in pytest
+        'C901',  # C901 / complexity from "max-complexity = 10"
+        'D417',  # D417 / missing arg descriptors
+        'DAR101', 'DAR201', 'DAR401',  # https://pypi.org/project/darglint/ (Scroll to error codes)
+        'DUO106',  # DUO106 / insecure use of os
+        'E800',  # E800 / Commented out code
+        'G001',  # G001 / logging format for un-indexed parameters
+        'H601',  # H601 / class with low cohesion
+        'P101', 'P103',  # P101,P103 / format string
+        'PD013',
+        'PD901',  # PD901 / 'df' is a bad variable name
+        'S101',  # S101 / assert
+        'S605', 'S607',  # S605,S607 / os.popen(...)
+        'T100', 'T101',  # T100,T101 / fixme and todo comments
+    ]
+    return debug_action(lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=ignore_errors))
+
+
+def task_radon_lint():
     """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
-
-    Args:
-        package_files: list of file paths to lint
 
     Returns:
         dict: DoIt task
@@ -147,7 +204,7 @@ def radon_lint(package_files):
     for args in ['mi', 'cc --total-average -nb', 'hal']:
         actions.extend(
             [(echo, (f'# Radon with args: {args}', ))]
-            + [f'poetry run radon {args} "{fn}"' for fn in package_files],
+            + [f'poetry run radon {args} "{lint_path}"' for lint_path in list_lint_file_paths(DIG.lint_paths)],
         )
     return debug_action(actions)
 
@@ -165,7 +222,8 @@ def task_auto_format():
     """
     run = 'poetry run python -m'
     actions = []
-    for pth in [*set(DIG.lint_paths)]:
-        actions.append(f'{run} isort "{pth}"')
-        actions.extend([f'{run} autopep8 "{fn}" --in-place --aggressive' for fn in pth.rglob('*.py')])
+    for lint_path in DIG.lint_paths:
+        actions.append(f'{run} isort "{lint_path}"')
+        for fn in list_lint_file_paths([lint_path]):
+            actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
     return debug_action(actions)

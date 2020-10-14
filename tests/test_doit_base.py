@@ -11,9 +11,9 @@ from .configuration import DIG_CWD, TEST_DATA_DIR
 
 def test_dig_props():
     """Test the DIG global variable from DoItGlobals."""
-    public_props = ['dash_dev_dir', 'doc_dir', 'external_doc_dirs', 'flake8_path', 'lint_paths', 'path_gitchangelog',
-                    'pkg_name', 'set_paths', 'source_path', 'src_examples_dir', 'test_path', 'tmp_examples_dir',
-                    'toml_path']
+    public_props = ['coverage_path', 'dash_dev_dir', 'doc_dir', 'external_doc_dirs', 'flake8_path', 'lint_paths',
+                    'path_gitchangelog', 'pkg_name', 'set_paths', 'source_path', 'src_examples_dir', 'test_path',
+                    'test_report_path', 'tmp_examples_dir', 'toml_path']
     dig = DoItGlobals()
 
     result = [prop for prop in dir(dig) if not prop.startswith('_')]
