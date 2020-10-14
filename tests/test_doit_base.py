@@ -29,7 +29,7 @@ def test_dig_paths():
     if src_examples_dir.is_dir():
         shutil.rmtree(src_examples_dir)
 
-    dig.set_paths(DIG_CWD)  # act
+    dig.set_paths(source_path=DIG_CWD)  # act
 
     # Test the properties set by default
     assert dig.dash_dev_dir.name == 'dash_dev'
@@ -40,12 +40,11 @@ def test_dig_paths():
     assert dig.toml_path == DIG_CWD / 'pyproject.toml'
     assert dig.pkg_name == pkg_name
     assert dig.doc_dir == DIG_CWD / 'docs'
-    assert dig.staging_dir == DIG_CWD / 'docs' / pkg_name
     assert dig.src_examples_dir is None
     assert dig.tmp_examples_dir == DIG_CWD / f'{pkg_name}/0EX'
     # Create src_examples_dir and ensure that the property is updated
     src_examples_dir.mkdir(parents=True)
-    dig.set_paths(DIG_CWD)
+    dig.set_paths(source_path=DIG_CWD)
     assert dig.src_examples_dir == src_examples_dir
     shutil.rmtree(src_examples_dir)
 
@@ -88,7 +87,7 @@ def test_if_found_unlink():
 
 def test_task_export_req():
     """Test task_export_req."""
-    DIG.set_paths(DIG_CWD)
+    DIG.set_paths(source_path=DIG_CWD)
 
     result = doit_base.task_export_req()
 
@@ -97,7 +96,7 @@ def test_task_export_req():
 
 def test_task_check_req():
     """Test task_check_req."""
-    DIG.set_paths(DIG_CWD)
+    DIG.set_paths(source_path=DIG_CWD)
 
     result = doit_base.task_check_req()
 

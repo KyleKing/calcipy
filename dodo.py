@@ -11,7 +11,7 @@ from dash_dev.doit_test import (task_coverage, task_open_test_docs, task_ptw_cur
                                 task_ptw_not_chrome, task_test, task_test_keyword, task_test_marker)
 
 # Configure Dash paths
-DIG.set_paths(Path(__file__).parent)
+DIG.set_paths(source_path=Path(__file__).parent.resolve())
 
 # Create list of all tasks run with `poetry run doit`
 DOIT_CONFIG = {

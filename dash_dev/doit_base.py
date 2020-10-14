@@ -1,5 +1,6 @@
 """General DoIt Utilities and Requirements."""
 
+import shutil
 import webbrowser
 from pathlib import Path
 
@@ -14,7 +15,7 @@ class DoItGlobals:
     """Global Variables for DoIt."""
 
     dash_dev_dir = Path(__file__).parent
-    """Dash Dev package directory that contains."""
+    """The dash_dev directory (may be within `.venv`)."""
 
     flake8_path = dash_dev_dir / '../.flake8'
     """Path to flake8 file. Default is for the flake8 file from dash_dev."""
@@ -23,7 +24,7 @@ class DoItGlobals:
     """Path to isort file. Default is for the isort file from dash_dev."""
 
     source_path = None
-    """Current directory for working project. Set in `set_paths`."""
+    """Current directory for source code (working project). Set in `set_paths`."""
 
     toml_path = None
     """Path to `pyproject.toml` file for working project. Set in `set_paths`."""
@@ -43,14 +44,16 @@ class DoItGlobals:
     tmp_examples_dir = None
     """Path to temporary directory to move examples while creating documentation. Set in `set_paths`."""
 
-    def set_paths(self, source_path):
+    def set_paths(self, *, pkg_name=None, source_path=None, doc_dir=None):
         """Set data members based on working directory.
 
         Args:
-            source_path: path to working directory (ex: `Path(__file__).parent`)
+            pkg_name: Package name or defaults to value from toml
+            source_path: Source directory Path, typically 'src' or ''
+            doc_dir: Destination directory for project documentation
 
         """
-        self.source_path = source_path
+        self.source_path = Path.cwd() if source_path is None else source_path
 
         self.toml_path = self.source_path / 'pyproject.toml'
         self.pkg_name = toml.load(self.toml_path)['tool']['poetry']['name']
@@ -67,6 +70,33 @@ class DoItGlobals:
 
 DIG = DoItGlobals()
 """Global DoIt Globals class used to manage global variables."""
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Manage Directories
+
+
+def delete_dir(dir_path):
+    """Delete the specified directory from a DoIt task.
+
+    Args:
+        dir_path: Path to directory to delete
+
+    """
+    if dir_path.is_dir():
+        shutil.rmtree(dir_path)
+    return  # Indicates that action completed when called from DoIt task
+
+
+def ensure_dir(dir_path):
+    """Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
+
+    Args:
+        dir_path: Path to directory that needs to exists
+
+    """
+    dir_path.mkdir(parents=True, exist_ok=True)
+    return  # Indicates that action completed when called from DoIt task
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General Utilities
@@ -123,6 +153,17 @@ def if_found_unlink(file_path):
     """
     if file_path.is_file():
         file_path.unlink()
+
+
+def echo(msg):
+    """Wrap the system print command.
+
+    Args:
+        msg: string to `print`
+
+    """
+    print(msg)  # noqa: T001
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Requirements

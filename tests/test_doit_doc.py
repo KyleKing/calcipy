@@ -21,7 +21,7 @@ def test_task_update_cl():
 
 def test_task_create_tag():
     """Test task_create_tag."""
-    DIG.set_paths(DIG_CWD)
+    DIG.set_paths(source_path=DIG_CWD)
 
     result = doit_doc.task_create_tag()
 
@@ -33,7 +33,7 @@ def test_task_create_tag():
 
 def test_task_remove_tag():
     """Test task_remove_tag."""
-    DIG.set_paths(DIG_CWD)
+    DIG.set_paths(source_path=DIG_CWD)
 
     result = doit_doc.task_remove_tag()
 

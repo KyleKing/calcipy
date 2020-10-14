@@ -13,7 +13,7 @@ from .configuration import DIG_CWD
 
 def test_glob_path_list():
     """Test glob_path_list."""
-    DIG.set_paths(DIG_CWD)
+    DIG.set_paths(source_path=DIG_CWD)
 
     result = doit_lint.glob_path_list()
 

@@ -29,5 +29,5 @@ def initialize_dig():
 
     """
     dig = DoItGlobals
-    dig.set_paths(DIG_CWD)
+    dig.set_paths(source_path=DIG_CWD)
     return dig

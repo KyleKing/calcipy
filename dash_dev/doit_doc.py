@@ -53,6 +53,7 @@ def task_remove_tag():
 PDOC_CONFIG = """<%!
     show_inherited_members = True
     hljs_stylename = 'atom-one-light'
+    lunr_search = {'fuzziness': 1, 'index_docstrings': True}
 %>"""
 """PDOC3 configuration."""
 
@@ -236,8 +237,9 @@ If using github pages, make sure to check in this file to git and the files docs
 
 def clear_docs():
     """Clear the documentation directory before running pdoc."""
-    if DIG.staging_dir.is_dir():
-        shutil.rmtree(DIG.staging_dir)
+    staging_dir = DIG.doc_dir / DIG.pkg_name
+    if staging_dir.is_dir():
+        shutil.rmtree(staging_dir)
 
 
 def clear_examples():
@@ -288,5 +290,5 @@ def task_open_docs():
 
     """
     return debug_action([
-        (open_in_browser, (DIG.staging_dir / 'index.html',)),
+        (open_in_browser, (DIG.doc_dir / DIG.pkg_name / 'index.html',)),
     ])
