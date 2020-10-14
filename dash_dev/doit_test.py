@@ -16,36 +16,8 @@ def task_test():
 
     """
     return debug_action([
-        f'poetry run pytest "{DIG.source_path}" -x -l --ff -v',
+        f'poetry run pytest "{DIG.test_path}" -x -l --ff -vv',
     ], verbosity=2)
-
-
-def task_coverage():
-    """Run pytest and create coverage and test reports.
-
-    Returns:
-        dict: DoIt task
-
-    """
-    coverage_dir = DIG.doc_dir / 'coverage_html'
-    test_report_path = DIG.doc_dir / 'test_report.html'
-    return debug_action([
-        (f'poetry run pytest "{DIG.source_path}" -x -l --ff -v --cov-report=html:"{coverage_dir}" --cov={DIG.pkg_name}'
-         f' --html="{test_report_path}" --self-contained-html'),
-    ], verbosity=2)
-
-
-def task_open_test_docs():
-    """Open the test and coverage files in default browser.
-
-    Returns:
-        dict: DoIt task
-
-    """
-    return debug_action([
-        (open_in_browser, (DIG.doc_dir / 'coverage_html/index.html',)),
-        (open_in_browser, (DIG.doc_dir / 'test_report.html',)),
-    ])
 
 
 def task_test_marker():
@@ -58,7 +30,7 @@ def task_test_marker():
 
     """
     return {
-        'actions': [f'poetry run pytest "{DIG.source_path}" -x -l --ff -v -m "%(marker)s"'],
+        'actions': [f'poetry run pytest "{DIG.test_path}" -x -l --ff -v -m "%(marker)s"'],
         'params': [{
             'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
             'help': ('Runs test with specified marker logic\nSee: '
@@ -78,7 +50,7 @@ def task_test_keyword():
 
     """
     return {
-        'actions': [f'poetry run pytest "{DIG.source_path}" -x -l --ff -v -k "%(keyword)s"'],
+        'actions': [f'poetry run pytest "{DIG.test_path}" -x -l --ff -v -k "%(keyword)s"'],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
             'help': ('Runs only tests that match the string pattern\nSee: '
@@ -86,6 +58,33 @@ def task_test_keyword():
         }],
         'verbosity': 2,
     }
+
+
+def task_coverage():
+    """Run pytest and create coverage and test reports.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    kwargs = f'--cov-report=html:"{DIG.coverage_path.parent}"  --html="{DIG.test_report_path}"  --self-contained-html'
+    return debug_action([
+        (f'poetry run pytest "{DIG.test_path}" -x -l --ff -v --cov={DIG.pkg_name} {kwargs}'),
+    ], verbosity=2)
+
+
+def task_open_test_docs():
+    """Open the test and coverage files in default browser.
+
+    Returns:
+        dict: DoIt task
+
+    """
+    return debug_action([
+        (open_in_browser, (DIG.coverage_path, )),
+        (open_in_browser, (DIG.test_report_path, )),
+    ])
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Implement long running ptw tasks
@@ -102,7 +101,7 @@ def ptw_task(cli_args):
 
     """
     return {
-        'actions': [LongRunning(f'poetry run ptw -- {cli_args}')],
+        'actions': [LongRunning(f'poetry run ptw -- "{DIG.test_path}" {cli_args}')],
         'verbosity': 2,
     }
 
@@ -141,3 +140,21 @@ def task_ptw_current():
 
     """
     return ptw_task('-m "CURRENT" -vv')
+
+
+def task_ptw_marker():
+    r"""Specify a marker to run a subset of tests in LongRunning `ptw` task.
+
+    Example: `doit run ptw_marker -m \"not MARKER\"` or `doit run ptw_marker -m \"MARKER\"`
+
+    Returns:
+        dict: DoIt task
+
+    """
+    task = ptw_task('-vvv -m "%(marker)s"')
+    task['params'] = [{
+        'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
+        'help': ('Runs test with specified marker logic\nSee: '
+                 'https://docs.pytest.org/en/latest/example/markers.html?highlight=-m'),
+    }]
+    return task

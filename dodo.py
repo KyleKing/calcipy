@@ -8,7 +8,8 @@ from dash_dev.doit_doc import (task_create_tag, task_document, task_open_docs, t
                                task_update_cl)
 from dash_dev.doit_lint import task_auto_format, task_lint, task_radon_lint  # noqa: F401
 from dash_dev.doit_test import (task_coverage, task_open_test_docs, task_ptw_current, task_ptw_ff,  # noqa: F401
-                                task_ptw_not_chrome, task_test, task_test_keyword, task_test_marker)
+                                task_ptw_marker, task_ptw_not_chrome, task_test, task_test_all, task_test_keyword,
+                                task_test_marker)
 
 # Configure Dash paths
 DIG.set_paths(source_path=Path(__file__).parent.resolve())

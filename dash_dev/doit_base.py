@@ -26,6 +26,9 @@ class DoItGlobals:
     source_path = None
     """Current directory for source code (working project). Set in `set_paths`."""
 
+    test_path = None
+    """Current directory for tests directory. Resolved as '`source_path`/tests' in `set_paths`."""
+
     toml_path = None
     """Path to `pyproject.toml` file for working project. Set in `set_paths`."""
 
@@ -52,16 +55,26 @@ class DoItGlobals:
             source_path: Source directory Path, typically 'src' or ''
             doc_dir: Destination directory for project documentation
 
+        Raises:
+            RuntimeError: if package name includes dashes
+
         """
         self.source_path = Path.cwd() if source_path is None else source_path
 
+        # Define the output directory with relevant subdirectories
+        self.test_path = self.source_path / 'tests'
+        self.doc_dir = self.source_path / 'docs' if doc_dir is None else doc_dir
+        self.coverage_path = self.doc_dir / 'cov_html/index.html'
+        self.test_report_path = self.doc_dir / 'test_report.html'
+
         self.toml_path = self.source_path / 'pyproject.toml'
+        if not self.toml_path.is_file():
+            raise RuntimeError(f'Could not find {self.toml_path.name}. Check that the {self.source_path} is correct')
         self.pkg_name = toml.load(self.toml_path)['tool']['poetry']['name']
+        if '-' in self.pkg_name:
+            raise RuntimeError(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}')
 
-        self.doc_dir = self.source_path / 'docs'
-        self.staging_dir = self.doc_dir / self.pkg_name
-        self.staging_dir.mkdir(exist_ok=True, parents=True)
-
+        # TODO: Make more generic
         self.src_examples_dir = self.source_path / 'tests/examples'
         self.tmp_examples_dir = self.source_path / f'{self.pkg_name}/0EX'
         if not self.src_examples_dir.is_dir():
