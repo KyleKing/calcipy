@@ -76,6 +76,10 @@ from pathlib import Path
 import toml
 from icecream import ic
 
+# TODO: Show dodo.py in the documentation
+# TODO: Show README.md in the documentation (may need to update paths?)
+# TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
@@ -94,6 +98,9 @@ class DoItGlobals:
 
     lint_paths = []
     &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
+
+    excluded_files = [&#39;__init__.py&#39;]
+    &#34;&#34;&#34;List of excluded filenames.&#34;&#34;&#34;
 
     external_doc_dirs = [&#39;examples&#39;, &#39;scripts&#39;, &#39;tests&#39;]
     &#34;&#34;&#34;List of subdir names relative to `source_path` containing Python code that should be in the documentation.
@@ -158,7 +165,6 @@ class DoItGlobals:
         if &#39;-&#39; in self.pkg_name:
             raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
 
-        # TODO: Make more generic
         self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
         self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
         if not self.src_examples_dir.is_dir():
@@ -237,6 +243,16 @@ def debug_action(actions, verbosity=2):
     }
 
 
+def echo(msg):
+    &#34;&#34;&#34;Wrap the system print command.
+
+    Args:
+        msg: string to `print`
+
+    &#34;&#34;&#34;
+    print(msg)  # noqa: T001
+
+
 def write_text(file_path, text):
     &#34;&#34;&#34;file_path.write_text wrapper for DoIt.
 
@@ -270,14 +286,21 @@ def if_found_unlink(file_path):
         file_path.unlink()
 
 
-def echo(msg):
-    &#34;&#34;&#34;Wrap the system print command.
+# ======================================================================================================================
+# &gt; PLANNED: Development
 
-    Args:
-        msg: string to `print`
+
+def task_watchcode():
+    &#34;&#34;&#34;Return DoIt LongRunning `watchcode` task. Will run the local `.watchcode.yaml`.
+
+    Returns:
+        dict: DoIt task
 
     &#34;&#34;&#34;
-    print(msg)  # noqa: T001
+    return {
+        &#39;actions&#39;: [LongRunning(&#39;poetry run watchcode&#39;)],
+        &#39;verbosity&#39;: 2,
+    }
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -610,6 +633,33 @@ def task_check_req():
     return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
 </details>
 </dd>
+<dt id="dash_dev.doit_base.task_watchcode"><code class="name flex">
+<span>def <span class="ident">task_watchcode</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return DoIt LongRunning <code>watchcode</code> task. Will run the local <code>.watchcode.yaml</code>.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def task_watchcode():
+    &#34;&#34;&#34;Return DoIt LongRunning `watchcode` task. Will run the local `.watchcode.yaml`.
+
+    Returns:
+        dict: DoIt task
+
+    &#34;&#34;&#34;
+    return {
+        &#39;actions&#39;: [LongRunning(&#39;poetry run watchcode&#39;)],
+        &#39;verbosity&#39;: 2,
+    }</code></pre>
+</details>
+</dd>
 <dt id="dash_dev.doit_base.write_text"><code class="name flex">
 <span>def <span class="ident">write_text</span></span>(<span>file_path, text)</span>
 </code></dt>
@@ -666,6 +716,9 @@ def task_check_req():
 
     lint_paths = []
     &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
+
+    excluded_files = [&#39;__init__.py&#39;]
+    &#34;&#34;&#34;List of excluded filenames.&#34;&#34;&#34;
 
     external_doc_dirs = [&#39;examples&#39;, &#39;scripts&#39;, &#39;tests&#39;]
     &#34;&#34;&#34;List of subdir names relative to `source_path` containing Python code that should be in the documentation.
@@ -730,7 +783,6 @@ def task_check_req():
         if &#39;-&#39; in self.pkg_name:
             raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
 
-        # TODO: Make more generic
         self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
         self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
         if not self.src_examples_dir.is_dir():
@@ -755,6 +807,10 @@ def task_check_req():
 <dt id="dash_dev.doit_base.DoItGlobals.doc_dir"><code class="name">var <span class="ident">doc_dir</span></code></dt>
 <dd>
 <div class="desc"><p>Path to documentation directory for working project. Set in <code>set_paths</code>.</p></div>
+</dd>
+<dt id="dash_dev.doit_base.DoItGlobals.excluded_files"><code class="name">var <span class="ident">excluded_files</span></code></dt>
+<dd>
+<div class="desc"><p>List of excluded filenames.</p></div>
 </dd>
 <dt id="dash_dev.doit_base.DoItGlobals.external_doc_dirs"><code class="name">var <span class="ident">external_doc_dirs</span></code></dt>
 <dd>
@@ -856,7 +912,6 @@ def task_check_req():
     if &#39;-&#39; in self.pkg_name:
         raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
 
-    # TODO: Make more generic
     self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
     self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
     if not self.src_examples_dir.is_dir():
@@ -948,6 +1003,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_base.show_cmd" href="#dash_dev.doit_base.show_cmd">show_cmd</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_check_req" href="#dash_dev.doit_base.task_check_req">task_check_req</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_export_req" href="#dash_dev.doit_base.task_export_req">task_export_req</a></code></li>
+<li><code><a title="dash_dev.doit_base.task_watchcode" href="#dash_dev.doit_base.task_watchcode">task_watchcode</a></code></li>
 <li><code><a title="dash_dev.doit_base.write_text" href="#dash_dev.doit_base.write_text">write_text</a></code></li>
 </ul>
 </li>
@@ -959,6 +1015,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_base.DoItGlobals.coverage_path" href="#dash_dev.doit_base.DoItGlobals.coverage_path">coverage_path</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.dash_dev_dir" href="#dash_dev.doit_base.DoItGlobals.dash_dev_dir">dash_dev_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.doc_dir" href="#dash_dev.doit_base.DoItGlobals.doc_dir">doc_dir</a></code></li>
+<li><code><a title="dash_dev.doit_base.DoItGlobals.excluded_files" href="#dash_dev.doit_base.DoItGlobals.excluded_files">excluded_files</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.external_doc_dirs" href="#dash_dev.doit_base.DoItGlobals.external_doc_dirs">external_doc_dirs</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.flake8_path" href="#dash_dev.doit_base.DoItGlobals.flake8_path">flake8_path</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.lint_paths" href="#dash_dev.doit_base.DoItGlobals.lint_paths">lint_paths</a></code></li>

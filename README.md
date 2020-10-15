@@ -21,7 +21,9 @@ Where used:
 
 ## Coverage
 
-Latest coverage table
+Repository Stats
+
+## Test Coverage
 
 <!-- COVERAGE -->
 
@@ -29,11 +31,31 @@ Latest coverage table
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 1 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 19 | 3 | 0 | 84.2% |
-| `dash_dev/doit_base.py` | 73 | 10 | 0 | 86.3% |
-| `dash_dev/doit_doc.py` | 99 | 60 | 0 | 39.4% |
-| `dash_dev/doit_lint.py` | 70 | 20 | 0 | 71.4% |
+| `dash_dev/doit_base.py` | 77 | 11 | 0 | 85.7% |
+| `dash_dev/doit_doc.py` | 109 | 67 | 0 | 38.5% |
+| `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-10-14T07:13:14.598830
+Generated on: 2020-10-14T20:52:34.848043
 
 <!-- /COVERAGE -->
+
+## Doc String Coverage
+
+<!-- INTERROGATE -->
+
+===================================== Coverage for dash_dev/ =====================================
+-------------------------------------------- Summary ---------------------------------------------
+| Name                   |           Total |           Miss |           Cover |           Cover% |
+|------------------------|-----------------|----------------|-----------------|------------------|
+| __init__.py            |               1 |              0 |               1 |             100% |
+| conftest.py            |               5 |              0 |               5 |             100% |
+| doit_base.py           |              15 |              0 |              15 |             100% |
+| doit_doc.py            |              18 |              0 |              18 |             100% |
+| doit_lint.py           |              10 |              0 |              10 |             100% |
+| doit_test.py           |              12 |              0 |              12 |             100% |
+|------------------------|-----------------|----------------|-----------------|------------------|
+| TOTAL                  |              61 |              0 |              61 |           100.0% |
+------------------------ RESULT: PASSED (minimum: 80.0%, actual: 100.0%) -------------------------
+
+<!-- /INTERROGATE -->

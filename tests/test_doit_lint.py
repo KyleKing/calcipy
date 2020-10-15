@@ -15,7 +15,7 @@ def test_collect_py_files():
     """Test collect_py_files."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = doit_lint.collect_py_files(add_paths=(), excluded_files=None, subdirectories=None)
+    result = doit_lint.collect_py_files(add_paths=(), subdirectories=None)
 
     assert len(result) == 2
     assert str(DIG_CWD / 'test_file.py') in result

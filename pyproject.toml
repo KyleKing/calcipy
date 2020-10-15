@@ -3,9 +3,11 @@ requires = [ "poetry-core>=1.0",]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
-line_length = 120
-length_sort = false
+balanced_wrapping = true
 default_section = "THIRDPARTY"
+force_grid_wrap = 0
+length_sort = false
+line_length = 120
 
 [tool.poetry]
 name = "dash_dev"
@@ -70,6 +72,7 @@ flake8-variables-names = "*"
 gitchangelog = "*"
 icecream = "*"
 iniparse = "*"
+interrogate = "*"
 isort = "*"
 pandas-vet = "*"
 pdoc3 = "*"

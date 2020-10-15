@@ -8,6 +8,7 @@ import subprocess  # noqa: S404
 from pathlib import Path
 
 import toml
+from interrogate.coverage import InterrogateCoverage
 from transitions import Machine
 
 from .doit_base import DIG, debug_action, open_in_browser
@@ -221,6 +222,18 @@ def write_coverage_to_readme():
         write_to_readme(comment_pattern, {'COVERAGE': table_lines})
 
 
+def write_interrogate_to_readme():
+    """Create an interrogate report to write to the README file."""
+    cov = InterrogateCoverage(paths=[DIG.pkg_name])
+    results = cov.get_coverage()
+    output_path = DIG.source_path / 'interrogate.md'
+    cov.print_results(results, output=output_path, verbosity=1)
+    # Replace interrogate section in README
+    comment_pattern = re.compile(r'<!-- /?(INTERROGATE) -->')
+    write_to_readme(comment_pattern, {'INTERROGATE': [output_path.read_text().strip()]})
+    output_path.unlink()
+
+
 def write_redirect_html():
     """Create an index.html file in the project directory that redirects to the pdoc output."""
     index_path = DIG.source_path / 'index.html'
@@ -276,6 +289,7 @@ def task_document():
         (stage_examples, ()),
         (write_code_to_readme, ()),
         (write_coverage_to_readme, ()),
+        (write_interrogate_to_readme, ()),
         f'poetry run pdoc3 {args}',
         (write_redirect_html, ()),
         (clear_examples, ()),

@@ -8,12 +8,11 @@ from .doit_base import DIG, debug_action, echo, if_found_unlink, write_text
 # General
 
 
-def collect_py_files(add_paths=(), excluded_files=None, subdirectories=None):
+def collect_py_files(add_paths=(), subdirectories=None):
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
     Args:
         add_paths: List of absolute paths to additional Python files to process. Default is an empty list
-        excluded_files: filenames to skip when collecting files. Default is `[__init__.py]`
         subdirectories: folder names to recursively check for Python files. Default is
             `[DIG.pkg_name] + DIG.external_doc_dirs`
 
@@ -26,14 +25,12 @@ def collect_py_files(add_paths=(), excluded_files=None, subdirectories=None):
     """
     if not isinstance(add_paths, (list, tuple)):
         raise RuntimeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
-    if excluded_files is None:
-        excluded_files = ['__init__.py']
     if subdirectories is None:
         subdirectories = [DIG.pkg_name] + DIG.external_doc_dirs
     package_files = [*add_paths] + [*DIG.source_path.glob('*.py')]
     for subdir in subdirectories:  # Capture files in package and in tests directory
         package_files.extend([*(DIG.source_path / subdir).rglob('*.py')])
-    return [str(file_path) for file_path in package_files if file_path.name not in excluded_files]
+    return [str(file_path) for file_path in package_files if file_path.name not in DIG.excluded_files]
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -69,9 +66,11 @@ select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 """Flake8 configuration file settings."""
 
 ISORT = {
-    'line_length': 120,
-    'length_sort': False,
+    'balanced_wrapping': True,
     'default_section': 'THIRDPARTY',
+    'force_grid_wrap': 0,
+    'length_sort': False,
+    'line_length': 120,
 }
 """ISort configuration file settings."""
 
@@ -111,7 +110,8 @@ def list_lint_file_paths(path_list):
             file_paths.extend([*path_item.rglob('*.py')])
         else:
             file_paths.append(path_item)
-    return file_paths
+
+    return [pth for pth in file_paths if pth.name not in DIG.excluded_files]
 
 
 def check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
@@ -238,7 +238,7 @@ def task_auto_format():
     run = 'poetry run python -m'
     actions = []
     for lint_path in DIG.lint_paths:
-        actions.append(f'{run} isort "{lint_path}" --settings-path {DIG.toml_path}')
+        actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.toml_path}"')
         for fn in list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
     return debug_action(actions)

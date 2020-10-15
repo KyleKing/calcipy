@@ -69,6 +69,7 @@ padding: 0 5px;
 </summary>
 <pre><code class="python">&#34;&#34;&#34;DoIt Documentation Utilities.&#34;&#34;&#34;
 
+import io
 import json
 import os
 import re
@@ -77,6 +78,7 @@ import subprocess  # noqa: S404
 from pathlib import Path
 
 import toml
+from interrogate.coverage import InterrogateCoverage
 from transitions import Machine
 
 from .doit_base import DIG, debug_action, open_in_browser
@@ -290,6 +292,18 @@ def write_coverage_to_readme():
         write_to_readme(comment_pattern, {&#39;COVERAGE&#39;: table_lines})
 
 
+def write_interrogate_to_readme():
+    &#34;&#34;&#34;Create an interrogate report to write to the README file.&#34;&#34;&#34;
+    cov = InterrogateCoverage(paths=[DIG.pkg_name])
+    results = cov.get_coverage()
+    output_path = DIG.source_path / &#39;interrogate.md&#39;
+    cov.print_results(results, output=output_path, verbosity=1)
+    # Replace interrogate section in README
+    comment_pattern = re.compile(r&#39;&lt;!-- /?(INTERROGATE) --&gt;&#39;)
+    write_to_readme(comment_pattern, {&#39;INTERROGATE&#39;: [output_path.read_text().strip()]})
+    output_path.unlink()
+
+
 def write_redirect_html():
     &#34;&#34;&#34;Create an index.html file in the project directory that redirects to the pdoc output.&#34;&#34;&#34;
     index_path = DIG.source_path / &#39;index.html&#39;
@@ -345,6 +359,7 @@ def task_document():
         (stage_examples, ()),
         (write_code_to_readme, ()),
         (write_coverage_to_readme, ()),
+        (write_interrogate_to_readme, ()),
         f&#39;poetry run pdoc3 {args}&#39;,
         (write_redirect_html, ()),
         (clear_examples, ()),
@@ -493,6 +508,7 @@ def task_open_docs():
         (stage_examples, ()),
         (write_code_to_readme, ()),
         (write_coverage_to_readme, ()),
+        (write_interrogate_to_readme, ()),
         f&#39;poetry run pdoc3 {args}&#39;,
         (write_redirect_html, ()),
         (clear_examples, ()),
@@ -634,6 +650,27 @@ def task_open_docs():
         # Replace coverage section in README
         comment_pattern = re.compile(r&#39;&lt;!-- /?(COVERAGE) --&gt;&#39;)
         write_to_readme(comment_pattern, {&#39;COVERAGE&#39;: table_lines})</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_doc.write_interrogate_to_readme"><code class="name flex">
+<span>def <span class="ident">write_interrogate_to_readme</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create an interrogate report to write to the README file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_interrogate_to_readme():
+    &#34;&#34;&#34;Create an interrogate report to write to the README file.&#34;&#34;&#34;
+    cov = InterrogateCoverage(paths=[DIG.pkg_name])
+    results = cov.get_coverage()
+    output_path = DIG.source_path / &#39;interrogate.md&#39;
+    cov.print_results(results, output=output_path, verbosity=1)
+    # Replace interrogate section in README
+    comment_pattern = re.compile(r&#39;&lt;!-- /?(INTERROGATE) --&gt;&#39;)
+    write_to_readme(comment_pattern, {&#39;INTERROGATE&#39;: [output_path.read_text().strip()]})
+    output_path.unlink()</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_doc.write_pdoc_config_files"><code class="name flex">
@@ -906,6 +943,7 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_doc.task_update_cl" href="#dash_dev.doit_doc.task_update_cl">task_update_cl</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_code_to_readme" href="#dash_dev.doit_doc.write_code_to_readme">write_code_to_readme</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_coverage_to_readme" href="#dash_dev.doit_doc.write_coverage_to_readme">write_coverage_to_readme</a></code></li>
+<li><code><a title="dash_dev.doit_doc.write_interrogate_to_readme" href="#dash_dev.doit_doc.write_interrogate_to_readme">write_interrogate_to_readme</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_pdoc_config_files" href="#dash_dev.doit_doc.write_pdoc_config_files">write_pdoc_config_files</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_redirect_html" href="#dash_dev.doit_doc.write_redirect_html">write_redirect_html</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_to_readme" href="#dash_dev.doit_doc.write_to_readme">write_to_readme</a></code></li>

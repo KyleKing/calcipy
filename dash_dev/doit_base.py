@@ -30,6 +30,9 @@ class DoItGlobals:
     lint_paths = []
     """Current directory for source code (working project). Set in `set_paths`."""
 
+    excluded_files = ['__init__.py']
+    """List of excluded filenames."""
+
     external_doc_dirs = ['examples', 'scripts', 'tests']
     """List of subdir names relative to `source_path` containing Python code that should be in the documentation.
 
@@ -171,6 +174,16 @@ def debug_action(actions, verbosity=2):
     }
 
 
+def echo(msg):
+    """Wrap the system print command.
+
+    Args:
+        msg: string to `print`
+
+    """
+    print(msg)  # noqa: T001
+
+
 def write_text(file_path, text):
     """file_path.write_text wrapper for DoIt.
 
@@ -204,14 +217,21 @@ def if_found_unlink(file_path):
         file_path.unlink()
 
 
-def echo(msg):
-    """Wrap the system print command.
+# ======================================================================================================================
+# > PLANNED: Development
 
-    Args:
-        msg: string to `print`
+
+def task_watchcode():
+    """Return DoIt LongRunning `watchcode` task. Will run the local `.watchcode.yaml`.
+
+    Returns:
+        dict: DoIt task
 
     """
-    print(msg)  # noqa: T001
+    return {
+        'actions': [LongRunning('poetry run watchcode')],
+        'verbosity': 2,
+    }
 
 
 # ----------------------------------------------------------------------------------------------------------------------

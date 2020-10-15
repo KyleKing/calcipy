@@ -49,6 +49,8 @@
 
 ### Fix
 
+* Path to the .flake8 should be in source_path. [Kyle King]
+
 * Remove DIG.gh_pages_dir & task_commit_docs. [Kyle King]
 
 * Changelog creation. [Kyle King]
