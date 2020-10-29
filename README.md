@@ -39,29 +39,3 @@ Repository Stats
 Generated on: 2020-10-14T20:52:34.848043
 
 <!-- /COVERAGE -->
-
-## Doc String Coverage
-
-<!-- INTERROGATE -->
-
-
-Coverage for dash_dev/
-
-
-Summary
-
-| Name                          |               Total |               Miss |               Cover |               Cover% |
-| __init__.py                   |                   1 |                  0 |                   1 |                 100% |
-| conftest.py                   |                   5 |                  0 |                   5 |                 100% |
-| doit_base.py                  |                  15 |                  0 |                  15 |                 100% |
-| doit_doc.py                   |                  19 |                  0 |                  19 |                 100% |
-| doit_lint.py                  |                  10 |                  0 |                  10 |                 100% |
-| doit_test.py                  |                  12 |                  0 |                  12 |                 100% |
-| TOTAL                         |                  62 |                  0 |                  62 |               100.0% |
-
-RESULT: PASSED (minimum: 80.0%, actual: 100.0%)
-
-
-
-
-<!-- /INTERROGATE -->

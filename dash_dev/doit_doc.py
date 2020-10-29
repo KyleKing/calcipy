@@ -222,28 +222,6 @@ def write_coverage_to_readme():
         write_to_readme(comment_pattern, {'COVERAGE': table_lines})
 
 
-def write_interrogate_to_readme():
-    """Create an interrogate report to write to the README file."""
-    cov = InterrogateCoverage(paths=[DIG.pkg_name])
-    results = cov.get_coverage()
-    output_path = DIG.source_path / 'interrogate.md'
-    cov.print_results(results, output=output_path, verbosity=1)
-    # Fix table formatting for Github
-    i_table = ''
-    for line in output_path.read_text().split('\n'):
-        line = line.strip()
-        if line.startswith('==') or line.startswith('--'):
-            i_table += f"\n{line.replace('=', '').replace('--', '').strip()}\n\n"
-        elif line.startswith('|--'):
-            pass
-        else:
-            i_table += f'{line}\n'
-    # Replace interrogate section in README
-    comment_pattern = re.compile(r'<!-- /?(INTERROGATE) -->')
-    write_to_readme(comment_pattern, {'INTERROGATE': [i_table]})
-    output_path.unlink()
-
-
 def write_redirect_html():
     """Create an index.html file in the project directory that redirects to the pdoc output."""
     index_path = DIG.source_path / 'index.html'
@@ -299,7 +277,6 @@ def task_document():
         (stage_examples, ()),
         (write_code_to_readme, ()),
         (write_coverage_to_readme, ()),
-        (write_interrogate_to_readme, ()),
         f'poetry run pdoc3 {args}',
         (write_redirect_html, ()),
         (clear_examples, ()),
