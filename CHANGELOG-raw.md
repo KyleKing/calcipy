@@ -5,6 +5,8 @@
 
 ### New
 
+* Show README contents in __init__ [Kyle King]
+
 * Dump isort & flake8 settings in source path. [Kyle King]
 
 * Improve linting & test tasks. [Kyle King]

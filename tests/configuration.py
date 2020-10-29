@@ -3,7 +3,6 @@
 from pathlib import Path
 
 import pytest
-import snoop
 
 from dash_dev.doit_base import DoItGlobals
 
@@ -15,9 +14,6 @@ TEST_DATA_DIR = TEST_DIR / 'data'
 
 DIG_CWD = TEST_DATA_DIR / 'doit_project'
 """Local directory used for testing the DoIt globals."""
-
-TEST_SNOOPER = snoop.Config(out=TEST_DIR / 'test.log', overwrite=True)
-"""Snoop configuration for logging to a test.log file in the test directory."""
 
 
 @pytest.fixture()

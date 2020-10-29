@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.1" />
 <title>dash_dev API documentation</title>
-<meta name="description" content="Dash_Dev …" />
+<meta name="description" content="[Dash_Dev](https://github.com/KyleKing/dash_dev) …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -62,23 +62,26 @@ padding: 0 5px;
 <h1 class="title">Package <code>dash_dev</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="dash_dev">Dash_Dev</h1>
-<p>Development package to define common package requirements, linting, doit tasks, and other development activities</p>
-<p>Add to a poetry project with:</p>
-<pre><code class="language-toml">[tool.poetry.dev-dependencies]
-dash = {extras = [&quot;testing&quot;], version = &quot;*, ^1.11&quot;}
-dash_dev = {git = &quot;https://github.com/KyleKing/dash_dev.git&quot;}
+<h1 id="dash_dev"><a href="https://github.com/KyleKing/dash_dev">Dash_Dev</a></h1>
+<p>Python package to simplify developing Plotly/Dash applications. Includes functionality for task running, testing, linting, documenting, and more</p>
+<h2 id="quick-start">Quick Start</h2>
+<p>Add to a poetry project in <code>pyproject.toml</code>:</p>
+<pre><code class="language-toml">[tool.poetry.dev-dependencies.dash]
+extras = [ &quot;testing&quot;,]
+version = &quot;*, ^1.16&quot;
+
+[tool.poetry.dev-dependencies.dash_dev]
+git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 </code></pre>
-<p>Then copy the <a href="./dodo.py"><code>dodo.py</code></a> file into your project and call with <code>poetry run doit</code></p>
-<p>Where used:</p>
+<p>Then copy the <a href="https://github.com/KyleKing/dash_dev/blob/master/dodo.py"><code>https://github.com/KyleKing/dash_dev/blob/master/dodo.py</code></a> file into your project and call with <code>poetry run doit</code></p>
+<p>If you have any questions, please <a href="https://github.com/KyleKing/dash_dev/issues/new">open an issue on Github</a></p>
+<h2 id="where-used">Where Used</h2>
 <ul>
 <li><a href="https://github.com/KyleKing/dash_charts">KyleKing/dash_charts</a></li>
 <li><a href="https://github.com/KyleKing/PiAlarm">KyleKing/PiAlarm</a></li>
 <li><a href="https://github.com/KyleKing/Kitsu_Library_Availability">KyleKing/Kitsu_Library_Availability</a></li>
 <li><a href="https://github.com/KyleKing/Goodreads_Library_Availability">KyleKing/Goodreads_Library_Availability</a> - <em>Planned</em></li>
 </ul>
-<h2 id="coverage">Coverage</h2>
-<p>Repository Stats</p>
 <h2 id="test-coverage">Test Coverage</h2>
 <!-- COVERAGE -->
 <table>
@@ -108,65 +111,68 @@ dash_dev = {git = &quot;https://github.com/KyleKing/dash_dev.git&quot;}
 </tr>
 <tr>
 <td align="right"><code>dash_dev/doit_base.py</code></td>
-<td align="right">81</td>
-<td align="right">45</td>
+<td align="right">80</td>
+<td align="right">11</td>
 <td align="right">0</td>
-<td align="right">44.4%</td>
+<td align="right">86.2%</td>
 </tr>
 <tr>
 <td align="right"><code>dash_dev/doit_doc.py</code></td>
 <td align="right">101</td>
-<td align="right">71</td>
+<td align="right">64</td>
 <td align="right">0</td>
-<td align="right">29.7%</td>
+<td align="right">36.6%</td>
 </tr>
 <tr>
 <td align="right"><code>dash_dev/doit_lint.py</code></td>
 <td align="right">68</td>
-<td align="right">55</td>
+<td align="right">20</td>
 <td align="right">0</td>
-<td align="right">19.1%</td>
+<td align="right">70.6%</td>
 </tr>
 <tr>
 <td align="right"><code>dash_dev/doit_test.py</code></td>
 <td align="right">27</td>
-<td align="right">14</td>
+<td align="right">13</td>
 <td align="right">0</td>
-<td align="right">48.1%</td>
+<td align="right">51.9%</td>
 </tr>
 </tbody>
 </table>
-<p>Generated on: 2020-10-28T21:48:20.158696</p>
+<p>Generated on: 2020-10-28T22:05:25.846354</p>
 <!-- /COVERAGE -->
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-# Dash_Dev
+# [Dash_Dev](https://github.com/KyleKing/dash_dev)
 
-Development package to define common package requirements, linting, doit tasks, and other development activities
+Python package to simplify developing Plotly/Dash applications. Includes functionality for task running, testing, linting, documenting, and more
 
-Add to a poetry project with:
+## Quick Start
+
+Add to a poetry project in `pyproject.toml`:
 
 ```toml
-[tool.poetry.dev-dependencies]
-dash = {extras = [\&#34;testing\&#34;], version = \&#34;*, ^1.11\&#34;}
-dash_dev = {git = \&#34;https://github.com/KyleKing/dash_dev.git\&#34;}
+[tool.poetry.dev-dependencies.dash]
+extras = [ \&#34;testing\&#34;,]
+version = \&#34;*, ^1.16\&#34;
+
+[tool.poetry.dev-dependencies.dash_dev]
+git = \&#34;https://github.com/KyleKing/dash_dev.git\&#34;
 ```
 
-Then copy the [`dodo.py`](./dodo.py) file into your project and call with `poetry run doit`
+Then copy the [`https://github.com/KyleKing/dash_dev/blob/master/dodo.py`](https://github.com/KyleKing/dash_dev/blob/master/dodo.py) file into your project and call with `poetry run doit`
 
-Where used:
+If you have any questions, please [open an issue on Github](https://github.com/KyleKing/dash_dev/issues/new)
+
+## Where Used
 
 - [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts)
 - [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm)
 - [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability)
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *Planned*
-
-## Coverage
-
-Repository Stats
 
 ## Test Coverage
 
@@ -176,12 +182,12 @@ Repository Stats
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 2 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 19 | 3 | 0 | 84.2% |
-| `dash_dev/doit_base.py` | 81 | 45 | 0 | 44.4% |
-| `dash_dev/doit_doc.py` | 101 | 71 | 0 | 29.7% |
-| `dash_dev/doit_lint.py` | 68 | 55 | 0 | 19.1% |
-| `dash_dev/doit_test.py` | 27 | 14 | 0 | 48.1% |
+| `dash_dev/doit_base.py` | 80 | 11 | 0 | 86.2% |
+| `dash_dev/doit_doc.py` | 101 | 64 | 0 | 36.6% |
+| `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
+| `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-10-28T21:48:20.158696
+Generated on: 2020-10-28T22:05:25.846354
 
 &lt;!-- /COVERAGE --&gt;
 &#34;&#34;&#34;  # noqa
@@ -275,7 +281,8 @@ setTimeout(() => input.focus(), 100);
 <div class="toc">
 <ul>
 <li><a href="#dash_dev">Dash_Dev</a><ul>
-<li><a href="#coverage">Coverage</a></li>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#where-used">Where Used</a></li>
 <li><a href="#test-coverage">Test Coverage</a></li>
 </ul>
 </li>

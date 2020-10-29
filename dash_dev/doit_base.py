@@ -6,7 +6,6 @@ from pathlib import Path
 
 import toml
 from doit.tools import LongRunning
-from icecream import ic
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
@@ -260,7 +259,7 @@ def dump_pur_results(pur_path):
         pur_path: Path to the pur output text file
 
     """
-    ic(pur_path.read_text())
+    print(pur_path.read_text())  # noqa: T001
 
 
 def task_check_req():
