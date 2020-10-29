@@ -7,8 +7,6 @@ import shutil
 import subprocess  # noqa: S404
 from pathlib import Path
 
-import toml
-from interrogate.coverage import InterrogateCoverage
 from transitions import Machine
 
 from .doit_base import DIG, debug_action, open_in_browser
@@ -24,10 +22,9 @@ def task_create_tag():
         dict: DoIt task
 
     """
-    version = toml.load(DIG.toml_path)['tool']['poetry']['version']
     message = 'New Revision from PyProject.toml'
     return debug_action([
-        f'git tag -a {version} -m "{message}"',
+        f'git tag -a {DIG.pkg_version} -m "{message}"',
         'git tag -n10 --list',
         'git push origin --tags',
     ])
@@ -40,12 +37,24 @@ def task_remove_tag():
         dict: DoIt task
 
     """
-    version = toml.load(DIG.toml_path)['tool']['poetry']['version']
     return debug_action([
-        f'git tag -d "{version}"',
+        f'git tag -d "{DIG.pkg_version}"',
         'git tag -n10 --list',
-        f'git push origin :refs/tags/{version}',
+        f'git push origin :refs/tags/{DIG.pkg_version}',
     ])
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Update __init__.py with Documentation
+
+
+def write_readme_to_init():
+    """Write the README contents to the package `__init__.py` file."""
+    readme = (DIG.source_path / 'README.md').read_text().replace('"', r'\"')  # Escape quotes
+    init_text = (f'"""\n{readme}"""  # noqa\n\n# Generated with DoIt. Do not modify\n\n'
+                 f"__version__ = '{DIG.pkg_version}'\n__pkg_name__ = '{DIG.pkg_name}'\n")
+    init_path = (DIG.source_path / DIG.pkg_name / '__init__.py')
+    init_path.write_text(init_text.replace('\t', ' ' * 4))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -103,8 +112,8 @@ PDOC_HEAD = """<style>
 
 def write_pdoc_config_files():
     """Write the head and config mako files for pdoc."""
-    (DIG.doc_dir / 'head.mako').write_text(PDOC_HEAD)
-    (DIG.doc_dir / 'config.mako').write_text(PDOC_CONFIG)
+    (DIG.template_dir / 'head.mako').write_text(PDOC_HEAD)
+    (DIG.template_dir / 'config.mako').write_text(PDOC_CONFIG)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -269,7 +278,7 @@ def task_document():
 
     """
     # Format the pdoc CLI args
-    args = f'{DIG.pkg_name} --html --force --template-dir "{DIG.doc_dir}" --output-dir "{DIG.doc_dir}"'
+    args = f'{DIG.pkg_name} --html --force --template-dir "{DIG.template_dir}" --output-dir "{DIG.doc_dir}"'
     return debug_action([
         (clear_docs, ()),
         (clear_examples, ()),
@@ -277,6 +286,7 @@ def task_document():
         (stage_examples, ()),
         (write_code_to_readme, ()),
         (write_coverage_to_readme, ()),
+        (write_readme_to_init, ()),
         f'poetry run pdoc3 {args}',
         (write_redirect_html, ()),
         (clear_examples, ()),

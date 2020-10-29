@@ -18,7 +18,7 @@ def test_dig_props():
 
     result = [prop for prop in dir(dig) if not prop.startswith('_')]
 
-    assert result == public_props
+    assert result == sorted(public_props)
     assert dir(dig) == dir(DIG)
 
 

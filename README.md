@@ -29,13 +29,13 @@ Repository Stats
 
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
-| `dash_dev/__init__.py` | 1 | 0 | 0 | 100.0% |
+| `dash_dev/__init__.py` | 2 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 19 | 3 | 0 | 84.2% |
-| `dash_dev/doit_base.py` | 77 | 11 | 0 | 85.7% |
-| `dash_dev/doit_doc.py` | 109 | 67 | 0 | 38.5% |
-| `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
-| `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
+| `dash_dev/doit_base.py` | 81 | 45 | 0 | 44.4% |
+| `dash_dev/doit_doc.py` | 101 | 71 | 0 | 29.7% |
+| `dash_dev/doit_lint.py` | 68 | 55 | 0 | 19.1% |
+| `dash_dev/doit_test.py` | 27 | 14 | 0 | 48.1% |
 
-Generated on: 2020-10-14T20:52:34.848043
+Generated on: 2020-10-28T21:48:20.158696
 
 <!-- /COVERAGE -->

@@ -69,7 +69,6 @@ padding: 0 5px;
 </summary>
 <pre><code class="python">&#34;&#34;&#34;DoIt Documentation Utilities.&#34;&#34;&#34;
 
-import io
 import json
 import os
 import re
@@ -77,8 +76,6 @@ import shutil
 import subprocess  # noqa: S404
 from pathlib import Path
 
-import toml
-from interrogate.coverage import InterrogateCoverage
 from transitions import Machine
 
 from .doit_base import DIG, debug_action, open_in_browser
@@ -94,10 +91,9 @@ def task_create_tag():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     message = &#39;New Revision from PyProject.toml&#39;
     return debug_action([
-        f&#39;git tag -a {version} -m &#34;{message}&#34;&#39;,
+        f&#39;git tag -a {DIG.pkg_version} -m &#34;{message}&#34;&#39;,
         &#39;git tag -n10 --list&#39;,
         &#39;git push origin --tags&#39;,
     ])
@@ -110,12 +106,24 @@ def task_remove_tag():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     return debug_action([
-        f&#39;git tag -d &#34;{version}&#34;&#39;,
+        f&#39;git tag -d &#34;{DIG.pkg_version}&#34;&#39;,
         &#39;git tag -n10 --list&#39;,
-        f&#39;git push origin :refs/tags/{version}&#39;,
+        f&#39;git push origin :refs/tags/{DIG.pkg_version}&#39;,
     ])
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Update __init__.py with Documentation
+
+
+def write_readme_to_init():
+    &#34;&#34;&#34;Write the README contents to the package `__init__.py` file.&#34;&#34;&#34;
+    readme = (DIG.source_path / &#39;README.md&#39;).read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # Escape quotes
+    init_text = (f&#39;&#34;&#34;&#34;\n{readme}&#34;&#34;&#34;  # noqa\n\n# Generated with DoIt. Do not modify\n\n&#39;
+                 f&#34;__version__ = &#39;{DIG.pkg_version}&#39;\n__pkg_name__ = &#39;{DIG.pkg_name}&#39;\n&#34;)
+    init_path = (DIG.source_path / DIG.pkg_name / &#39;__init__.py&#39;)
+    init_path.write_text(init_text.replace(&#39;\t&#39;, &#39; &#39; * 4))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -173,8 +181,8 @@ PDOC_HEAD = &#34;&#34;&#34;&lt;style&gt;
 
 def write_pdoc_config_files():
     &#34;&#34;&#34;Write the head and config mako files for pdoc.&#34;&#34;&#34;
-    (DIG.doc_dir / &#39;head.mako&#39;).write_text(PDOC_HEAD)
-    (DIG.doc_dir / &#39;config.mako&#39;).write_text(PDOC_CONFIG)
+    (DIG.template_dir / &#39;head.mako&#39;).write_text(PDOC_HEAD)
+    (DIG.template_dir / &#39;config.mako&#39;).write_text(PDOC_CONFIG)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -292,18 +300,6 @@ def write_coverage_to_readme():
         write_to_readme(comment_pattern, {&#39;COVERAGE&#39;: table_lines})
 
 
-def write_interrogate_to_readme():
-    &#34;&#34;&#34;Create an interrogate report to write to the README file.&#34;&#34;&#34;
-    cov = InterrogateCoverage(paths=[DIG.pkg_name])
-    results = cov.get_coverage()
-    output_path = DIG.source_path / &#39;interrogate.md&#39;
-    cov.print_results(results, output=output_path, verbosity=1)
-    # Replace interrogate section in README
-    comment_pattern = re.compile(r&#39;&lt;!-- /?(INTERROGATE) --&gt;&#39;)
-    write_to_readme(comment_pattern, {&#39;INTERROGATE&#39;: [output_path.read_text().strip()]})
-    output_path.unlink()
-
-
 def write_redirect_html():
     &#34;&#34;&#34;Create an index.html file in the project directory that redirects to the pdoc output.&#34;&#34;&#34;
     index_path = DIG.source_path / &#39;index.html&#39;
@@ -351,7 +347,7 @@ def task_document():
 
     &#34;&#34;&#34;
     # Format the pdoc CLI args
-    args = f&#39;{DIG.pkg_name} --html --force --template-dir &#34;{DIG.doc_dir}&#34; --output-dir &#34;{DIG.doc_dir}&#34;&#39;
+    args = f&#39;{DIG.pkg_name} --html --force --template-dir &#34;{DIG.template_dir}&#34; --output-dir &#34;{DIG.doc_dir}&#34;&#39;
     return debug_action([
         (clear_docs, ()),
         (clear_examples, ()),
@@ -359,7 +355,7 @@ def task_document():
         (stage_examples, ()),
         (write_code_to_readme, ()),
         (write_coverage_to_readme, ()),
-        (write_interrogate_to_readme, ()),
+        (write_readme_to_init, ()),
         f&#39;poetry run pdoc3 {args}&#39;,
         (write_redirect_html, ()),
         (clear_examples, ()),
@@ -469,10 +465,9 @@ def task_open_docs():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     message = &#39;New Revision from PyProject.toml&#39;
     return debug_action([
-        f&#39;git tag -a {version} -m &#34;{message}&#34;&#39;,
+        f&#39;git tag -a {DIG.pkg_version} -m &#34;{message}&#34;&#39;,
         &#39;git tag -n10 --list&#39;,
         &#39;git push origin --tags&#39;,
     ])</code></pre>
@@ -500,7 +495,7 @@ def task_open_docs():
 
     &#34;&#34;&#34;
     # Format the pdoc CLI args
-    args = f&#39;{DIG.pkg_name} --html --force --template-dir &#34;{DIG.doc_dir}&#34; --output-dir &#34;{DIG.doc_dir}&#34;&#39;
+    args = f&#39;{DIG.pkg_name} --html --force --template-dir &#34;{DIG.template_dir}&#34; --output-dir &#34;{DIG.doc_dir}&#34;&#39;
     return debug_action([
         (clear_docs, ()),
         (clear_examples, ()),
@@ -508,7 +503,7 @@ def task_open_docs():
         (stage_examples, ()),
         (write_code_to_readme, ()),
         (write_coverage_to_readme, ()),
-        (write_interrogate_to_readme, ()),
+        (write_readme_to_init, ()),
         f&#39;poetry run pdoc3 {args}&#39;,
         (write_redirect_html, ()),
         (clear_examples, ()),
@@ -562,11 +557,10 @@ def task_open_docs():
         dict: DoIt task
 
     &#34;&#34;&#34;
-    version = toml.load(DIG.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;version&#39;]
     return debug_action([
-        f&#39;git tag -d &#34;{version}&#34;&#39;,
+        f&#39;git tag -d &#34;{DIG.pkg_version}&#34;&#39;,
         &#39;git tag -n10 --list&#39;,
-        f&#39;git push origin :refs/tags/{version}&#39;,
+        f&#39;git push origin :refs/tags/{DIG.pkg_version}&#39;,
     ])</code></pre>
 </details>
 </dd>
@@ -652,27 +646,6 @@ def task_open_docs():
         write_to_readme(comment_pattern, {&#39;COVERAGE&#39;: table_lines})</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_doc.write_interrogate_to_readme"><code class="name flex">
-<span>def <span class="ident">write_interrogate_to_readme</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create an interrogate report to write to the README file.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def write_interrogate_to_readme():
-    &#34;&#34;&#34;Create an interrogate report to write to the README file.&#34;&#34;&#34;
-    cov = InterrogateCoverage(paths=[DIG.pkg_name])
-    results = cov.get_coverage()
-    output_path = DIG.source_path / &#39;interrogate.md&#39;
-    cov.print_results(results, output=output_path, verbosity=1)
-    # Replace interrogate section in README
-    comment_pattern = re.compile(r&#39;&lt;!-- /?(INTERROGATE) --&gt;&#39;)
-    write_to_readme(comment_pattern, {&#39;INTERROGATE&#39;: [output_path.read_text().strip()]})
-    output_path.unlink()</code></pre>
-</details>
-</dd>
 <dt id="dash_dev.doit_doc.write_pdoc_config_files"><code class="name flex">
 <span>def <span class="ident">write_pdoc_config_files</span></span>(<span>)</span>
 </code></dt>
@@ -684,8 +657,26 @@ def task_open_docs():
 </summary>
 <pre><code class="python">def write_pdoc_config_files():
     &#34;&#34;&#34;Write the head and config mako files for pdoc.&#34;&#34;&#34;
-    (DIG.doc_dir / &#39;head.mako&#39;).write_text(PDOC_HEAD)
-    (DIG.doc_dir / &#39;config.mako&#39;).write_text(PDOC_CONFIG)</code></pre>
+    (DIG.template_dir / &#39;head.mako&#39;).write_text(PDOC_HEAD)
+    (DIG.template_dir / &#39;config.mako&#39;).write_text(PDOC_CONFIG)</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_doc.write_readme_to_init"><code class="name flex">
+<span>def <span class="ident">write_readme_to_init</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Write the README contents to the package <code>__init__.py</code> file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_readme_to_init():
+    &#34;&#34;&#34;Write the README contents to the package `__init__.py` file.&#34;&#34;&#34;
+    readme = (DIG.source_path / &#39;README.md&#39;).read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # Escape quotes
+    init_text = (f&#39;&#34;&#34;&#34;\n{readme}&#34;&#34;&#34;  # noqa\n\n# Generated with DoIt. Do not modify\n\n&#39;
+                 f&#34;__version__ = &#39;{DIG.pkg_version}&#39;\n__pkg_name__ = &#39;{DIG.pkg_name}&#39;\n&#34;)
+    init_path = (DIG.source_path / DIG.pkg_name / &#39;__init__.py&#39;)
+    init_path.write_text(init_text.replace(&#39;\t&#39;, &#39; &#39; * 4))</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_doc.write_redirect_html"><code class="name flex">
@@ -943,8 +934,8 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_doc.task_update_cl" href="#dash_dev.doit_doc.task_update_cl">task_update_cl</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_code_to_readme" href="#dash_dev.doit_doc.write_code_to_readme">write_code_to_readme</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_coverage_to_readme" href="#dash_dev.doit_doc.write_coverage_to_readme">write_coverage_to_readme</a></code></li>
-<li><code><a title="dash_dev.doit_doc.write_interrogate_to_readme" href="#dash_dev.doit_doc.write_interrogate_to_readme">write_interrogate_to_readme</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_pdoc_config_files" href="#dash_dev.doit_doc.write_pdoc_config_files">write_pdoc_config_files</a></code></li>
+<li><code><a title="dash_dev.doit_doc.write_readme_to_init" href="#dash_dev.doit_doc.write_readme_to_init">write_readme_to_init</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_redirect_html" href="#dash_dev.doit_doc.write_redirect_html">write_redirect_html</a></code></li>
 <li><code><a title="dash_dev.doit_doc.write_to_readme" href="#dash_dev.doit_doc.write_to_readme">write_to_readme</a></code></li>
 </ul>

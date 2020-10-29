@@ -74,6 +74,7 @@ import webbrowser
 from pathlib import Path
 
 import toml
+from doit.tools import LongRunning
 from icecream import ic
 
 # TODO: Show dodo.py in the documentation
@@ -153,7 +154,8 @@ class DoItGlobals:
         # Define the output directory with relevant subdirectories
         self.test_path = self.source_path / &#39;tests&#39;
         self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
-        ensure_dir(self.doc_dir)
+        self.template_dir = self.doc_dir / &#39;templates&#39;
+        ensure_dir(self.template_dir)
         self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
         self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
         self.flake8_path = self.source_path / &#39;.flake8&#39;
@@ -161,7 +163,9 @@ class DoItGlobals:
         self.toml_path = self.source_path / &#39;pyproject.toml&#39;
         if not self.toml_path.is_file():
             raise RuntimeError(f&#39;Could not find {self.toml_path.name}. Check that the {self.source_path} is correct&#39;)
-        self.pkg_name = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;name&#39;]
+        poetry_config = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;]
+        self.pkg_version = poetry_config[&#39;version&#39;]
+        self.pkg_name = poetry_config[&#39;name&#39;]
         if &#39;-&#39; in self.pkg_name:
             raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
 
@@ -771,7 +775,8 @@ def task_check_req():
         # Define the output directory with relevant subdirectories
         self.test_path = self.source_path / &#39;tests&#39;
         self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
-        ensure_dir(self.doc_dir)
+        self.template_dir = self.doc_dir / &#39;templates&#39;
+        ensure_dir(self.template_dir)
         self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
         self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
         self.flake8_path = self.source_path / &#39;.flake8&#39;
@@ -779,7 +784,9 @@ def task_check_req():
         self.toml_path = self.source_path / &#39;pyproject.toml&#39;
         if not self.toml_path.is_file():
             raise RuntimeError(f&#39;Could not find {self.toml_path.name}. Check that the {self.source_path} is correct&#39;)
-        self.pkg_name = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;name&#39;]
+        poetry_config = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;]
+        self.pkg_version = poetry_config[&#39;version&#39;]
+        self.pkg_name = poetry_config[&#39;name&#39;]
         if &#39;-&#39; in self.pkg_name:
             raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
 
@@ -900,7 +907,8 @@ def task_check_req():
     # Define the output directory with relevant subdirectories
     self.test_path = self.source_path / &#39;tests&#39;
     self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
-    ensure_dir(self.doc_dir)
+    self.template_dir = self.doc_dir / &#39;templates&#39;
+    ensure_dir(self.template_dir)
     self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
     self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
     self.flake8_path = self.source_path / &#39;.flake8&#39;
@@ -908,7 +916,9 @@ def task_check_req():
     self.toml_path = self.source_path / &#39;pyproject.toml&#39;
     if not self.toml_path.is_file():
         raise RuntimeError(f&#39;Could not find {self.toml_path.name}. Check that the {self.source_path} is correct&#39;)
-    self.pkg_name = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;][&#39;name&#39;]
+    poetry_config = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;]
+    self.pkg_version = poetry_config[&#39;version&#39;]
+    self.pkg_name = poetry_config[&#39;name&#39;]
     if &#39;-&#39; in self.pkg_name:
         raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
 

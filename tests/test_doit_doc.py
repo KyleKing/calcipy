@@ -46,8 +46,8 @@ def test_task_remove_tag():
 def test_write_pdoc_config_files():
     """Test write_pdoc_config_files."""
     DIG.set_paths(source_path=DIG_CWD)
-    head_file = (DIG.doc_dir / 'head.mako')
-    config_file = (DIG.doc_dir / 'config.mako')
+    head_file = (DIG.template_dir / 'head.mako')
+    config_file = (DIG.template_dir / 'config.mako')
 
     doit_doc.write_pdoc_config_files()  # act
 

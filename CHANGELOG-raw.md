@@ -23,6 +23,12 @@
 
 ### Changes
 
+* Drop interrogate. [Kyle King]
+
+* Try to improve interrogate table. [Kyle King]
+
+* Add interrogate to README. [Kyle King]
+
 * Implement linting tasks in package. [Kyle King]
 
 * Push local changes for linting. [Kyle King]

@@ -85,7 +85,8 @@ class DoItGlobals:
         # Define the output directory with relevant subdirectories
         self.test_path = self.source_path / 'tests'
         self.doc_dir = self.source_path / 'docs' if doc_dir is None else doc_dir
-        ensure_dir(self.doc_dir)
+        self.template_dir = self.doc_dir / 'templates'
+        ensure_dir(self.template_dir)
         self.coverage_path = self.doc_dir / 'cov_html/index.html'
         self.test_report_path = self.doc_dir / 'test_report.html'
         self.flake8_path = self.source_path / '.flake8'
@@ -94,6 +95,7 @@ class DoItGlobals:
         if not self.toml_path.is_file():
             raise RuntimeError(f'Could not find {self.toml_path.name}. Check that the {self.source_path} is correct')
         poetry_config = toml.load(self.toml_path)['tool']['poetry']
+        self.pkg_version = poetry_config['version']
         self.pkg_name = poetry_config['name']
         if '-' in self.pkg_name:
             raise RuntimeError(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}')
