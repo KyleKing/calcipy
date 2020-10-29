@@ -25,6 +25,8 @@
 
 ### Changes
 
+* Remove unused packages. [Kyle King]
+
 * Drop interrogate. [Kyle King]
 
 * Try to improve interrogate table. [Kyle King]

@@ -1,17 +1,15 @@
 """
 # [Dash_Dev](https://github.com/KyleKing/dash_dev)
 
-Python package to simplify developing Plotly/Dash applications. Includes functionality for task running, testing, linting, documenting, and more
+Python package to simplify developing Python applications. Includes functionality for task running, testing, linting, documenting, and more
+
+Note: the package name is a misnomer and I haven't thought of a better replacement. Use [dash_charts](https://github.com/KyleKing/dash_charts) for building plotly/Dash applications
 
 ## Quick Start
 
 Add to a poetry project in `pyproject.toml`:
 
 ```toml
-[tool.poetry.dev-dependencies.dash]
-extras = [ \"testing\",]
-version = \"*, ^1.16\"
-
 [tool.poetry.dev-dependencies.dash_dev]
 git = \"https://github.com/KyleKing/dash_dev.git\"
 ```
@@ -40,7 +38,7 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-10-28T22:05:25.846354
+Generated on: 2020-10-28T22:32:40.870037
 
 <!-- /COVERAGE -->
 """  # noqa

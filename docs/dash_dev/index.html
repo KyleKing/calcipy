@@ -63,14 +63,11 @@ padding: 0 5px;
 </header>
 <section id="section-intro">
 <h1 id="dash_dev"><a href="https://github.com/KyleKing/dash_dev">Dash_Dev</a></h1>
-<p>Python package to simplify developing Plotly/Dash applications. Includes functionality for task running, testing, linting, documenting, and more</p>
+<p>Python package to simplify developing Python applications. Includes functionality for task running, testing, linting, documenting, and more</p>
+<p>Note: the package name is a misnomer and I haven't thought of a better replacement. Use <a href="https://github.com/KyleKing/dash_charts">dash_charts</a> for building plotly/Dash applications</p>
 <h2 id="quick-start">Quick Start</h2>
 <p>Add to a poetry project in <code>pyproject.toml</code>:</p>
-<pre><code class="language-toml">[tool.poetry.dev-dependencies.dash]
-extras = [ &quot;testing&quot;,]
-version = &quot;*, ^1.16&quot;
-
-[tool.poetry.dev-dependencies.dash_dev]
+<pre><code class="language-toml">[tool.poetry.dev-dependencies.dash_dev]
 git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 </code></pre>
 <p>Then copy the <a href="https://github.com/KyleKing/dash_dev/blob/master/dodo.py"><code>https://github.com/KyleKing/dash_dev/blob/master/dodo.py</code></a> file into your project and call with <code>poetry run doit</code></p>
@@ -139,7 +136,7 @@ git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 </tr>
 </tbody>
 </table>
-<p>Generated on: 2020-10-28T22:05:25.846354</p>
+<p>Generated on: 2020-10-28T22:32:40.870037</p>
 <!-- /COVERAGE -->
 <details class="source">
 <summary>
@@ -148,17 +145,15 @@ git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 <pre><code class="python">&#34;&#34;&#34;
 # [Dash_Dev](https://github.com/KyleKing/dash_dev)
 
-Python package to simplify developing Plotly/Dash applications. Includes functionality for task running, testing, linting, documenting, and more
+Python package to simplify developing Python applications. Includes functionality for task running, testing, linting, documenting, and more
+
+Note: the package name is a misnomer and I haven&#39;t thought of a better replacement. Use [dash_charts](https://github.com/KyleKing/dash_charts) for building plotly/Dash applications
 
 ## Quick Start
 
 Add to a poetry project in `pyproject.toml`:
 
 ```toml
-[tool.poetry.dev-dependencies.dash]
-extras = [ \&#34;testing\&#34;,]
-version = \&#34;*, ^1.16\&#34;
-
 [tool.poetry.dev-dependencies.dash_dev]
 git = \&#34;https://github.com/KyleKing/dash_dev.git\&#34;
 ```
@@ -187,7 +182,7 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-10-28T22:05:25.846354
+Generated on: 2020-10-28T22:32:40.870037
 
 &lt;!-- /COVERAGE --&gt;
 &#34;&#34;&#34;  # noqa

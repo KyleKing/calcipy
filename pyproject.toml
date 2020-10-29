@@ -91,7 +91,3 @@ transitions = "*"
 vulture = "*"
 
 [tool.poetry.dev-dependencies]
-
-[tool.poetry.dependencies.dash]
-extras = [ "testing",]
-version = "*, ^1.16"
