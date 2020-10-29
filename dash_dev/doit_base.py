@@ -5,6 +5,7 @@ import webbrowser
 from pathlib import Path
 
 import toml
+from doit.tools import LongRunning
 from icecream import ic
 
 # TODO: Show dodo.py in the documentation
@@ -92,7 +93,8 @@ class DoItGlobals:
         self.toml_path = self.source_path / 'pyproject.toml'
         if not self.toml_path.is_file():
             raise RuntimeError(f'Could not find {self.toml_path.name}. Check that the {self.source_path} is correct')
-        self.pkg_name = toml.load(self.toml_path)['tool']['poetry']['name']
+        poetry_config = toml.load(self.toml_path)['tool']['poetry']
+        self.pkg_name = poetry_config['name']
         if '-' in self.pkg_name:
             raise RuntimeError(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}')
 
