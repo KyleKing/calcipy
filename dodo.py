@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from dash_dev.doit_base import DIG, task_export_req  # noqa: F401
+from dash_dev.doit_base import DIG, task_watchcode, task_export_req  # noqa: F401
 from dash_dev.doit_doc import (task_create_tag, task_document,  # noqa: F401
                                task_open_docs, task_remove_tag, task_update_cl)
 from dash_dev.doit_lint import (task_auto_format, task_lint_pre_commit,  # noqa: F401

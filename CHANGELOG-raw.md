@@ -5,6 +5,8 @@
 
 ### New
 
+* Flake8-ann & drop pur. [Kyle King]
+
 * Show README contents in __init__ [Kyle King]
 
 * Dump isort & flake8 settings in source path. [Kyle King]
@@ -24,6 +26,10 @@
 * Initialize poetry project. [Kyle King]
 
 ### Changes
+
+* Add WIP type checker configs. [Kyle King]
+
+* Drop dash dependency. [Kyle King]
 
 * Remove unused packages. [Kyle King]
 

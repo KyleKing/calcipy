@@ -72,9 +72,12 @@ padding: 0 5px;
 import shutil
 import webbrowser
 from pathlib import Path
+from typing import Any, Optional, Sequence
 
+import attr
 import toml
-from doit.tools import LongRunning
+from doit.tools import Interactive
+from ruamel.yaml import YAML
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
@@ -87,13 +90,13 @@ from doit.tools import LongRunning
 class DoItGlobals:
     &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
 
-    dash_dev_dir = Path(__file__).parent
+    dash_dev_dir: Path = Path(__file__).parent
     &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
 
-    flake8_path = None
+    flake8_path: Optional[Path] = None
     &#34;&#34;&#34;Path to flake8 file. Set in `set_paths()` based on source_path &#34;&#34;&#34;
 
-    path_gitchangelog = dash_dev_dir / &#39;.gitchangelog.rc&#39;
+    path_gitchangelog: Path = dash_dev_dir / &#39;.gitchangelog.rc&#39;
     &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
 
     lint_paths = []
@@ -109,34 +112,35 @@ class DoItGlobals:
 
     &#34;&#34;&#34;
 
-    source_path = None
+    source_path: Optional[Path] = None
     &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
 
-    test_path = None
+    test_path: Optional[Path] = None
     &#34;&#34;&#34;Current directory for tests directory. Resolved as &#39;`source_path`/tests&#39; in `set_paths`.&#34;&#34;&#34;
 
-    toml_path = None
+    toml_path: Optional[Path] = None
     &#34;&#34;&#34;Path to `pyproject.toml` file for working project. Set in `set_paths`.&#34;&#34;&#34;
 
-    pkg_name = None
+    pkg_name: Optional[str] = None
     &#34;&#34;&#34;Name of the current package based on the poetry configuration file. Set in `set_paths`.&#34;&#34;&#34;
 
-    doc_dir = None
+    doc_dir: Optional[Path] = None
     &#34;&#34;&#34;Path to documentation directory for working project. Set in `set_paths`.&#34;&#34;&#34;
 
-    coverage_path = None
+    coverage_path: Optional[Path] = None
     &#34;&#34;&#34;Path to the coverage index.html file. Set in `set_paths`.&#34;&#34;&#34;
 
-    test_report_path = None
+    test_report_path: Optional[Path] = None
     &#34;&#34;&#34;Path to the test report file. Set in `set_paths`.&#34;&#34;&#34;
 
-    src_examples_dir = None
+    src_examples_dir: Optional[Path] = None
     &#34;&#34;&#34;Path to example code directory for working project. Set in `set_paths`.&#34;&#34;&#34;
 
-    tmp_examples_dir = None
+    tmp_examples_dir: Optional[Path] = None
     &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
 
-    def set_paths(self, *, pkg_name=None, source_path=None, doc_dir=None):
+    def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
+                  doc_dir: Optional[Path] = None):
         &#34;&#34;&#34;Set data members based on working directory.
 
         Args:
@@ -228,7 +232,7 @@ def show_cmd(task):
     return f&#39;{task.name} &gt; [{actions}\n]\n&#39;
 
 
-def debug_action(actions, verbosity=2):
+def debug_action(actions: Sequence[Any], verbosity: int = 2):
     &#34;&#34;&#34;Enable verbose logging for the specified actions.
 
     Args:
@@ -293,18 +297,92 @@ def if_found_unlink(file_path):
 # &gt; PLANNED: Development
 
 
-def task_watchcode():
-    &#34;&#34;&#34;Return DoIt LongRunning `watchcode` task. Will run the local `.watchcode.yaml`.
+WATCHCODE_TEMPLATE: dict = {
+    &#39;filesets&#39;: {
+        &#39;default&#39;: {
+            &#39;include&#39;: [&#39;.watchcode.yaml&#39;],
+            &#39;exclude&#39;: [&#39;.watchcode.log&#39;, &#39;*.pyc&#39;, &#39;__pycache__&#39;],
+            &#39;exclude_gitignore&#39;: True,
+            &#39;match_mode&#39;: &#39;gitlike&#39;,
+        },
+    },
+    &#39;tasks&#39;: {
+        &#39;default&#39;: {
+            &#39;commands&#39;: [],
+            &#39;fileset&#39;: &#39;default&#39;,
+            &#39;queue_events&#39;: False,
+            &#39;clear_screen&#39;: True,
+        },
+    },
+    &#39;notifications&#39;: False,
+    &#39;sound&#39;: False,
+    &#39;log&#39;: False,
+    &#39;default_task&#39;: &#39;default&#39;,
+}
+&#34;&#34;&#34;Template dictionary with WatchCode defaults.&#34;&#34;&#34;
+
+
+@attr.s(auto_attribs=True, kw_only=True)
+class WatchCodeYAML:  # noqa: H601
+    &#34;&#34;&#34;Watchcode YAML file.&#34;&#34;&#34;
+
+    commands: Sequence[str]
+    include: Sequence[str]
+    exclude: Sequence[str] = ()
+    dict_watchcode: dict = WATCHCODE_TEMPLATE
+    path_wc: Optional[Path] = None
+
+    def __attrs_post_init__(self) -&gt; None:
+        &#34;&#34;&#34;Called after initialization.&#34;&#34;&#34;
+        self.merge_settings()
+
+    def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -&gt; None:
+        &#34;&#34;&#34;Merged nested settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+        values = self.dict_watchcode[key][name][sub_key]
+        values.extend(value)
+        self.dict_watchcode[key][name][sub_key] = [*set(values)]
+
+    def merge_settings(self) -&gt; None:
+        &#34;&#34;&#34;Merged all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+        for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
+            self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
+        self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)
+
+    def write(self) -&gt; None:
+        &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
+        yaml = YAML()
+        if self.path_wc is None:
+            self.path_wc = DIG.source_path
+        yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)
+
+
+def task_watchcode() -&gt; dict:
+    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
+
+    Example: `doit run watchcode -p scripts/main.py`
 
     Returns:
         dict: DoIt task
 
     &#34;&#34;&#34;
-    return {
-        &#39;actions&#39;: [LongRunning(&#39;poetry run watchcode&#39;)],
-        &#39;verbosity&#39;: 2,
-    }
+    def create_yaml(py_path: str) -&gt; None:
+        &#34;&#34;&#34;Create the YAML file.&#34;&#34;&#34;
+        wc_yaml = WatchCodeYAML(
+            commands=[f&#39;poetry run python {py_path}&#39;],
+            include=[py_path],
+        )
+        wc_yaml.write()
 
+    action = debug_action([
+        (create_yaml, ),
+        Interactive(&#39;poetry run watchcode&#39;),
+    ])
+    action[&#39;params&#39;] = [{
+        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
+        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
+                 &#39;https://github.com/bluenote10/watchcode&#39;),
+    }]
+    return action
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Requirements
@@ -318,33 +396,7 @@ def task_export_req():
 
     &#34;&#34;&#34;
     req_path = DIG.toml_path.parent / &#39;requirements.txt&#39;
-    return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])
-
-
-def dump_pur_results(pur_path):
-    &#34;&#34;&#34;Write the contents of the `pur` output file to STDOUT with icecream.
-
-    Args:
-        pur_path: Path to the pur output text file
-
-    &#34;&#34;&#34;
-    print(pur_path.read_text())  # noqa: T001
-
-
-def task_check_req():
-    &#34;&#34;&#34;Use pur to check for the latest versions of available packages.
-
-    Returns:
-        dict: DoIt task
-
-    &#34;&#34;&#34;
-    req_path = DIG.toml_path.parent / &#39;requirements.txt&#39;
-    pur_path = DIG.toml_path.parent / &#39;tmp.txt&#39;
-    return debug_action([
-        f&#39;poetry run pur -r &#34;{req_path}&#34; &gt; &#34;{pur_path}&#34;&#39;,
-        (dump_pur_results, (pur_path, )),
-        (Path(pur_path).unlink, ),
-    ])</code></pre>
+    return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
 </details>
 </section>
 <section>
@@ -356,13 +408,17 @@ def task_check_req():
 <dd>
 <div class="desc"><p>Global DoIt Globals class used to manage global variables.</p></div>
 </dd>
+<dt id="dash_dev.doit_base.WATCHCODE_TEMPLATE"><code class="name">var <span class="ident">WATCHCODE_TEMPLATE</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>Template dictionary with WatchCode defaults.</p></div>
+</dd>
 </dl>
 </section>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="dash_dev.doit_base.debug_action"><code class="name flex">
-<span>def <span class="ident">debug_action</span></span>(<span>actions, verbosity=2)</span>
+<span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Enable verbose logging for the specified actions.</p>
@@ -382,7 +438,7 @@ def task_check_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def debug_action(actions, verbosity=2):
+<pre><code class="python">def debug_action(actions: Sequence[Any], verbosity: int = 2):
     &#34;&#34;&#34;Enable verbose logging for the specified actions.
 
     Args:
@@ -424,30 +480,6 @@ def task_check_req():
     if dir_path.is_dir():
         shutil.rmtree(dir_path)
     return  # Indicates that action completed when called from DoIt task</code></pre>
-</details>
-</dd>
-<dt id="dash_dev.doit_base.dump_pur_results"><code class="name flex">
-<span>def <span class="ident">dump_pur_results</span></span>(<span>pur_path)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Write the contents of the <code>pur</code> output file to STDOUT with icecream.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>pur_path</code></strong></dt>
-<dd>Path to the pur output text file</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def dump_pur_results(pur_path):
-    &#34;&#34;&#34;Write the contents of the `pur` output file to STDOUT with icecream.
-
-    Args:
-        pur_path: Path to the pur output text file
-
-    &#34;&#34;&#34;
-    print(pur_path.read_text())  # noqa: T001</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_base.echo"><code class="name flex">
@@ -581,36 +613,6 @@ def task_check_req():
     return f&#39;{task.name} &gt; [{actions}\n]\n&#39;</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.task_check_req"><code class="name flex">
-<span>def <span class="ident">task_check_req</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Use pur to check for the latest versions of available packages.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>dict</code></dt>
-<dd>DoIt task</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def task_check_req():
-    &#34;&#34;&#34;Use pur to check for the latest versions of available packages.
-
-    Returns:
-        dict: DoIt task
-
-    &#34;&#34;&#34;
-    req_path = DIG.toml_path.parent / &#39;requirements.txt&#39;
-    pur_path = DIG.toml_path.parent / &#39;tmp.txt&#39;
-    return debug_action([
-        f&#39;poetry run pur -r &#34;{req_path}&#34; &gt; &#34;{pur_path}&#34;&#39;,
-        (dump_pur_results, (pur_path, )),
-        (Path(pur_path).unlink, ),
-    ])</code></pre>
-</details>
-</dd>
 <dt id="dash_dev.doit_base.task_export_req"><code class="name flex">
 <span>def <span class="ident">task_export_req</span></span>(<span>)</span>
 </code></dt>
@@ -637,10 +639,11 @@ def task_check_req():
 </details>
 </dd>
 <dt id="dash_dev.doit_base.task_watchcode"><code class="name flex">
-<span>def <span class="ident">task_watchcode</span></span>(<span>)</span>
+<span>def <span class="ident">task_watchcode</span></span>(<span>) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return DoIt LongRunning <code>watchcode</code> task. Will run the local <code>.watchcode.yaml</code>.</p>
+<div class="desc"><p>Return Interactive <code>watchcode</code> task for specified file.</p>
+<p>Example: <code>doit run watchcode -p scripts/main.py</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>dict</code></dt>
@@ -650,17 +653,33 @@ def task_check_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_watchcode():
-    &#34;&#34;&#34;Return DoIt LongRunning `watchcode` task. Will run the local `.watchcode.yaml`.
+<pre><code class="python">def task_watchcode() -&gt; dict:
+    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
+
+    Example: `doit run watchcode -p scripts/main.py`
 
     Returns:
         dict: DoIt task
 
     &#34;&#34;&#34;
-    return {
-        &#39;actions&#39;: [LongRunning(&#39;poetry run watchcode&#39;)],
-        &#39;verbosity&#39;: 2,
-    }</code></pre>
+    def create_yaml(py_path: str) -&gt; None:
+        &#34;&#34;&#34;Create the YAML file.&#34;&#34;&#34;
+        wc_yaml = WatchCodeYAML(
+            commands=[f&#39;poetry run python {py_path}&#39;],
+            include=[py_path],
+        )
+        wc_yaml.write()
+
+    action = debug_action([
+        (create_yaml, ),
+        Interactive(&#39;poetry run watchcode&#39;),
+    ])
+    action[&#39;params&#39;] = [{
+        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
+        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
+                 &#39;https://github.com/bluenote10/watchcode&#39;),
+    }]
+    return action</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_base.write_text"><code class="name flex">
@@ -708,13 +727,13 @@ def task_check_req():
 <pre><code class="python">class DoItGlobals:
     &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
 
-    dash_dev_dir = Path(__file__).parent
+    dash_dev_dir: Path = Path(__file__).parent
     &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
 
-    flake8_path = None
+    flake8_path: Optional[Path] = None
     &#34;&#34;&#34;Path to flake8 file. Set in `set_paths()` based on source_path &#34;&#34;&#34;
 
-    path_gitchangelog = dash_dev_dir / &#39;.gitchangelog.rc&#39;
+    path_gitchangelog: Path = dash_dev_dir / &#39;.gitchangelog.rc&#39;
     &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
 
     lint_paths = []
@@ -730,34 +749,35 @@ def task_check_req():
 
     &#34;&#34;&#34;
 
-    source_path = None
+    source_path: Optional[Path] = None
     &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
 
-    test_path = None
+    test_path: Optional[Path] = None
     &#34;&#34;&#34;Current directory for tests directory. Resolved as &#39;`source_path`/tests&#39; in `set_paths`.&#34;&#34;&#34;
 
-    toml_path = None
+    toml_path: Optional[Path] = None
     &#34;&#34;&#34;Path to `pyproject.toml` file for working project. Set in `set_paths`.&#34;&#34;&#34;
 
-    pkg_name = None
+    pkg_name: Optional[str] = None
     &#34;&#34;&#34;Name of the current package based on the poetry configuration file. Set in `set_paths`.&#34;&#34;&#34;
 
-    doc_dir = None
+    doc_dir: Optional[Path] = None
     &#34;&#34;&#34;Path to documentation directory for working project. Set in `set_paths`.&#34;&#34;&#34;
 
-    coverage_path = None
+    coverage_path: Optional[Path] = None
     &#34;&#34;&#34;Path to the coverage index.html file. Set in `set_paths`.&#34;&#34;&#34;
 
-    test_report_path = None
+    test_report_path: Optional[Path] = None
     &#34;&#34;&#34;Path to the test report file. Set in `set_paths`.&#34;&#34;&#34;
 
-    src_examples_dir = None
+    src_examples_dir: Optional[Path] = None
     &#34;&#34;&#34;Path to example code directory for working project. Set in `set_paths`.&#34;&#34;&#34;
 
-    tmp_examples_dir = None
+    tmp_examples_dir: Optional[Path] = None
     &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
 
-    def set_paths(self, *, pkg_name=None, source_path=None, doc_dir=None):
+    def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
+                  doc_dir: Optional[Path] = None):
         &#34;&#34;&#34;Set data members based on working directory.
 
         Args:
@@ -802,15 +822,15 @@ def task_check_req():
 </details>
 <h3>Class variables</h3>
 <dl>
-<dt id="dash_dev.doit_base.DoItGlobals.coverage_path"><code class="name">var <span class="ident">coverage_path</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.coverage_path"><code class="name">var <span class="ident">coverage_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to the coverage index.html file. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.dash_dev_dir"><code class="name">var <span class="ident">dash_dev_dir</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.dash_dev_dir"><code class="name">var <span class="ident">dash_dev_dir</span> : pathlib.Path</code></dt>
 <dd>
 <div class="desc"><p>The dash_dev directory (may be within <code>.venv</code>).</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.doc_dir"><code class="name">var <span class="ident">doc_dir</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.doc_dir"><code class="name">var <span class="ident">doc_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to documentation directory for working project. Set in <code>set_paths</code>.</p></div>
 </dd>
@@ -823,7 +843,7 @@ def task_check_req():
 <div class="desc"><p>List of subdir names relative to <code>source_path</code> containing Python code that should be in the documentation.</p>
 <p>Note: for nested directories, combine subdirectires into a single string, ex: <code>('examples', 'examples/sub_dir')</code></p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to flake8 file. Set in <code>set_paths()</code> based on source_path</p></div>
 </dd>
@@ -831,35 +851,35 @@ def task_check_req():
 <dd>
 <div class="desc"><p>Current directory for source code (working project). Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.path_gitchangelog"><code class="name">var <span class="ident">path_gitchangelog</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.path_gitchangelog"><code class="name">var <span class="ident">path_gitchangelog</span> : pathlib.Path</code></dt>
 <dd>
 <div class="desc"><p>Path to isort file. Default is for the isort file from dash_dev.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.pkg_name"><code class="name">var <span class="ident">pkg_name</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.pkg_name"><code class="name">var <span class="ident">pkg_name</span> : Union[str, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Name of the current package based on the poetry configuration file. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.source_path"><code class="name">var <span class="ident">source_path</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.source_path"><code class="name">var <span class="ident">source_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Current directory for source code (working project). Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.src_examples_dir"><code class="name">var <span class="ident">src_examples_dir</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.src_examples_dir"><code class="name">var <span class="ident">src_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to example code directory for working project. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.test_path"><code class="name">var <span class="ident">test_path</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.test_path"><code class="name">var <span class="ident">test_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Current directory for tests directory. Resolved as '<code>source_path</code>/tests' in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.test_report_path"><code class="name">var <span class="ident">test_report_path</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.test_report_path"><code class="name">var <span class="ident">test_report_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to the test report file. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.tmp_examples_dir"><code class="name">var <span class="ident">tmp_examples_dir</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.tmp_examples_dir"><code class="name">var <span class="ident">tmp_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to temporary directory to move examples while creating documentation. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.toml_path"><code class="name">var <span class="ident">toml_path</span></code></dt>
+<dt id="dash_dev.doit_base.DoItGlobals.toml_path"><code class="name">var <span class="ident">toml_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to <code>pyproject.toml</code> file for working project. Set in <code>set_paths</code>.</p></div>
 </dd>
@@ -867,7 +887,7 @@ def task_check_req():
 <h3>Methods</h3>
 <dl>
 <dt id="dash_dev.doit_base.DoItGlobals.set_paths"><code class="name flex">
-<span>def <span class="ident">set_paths</span></span>(<span>self, *, pkg_name=None, source_path=None, doc_dir=None)</span>
+<span>def <span class="ident">set_paths</span></span>(<span>self, *, pkg_name: Union[str, NoneType] = None, source_path: Union[pathlib.Path, NoneType] = None, doc_dir: Union[pathlib.Path, NoneType] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Set data members based on working directory.</p>
@@ -889,7 +909,8 @@ def task_check_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set_paths(self, *, pkg_name=None, source_path=None, doc_dir=None):
+<pre><code class="python">def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
+              doc_dir: Optional[Path] = None):
     &#34;&#34;&#34;Set data members based on working directory.
 
     Args:
@@ -931,6 +952,109 @@ def task_check_req():
     self.lint_paths = [self.source_path / subdir for subdir in subdirs]
     self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
     self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="dash_dev.doit_base.WatchCodeYAML"><code class="flex name class">
+<span>class <span class="ident">WatchCodeYAML</span></span>
+<span>(</span><span>*, commands: Sequence[str], include: Sequence[str], exclude: Sequence[str] = (), dict_watchcode: dict = {'filesets': {'default': {'include': ['.watchcode.yaml'], 'exclude': ['.watchcode.log', '*.pyc', '__pycache__'], 'exclude_gitignore': True, 'match_mode': 'gitlike'}}, 'tasks': {'default': {'commands': [], 'fileset': 'default', 'queue_events': False, 'clear_screen': True}}, 'notifications': False, 'sound': False, 'log': False, 'default_task': 'default'}, path_wc: Union[pathlib.Path, NoneType] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Watchcode YAML file.</p>
+<p>Method generated by attrs for class WatchCodeYAML.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class WatchCodeYAML:  # noqa: H601
+    &#34;&#34;&#34;Watchcode YAML file.&#34;&#34;&#34;
+
+    commands: Sequence[str]
+    include: Sequence[str]
+    exclude: Sequence[str] = ()
+    dict_watchcode: dict = WATCHCODE_TEMPLATE
+    path_wc: Optional[Path] = None
+
+    def __attrs_post_init__(self) -&gt; None:
+        &#34;&#34;&#34;Called after initialization.&#34;&#34;&#34;
+        self.merge_settings()
+
+    def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -&gt; None:
+        &#34;&#34;&#34;Merged nested settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+        values = self.dict_watchcode[key][name][sub_key]
+        values.extend(value)
+        self.dict_watchcode[key][name][sub_key] = [*set(values)]
+
+    def merge_settings(self) -&gt; None:
+        &#34;&#34;&#34;Merged all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+        for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
+            self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
+        self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)
+
+    def write(self) -&gt; None:
+        &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
+        yaml = YAML()
+        if self.path_wc is None:
+            self.path_wc = DIG.source_path
+        yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="dash_dev.doit_base.WatchCodeYAML.commands"><code class="name">var <span class="ident">commands</span> : Sequence[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dash_dev.doit_base.WatchCodeYAML.dict_watchcode"><code class="name">var <span class="ident">dict_watchcode</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dash_dev.doit_base.WatchCodeYAML.exclude"><code class="name">var <span class="ident">exclude</span> : Sequence[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dash_dev.doit_base.WatchCodeYAML.include"><code class="name">var <span class="ident">include</span> : Sequence[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="dash_dev.doit_base.WatchCodeYAML.path_wc"><code class="name">var <span class="ident">path_wc</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="dash_dev.doit_base.WatchCodeYAML.merge_settings"><code class="name flex">
+<span>def <span class="ident">merge_settings</span></span>(<span>self) ‑> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Merged all user-specified settings in the WatchCode YAML dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_settings(self) -&gt; None:
+    &#34;&#34;&#34;Merged all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+    for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
+        self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
+    self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.WatchCodeYAML.write"><code class="name flex">
+<span>def <span class="ident">write</span></span>(<span>self) ‑> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Write the WatchCode YAML file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write(self) -&gt; None:
+    &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
+    yaml = YAML()
+    if self.path_wc is None:
+        self.path_wc = DIG.source_path
+    yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)</code></pre>
 </details>
 </dd>
 </dl>
@@ -998,19 +1122,18 @@ setTimeout(() => input.focus(), 100);
 <li><h3><a href="#header-variables">Global variables</a></h3>
 <ul class="">
 <li><code><a title="dash_dev.doit_base.DIG" href="#dash_dev.doit_base.DIG">DIG</a></code></li>
+<li><code><a title="dash_dev.doit_base.WATCHCODE_TEMPLATE" href="#dash_dev.doit_base.WATCHCODE_TEMPLATE">WATCHCODE_TEMPLATE</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
 <li><code><a title="dash_dev.doit_base.debug_action" href="#dash_dev.doit_base.debug_action">debug_action</a></code></li>
 <li><code><a title="dash_dev.doit_base.delete_dir" href="#dash_dev.doit_base.delete_dir">delete_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.dump_pur_results" href="#dash_dev.doit_base.dump_pur_results">dump_pur_results</a></code></li>
 <li><code><a title="dash_dev.doit_base.echo" href="#dash_dev.doit_base.echo">echo</a></code></li>
 <li><code><a title="dash_dev.doit_base.ensure_dir" href="#dash_dev.doit_base.ensure_dir">ensure_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.if_found_unlink" href="#dash_dev.doit_base.if_found_unlink">if_found_unlink</a></code></li>
 <li><code><a title="dash_dev.doit_base.open_in_browser" href="#dash_dev.doit_base.open_in_browser">open_in_browser</a></code></li>
 <li><code><a title="dash_dev.doit_base.show_cmd" href="#dash_dev.doit_base.show_cmd">show_cmd</a></code></li>
-<li><code><a title="dash_dev.doit_base.task_check_req" href="#dash_dev.doit_base.task_check_req">task_check_req</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_export_req" href="#dash_dev.doit_base.task_export_req">task_export_req</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_watchcode" href="#dash_dev.doit_base.task_watchcode">task_watchcode</a></code></li>
 <li><code><a title="dash_dev.doit_base.write_text" href="#dash_dev.doit_base.write_text">write_text</a></code></li>
@@ -1037,6 +1160,18 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_base.DoItGlobals.test_report_path" href="#dash_dev.doit_base.DoItGlobals.test_report_path">test_report_path</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.tmp_examples_dir" href="#dash_dev.doit_base.DoItGlobals.tmp_examples_dir">tmp_examples_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.toml_path" href="#dash_dev.doit_base.DoItGlobals.toml_path">toml_path</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dash_dev.doit_base.WatchCodeYAML" href="#dash_dev.doit_base.WatchCodeYAML">WatchCodeYAML</a></code></h4>
+<ul class="two-column">
+<li><code><a title="dash_dev.doit_base.WatchCodeYAML.commands" href="#dash_dev.doit_base.WatchCodeYAML.commands">commands</a></code></li>
+<li><code><a title="dash_dev.doit_base.WatchCodeYAML.dict_watchcode" href="#dash_dev.doit_base.WatchCodeYAML.dict_watchcode">dict_watchcode</a></code></li>
+<li><code><a title="dash_dev.doit_base.WatchCodeYAML.exclude" href="#dash_dev.doit_base.WatchCodeYAML.exclude">exclude</a></code></li>
+<li><code><a title="dash_dev.doit_base.WatchCodeYAML.include" href="#dash_dev.doit_base.WatchCodeYAML.include">include</a></code></li>
+<li><code><a title="dash_dev.doit_base.WatchCodeYAML.merge_settings" href="#dash_dev.doit_base.WatchCodeYAML.merge_settings">merge_settings</a></code></li>
+<li><code><a title="dash_dev.doit_base.WatchCodeYAML.path_wc" href="#dash_dev.doit_base.WatchCodeYAML.path_wc">path_wc</a></code></li>
+<li><code><a title="dash_dev.doit_base.WatchCodeYAML.write" href="#dash_dev.doit_base.WatchCodeYAML.write">write</a></code></li>
 </ul>
 </li>
 </ul>

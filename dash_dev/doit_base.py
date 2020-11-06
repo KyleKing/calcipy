@@ -3,9 +3,12 @@
 import shutil
 import webbrowser
 from pathlib import Path
+from typing import Any, Optional, Sequence
 
+import attr
 import toml
-from doit.tools import LongRunning
+from doit.tools import Interactive
+from ruamel.yaml import YAML
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
@@ -18,13 +21,13 @@ from doit.tools import LongRunning
 class DoItGlobals:
     """Global Variables for DoIt."""
 
-    dash_dev_dir = Path(__file__).parent
+    dash_dev_dir: Path = Path(__file__).parent
     """The dash_dev directory (may be within `.venv`)."""
 
-    flake8_path = None
+    flake8_path: Optional[Path] = None
     """Path to flake8 file. Set in `set_paths()` based on source_path """
 
-    path_gitchangelog = dash_dev_dir / '.gitchangelog.rc'
+    path_gitchangelog: Path = dash_dev_dir / '.gitchangelog.rc'
     """Path to isort file. Default is for the isort file from dash_dev."""
 
     lint_paths = []
@@ -40,34 +43,35 @@ class DoItGlobals:
 
     """
 
-    source_path = None
+    source_path: Optional[Path] = None
     """Current directory for source code (working project). Set in `set_paths`."""
 
-    test_path = None
+    test_path: Optional[Path] = None
     """Current directory for tests directory. Resolved as '`source_path`/tests' in `set_paths`."""
 
-    toml_path = None
+    toml_path: Optional[Path] = None
     """Path to `pyproject.toml` file for working project. Set in `set_paths`."""
 
-    pkg_name = None
+    pkg_name: Optional[str] = None
     """Name of the current package based on the poetry configuration file. Set in `set_paths`."""
 
-    doc_dir = None
+    doc_dir: Optional[Path] = None
     """Path to documentation directory for working project. Set in `set_paths`."""
 
-    coverage_path = None
+    coverage_path: Optional[Path] = None
     """Path to the coverage index.html file. Set in `set_paths`."""
 
-    test_report_path = None
+    test_report_path: Optional[Path] = None
     """Path to the test report file. Set in `set_paths`."""
 
-    src_examples_dir = None
+    src_examples_dir: Optional[Path] = None
     """Path to example code directory for working project. Set in `set_paths`."""
 
-    tmp_examples_dir = None
+    tmp_examples_dir: Optional[Path] = None
     """Path to temporary directory to move examples while creating documentation. Set in `set_paths`."""
 
-    def set_paths(self, *, pkg_name=None, source_path=None, doc_dir=None):
+    def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
+                  doc_dir: Optional[Path] = None):
         """Set data members based on working directory.
 
         Args:
@@ -159,7 +163,7 @@ def show_cmd(task):
     return f'{task.name} > [{actions}\n]\n'
 
 
-def debug_action(actions, verbosity=2):
+def debug_action(actions: Sequence[Any], verbosity: int = 2):
     """Enable verbose logging for the specified actions.
 
     Args:
@@ -224,18 +228,92 @@ def if_found_unlink(file_path):
 # > PLANNED: Development
 
 
-def task_watchcode():
-    """Return DoIt LongRunning `watchcode` task. Will run the local `.watchcode.yaml`.
+WATCHCODE_TEMPLATE: dict = {
+    'filesets': {
+        'default': {
+            'include': ['.watchcode.yaml'],
+            'exclude': ['.watchcode.log', '*.pyc', '__pycache__'],
+            'exclude_gitignore': True,
+            'match_mode': 'gitlike',
+        },
+    },
+    'tasks': {
+        'default': {
+            'commands': [],
+            'fileset': 'default',
+            'queue_events': False,
+            'clear_screen': True,
+        },
+    },
+    'notifications': False,
+    'sound': False,
+    'log': False,
+    'default_task': 'default',
+}
+"""Template dictionary with WatchCode defaults."""
+
+
+@attr.s(auto_attribs=True, kw_only=True)
+class WatchCodeYAML:  # noqa: H601
+    """Watchcode YAML file."""
+
+    commands: Sequence[str]
+    include: Sequence[str]
+    exclude: Sequence[str] = ()
+    dict_watchcode: dict = WATCHCODE_TEMPLATE
+    path_wc: Optional[Path] = None
+
+    def __attrs_post_init__(self) -> None:
+        """Called after initialization."""
+        self.merge_settings()
+
+    def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -> None:
+        """Merged nested settings in the WatchCode YAML dictionary."""
+        values = self.dict_watchcode[key][name][sub_key]
+        values.extend(value)
+        self.dict_watchcode[key][name][sub_key] = [*set(values)]
+
+    def merge_settings(self) -> None:
+        """Merged all user-specified settings in the WatchCode YAML dictionary."""
+        for file_key in ['include', 'exclude']:
+            self._merge_nested_setting('filesets', 'default', file_key, getattr(self, file_key))
+        self._merge_nested_setting('tasks', 'default', 'commands', self.commands)
+
+    def write(self) -> None:
+        """Write the WatchCode YAML file."""
+        yaml = YAML()
+        if self.path_wc is None:
+            self.path_wc = DIG.source_path
+        yaml.dump(self.dict_watchcode, self.path_wc / '.watchcode.yaml')
+
+
+def task_watchcode() -> dict:
+    """Return Interactive `watchcode` task for specified file.
+
+    Example: `doit run watchcode -p scripts/main.py`
 
     Returns:
         dict: DoIt task
 
     """
-    return {
-        'actions': [LongRunning('poetry run watchcode')],
-        'verbosity': 2,
-    }
+    def create_yaml(py_path: str) -> None:
+        """Create the YAML file."""
+        wc_yaml = WatchCodeYAML(
+            commands=[f'poetry run python {py_path}'],
+            include=[py_path],
+        )
+        wc_yaml.write()
 
+    action = debug_action([
+        (create_yaml, ),
+        Interactive('poetry run watchcode'),
+    ])
+    action['params'] = [{
+        'name': 'py_path', 'short': 'p', 'long': 'py_path', 'default': '',
+        'help': ('Python file to re-run on changes\nSee: '
+                 'https://github.com/bluenote10/watchcode'),
+    }]
+    return action
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Requirements

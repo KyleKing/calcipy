@@ -32,13 +32,13 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 2 | 0 | 0 | 100.0% |
-| `dash_dev/conftest.py` | 19 | 3 | 0 | 84.2% |
-| `dash_dev/doit_base.py` | 80 | 11 | 0 | 86.2% |
+| `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
+| `dash_dev/doit_base.py` | 105 | 26 | 0 | 75.2% |
 | `dash_dev/doit_doc.py` | 101 | 64 | 0 | 36.6% |
 | `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-10-28T22:32:40.870037
+Generated on: 2020-11-05T21:51:04.872739
 
 <!-- /COVERAGE -->
 """  # noqa

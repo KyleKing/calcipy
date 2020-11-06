@@ -148,6 +148,8 @@ dmypy.json
 ~*.*
 ~$*
 
+.watchcode.yaml
+
 # SQLite DB files (Note: use *.dvc to check these into git)
 *.db
 *.sqlite
