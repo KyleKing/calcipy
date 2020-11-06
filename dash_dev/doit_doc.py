@@ -52,7 +52,8 @@ def write_readme_to_init():
     """Write the README contents to the package `__init__.py` file."""
     readme = (DIG.source_path / 'README.md').read_text().replace('"', r'\"')  # Escape quotes
     init_text = (f'"""\n{readme}"""  # noqa\n\n# Generated with DoIt. Do not modify\n\n'
-                 f"__version__ = '{DIG.pkg_version}'\n__pkg_name__ = '{DIG.pkg_name}'\n")
+                 f"__version__ = '{DIG.pkg_version}'\n__pkg_name__ = '{DIG.pkg_name}'\n"
+                 '\nfrom loguru import logger\n\nlogger.disable(__pkg_name__)\n')
     init_path = (DIG.source_path / DIG.pkg_name / '__init__.py')
     init_path.write_text(init_text.replace('\t', ' ' * 4))
 

@@ -8,6 +8,7 @@ from typing import Any, Optional, Sequence
 import attr
 import toml
 from doit.tools import Interactive
+from loguru import logger
 from ruamel.yaml import YAML
 
 # TODO: Show dodo.py in the documentation
@@ -113,6 +114,8 @@ class DoItGlobals:
         self.lint_paths = [self.source_path / subdir for subdir in subdirs]
         self.lint_paths.extend([self.test_path] + [*self.source_path.glob('*.py')])
         self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
+
+        logger.warning('Completed DIG initialization, but this needs to be decomposed.')
 
 
 DIG = DoItGlobals()

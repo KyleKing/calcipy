@@ -5,6 +5,8 @@
 
 ### New
 
+* Add watchcode task for arbitrary files. [Kyle King]
+
 * Flake8-ann & drop pur. [Kyle King]
 
 * Show README contents in __init__ [Kyle King]

@@ -24,7 +24,7 @@ documentation = "https://kyleking.me/dash_dev/"
 "Bug Tracker" = "https://github.com/kyleking/dash_dev/issues"
 
 [tool.poetry.dependencies]
-python = "^3.7, <3.9"
+python = "^3.8, <3.9"
 "ruamel.yaml" = "^0.16"
 attrs = "*"
 autopep8 = "*"
@@ -86,7 +86,7 @@ radon = "*"
 toml = "*"
 tqdm = "*"
 transitions = "*"
-watchcode = {git = "https://github.com/bluenote10/watchcode.git"}
+loguru = "^0.5.3"
 
 [tool.poetry.dev-dependencies]
 add-trailing-comma = "*"
@@ -102,3 +102,6 @@ pytype = "^2020.10"
 pyupgrade = "*"
 typeguard = "^2.10"
 vulture = "*"
+
+[tool.poetry.dependencies.watchcode]
+git = "https://github.com/bluenote10/watchcode.git"

@@ -47,3 +47,7 @@ Generated on: 2020-11-05T21:51:04.872739
 
 __version__ = '0.0.1'
 __pkg_name__ = 'dash_dev'
+
+from loguru import logger
+
+logger.disable(__pkg_name__)
