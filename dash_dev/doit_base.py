@@ -250,29 +250,3 @@ def task_export_req():
     """
     req_path = DIG.toml_path.parent / 'requirements.txt'
     return debug_action([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])
-
-
-def dump_pur_results(pur_path):
-    """Write the contents of the `pur` output file to STDOUT with icecream.
-
-    Args:
-        pur_path: Path to the pur output text file
-
-    """
-    print(pur_path.read_text())  # noqa: T001
-
-
-def task_check_req():
-    """Use pur to check for the latest versions of available packages.
-
-    Returns:
-        dict: DoIt task
-
-    """
-    req_path = DIG.toml_path.parent / 'requirements.txt'
-    pur_path = DIG.toml_path.parent / 'tmp.txt'
-    return debug_action([
-        f'poetry run pur -r "{req_path}" > "{pur_path}"',
-        (dump_pur_results, (pur_path, )),
-        (Path(pur_path).unlink, ),
-    ])

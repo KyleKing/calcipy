@@ -93,13 +93,3 @@ def test_task_export_req():
     result = doit_base.task_export_req()
 
     assert result['actions'][0].startswith('poetry export -f requirements.txt')
-
-
-def test_task_check_req():
-    """Test task_check_req."""
-    DIG.set_paths(source_path=DIG_CWD)
-
-    result = doit_base.task_check_req()
-
-    assert result['actions'][0].startswith('poetry run pur')
-    assert len(result['actions']) == 3

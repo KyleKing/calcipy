@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from dash_dev.doit_base import DIG, task_check_req, task_export_req  # noqa: F401
+from dash_dev.doit_base import DIG, task_export_req  # noqa: F401
 from dash_dev.doit_doc import (task_create_tag, task_document,  # noqa: F401
                                task_open_docs, task_remove_tag, task_update_cl)
 from dash_dev.doit_lint import (task_auto_format, task_lint_pre_commit,  # noqa: F401
@@ -12,22 +12,35 @@ from dash_dev.doit_test import (task_coverage, task_open_test_docs, task_ptw_cur
                                 task_test_all, task_test_keyword, task_test_marker)
 
 # Configure Dash paths
-DIG.set_paths(source_path=Path(__file__).parent.resolve())
+DIG.set_paths(source_path=Path(__file__).resolve().parent)
 
-# Create list of all tasks run with `poetry run doit`
+# Create list of all tasks run with `poetry run doit`. Comment on/off as needed
 DOIT_CONFIG = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'export_req', 'check_req', 'update_cl',  # Comment on/off as needed
-        'set_lint_config',  # Comment on/off as needed
-        'auto_format',  # Comment on/off as needed
-        # 'lint_pre_commit',  # Comment on/off as needed
-        'coverage',  # Comment on/off as needed
-        # 'open_test_docs',  # Comment on/off as needed
-        'document',  # Comment on/off as needed
-        # 'open_docs',  # Comment on/off as needed
+        'export_req', 'update_cl',
+        'coverage',
+        # 'open_test_docs',
+        'set_lint_config',
+        'auto_format',
+        # 'lint_pre_commit',
+        # 'type_checking',
+        'document',
+        # 'open_docs',
     ],
 }
 """DoIt Configuration Settings. Run with `poetry run doit`."""
 
 # TODO: poetry run mypy mut --ignore-missing-imports
+
+# def task_type_checking() -> dict:
+#     """Run type annotation checks.
+#
+#     Returns:
+#         dict: DoIt task
+#
+#     """
+#     return debug_action([
+#         # 'poetry run pytype --config pytype.cfg',
+#         f'poetry run mypy {DIG.pkg_name}',
+#     ])
