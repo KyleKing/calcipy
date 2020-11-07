@@ -66,7 +66,7 @@ gitdb==4.0.5; python_version >= "3.4"
 gitpython==3.1.11; python_version >= "3.4"
 implements==0.2.0
 importlab==0.5.1; python_version >= "3.6" and python_version < "3.9" and python_full_version >= "2.7.0"
-importlib-metadata==2.0.0; python_full_version >= "3.6.1" and python_version < "3.8" and (python_version >= "3.5" and python_full_version < "3.0.0" and python_version < "3.8" or python_version < "3.8" and python_version >= "3.5" and python_full_version >= "3.5.0") and (python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6") and (python_version >= "2.7" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.5.0" and python_version < "3.8") and (python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_version < "3.8" and python_version >= "3.6" and python_full_version >= "3.5.0")
+importlib-metadata==2.0.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 inflect==4.1.0; python_version >= "3.6"
 iniconfig==1.1.1; python_version >= "3.5"
 iniparse==0.5
@@ -75,6 +75,7 @@ jinja2-pluralize==0.3.0; python_version >= "3.5"
 jinja2==2.11.2; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.5"
 kiwisolver==1.3.0; python_version >= "3.6"
 libcst==0.3.13; python_version >= "3.6"
+loguru==0.5.3; python_version >= "3.5"
 macfsevents==0.8.1; sys_platform == "darwin" and python_version >= "3.5"
 mako==1.1.3; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.5"
 mando==0.6.4
@@ -98,6 +99,7 @@ pluggy==0.13.1; python_version >= "3.5" and python_full_version < "3.0.0" or pyt
 proselint==0.10.2
 py==1.9.0; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.5"
 pyannotate==1.2.0
+pycallgraph3==1.1.4; python_version >= "3.8" and python_version < "4.0"
 pycodestyle==2.6.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 pydocstyle==5.1.1; python_version >= "3.5"
 pyflakes==2.2.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
@@ -130,10 +132,12 @@ tokenize-rt==4.0.0; python_full_version >= "3.6.1"
 toml==0.10.1
 tqdm==4.51.0; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.2.0")
 transitions==0.8.4
-typed-ast==1.4.1; python_full_version >= "3.6.1" and python_full_version < "4.0.0" and python_version < "3.8" and python_version >= "3.6"
+typed-ast==1.4.1; python_version >= "3.6" and python_version < "3.9"
 typeguard==2.10.0; python_full_version >= "3.5.3"
 typing-extensions==3.7.4.3; python_version >= "3.6"
 typing-inspect==0.6.0; python_version >= "3.6"
 vulture==2.1; python_version >= "3.6"
+watchcode @ git+https://github.com/bluenote10/watchcode.git@master
 watchdog==0.10.3
-zipp==3.4.0; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.8" or python_full_version >= "3.5.0" and python_version < "3.8" and python_version >= "3.6"
+win32-setctime==1.0.3; sys_platform == "win32" and python_version >= "3.5"
+zipp==3.4.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"

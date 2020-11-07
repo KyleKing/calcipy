@@ -25,7 +25,7 @@ documentation = "https://kyleking.me/dash_dev/"
 
 [tool.poetry.dependencies]
 python = "^3.8, <3.9"
-"ruamel.yaml" = "^0.16"
+"ruamel.yaml" = "*"
 attrs = "*"
 autopep8 = "*"
 cohesion = "*"
@@ -86,7 +86,7 @@ radon = "*"
 toml = "*"
 tqdm = "*"
 transitions = "*"
-loguru = "^0.5.3"
+loguru = "*"
 
 [tool.poetry.dev-dependencies]
 add-trailing-comma = "*"
@@ -102,6 +102,7 @@ pytype = "^2020.10"
 pyupgrade = "*"
 typeguard = "^2.10"
 vulture = "*"
+pycallgraph3 = "^1.1.4"
 
-[tool.poetry.dependencies.watchcode]
+[tool.poetry.dev-dependencies.watchcode]
 git = "https://github.com/bluenote10/watchcode.git"
