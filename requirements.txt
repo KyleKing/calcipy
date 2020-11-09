@@ -6,7 +6,6 @@ attrs==20.3.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (p
 autopep8==1.5.4
 bandit==1.6.2
 beautifulsoup4==4.9.3
-better-exceptions==0.2.2
 click==7.1.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 cloudpickle==1.6.0; python_version >= "3.5"
 cognitive-complexity==1.2.0; python_version >= "3.6"
@@ -133,7 +132,6 @@ toml==0.10.1
 tqdm==4.51.0; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.2.0")
 transitions==0.8.4
 typed-ast==1.4.1; python_version >= "3.6" and python_version < "3.9"
-typeguard==2.10.0; python_full_version >= "3.5.3"
 typing-extensions==3.7.4.3; python_version >= "3.6"
 typing-inspect==0.6.0; python_version >= "3.6"
 vulture==2.1; python_version >= "3.6"

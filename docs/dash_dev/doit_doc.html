@@ -121,7 +121,8 @@ def write_readme_to_init():
     &#34;&#34;&#34;Write the README contents to the package `__init__.py` file.&#34;&#34;&#34;
     readme = (DIG.source_path / &#39;README.md&#39;).read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # Escape quotes
     init_text = (f&#39;&#34;&#34;&#34;\n{readme}&#34;&#34;&#34;  # noqa\n\n# Generated with DoIt. Do not modify\n\n&#39;
-                 f&#34;__version__ = &#39;{DIG.pkg_version}&#39;\n__pkg_name__ = &#39;{DIG.pkg_name}&#39;\n&#34;)
+                 f&#34;__version__ = &#39;{DIG.pkg_version}&#39;\n__pkg_name__ = &#39;{DIG.pkg_name}&#39;\n&#34;
+                 &#39;\nfrom loguru import logger\n\nlogger.disable(__pkg_name__)\n&#39;)
     init_path = (DIG.source_path / DIG.pkg_name / &#39;__init__.py&#39;)
     init_path.write_text(init_text.replace(&#39;\t&#39;, &#39; &#39; * 4))
 
@@ -674,7 +675,8 @@ def task_open_docs():
     &#34;&#34;&#34;Write the README contents to the package `__init__.py` file.&#34;&#34;&#34;
     readme = (DIG.source_path / &#39;README.md&#39;).read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # Escape quotes
     init_text = (f&#39;&#34;&#34;&#34;\n{readme}&#34;&#34;&#34;  # noqa\n\n# Generated with DoIt. Do not modify\n\n&#39;
-                 f&#34;__version__ = &#39;{DIG.pkg_version}&#39;\n__pkg_name__ = &#39;{DIG.pkg_name}&#39;\n&#34;)
+                 f&#34;__version__ = &#39;{DIG.pkg_version}&#39;\n__pkg_name__ = &#39;{DIG.pkg_name}&#39;\n&#34;
+                 &#39;\nfrom loguru import logger\n\nlogger.disable(__pkg_name__)\n&#39;)
     init_path = (DIG.source_path / DIG.pkg_name / &#39;__init__.py&#39;)
     init_path.write_text(init_text.replace(&#39;\t&#39;, &#39; &#39; * 4))</code></pre>
 </details>

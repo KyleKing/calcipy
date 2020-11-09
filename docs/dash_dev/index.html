@@ -79,6 +79,21 @@ git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 <li><a href="https://github.com/KyleKing/Kitsu_Library_Availability">KyleKing/Kitsu_Library_Availability</a></li>
 <li><a href="https://github.com/KyleKing/Goodreads_Library_Availability">KyleKing/Goodreads_Library_Availability</a> - <em>Planned</em></li>
 </ul>
+<h2 id="task-list-dash-charts">Task list (Dash Charts)</h2>
+<ul>
+<li>TODO: Show call chain in dash_charts: <a href="https://github.com/vmdesenvolvimento/pycallgraph3">https://github.com/vmdesenvolvimento/pycallgraph3</a></li>
+</ul>
+<pre><code class="language-py">from pycallgraph3 import PyCallGraph
+from pycallgraph3.output import GraphvizOutput
+
+with PyCallGraph(output=GraphvizOutput()):
+    from datetime import datetime
+    time_str = datetime.now().strftime('%Y%m%d%H%M%S')
+    filename = f'profile-{time_str}.png'
+</code></pre>
+<ul>
+<li>FIXME: Add versioning to the cache directory with semver logic: <a href="https://pypi.org/project/semantic-version/">https://pypi.org/project/semantic-version/</a></li>
+</ul>
 <h2 id="test-coverage">Test Coverage</h2>
 <!-- COVERAGE -->
 <table>
@@ -94,7 +109,7 @@ git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 <tbody>
 <tr>
 <td align="right"><code>dash_dev/__init__.py</code></td>
-<td align="right">2</td>
+<td align="right">4</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">100.0%</td>
@@ -108,10 +123,10 @@ git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 </tr>
 <tr>
 <td align="right"><code>dash_dev/doit_base.py</code></td>
-<td align="right">105</td>
+<td align="right">107</td>
 <td align="right">26</td>
 <td align="right">0</td>
-<td align="right">75.2%</td>
+<td align="right">75.7%</td>
 </tr>
 <tr>
 <td align="right"><code>dash_dev/doit_doc.py</code></td>
@@ -136,7 +151,7 @@ git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 </tr>
 </tbody>
 </table>
-<p>Generated on: 2020-11-05T21:51:04.872739</p>
+<p>Generated on: 2020-11-06T21:21:03.437490</p>
 <!-- /COVERAGE -->
 <details class="source">
 <summary>
@@ -169,20 +184,36 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 - [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability)
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *Planned*
 
+## Task list (Dash Charts)
+
+- TODO: Show call chain in dash_charts: https://github.com/vmdesenvolvimento/pycallgraph3
+
+```py
+from pycallgraph3 import PyCallGraph
+from pycallgraph3.output import GraphvizOutput
+
+with PyCallGraph(output=GraphvizOutput()):
+    from datetime import datetime
+    time_str = datetime.now().strftime(&#39;%Y%m%d%H%M%S&#39;)
+    filename = f&#39;profile-{time_str}.png&#39;
+```
+
+- FIXME: Add versioning to the cache directory with semver logic: https://pypi.org/project/semantic-version/
+
 ## Test Coverage
 
 &lt;!-- COVERAGE --&gt;
 
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
-| `dash_dev/__init__.py` | 2 | 0 | 0 | 100.0% |
+| `dash_dev/__init__.py` | 4 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
-| `dash_dev/doit_base.py` | 105 | 26 | 0 | 75.2% |
+| `dash_dev/doit_base.py` | 107 | 26 | 0 | 75.7% |
 | `dash_dev/doit_doc.py` | 101 | 64 | 0 | 36.6% |
 | `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-11-05T21:51:04.872739
+Generated on: 2020-11-06T21:21:03.437490
 
 &lt;!-- /COVERAGE --&gt;
 &#34;&#34;&#34;  # noqa
@@ -190,7 +221,11 @@ Generated on: 2020-11-05T21:51:04.872739
 # Generated with DoIt. Do not modify
 
 __version__ = &#39;0.0.1&#39;
-__pkg_name__ = &#39;dash_dev&#39;</code></pre>
+__pkg_name__ = &#39;dash_dev&#39;
+
+from loguru import logger
+
+logger.disable(__pkg_name__)</code></pre>
 </details>
 </section>
 <section>
@@ -278,6 +313,7 @@ setTimeout(() => input.focus(), 100);
 <li><a href="#dash_dev">Dash_Dev</a><ul>
 <li><a href="#quick-start">Quick Start</a></li>
 <li><a href="#where-used">Where Used</a></li>
+<li><a href="#task-list-dash-charts">Task list (Dash Charts)</a></li>
 <li><a href="#test-coverage">Test Coverage</a></li>
 </ul>
 </li>

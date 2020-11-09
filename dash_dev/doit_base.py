@@ -14,6 +14,8 @@ from ruamel.yaml import YAML
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
 # TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
+# TODO: Show table of contents in __init__.py file. Use ast:
+#   https://www.ecosia.org/search?q=ast+find+all+functions+and+classes+in+python+package
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
@@ -107,7 +109,7 @@ class DoItGlobals:
         self.src_examples_dir = self.source_path / 'tests/examples'
         self.tmp_examples_dir = self.source_path / f'{self.pkg_name}/0EX'
         if not self.src_examples_dir.is_dir():
-            self.src_examples_dir = None  # If the directory is not present, disable this functionality
+            self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
         # Create list of directories and paths to isort and format
         subdirs = [self.pkg_name] + self.external_doc_dirs
@@ -167,11 +169,11 @@ def show_cmd(task):
 
 
 def debug_action(actions: Sequence[Any], verbosity: int = 2):
-    """Enable verbose logging for the specified actions.
+    """Activate verbose logging for the specified actions.
 
     Args:
         actions: list of DoIt actions
-        verbosity: 2 is maximum, while 0 is disabled. Default is 2
+        verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
         dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task

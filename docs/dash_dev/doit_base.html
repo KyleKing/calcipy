@@ -77,11 +77,14 @@ from typing import Any, Optional, Sequence
 import attr
 import toml
 from doit.tools import Interactive
+from loguru import logger
 from ruamel.yaml import YAML
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
 # TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
+# TODO: Show table of contents in __init__.py file. Use ast:
+#   https://www.ecosia.org/search?q=ast+find+all+functions+and+classes+in+python+package
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
@@ -182,6 +185,8 @@ class DoItGlobals:
         self.lint_paths = [self.source_path / subdir for subdir in subdirs]
         self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
         self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
+
+        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;)
 
 
 DIG = DoItGlobals()
@@ -818,7 +823,9 @@ def task_export_req():
         subdirs = [self.pkg_name] + self.external_doc_dirs
         self.lint_paths = [self.source_path / subdir for subdir in subdirs]
         self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
-        self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}</code></pre>
+        self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
+
+        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;)</code></pre>
 </details>
 <h3>Class variables</h3>
 <dl>
@@ -951,7 +958,9 @@ def task_export_req():
     subdirs = [self.pkg_name] + self.external_doc_dirs
     self.lint_paths = [self.source_path / subdir for subdir in subdirs]
     self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
-    self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}</code></pre>
+    self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
+
+    logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;)</code></pre>
 </details>
 </dd>
 </dl>

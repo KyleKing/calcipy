@@ -20,6 +20,11 @@ readme = "README.md"
 repository = "https://github.com/kyleking/dash_dev"
 documentation = "https://kyleking.me/dash_dev/"
 
+[tool.notes]
+cmd = "poetry run pytest ./tests -x -l --ff -vv --typeguard-packages sw_client"
+error = "`LOGIN_PARSER = (Cmd2ArgumentParser(description='Prompt for Username and Password')` >> TypeError: unsupported operand type(s) for |: 'Cmd2ArgumentParser' and 'function'"
+typeguard = "^2.10.0"
+
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/dash_dev/issues"
 
@@ -35,7 +40,7 @@ doit = "*"
 flake8 = "*"
 flake8-2020 = "*"
 flake8-aaa = "*"
-flake8-annotations = "^2"
+flake8-annotations = "*"
 flake8-assertive = "*"
 flake8-bandit = "*"
 flake8-blind-except = "*"
@@ -91,7 +96,6 @@ loguru = "*"
 [tool.poetry.dev-dependencies]
 add-trailing-comma = "*"
 beautifulsoup4 = "*"
-better-exceptions = "*"
 diff-cover = "^4.0.1"
 implements = "^0.2"
 MonkeyType = "^20.5"
@@ -100,7 +104,6 @@ pyannotate = "^1.2"
 PySimpleGUI = "*"
 pytype = "^2020.10"
 pyupgrade = "*"
-typeguard = "^2.10"
 vulture = "*"
 pycallgraph3 = "^1.1.4"
 

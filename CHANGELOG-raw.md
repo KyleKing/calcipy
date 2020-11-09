@@ -31,6 +31,8 @@
 
 ### Changes
 
+* Loosen dependencies requirements. [Kyle King]
+
 * Add WIP type checker configs. [Kyle King]
 
 * Drop dash dependency. [Kyle King]

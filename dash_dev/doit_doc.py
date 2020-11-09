@@ -200,7 +200,7 @@ def write_code_to_readme():
     script_path = DIG.source_path / fn
     if script_path.is_file():
         source_code = ['```py', *script_path.read_text().split('\n'), '```']
-        new_text = {f'CODE:{fn}': [f'    {line}'.rstrip() for line in source_code]}
+        new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
         write_to_readme(comment_pattern, new_text)
 
 
