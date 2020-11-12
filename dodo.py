@@ -23,7 +23,7 @@ DOIT_CONFIG = {
         # 'open_test_docs',
         'set_lint_config',
         'auto_format',
-        # 'lint_pre_commit',
+        'lint_pre_commit',
         # 'type_checking',
         'document',
         # 'open_docs',
@@ -31,16 +31,15 @@ DOIT_CONFIG = {
 }
 """DoIt Configuration Settings. Run with `poetry run doit`."""
 
-# TODO: poetry run mypy mut --ignore-missing-imports
-
+# # TODO: Implement type checking with pytype, mypy, etc.
 # def task_type_checking() -> dict:
 #     """Run type annotation checks.
-#
+
 #     Returns:
 #         dict: DoIt task
-#
+
 #     """
 #     return debug_action([
 #         # 'poetry run pytype --config pytype.cfg',
-#         f'poetry run mypy {DIG.pkg_name}',
+#         f'poetry run mypy {DIG.pkg_name}',  # --ignore-missing-imports (see config file...)
 #     ])

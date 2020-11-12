@@ -63,7 +63,7 @@ future==0.18.2; python_version >= "2.6" and python_full_version < "3.0.0" or pyt
 gitchangelog==3.0.4
 gitdb==4.0.5; python_version >= "3.4"
 gitpython==3.1.11; python_version >= "3.4"
-implements==0.2.0
+hacking==3.2.0; python_version >= "3.5"
 importlab==0.5.1; python_version >= "3.6" and python_version < "3.9" and python_full_version >= "2.7.0"
 importlib-metadata==2.0.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"
 inflect==4.1.0; python_version >= "3.6"
@@ -105,7 +105,6 @@ pyflakes==2.2.0; python_version >= "2.7" and python_full_version < "3.0.0" or py
 pygments==2.7.2; python_version >= "3.5"
 pyinotify==0.9.6; sys_platform == "linux" and python_version >= "3.5"
 pyparsing==2.4.7; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
-pysimplegui==4.30.0
 pystache==0.5.4
 pytest-cov==2.10.1; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
 pytest-html==2.1.1; python_version >= "3.6"
@@ -119,7 +118,6 @@ pyyaml==5.3.1; python_version >= "3.6" and python_full_version < "3.0.0" and pyt
 radon==4.3.2
 ruamel.yaml.clib==0.2.2; platform_python_implementation == "CPython" and python_version < "3.9"
 ruamel.yaml==0.16.12
-setuptools-scm==4.1.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 six==1.15.0; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.9" and python_full_version >= "2.7.0" or python_version >= "3.6" and python_version < "3.9" and python_full_version >= "3.4.0"
 smmap==3.0.4; python_version >= "3.4" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.4"
 snowballstemmer==2.0.0; python_version >= "3.5"

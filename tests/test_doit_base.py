@@ -57,7 +57,7 @@ def test_show_cmd():
     actions = [123, 'abc']
     task = task_tuple(name, actions)
 
-    result = doit_base.show_cmd(task)
+    result = doit_base._show_cmd(task)
 
     assert f'{name} > ' in result
     assert all(str(act) in result for act in actions)

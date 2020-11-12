@@ -178,7 +178,7 @@ class DoItGlobals:
         self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
         self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
         if not self.src_examples_dir.is_dir():
-            self.src_examples_dir = None  # If the directory is not present, disable this functionality
+            self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
         # Create list of directories and paths to isort and format
         subdirs = [self.pkg_name] + self.external_doc_dirs
@@ -223,7 +223,7 @@ def ensure_dir(dir_path):
 # General Utilities
 
 
-def show_cmd(task):
+def _show_cmd(task):
     &#34;&#34;&#34;For debugging, log the full command to the console.
 
     Args:
@@ -238,11 +238,11 @@ def show_cmd(task):
 
 
 def debug_action(actions: Sequence[Any], verbosity: int = 2):
-    &#34;&#34;&#34;Enable verbose logging for the specified actions.
+    &#34;&#34;&#34;Activate verbose logging for the specified actions.
 
     Args:
         actions: list of DoIt actions
-        verbosity: 2 is maximum, while 0 is disabled. Default is 2
+        verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
         dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task
@@ -250,7 +250,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2):
     &#34;&#34;&#34;
     return {
         &#39;actions&#39;: actions,
-        &#39;title&#39;: show_cmd,
+        &#39;title&#39;: _show_cmd,
         &#39;verbosity&#39;: verbosity,
     }
 
@@ -328,7 +328,7 @@ WATCHCODE_TEMPLATE: dict = {
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class WatchCodeYAML:  # noqa: H601
+class _WatchCodeYAML:  # noqa: H601
     &#34;&#34;&#34;Watchcode YAML file.&#34;&#34;&#34;
 
     commands: Sequence[str]
@@ -338,17 +338,17 @@ class WatchCodeYAML:  # noqa: H601
     path_wc: Optional[Path] = None
 
     def __attrs_post_init__(self) -&gt; None:
-        &#34;&#34;&#34;Called after initialization.&#34;&#34;&#34;
+        &#34;&#34;&#34;Complete initialization and merge settings.&#34;&#34;&#34;
         self.merge_settings()
 
     def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -&gt; None:
-        &#34;&#34;&#34;Merged nested settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+        &#34;&#34;&#34;Merge nested settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
         values = self.dict_watchcode[key][name][sub_key]
         values.extend(value)
         self.dict_watchcode[key][name][sub_key] = [*set(values)]
 
     def merge_settings(self) -&gt; None:
-        &#34;&#34;&#34;Merged all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+        &#34;&#34;&#34;Merge all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
         for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
             self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
         self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)
@@ -372,7 +372,7 @@ def task_watchcode() -&gt; dict:
     &#34;&#34;&#34;
     def create_yaml(py_path: str) -&gt; None:
         &#34;&#34;&#34;Create the YAML file.&#34;&#34;&#34;
-        wc_yaml = WatchCodeYAML(
+        wc_yaml = _WatchCodeYAML(
             commands=[f&#39;poetry run python {py_path}&#39;],
             include=[py_path],
         )
@@ -426,13 +426,13 @@ def task_export_req():
 <span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Enable verbose logging for the specified actions.</p>
+<div class="desc"><p>Activate verbose logging for the specified actions.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>actions</code></strong></dt>
 <dd>list of DoIt actions</dd>
 <dt><strong><code>verbosity</code></strong></dt>
-<dd>2 is maximum, while 0 is disabled. Default is 2</dd>
+<dd>2 is maximum, while 0 is deactivated. Default is 2</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -444,11 +444,11 @@ def task_export_req():
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def debug_action(actions: Sequence[Any], verbosity: int = 2):
-    &#34;&#34;&#34;Enable verbose logging for the specified actions.
+    &#34;&#34;&#34;Activate verbose logging for the specified actions.
 
     Args:
         actions: list of DoIt actions
-        verbosity: 2 is maximum, while 0 is disabled. Default is 2
+        verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
         dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task
@@ -456,7 +456,7 @@ def task_export_req():
     &#34;&#34;&#34;
     return {
         &#39;actions&#39;: actions,
-        &#39;title&#39;: show_cmd,
+        &#39;title&#39;: _show_cmd,
         &#39;verbosity&#39;: verbosity,
     }</code></pre>
 </details>
@@ -585,39 +585,6 @@ def task_export_req():
     webbrowser.open(Path(file_path).as_uri())</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.show_cmd"><code class="name flex">
-<span>def <span class="ident">show_cmd</span></span>(<span>task)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>For debugging, log the full command to the console.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>task</code></strong></dt>
-<dd>task dictionary passed by DoIt</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>describing the sequence of actions</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def show_cmd(task):
-    &#34;&#34;&#34;For debugging, log the full command to the console.
-
-    Args:
-        task: task dictionary passed by DoIt
-
-    Returns:
-        str: describing the sequence of actions
-
-    &#34;&#34;&#34;
-    actions = &#39;&#39;.join([f&#39;\n\t{act}&#39; for act in task.actions])
-    return f&#39;{task.name} &gt; [{actions}\n]\n&#39;</code></pre>
-</details>
-</dd>
 <dt id="dash_dev.doit_base.task_export_req"><code class="name flex">
 <span>def <span class="ident">task_export_req</span></span>(<span>)</span>
 </code></dt>
@@ -669,7 +636,7 @@ def task_export_req():
     &#34;&#34;&#34;
     def create_yaml(py_path: str) -&gt; None:
         &#34;&#34;&#34;Create the YAML file.&#34;&#34;&#34;
-        wc_yaml = WatchCodeYAML(
+        wc_yaml = _WatchCodeYAML(
             commands=[f&#39;poetry run python {py_path}&#39;],
             include=[py_path],
         )
@@ -817,7 +784,7 @@ def task_export_req():
         self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
         self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
         if not self.src_examples_dir.is_dir():
-            self.src_examples_dir = None  # If the directory is not present, disable this functionality
+            self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
         # Create list of directories and paths to isort and format
         subdirs = [self.pkg_name] + self.external_doc_dirs
@@ -952,7 +919,7 @@ def task_export_req():
     self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
     self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
     if not self.src_examples_dir.is_dir():
-        self.src_examples_dir = None  # If the directory is not present, disable this functionality
+        self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
     # Create list of directories and paths to isort and format
     subdirs = [self.pkg_name] + self.external_doc_dirs
@@ -961,109 +928,6 @@ def task_export_req():
     self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
 
     logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;)</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
-<dt id="dash_dev.doit_base.WatchCodeYAML"><code class="flex name class">
-<span>class <span class="ident">WatchCodeYAML</span></span>
-<span>(</span><span>*, commands: Sequence[str], include: Sequence[str], exclude: Sequence[str] = (), dict_watchcode: dict = {'filesets': {'default': {'include': ['.watchcode.yaml'], 'exclude': ['.watchcode.log', '*.pyc', '__pycache__'], 'exclude_gitignore': True, 'match_mode': 'gitlike'}}, 'tasks': {'default': {'commands': [], 'fileset': 'default', 'queue_events': False, 'clear_screen': True}}, 'notifications': False, 'sound': False, 'log': False, 'default_task': 'default'}, path_wc: Union[pathlib.Path, NoneType] = None)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Watchcode YAML file.</p>
-<p>Method generated by attrs for class WatchCodeYAML.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class WatchCodeYAML:  # noqa: H601
-    &#34;&#34;&#34;Watchcode YAML file.&#34;&#34;&#34;
-
-    commands: Sequence[str]
-    include: Sequence[str]
-    exclude: Sequence[str] = ()
-    dict_watchcode: dict = WATCHCODE_TEMPLATE
-    path_wc: Optional[Path] = None
-
-    def __attrs_post_init__(self) -&gt; None:
-        &#34;&#34;&#34;Called after initialization.&#34;&#34;&#34;
-        self.merge_settings()
-
-    def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -&gt; None:
-        &#34;&#34;&#34;Merged nested settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
-        values = self.dict_watchcode[key][name][sub_key]
-        values.extend(value)
-        self.dict_watchcode[key][name][sub_key] = [*set(values)]
-
-    def merge_settings(self) -&gt; None:
-        &#34;&#34;&#34;Merged all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
-        for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
-            self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
-        self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)
-
-    def write(self) -&gt; None:
-        &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
-        yaml = YAML()
-        if self.path_wc is None:
-            self.path_wc = DIG.source_path
-        yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)</code></pre>
-</details>
-<h3>Class variables</h3>
-<dl>
-<dt id="dash_dev.doit_base.WatchCodeYAML.commands"><code class="name">var <span class="ident">commands</span> : Sequence[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="dash_dev.doit_base.WatchCodeYAML.dict_watchcode"><code class="name">var <span class="ident">dict_watchcode</span> : dict</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="dash_dev.doit_base.WatchCodeYAML.exclude"><code class="name">var <span class="ident">exclude</span> : Sequence[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="dash_dev.doit_base.WatchCodeYAML.include"><code class="name">var <span class="ident">include</span> : Sequence[str]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="dash_dev.doit_base.WatchCodeYAML.path_wc"><code class="name">var <span class="ident">path_wc</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="dash_dev.doit_base.WatchCodeYAML.merge_settings"><code class="name flex">
-<span>def <span class="ident">merge_settings</span></span>(<span>self) ‑> NoneType</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Merged all user-specified settings in the WatchCode YAML dictionary.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def merge_settings(self) -&gt; None:
-    &#34;&#34;&#34;Merged all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
-    for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
-        self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
-    self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)</code></pre>
-</details>
-</dd>
-<dt id="dash_dev.doit_base.WatchCodeYAML.write"><code class="name flex">
-<span>def <span class="ident">write</span></span>(<span>self) ‑> NoneType</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Write the WatchCode YAML file.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def write(self) -&gt; None:
-    &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
-    yaml = YAML()
-    if self.path_wc is None:
-        self.path_wc = DIG.source_path
-    yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)</code></pre>
 </details>
 </dd>
 </dl>
@@ -1142,7 +1006,6 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_base.ensure_dir" href="#dash_dev.doit_base.ensure_dir">ensure_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.if_found_unlink" href="#dash_dev.doit_base.if_found_unlink">if_found_unlink</a></code></li>
 <li><code><a title="dash_dev.doit_base.open_in_browser" href="#dash_dev.doit_base.open_in_browser">open_in_browser</a></code></li>
-<li><code><a title="dash_dev.doit_base.show_cmd" href="#dash_dev.doit_base.show_cmd">show_cmd</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_export_req" href="#dash_dev.doit_base.task_export_req">task_export_req</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_watchcode" href="#dash_dev.doit_base.task_watchcode">task_watchcode</a></code></li>
 <li><code><a title="dash_dev.doit_base.write_text" href="#dash_dev.doit_base.write_text">write_text</a></code></li>
@@ -1169,18 +1032,6 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_base.DoItGlobals.test_report_path" href="#dash_dev.doit_base.DoItGlobals.test_report_path">test_report_path</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.tmp_examples_dir" href="#dash_dev.doit_base.DoItGlobals.tmp_examples_dir">tmp_examples_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.DoItGlobals.toml_path" href="#dash_dev.doit_base.DoItGlobals.toml_path">toml_path</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="dash_dev.doit_base.WatchCodeYAML" href="#dash_dev.doit_base.WatchCodeYAML">WatchCodeYAML</a></code></h4>
-<ul class="two-column">
-<li><code><a title="dash_dev.doit_base.WatchCodeYAML.commands" href="#dash_dev.doit_base.WatchCodeYAML.commands">commands</a></code></li>
-<li><code><a title="dash_dev.doit_base.WatchCodeYAML.dict_watchcode" href="#dash_dev.doit_base.WatchCodeYAML.dict_watchcode">dict_watchcode</a></code></li>
-<li><code><a title="dash_dev.doit_base.WatchCodeYAML.exclude" href="#dash_dev.doit_base.WatchCodeYAML.exclude">exclude</a></code></li>
-<li><code><a title="dash_dev.doit_base.WatchCodeYAML.include" href="#dash_dev.doit_base.WatchCodeYAML.include">include</a></code></li>
-<li><code><a title="dash_dev.doit_base.WatchCodeYAML.merge_settings" href="#dash_dev.doit_base.WatchCodeYAML.merge_settings">merge_settings</a></code></li>
-<li><code><a title="dash_dev.doit_base.WatchCodeYAML.path_wc" href="#dash_dev.doit_base.WatchCodeYAML.path_wc">path_wc</a></code></li>
-<li><code><a title="dash_dev.doit_base.WatchCodeYAML.write" href="#dash_dev.doit_base.WatchCodeYAML.write">write</a></code></li>
 </ul>
 </li>
 </ul>

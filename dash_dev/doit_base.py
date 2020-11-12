@@ -154,7 +154,7 @@ def ensure_dir(dir_path):
 # General Utilities
 
 
-def show_cmd(task):
+def _show_cmd(task):
     """For debugging, log the full command to the console.
 
     Args:
@@ -181,7 +181,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2):
     """
     return {
         'actions': actions,
-        'title': show_cmd,
+        'title': _show_cmd,
         'verbosity': verbosity,
     }
 
@@ -259,7 +259,7 @@ WATCHCODE_TEMPLATE: dict = {
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class WatchCodeYAML:  # noqa: H601
+class _WatchCodeYAML:  # noqa: H601
     """Watchcode YAML file."""
 
     commands: Sequence[str]
@@ -269,17 +269,17 @@ class WatchCodeYAML:  # noqa: H601
     path_wc: Optional[Path] = None
 
     def __attrs_post_init__(self) -> None:
-        """Called after initialization."""
+        """Complete initialization and merge settings."""
         self.merge_settings()
 
     def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -> None:
-        """Merged nested settings in the WatchCode YAML dictionary."""
+        """Merge nested settings in the WatchCode YAML dictionary."""
         values = self.dict_watchcode[key][name][sub_key]
         values.extend(value)
         self.dict_watchcode[key][name][sub_key] = [*set(values)]
 
     def merge_settings(self) -> None:
-        """Merged all user-specified settings in the WatchCode YAML dictionary."""
+        """Merge all user-specified settings in the WatchCode YAML dictionary."""
         for file_key in ['include', 'exclude']:
             self._merge_nested_setting('filesets', 'default', file_key, getattr(self, file_key))
         self._merge_nested_setting('tasks', 'default', 'commands', self.commands)
@@ -303,7 +303,7 @@ def task_watchcode() -> dict:
     """
     def create_yaml(py_path: str) -> None:
         """Create the YAML file."""
-        wc_yaml = WatchCodeYAML(
+        wc_yaml = _WatchCodeYAML(
             commands=[f'poetry run python {py_path}'],
             include=[py_path],
         )

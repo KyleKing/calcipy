@@ -2,13 +2,6 @@
 requires = [ "poetry-core>=1.0",]
 build-backend = "poetry.core.masonry.api"
 
-[tool.isort]
-balanced_wrapping = true
-default_section = "THIRDPARTY"
-force_grid_wrap = 0
-length_sort = false
-line_length = 120
-
 [tool.poetry]
 name = "dash_dev"
 version = "0.0.1"
@@ -19,6 +12,13 @@ maintainers = []
 readme = "README.md"
 repository = "https://github.com/kyleking/dash_dev"
 documentation = "https://kyleking.me/dash_dev/"
+
+[tool.isort]
+balanced_wrapping = true
+default_section = "THIRDPARTY"
+force_grid_wrap = 0
+length_sort = false
+line_length = 120
 
 [tool.notes]
 cmd = "poetry run pytest ./tests -x -l --ff -vv --typeguard-packages sw_client"
@@ -75,8 +75,10 @@ flake8-string-format = "*"
 flake8-tuple = "*"
 flake8-variables-names = "*"
 gitchangelog = "*"
+hacking = "*"
 iniparse = "*"
 isort = "*"
+loguru = "*"
 matplotlib = "~3.1"
 pandas-vet = "*"
 pdoc3 = "*"
@@ -91,21 +93,18 @@ radon = "*"
 toml = "*"
 tqdm = "*"
 transitions = "*"
-loguru = "*"
 
 [tool.poetry.dev-dependencies]
 add-trailing-comma = "*"
 beautifulsoup4 = "*"
-diff-cover = "^4.0.1"
-implements = "^0.2"
-MonkeyType = "^20.5"
-mypy = "^0.790"
-pyannotate = "^1.2"
-PySimpleGUI = "*"
-pytype = "^2020.10"
+diff-cover = "*"
+MonkeyType = "*"
+mypy = "*"
+pyannotate = "*"
+pytype = "*"
 pyupgrade = "*"
 vulture = "*"
-pycallgraph3 = "^1.1.4"
+pycallgraph3 = "*"
 
 [tool.poetry.dev-dependencies.watchcode]
 git = "https://github.com/bluenote10/watchcode.git"

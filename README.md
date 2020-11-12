@@ -39,8 +39,6 @@ with PyCallGraph(output=GraphvizOutput()):
     filename = f'profile-{time_str}.png'
 ```
 
-- FIXME: Add versioning to the cache directory with semver logic: https://pypi.org/project/semantic-version/
-
 ## Test Coverage
 
 <!-- COVERAGE -->
@@ -51,9 +49,9 @@ with PyCallGraph(output=GraphvizOutput()):
 | `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
 | `dash_dev/doit_base.py` | 107 | 26 | 0 | 75.7% |
 | `dash_dev/doit_doc.py` | 101 | 64 | 0 | 36.6% |
-| `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
+| `dash_dev/doit_lint.py` | 68 | 22 | 0 | 67.6% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-11-06T21:21:03.437490
+Generated on: 2020-11-12T05:36:23.152766
 
 <!-- /COVERAGE -->
