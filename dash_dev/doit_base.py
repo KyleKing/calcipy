@@ -73,6 +73,10 @@ class DoItGlobals:
     tmp_examples_dir: Optional[Path] = None
     """Path to temporary directory to move examples while creating documentation. Set in `set_paths`."""
 
+    # PLANNED: Document
+    template_dir = None
+    pkg_version = None
+
     def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
                   doc_dir: Optional[Path] = None):
         """Set data members based on working directory.
@@ -127,6 +131,7 @@ DIG = DoItGlobals()
 # Manage Directories
 
 
+# skipcq: PYL-R1711
 def delete_dir(dir_path):
     """Delete the specified directory from a DoIt task.
 
@@ -139,6 +144,7 @@ def delete_dir(dir_path):
     return  # Indicates that action completed when called from DoIt task
 
 
+# skipcq: PYL-R1711
 def ensure_dir(dir_path):
     """Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
@@ -196,6 +202,7 @@ def echo(msg):
     print(msg)  # noqa: T001
 
 
+# skipcq: PYL-R1711
 def write_text(file_path, text):
     """file_path.write_text wrapper for DoIt.
 
