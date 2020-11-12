@@ -36,7 +36,7 @@ def _collect_py_files(add_paths=(), subdirectories=None):
 # ----------------------------------------------------------------------------------------------------------------------
 # Configuration Settings
 
-FLAKE8 = """
+_FLAKE8 = """
 [flake8]
 annoy = true
 assertive-snakecase = true
@@ -67,7 +67,7 @@ select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 """
 """Flake8 configuration file settings."""
 
-ISORT = {
+_ISORT = {
     'balanced_wrapping': True,
     'default_section': 'THIRDPARTY',
     'force_grid_wrap': 0,
@@ -85,9 +85,9 @@ def task_set_lint_config():
 
     """
     user_toml = toml.load(DIG.toml_path)
-    user_toml['tool']['isort'] = ISORT
+    user_toml['tool']['isort'] = _ISORT
     return debug_action([
-        (write_text, (DIG.flake8_path, FLAKE8.strip())),
+        (write_text, (DIG.flake8_path, _FLAKE8.strip())),
         (write_text, (DIG.toml_path, toml.dumps(user_toml))),
     ])
 

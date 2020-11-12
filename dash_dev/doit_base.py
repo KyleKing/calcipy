@@ -233,7 +233,7 @@ def if_found_unlink(file_path):
 # > PLANNED: Development
 
 
-WATCHCODE_TEMPLATE: dict = {
+_WATCHCODE_TEMPLATE: dict = {
     'filesets': {
         'default': {
             'include': ['.watchcode.yaml'],
@@ -265,7 +265,7 @@ class _WatchCodeYAML:  # noqa: H601
     commands: Sequence[str]
     include: Sequence[str]
     exclude: Sequence[str] = ()
-    dict_watchcode: dict = WATCHCODE_TEMPLATE
+    dict_watchcode: dict = _WATCHCODE_TEMPLATE
     path_wc: Optional[Path] = None
 
     def __attrs_post_init__(self) -> None:

@@ -61,14 +61,14 @@ def _write_readme_to_init():
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage PDoc
 
-PDOC_CONFIG = """<%!
+_PDOC_CONFIG = """<%!
     show_inherited_members = True
     hljs_stylename = 'atom-one-light'
     lunr_search = {'fuzziness': 1, 'index_docstrings': True}
 %>"""
 """PDOC3 configuration."""
 
-PDOC_HEAD = """<style>
+_PDOC_HEAD = """<style>
     a {
         text-decoration: underline;
     }
@@ -113,8 +113,8 @@ PDOC_HEAD = """<style>
 
 def _write_pdoc_config_files():
     """Write the head and config mako files for pdoc."""
-    (DIG.template_dir / 'head.mako').write_text(PDOC_HEAD)
-    (DIG.template_dir / 'config.mako').write_text(PDOC_CONFIG)
+    (DIG.template_dir / 'head.mako').write_text(_PDOC_HEAD)
+    (DIG.template_dir / 'config.mako').write_text(_PDOC_CONFIG)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -135,7 +135,7 @@ def task_update_cl():
 # Manage README Updates
 
 
-class ReadMeMachine:  # noqa: H601
+class _ReadMeMachine:  # noqa: H601
     """State machine to replace commented sections of readme with new text."""
 
     states = ['readme', 'new']
@@ -180,7 +180,7 @@ class ReadMeMachine:  # noqa: H601
 
 
 def _write_to_readme(comment_pattern, new_text):
-    """Wrap ReadMeMachine. Handle reading then writing changes to the README.
+    """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
 
     Args:
         comment_pattern: comment pattern to match (ex: ``)
@@ -189,7 +189,7 @@ def _write_to_readme(comment_pattern, new_text):
     """
     readme_path = DIG.source_path / 'README.md'
     lines = readme_path.read_text().split('\n')
-    readme_lines = ReadMeMachine().parse(lines, comment_pattern, new_text)
+    readme_lines = _ReadMeMachine().parse(lines, comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
 
 
