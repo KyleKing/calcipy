@@ -302,7 +302,7 @@ def if_found_unlink(file_path):
 # &gt; PLANNED: Development
 
 
-WATCHCODE_TEMPLATE: dict = {
+_WATCHCODE_TEMPLATE: dict = {
     &#39;filesets&#39;: {
         &#39;default&#39;: {
             &#39;include&#39;: [&#39;.watchcode.yaml&#39;],
@@ -334,7 +334,7 @@ class _WatchCodeYAML:  # noqa: H601
     commands: Sequence[str]
     include: Sequence[str]
     exclude: Sequence[str] = ()
-    dict_watchcode: dict = WATCHCODE_TEMPLATE
+    dict_watchcode: dict = _WATCHCODE_TEMPLATE
     path_wc: Optional[Path] = None
 
     def __attrs_post_init__(self) -&gt; None:
@@ -412,10 +412,6 @@ def task_export_req():
 <dt id="dash_dev.doit_base.DIG"><code class="name">var <span class="ident">DIG</span></code></dt>
 <dd>
 <div class="desc"><p>Global DoIt Globals class used to manage global variables.</p></div>
-</dd>
-<dt id="dash_dev.doit_base.WATCHCODE_TEMPLATE"><code class="name">var <span class="ident">WATCHCODE_TEMPLATE</span> : dict</code></dt>
-<dd>
-<div class="desc"><p>Template dictionary with WatchCode defaults.</p></div>
 </dd>
 </dl>
 </section>
@@ -995,7 +991,6 @@ setTimeout(() => input.focus(), 100);
 <li><h3><a href="#header-variables">Global variables</a></h3>
 <ul class="">
 <li><code><a title="dash_dev.doit_base.DIG" href="#dash_dev.doit_base.DIG">DIG</a></code></li>
-<li><code><a title="dash_dev.doit_base.WATCHCODE_TEMPLATE" href="#dash_dev.doit_base.WATCHCODE_TEMPLATE">WATCHCODE_TEMPLATE</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>

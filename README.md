@@ -45,13 +45,13 @@ with PyCallGraph(output=GraphvizOutput()):
 
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
-| `dash_dev/__init__.py` | 4 | 0 | 0 | 100.0% |
+| `dash_dev/__init__.py` | 4 | 3 | 0 | 25.0% |
 | `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
 | `dash_dev/doit_base.py` | 107 | 26 | 0 | 75.7% |
-| `dash_dev/doit_doc.py` | 101 | 64 | 0 | 36.6% |
+| `dash_dev/doit_doc.py` | 108 | 85 | 0 | 21.3% |
 | `dash_dev/doit_lint.py` | 68 | 22 | 0 | 67.6% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 
-Generated on: 2020-11-12T05:36:23.152766
+Generated on: 2020-11-12T05:51:24.051688
 
 <!-- /COVERAGE -->

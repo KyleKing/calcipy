@@ -105,7 +105,7 @@ def _collect_py_files(add_paths=(), subdirectories=None):
 # ----------------------------------------------------------------------------------------------------------------------
 # Configuration Settings
 
-FLAKE8 = &#34;&#34;&#34;
+_FLAKE8 = &#34;&#34;&#34;
 [flake8]
 annoy = true
 assertive-snakecase = true
@@ -136,7 +136,7 @@ select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 &#34;&#34;&#34;
 &#34;&#34;&#34;Flake8 configuration file settings.&#34;&#34;&#34;
 
-ISORT = {
+_ISORT = {
     &#39;balanced_wrapping&#39;: True,
     &#39;default_section&#39;: &#39;THIRDPARTY&#39;,
     &#39;force_grid_wrap&#39;: 0,
@@ -154,9 +154,9 @@ def task_set_lint_config():
 
     &#34;&#34;&#34;
     user_toml = toml.load(DIG.toml_path)
-    user_toml[&#39;tool&#39;][&#39;isort&#39;] = ISORT
+    user_toml[&#39;tool&#39;][&#39;isort&#39;] = _ISORT
     return debug_action([
-        (write_text, (DIG.flake8_path, FLAKE8.strip())),
+        (write_text, (DIG.flake8_path, _FLAKE8.strip())),
         (write_text, (DIG.toml_path, toml.dumps(user_toml))),
     ])
 
@@ -319,17 +319,6 @@ def task_auto_format():
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-variables">Global variables</h2>
-<dl>
-<dt id="dash_dev.doit_lint.FLAKE8"><code class="name">var <span class="ident">FLAKE8</span></code></dt>
-<dd>
-<div class="desc"><p>Flake8 configuration file settings.</p></div>
-</dd>
-<dt id="dash_dev.doit_lint.ISORT"><code class="name">var <span class="ident">ISORT</span></code></dt>
-<dd>
-<div class="desc"><p>ISort configuration file settings.</p></div>
-</dd>
-</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
@@ -481,9 +470,9 @@ def task_auto_format():
 
     &#34;&#34;&#34;
     user_toml = toml.load(DIG.toml_path)
-    user_toml[&#39;tool&#39;][&#39;isort&#39;] = ISORT
+    user_toml[&#39;tool&#39;][&#39;isort&#39;] = _ISORT
     return debug_action([
-        (write_text, (DIG.flake8_path, FLAKE8.strip())),
+        (write_text, (DIG.flake8_path, _FLAKE8.strip())),
         (write_text, (DIG.toml_path, toml.dumps(user_toml))),
     ])</code></pre>
 </details>
@@ -548,12 +537,6 @@ setTimeout(() => input.focus(), 100);
 <li><h3>Super-module</h3>
 <ul>
 <li><code><a title="dash_dev" href="index.html">dash_dev</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-variables">Global variables</a></h3>
-<ul class="">
-<li><code><a title="dash_dev.doit_lint.FLAKE8" href="#dash_dev.doit_lint.FLAKE8">FLAKE8</a></code></li>
-<li><code><a title="dash_dev.doit_lint.ISORT" href="#dash_dev.doit_lint.ISORT">ISORT</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
