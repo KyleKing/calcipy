@@ -11,6 +11,8 @@ from doit.tools import Interactive
 from loguru import logger
 from ruamel.yaml import YAML
 
+from .log_helpers import logger_context
+
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
 # TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
@@ -140,7 +142,8 @@ def delete_dir(dir_path):
 
     """
     if dir_path.is_dir():
-        shutil.rmtree(dir_path)
+        with logger_context(f'Delete `{dir_path}`'):
+            shutil.rmtree(dir_path)
     return  # Indicates that action completed when called from DoIt task
 
 
@@ -152,7 +155,8 @@ def ensure_dir(dir_path):
         dir_path: Path to directory that needs to exists
 
     """
-    dir_path.mkdir(parents=True, exist_ok=True)
+    with logger_context(f'Create `{dir_path}`'):
+        dir_path.mkdir(parents=True, exist_ok=True)
     return  # Indicates that action completed when called from DoIt task
 
 
