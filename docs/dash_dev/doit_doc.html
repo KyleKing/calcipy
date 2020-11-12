@@ -71,9 +71,9 @@ padding: 0 5px;
 
 import json
 import os
+import sh
 import re
 import shutil
-import subprocess  # noqa: S404
 from pathlib import Path
 
 from transitions import Machine
@@ -287,8 +287,8 @@ def _write_coverage_to_readme():
     &#34;&#34;&#34;Read the coverage.json file and write a Markdown table to the README file.&#34;&#34;&#34;
     # Create the &#39;coverage.json&#39; file from .coverage SQL database. Suppress errors if failed
     try:
-        subprocess.run(&#39;poetry run python -m coverage json&#39;, shell=True, check=True)  # noqa: DUO116,S602,S607
-    except subprocess.CalledProcessError:
+        sh.poetry.run.python(&#39;-m&#39;, &#39;coverage&#39;, &#39;json&#39;)
+    except sh.ErrorReturnCode_1:
         pass
 
     coverage_path = (DIG.source_path / &#39;coverage.json&#39;)
