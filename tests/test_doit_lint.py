@@ -15,7 +15,7 @@ def test_collect_py_files():
     """Test collect_py_files."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = doit_lint.collect_py_files(add_paths=(), subdirectories=None)
+    result = doit_lint._collect_py_files(add_paths=(), subdirectories=None)
 
     assert len(result) == 2
     assert str(DIG_CWD / 'test_file.py') in result
@@ -26,7 +26,7 @@ def test_lint_project():
     """Test lint_project."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = doit_lint.lint_project(
+    result = doit_lint._lint_project(
         lint_paths=[DIG_CWD / 'test_file.py', DIG_CWD / 'tests/test_file_2.py'],
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
@@ -48,7 +48,7 @@ def test_check_linting_errors():
         flake8_log_path = Path(td) / 'flake8.log'
         flake8_log_path.write_text(FLAKE8_LOG)
 
-        doit_lint.check_linting_errors(flake8_log_path, ignore_errors=['F401', 'I001', 'I003', 'E800'])  # act
+        doit_lint._check_linting_errors(flake8_log_path, ignore_errors=['F401', 'I001', 'I003', 'E800'])  # act
 
         assert not flake8_log_path.is_file()
 
@@ -60,4 +60,4 @@ def test_check_linting_errors_runtime_error():
         flake8_log_path.write_text(FLAKE8_LOG)
 
         with pytest.raises(RuntimeError):
-            doit_lint.check_linting_errors(flake8_log_path, ignore_errors=None)
+            doit_lint._check_linting_errors(flake8_log_path, ignore_errors=None)

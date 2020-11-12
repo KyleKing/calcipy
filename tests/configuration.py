@@ -24,6 +24,6 @@ def initialize_dig():
         class: DoItGlobals instance with the cwd set to `DIG_CWD`
 
     """
-    dig = DoItGlobals
+    dig = DoItGlobals()
     dig.set_paths(source_path=DIG_CWD)
     return dig

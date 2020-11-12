@@ -73,6 +73,10 @@ class DoItGlobals:
     tmp_examples_dir: Optional[Path] = None
     """Path to temporary directory to move examples while creating documentation. Set in `set_paths`."""
 
+    # PLANNED: Document
+    template_dir = None
+    pkg_version = None
+
     def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
                   doc_dir: Optional[Path] = None):
         """Set data members based on working directory.
@@ -127,6 +131,7 @@ DIG = DoItGlobals()
 # Manage Directories
 
 
+# skipcq: PYL-R1711
 def delete_dir(dir_path):
     """Delete the specified directory from a DoIt task.
 
@@ -139,6 +144,7 @@ def delete_dir(dir_path):
     return  # Indicates that action completed when called from DoIt task
 
 
+# skipcq: PYL-R1711
 def ensure_dir(dir_path):
     """Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
@@ -154,7 +160,7 @@ def ensure_dir(dir_path):
 # General Utilities
 
 
-def show_cmd(task):
+def _show_cmd(task):
     """For debugging, log the full command to the console.
 
     Args:
@@ -181,7 +187,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2):
     """
     return {
         'actions': actions,
-        'title': show_cmd,
+        'title': _show_cmd,
         'verbosity': verbosity,
     }
 
@@ -196,6 +202,7 @@ def echo(msg):
     print(msg)  # noqa: T001
 
 
+# skipcq: PYL-R1711
 def write_text(file_path, text):
     """file_path.write_text wrapper for DoIt.
 
@@ -233,7 +240,7 @@ def if_found_unlink(file_path):
 # > PLANNED: Development
 
 
-WATCHCODE_TEMPLATE: dict = {
+_WATCHCODE_TEMPLATE: dict = {
     'filesets': {
         'default': {
             'include': ['.watchcode.yaml'],
@@ -259,27 +266,27 @@ WATCHCODE_TEMPLATE: dict = {
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class WatchCodeYAML:  # noqa: H601
+class _WatchCodeYAML:  # noqa: H601
     """Watchcode YAML file."""
 
     commands: Sequence[str]
     include: Sequence[str]
     exclude: Sequence[str] = ()
-    dict_watchcode: dict = WATCHCODE_TEMPLATE
+    dict_watchcode: dict = _WATCHCODE_TEMPLATE
     path_wc: Optional[Path] = None
 
     def __attrs_post_init__(self) -> None:
-        """Called after initialization."""
+        """Complete initialization and merge settings."""
         self.merge_settings()
 
     def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -> None:
-        """Merged nested settings in the WatchCode YAML dictionary."""
+        """Merge nested settings in the WatchCode YAML dictionary."""
         values = self.dict_watchcode[key][name][sub_key]
         values.extend(value)
         self.dict_watchcode[key][name][sub_key] = [*set(values)]
 
     def merge_settings(self) -> None:
-        """Merged all user-specified settings in the WatchCode YAML dictionary."""
+        """Merge all user-specified settings in the WatchCode YAML dictionary."""
         for file_key in ['include', 'exclude']:
             self._merge_nested_setting('filesets', 'default', file_key, getattr(self, file_key))
         self._merge_nested_setting('tasks', 'default', 'commands', self.commands)
@@ -303,7 +310,7 @@ def task_watchcode() -> dict:
     """
     def create_yaml(py_path: str) -> None:
         """Create the YAML file."""
-        wc_yaml = WatchCodeYAML(
+        wc_yaml = _WatchCodeYAML(
             commands=[f'poetry run python {py_path}'],
             include=[py_path],
         )

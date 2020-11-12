@@ -49,7 +49,7 @@ def test_write_pdoc_config_files():
     head_file = (DIG.template_dir / 'head.mako')
     config_file = (DIG.template_dir / 'config.mako')
 
-    doit_doc.write_pdoc_config_files()  # act
+    doit_doc._write_pdoc_config_files()  # act
 
     assert head_file.is_file()
     assert config_file.is_file()

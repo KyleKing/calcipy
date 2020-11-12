@@ -31,6 +31,8 @@
 
 ### Changes
 
+* Sync local changes for branch and TODOs. [Kyle King]
+
 * Loosen dependencies requirements. [Kyle King]
 
 * Add WIP type checker configs. [Kyle King]

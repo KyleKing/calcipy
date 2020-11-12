@@ -1,7 +1,7 @@
 """Test doit_base.py."""
 
+import attr
 import shutil
-from collections import namedtuple
 
 from dash_dev import doit_base
 from dash_dev.doit_base import DIG, DoItGlobals
@@ -13,7 +13,7 @@ def test_dig_props():
     """Test the DIG global variable from DoItGlobals."""
     public_props = ['coverage_path', 'dash_dev_dir', 'doc_dir', 'excluded_files', 'external_doc_dirs', 'flake8_path',
                     'lint_paths', 'path_gitchangelog', 'pkg_name', 'set_paths', 'source_path', 'src_examples_dir',
-                    'test_path', 'test_report_path', 'tmp_examples_dir', 'toml_path']
+                    'test_path', 'test_report_path', 'tmp_examples_dir', 'toml_path', 'template_dir', 'pkg_version']
     dig = DoItGlobals()
 
     result = [prop for prop in dir(dig) if not prop.startswith('_')]
@@ -52,12 +52,11 @@ def test_dig_paths():
 
 def test_show_cmd():
     """Test show_cmd."""
-    task_tuple = namedtuple('task_tuple', ('name', 'actions'))
+    task = attr.make_class('task', ('name', 'actions'))
     name = 'this_action'
     actions = [123, 'abc']
-    task = task_tuple(name, actions)
 
-    result = doit_base.show_cmd(task)
+    result = doit_base._show_cmd(task(name, actions))
 
     assert f'{name} > ' in result
     assert all(str(act) in result for act in actions)
