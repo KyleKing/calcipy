@@ -5,6 +5,20 @@
 
 ### New
 
+* New: intialized tag-finding logic @WIP. [Kyle King]
+
+* Use a new DoItTask type for annotations. [Kyle King]
+
+* Add type annotations. [Kyle King]
+
+* New: Loguru configuration for init @WIP. [Kyle King]
+
+* Activate DeepSource. [Kyle King]
+
+* Allow user-content in __init__. Fixes #1. [Kyle King]
+
+* Indicate private functions. Fixes #4. [Kyle King]
+
 * Add loguru! [Kyle King]
 
 * Add watchcode task for arbitrary files. [Kyle King]
@@ -30,6 +44,10 @@
 * Initialize poetry project. [Kyle King]
 
 ### Changes
+
+* Move watchcode to separate file. [Kyle King]
+
+* Mark additional globals as private. [Kyle King]
 
 * Sync local changes for branch and TODOs. [Kyle King]
 
@@ -72,6 +90,10 @@
 * Set Dash version & update whitelist. [Kyle King]
 
 ### Fix
+
+* Replace subprocess with sh. [Kyle King]
+
+* Problems found by DeepSource. [Kyle King]
 
 * Path to the .flake8 should be in source_path. [Kyle King]
 

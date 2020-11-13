@@ -99,6 +99,17 @@ html5lib = ["html5lib"]
 lxml = ["lxml"]
 
 [[package]]
+name = "better-exceptions"
+version = "0.2.2"
+description = "Pretty and helpful exceptions, automatically"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
+
+[[package]]
 name = "click"
 version = "7.1.2"
 description = "Composable command line interface toolkit"
@@ -1565,7 +1576,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8, <3.9"
-content-hash = "d99c544f74573267936a2d02f04059dd1ab45b98dde0f3ebcdc400fd4860d5ef"
+content-hash = "546a54e15240e05cba55cf052541c41cf0517ce381f497c926ae99e9ea7b54a2"
 
 [metadata.files]
 add-trailing-comma = [
@@ -1599,6 +1610,10 @@ beautifulsoup4 = [
     {file = "beautifulsoup4-4.9.3-py2-none-any.whl", hash = "sha256:4c98143716ef1cb40bf7f39a8e3eec8f8b009509e74904ba3a7b315431577e35"},
     {file = "beautifulsoup4-4.9.3-py3-none-any.whl", hash = "sha256:fff47e031e34ec82bf17e00da8f592fe7de69aeea38be00523c04623c04fb666"},
     {file = "beautifulsoup4-4.9.3.tar.gz", hash = "sha256:84729e322ad1d5b4d25f805bfa05b902dd96450f43842c4e99067d5e1369eb25"},
+]
+better-exceptions = [
+    {file = "better_exceptions-0.2.2-py3-none-any.whl", hash = "sha256:bf79c87659bc849989d726bf0e4a2100edefe7eded112d201f54fe08467fdf63"},
+    {file = "better_exceptions-0.2.2.tar.gz", hash = "sha256:c196cad849de615abb9f6eb67ca1b83f33b938818f0e2fe8fa157b22aeb7b992"},
 ]
 click = [
     {file = "click-7.1.2-py2.py3-none-any.whl", hash = "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"},

@@ -11,6 +11,7 @@ from dash_dev.doit_lint import (task_auto_format, task_lint_pre_commit,  # noqa:
 from dash_dev.doit_test import (task_coverage, task_open_test_docs, task_ptw_current,  # noqa: F401
                                 task_ptw_ff, task_ptw_marker, task_ptw_not_chrome, task_test,
                                 task_test_all, task_test_keyword, task_test_marker)
+from dash_dev.tag_collector import task_create_tag_file  # noqa: F401
 
 # Configure Dash paths
 DIG.set_paths(source_path=Path(__file__).resolve().parent)
@@ -23,6 +24,7 @@ DOIT_CONFIG = {
         'coverage',
         # 'open_test_docs',
         'set_lint_config',
+        'create_tag_file',
         'auto_format',
         'lint_pre_commit',
         # 'type_checking',
