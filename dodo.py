@@ -32,11 +32,11 @@ DOIT_CONFIG = {
 """DoIt Configuration Settings. Run with `poetry run doit`."""
 
 # # TODO: Implement type checking with pytype, mypy, etc.
-# def task_type_checking() -> dict:
+# def task_type_checking() -> Dict[str, Any]:
 #     """Run type annotation checks.
 
 #     Returns:
-#         dict: DoIt task
+#         Dict[str, Any]: DoIt task
 
 #     """
 #     return debug_action([

@@ -47,12 +47,12 @@ with PyCallGraph(output=GraphvizOutput()):
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 11 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
-| `dash_dev/doit_base.py` | 112 | 27 | 0 | 75.9% |
-| `dash_dev/doit_doc.py` | 109 | 70 | 0 | 35.8% |
-| `dash_dev/doit_lint.py` | 68 | 20 | 0 | 70.6% |
-| `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
-| `dash_dev/log_helpers.py` | 15 | 5 | 0 | 66.7% |
+| `dash_dev/doit_base.py` | 110 | 24 | 0 | 78.2% |
+| `dash_dev/doit_doc.py` | 110 | 70 | 0 | 36.4% |
+| `dash_dev/doit_lint.py` | 66 | 18 | 0 | 72.7% |
+| `dash_dev/doit_test.py` | 28 | 13 | 0 | 53.6% |
+| `dash_dev/log_helpers.py` | 17 | 5 | 0 | 70.6% |
 
-Generated on: 2020-11-12T08:49:01.408303
+Generated on: 2020-11-12T20:18:40.193590
 
 <!-- /COVERAGE -->
