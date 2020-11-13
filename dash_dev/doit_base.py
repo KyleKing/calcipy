@@ -3,7 +3,7 @@
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, Dict, Optional, Sequence
+from typing import Any, Callable, Dict, NewType, Optional, Sequence, Tuple, Union
 
 import attr
 import toml
@@ -21,6 +21,9 @@ from .log_helpers import logger_context
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
+
+DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])
+"""DoIt task type for annotations."""
 
 
 class DoItGlobals:
@@ -163,11 +166,11 @@ def ensure_dir(dir_path: Path) -> None:
 # General Utilities
 
 
-def _show_cmd(task) -> str:  # FIXME: Update with the new task type annotation
+def _show_cmd(task: DoItTask) -> str:
     """For debugging, log the full command to the console.
 
     Args:
-        task: task dictionary passed by DoIt
+        task: DoIt task
 
     Returns:
         str: describing the sequence of actions
@@ -177,10 +180,7 @@ def _show_cmd(task) -> str:  # FIXME: Update with the new task type annotation
     return f'{task.name} > [{actions}\n]\n'
 
 
-# FIXME: Rename to `debug_task`, update return type to the new type, and return a proper task (not actually a dict)
-# FIXME: I may actually just be able to use the Task class! (from doit.task import Task)
-# https://github.com/pydoit/doit/blob/d1a1b7b3abc7641d977d3b78b580d97aea4e27ea/doit/task.py#L99
-def debug_action(actions: Sequence[Any], verbosity: int = 2) -> Dict[str, Any]:
+def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
     Args:
@@ -188,7 +188,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2) -> Dict[str, Any]:
         verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
-        Dict[str, Any]: keys `actions`, `title`, and `verbosity` for dict: DoIt task
+        DoItTask: DoIt task
 
     """
     return {
@@ -196,6 +196,12 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2) -> Dict[str, Any]:
         'title': _show_cmd,
         'verbosity': verbosity,
     }
+
+
+def debug_action(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:  # noqa
+    import warnings
+    warnings.warn('debug_action is deprecated. Replace with `debug_task`')
+    return debug_task(actions, verbosity)
 
 
 def echo(msg: str) -> None:
@@ -241,7 +247,7 @@ def if_found_unlink(file_path: Path) -> None:
 
 
 # ======================================================================================================================
-# > PLANNED: Development
+# Watch Code Tasks
 
 
 _WATCHCODE_TEMPLATE: dict = {
@@ -325,16 +331,16 @@ def _create_yaml(py_path: str) -> None:
     wc_yaml.write()
 
 
-def task_watchcode() -> Dict[str, Any]:
+def task_watchcode() -> DoItTask:
     """Return Interactive `watchcode` task for specified file.
 
     Example: `doit run watchcode -p scripts/main.py`
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
-    action = debug_action([
+    action = debug_task([
         (_create_yaml, ),
         Interactive('poetry run watchcode'),
     ])
@@ -349,12 +355,12 @@ def task_watchcode() -> Dict[str, Any]:
 # Manage Requirements
 
 
-def task_export_req() -> Dict[str, Any]:
+def task_export_req() -> DoItTask:
     """Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     req_path = DIG.toml_path.parent / 'requirements.txt'
-    return debug_action([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])
+    return debug_task([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])

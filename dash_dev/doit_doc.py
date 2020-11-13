@@ -5,46 +5,40 @@ import os
 import re
 import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Pattern
+from typing import Dict, List, Optional, Pattern
 
 import sh
 from transitions import Machine
 
-from .doit_base import DIG, debug_action, open_in_browser
+from .doit_base import DIG, DoItTask, debug_task, open_in_browser
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Tags
 
 
-def task_create_tag() -> Dict[str, Any]:
+def task_create_tag() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
     Returns:
-        Dict[str, Any]: DoIt task
-        # FIXME: this returns a `task` (Dict[str, Union[str, Tuple[Callable, Sequence]]])
-        # Can that be made into a generic type to use elsewhere?
-        # from typing import NewType
-        # DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])
-        #
-        # So the debug_action should be renamed to debug_task...
+        DoItTask: DoIt task
 
     """
     message = 'New Revision from PyProject.toml'
-    return debug_action([
+    return debug_task([
         f'git tag -a {DIG.pkg_version} -m "{message}"',
         'git tag -n10 --list',
         'git push origin --tags',
     ])
 
 
-def task_remove_tag() -> Dict[str, Any]:
+def task_remove_tag() -> DoItTask:
     """Delete tag for current version in pyproject.toml.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
-    return debug_action([
+    return debug_task([
         f'git tag -d "{DIG.pkg_version}"',
         'git tag -n10 --list',
         f'git push origin :refs/tags/{DIG.pkg_version}',
@@ -175,15 +169,15 @@ def _write_pdoc_config_files() -> None:
 # Manage Changelog
 
 
-def task_update_cl() -> Dict[str, Any]:
+def task_update_cl() -> DoItTask:
     """Update a Changelog file with the raw Git history.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.path_gitchangelog.as_posix()
-    return debug_action(['gitchangelog > CHANGELOG-raw.md'])
+    return debug_task(['gitchangelog > CHANGELOG-raw.md'])
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -327,15 +321,15 @@ def _stage_examples() -> None:
             dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
 
 
-def task_document() -> Dict[str, Any]:
+def task_document() -> DoItTask:
     """Build the HTML documentation and push to gh-pages branch.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     pdoc_args = f'{DIG.pkg_name} --html --force --template-dir "{DIG.template_dir}" --output-dir "{DIG.doc_dir}"'
-    return debug_action([
+    return debug_task([
         (_clear_docs, ()),
         (_clear_examples, ()),
         (_write_pdoc_config_files, ()),
@@ -349,13 +343,13 @@ def task_document() -> Dict[str, Any]:
     ])
 
 
-def task_open_docs() -> Dict[str, Any]:
+def task_open_docs() -> DoItTask:
     """Open the documentation files in the default browser.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
-    return debug_action([
+    return debug_task([
         (open_in_browser, (DIG.doc_dir / DIG.pkg_name / 'index.html',)),
     ])

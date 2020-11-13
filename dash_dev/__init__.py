@@ -28,6 +28,8 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 
 ## Task list (Dash Charts)
 
+- TODO: Don't show TODO list in the init.py file
+
 - TODO: Show call chain in dash_charts: https://github.com/vmdesenvolvimento/pycallgraph3
 
 ```py
@@ -48,13 +50,13 @@ with PyCallGraph(output=GraphvizOutput()):
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 11 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
-| `dash_dev/doit_base.py` | 110 | 24 | 0 | 78.2% |
+| `dash_dev/doit_base.py` | 115 | 27 | 0 | 76.5% |
 | `dash_dev/doit_doc.py` | 110 | 70 | 0 | 36.4% |
 | `dash_dev/doit_lint.py` | 66 | 18 | 0 | 72.7% |
-| `dash_dev/doit_test.py` | 28 | 13 | 0 | 53.6% |
-| `dash_dev/log_helpers.py` | 17 | 5 | 0 | 70.6% |
+| `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
+| `dash_dev/log_helpers.py` | 18 | 5 | 0 | 72.2% |
 
-Generated on: 2020-11-12T20:18:40.193590
+Generated on: 2020-11-12T20:34:02.180673
 
 <!-- /COVERAGE -->
 """  # noqa

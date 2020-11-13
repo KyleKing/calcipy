@@ -1,11 +1,11 @@
 """DoIt Linting Utilities."""
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Union
+from typing import Dict, List, Optional, Sequence, Union
 
 import toml
 
-from .doit_base import DIG, debug_action, echo, if_found_unlink, write_text
+from .doit_base import DIG, DoItTask, debug_task, echo, if_found_unlink, write_text
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
@@ -81,16 +81,16 @@ _ISORT: Dict[str, Union[int, str]] = {
 """ISort configuration file settings."""
 
 
-def task_set_lint_config() -> Dict[str, Any]:
+def task_set_lint_config() -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     user_toml = toml.load(DIG.toml_path)
     user_toml['tool']['isort'] = _ISORT
-    return debug_action([
+    return debug_task([
         (write_text, (DIG.flake8_path, _FLAKE8.strip())),
         (write_text, (DIG.toml_path, toml.dumps(user_toml))),
     ])
@@ -153,7 +153,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
 
 
 def _lint_project(lint_paths: List[Path], flake8_path: Path = DIG.flake8_path,
-                  ignore_errors: Optional[List[str]] = None) -> Dict[str, Any]:
+                  ignore_errors: Optional[List[str]] = None) -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
     Args:
@@ -162,7 +162,7 @@ def _lint_project(lint_paths: List[Path], flake8_path: Path = DIG.flake8_path,
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
@@ -176,21 +176,21 @@ def _lint_project(lint_paths: List[Path], flake8_path: Path = DIG.flake8_path,
     return actions
 
 
-def task_lint_project() -> Dict[str, Any]:
+def task_lint_project() -> DoItTask:
     """Lint files from DIG creating summary log file of errors.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
-    return debug_action(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None))
+    return debug_task(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None))
 
 
-def task_lint_pre_commit() -> Dict[str, Any]:
+def task_lint_pre_commit() -> DoItTask:
     """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     ignore_errors = [
@@ -210,14 +210,14 @@ def task_lint_pre_commit() -> Dict[str, Any]:
         'S605', 'S607',  # S605,S607 / os.popen(...)
         'T100', 'T101',  # T100,T101 / fixme and todo comments
     ]
-    return debug_action(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=ignore_errors))
+    return debug_task(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=ignore_errors))
 
 
-def task_radon_lint() -> Dict[str, Any]:
+def task_radon_lint() -> DoItTask:
     """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     actions = []
@@ -226,18 +226,18 @@ def task_radon_lint() -> Dict[str, Any]:
             [(echo, (f'# Radon with args: {args}', ))]
             + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DIG.lint_paths)],
         )
-    return debug_action(actions)
+    return debug_task(actions)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Formatting
 
 
-def task_auto_format() -> Dict[str, Any]:
+def task_auto_format() -> DoItTask:
     """Format code with isort and autopep8.
 
     Returns:
-        Dict[str, Any]: DoIt task
+        DoItTask: DoIt task
 
     """
     run = 'poetry run python -m'
@@ -246,4 +246,4 @@ def task_auto_format() -> Dict[str, Any]:
         actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.toml_path}"')
         for fn in _list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
-    return debug_action(actions)
+    return debug_task(actions)

@@ -32,14 +32,14 @@ DOIT_CONFIG = {
 """DoIt Configuration Settings. Run with `poetry run doit`."""
 
 # # TODO: Implement type checking with pytype, mypy, etc.
-# def task_type_checking() -> Dict[str, Any]:
+# def task_type_checking() -> DoItTask:
 #     """Run type annotation checks.
 
 #     Returns:
-#         Dict[str, Any]: DoIt task
+#         DoItTask: DoIt task
 
 #     """
-#     return debug_action([
+#     return debug_task([
 #         # 'poetry run pytype --config pytype.cfg',
 #         f'poetry run mypy {DIG.pkg_name}',  # --ignore-missing-imports (see config file...)
 #     ])
