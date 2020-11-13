@@ -71,43 +71,43 @@ padding: 0 5px;
 
 from doit.tools import LongRunning
 
-from .doit_base import DIG, debug_action, open_in_browser
+from .doit_base import DIG, DoItTask, debug_task, open_in_browser
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Testing
 
 
-def task_test():
+def task_test() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return debug_action([
+    return debug_task([
         f&#39;poetry run pytest &#34;{DIG.test_path}&#34; -x -l --ff -vv&#39;,
     ], verbosity=2)
 
 
-def task_test_all():
+def task_test_all() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return debug_action([
+    return debug_task([
         f&#39;poetry run pytest &#34;{DIG.test_path}&#34; --ff -vv&#39;,
     ], verbosity=2)
 
 
-def task_test_marker():
+def task_test_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests.
 
     Example: `doit run test_marker -m \&#34;not MARKER\&#34;` or `doit run test_marker -m \&#34;MARKER\&#34;`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
@@ -121,13 +121,13 @@ def task_test_marker():
     }
 
 
-def task_test_keyword():
+def task_test_keyword() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a keyword to run a subset of tests.
 
     Example: `doit run test_keyword -k \&#34;KEYWORD\&#34;`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
@@ -141,27 +141,27 @@ def task_test_keyword():
     }
 
 
-def task_coverage():
+def task_coverage() -&gt; DoItTask:
     &#34;&#34;&#34;Run pytest and create coverage and test reports.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     kwargs = f&#39;--cov-report=html:&#34;{DIG.coverage_path.parent}&#34;  --html=&#34;{DIG.test_report_path}&#34;  --self-contained-html&#39;
-    return debug_action([
+    return debug_task([
         (f&#39;poetry run pytest &#34;{DIG.test_path}&#34; -x -l --ff -v --cov={DIG.pkg_name} {kwargs}&#39;),
     ], verbosity=2)
 
 
-def task_open_test_docs():
+def task_open_test_docs() -&gt; DoItTask:
     &#34;&#34;&#34;Open the test and coverage files in default browser.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return debug_action([
+    return debug_task([
         (open_in_browser, (DIG.coverage_path, )),
         (open_in_browser, (DIG.test_report_path, )),
     ])
@@ -171,14 +171,14 @@ def task_open_test_docs():
 # Implement long running ptw tasks
 
 
-def ptw_task(cli_args):
+def ptw_task(cli_args: str) -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task.
 
     Args:
         cli_args: string CLI args to pass to `ptw`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
@@ -187,49 +187,49 @@ def ptw_task(cli_args):
     }
 
 
-def task_ptw_not_chrome():
+def task_ptw_not_chrome() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `-m &#39;not CHROME&#39; -vvv`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return ptw_task(&#39;-m &#34;not CHROME&#34; -vvv&#39;)
 
 
-def task_ptw_ff():
+def task_ptw_ff() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `--last-failed --new-first -m &#39;not CHROME&#39; -vv`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return ptw_task(&#39;--last-failed --new-first -m &#34;not CHROME&#34; -vv&#39;)
 
 
-def task_ptw_current():
+def task_ptw_current() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
     kwargs: `-m &#39;CURRENT&#39; -vv`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return ptw_task(&#39;-m &#34;CURRENT&#34; -vv&#39;)
 
 
-def task_ptw_marker():
+def task_ptw_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests in LongRunning `ptw` task.
 
     Example: `doit run ptw_marker -m \&#34;not MARKER\&#34;` or `doit run ptw_marker -m \&#34;MARKER\&#34;`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     task = ptw_task(&#39;-vvv -m &#34;%(marker)s&#34;&#39;)
@@ -249,7 +249,7 @@ def task_ptw_marker():
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="dash_dev.doit_test.ptw_task"><code class="name flex">
-<span>def <span class="ident">ptw_task</span></span>(<span>cli_args)</span>
+<span>def <span class="ident">ptw_task</span></span>(<span>cli_args: str) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task.</p>
@@ -260,21 +260,21 @@ def task_ptw_marker():
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ptw_task(cli_args):
+<pre><code class="python">def ptw_task(cli_args: str) -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task.
 
     Args:
         cli_args: string CLI args to pass to `ptw`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
@@ -284,135 +284,135 @@ def task_ptw_marker():
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_coverage"><code class="name flex">
-<span>def <span class="ident">task_coverage</span></span>(<span>)</span>
+<span>def <span class="ident">task_coverage</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run pytest and create coverage and test reports.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_coverage():
+<pre><code class="python">def task_coverage() -&gt; DoItTask:
     &#34;&#34;&#34;Run pytest and create coverage and test reports.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     kwargs = f&#39;--cov-report=html:&#34;{DIG.coverage_path.parent}&#34;  --html=&#34;{DIG.test_report_path}&#34;  --self-contained-html&#39;
-    return debug_action([
+    return debug_task([
         (f&#39;poetry run pytest &#34;{DIG.test_path}&#34; -x -l --ff -v --cov={DIG.pkg_name} {kwargs}&#39;),
     ], verbosity=2)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_open_test_docs"><code class="name flex">
-<span>def <span class="ident">task_open_test_docs</span></span>(<span>)</span>
+<span>def <span class="ident">task_open_test_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Open the test and coverage files in default browser.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_open_test_docs():
+<pre><code class="python">def task_open_test_docs() -&gt; DoItTask:
     &#34;&#34;&#34;Open the test and coverage files in default browser.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return debug_action([
+    return debug_task([
         (open_in_browser, (DIG.coverage_path, )),
         (open_in_browser, (DIG.test_report_path, )),
     ])</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_ptw_current"><code class="name flex">
-<span>def <span class="ident">task_ptw_current</span></span>(<span>)</span>
+<span>def <span class="ident">task_ptw_current</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run only tests tagged with the CURRENT marker.</p>
 <p>kwargs: <code>-m 'CURRENT' -vv</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_current():
+<pre><code class="python">def task_ptw_current() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
     kwargs: `-m &#39;CURRENT&#39; -vv`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return ptw_task(&#39;-m &#34;CURRENT&#34; -vv&#39;)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_ptw_ff"><code class="name flex">
-<span>def <span class="ident">task_ptw_ff</span></span>(<span>)</span>
+<span>def <span class="ident">task_ptw_ff</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run failed first and skip the CHROME marker.</p>
 <p>kwargs: <code>--last-failed --new-first -m 'not CHROME' -vv</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_ff():
+<pre><code class="python">def task_ptw_ff() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `--last-failed --new-first -m &#39;not CHROME&#39; -vv`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return ptw_task(&#39;--last-failed --new-first -m &#34;not CHROME&#34; -vv&#39;)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_ptw_marker"><code class="name flex">
-<span>def <span class="ident">task_ptw_marker</span></span>(<span>)</span>
+<span>def <span class="ident">task_ptw_marker</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Specify a marker to run a subset of tests in LongRunning <code>ptw</code> task.</p>
 <p>Example: <code>doit run ptw_marker -m \"not MARKER\"</code> or <code>doit run ptw_marker -m \"MARKER\"</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_marker():
+<pre><code class="python">def task_ptw_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests in LongRunning `ptw` task.
 
     Example: `doit run ptw_marker -m \&#34;not MARKER\&#34;` or `doit run ptw_marker -m \&#34;MARKER\&#34;`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     task = ptw_task(&#39;-vvv -m &#34;%(marker)s&#34;&#39;)
@@ -425,106 +425,106 @@ def task_ptw_marker():
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_ptw_not_chrome"><code class="name flex">
-<span>def <span class="ident">task_ptw_not_chrome</span></span>(<span>)</span>
+<span>def <span class="ident">task_ptw_not_chrome</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run failed first and skip the CHROME marker.</p>
 <p>kwargs: <code>-m 'not CHROME' -vvv</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_not_chrome():
+<pre><code class="python">def task_ptw_not_chrome() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `-m &#39;not CHROME&#39; -vvv`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return ptw_task(&#39;-m &#34;not CHROME&#34; -vvv&#39;)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_test"><code class="name flex">
-<span>def <span class="ident">task_test</span></span>(<span>)</span>
+<span>def <span class="ident">task_test</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run tests with Pytest.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test():
+<pre><code class="python">def task_test() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return debug_action([
+    return debug_task([
         f&#39;poetry run pytest &#34;{DIG.test_path}&#34; -x -l --ff -vv&#39;,
     ], verbosity=2)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_test_all"><code class="name flex">
-<span>def <span class="ident">task_test_all</span></span>(<span>)</span>
+<span>def <span class="ident">task_test_all</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run tests with Pytest.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test_all():
+<pre><code class="python">def task_test_all() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return debug_action([
+    return debug_task([
         f&#39;poetry run pytest &#34;{DIG.test_path}&#34; --ff -vv&#39;,
     ], verbosity=2)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_test_keyword"><code class="name flex">
-<span>def <span class="ident">task_test_keyword</span></span>(<span>)</span>
+<span>def <span class="ident">task_test_keyword</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Specify a keyword to run a subset of tests.</p>
 <p>Example: <code>doit run test_keyword -k \"KEYWORD\"</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test_keyword():
+<pre><code class="python">def task_test_keyword() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a keyword to run a subset of tests.
 
     Example: `doit run test_keyword -k \&#34;KEYWORD\&#34;`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
@@ -539,27 +539,27 @@ def task_ptw_marker():
 </details>
 </dd>
 <dt id="dash_dev.doit_test.task_test_marker"><code class="name flex">
-<span>def <span class="ident">task_test_marker</span></span>(<span>)</span>
+<span>def <span class="ident">task_test_marker</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Specify a marker to run a subset of tests.</p>
 <p>Example: <code>doit run test_marker -m \"not MARKER\"</code> or <code>doit run test_marker -m \"MARKER\"</code></p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test_marker():
+<pre><code class="python">def task_test_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests.
 
     Example: `doit run test_marker -m \&#34;not MARKER\&#34;` or `doit run test_marker -m \&#34;MARKER\&#34;`
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
