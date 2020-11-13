@@ -1565,7 +1565,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8, <3.9"
-content-hash = "d99c544f74573267936a2d02f04059dd1ab45b98dde0f3ebcdc400fd4860d5ef"
+content-hash = "9227987a99ceaeb75ebfdc2d8a8f1ceffaf1112b58f00f751ba097e111b09ab2"
 
 [metadata.files]
 add-trailing-comma = [
