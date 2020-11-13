@@ -3,13 +3,12 @@
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, Optional, Sequence
+from typing import Any, Callable, Dict, NewType, Optional, Sequence, Tuple, Union
 
-import attr
 import toml
-from doit.tools import Interactive
 from loguru import logger
-from ruamel.yaml import YAML
+
+from .log_helpers import logger_context
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
@@ -19,6 +18,9 @@ from ruamel.yaml import YAML
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
+
+DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])  # noqa: ECE001
+"""DoIt task type for annotations."""
 
 
 class DoItGlobals:
@@ -78,7 +80,7 @@ class DoItGlobals:
     pkg_version = None
 
     def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
-                  doc_dir: Optional[Path] = None):
+                  doc_dir: Optional[Path] = None) -> None:
         """Set data members based on working directory.
 
         Args:
@@ -91,8 +93,10 @@ class DoItGlobals:
 
         """
         self.source_path = Path.cwd() if source_path is None else source_path
+        logger.info(f'Setting DIG paths for {pkg_name} at {self.source_path}', pkg_name=pkg_name,
+                    source_path=source_path, self_source_path=self.source_path, doc_dir=doc_dir)
 
-        # Define the output directory with relevant subdirectories
+        # Define the output directory with relevant sub_directories
         self.test_path = self.source_path / 'tests'
         self.doc_dir = self.source_path / 'docs' if doc_dir is None else doc_dir
         self.template_dir = self.doc_dir / 'templates'
@@ -116,12 +120,13 @@ class DoItGlobals:
             self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
         # Create list of directories and paths to isort and format
-        subdirs = [self.pkg_name] + self.external_doc_dirs
-        self.lint_paths = [self.source_path / subdir for subdir in subdirs]
+        sub_dirs = [self.pkg_name] + self.external_doc_dirs
+        self.lint_paths = [self.source_path / subdir for subdir in sub_dirs]
         self.lint_paths.extend([self.test_path] + [*self.source_path.glob('*.py')])
         self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
 
-        logger.warning('Completed DIG initialization, but this needs to be decomposed.')
+        logger.warning('Completed DIG initialization, but this needs to be decomposed.'
+                       'Additionally, all of the paths should be logged for troubleshooting if needed')
 
 
 DIG = DoItGlobals()
@@ -131,8 +136,7 @@ DIG = DoItGlobals()
 # Manage Directories
 
 
-# skipcq: PYL-R1711
-def delete_dir(dir_path):
+def delete_dir(dir_path: Path) -> None:
     """Delete the specified directory from a DoIt task.
 
     Args:
@@ -140,31 +144,30 @@ def delete_dir(dir_path):
 
     """
     if dir_path.is_dir():
-        shutil.rmtree(dir_path)
-    return  # Indicates that action completed when called from DoIt task
+        with logger_context(f'Delete `{dir_path}`'):
+            shutil.rmtree(dir_path)
 
 
-# skipcq: PYL-R1711
-def ensure_dir(dir_path):
+def ensure_dir(dir_path: Path) -> None:
     """Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
     Args:
         dir_path: Path to directory that needs to exists
 
     """
-    dir_path.mkdir(parents=True, exist_ok=True)
-    return  # Indicates that action completed when called from DoIt task
+    with logger_context(f'Create `{dir_path}`'):
+        dir_path.mkdir(parents=True, exist_ok=True)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General Utilities
 
 
-def _show_cmd(task):
+def _show_cmd(task: DoItTask) -> str:
     """For debugging, log the full command to the console.
 
     Args:
-        task: task dictionary passed by DoIt
+        task: DoIt task
 
     Returns:
         str: describing the sequence of actions
@@ -174,7 +177,7 @@ def _show_cmd(task):
     return f'{task.name} > [{actions}\n]\n'
 
 
-def debug_action(actions: Sequence[Any], verbosity: int = 2):
+def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
     Args:
@@ -182,7 +185,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2):
         verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
-        dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task
+        DoItTask: DoIt task
 
     """
     return {
@@ -192,18 +195,23 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2):
     }
 
 
-def echo(msg):
+def debug_action(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:  # noqa
+    import warnings
+    warnings.warn('debug_action is deprecated. Replace with `debug_task`')
+    return debug_task(actions, verbosity)
+
+
+def echo(msg: str) -> None:
     """Wrap the system print command.
 
     Args:
-        msg: string to `print`
+        msg: string to write to STDOUT
 
     """
     print(msg)  # noqa: T001
 
 
-# skipcq: PYL-R1711
-def write_text(file_path, text):
+def write_text(file_path: Path, text: str) -> None:
     """file_path.write_text wrapper for DoIt.
 
     Args:
@@ -212,10 +220,9 @@ def write_text(file_path, text):
 
     """
     file_path.write_text(text)
-    return  # Indicates that action completed when called from DoIt task
 
 
-def open_in_browser(file_path):
+def open_in_browser(file_path: Path) -> None:
     """Open the path in the default web browser.
 
     Args:
@@ -225,7 +232,7 @@ def open_in_browser(file_path):
     webbrowser.open(Path(file_path).as_uri())
 
 
-def if_found_unlink(file_path):
+def if_found_unlink(file_path: Path) -> None:
     """Remove file if it exists. Function is intended to a DoIt action.
 
     Args:
@@ -236,107 +243,16 @@ def if_found_unlink(file_path):
         file_path.unlink()
 
 
-# ======================================================================================================================
-# > PLANNED: Development
-
-
-_WATCHCODE_TEMPLATE: dict = {
-    'filesets': {
-        'default': {
-            'include': ['.watchcode.yaml'],
-            'exclude': ['.watchcode.log', '*.pyc', '__pycache__'],
-            'exclude_gitignore': True,
-            'match_mode': 'gitlike',
-        },
-    },
-    'tasks': {
-        'default': {
-            'commands': [],
-            'fileset': 'default',
-            'queue_events': False,
-            'clear_screen': True,
-        },
-    },
-    'notifications': False,
-    'sound': False,
-    'log': False,
-    'default_task': 'default',
-}
-"""Template dictionary with WatchCode defaults."""
-
-
-@attr.s(auto_attribs=True, kw_only=True)
-class _WatchCodeYAML:  # noqa: H601
-    """Watchcode YAML file."""
-
-    commands: Sequence[str]
-    include: Sequence[str]
-    exclude: Sequence[str] = ()
-    dict_watchcode: dict = _WATCHCODE_TEMPLATE
-    path_wc: Optional[Path] = None
-
-    def __attrs_post_init__(self) -> None:
-        """Complete initialization and merge settings."""
-        self.merge_settings()
-
-    def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -> None:
-        """Merge nested settings in the WatchCode YAML dictionary."""
-        values = self.dict_watchcode[key][name][sub_key]
-        values.extend(value)
-        self.dict_watchcode[key][name][sub_key] = [*set(values)]
-
-    def merge_settings(self) -> None:
-        """Merge all user-specified settings in the WatchCode YAML dictionary."""
-        for file_key in ['include', 'exclude']:
-            self._merge_nested_setting('filesets', 'default', file_key, getattr(self, file_key))
-        self._merge_nested_setting('tasks', 'default', 'commands', self.commands)
-
-    def write(self) -> None:
-        """Write the WatchCode YAML file."""
-        yaml = YAML()
-        if self.path_wc is None:
-            self.path_wc = DIG.source_path
-        yaml.dump(self.dict_watchcode, self.path_wc / '.watchcode.yaml')
-
-
-def task_watchcode() -> dict:
-    """Return Interactive `watchcode` task for specified file.
-
-    Example: `doit run watchcode -p scripts/main.py`
-
-    Returns:
-        dict: DoIt task
-
-    """
-    def create_yaml(py_path: str) -> None:
-        """Create the YAML file."""
-        wc_yaml = _WatchCodeYAML(
-            commands=[f'poetry run python {py_path}'],
-            include=[py_path],
-        )
-        wc_yaml.write()
-
-    action = debug_action([
-        (create_yaml, ),
-        Interactive('poetry run watchcode'),
-    ])
-    action['params'] = [{
-        'name': 'py_path', 'short': 'p', 'long': 'py_path', 'default': '',
-        'help': ('Python file to re-run on changes\nSee: '
-                 'https://github.com/bluenote10/watchcode'),
-    }]
-    return action
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Requirements
 
 
-def task_export_req():
+def task_export_req() -> DoItTask:
     """Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     """
     req_path = DIG.toml_path.parent / 'requirements.txt'
-    return debug_action([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])
+    return debug_task([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])

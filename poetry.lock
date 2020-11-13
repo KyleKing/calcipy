@@ -172,7 +172,7 @@ python-versions = ">=3.5,<4.0"
 name = "decorator"
 version = "4.4.2"
 description = "Decorators for Humans"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 
@@ -1565,7 +1565,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8, <3.9"
-content-hash = "5d9b6e99c9d51e86e9b438197593a7ecc3f59c3692304ee0dcab6692052ac392"
+content-hash = "d99c544f74573267936a2d02f04059dd1ab45b98dde0f3ebcdc400fd4860d5ef"
 
 [metadata.files]
 add-trailing-comma = [

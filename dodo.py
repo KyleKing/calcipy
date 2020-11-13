@@ -2,7 +2,8 @@
 
 from pathlib import Path
 
-from dash_dev.doit_base import DIG, task_export_req, task_watchcode  # noqa: F401
+from dash_dev.doit_base import DIG, task_export_req  # noqa: F401
+from dash_dev.doit_dev import task_watchcode  # noqa: F401
 from dash_dev.doit_doc import (task_create_tag, task_document,  # noqa: F401
                                task_open_docs, task_remove_tag, task_update_cl)
 from dash_dev.doit_lint import (task_auto_format, task_lint_pre_commit,  # noqa: F401
@@ -32,14 +33,14 @@ DOIT_CONFIG = {
 """DoIt Configuration Settings. Run with `poetry run doit`."""
 
 # # TODO: Implement type checking with pytype, mypy, etc.
-# def task_type_checking() -> dict:
+# def task_type_checking() -> DoItTask:
 #     """Run type annotation checks.
 
 #     Returns:
-#         dict: DoIt task
+#         DoItTask: DoIt task
 
 #     """
-#     return debug_action([
+#     return debug_task([
 #         # 'poetry run pytype --config pytype.cfg',
 #         f'poetry run mypy {DIG.pkg_name}',  # --ignore-missing-imports (see config file...)
 #     ])

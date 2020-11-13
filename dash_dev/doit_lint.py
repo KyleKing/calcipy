@@ -1,34 +1,38 @@
 """DoIt Linting Utilities."""
 
+from pathlib import Path
+from typing import Dict, List, Optional, Sequence, Union
+
 import toml
 
-from .doit_base import DIG, debug_action, echo, if_found_unlink, write_text
+from .doit_base import DIG, DoItTask, debug_task, echo, if_found_unlink, write_text
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
 
 
-def _collect_py_files(add_paths=(), subdirectories=None):
+def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[Sequence[str]] = None) -> List[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
     Args:
         add_paths: List of absolute paths to additional Python files to process. Default is an empty list
-        subdirectories: folder names to recursively check for Python files. Default is
+        sub_directories: folder names to recursively check for Python files. Default is
             `[DIG.pkg_name] + DIG.external_doc_dirs`
 
     Returns:
         list: of string path names
 
-    Raises:
-        RuntimeError: if the add_paths argument is not a list or tuple
-
     """
-    if not isinstance(add_paths, (list, tuple)):
-        raise RuntimeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
-    if subdirectories is None:
-        subdirectories = [DIG.pkg_name] + DIG.external_doc_dirs
+    # Raises:
+    #     RuntimeError: if the add_paths argument is not a list or tuple
+    #
+    # TODO: Can this be removed now that type annotations have been added and this is >3.7?
+    # if not isinstance(add_paths, (list, tuple)):
+    #     raise RuntimeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
+    if sub_directories is None:
+        sub_directories = [DIG.pkg_name] + DIG.external_doc_dirs
     package_files = [*add_paths] + [*DIG.source_path.glob('*.py')]
-    for subdir in subdirectories:  # Capture files in package and in tests directory
+    for subdir in sub_directories:  # Capture files in package and in tests directory
         package_files.extend([*(DIG.source_path / subdir).rglob('*.py')])
     return [str(file_path) for file_path in package_files if file_path.name not in DIG.excluded_files]
 
@@ -36,7 +40,7 @@ def _collect_py_files(add_paths=(), subdirectories=None):
 # ----------------------------------------------------------------------------------------------------------------------
 # Configuration Settings
 
-_FLAKE8 = """
+_FLAKE8: str = """
 [flake8]
 annoy = true
 assertive-snakecase = true
@@ -67,7 +71,7 @@ select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
 """
 """Flake8 configuration file settings."""
 
-_ISORT = {
+_ISORT: Dict[str, Union[int, str]] = {
     'balanced_wrapping': True,
     'default_section': 'THIRDPARTY',
     'force_grid_wrap': 0,
@@ -77,16 +81,16 @@ _ISORT = {
 """ISort configuration file settings."""
 
 
-def task_set_lint_config():
+def task_set_lint_config() -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     """
     user_toml = toml.load(DIG.toml_path)
     user_toml['tool']['isort'] = _ISORT
-    return debug_action([
+    return debug_task([
         (write_text, (DIG.flake8_path, _FLAKE8.strip())),
         (write_text, (DIG.toml_path, toml.dumps(user_toml))),
     ])
@@ -96,7 +100,7 @@ def task_set_lint_config():
 # Linting
 
 
-def _list_lint_file_paths(path_list):
+def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     """Create a list of all Python files specified in the path_list.
 
     Args:
@@ -108,15 +112,12 @@ def _list_lint_file_paths(path_list):
     """
     file_paths = []
     for path_item in path_list:
-        if path_item.is_dir():
-            file_paths.extend([*path_item.rglob('*.py')])
-        else:
-            file_paths.append(path_item)
+        file_paths.extend([*path_item.rglob('*.py')] if path_item.is_dir() else [path_item])
 
     return [pth for pth in file_paths if pth.name not in DIG.excluded_files]
 
 
-def _check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
+def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:  # noqa: CCR001
     """Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
     Args:
@@ -130,7 +131,7 @@ def _check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
     flake8_full_path = flake8_log_path.parent / f'{flake8_log_path.stem}-full{flake8_log_path.suffix}'
     log_contents = flake8_log_path.read_text().strip()
     review_info = f'. Review: {flake8_log_path}'
-    if ignore_errors is not None:
+    if ignore_errors:
         # Backup the full list of errors
         flake8_full_path.write_text(log_contents)
         # Exclude the errors specificed to be ignored by the user
@@ -151,7 +152,8 @@ def _check_linting_errors(flake8_log_path, ignore_errors=None):  # noqa: CCR001
     if_found_unlink(flake8_log_path)
 
 
-def _lint_project(lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None):
+def _lint_project(lint_paths: List[Path], flake8_path: Path = DIG.flake8_path,
+                  ignore_errors: Optional[List[str]] = None) -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
     Args:
@@ -160,7 +162,7 @@ def _lint_project(lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None):
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
@@ -174,21 +176,21 @@ def _lint_project(lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None):
     return actions
 
 
-def task_lint_project():
+def task_lint_project() -> DoItTask:
     """Lint files from DIG creating summary log file of errors.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     """
-    return debug_action(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None))
+    return debug_task(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None))
 
 
-def task_lint_pre_commit():
+def task_lint_pre_commit() -> DoItTask:
     """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     """
     ignore_errors = [
@@ -208,14 +210,14 @@ def task_lint_pre_commit():
         'S605', 'S607',  # S605,S607 / os.popen(...)
         'T100', 'T101',  # T100,T101 / fixme and todo comments
     ]
-    return debug_action(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=ignore_errors))
+    return debug_task(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=ignore_errors))
 
 
-def task_radon_lint():
+def task_radon_lint() -> DoItTask:
     """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     """
     actions = []
@@ -224,18 +226,18 @@ def task_radon_lint():
             [(echo, (f'# Radon with args: {args}', ))]
             + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DIG.lint_paths)],
         )
-    return debug_action(actions)
+    return debug_task(actions)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Formatting
 
 
-def task_auto_format():
+def task_auto_format() -> DoItTask:
     """Format code with isort and autopep8.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     """
     run = 'poetry run python -m'
@@ -244,4 +246,4 @@ def task_auto_format():
         actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.toml_path}"')
         for fn in _list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
-    return debug_action(actions)
+    return debug_task(actions)

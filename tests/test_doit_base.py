@@ -62,12 +62,12 @@ def test_show_cmd():
     assert all(str(act) in result for act in actions)
 
 
-def test_debug_action():
-    """Test debug_action."""
+def test_debug_task():
+    """Test debug_task."""
     actions = ['123']
     verbosity = 1
 
-    result = doit_base.debug_action(actions, verbosity)
+    result = doit_base.debug_task(actions, verbosity)
 
     assert all(key in result for key in ['actions', 'title', 'verbosity'])
     assert result['actions'] == actions
