@@ -56,8 +56,9 @@ with PyCallGraph(output=GraphvizOutput()):
 | `dash_dev/doit_lint.py` | 66 | 18 | 0 | 72.7% |
 | `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
 | `dash_dev/log_helpers.py` | 18 | 5 | 0 | 72.2% |
+| `dash_dev/tag_collector.py` | 64 | 16 | 0 | 75.0% |
 
-Generated on: 2020-11-12T20:51:12.029472
+Generated on: 2020-11-12T23:58:38.946472
 
 <!-- /COVERAGE -->
 """  # noqa

@@ -6,15 +6,16 @@ attrs==20.3.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (p
 autopep8==1.5.4
 bandit==1.6.2
 beautifulsoup4==4.9.3
+better-exceptions==0.2.2
 click==7.1.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 cloudpickle==1.6.0; python_version >= "3.5"
 cognitive-complexity==1.2.0; python_version >= "3.6"
 cohesion==1.0.0
-colorama==0.4.4; python_version >= "3.5" and python_full_version < "3.0.0" and sys_platform == "win32" and platform_system == "Windows" or sys_platform == "win32" and python_version >= "3.5" and python_full_version >= "3.5.0" and platform_system == "Windows"
+colorama==0.4.4; python_version >= "3.5" and python_full_version < "3.0.0" and sys_platform == "win32" and platform_system == "Windows" or python_full_version >= "3.5.0" and sys_platform == "win32" and python_version >= "3.5" and platform_system == "Windows"
 coverage==5.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4"
 cycler==0.10.0; python_version >= "3.6"
 darglint==1.5.5; python_version >= "3.5" and python_version < "4.0"
-decorator==4.4.2; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.9" and python_full_version >= "2.7.0" or python_version >= "3.6" and python_version < "3.9" and python_full_version >= "3.2.0"
+decorator==4.4.2; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.2.0")
 diff-cover==4.0.1; python_version >= "3.5"
 dlint==0.10.3
 docopt==0.6.2
@@ -118,6 +119,7 @@ pyyaml==5.3.1; python_version >= "3.6" and python_full_version < "3.0.0" and pyt
 radon==4.3.2
 ruamel.yaml.clib==0.2.2; platform_python_implementation == "CPython" and python_version < "3.9"
 ruamel.yaml==0.16.12
+sh==1.14.1
 six==1.15.0; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.9" and python_full_version >= "2.7.0" or python_version >= "3.6" and python_version < "3.9" and python_full_version >= "3.4.0"
 smmap==3.0.4; python_version >= "3.4" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.4"
 snowballstemmer==2.0.0; python_version >= "3.5"

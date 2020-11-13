@@ -1,7 +1,8 @@
 """Test doit_base.py."""
 
-import attr
 import shutil
+
+import attr
 
 from dash_dev import doit_base
 from dash_dev.doit_base import DIG, DoItGlobals
