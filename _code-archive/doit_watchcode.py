@@ -1,4 +1,11 @@
-"""DoIt tasks for development functionality, such as code running."""
+"""DoIt tasks for development functionality, such as code running.
+
+Looks like WatchCode is no longer maintained. See: https://github.com/bluenote10/watchcode
+
+Alternatively, watchdog may have a more up-to-date implementation with watchmedo:
+https://github.com/gorakhargosh/watchdog#shell-utilities
+
+"""
 
 from pathlib import Path
 from typing import Any, Optional, Sequence

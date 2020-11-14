@@ -138,7 +138,6 @@ typed-ast==1.4.1; python_version >= "3.6" and python_version < "3.9"
 typing-extensions==3.7.4.3; python_version >= "3.6" and python_version < "4.0"
 typing-inspect==0.6.0; python_version >= "3.6"
 vulture==2.1; python_version >= "3.6"
-watchcode @ git+https://github.com/bluenote10/watchcode.git@master
 watchdog==0.10.3
 win32-setctime==1.0.3; sys_platform == "win32" and python_version >= "3.5"
 zipp==3.4.0; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.6"

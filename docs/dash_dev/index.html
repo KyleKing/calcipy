@@ -63,7 +63,8 @@ padding: 0 5px;
 </header>
 <section id="section-intro">
 <h1 id="dash_dev-github">Dash_Dev (<a href="https://github.com/KyleKing/dash_dev">Github</a>)</h1>
-<p>Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more</p>
+<!-- FIXME: Rename to doit_bootstrap -->
+<p>Python package to simplify ("bootstrap") development. Includes functionality for task running, testing, linting, documenting, and more</p>
 <p>Note: the package name is a misnomer and is not specific to Plotly/Dash projects (and I haven't thought of a better replacement yet). If you want to build Plotly/Dash applications, see <a href="https://github.com/KyleKing/dash_charts">dash_charts</a></p>
 <h2 id="quick-start">Quick Start</h2>
 <!-- TODO: Replace with CookieCutter Instructions -->
@@ -72,7 +73,7 @@ padding: 0 5px;
 git = &quot;https://github.com/KyleKing/dash_dev.git&quot;
 branch = &quot;main&quot;
 </code></pre>
-<p>Then copy the <a href="https://github.com/KyleKing/dash_dev/blob/master/dodo.py"><code>https://github.com/KyleKing/dash_dev/blob/master/dodo.py</code></a> file into your project and call with <code>poetry run doit</code></p>
+<p>Then copy the <a href="https://github.com/KyleKing/dash_dev/blob/main/dodo.py"><code>https://github.com/KyleKing/dash_dev/blob/main/dodo.py</code></a> file into your project and call with <code>poetry run doit</code></p>
 <p>If you have any questions, please <a href="https://github.com/KyleKing/dash_dev/issues/new">open an issue on Github</a></p>
 <h2 id="where-used">Where Used</h2>
 <ul>
@@ -123,18 +124,11 @@ branch = &quot;main&quot;
 <td align="right">72.5%</td>
 </tr>
 <tr>
-<td align="right"><code>dash_dev/doit_helpers/dev.py</code></td>
-<td align="right">45</td>
-<td align="right">45</td>
-<td align="right">0</td>
-<td align="right">0.0%</td>
-</tr>
-<tr>
 <td align="right"><code>dash_dev/doit_helpers/doc.py</code></td>
-<td align="right">136</td>
-<td align="right">78</td>
+<td align="right">139</td>
+<td align="right">79</td>
 <td align="right">0</td>
-<td align="right">42.6%</td>
+<td align="right">43.2%</td>
 </tr>
 <tr>
 <td align="right"><code>dash_dev/doit_helpers/doit_globals.py</code></td>
@@ -166,21 +160,21 @@ branch = &quot;main&quot;
 </tr>
 <tr>
 <td align="right"><code>dash_dev/registered_tasks.py</code></td>
-<td align="right">6</td>
-<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">5</td>
 <td align="right">0</td>
 <td align="right">0.0%</td>
 </tr>
 <tr>
 <td align="right"><code>dash_dev/tag_collector.py</code></td>
 <td align="right">86</td>
-<td align="right">34</td>
+<td align="right">28</td>
 <td align="right">0</td>
-<td align="right">60.5%</td>
+<td align="right">67.4%</td>
 </tr>
 </tbody>
 </table>
-<p>Generated on: 2020-11-14T11:50:47.015891</p>
+<p>Generated on: 2020-11-14T15:09:13.454349</p>
 <!-- /COVERAGE -->
 <details class="source">
 <summary>
@@ -189,7 +183,9 @@ branch = &quot;main&quot;
 <pre><code class="python">&#34;&#34;&#34;
 # Dash_Dev ([Github](https://github.com/KyleKing/dash_dev))
 
-Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more
+&lt;!-- FIXME: Rename to doit_bootstrap --&gt;
+
+Python package to simplify (\&#34;bootstrap\&#34;) development. Includes functionality for task running, testing, linting, documenting, and more
 
 Note: the package name is a misnomer and is not specific to Plotly/Dash projects (and I haven&#39;t thought of a better replacement yet). If you want to build Plotly/Dash applications, see [dash_charts](https://github.com/KyleKing/dash_charts)
 
@@ -205,7 +201,7 @@ git = \&#34;https://github.com/KyleKing/dash_dev.git\&#34;
 branch = \&#34;main\&#34;
 ```
 
-Then copy the [`https://github.com/KyleKing/dash_dev/blob/master/dodo.py`](https://github.com/KyleKing/dash_dev/blob/master/dodo.py) file into your project and call with `poetry run doit`
+Then copy the [`https://github.com/KyleKing/dash_dev/blob/main/dodo.py`](https://github.com/KyleKing/dash_dev/blob/main/dodo.py) file into your project and call with `poetry run doit`
 
 If you have any questions, please [open an issue on Github](https://github.com/KyleKing/dash_dev/issues/new)
 
@@ -226,21 +222,20 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `dash_dev/conftest.py` | 23 | 3 | 0 | 87.0% |
 | `dash_dev/doit_helpers/__init__.py` | 0 | 0 | 0 | 100.0% |
 | `dash_dev/doit_helpers/base.py` | 51 | 14 | 0 | 72.5% |
-| `dash_dev/doit_helpers/dev.py` | 45 | 45 | 0 | 0.0% |
-| `dash_dev/doit_helpers/doc.py` | 136 | 78 | 0 | 42.6% |
+| `dash_dev/doit_helpers/doc.py` | 139 | 79 | 0 | 43.2% |
 | `dash_dev/doit_helpers/doit_globals.py` | 54 | 2 | 0 | 96.3% |
 | `dash_dev/doit_helpers/lint.py` | 81 | 19 | 0 | 76.5% |
 | `dash_dev/doit_helpers/test.py` | 40 | 13 | 0 | 67.5% |
 | `dash_dev/log_helpers.py` | 24 | 5 | 0 | 79.2% |
-| `dash_dev/registered_tasks.py` | 6 | 6 | 0 | 0.0% |
-| `dash_dev/tag_collector.py` | 86 | 34 | 0 | 60.5% |
+| `dash_dev/registered_tasks.py` | 5 | 5 | 0 | 0.0% |
+| `dash_dev/tag_collector.py` | 86 | 28 | 0 | 67.4% |
 
-Generated on: 2020-11-14T11:50:47.015891
+Generated on: 2020-11-14T15:09:13.454349
 
 &lt;!-- /COVERAGE --&gt;
 &#34;&#34;&#34;  # noqa
 
-__version__ = &#39;0.0.1&#39;
+__version__ = &#39;0.0.2&#39;
 __pkg_name__ = &#39;dash_dev&#39;
 
 import logging

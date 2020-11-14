@@ -89,7 +89,7 @@ from .doit_globals import DIG, DoItTask
 
 
 @log_fun
-def task_create_tag() -&gt; DoItTask:
+def task_tag_create() -&gt; DoItTask:
     &#34;&#34;&#34;Create a git tag based on the version in pyproject.toml.
 
     Returns:
@@ -105,7 +105,7 @@ def task_create_tag() -&gt; DoItTask:
 
 
 @log_fun
-def task_remove_tag() -&gt; DoItTask:
+def task_tag_remove() -&gt; DoItTask:
     &#34;&#34;&#34;Delete tag for current version in pyproject.toml.
 
     Returns:
@@ -419,7 +419,7 @@ def _stage_examples() -&gt; None:
 
 @log_fun
 def task_document() -&gt; DoItTask:
-    &#34;&#34;&#34;Build the HTML documentation and push to gh-pages branch.
+    &#34;&#34;&#34;Build the HTML documentation.
 
     Returns:
         DoItTask: DoIt task
@@ -437,6 +437,18 @@ def task_document() -&gt; DoItTask:
         f&#39;poetry run pdoc3 {pdoc_args}&#39;,
         (_write_redirect_html, ()),
         (_clear_examples, ()),
+    ])
+
+
+@log_fun
+def task_git_add_docs() -&gt; DoItTask:
+    &#34;&#34;&#34;Override local gitignore rules to ensure that all HTML files for the docs are tracked.
+
+    Returns:
+        DoItTask: DoIt task
+
+    &#34;&#34;&#34;
+    return debug_task([
         f&#39;git add docs/{DIG.pkg_name}/**/*.html -f&#39;,
     ])
 
@@ -461,41 +473,11 @@ def task_open_docs() -&gt; DoItTask:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="dash_dev.doit_helpers.doc.task_create_tag"><code class="name flex">
-<span>def <span class="ident">task_create_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Create a git tag based on the version in pyproject.toml.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>DoItTask</code></dt>
-<dd>DoIt task</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@log_fun
-def task_create_tag() -&gt; DoItTask:
-    &#34;&#34;&#34;Create a git tag based on the version in pyproject.toml.
-
-    Returns:
-        DoItTask: DoIt task
-
-    &#34;&#34;&#34;
-    message = &#39;New Revision from PyProject.toml&#39;
-    return debug_task([
-        f&#39;git tag -a {DIG.pkg_version} -m &#34;{message}&#34;&#39;,
-        &#39;git tag -n10 --list&#39;,
-        &#39;git push origin --tags&#39;,
-    ])</code></pre>
-</details>
-</dd>
 <dt id="dash_dev.doit_helpers.doc.task_document"><code class="name flex">
-<span>def <span class="ident">task_document</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
+<span>def <span class="ident">task_document</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fdb5d6409d0></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Build the HTML documentation and push to gh-pages branch.</p>
+<div class="desc"><p>Build the HTML documentation.</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>DoItTask</code></dt>
@@ -507,7 +489,7 @@ def task_create_tag() -&gt; DoItTask:
 </summary>
 <pre><code class="python">@log_fun
 def task_document() -&gt; DoItTask:
-    &#34;&#34;&#34;Build the HTML documentation and push to gh-pages branch.
+    &#34;&#34;&#34;Build the HTML documentation.
 
     Returns:
         DoItTask: DoIt task
@@ -525,12 +507,38 @@ def task_document() -&gt; DoItTask:
         f&#39;poetry run pdoc3 {pdoc_args}&#39;,
         (_write_redirect_html, ()),
         (_clear_examples, ()),
+    ])</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_helpers.doc.task_git_add_docs"><code class="name flex">
+<span>def <span class="ident">task_git_add_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fdb5d6409d0></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Override local gitignore rules to ensure that all HTML files for the docs are tracked.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>DoItTask</code></dt>
+<dd>DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@log_fun
+def task_git_add_docs() -&gt; DoItTask:
+    &#34;&#34;&#34;Override local gitignore rules to ensure that all HTML files for the docs are tracked.
+
+    Returns:
+        DoItTask: DoIt task
+
+    &#34;&#34;&#34;
+    return debug_task([
         f&#39;git add docs/{DIG.pkg_name}/**/*.html -f&#39;,
     ])</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.doc.task_open_docs"><code class="name flex">
-<span>def <span class="ident">task_open_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
+<span>def <span class="ident">task_open_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fdb5d6409d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Open the documentation files in the default browser.</p>
@@ -556,8 +564,38 @@ def task_open_docs() -&gt; DoItTask:
     ])</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_helpers.doc.task_remove_tag"><code class="name flex">
-<span>def <span class="ident">task_remove_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
+<dt id="dash_dev.doit_helpers.doc.task_tag_create"><code class="name flex">
+<span>def <span class="ident">task_tag_create</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fdb5d6409d0></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a git tag based on the version in pyproject.toml.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>DoItTask</code></dt>
+<dd>DoIt task</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@log_fun
+def task_tag_create() -&gt; DoItTask:
+    &#34;&#34;&#34;Create a git tag based on the version in pyproject.toml.
+
+    Returns:
+        DoItTask: DoIt task
+
+    &#34;&#34;&#34;
+    message = &#39;New Revision from PyProject.toml&#39;
+    return debug_task([
+        f&#39;git tag -a {DIG.pkg_version} -m &#34;{message}&#34;&#39;,
+        &#39;git tag -n10 --list&#39;,
+        &#39;git push origin --tags&#39;,
+    ])</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_helpers.doc.task_tag_remove"><code class="name flex">
+<span>def <span class="ident">task_tag_remove</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fdb5d6409d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Delete tag for current version in pyproject.toml.</p>
@@ -571,7 +609,7 @@ def task_open_docs() -&gt; DoItTask:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@log_fun
-def task_remove_tag() -&gt; DoItTask:
+def task_tag_remove() -&gt; DoItTask:
     &#34;&#34;&#34;Delete tag for current version in pyproject.toml.
 
     Returns:
@@ -586,7 +624,7 @@ def task_remove_tag() -&gt; DoItTask:
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.doc.task_update_cl"><code class="name flex">
-<span>def <span class="ident">task_update_cl</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
+<span>def <span class="ident">task_update_cl</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fdb5d6409d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update a Changelog file with the raw Git history.</p>
@@ -674,11 +712,12 @@ setTimeout(() => input.focus(), 100);
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="dash_dev.doit_helpers.doc.task_create_tag" href="#dash_dev.doit_helpers.doc.task_create_tag">task_create_tag</a></code></li>
+<ul class="two-column">
 <li><code><a title="dash_dev.doit_helpers.doc.task_document" href="#dash_dev.doit_helpers.doc.task_document">task_document</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_git_add_docs" href="#dash_dev.doit_helpers.doc.task_git_add_docs">task_git_add_docs</a></code></li>
 <li><code><a title="dash_dev.doit_helpers.doc.task_open_docs" href="#dash_dev.doit_helpers.doc.task_open_docs">task_open_docs</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.doc.task_remove_tag" href="#dash_dev.doit_helpers.doc.task_remove_tag">task_remove_tag</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_tag_create" href="#dash_dev.doit_helpers.doc.task_tag_create">task_tag_create</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_tag_remove" href="#dash_dev.doit_helpers.doc.task_tag_remove">task_tag_remove</a></code></li>
 <li><code><a title="dash_dev.doit_helpers.doc.task_update_cl" href="#dash_dev.doit_helpers.doc.task_update_cl">task_update_cl</a></code></li>
 </ul>
 </li>

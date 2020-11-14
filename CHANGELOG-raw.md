@@ -5,6 +5,8 @@
 
 ### New
 
+* Archive watchcode task. [Kyle King]
+
 * Move DIG to separate file. [Kyle King]
 
 * Move tasks to use a wildcard import. [Kyle King]
@@ -12,6 +14,8 @@
   - Breaking changes, but a huge improvement!
 
 ### Changes
+
+* Add skipcq & update version. [Kyle King]
 
 * Update documentation. [Kyle King]
 

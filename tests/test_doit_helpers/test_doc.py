@@ -4,7 +4,7 @@ import os
 import shutil
 from pathlib import Path
 
-from dash_dev.doit_helpers.doc import _write_pdoc_config_files, task_create_tag, task_remove_tag, task_update_cl
+from dash_dev.doit_helpers.doc import _write_pdoc_config_files, task_tag_create, task_tag_remove, task_update_cl
 from dash_dev.doit_helpers.doit_globals import DIG
 
 from ..configuration import DIG_CWD
@@ -19,11 +19,11 @@ def test_task_update_cl():
     assert result['actions'][0] == 'gitchangelog > CHANGELOG-raw.md'
 
 
-def test_task_create_tag():
-    """Test task_create_tag."""
+def test_task_tag_create():
+    """Test task_tag_create."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = task_create_tag()
+    result = task_tag_create()
 
     assert len(result['actions']) == 3
     assert result['actions'][0].startswith('git tag -a')
@@ -31,11 +31,11 @@ def test_task_create_tag():
     assert result['actions'][2] == 'git push origin --tags'
 
 
-def test_task_remove_tag():
-    """Test task_remove_tag."""
+def test_task_tag_remove():
+    """Test task_tag_remove."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = task_remove_tag()
+    result = task_tag_remove()
 
     assert len(result['actions']) == 3
     assert result['actions'][0].startswith('git tag -d')
