@@ -99,12 +99,9 @@ def _search_files(file_paths: Sequence[Path],
     return matches
 
 
-# TODO: Make path/line numbers clickable for VSCode
 @log_fun
 def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:
     """Pretty-format the tagged items by file and line number.
-
-    TODO: Set root to the Default is the home directory
 
     Args:
         base_dir: base directory relative to the searched files

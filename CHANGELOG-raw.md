@@ -5,6 +5,8 @@
 
 ### New
 
+* Add logging. Fixes #5. [Kyle King]
+
 * New: intialized tag-finding logic @WIP. [Kyle King]
 
 * Use a new DoItTask type for annotations. [Kyle King]
@@ -44,6 +46,8 @@
 * Initialize poetry project. [Kyle King]
 
 ### Changes
+
+* Improve logging. Addresses #5. [Kyle King]
 
 * Improve logger context manager. [Kyle King]
 

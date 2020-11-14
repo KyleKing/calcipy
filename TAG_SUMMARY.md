@@ -9,19 +9,14 @@ dash_dev/doit_base.py
     line  16    TODO: Show table of contents in __init__.py file. Use ast:
     line  78 PLANNED: Document
 
-dash_dev/doit_lint.py
-    line  29    TODO: Can this be removed now that type annotations have been added and this is >3.7?
-
 dash_dev/log_helpers.py
     line   3 PLANNED: Files like this should be in the production dependencies, but dash-dev is designed to be a dev-only
 
 dash_dev/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. task vs. comment
-    line 113    TODO: Make path/line numbers clickable for VSCode
-    line 117    TODO: Set root to the Default is the home directory
-    line 162 PLANNED: Maybe make this configurable?
+    line 154 PLANNED: Maybe make this configurable?
 
 dodo.py
-    line  37    TODO: Implement type checking with pytype, mypy, etc.
+    line  38    TODO: Implement type checking with pytype, mypy, etc.
 
-Found tagged comments for TODO (8),  PLANNED (4)
+Found tagged comments for TODO (5),  PLANNED (4)

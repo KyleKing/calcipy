@@ -1,10 +1,12 @@
-# [Dash_Dev](https://github.com/KyleKing/dash_dev)
+# Dash_Dev ([Github](https://github.com/KyleKing/dash_dev))
 
-Python package to simplify developing Python applications. Includes functionality for task running, testing, linting, documenting, and more
+Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more
 
-Note: the package name is a misnomer and I haven't thought of a better replacement. Use [dash_charts](https://github.com/KyleKing/dash_charts) for building plotly/Dash applications
+Note: the package name is a misnomer and is not specific to Plotly/Dash projects (and I haven't thought of a better replacement yet). If you want to build Plotly/Dash applications, see [dash_charts](https://github.com/KyleKing/dash_charts)
 
 ## Quick Start
+
+<!-- TODO: Replace with CookieCutter Instructions -->
 
 Add to a poetry project in `pyproject.toml`:
 
@@ -24,22 +26,6 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 - [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm)
 - [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability)
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *Planned*
-
-## Task list (Dash Charts)
-
-- TODO: Don't show TODO list in the init.py file
-
-- TODO: [Show call chain in dash_charts](https://github.com/vmdesenvolvimento/pycallgraph3)
-
-```py
-from pycallgraph3 import PyCallGraph
-from pycallgraph3.output import GraphvizOutput
-
-with PyCallGraph(output=GraphvizOutput()):
-    from datetime import datetime
-    time_str = datetime.now().strftime('%Y%m%d%H%M%S')
-    filename = f'profile-{time_str}.png'
-```
 
 ## Test Coverage
 
