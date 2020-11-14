@@ -8,9 +8,10 @@ from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
 import sh
+from loguru import logger
 from transitions import Machine
 
-from .doit_base import DIG, DoItTask, debug_task, open_in_browser
+from .doit_base import DIG, DoItTask, debug_task, open_in_browser, read_lines
 from .log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -106,7 +107,8 @@ def _write_readme_to_init() -> None:
     try:
         break_index = init_lines.index(_INIT_DIVIDER) + 1
         user_text = '\n'.join(init_lines[break_index:])
-    except ValueError:
+    except ValueError as err:
+        logger.warning('Did not find a divider, so overwriting any existing user text', err=err)
         user_text = ''
     init_path.write_text(init_text.replace('\t', ' ' * 4) + user_text)
 
@@ -251,8 +253,7 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
 
     """
     readme_path = DIG.source_path / 'README.md'
-    lines = readme_path.read_text().split('\n')
-    readme_lines = _ReadMeMachine().parse(lines, comment_pattern, new_text)
+    readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
 
 
@@ -263,9 +264,11 @@ def _write_code_to_readme() -> None:
     fn = 'tests/examples/readme.py'
     script_path = DIG.source_path / fn
     if script_path.is_file():
-        source_code = ['```py', *script_path.read_text().split('\n'), '```']
+        source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
         _write_to_readme(comment_pattern, new_text)
+    else:
+        logger.warning(f'Could not locate: {script_path}')
 
 
 @log_fun
@@ -275,7 +278,7 @@ def _write_coverage_to_readme() -> None:
     try:
         sh.poetry.run.python('-m', 'coverage', 'json')
     except sh.ErrorReturnCode_1:
-        pass
+        logger.exception('Coverage conversion to JSON failed')
 
     coverage_path = (DIG.source_path / 'coverage.json')
     if coverage_path.is_file():
@@ -317,6 +320,7 @@ def _clear_docs() -> None:
     """Clear the documentation directory before running pdoc."""
     staging_dir = DIG.doc_dir / DIG.pkg_name
     if staging_dir.is_dir():
+        logger.debug(f'Removing {staging_dir}')
         shutil.rmtree(staging_dir)
 
 
@@ -324,6 +328,7 @@ def _clear_docs() -> None:
 def _clear_examples() -> None:
     """Clear the examples from within the package directory."""
     if DIG.tmp_examples_dir.is_dir():
+        logger.debug(f'Removing {DIG.tmp_examples_dir}')
         shutil.rmtree(DIG.tmp_examples_dir)
 
 
@@ -333,7 +338,9 @@ def _stage_examples() -> None:
     if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
         DIG.tmp_examples_dir.mkdir(exist_ok=False)
         (DIG.tmp_examples_dir / '__init__.py').write_text('"""Code Examples (documentation-only, not in package)."""')
-        for file_path in DIG.src_examples_dir.glob('*.py'):
+        example_files = [*DIG.src_examples_dir.glob('*.py')]
+        logger.debug(f'Found {len(example_files)} files', example_files=example_files)
+        for file_path in example_files:
             content = file_path.read_text().replace('"', r'\"')  # read and escape quotes
             dest_fn = DIG.tmp_examples_dir / file_path.name
             docstring = f'From file: `{file_path.relative_to(DIG.source_path.parent)}`'

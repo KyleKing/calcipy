@@ -3,7 +3,7 @@
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, Callable, Dict, NewType, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
 
 import toml
 from loguru import logger
@@ -133,6 +133,26 @@ DIG = DoItGlobals()
 """Global DoIt Globals class used to manage global variables."""
 
 # ----------------------------------------------------------------------------------------------------------------------
+# Really General...
+
+
+@log_fun
+def read_lines(file_path: Path) -> List[str]:
+    """Read a file and split on newlines for later parsing.
+
+    Args:
+        file_path: path to the file
+
+    Returns:
+        List[str]: lines of text as list
+
+    """
+    if file_path.is_file():
+        return file_path.read_text().split('\n')
+    return []
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Manage Directories
 
 
@@ -161,7 +181,7 @@ def ensure_dir(dir_path: Path) -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# General Utilities
+# General DoIt Utilities
 
 
 @log_fun

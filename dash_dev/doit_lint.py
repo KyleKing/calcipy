@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Union
 
 import toml
+from loguru import logger
 
 from .doit_base import DIG, DoItTask, debug_task, echo, if_found_unlink, write_text
 from .log_helpers import log_fun
@@ -24,13 +25,12 @@ def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[
     Returns:
         list: of string path names
 
+    Raises:
+        TypeError: if the add_paths argument is not a list or tuple
+
     """
-    # Raises:
-    #     RuntimeError: if the add_paths argument is not a list or tuple
-    #
-    # TODO: Can this be removed now that type annotations have been added and this is >3.7?
-    # if not isinstance(add_paths, (list, tuple)):
-    #     raise RuntimeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
+    if not isinstance(add_paths, (list, tuple)):
+        raise TypeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
     if sub_directories is None:
         sub_directories = [DIG.pkg_name] + DIG.external_doc_dirs
     package_files = [*add_paths] + [*DIG.source_path.glob('*.py')]
@@ -117,7 +117,7 @@ def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     file_paths = []
     for path_item in path_list:
         file_paths.extend([*path_item.rglob('*.py')] if path_item.is_dir() else [path_item])
-
+    logger.debug(f'Found {len(file_paths)} files', file_paths=file_paths)
     return [pth for pth in file_paths if pth.name not in DIG.excluded_files]
 
 
@@ -202,7 +202,7 @@ def task_lint_pre_commit() -> DoItTask:
 
     """
     ignore_errors = [
-        'ANN001', 'ANN201', 'ANN202', 'ANN204',  # WIP: temporarily ignore all type annotation errors from pre-commit
+        # 'ANN001', 'ANN201', 'ANN202', 'ANN204',  # WIP: temporarily ignore all type annotation errors from pre-commit
         'AAA01',  # AAA01 / act block in pytest
         'C901',  # C901 / complexity from "max-complexity = 10"
         'D417',  # D417 / missing arg descriptors
@@ -213,7 +213,7 @@ def task_lint_pre_commit() -> DoItTask:
         'H601',  # H601 / class with low cohesion
         'P101', 'P103',  # P101,P103 / format string
         'PD013',
-        'PD901',  # PD901 / 'df' is a bad variable name
+        # 'PD901',  # PD901 / 'df' is a bad variable name
         'S101',  # S101 / assert
         'S605', 'S607',  # S605,S607 / os.popen(...)
         'T100', 'T101',  # T100,T101 / fixme and todo comments
