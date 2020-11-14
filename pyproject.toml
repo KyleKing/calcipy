@@ -110,6 +110,3 @@ pytype = "*"
 pyupgrade = "*"
 rich = "*"
 vulture = "*"
-
-[tool.poetry.dev-dependencies.watchcode]
-git = "https://github.com/bluenote10/watchcode.git"

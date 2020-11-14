@@ -20,7 +20,7 @@ from .doit_globals import DIG, DoItTask
 
 
 @log_fun
-def task_create_tag() -> DoItTask:
+def task_tag_create() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
     Returns:
@@ -36,7 +36,7 @@ def task_create_tag() -> DoItTask:
 
 
 @log_fun
-def task_remove_tag() -> DoItTask:
+def task_tag_remove() -> DoItTask:
     """Delete tag for current version in pyproject.toml.
 
     Returns:

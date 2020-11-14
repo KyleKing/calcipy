@@ -17,7 +17,7 @@ git = \"https://github.com/KyleKing/dash_dev.git\"
 branch = \"main\"
 ```
 
-Then copy the [`https://github.com/KyleKing/dash_dev/blob/master/dodo.py`](https://github.com/KyleKing/dash_dev/blob/master/dodo.py) file into your project and call with `poetry run doit`
+Then copy the [`https://github.com/KyleKing/dash_dev/blob/main/dodo.py`](https://github.com/KyleKing/dash_dev/blob/main/dodo.py) file into your project and call with `poetry run doit`
 
 If you have any questions, please [open an issue on Github](https://github.com/KyleKing/dash_dev/issues/new)
 
