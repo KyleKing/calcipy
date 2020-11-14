@@ -1,17 +1,27 @@
-"""DoIt Script. Run all tasks with `poetry run doit` or single task with `poetry run doit run update_cl`."""
+"""DoIt Script.
+
+```sh
+# Ensure that packages are installed
+poetry install
+# List Tasks
+poetry run doit list
+# (Or use a poetry shell)
+# > poetry shell
+# > doit list
+
+# Run tasks individually (examples below)
+poetry doit run coverage open_test_docs
+poetry doit run set_lint_config create_tag_file document
+# Or all of the tasks in DOIT_CONFIG
+poetry run doit
+```
+
+"""
 
 from pathlib import Path
 
-from dash_dev.doit_base import DIG, DoItTask, debug_task, task_export_req  # noqa: F401
-from dash_dev.doit_dev import task_watchcode  # noqa: F401
-from dash_dev.doit_doc import (task_create_tag, task_document,  # noqa: F401
-                               task_open_docs, task_remove_tag, task_update_cl)
-from dash_dev.doit_lint import (task_auto_format, task_lint_pre_commit,  # noqa: F401
-                                task_lint_project, task_radon_lint, task_set_lint_config)
-from dash_dev.doit_test import (task_coverage, task_open_test_docs, task_ptw_current,  # noqa: F401
-                                task_ptw_ff, task_ptw_marker, task_ptw_not_chrome, task_test,
-                                task_test_all, task_test_keyword, task_test_marker)
-from dash_dev.tag_collector import task_create_tag_file  # noqa: F401
+from dash_dev.doit_helpers.base import DIG, DoItTask, debug_task
+from dash_dev.registered_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks)
 
 # Configure Dash paths
 DIG.set_paths(source_path=Path(__file__).resolve().parent)

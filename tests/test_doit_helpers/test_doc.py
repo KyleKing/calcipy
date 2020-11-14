@@ -1,18 +1,18 @@
-"""Test doit_doc.py."""
+"""Test doit_helpers/doc.py."""
 
 import os
 import shutil
 from pathlib import Path
 
-from dash_dev import doit_doc
-from dash_dev.doit_base import DIG
+from dash_dev.doit_helpers.base import DIG
+from dash_dev.doit_helpers.doc import _write_pdoc_config_files, task_create_tag, task_remove_tag, task_update_cl
 
-from .configuration import DIG_CWD
+from ..configuration import DIG_CWD
 
 
 def test_task_update_cl():
     """Test task_update_cl."""
-    result = doit_doc.task_update_cl()
+    result = task_update_cl()
 
     assert len(result['actions']) == 1
     assert Path(os.environ['GITCHANGELOG_CONFIG_FILENAME']) == DIG.path_gitchangelog
@@ -23,7 +23,7 @@ def test_task_create_tag():
     """Test task_create_tag."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = doit_doc.task_create_tag()
+    result = task_create_tag()
 
     assert len(result['actions']) == 3
     assert result['actions'][0].startswith('git tag -a')
@@ -35,7 +35,7 @@ def test_task_remove_tag():
     """Test task_remove_tag."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = doit_doc.task_remove_tag()
+    result = task_remove_tag()
 
     assert len(result['actions']) == 3
     assert result['actions'][0].startswith('git tag -d')
@@ -49,7 +49,7 @@ def test_write_pdoc_config_files():
     head_file = (DIG.template_dir / 'head.mako')
     config_file = (DIG.template_dir / 'config.mako')
 
-    doit_doc._write_pdoc_config_files()  # act
+    _write_pdoc_config_files()  # act
 
     assert head_file.is_file()
     assert config_file.is_file()

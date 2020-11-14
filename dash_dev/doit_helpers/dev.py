@@ -8,8 +8,8 @@ from doit.tools import Interactive
 from loguru import logger
 from ruamel.yaml import YAML
 
-from .doit_base import DIG, DoItTask, debug_task
-from .log_helpers import log_fun
+from .base import DIG, DoItTask, debug_task
+from ..log_helpers import log_fun
 
 # ======================================================================================================================
 # Watch Code Tasks

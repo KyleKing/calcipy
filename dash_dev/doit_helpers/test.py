@@ -2,8 +2,8 @@
 
 from doit.tools import LongRunning
 
-from .doit_base import DIG, DoItTask, debug_task, open_in_browser
-from .log_helpers import log_fun
+from .base import DIG, DoItTask, debug_task, open_in_browser
+from ..log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Testing

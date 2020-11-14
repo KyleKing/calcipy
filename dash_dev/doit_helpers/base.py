@@ -8,7 +8,7 @@ from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple
 import toml
 from loguru import logger
 
-from .log_helpers import log_action, log_fun
+from ..log_helpers import log_action, log_fun
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
@@ -26,7 +26,7 @@ DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])
 class DoItGlobals:
     """Global Variables for DoIt."""
 
-    dash_dev_dir: Path = Path(__file__).parent
+    dash_dev_dir: Path = Path(__file__).parents[1]
     """The dash_dev directory (may be within `.venv`)."""
 
     flake8_path: Optional[Path] = None

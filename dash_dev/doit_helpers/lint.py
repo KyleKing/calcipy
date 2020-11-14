@@ -6,8 +6,8 @@ from typing import Dict, List, Optional, Sequence, Union
 import toml
 from loguru import logger
 
-from .doit_base import DIG, DoItTask, debug_task, echo, if_found_unlink, write_text
-from .log_helpers import log_fun
+from .base import DIG, DoItTask, debug_task, echo, if_found_unlink, write_text
+from ..log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General

@@ -34,15 +34,17 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 11 | 0 | 0 | 100.0% |
-| `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
-| `dash_dev/doit_base.py` | 82 | 11 | 0 | 86.6% |
-| `dash_dev/doit_dev.py` | 36 | 36 | 0 | 0.0% |
-| `dash_dev/doit_doc.py` | 110 | 70 | 0 | 36.4% |
-| `dash_dev/doit_lint.py` | 66 | 18 | 0 | 72.7% |
-| `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
-| `dash_dev/log_helpers.py` | 18 | 5 | 0 | 72.2% |
-| `dash_dev/tag_collector.py` | 64 | 16 | 0 | 75.0% |
+| `dash_dev/conftest.py` | 23 | 3 | 0 | 87.0% |
+| `dash_dev/doit_helpers/__init__.py` | 0 | 0 | 0 | 100.0% |
+| `dash_dev/doit_helpers/base.py` | 98 | 14 | 0 | 85.7% |
+| `dash_dev/doit_helpers/dev.py` | 44 | 44 | 0 | 0.0% |
+| `dash_dev/doit_helpers/doc.py` | 135 | 78 | 0 | 42.2% |
+| `dash_dev/doit_helpers/lint.py` | 80 | 19 | 0 | 76.2% |
+| `dash_dev/doit_helpers/test.py` | 39 | 13 | 0 | 66.7% |
+| `dash_dev/log_helpers.py` | 24 | 5 | 0 | 79.2% |
+| `dash_dev/registered_tasks.py` | 6 | 6 | 0 | 0.0% |
+| `dash_dev/tag_collector.py` | 70 | 16 | 0 | 77.1% |
 
-Generated on: 2020-11-12T23:58:38.946472
+Generated on: 2020-11-14T10:32:35.579431
 
 <!-- /COVERAGE -->

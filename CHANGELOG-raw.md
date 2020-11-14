@@ -47,6 +47,10 @@
 
 ### Changes
 
+* Minor type annotation fixes. [Kyle King]
+
+  - Note: making the paths clickable in TAG_SUMMARY would appear to require the full local path, which isn’t worth tracking in git
+
 * Improve logging. Addresses #5. [Kyle King]
 
 * Improve logger context manager. [Kyle King]

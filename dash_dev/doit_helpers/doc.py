@@ -11,8 +11,8 @@ import sh
 from loguru import logger
 from transitions import Machine
 
-from .doit_base import DIG, DoItTask, debug_task, open_in_browser, read_lines
-from .log_helpers import log_fun
+from .base import DIG, DoItTask, debug_task, open_in_browser, read_lines
+from ..log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Tags
