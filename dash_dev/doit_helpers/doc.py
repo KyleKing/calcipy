@@ -350,7 +350,7 @@ def _stage_examples() -> None:
 
 @log_fun
 def task_document() -> DoItTask:
-    """Build the HTML documentation and push to gh-pages branch.
+    """Build the HTML documentation.
 
     Returns:
         DoItTask: DoIt task
@@ -368,6 +368,18 @@ def task_document() -> DoItTask:
         f'poetry run pdoc3 {pdoc_args}',
         (_write_redirect_html, ()),
         (_clear_examples, ()),
+    ])
+
+
+@log_fun
+def task_git_add_docs() -> DoItTask:
+    """Override local gitignore rules to ensure that all HTML files for the docs are tracked.
+
+    Returns:
+        DoItTask: DoIt task
+
+    """
+    return debug_task([
         f'git add docs/{DIG.pkg_name}/**/*.html -f',
     ])
 

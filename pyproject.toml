@@ -2,6 +2,13 @@
 requires = [ "poetry-core>=1.0",]
 build-backend = "poetry.core.masonry.api"
 
+[tool.isort]
+balanced_wrapping = true
+default_section = "THIRDPARTY"
+force_grid_wrap = 0
+length_sort = false
+line_length = 120
+
 [tool.poetry]
 name = "dash_dev"
 version = "0.0.2"
@@ -12,13 +19,6 @@ maintainers = []
 readme = "README.md"
 repository = "https://github.com/kyleking/dash_dev"
 documentation = "https://kyleking.me/dash_dev/"
-
-[tool.isort]
-balanced_wrapping = true
-default_section = "THIRDPARTY"
-force_grid_wrap = 0
-length_sort = false
-line_length = 120
 
 [tool.notes]
 cmd = "poetry run pytest ./tests -x -l --ff -vv --typeguard-packages sw_client"
@@ -72,7 +72,7 @@ flake8-printf-formatting = "*"
 flake8-pytest-style = "*"
 flake8-quotes = "*"
 flake8-return = "*"
-flake8-sql = "*"
+flake8-SQL = "*"
 flake8-string-format = "*"
 flake8-tuple = "*"
 flake8-variables-names = "*"
