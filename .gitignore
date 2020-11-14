@@ -186,6 +186,6 @@ docs/*
 # Ignore temporary files
 /tmp.txt
 
-# Track hosted documentation
-!docs/*/*.html
+# Track hosted documentation (update for package name)
+!docs/*/**/*.html
 !index.html

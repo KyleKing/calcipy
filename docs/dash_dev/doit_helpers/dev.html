@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.1" />
-<title>dash_dev.conftest API documentation</title>
-<meta name="description" content="Custom Pytest Configuration …" />
+<title>dash_dev.doit_helpers.dev API documentation</title>
+<meta name="description" content="DoIt tasks for development functionality, such as code running." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -59,114 +59,138 @@ padding: 0 5px;
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>dash_dev.conftest</code></h1>
+<h1 class="title">Module <code>dash_dev.doit_helpers.dev</code></h1>
 </header>
 <section id="section-intro">
-<p>Custom Pytest Configuration.</p>
-<p>To use the custom markers, create a file <code>tests/conftest.py</code> and add this import:</p>
-<pre><code class="language-py">from dash_dev.conftest import pytest_configure  # noqa: F401
-</code></pre>
-<p>For HTML Reports, see: <a href="https://pypi.org/project/pytest-html/.">https://pypi.org/project/pytest-html/.</a></p>
-<pre><code class="language-py">'''Custom PyTest-HTML Report Configuration.'''
-
-from dash_dev.conftest import pytest_html_results_table_header  # noqa: F401
-from dash_dev.conftest import pytest_html_results_table_row  # noqa: F401
-from dash_dev.conftest import pytest_runtest_makereport  # noqa: F401
-</code></pre>
+<p>DoIt tasks for development functionality, such as code running.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Custom Pytest Configuration.
+<pre><code class="python">&#34;&#34;&#34;DoIt tasks for development functionality, such as code running.&#34;&#34;&#34;
 
-To use the custom markers, create a file `tests/conftest.py` and add this import:
+from pathlib import Path
+from typing import Any, Optional, Sequence
 
-```py
-from dash_dev.conftest import pytest_configure  # noqa: F401
-```
+import attr
+from doit.tools import Interactive
+from loguru import logger
+from ruamel.yaml import YAML
 
-For HTML Reports, see: https://pypi.org/project/pytest-html/.
+from ..log_helpers import log_fun
+from .base import debug_task
+from .doit_globals import DIG, DoItTask
 
-```py
-&#39;&#39;&#39;Custom PyTest-HTML Report Configuration.&#39;&#39;&#39;
-
-from dash_dev.conftest import pytest_html_results_table_header  # noqa: F401
-from dash_dev.conftest import pytest_html_results_table_row  # noqa: F401
-from dash_dev.conftest import pytest_runtest_makereport  # noqa: F401
-```
-
-&#34;&#34;&#34;
-
-from datetime import datetime
-from typing import Any
-
-import pytest
-from py.xml import html
+# ======================================================================================================================
+# Watch Code Tasks
 
 
-@pytest.mark.optionalhook
-def pytest_html_results_table_header(cells: Any) -&gt; None:
-    &#34;&#34;&#34;Modify results table in the pytest-html output.
+_WATCHCODE_TEMPLATE: dict = {
+    &#39;filesets&#39;: {
+        &#39;default&#39;: {
+            &#39;include&#39;: [&#39;.watchcode.yaml&#39;],
+            &#39;exclude&#39;: [&#39;.watchcode.log&#39;, &#39;*.pyc&#39;, &#39;__pycache__&#39;],
+            &#39;exclude_gitignore&#39;: True,
+            &#39;match_mode&#39;: &#39;gitlike&#39;,
+        },
+    },
+    &#39;tasks&#39;: {
+        &#39;default&#39;: {
+            &#39;commands&#39;: [],
+            &#39;fileset&#39;: &#39;default&#39;,
+            &#39;queue_events&#39;: False,
+            &#39;clear_screen&#39;: True,
+        },
+    },
+    &#39;notifications&#39;: False,
+    &#39;sound&#39;: False,
+    &#39;log&#39;: False,
+    &#39;default_task&#39;: &#39;default&#39;,
+}
+&#34;&#34;&#34;Template dictionary with WatchCode defaults.&#34;&#34;&#34;
+
+
+@attr.s(auto_attribs=True, kw_only=True)
+class _WatchCodeYAML:  # noqa: H601
+    &#34;&#34;&#34;Watchcode YAML file.&#34;&#34;&#34;
+
+    commands: Sequence[str]
+    include: Sequence[str]
+    exclude: Sequence[str] = ()
+    dict_watchcode: dict = _WATCHCODE_TEMPLATE
+    path_wc: Optional[Path] = None
+
+    def __attrs_post_init__(self) -&gt; None:
+        &#34;&#34;&#34;Complete initialization and merge settings.&#34;&#34;&#34;
+        logger.info(&#39;Initializing _WatchCodeYAML&#39;)
+        self.merge_settings()
+
+    def _merge_nested_setting(self, key: str, task_name: str, sub_key: str, values: Sequence[Any]) -&gt; None:
+        &#34;&#34;&#34;Merge nested settings in the WatchCode YAML dictionary.
+
+        Args:
+            key: first, main keyname
+            task_name: second, key for task name
+            sub_key: third, sub-task keyname
+            values: sequence of values to add to the WatchDog dictionary for specified keys
+
+        &#34;&#34;&#34;
+        logger.debug(f&#39;Adding {values}&#39;, key=key, task_name=task_name, sub_key=sub_key, values=values)
+        _values = self.dict_watchcode[key][task_name][sub_key]
+        _values.extend(values)
+        self.dict_watchcode[key][task_name][sub_key] = [*set(_values)]
+
+    def merge_settings(self) -&gt; None:
+        &#34;&#34;&#34;Merge all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
+        for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
+            self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
+        self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)
+        logger.info(&#39;Completed merging watchcode settings&#39;, self_dict_watchcode=self.dict_watchcode)
+
+    def write(self) -&gt; None:
+        &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
+        yaml = YAML()
+        if self.path_wc is None:
+            self.path_wc = DIG.source_path
+        logger.info(f&#39;Writing the watchcode YAML file to {self.path_wc}&#39;, self_path_wc=self.path_wc)
+        yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)
+
+
+@log_fun
+def _create_yaml(py_path: str) -&gt; None:
+    &#34;&#34;&#34;Create the YAML file.
 
     Args:
-        cells: argument from pytest
+        py_path: path to the Python file to run with poetry
 
     &#34;&#34;&#34;
-    cells.insert(1, html.th(&#39;Description&#39;))
-    cells.insert(1, html.th(&#39;Time&#39;, class_=&#39;sortable time&#39;, col=&#39;time&#39;))
-    cells.pop()
-
-
-@pytest.mark.optionalhook
-def pytest_html_results_table_row(report: Any, cells: Any) -&gt; None:
-    &#34;&#34;&#34;Modify results table in the pytest-html output.
-
-    Args:
-        report: argument from pytest
-        cells: argument from pytest
-
-    &#34;&#34;&#34;
-    cells.insert(1, html.td(report.description))
-    cells.insert(1, html.td(datetime.utcnow(), class_=&#39;col-time&#39;))
-    cells.pop()
-
-
-@pytest.mark.hookwrapper
-def pytest_runtest_makereport(item: Any, call: Any) -&gt; None:
-    &#34;&#34;&#34;Modify the pytest-html output.
-
-    Args:
-        item: argument from pytest
-        call: argument from pytest
-
-    Yields:
-        outcome: required by pytest
-
-    &#34;&#34;&#34;
-    outcome = yield
-    report = outcome.get_result()
-    report.description = str(item.function.__doc__)
-
-
-def pytest_configure(config: Any) -&gt; None:
-    &#34;&#34;&#34;Configure pytest with custom markers (SLOW, CHROME, and CURRENT).
-
-    Args:
-        config: pytest configuration object
-
-    &#34;&#34;&#34;
-    config.addinivalue_line(
-        &#39;markers&#39;,
-        &#39;SLOW: tests that take a long time (&gt;15s) and can be skipped with `-m &#34;not SLOW&#34;`&#39;,
+    wc_yaml = _WatchCodeYAML(
+        commands=[f&#39;poetry run python {py_path}&#39;],
+        include=[py_path],
     )
-    config.addinivalue_line(
-        &#39;markers&#39;,
-        &#39;CHROME: tests that open a Chrome window and can be skipped with `-m &#34;not CHROME&#34;`&#39;,
-    )
-    config.addinivalue_line(
-        &#39;markers&#39;,
-        &#39;CURRENT: tests that are currently being developed. Useful for TDD with ptw `poetry run ptw -- -m CURRENT`&#39;,
-    )</code></pre>
+    wc_yaml.write()
+
+
+@log_fun
+def task_watchcode() -&gt; DoItTask:
+    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
+
+    Example: `doit run watchcode -p scripts/main.py`
+
+    Returns:
+        DoItTask: DoIt task
+
+    &#34;&#34;&#34;
+    action = debug_task([
+        (_create_yaml, ),
+        Interactive(&#39;poetry run watchcode&#39;),
+    ])
+    action[&#39;params&#39;] = [{
+        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
+        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
+                 &#39;https://github.com/bluenote10/watchcode&#39;),
+    }]
+    return action</code></pre>
 </details>
 </section>
 <section>
@@ -176,134 +200,41 @@ def pytest_configure(config: Any) -&gt; None:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="dash_dev.conftest.pytest_configure"><code class="name flex">
-<span>def <span class="ident">pytest_configure</span></span>(<span>config: Any) ‑> NoneType</span>
+<dt id="dash_dev.doit_helpers.dev.task_watchcode"><code class="name flex">
+<span>def <span class="ident">task_watchcode</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Configure pytest with custom markers (SLOW, CHROME, and CURRENT).</p>
-<h2 id="args">Args</h2>
+<div class="desc"><p>Return Interactive <code>watchcode</code> task for specified file.</p>
+<p>Example: <code>doit run watchcode -p scripts/main.py</code></p>
+<h2 id="returns">Returns</h2>
 <dl>
-<dt><strong><code>config</code></strong></dt>
-<dd>pytest configuration object</dd>
+<dt><code>DoItTask</code></dt>
+<dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def pytest_configure(config: Any) -&gt; None:
-    &#34;&#34;&#34;Configure pytest with custom markers (SLOW, CHROME, and CURRENT).
+<pre><code class="python">@log_fun
+def task_watchcode() -&gt; DoItTask:
+    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
 
-    Args:
-        config: pytest configuration object
+    Example: `doit run watchcode -p scripts/main.py`
 
-    &#34;&#34;&#34;
-    config.addinivalue_line(
-        &#39;markers&#39;,
-        &#39;SLOW: tests that take a long time (&gt;15s) and can be skipped with `-m &#34;not SLOW&#34;`&#39;,
-    )
-    config.addinivalue_line(
-        &#39;markers&#39;,
-        &#39;CHROME: tests that open a Chrome window and can be skipped with `-m &#34;not CHROME&#34;`&#39;,
-    )
-    config.addinivalue_line(
-        &#39;markers&#39;,
-        &#39;CURRENT: tests that are currently being developed. Useful for TDD with ptw `poetry run ptw -- -m CURRENT`&#39;,
-    )</code></pre>
-</details>
-</dd>
-<dt id="dash_dev.conftest.pytest_html_results_table_header"><code class="name flex">
-<span>def <span class="ident">pytest_html_results_table_header</span></span>(<span>cells: Any) ‑> NoneType</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Modify results table in the pytest-html output.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>cells</code></strong></dt>
-<dd>argument from pytest</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@pytest.mark.optionalhook
-def pytest_html_results_table_header(cells: Any) -&gt; None:
-    &#34;&#34;&#34;Modify results table in the pytest-html output.
-
-    Args:
-        cells: argument from pytest
+    Returns:
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    cells.insert(1, html.th(&#39;Description&#39;))
-    cells.insert(1, html.th(&#39;Time&#39;, class_=&#39;sortable time&#39;, col=&#39;time&#39;))
-    cells.pop()</code></pre>
-</details>
-</dd>
-<dt id="dash_dev.conftest.pytest_html_results_table_row"><code class="name flex">
-<span>def <span class="ident">pytest_html_results_table_row</span></span>(<span>report: Any, cells: Any) ‑> NoneType</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Modify results table in the pytest-html output.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>report</code></strong></dt>
-<dd>argument from pytest</dd>
-<dt><strong><code>cells</code></strong></dt>
-<dd>argument from pytest</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@pytest.mark.optionalhook
-def pytest_html_results_table_row(report: Any, cells: Any) -&gt; None:
-    &#34;&#34;&#34;Modify results table in the pytest-html output.
-
-    Args:
-        report: argument from pytest
-        cells: argument from pytest
-
-    &#34;&#34;&#34;
-    cells.insert(1, html.td(report.description))
-    cells.insert(1, html.td(datetime.utcnow(), class_=&#39;col-time&#39;))
-    cells.pop()</code></pre>
-</details>
-</dd>
-<dt id="dash_dev.conftest.pytest_runtest_makereport"><code class="name flex">
-<span>def <span class="ident">pytest_runtest_makereport</span></span>(<span>item: Any, call: Any) ‑> NoneType</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Modify the pytest-html output.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>item</code></strong></dt>
-<dd>argument from pytest</dd>
-<dt><strong><code>call</code></strong></dt>
-<dd>argument from pytest</dd>
-</dl>
-<h2 id="yields">Yields</h2>
-<dl>
-<dt><code>outcome</code></dt>
-<dd>required by pytest</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@pytest.mark.hookwrapper
-def pytest_runtest_makereport(item: Any, call: Any) -&gt; None:
-    &#34;&#34;&#34;Modify the pytest-html output.
-
-    Args:
-        item: argument from pytest
-        call: argument from pytest
-
-    Yields:
-        outcome: required by pytest
-
-    &#34;&#34;&#34;
-    outcome = yield
-    report = outcome.get_result()
-    report.description = str(item.function.__doc__)</code></pre>
+    action = debug_task([
+        (_create_yaml, ),
+        Interactive(&#39;poetry run watchcode&#39;),
+    ])
+    action[&#39;params&#39;] = [{
+        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
+        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
+                 &#39;https://github.com/bluenote10/watchcode&#39;),
+    }]
+    return action</code></pre>
 </details>
 </dd>
 </dl>
@@ -346,7 +277,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = 'search.html#' + encodeURIComponent(query);
+const url = '../search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -365,15 +296,12 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="dash_dev" href="index.html">dash_dev</a></code></li>
+<li><code><a title="dash_dev.doit_helpers" href="index.html">dash_dev.doit_helpers</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="dash_dev.conftest.pytest_configure" href="#dash_dev.conftest.pytest_configure">pytest_configure</a></code></li>
-<li><code><a title="dash_dev.conftest.pytest_html_results_table_header" href="#dash_dev.conftest.pytest_html_results_table_header">pytest_html_results_table_header</a></code></li>
-<li><code><a title="dash_dev.conftest.pytest_html_results_table_row" href="#dash_dev.conftest.pytest_html_results_table_row">pytest_html_results_table_row</a></code></li>
-<li><code><a title="dash_dev.conftest.pytest_runtest_makereport" href="#dash_dev.conftest.pytest_runtest_makereport">pytest_runtest_makereport</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.dev.task_watchcode" href="#dash_dev.doit_helpers.dev.task_watchcode">task_watchcode</a></code></li>
 </ul>
 </li>
 </ul>

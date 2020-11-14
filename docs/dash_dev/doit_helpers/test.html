@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.1" />
-<title>dash_dev.doit_test API documentation</title>
+<title>dash_dev.doit_helpers.test API documentation</title>
 <meta name="description" content="DoIt Test Utilities." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -59,7 +59,7 @@ padding: 0 5px;
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>dash_dev.doit_test</code></h1>
+<h1 class="title">Module <code>dash_dev.doit_helpers.test</code></h1>
 </header>
 <section id="section-intro">
 <p>DoIt Test Utilities.</p>
@@ -71,12 +71,15 @@ padding: 0 5px;
 
 from doit.tools import LongRunning
 
-from .doit_base import DIG, DoItTask, debug_task, open_in_browser
+from ..log_helpers import log_fun
+from .base import debug_task, open_in_browser
+from .doit_globals import DIG, DoItTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Testing
 
 
+@log_fun
 def task_test() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
@@ -89,6 +92,7 @@ def task_test() -&gt; DoItTask:
     ], verbosity=2)
 
 
+@log_fun
 def task_test_all() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
@@ -101,6 +105,7 @@ def task_test_all() -&gt; DoItTask:
     ], verbosity=2)
 
 
+@log_fun
 def task_test_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests.
 
@@ -121,6 +126,7 @@ def task_test_marker() -&gt; DoItTask:
     }
 
 
+@log_fun
 def task_test_keyword() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a keyword to run a subset of tests.
 
@@ -141,6 +147,7 @@ def task_test_keyword() -&gt; DoItTask:
     }
 
 
+@log_fun
 def task_coverage() -&gt; DoItTask:
     &#34;&#34;&#34;Run pytest and create coverage and test reports.
 
@@ -154,6 +161,7 @@ def task_coverage() -&gt; DoItTask:
     ], verbosity=2)
 
 
+@log_fun
 def task_open_test_docs() -&gt; DoItTask:
     &#34;&#34;&#34;Open the test and coverage files in default browser.
 
@@ -171,6 +179,7 @@ def task_open_test_docs() -&gt; DoItTask:
 # Implement long running ptw tasks
 
 
+@log_fun
 def ptw_task(cli_args: str) -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task.
 
@@ -187,6 +196,7 @@ def ptw_task(cli_args: str) -&gt; DoItTask:
     }
 
 
+@log_fun
 def task_ptw_not_chrome() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
@@ -199,6 +209,7 @@ def task_ptw_not_chrome() -&gt; DoItTask:
     return ptw_task(&#39;-m &#34;not CHROME&#34; -vvv&#39;)
 
 
+@log_fun
 def task_ptw_ff() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
@@ -211,6 +222,7 @@ def task_ptw_ff() -&gt; DoItTask:
     return ptw_task(&#39;--last-failed --new-first -m &#34;not CHROME&#34; -vv&#39;)
 
 
+@log_fun
 def task_ptw_current() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
@@ -223,6 +235,7 @@ def task_ptw_current() -&gt; DoItTask:
     return ptw_task(&#39;-m &#34;CURRENT&#34; -vv&#39;)
 
 
+@log_fun
 def task_ptw_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests in LongRunning `ptw` task.
 
@@ -248,8 +261,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="dash_dev.doit_test.ptw_task"><code class="name flex">
-<span>def <span class="ident">ptw_task</span></span>(<span>cli_args: str) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.ptw_task"><code class="name flex">
+<span>def <span class="ident">ptw_task</span></span>(<span>cli_args: str) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task.</p>
@@ -267,7 +280,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ptw_task(cli_args: str) -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def ptw_task(cli_args: str) -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task.
 
     Args:
@@ -283,8 +297,8 @@ def task_ptw_marker() -&gt; DoItTask:
     }</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_coverage"><code class="name flex">
-<span>def <span class="ident">task_coverage</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_coverage"><code class="name flex">
+<span>def <span class="ident">task_coverage</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run pytest and create coverage and test reports.</p>
@@ -297,7 +311,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_coverage() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_coverage() -&gt; DoItTask:
     &#34;&#34;&#34;Run pytest and create coverage and test reports.
 
     Returns:
@@ -310,8 +325,8 @@ def task_ptw_marker() -&gt; DoItTask:
     ], verbosity=2)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_open_test_docs"><code class="name flex">
-<span>def <span class="ident">task_open_test_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_open_test_docs"><code class="name flex">
+<span>def <span class="ident">task_open_test_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Open the test and coverage files in default browser.</p>
@@ -324,7 +339,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_open_test_docs() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_open_test_docs() -&gt; DoItTask:
     &#34;&#34;&#34;Open the test and coverage files in default browser.
 
     Returns:
@@ -337,8 +353,8 @@ def task_ptw_marker() -&gt; DoItTask:
     ])</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_ptw_current"><code class="name flex">
-<span>def <span class="ident">task_ptw_current</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_ptw_current"><code class="name flex">
+<span>def <span class="ident">task_ptw_current</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run only tests tagged with the CURRENT marker.</p>
@@ -352,7 +368,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_current() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_ptw_current() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
     kwargs: `-m &#39;CURRENT&#39; -vv`
@@ -364,8 +381,8 @@ def task_ptw_marker() -&gt; DoItTask:
     return ptw_task(&#39;-m &#34;CURRENT&#34; -vv&#39;)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_ptw_ff"><code class="name flex">
-<span>def <span class="ident">task_ptw_ff</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_ptw_ff"><code class="name flex">
+<span>def <span class="ident">task_ptw_ff</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run failed first and skip the CHROME marker.</p>
@@ -379,7 +396,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_ff() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_ptw_ff() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `--last-failed --new-first -m &#39;not CHROME&#39; -vv`
@@ -391,8 +409,8 @@ def task_ptw_marker() -&gt; DoItTask:
     return ptw_task(&#39;--last-failed --new-first -m &#34;not CHROME&#34; -vv&#39;)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_ptw_marker"><code class="name flex">
-<span>def <span class="ident">task_ptw_marker</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_ptw_marker"><code class="name flex">
+<span>def <span class="ident">task_ptw_marker</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Specify a marker to run a subset of tests in LongRunning <code>ptw</code> task.</p>
@@ -406,7 +424,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_marker() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_ptw_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests in LongRunning `ptw` task.
 
     Example: `doit run ptw_marker -m \&#34;not MARKER\&#34;` or `doit run ptw_marker -m \&#34;MARKER\&#34;`
@@ -424,8 +443,8 @@ def task_ptw_marker() -&gt; DoItTask:
     return task</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_ptw_not_chrome"><code class="name flex">
-<span>def <span class="ident">task_ptw_not_chrome</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_ptw_not_chrome"><code class="name flex">
+<span>def <span class="ident">task_ptw_not_chrome</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Return DoIt LongRunning <code>ptw</code> task to run failed first and skip the CHROME marker.</p>
@@ -439,7 +458,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_ptw_not_chrome() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_ptw_not_chrome() -&gt; DoItTask:
     &#34;&#34;&#34;Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `-m &#39;not CHROME&#39; -vvv`
@@ -451,8 +471,8 @@ def task_ptw_marker() -&gt; DoItTask:
     return ptw_task(&#39;-m &#34;not CHROME&#34; -vvv&#39;)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_test"><code class="name flex">
-<span>def <span class="ident">task_test</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_test"><code class="name flex">
+<span>def <span class="ident">task_test</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run tests with Pytest.</p>
@@ -465,7 +485,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_test() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
     Returns:
@@ -477,8 +498,8 @@ def task_ptw_marker() -&gt; DoItTask:
     ], verbosity=2)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_test_all"><code class="name flex">
-<span>def <span class="ident">task_test_all</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_test_all"><code class="name flex">
+<span>def <span class="ident">task_test_all</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Run tests with Pytest.</p>
@@ -491,7 +512,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test_all() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_test_all() -&gt; DoItTask:
     &#34;&#34;&#34;Run tests with Pytest.
 
     Returns:
@@ -503,8 +525,8 @@ def task_ptw_marker() -&gt; DoItTask:
     ], verbosity=2)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_test_keyword"><code class="name flex">
-<span>def <span class="ident">task_test_keyword</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_test_keyword"><code class="name flex">
+<span>def <span class="ident">task_test_keyword</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Specify a keyword to run a subset of tests.</p>
@@ -518,7 +540,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test_keyword() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_test_keyword() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a keyword to run a subset of tests.
 
     Example: `doit run test_keyword -k \&#34;KEYWORD\&#34;`
@@ -538,8 +561,8 @@ def task_ptw_marker() -&gt; DoItTask:
     }</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_test.task_test_marker"><code class="name flex">
-<span>def <span class="ident">task_test_marker</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.test.task_test_marker"><code class="name flex">
+<span>def <span class="ident">task_test_marker</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7f8006e149d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Specify a marker to run a subset of tests.</p>
@@ -553,7 +576,8 @@ def task_ptw_marker() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_test_marker() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_test_marker() -&gt; DoItTask:
     r&#34;&#34;&#34;Specify a marker to run a subset of tests.
 
     Example: `doit run test_marker -m \&#34;not MARKER\&#34;` or `doit run test_marker -m \&#34;MARKER\&#34;`
@@ -613,7 +637,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = 'search.html#' + encodeURIComponent(query);
+const url = '../search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -632,22 +656,22 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="dash_dev" href="index.html">dash_dev</a></code></li>
+<li><code><a title="dash_dev.doit_helpers" href="index.html">dash_dev.doit_helpers</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="dash_dev.doit_test.ptw_task" href="#dash_dev.doit_test.ptw_task">ptw_task</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_coverage" href="#dash_dev.doit_test.task_coverage">task_coverage</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_open_test_docs" href="#dash_dev.doit_test.task_open_test_docs">task_open_test_docs</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_ptw_current" href="#dash_dev.doit_test.task_ptw_current">task_ptw_current</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_ptw_ff" href="#dash_dev.doit_test.task_ptw_ff">task_ptw_ff</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_ptw_marker" href="#dash_dev.doit_test.task_ptw_marker">task_ptw_marker</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_ptw_not_chrome" href="#dash_dev.doit_test.task_ptw_not_chrome">task_ptw_not_chrome</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_test" href="#dash_dev.doit_test.task_test">task_test</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_test_all" href="#dash_dev.doit_test.task_test_all">task_test_all</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_test_keyword" href="#dash_dev.doit_test.task_test_keyword">task_test_keyword</a></code></li>
-<li><code><a title="dash_dev.doit_test.task_test_marker" href="#dash_dev.doit_test.task_test_marker">task_test_marker</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.ptw_task" href="#dash_dev.doit_helpers.test.ptw_task">ptw_task</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_coverage" href="#dash_dev.doit_helpers.test.task_coverage">task_coverage</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_open_test_docs" href="#dash_dev.doit_helpers.test.task_open_test_docs">task_open_test_docs</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_ptw_current" href="#dash_dev.doit_helpers.test.task_ptw_current">task_ptw_current</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_ptw_ff" href="#dash_dev.doit_helpers.test.task_ptw_ff">task_ptw_ff</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_ptw_marker" href="#dash_dev.doit_helpers.test.task_ptw_marker">task_ptw_marker</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_ptw_not_chrome" href="#dash_dev.doit_helpers.test.task_ptw_not_chrome">task_ptw_not_chrome</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_test" href="#dash_dev.doit_helpers.test.task_test">task_test</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_test_all" href="#dash_dev.doit_helpers.test.task_test_all">task_test_all</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_test_keyword" href="#dash_dev.doit_helpers.test.task_test_keyword">task_test_keyword</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.test.task_test_marker" href="#dash_dev.doit_helpers.test.task_test_marker">task_test_marker</a></code></li>
 </ul>
 </li>
 </ul>

@@ -1,11 +1,13 @@
 """
-# [Dash_Dev](https://github.com/KyleKing/dash_dev)
+# Dash_Dev ([Github](https://github.com/KyleKing/dash_dev))
 
-Python package to simplify developing Python applications. Includes functionality for task running, testing, linting, documenting, and more
+Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more
 
-Note: the package name is a misnomer and I haven't thought of a better replacement. Use [dash_charts](https://github.com/KyleKing/dash_charts) for building plotly/Dash applications
+Note: the package name is a misnomer and is not specific to Plotly/Dash projects (and I haven't thought of a better replacement yet). If you want to build Plotly/Dash applications, see [dash_charts](https://github.com/KyleKing/dash_charts)
 
 ## Quick Start
+
+<!-- TODO: Replace with CookieCutter Instructions -->
 
 Add to a poetry project in `pyproject.toml`:
 
@@ -26,22 +28,6 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 - [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability)
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *Planned*
 
-## Task list (Dash Charts)
-
-- TODO: Don't show TODO list in the init.py file
-
-- TODO: [Show call chain in dash_charts](https://github.com/vmdesenvolvimento/pycallgraph3)
-
-```py
-from pycallgraph3 import PyCallGraph
-from pycallgraph3.output import GraphvizOutput
-
-with PyCallGraph(output=GraphvizOutput()):
-    from datetime import datetime
-    time_str = datetime.now().strftime('%Y%m%d%H%M%S')
-    filename = f'profile-{time_str}.png'
-```
-
 ## Test Coverage
 
 <!-- COVERAGE -->
@@ -49,21 +35,24 @@ with PyCallGraph(output=GraphvizOutput()):
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
 | `dash_dev/__init__.py` | 11 | 0 | 0 | 100.0% |
-| `dash_dev/conftest.py` | 22 | 3 | 0 | 86.4% |
-| `dash_dev/doit_base.py` | 82 | 11 | 0 | 86.6% |
-| `dash_dev/doit_dev.py` | 36 | 36 | 0 | 0.0% |
-| `dash_dev/doit_doc.py` | 110 | 70 | 0 | 36.4% |
-| `dash_dev/doit_lint.py` | 66 | 18 | 0 | 72.7% |
-| `dash_dev/doit_test.py` | 27 | 13 | 0 | 51.9% |
-| `dash_dev/log_helpers.py` | 18 | 5 | 0 | 72.2% |
-| `dash_dev/tag_collector.py` | 64 | 16 | 0 | 75.0% |
+| `dash_dev/conftest.py` | 23 | 3 | 0 | 87.0% |
+| `dash_dev/doit_helpers/__init__.py` | 0 | 0 | 0 | 100.0% |
+| `dash_dev/doit_helpers/base.py` | 51 | 14 | 0 | 72.5% |
+| `dash_dev/doit_helpers/dev.py` | 45 | 45 | 0 | 0.0% |
+| `dash_dev/doit_helpers/doc.py` | 136 | 78 | 0 | 42.6% |
+| `dash_dev/doit_helpers/doit_globals.py` | 54 | 2 | 0 | 96.3% |
+| `dash_dev/doit_helpers/lint.py` | 81 | 19 | 0 | 76.5% |
+| `dash_dev/doit_helpers/test.py` | 40 | 13 | 0 | 67.5% |
+| `dash_dev/log_helpers.py` | 24 | 5 | 0 | 79.2% |
+| `dash_dev/registered_tasks.py` | 6 | 6 | 0 | 0.0% |
+| `dash_dev/tag_collector.py` | 86 | 34 | 0 | 60.5% |
 
-Generated on: 2020-11-12T23:58:38.946472
+Generated on: 2020-11-14T11:50:47.015891
 
 <!-- /COVERAGE -->
 """  # noqa
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __pkg_name__ = 'dash_dev'
 
 import logging

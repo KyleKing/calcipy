@@ -11,8 +11,9 @@ import sh
 from loguru import logger
 from transitions import Machine
 
-from .doit_base import DIG, DoItTask, debug_task, open_in_browser, read_lines
-from .log_helpers import log_fun
+from ..log_helpers import log_fun
+from .base import debug_task, open_in_browser, read_lines
+from .doit_globals import DIG, DoItTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Tags
@@ -367,6 +368,7 @@ def task_document() -> DoItTask:
         f'poetry run pdoc3 {pdoc_args}',
         (_write_redirect_html, ()),
         (_clear_examples, ()),
+        f'git add docs/{DIG.pkg_name}/**/*.html -f',
     ])
 
 

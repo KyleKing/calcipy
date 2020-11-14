@@ -19,13 +19,14 @@ from dash_dev.conftest import pytest_runtest_makereport  # noqa: F401
 """
 
 from datetime import datetime
+from typing import Any
 
 import pytest
 from py.xml import html
 
 
 @pytest.mark.optionalhook
-def pytest_html_results_table_header(cells):
+def pytest_html_results_table_header(cells: Any) -> None:
     """Modify results table in the pytest-html output.
 
     Args:
@@ -38,7 +39,7 @@ def pytest_html_results_table_header(cells):
 
 
 @pytest.mark.optionalhook
-def pytest_html_results_table_row(report, cells):
+def pytest_html_results_table_row(report: Any, cells: Any) -> None:
     """Modify results table in the pytest-html output.
 
     Args:
@@ -52,7 +53,7 @@ def pytest_html_results_table_row(report, cells):
 
 
 @pytest.mark.hookwrapper
-def pytest_runtest_makereport(item, call):
+def pytest_runtest_makereport(item: Any, call: Any) -> None:
     """Modify the pytest-html output.
 
     Args:
@@ -68,7 +69,7 @@ def pytest_runtest_makereport(item, call):
     report.description = str(item.function.__doc__)
 
 
-def pytest_configure(config):
+def pytest_configure(config: Any) -> None:
     """Configure pytest with custom markers (SLOW, CHROME, and CURRENT).
 
     Args:

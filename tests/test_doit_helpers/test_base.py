@@ -1,13 +1,13 @@
-"""Test doit_base.py."""
+"""Test doit_helpers/base.py."""
 
 import shutil
 
 import attr
 
-from dash_dev import doit_base
-from dash_dev.doit_base import DIG, DoItGlobals
+from dash_dev.doit_helpers.base import _show_cmd, debug_task, if_found_unlink, task_export_req
+from dash_dev.doit_helpers.doit_globals import DIG, DoItGlobals
 
-from .configuration import DIG_CWD, TEST_DATA_DIR
+from ..configuration import DIG_CWD, TEST_DATA_DIR
 
 
 def test_dig_props():
@@ -57,7 +57,7 @@ def test_show_cmd():
     name = 'this_action'
     actions = [123, 'abc']
 
-    result = doit_base._show_cmd(task(name, actions))
+    result = _show_cmd(task(name, actions))
 
     assert f'{name} > ' in result
     assert all(str(act) in result for act in actions)
@@ -68,7 +68,7 @@ def test_debug_task():
     actions = ['123']
     verbosity = 1
 
-    result = doit_base.debug_task(actions, verbosity)
+    result = debug_task(actions, verbosity)
 
     assert all(key in result for key in ['actions', 'title', 'verbosity'])
     assert result['actions'] == actions
@@ -82,7 +82,7 @@ def test_if_found_unlink():
     file_path.write_text('')  # act
 
     assert file_path.is_file()
-    doit_base.if_found_unlink(file_path)
+    if_found_unlink(file_path)
     assert not file_path.is_file()
 
 
@@ -90,6 +90,6 @@ def test_task_export_req():
     """Test task_export_req."""
     DIG.set_paths(source_path=DIG_CWD)
 
-    result = doit_base.task_export_req()
+    result = task_export_req()
 
     assert result['actions'][0].startswith('poetry export -f requirements.txt')

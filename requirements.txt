@@ -11,7 +11,8 @@ click==7.1.2; python_version >= "2.7" and python_full_version < "3.0.0" or pytho
 cloudpickle==1.6.0; python_version >= "3.5"
 cognitive-complexity==1.2.0; python_version >= "3.6"
 cohesion==1.0.0
-colorama==0.4.4; python_version >= "3.5" and python_full_version < "3.0.0" and sys_platform == "win32" and platform_system == "Windows" or python_full_version >= "3.5.0" and sys_platform == "win32" and python_version >= "3.5" and platform_system == "Windows"
+colorama==0.4.4; python_version >= "3.6" and python_full_version < "3.0.0" and sys_platform == "win32" and python_version < "4.0" and platform_system == "Windows" or python_full_version >= "3.5.0" and sys_platform == "win32" and python_version >= "3.6" and python_version < "4.0" and platform_system == "Windows"
+commonmark==0.9.1; python_version >= "3.6" and python_version < "4.0"
 coverage==5.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version < "4"
 cycler==0.10.0; python_version >= "3.6"
 darglint==1.5.5; python_version >= "3.5" and python_version < "4.0"
@@ -104,7 +105,7 @@ pycallgraph3==1.1.4; python_version >= "3.8" and python_version < "4.0"
 pycodestyle==2.6.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 pydocstyle==5.1.1; python_version >= "3.5"
 pyflakes==2.2.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
-pygments==2.7.2; python_version >= "3.5"
+pygments==2.7.2; python_version >= "3.6" and python_version < "4.0"
 pyinotify==0.9.6; sys_platform == "linux" and python_version >= "3.5"
 pyparsing==2.4.7; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
 pystache==0.5.4
@@ -118,6 +119,7 @@ pytype==2020.11.3; python_version >= "3.6" and python_version < "3.9"
 pyupgrade==2.7.3; python_full_version >= "3.6.1"
 pyyaml==5.3.1; python_version >= "3.6" and python_full_version < "3.0.0" and python_version < "3.9" or python_version >= "3.6" and python_version < "3.9" and python_full_version >= "3.5.0"
 radon==4.3.2
+rich==9.2.0; python_version >= "3.6" and python_version < "4.0"
 ruamel.yaml.clib==0.2.2; platform_python_implementation == "CPython" and python_version < "3.9"
 ruamel.yaml==0.16.12
 sh==1.14.1
@@ -133,7 +135,7 @@ toml==0.10.1
 tqdm==4.51.0; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.2.0")
 transitions==0.8.4
 typed-ast==1.4.1; python_version >= "3.6" and python_version < "3.9"
-typing-extensions==3.7.4.3; python_version >= "3.6"
+typing-extensions==3.7.4.3; python_version >= "3.6" and python_version < "4.0"
 typing-inspect==0.6.0; python_version >= "3.6"
 vulture==2.1; python_version >= "3.6"
 watchcode @ git+https://github.com/bluenote10/watchcode.git@master
