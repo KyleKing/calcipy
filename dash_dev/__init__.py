@@ -37,16 +37,17 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `dash_dev/__init__.py` | 11 | 0 | 0 | 100.0% |
 | `dash_dev/conftest.py` | 23 | 3 | 0 | 87.0% |
 | `dash_dev/doit_helpers/__init__.py` | 0 | 0 | 0 | 100.0% |
-| `dash_dev/doit_helpers/base.py` | 98 | 14 | 0 | 85.7% |
-| `dash_dev/doit_helpers/dev.py` | 44 | 44 | 0 | 0.0% |
-| `dash_dev/doit_helpers/doc.py` | 135 | 78 | 0 | 42.2% |
-| `dash_dev/doit_helpers/lint.py` | 80 | 19 | 0 | 76.2% |
-| `dash_dev/doit_helpers/test.py` | 39 | 13 | 0 | 66.7% |
+| `dash_dev/doit_helpers/base.py` | 51 | 14 | 0 | 72.5% |
+| `dash_dev/doit_helpers/dev.py` | 45 | 45 | 0 | 0.0% |
+| `dash_dev/doit_helpers/doc.py` | 136 | 78 | 0 | 42.6% |
+| `dash_dev/doit_helpers/doit_globals.py` | 54 | 2 | 0 | 96.3% |
+| `dash_dev/doit_helpers/lint.py` | 81 | 19 | 0 | 76.5% |
+| `dash_dev/doit_helpers/test.py` | 40 | 13 | 0 | 67.5% |
 | `dash_dev/log_helpers.py` | 24 | 5 | 0 | 79.2% |
 | `dash_dev/registered_tasks.py` | 6 | 6 | 0 | 0.0% |
-| `dash_dev/tag_collector.py` | 70 | 16 | 0 | 77.1% |
+| `dash_dev/tag_collector.py` | 71 | 16 | 0 | 77.5% |
 
-Generated on: 2020-11-14T10:32:35.579431
+Generated on: 2020-11-14T11:01:06.997503
 
 <!-- /COVERAGE -->
 """  # noqa

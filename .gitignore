@@ -187,6 +187,5 @@ docs/*
 /tmp.txt
 
 # Track hosted documentation (update for package name)
-!docs/dash_dev/*.html
-!docs/dash_dev/*/*.html
+!docs/*/**/*.html
 !index.html

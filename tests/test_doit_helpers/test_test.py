@@ -1,6 +1,6 @@
 """Test doit_helpers/test.py."""
 
-from dash_dev.doit_helpers.base import DIG
+from dash_dev.doit_helpers.doit_globals import DIG
 from dash_dev.doit_helpers.test import task_test_marker
 
 from ..configuration import DIG_CWD

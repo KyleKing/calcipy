@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.1" />
-<title>dash_dev.doit_helpers.dev API documentation</title>
-<meta name="description" content="DoIt tasks for development functionality, such as code running." />
+<title>dash_dev.tag_collector API documentation</title>
+<meta name="description" content="Collect issue tags and output for review in a single location." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -59,138 +59,170 @@ padding: 0 5px;
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>dash_dev.doit_helpers.dev</code></h1>
+<h1 class="title">Module <code>dash_dev.tag_collector</code></h1>
 </header>
 <section id="section-intro">
-<p>DoIt tasks for development functionality, such as code running.</p>
+<p>Collect issue tags and output for review in a single location.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;DoIt tasks for development functionality, such as code running.&#34;&#34;&#34;
+<pre><code class="python">&#34;&#34;&#34;Collect issue tags and output for review in a single location.&#34;&#34;&#34;
 
+# PLANNED: Revisit and standardize wording for tag vs. task vs. comment
+
+import re
+from collections import defaultdict
 from pathlib import Path
-from typing import Any, Optional, Sequence
+from typing import List, Pattern, Sequence
 
 import attr
-from doit.tools import Interactive
-from loguru import logger
-from ruamel.yaml import YAML
 
-from ..log_helpers import log_fun
-from .base import debug_task
-from .doit_globals import DIG, DoItTask
-
-# ======================================================================================================================
-# Watch Code Tasks
+from . import __pkg_name__
+from .doit_helpers.base import debug_task, read_lines
+from .doit_helpers.doit_globals import DIG, DoItTask
+from .doit_helpers.lint import _list_lint_file_paths
+from .log_helpers import log_fun
 
 
-_WATCHCODE_TEMPLATE: dict = {
-    &#39;filesets&#39;: {
-        &#39;default&#39;: {
-            &#39;include&#39;: [&#39;.watchcode.yaml&#39;],
-            &#39;exclude&#39;: [&#39;.watchcode.log&#39;, &#39;*.pyc&#39;, &#39;__pycache__&#39;],
-            &#39;exclude_gitignore&#39;: True,
-            &#39;match_mode&#39;: &#39;gitlike&#39;,
-        },
-    },
-    &#39;tasks&#39;: {
-        &#39;default&#39;: {
-            &#39;commands&#39;: [],
-            &#39;fileset&#39;: &#39;default&#39;,
-            &#39;queue_events&#39;: False,
-            &#39;clear_screen&#39;: True,
-        },
-    },
-    &#39;notifications&#39;: False,
-    &#39;sound&#39;: False,
-    &#39;log&#39;: False,
-    &#39;default_task&#39;: &#39;default&#39;,
-}
-&#34;&#34;&#34;Template dictionary with WatchCode defaults.&#34;&#34;&#34;
+@attr.s(auto_attribs=True)
+class _TaggedComment:  # noqa: H601
+    &#34;&#34;&#34;Tagged (FIXME,TODO,etc) with contextual information.&#34;&#34;&#34;  # noqa: T100,T101
+
+    lineno: int
+    tag: str
+    text: str
 
 
-@attr.s(auto_attribs=True, kw_only=True)
-class _WatchCodeYAML:  # noqa: H601
-    &#34;&#34;&#34;Watchcode YAML file.&#34;&#34;&#34;
+@attr.s(auto_attribs=True)
+class _Tags:  # noqa: H601
+    &#34;&#34;&#34;Collection of tagged comments with additional contextual information.&#34;&#34;&#34;
 
-    commands: Sequence[str]
-    include: Sequence[str]
-    exclude: Sequence[str] = ()
-    dict_watchcode: dict = _WATCHCODE_TEMPLATE
-    path_wc: Optional[Path] = None
-
-    def __attrs_post_init__(self) -&gt; None:
-        &#34;&#34;&#34;Complete initialization and merge settings.&#34;&#34;&#34;
-        logger.info(&#39;Initializing _WatchCodeYAML&#39;)
-        self.merge_settings()
-
-    def _merge_nested_setting(self, key: str, task_name: str, sub_key: str, values: Sequence[Any]) -&gt; None:
-        &#34;&#34;&#34;Merge nested settings in the WatchCode YAML dictionary.
-
-        Args:
-            key: first, main keyname
-            task_name: second, key for task name
-            sub_key: third, sub-task keyname
-            values: sequence of values to add to the WatchDog dictionary for specified keys
-
-        &#34;&#34;&#34;
-        logger.debug(f&#39;Adding {values}&#39;, key=key, task_name=task_name, sub_key=sub_key, values=values)
-        _values = self.dict_watchcode[key][task_name][sub_key]
-        _values.extend(values)
-        self.dict_watchcode[key][task_name][sub_key] = [*set(_values)]
-
-    def merge_settings(self) -&gt; None:
-        &#34;&#34;&#34;Merge all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
-        for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
-            self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
-        self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)
-        logger.info(&#39;Completed merging watchcode settings&#39;, self_dict_watchcode=self.dict_watchcode)
-
-    def write(self) -&gt; None:
-        &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
-        yaml = YAML()
-        if self.path_wc is None:
-            self.path_wc = DIG.source_path
-        logger.info(f&#39;Writing the watchcode YAML file to {self.path_wc}&#39;, self_path_wc=self.path_wc)
-        yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)
+    file_path: Path
+    tagged_comments: List[_TaggedComment]
 
 
 @log_fun
-def _create_yaml(py_path: str) -&gt; None:
-    &#34;&#34;&#34;Create the YAML file.
+def _compile_issue_regex(regex_raw: str, tags: List[str]) -&gt; Pattern[str]:
+    &#34;&#34;&#34;Compile the regex for the specified raw regular expression string and tags.
 
     Args:
-        py_path: path to the Python file to run with poetry
+        regex_raw: string regular expression that contains `{tag}`
+        tags: string of tag names to match
+
+    Returns:
+        Pattern[str]: compiled regular expression to match all of the specified tags
 
     &#34;&#34;&#34;
-    wc_yaml = _WatchCodeYAML(
-        commands=[f&#39;poetry run python {py_path}&#39;],
-        include=[py_path],
-    )
-    wc_yaml.write()
+    return re.compile(regex_raw.format(tag=&#39;|&#39;.join(tags)))
+
+
+_regex_raw = r&#39;((\s|\()(?P&lt;tag&gt;{tag})(:[^\r\n]))(?P&lt;text&gt;.+)&#39;
+_tags = [&#39;DEBUG&#39;, &#39;FIXME&#39;, &#39;FYI&#39;, &#39;HACK&#39;, &#39;NOTE&#39;, &#39;PLANNED&#39;, &#39;REVIEW&#39;, &#39;TBD&#39;, &#39;TODO&#39;]  # noqa: T100,T101,T103
+
+_COMPILED_RE = _compile_issue_regex(_regex_raw, _tags)
+&#34;&#34;&#34;Default compiled regular expression.&#34;&#34;&#34;
 
 
 @log_fun
-def task_watchcode() -&gt; DoItTask:
-    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
+def _search_lines(lines: Sequence[str],
+                  regex_compiled: Pattern[str] = _COMPILED_RE) -&gt; List[_TaggedComment]:
+    &#34;&#34;&#34;Search lines of text for matches to the compiled regular expression.
 
-    Example: `doit run watchcode -p scripts/main.py`
+    Args:
+        lines: lines of text as list
+        regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
+
+    Returns:
+        List[_TaggedComment]: list of all tagged comments found in lines
+
+    &#34;&#34;&#34;
+    comments = []
+    for lineno, line in enumerate(lines):
+        match = regex_compiled.search(line)
+        if lineno &lt;= 3 and &#39;:skip_tags:&#39; in line:
+            break
+        elif match:
+            mg = match.groupdict()
+            comments.append(_TaggedComment(lineno + 1, tag=mg[&#39;tag&#39;], text=mg[&#39;text&#39;]))
+    return comments
+
+
+@log_fun
+def _search_files(file_paths: Sequence[Path],
+                  regex_compiled: Pattern[str] = _COMPILED_RE) -&gt; List[_Tags]:
+    &#34;&#34;&#34;Collect matches from multiple files.
+
+    Args:
+        file_paths: list of files to parse
+        regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
+
+    Returns:
+        List[_Tags]: list of all tagged comments found in files
+
+    &#34;&#34;&#34;
+    matches = []
+    for file_path in file_paths:
+        comments = _search_lines(read_lines(file_path), regex_compiled)
+        if comments:
+            matches.append(_Tags(file_path, comments))
+    return matches
+
+
+@log_fun
+def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -&gt; str:
+    &#34;&#34;&#34;Pretty-format the tagged items by file and line number.
+
+    Args:
+        base_dir: base directory relative to the searched files
+        tagged_collection: list of all tagged comments found in files
+
+    Returns:
+        str: pretty-formatted text
+
+    &#34;&#34;&#34;
+    output = &#39;&#39;
+    counter = defaultdict(lambda: 0)
+    for comments in sorted(tagged_collection, key=lambda tc: tc.file_path, reverse=False):
+        output += f&#39;{comments.file_path.relative_to(base_dir)}\n&#39;
+        for comment in comments.tagged_comments:
+            output += f&#39;    line {comment.lineno:&gt;3} {comment.tag:&gt;7}: {comment.text}\n&#39;
+            counter[comment.tag] += 1
+        output += &#39;\n&#39;
+
+    formatted_summary = &#39;,  &#39;.join([f&#39;{tag} ({count})&#39; for tag, count in counter.items()])
+    if formatted_summary:
+        output += f&#39;Found tagged comments for {formatted_summary}\n&#39;
+    return output
+
+
+@log_fun
+def _create_tag_file(path_tag_summary: Path) -&gt; None:
+    &#34;&#34;&#34;Create the tag summary file.
+
+    Args:
+        path_tag_summary: Path to the output file
+
+    &#34;&#34;&#34;
+    header = f&#39;# Task Summary\n\nAuto-Generated by {__pkg_name__}\n\n&#39;
+    matches = _search_files(_list_lint_file_paths(DIG.lint_paths))
+    report = _format_report(DIG.source_path, matches)
+    if report.strip():
+        path_tag_summary.write_text(header + report)
+    elif path_tag_summary.is_file():
+        path_tag_summary.unlink()
+
+
+@log_fun
+def task_create_tag_file() -&gt; DoItTask:
+    &#34;&#34;&#34;Create a summary file with all of the found tagged comments.
 
     Returns:
         DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    action = debug_task([
-        (_create_yaml, ),
-        Interactive(&#39;poetry run watchcode&#39;),
-    ])
-    action[&#39;params&#39;] = [{
-        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
-        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
-                 &#39;https://github.com/bluenote10/watchcode&#39;),
-    }]
-    return action</code></pre>
+    path_tag_summary = DIG.source_path / &#39;TAG_SUMMARY.md&#39;  # PLANNED: Maybe make this configurable?
+    return debug_task([(_create_tag_file, (path_tag_summary, ))])</code></pre>
 </details>
 </section>
 <section>
@@ -200,12 +232,11 @@ def task_watchcode() -&gt; DoItTask:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="dash_dev.doit_helpers.dev.task_watchcode"><code class="name flex">
-<span>def <span class="ident">task_watchcode</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
+<dt id="dash_dev.tag_collector.task_create_tag_file"><code class="name flex">
+<span>def <span class="ident">task_create_tag_file</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return Interactive <code>watchcode</code> task for specified file.</p>
-<p>Example: <code>doit run watchcode -p scripts/main.py</code></p>
+<div class="desc"><p>Create a summary file with all of the found tagged comments.</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>DoItTask</code></dt>
@@ -216,25 +247,15 @@ def task_watchcode() -&gt; DoItTask:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@log_fun
-def task_watchcode() -&gt; DoItTask:
-    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
-
-    Example: `doit run watchcode -p scripts/main.py`
+def task_create_tag_file() -&gt; DoItTask:
+    &#34;&#34;&#34;Create a summary file with all of the found tagged comments.
 
     Returns:
         DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    action = debug_task([
-        (_create_yaml, ),
-        Interactive(&#39;poetry run watchcode&#39;),
-    ])
-    action[&#39;params&#39;] = [{
-        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
-        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
-                 &#39;https://github.com/bluenote10/watchcode&#39;),
-    }]
-    return action</code></pre>
+    path_tag_summary = DIG.source_path / &#39;TAG_SUMMARY.md&#39;  # PLANNED: Maybe make this configurable?
+    return debug_task([(_create_tag_file, (path_tag_summary, ))])</code></pre>
 </details>
 </dd>
 </dl>
@@ -277,7 +298,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = '../search.html#' + encodeURIComponent(query);
+const url = 'search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -296,12 +317,12 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="dash_dev.doit_helpers" href="index.html">dash_dev.doit_helpers</a></code></li>
+<li><code><a title="dash_dev" href="index.html">dash_dev</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="dash_dev.doit_helpers.dev.task_watchcode" href="#dash_dev.doit_helpers.dev.task_watchcode">task_watchcode</a></code></li>
+<li><code><a title="dash_dev.tag_collector.task_create_tag_file" href="#dash_dev.tag_collector.task_create_tag_file">task_create_tag_file</a></code></li>
 </ul>
 </li>
 </ul>

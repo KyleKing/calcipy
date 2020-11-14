@@ -4,7 +4,8 @@ import shutil
 
 import attr
 
-from dash_dev.doit_helpers.base import DIG, DoItGlobals, _show_cmd, debug_task, if_found_unlink, task_export_req
+from dash_dev.doit_helpers.base import _show_cmd, debug_task, if_found_unlink, task_export_req
+from dash_dev.doit_helpers.doit_globals import DIG, DoItGlobals
 
 from ..configuration import DIG_CWD, TEST_DATA_DIR
 

@@ -20,7 +20,8 @@ poetry run doit
 
 from pathlib import Path
 
-from dash_dev.doit_helpers.base import DIG, DoItTask, debug_task
+from dash_dev.doit_helpers.base import debug_task
+from dash_dev.doit_helpers.doit_globals import DIG, DoItTask
 from dash_dev.registered_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks)
 
 # Configure Dash paths

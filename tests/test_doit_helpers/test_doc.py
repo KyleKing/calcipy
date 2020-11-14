@@ -4,8 +4,8 @@ import os
 import shutil
 from pathlib import Path
 
-from dash_dev.doit_helpers.base import DIG
 from dash_dev.doit_helpers.doc import _write_pdoc_config_files, task_create_tag, task_remove_tag, task_update_cl
+from dash_dev.doit_helpers.doit_globals import DIG
 
 from ..configuration import DIG_CWD
 

@@ -10,7 +10,8 @@ from typing import List, Pattern, Sequence
 import attr
 
 from . import __pkg_name__
-from .doit_helpers.base import DIG, DoItTask, debug_task, read_lines
+from .doit_helpers.base import debug_task, read_lines
+from .doit_helpers.doit_globals import DIG, DoItTask
 from .doit_helpers.lint import _list_lint_file_paths
 from .log_helpers import log_fun
 

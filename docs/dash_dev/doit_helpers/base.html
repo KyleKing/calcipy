@@ -72,134 +72,18 @@ padding: 0 5px;
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
+from typing import Any, List, Sequence
 
-import toml
 from loguru import logger
 
 from ..log_helpers import log_action, log_fun
+from .doit_globals import DIG, DoItTask
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
 # TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
 # TODO: Show table of contents in __init__.py file. Use ast:
 #   https://www.ecosia.org/search?q=ast+find+all+functions+and+classes+in+python+package
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Global Variables
-
-DoItTask = NewType(&#39;DoItTask&#39;, Dict[str, Union[str, Tuple[Callable, Sequence]]])  # noqa: ECE001
-&#34;&#34;&#34;DoIt task type for annotations.&#34;&#34;&#34;
-
-
-class DoItGlobals:
-    &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
-
-    dash_dev_dir: Path = Path(__file__).parents[1]
-    &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
-
-    flake8_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to flake8 file. Set in `set_paths()` based on source_path &#34;&#34;&#34;
-
-    path_gitchangelog: Path = dash_dev_dir / &#39;.gitchangelog.rc&#39;
-    &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
-
-    lint_paths = []
-    &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
-
-    excluded_files = [&#39;__init__.py&#39;]
-    &#34;&#34;&#34;List of excluded filenames.&#34;&#34;&#34;
-
-    external_doc_dirs = [&#39;examples&#39;, &#39;scripts&#39;, &#39;tests&#39;]
-    &#34;&#34;&#34;List of subdir names relative to `source_path` containing Python code that should be in the documentation.
-
-    Note: for nested directories, combine subdirectires into a single string, ex: `(&#39;examples&#39;, &#39;examples/sub_dir&#39;)`
-
-    &#34;&#34;&#34;
-
-    source_path: Optional[Path] = None
-    &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
-
-    test_path: Optional[Path] = None
-    &#34;&#34;&#34;Current directory for tests directory. Resolved as &#39;`source_path`/tests&#39; in `set_paths`.&#34;&#34;&#34;
-
-    toml_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to `pyproject.toml` file for working project. Set in `set_paths`.&#34;&#34;&#34;
-
-    pkg_name: Optional[str] = None
-    &#34;&#34;&#34;Name of the current package based on the poetry configuration file. Set in `set_paths`.&#34;&#34;&#34;
-
-    doc_dir: Optional[Path] = None
-    &#34;&#34;&#34;Path to documentation directory for working project. Set in `set_paths`.&#34;&#34;&#34;
-
-    coverage_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to the coverage index.html file. Set in `set_paths`.&#34;&#34;&#34;
-
-    test_report_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to the test report file. Set in `set_paths`.&#34;&#34;&#34;
-
-    src_examples_dir: Optional[Path] = None
-    &#34;&#34;&#34;Path to example code directory for working project. Set in `set_paths`.&#34;&#34;&#34;
-
-    tmp_examples_dir: Optional[Path] = None
-    &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
-
-    # PLANNED: Document
-    template_dir = None
-    pkg_version = None
-
-    def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
-                  doc_dir: Optional[Path] = None) -&gt; None:
-        &#34;&#34;&#34;Set data members based on working directory.
-
-        Args:
-            pkg_name: Package name or defaults to value from toml
-            source_path: Source directory Path, typically &#39;src&#39; or &#39;&#39;
-            doc_dir: Destination directory for project documentation
-
-        Raises:
-            RuntimeError: if package name includes dashes
-
-        &#34;&#34;&#34;
-        self.source_path = Path.cwd() if source_path is None else source_path
-        logger.info(f&#39;Setting DIG paths for {pkg_name} at {self.source_path}&#39;, pkg_name=pkg_name,
-                    source_path=source_path, self_source_path=self.source_path, doc_dir=doc_dir)
-
-        # Define the output directory with relevant sub_directories
-        self.test_path = self.source_path / &#39;tests&#39;
-        self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
-        self.template_dir = self.doc_dir / &#39;templates&#39;
-        ensure_dir(self.template_dir)
-        self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
-        self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
-        self.flake8_path = self.source_path / &#39;.flake8&#39;
-
-        self.toml_path = self.source_path / &#39;pyproject.toml&#39;
-        if not self.toml_path.is_file():
-            raise RuntimeError(f&#39;Could not find {self.toml_path.name}. Check that the {self.source_path} is correct&#39;)
-        poetry_config = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;]
-        self.pkg_version = poetry_config[&#39;version&#39;]
-        self.pkg_name = poetry_config[&#39;name&#39;]
-        if &#39;-&#39; in self.pkg_name:
-            raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
-
-        self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
-        self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
-        if not self.src_examples_dir.is_dir():
-            self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
-
-        # Create list of directories and paths to isort and format
-        sub_dirs = [self.pkg_name] + self.external_doc_dirs
-        self.lint_paths = [self.source_path / subdir for subdir in sub_dirs]
-        self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
-        self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
-
-        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;
-                       &#39;Additionally, all of the paths should be logged for troubleshooting if needed&#39;)
-
-
-DIG = DoItGlobals()
-&#34;&#34;&#34;Global DoIt Globals class used to manage global variables.&#34;&#34;&#34;
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Really General...
@@ -361,32 +245,12 @@ def task_export_req() -&gt; DoItTask:
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-variables">Global variables</h2>
-<dl>
-<dt id="dash_dev.doit_helpers.base.DIG"><code class="name">var <span class="ident">DIG</span></code></dt>
-<dd>
-<div class="desc"><p>Global DoIt Globals class used to manage global variables.</p></div>
-</dd>
-</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="dash_dev.doit_helpers.base.DoItTask"><code class="name flex">
-<span>def <span class="ident">DoItTask</span></span>(<span>x)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def new_type(x):
-    return x</code></pre>
-</details>
-</dd>
 <dt id="dash_dev.doit_helpers.base.debug_action"><code class="name flex">
-<span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -402,7 +266,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:  # 
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.base.debug_task"><code class="name flex">
-<span>def <span class="ident">debug_task</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">debug_task</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Activate verbose logging for the specified actions.</p>
@@ -415,7 +279,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:  # 
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="dash_dev.doit_helpers.base.DoItTask" href="#dash_dev.doit_helpers.base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
@@ -607,13 +471,13 @@ def read_lines(file_path: Path) -&gt; List[str]:
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.base.task_export_req"><code class="name flex">
-<span>def <span class="ident">task_export_req</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">task_export_req</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a <code>requirements.txt</code> file for non-Poetry users and for Github security tools.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="dash_dev.doit_helpers.base.DoItTask" href="#dash_dev.doit_helpers.base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
+<dt><code>DoItTask</code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
@@ -663,272 +527,6 @@ def write_text(file_path: Path, text: str) -&gt; None:
 </dl>
 </section>
 <section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals"><code class="flex name class">
-<span>class <span class="ident">DoItGlobals</span></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Global Variables for DoIt.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class DoItGlobals:
-    &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
-
-    dash_dev_dir: Path = Path(__file__).parents[1]
-    &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
-
-    flake8_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to flake8 file. Set in `set_paths()` based on source_path &#34;&#34;&#34;
-
-    path_gitchangelog: Path = dash_dev_dir / &#39;.gitchangelog.rc&#39;
-    &#34;&#34;&#34;Path to isort file. Default is for the isort file from dash_dev.&#34;&#34;&#34;
-
-    lint_paths = []
-    &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
-
-    excluded_files = [&#39;__init__.py&#39;]
-    &#34;&#34;&#34;List of excluded filenames.&#34;&#34;&#34;
-
-    external_doc_dirs = [&#39;examples&#39;, &#39;scripts&#39;, &#39;tests&#39;]
-    &#34;&#34;&#34;List of subdir names relative to `source_path` containing Python code that should be in the documentation.
-
-    Note: for nested directories, combine subdirectires into a single string, ex: `(&#39;examples&#39;, &#39;examples/sub_dir&#39;)`
-
-    &#34;&#34;&#34;
-
-    source_path: Optional[Path] = None
-    &#34;&#34;&#34;Current directory for source code (working project). Set in `set_paths`.&#34;&#34;&#34;
-
-    test_path: Optional[Path] = None
-    &#34;&#34;&#34;Current directory for tests directory. Resolved as &#39;`source_path`/tests&#39; in `set_paths`.&#34;&#34;&#34;
-
-    toml_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to `pyproject.toml` file for working project. Set in `set_paths`.&#34;&#34;&#34;
-
-    pkg_name: Optional[str] = None
-    &#34;&#34;&#34;Name of the current package based on the poetry configuration file. Set in `set_paths`.&#34;&#34;&#34;
-
-    doc_dir: Optional[Path] = None
-    &#34;&#34;&#34;Path to documentation directory for working project. Set in `set_paths`.&#34;&#34;&#34;
-
-    coverage_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to the coverage index.html file. Set in `set_paths`.&#34;&#34;&#34;
-
-    test_report_path: Optional[Path] = None
-    &#34;&#34;&#34;Path to the test report file. Set in `set_paths`.&#34;&#34;&#34;
-
-    src_examples_dir: Optional[Path] = None
-    &#34;&#34;&#34;Path to example code directory for working project. Set in `set_paths`.&#34;&#34;&#34;
-
-    tmp_examples_dir: Optional[Path] = None
-    &#34;&#34;&#34;Path to temporary directory to move examples while creating documentation. Set in `set_paths`.&#34;&#34;&#34;
-
-    # PLANNED: Document
-    template_dir = None
-    pkg_version = None
-
-    def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
-                  doc_dir: Optional[Path] = None) -&gt; None:
-        &#34;&#34;&#34;Set data members based on working directory.
-
-        Args:
-            pkg_name: Package name or defaults to value from toml
-            source_path: Source directory Path, typically &#39;src&#39; or &#39;&#39;
-            doc_dir: Destination directory for project documentation
-
-        Raises:
-            RuntimeError: if package name includes dashes
-
-        &#34;&#34;&#34;
-        self.source_path = Path.cwd() if source_path is None else source_path
-        logger.info(f&#39;Setting DIG paths for {pkg_name} at {self.source_path}&#39;, pkg_name=pkg_name,
-                    source_path=source_path, self_source_path=self.source_path, doc_dir=doc_dir)
-
-        # Define the output directory with relevant sub_directories
-        self.test_path = self.source_path / &#39;tests&#39;
-        self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
-        self.template_dir = self.doc_dir / &#39;templates&#39;
-        ensure_dir(self.template_dir)
-        self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
-        self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
-        self.flake8_path = self.source_path / &#39;.flake8&#39;
-
-        self.toml_path = self.source_path / &#39;pyproject.toml&#39;
-        if not self.toml_path.is_file():
-            raise RuntimeError(f&#39;Could not find {self.toml_path.name}. Check that the {self.source_path} is correct&#39;)
-        poetry_config = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;]
-        self.pkg_version = poetry_config[&#39;version&#39;]
-        self.pkg_name = poetry_config[&#39;name&#39;]
-        if &#39;-&#39; in self.pkg_name:
-            raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
-
-        self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
-        self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
-        if not self.src_examples_dir.is_dir():
-            self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
-
-        # Create list of directories and paths to isort and format
-        sub_dirs = [self.pkg_name] + self.external_doc_dirs
-        self.lint_paths = [self.source_path / subdir for subdir in sub_dirs]
-        self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
-        self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
-
-        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;
-                       &#39;Additionally, all of the paths should be logged for troubleshooting if needed&#39;)</code></pre>
-</details>
-<h3>Class variables</h3>
-<dl>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.coverage_path"><code class="name">var <span class="ident">coverage_path</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Path to the coverage index.html file. Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.dash_dev_dir"><code class="name">var <span class="ident">dash_dev_dir</span> : pathlib.Path</code></dt>
-<dd>
-<div class="desc"><p>The dash_dev directory (may be within <code>.venv</code>).</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.doc_dir"><code class="name">var <span class="ident">doc_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Path to documentation directory for working project. Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.excluded_files"><code class="name">var <span class="ident">excluded_files</span></code></dt>
-<dd>
-<div class="desc"><p>List of excluded filenames.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.external_doc_dirs"><code class="name">var <span class="ident">external_doc_dirs</span></code></dt>
-<dd>
-<div class="desc"><p>List of subdir names relative to <code>source_path</code> containing Python code that should be in the documentation.</p>
-<p>Note: for nested directories, combine subdirectires into a single string, ex: <code>('examples', 'examples/sub_dir')</code></p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Path to flake8 file. Set in <code>set_paths()</code> based on source_path</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.lint_paths"><code class="name">var <span class="ident">lint_paths</span></code></dt>
-<dd>
-<div class="desc"><p>Current directory for source code (working project). Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.path_gitchangelog"><code class="name">var <span class="ident">path_gitchangelog</span> : pathlib.Path</code></dt>
-<dd>
-<div class="desc"><p>Path to isort file. Default is for the isort file from dash_dev.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.pkg_name"><code class="name">var <span class="ident">pkg_name</span> : Union[str, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Name of the current package based on the poetry configuration file. Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.pkg_version"><code class="name">var <span class="ident">pkg_version</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.source_path"><code class="name">var <span class="ident">source_path</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Current directory for source code (working project). Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.src_examples_dir"><code class="name">var <span class="ident">src_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Path to example code directory for working project. Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.template_dir"><code class="name">var <span class="ident">template_dir</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.test_path"><code class="name">var <span class="ident">test_path</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Current directory for tests directory. Resolved as '<code>source_path</code>/tests' in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.test_report_path"><code class="name">var <span class="ident">test_report_path</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Path to the test report file. Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.tmp_examples_dir"><code class="name">var <span class="ident">tmp_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Path to temporary directory to move examples while creating documentation. Set in <code>set_paths</code>.</p></div>
-</dd>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.toml_path"><code class="name">var <span class="ident">toml_path</span> : Union[pathlib.Path, NoneType]</code></dt>
-<dd>
-<div class="desc"><p>Path to <code>pyproject.toml</code> file for working project. Set in <code>set_paths</code>.</p></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="dash_dev.doit_helpers.base.DoItGlobals.set_paths"><code class="name flex">
-<span>def <span class="ident">set_paths</span></span>(<span>self, *, pkg_name: Union[str, NoneType] = None, source_path: Union[pathlib.Path, NoneType] = None, doc_dir: Union[pathlib.Path, NoneType] = None) ‑> NoneType</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Set data members based on working directory.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>pkg_name</code></strong></dt>
-<dd>Package name or defaults to value from toml</dd>
-<dt><strong><code>source_path</code></strong></dt>
-<dd>Source directory Path, typically 'src' or ''</dd>
-<dt><strong><code>doc_dir</code></strong></dt>
-<dd>Destination directory for project documentation</dd>
-</dl>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>RuntimeError</code></dt>
-<dd>if package name includes dashes</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
-              doc_dir: Optional[Path] = None) -&gt; None:
-    &#34;&#34;&#34;Set data members based on working directory.
-
-    Args:
-        pkg_name: Package name or defaults to value from toml
-        source_path: Source directory Path, typically &#39;src&#39; or &#39;&#39;
-        doc_dir: Destination directory for project documentation
-
-    Raises:
-        RuntimeError: if package name includes dashes
-
-    &#34;&#34;&#34;
-    self.source_path = Path.cwd() if source_path is None else source_path
-    logger.info(f&#39;Setting DIG paths for {pkg_name} at {self.source_path}&#39;, pkg_name=pkg_name,
-                source_path=source_path, self_source_path=self.source_path, doc_dir=doc_dir)
-
-    # Define the output directory with relevant sub_directories
-    self.test_path = self.source_path / &#39;tests&#39;
-    self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
-    self.template_dir = self.doc_dir / &#39;templates&#39;
-    ensure_dir(self.template_dir)
-    self.coverage_path = self.doc_dir / &#39;cov_html/index.html&#39;
-    self.test_report_path = self.doc_dir / &#39;test_report.html&#39;
-    self.flake8_path = self.source_path / &#39;.flake8&#39;
-
-    self.toml_path = self.source_path / &#39;pyproject.toml&#39;
-    if not self.toml_path.is_file():
-        raise RuntimeError(f&#39;Could not find {self.toml_path.name}. Check that the {self.source_path} is correct&#39;)
-    poetry_config = toml.load(self.toml_path)[&#39;tool&#39;][&#39;poetry&#39;]
-    self.pkg_version = poetry_config[&#39;version&#39;]
-    self.pkg_name = poetry_config[&#39;name&#39;]
-    if &#39;-&#39; in self.pkg_name:
-        raise RuntimeError(f&#39;Replace dashes in name with underscores ({self.pkg_name}) in {self.toml_path}&#39;)
-
-    self.src_examples_dir = self.source_path / &#39;tests/examples&#39;
-    self.tmp_examples_dir = self.source_path / f&#39;{self.pkg_name}/0EX&#39;
-    if not self.src_examples_dir.is_dir():
-        self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
-
-    # Create list of directories and paths to isort and format
-    sub_dirs = [self.pkg_name] + self.external_doc_dirs
-    self.lint_paths = [self.source_path / subdir for subdir in sub_dirs]
-    self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
-    self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
-
-    logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;
-                   &#39;Additionally, all of the paths should be logged for troubleshooting if needed&#39;)</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
-</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -988,14 +586,8 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_helpers" href="index.html">dash_dev.doit_helpers</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-variables">Global variables</a></h3>
-<ul class="">
-<li><code><a title="dash_dev.doit_helpers.base.DIG" href="#dash_dev.doit_helpers.base.DIG">DIG</a></code></li>
-</ul>
-</li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="dash_dev.doit_helpers.base.DoItTask" href="#dash_dev.doit_helpers.base.DoItTask">DoItTask</a></code></li>
 <li><code><a title="dash_dev.doit_helpers.base.debug_action" href="#dash_dev.doit_helpers.base.debug_action">debug_action</a></code></li>
 <li><code><a title="dash_dev.doit_helpers.base.debug_task" href="#dash_dev.doit_helpers.base.debug_task">debug_task</a></code></li>
 <li><code><a title="dash_dev.doit_helpers.base.delete_dir" href="#dash_dev.doit_helpers.base.delete_dir">delete_dir</a></code></li>
@@ -1006,33 +598,6 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="dash_dev.doit_helpers.base.read_lines" href="#dash_dev.doit_helpers.base.read_lines">read_lines</a></code></li>
 <li><code><a title="dash_dev.doit_helpers.base.task_export_req" href="#dash_dev.doit_helpers.base.task_export_req">task_export_req</a></code></li>
 <li><code><a title="dash_dev.doit_helpers.base.write_text" href="#dash_dev.doit_helpers.base.write_text">write_text</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="dash_dev.doit_helpers.base.DoItGlobals" href="#dash_dev.doit_helpers.base.DoItGlobals">DoItGlobals</a></code></h4>
-<ul class="two-column">
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.coverage_path" href="#dash_dev.doit_helpers.base.DoItGlobals.coverage_path">coverage_path</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.dash_dev_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.dash_dev_dir">dash_dev_dir</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.doc_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.doc_dir">doc_dir</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.excluded_files" href="#dash_dev.doit_helpers.base.DoItGlobals.excluded_files">excluded_files</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.external_doc_dirs" href="#dash_dev.doit_helpers.base.DoItGlobals.external_doc_dirs">external_doc_dirs</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.flake8_path" href="#dash_dev.doit_helpers.base.DoItGlobals.flake8_path">flake8_path</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.lint_paths" href="#dash_dev.doit_helpers.base.DoItGlobals.lint_paths">lint_paths</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.path_gitchangelog" href="#dash_dev.doit_helpers.base.DoItGlobals.path_gitchangelog">path_gitchangelog</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.pkg_name" href="#dash_dev.doit_helpers.base.DoItGlobals.pkg_name">pkg_name</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.pkg_version" href="#dash_dev.doit_helpers.base.DoItGlobals.pkg_version">pkg_version</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.set_paths" href="#dash_dev.doit_helpers.base.DoItGlobals.set_paths">set_paths</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.source_path" href="#dash_dev.doit_helpers.base.DoItGlobals.source_path">source_path</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.src_examples_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.src_examples_dir">src_examples_dir</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.template_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.template_dir">template_dir</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.test_path" href="#dash_dev.doit_helpers.base.DoItGlobals.test_path">test_path</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.test_report_path" href="#dash_dev.doit_helpers.base.DoItGlobals.test_report_path">test_report_path</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.tmp_examples_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.tmp_examples_dir">tmp_examples_dir</a></code></li>
-<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.toml_path" href="#dash_dev.doit_helpers.base.DoItGlobals.toml_path">toml_path</a></code></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

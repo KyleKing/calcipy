@@ -80,8 +80,9 @@ import sh
 from loguru import logger
 from transitions import Machine
 
-from .base import DIG, DoItTask, debug_task, open_in_browser, read_lines
 from ..log_helpers import log_fun
+from .base import debug_task, open_in_browser, read_lines
+from .doit_globals import DIG, DoItTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Tags
@@ -460,7 +461,7 @@ def task_open_docs() -&gt; DoItTask:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="dash_dev.doit_helpers.doc.task_create_tag"><code class="name flex">
-<span>def <span class="ident">task_create_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">task_create_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a git tag based on the version in pyproject.toml.</p>
@@ -490,7 +491,7 @@ def task_create_tag() -&gt; DoItTask:
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.doc.task_document"><code class="name flex">
-<span>def <span class="ident">task_document</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">task_document</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Build the HTML documentation and push to gh-pages branch.</p>
@@ -527,7 +528,7 @@ def task_document() -&gt; DoItTask:
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.doc.task_open_docs"><code class="name flex">
-<span>def <span class="ident">task_open_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">task_open_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Open the documentation files in the default browser.</p>
@@ -554,7 +555,7 @@ def task_open_docs() -&gt; DoItTask:
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.doc.task_remove_tag"><code class="name flex">
-<span>def <span class="ident">task_remove_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">task_remove_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Delete tag for current version in pyproject.toml.</p>
@@ -583,7 +584,7 @@ def task_remove_tag() -&gt; DoItTask:
 </details>
 </dd>
 <dt id="dash_dev.doit_helpers.doc.task_update_cl"><code class="name flex">
-<span>def <span class="ident">task_update_cl</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
+<span>def <span class="ident">task_update_cl</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7ff4b3e3f9d0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update a Changelog file with the raw Git history.</p>
