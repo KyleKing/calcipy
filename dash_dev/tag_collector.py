@@ -12,6 +12,7 @@ import attr
 from . import __pkg_name__
 from .doit_base import DIG, DoItTask, debug_task
 from .doit_lint import _list_lint_file_paths
+from .log_helpers import log_fun
 
 
 @attr.s(auto_attribs=True)
@@ -31,6 +32,7 @@ class _Tags:  # noqa: H601
     tagged_comments: List[_TaggedComment]
 
 
+@log_fun
 def _compile_issue_regex(regex_raw: str, tags: List[str]) -> Pattern[str]:
     """Compile the regex for the specified raw regular expression string and tags.
 
@@ -52,6 +54,7 @@ _COMPILED_RE = _compile_issue_regex(_regex_raw, _tags)
 """Default compiled regular expression."""
 
 
+@log_fun
 def _read_lines(file_path: Path) -> List[str]:
     """Read a file and split on newlines for later parsing.
 
@@ -67,6 +70,7 @@ def _read_lines(file_path: Path) -> List[str]:
     return []
 
 
+@log_fun
 def _search_lines(lines: Sequence[str],
                   regex_compiled: Pattern[str] = _COMPILED_RE) -> List[_TaggedComment]:
     """Search lines of text for matches to the compiled regular expression.
@@ -90,6 +94,7 @@ def _search_lines(lines: Sequence[str],
     return comments
 
 
+@log_fun
 def _search_files(file_paths: Sequence[Path],
                   regex_compiled: Pattern[str] = _COMPILED_RE) -> List[_Tags]:
     """Collect matches from multiple files.
@@ -111,6 +116,7 @@ def _search_files(file_paths: Sequence[Path],
 
 
 # TODO: Make path/line numbers clickable for VSCode
+@log_fun
 def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:
     """Pretty-format the tagged items by file and line number.
 
@@ -139,6 +145,7 @@ def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:
     return output
 
 
+@log_fun
 def _create_tag_file(path_tag_summary: Path) -> None:
     """Create the tag summary file.
 
@@ -152,6 +159,7 @@ def _create_tag_file(path_tag_summary: Path) -> None:
     path_tag_summary.write_text(header + report)
 
 
+@log_fun
 def task_create_tag_file() -> DoItTask:
     """Create a summary file with all of the found tagged comments.
 

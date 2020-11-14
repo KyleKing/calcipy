@@ -11,11 +11,13 @@ import sh
 from transitions import Machine
 
 from .doit_base import DIG, DoItTask, debug_task, open_in_browser
+from .log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Tags
 
 
+@log_fun
 def task_create_tag() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
@@ -31,6 +33,7 @@ def task_create_tag() -> DoItTask:
     ])
 
 
+@log_fun
 def task_remove_tag() -> DoItTask:
     """Delete tag for current version in pyproject.toml.
 
@@ -91,6 +94,7 @@ logger.enable(__pkg__name__)
 """Python code to be appended to `__init__.py` with the base loguru logger configuration."""
 
 
+@log_fun
 def _write_readme_to_init() -> None:
     """Write the README contents to the package `__init__.py` file."""
     readme = (DIG.source_path / 'README.md').read_text().replace('"', r'\"')  # Escape quotes
@@ -160,6 +164,7 @@ _PDOC_HEAD: str = """<style>
 """PDOC3 custom CSS styles."""
 
 
+@log_fun
 def _write_pdoc_config_files() -> None:
     """Write the head and config mako files for pdoc."""
     (DIG.template_dir / 'head.mako').write_text(_PDOC_HEAD)
@@ -169,6 +174,7 @@ def _write_pdoc_config_files() -> None:
 # Manage Changelog
 
 
+@log_fun
 def task_update_cl() -> DoItTask:
     """Update a Changelog file with the raw Git history.
 
@@ -200,8 +206,9 @@ class _ReadMeMachine:  # noqa: H601
         """Initialize state machine."""
         self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
 
-    def parse(self, lines: List[str], comment_pattern: Pattern[str],
-              new_text: Dict[str, str]) -> List[str]:  # noqa: CCR001
+    @log_fun
+    def parse(self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
+              new_text: Dict[str, str]) -> List[str]:
         """Parse lines and insert new_text.
 
         Args:
@@ -226,9 +233,15 @@ class _ReadMeMachine:  # noqa: H601
             elif self.state == 'readme':
                 self.readme_lines.append(line)
 
+            new_line = self.readme_lines[-1]
+            made_change = (line != new_line)
+            logger.debug('Parsed README Line', self_state=self.state, line=line,
+                         made_change=made_change, new_line=new_line if made_change else None)
+
         return self.readme_lines
 
 
+@log_fun
 def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -> None:
     """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
 
@@ -243,6 +256,7 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
     readme_path.write_text('\n'.join(readme_lines))
 
 
+@log_fun
 def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
@@ -254,6 +268,7 @@ def _write_code_to_readme() -> None:
         _write_to_readme(comment_pattern, new_text)
 
 
+@log_fun
 def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
     # Create the 'coverage.json' file from .coverage SQL database. Suppress errors if failed
@@ -282,6 +297,7 @@ def _write_coverage_to_readme() -> None:
         _write_to_readme(comment_pattern, {'COVERAGE': table_lines})
 
 
+@log_fun
 def _write_redirect_html() -> None:
     """Create an index.html file in the project directory that redirects to the pdoc output."""
     index_path = DIG.source_path / 'index.html'
@@ -296,6 +312,7 @@ If using github pages, make sure to check in this file to git and the files docs
 # Main Documentation Tasks
 
 
+@log_fun
 def _clear_docs() -> None:
     """Clear the documentation directory before running pdoc."""
     staging_dir = DIG.doc_dir / DIG.pkg_name
@@ -303,12 +320,14 @@ def _clear_docs() -> None:
         shutil.rmtree(staging_dir)
 
 
+@log_fun
 def _clear_examples() -> None:
     """Clear the examples from within the package directory."""
     if DIG.tmp_examples_dir.is_dir():
         shutil.rmtree(DIG.tmp_examples_dir)
 
 
+@log_fun
 def _stage_examples() -> None:
     """Format the code examples as docstrings to be loaded into the documentation."""
     if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
@@ -321,6 +340,7 @@ def _stage_examples() -> None:
             dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
 
 
+@log_fun
 def task_document() -> DoItTask:
     """Build the HTML documentation and push to gh-pages branch.
 
@@ -343,6 +363,7 @@ def task_document() -> DoItTask:
     ])
 
 
+@log_fun
 def task_open_docs() -> DoItTask:
     """Open the documentation files in the default browser.
 

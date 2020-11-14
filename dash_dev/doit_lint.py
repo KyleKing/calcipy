@@ -6,11 +6,13 @@ from typing import Dict, List, Optional, Sequence, Union
 import toml
 
 from .doit_base import DIG, DoItTask, debug_task, echo, if_found_unlink, write_text
+from .log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
 
 
+@log_fun
 def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[Sequence[str]] = None) -> List[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
@@ -81,6 +83,7 @@ _ISORT: Dict[str, Union[int, str]] = {
 """ISort configuration file settings."""
 
 
+@log_fun
 def task_set_lint_config() -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
@@ -100,6 +103,7 @@ def task_set_lint_config() -> DoItTask:
 # Linting
 
 
+@log_fun
 def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     """Create a list of all Python files specified in the path_list.
 
@@ -117,6 +121,7 @@ def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     return [pth for pth in file_paths if pth.name not in DIG.excluded_files]
 
 
+@log_fun
 def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:  # noqa: CCR001
     """Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
@@ -152,6 +157,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
     if_found_unlink(flake8_log_path)
 
 
+@log_fun
 def _lint_project(lint_paths: List[Path], flake8_path: Path = DIG.flake8_path,
                   ignore_errors: Optional[List[str]] = None) -> DoItTask:
     """Lint specified files creating summary log file of errors.
@@ -176,6 +182,7 @@ def _lint_project(lint_paths: List[Path], flake8_path: Path = DIG.flake8_path,
     return actions
 
 
+@log_fun
 def task_lint_project() -> DoItTask:
     """Lint files from DIG creating summary log file of errors.
 
@@ -186,6 +193,7 @@ def task_lint_project() -> DoItTask:
     return debug_task(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=None))
 
 
+@log_fun
 def task_lint_pre_commit() -> DoItTask:
     """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
 
@@ -213,6 +221,7 @@ def task_lint_pre_commit() -> DoItTask:
     return debug_task(_lint_project(DIG.lint_paths, flake8_path=DIG.flake8_path, ignore_errors=ignore_errors))
 
 
+@log_fun
 def task_radon_lint() -> DoItTask:
     """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
 
@@ -233,6 +242,7 @@ def task_radon_lint() -> DoItTask:
 # Formatting
 
 
+@log_fun
 def task_auto_format() -> DoItTask:
     """Format code with isort and autopep8.
 
