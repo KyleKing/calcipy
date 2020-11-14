@@ -8,14 +8,17 @@ from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
 import sh
+from loguru import logger
 from transitions import Machine
 
-from .doit_base import DIG, DoItTask, debug_task, open_in_browser
+from .doit_base import DIG, DoItTask, debug_task, open_in_browser, read_lines
+from .log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Tags
 
 
+@log_fun
 def task_create_tag() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
@@ -31,6 +34,7 @@ def task_create_tag() -> DoItTask:
     ])
 
 
+@log_fun
 def task_remove_tag() -> DoItTask:
     """Delete tag for current version in pyproject.toml.
 
@@ -91,6 +95,7 @@ logger.enable(__pkg__name__)
 """Python code to be appended to `__init__.py` with the base loguru logger configuration."""
 
 
+@log_fun
 def _write_readme_to_init() -> None:
     """Write the README contents to the package `__init__.py` file."""
     readme = (DIG.source_path / 'README.md').read_text().replace('"', r'\"')  # Escape quotes
@@ -102,7 +107,8 @@ def _write_readme_to_init() -> None:
     try:
         break_index = init_lines.index(_INIT_DIVIDER) + 1
         user_text = '\n'.join(init_lines[break_index:])
-    except ValueError:
+    except ValueError as err:
+        logger.warning('Did not find a divider, so overwriting any existing user text', err=err)
         user_text = ''
     init_path.write_text(init_text.replace('\t', ' ' * 4) + user_text)
 
@@ -160,6 +166,7 @@ _PDOC_HEAD: str = """<style>
 """PDOC3 custom CSS styles."""
 
 
+@log_fun
 def _write_pdoc_config_files() -> None:
     """Write the head and config mako files for pdoc."""
     (DIG.template_dir / 'head.mako').write_text(_PDOC_HEAD)
@@ -169,6 +176,7 @@ def _write_pdoc_config_files() -> None:
 # Manage Changelog
 
 
+@log_fun
 def task_update_cl() -> DoItTask:
     """Update a Changelog file with the raw Git history.
 
@@ -200,8 +208,9 @@ class _ReadMeMachine:  # noqa: H601
         """Initialize state machine."""
         self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
 
-    def parse(self, lines: List[str], comment_pattern: Pattern[str],
-              new_text: Dict[str, str]) -> List[str]:  # noqa: CCR001
+    @log_fun
+    def parse(self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
+              new_text: Dict[str, str]) -> List[str]:
         """Parse lines and insert new_text.
 
         Args:
@@ -226,9 +235,15 @@ class _ReadMeMachine:  # noqa: H601
             elif self.state == 'readme':
                 self.readme_lines.append(line)
 
+            new_line = self.readme_lines[-1]
+            made_change = (line != new_line)
+            logger.debug('Parsed README Line', self_state=self.state, line=line,
+                         made_change=made_change, new_line=new_line if made_change else None)
+
         return self.readme_lines
 
 
+@log_fun
 def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -> None:
     """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
 
@@ -238,29 +253,32 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
 
     """
     readme_path = DIG.source_path / 'README.md'
-    lines = readme_path.read_text().split('\n')
-    readme_lines = _ReadMeMachine().parse(lines, comment_pattern, new_text)
+    readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
 
 
+@log_fun
 def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
     fn = 'tests/examples/readme.py'
     script_path = DIG.source_path / fn
     if script_path.is_file():
-        source_code = ['```py', *script_path.read_text().split('\n'), '```']
+        source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
         _write_to_readme(comment_pattern, new_text)
+    else:
+        logger.warning(f'Could not locate: {script_path}')
 
 
+@log_fun
 def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
     # Create the 'coverage.json' file from .coverage SQL database. Suppress errors if failed
     try:
         sh.poetry.run.python('-m', 'coverage', 'json')
     except sh.ErrorReturnCode_1:
-        pass
+        logger.exception('Coverage conversion to JSON failed')
 
     coverage_path = (DIG.source_path / 'coverage.json')
     if coverage_path.is_file():
@@ -282,6 +300,7 @@ def _write_coverage_to_readme() -> None:
         _write_to_readme(comment_pattern, {'COVERAGE': table_lines})
 
 
+@log_fun
 def _write_redirect_html() -> None:
     """Create an index.html file in the project directory that redirects to the pdoc output."""
     index_path = DIG.source_path / 'index.html'
@@ -296,31 +315,39 @@ If using github pages, make sure to check in this file to git and the files docs
 # Main Documentation Tasks
 
 
+@log_fun
 def _clear_docs() -> None:
     """Clear the documentation directory before running pdoc."""
     staging_dir = DIG.doc_dir / DIG.pkg_name
     if staging_dir.is_dir():
+        logger.debug(f'Removing {staging_dir}')
         shutil.rmtree(staging_dir)
 
 
+@log_fun
 def _clear_examples() -> None:
     """Clear the examples from within the package directory."""
     if DIG.tmp_examples_dir.is_dir():
+        logger.debug(f'Removing {DIG.tmp_examples_dir}')
         shutil.rmtree(DIG.tmp_examples_dir)
 
 
+@log_fun
 def _stage_examples() -> None:
     """Format the code examples as docstrings to be loaded into the documentation."""
     if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
         DIG.tmp_examples_dir.mkdir(exist_ok=False)
         (DIG.tmp_examples_dir / '__init__.py').write_text('"""Code Examples (documentation-only, not in package)."""')
-        for file_path in DIG.src_examples_dir.glob('*.py'):
+        example_files = [*DIG.src_examples_dir.glob('*.py')]
+        logger.debug(f'Found {len(example_files)} files', example_files=example_files)
+        for file_path in example_files:
             content = file_path.read_text().replace('"', r'\"')  # read and escape quotes
             dest_fn = DIG.tmp_examples_dir / file_path.name
             docstring = f'From file: `{file_path.relative_to(DIG.source_path.parent)}`'
             dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
 
 
+@log_fun
 def task_document() -> DoItTask:
     """Build the HTML documentation and push to gh-pages branch.
 
@@ -343,6 +370,7 @@ def task_document() -> DoItTask:
     ])
 
 
+@log_fun
 def task_open_docs() -> DoItTask:
     """Open the documentation files in the default browser.
 

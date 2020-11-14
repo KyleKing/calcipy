@@ -72,13 +72,10 @@ padding: 0 5px;
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, Optional, Sequence
+from typing import Any, Callable, Dict, NewType, Optional, Sequence, Tuple, Union
 
-import attr
 import toml
-from doit.tools import Interactive
 from loguru import logger
-from ruamel.yaml import YAML
 
 from .log_helpers import logger_context
 
@@ -90,6 +87,9 @@ from .log_helpers import logger_context
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
+
+DoItTask = NewType(&#39;DoItTask&#39;, Dict[str, Union[str, Tuple[Callable, Sequence]]])  # noqa: ECE001
+&#34;&#34;&#34;DoIt task type for annotations.&#34;&#34;&#34;
 
 
 class DoItGlobals:
@@ -149,7 +149,7 @@ class DoItGlobals:
     pkg_version = None
 
     def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
-                  doc_dir: Optional[Path] = None):
+                  doc_dir: Optional[Path] = None) -&gt; None:
         &#34;&#34;&#34;Set data members based on working directory.
 
         Args:
@@ -162,8 +162,10 @@ class DoItGlobals:
 
         &#34;&#34;&#34;
         self.source_path = Path.cwd() if source_path is None else source_path
+        logger.info(f&#39;Setting DIG paths for {pkg_name} at {self.source_path}&#39;, pkg_name=pkg_name,
+                    source_path=source_path, self_source_path=self.source_path, doc_dir=doc_dir)
 
-        # Define the output directory with relevant subdirectories
+        # Define the output directory with relevant sub_directories
         self.test_path = self.source_path / &#39;tests&#39;
         self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
         self.template_dir = self.doc_dir / &#39;templates&#39;
@@ -187,12 +189,13 @@ class DoItGlobals:
             self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
         # Create list of directories and paths to isort and format
-        subdirs = [self.pkg_name] + self.external_doc_dirs
-        self.lint_paths = [self.source_path / subdir for subdir in subdirs]
+        sub_dirs = [self.pkg_name] + self.external_doc_dirs
+        self.lint_paths = [self.source_path / subdir for subdir in sub_dirs]
         self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
         self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
 
-        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;)
+        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;
+                       &#39;Additionally, all of the paths should be logged for troubleshooting if needed&#39;)
 
 
 DIG = DoItGlobals()
@@ -202,8 +205,7 @@ DIG = DoItGlobals()
 # Manage Directories
 
 
-# skipcq: PYL-R1711
-def delete_dir(dir_path):
+def delete_dir(dir_path: Path) -&gt; None:
     &#34;&#34;&#34;Delete the specified directory from a DoIt task.
 
     Args:
@@ -213,11 +215,9 @@ def delete_dir(dir_path):
     if dir_path.is_dir():
         with logger_context(f&#39;Delete `{dir_path}`&#39;):
             shutil.rmtree(dir_path)
-    return  # Indicates that action completed when called from DoIt task
 
 
-# skipcq: PYL-R1711
-def ensure_dir(dir_path):
+def ensure_dir(dir_path: Path) -&gt; None:
     &#34;&#34;&#34;Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
     Args:
@@ -226,18 +226,17 @@ def ensure_dir(dir_path):
     &#34;&#34;&#34;
     with logger_context(f&#39;Create `{dir_path}`&#39;):
         dir_path.mkdir(parents=True, exist_ok=True)
-    return  # Indicates that action completed when called from DoIt task
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General Utilities
 
 
-def _show_cmd(task):
+def _show_cmd(task: DoItTask) -&gt; str:
     &#34;&#34;&#34;For debugging, log the full command to the console.
 
     Args:
-        task: task dictionary passed by DoIt
+        task: DoIt task
 
     Returns:
         str: describing the sequence of actions
@@ -247,7 +246,7 @@ def _show_cmd(task):
     return f&#39;{task.name} &gt; [{actions}\n]\n&#39;
 
 
-def debug_action(actions: Sequence[Any], verbosity: int = 2):
+def debug_task(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:
     &#34;&#34;&#34;Activate verbose logging for the specified actions.
 
     Args:
@@ -255,7 +254,7 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2):
         verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
-        dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
@@ -265,18 +264,23 @@ def debug_action(actions: Sequence[Any], verbosity: int = 2):
     }
 
 
-def echo(msg):
+def debug_action(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:  # noqa
+    import warnings
+    warnings.warn(&#39;debug_action is deprecated. Replace with `debug_task`&#39;)
+    return debug_task(actions, verbosity)
+
+
+def echo(msg: str) -&gt; None:
     &#34;&#34;&#34;Wrap the system print command.
 
     Args:
-        msg: string to `print`
+        msg: string to write to STDOUT
 
     &#34;&#34;&#34;
     print(msg)  # noqa: T001
 
 
-# skipcq: PYL-R1711
-def write_text(file_path, text):
+def write_text(file_path: Path, text: str) -&gt; None:
     &#34;&#34;&#34;file_path.write_text wrapper for DoIt.
 
     Args:
@@ -285,10 +289,9 @@ def write_text(file_path, text):
 
     &#34;&#34;&#34;
     file_path.write_text(text)
-    return  # Indicates that action completed when called from DoIt task
 
 
-def open_in_browser(file_path):
+def open_in_browser(file_path: Path) -&gt; None:
     &#34;&#34;&#34;Open the path in the default web browser.
 
     Args:
@@ -298,7 +301,7 @@ def open_in_browser(file_path):
     webbrowser.open(Path(file_path).as_uri())
 
 
-def if_found_unlink(file_path):
+def if_found_unlink(file_path: Path) -&gt; None:
     &#34;&#34;&#34;Remove file if it exists. Function is intended to a DoIt action.
 
     Args:
@@ -309,110 +312,19 @@ def if_found_unlink(file_path):
         file_path.unlink()
 
 
-# ======================================================================================================================
-# &gt; PLANNED: Development
-
-
-_WATCHCODE_TEMPLATE: dict = {
-    &#39;filesets&#39;: {
-        &#39;default&#39;: {
-            &#39;include&#39;: [&#39;.watchcode.yaml&#39;],
-            &#39;exclude&#39;: [&#39;.watchcode.log&#39;, &#39;*.pyc&#39;, &#39;__pycache__&#39;],
-            &#39;exclude_gitignore&#39;: True,
-            &#39;match_mode&#39;: &#39;gitlike&#39;,
-        },
-    },
-    &#39;tasks&#39;: {
-        &#39;default&#39;: {
-            &#39;commands&#39;: [],
-            &#39;fileset&#39;: &#39;default&#39;,
-            &#39;queue_events&#39;: False,
-            &#39;clear_screen&#39;: True,
-        },
-    },
-    &#39;notifications&#39;: False,
-    &#39;sound&#39;: False,
-    &#39;log&#39;: False,
-    &#39;default_task&#39;: &#39;default&#39;,
-}
-&#34;&#34;&#34;Template dictionary with WatchCode defaults.&#34;&#34;&#34;
-
-
-@attr.s(auto_attribs=True, kw_only=True)
-class _WatchCodeYAML:  # noqa: H601
-    &#34;&#34;&#34;Watchcode YAML file.&#34;&#34;&#34;
-
-    commands: Sequence[str]
-    include: Sequence[str]
-    exclude: Sequence[str] = ()
-    dict_watchcode: dict = _WATCHCODE_TEMPLATE
-    path_wc: Optional[Path] = None
-
-    def __attrs_post_init__(self) -&gt; None:
-        &#34;&#34;&#34;Complete initialization and merge settings.&#34;&#34;&#34;
-        self.merge_settings()
-
-    def _merge_nested_setting(self, key: str, name: str, sub_key: str, value: Sequence[Any]) -&gt; None:
-        &#34;&#34;&#34;Merge nested settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
-        values = self.dict_watchcode[key][name][sub_key]
-        values.extend(value)
-        self.dict_watchcode[key][name][sub_key] = [*set(values)]
-
-    def merge_settings(self) -&gt; None:
-        &#34;&#34;&#34;Merge all user-specified settings in the WatchCode YAML dictionary.&#34;&#34;&#34;
-        for file_key in [&#39;include&#39;, &#39;exclude&#39;]:
-            self._merge_nested_setting(&#39;filesets&#39;, &#39;default&#39;, file_key, getattr(self, file_key))
-        self._merge_nested_setting(&#39;tasks&#39;, &#39;default&#39;, &#39;commands&#39;, self.commands)
-
-    def write(self) -&gt; None:
-        &#34;&#34;&#34;Write the WatchCode YAML file.&#34;&#34;&#34;
-        yaml = YAML()
-        if self.path_wc is None:
-            self.path_wc = DIG.source_path
-        yaml.dump(self.dict_watchcode, self.path_wc / &#39;.watchcode.yaml&#39;)
-
-
-def task_watchcode() -&gt; dict:
-    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
-
-    Example: `doit run watchcode -p scripts/main.py`
-
-    Returns:
-        dict: DoIt task
-
-    &#34;&#34;&#34;
-    def create_yaml(py_path: str) -&gt; None:
-        &#34;&#34;&#34;Create the YAML file.&#34;&#34;&#34;
-        wc_yaml = _WatchCodeYAML(
-            commands=[f&#39;poetry run python {py_path}&#39;],
-            include=[py_path],
-        )
-        wc_yaml.write()
-
-    action = debug_action([
-        (create_yaml, ),
-        Interactive(&#39;poetry run watchcode&#39;),
-    ])
-    action[&#39;params&#39;] = [{
-        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
-        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
-                 &#39;https://github.com/bluenote10/watchcode&#39;),
-    }]
-    return action
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Requirements
 
 
-def task_export_req():
+def task_export_req() -&gt; DoItTask:
     &#34;&#34;&#34;Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     req_path = DIG.toml_path.parent / &#39;requirements.txt&#39;
-    return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
+    return debug_task([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
 </details>
 </section>
 <section>
@@ -429,8 +341,36 @@ def task_export_req():
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="dash_dev.doit_base.DoItTask"><code class="name flex">
+<span>def <span class="ident">DoItTask</span></span>(<span>x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def new_type(x):
+    return x</code></pre>
+</details>
+</dd>
 <dt id="dash_dev.doit_base.debug_action"><code class="name flex">
-<span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2)</span>
+<span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def debug_action(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:  # noqa
+    import warnings
+    warnings.warn(&#39;debug_action is deprecated. Replace with `debug_task`&#39;)
+    return debug_task(actions, verbosity)</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_base.debug_task"><code class="name flex">
+<span>def <span class="ident">debug_task</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Activate verbose logging for the specified actions.</p>
@@ -443,14 +383,14 @@ def task_export_req():
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
-<dd>keys <code>actions</code>, <code>title</code>, and <code>verbosity</code> for dict: DoIt task</dd>
+<dt><code><a title="dash_dev.doit_base.DoItTask" href="#dash_dev.doit_base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
+<dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def debug_action(actions: Sequence[Any], verbosity: int = 2):
+<pre><code class="python">def debug_task(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:
     &#34;&#34;&#34;Activate verbose logging for the specified actions.
 
     Args:
@@ -458,7 +398,7 @@ def task_export_req():
         verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
-        dict: keys `actions`, `title`, and `verbosity` for dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     return {
@@ -469,7 +409,7 @@ def task_export_req():
 </details>
 </dd>
 <dt id="dash_dev.doit_base.delete_dir"><code class="name flex">
-<span>def <span class="ident">delete_dir</span></span>(<span>dir_path)</span>
+<span>def <span class="ident">delete_dir</span></span>(<span>dir_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Delete the specified directory from a DoIt task.</p>
@@ -482,7 +422,7 @@ def task_export_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def delete_dir(dir_path):
+<pre><code class="python">def delete_dir(dir_path: Path) -&gt; None:
     &#34;&#34;&#34;Delete the specified directory from a DoIt task.
 
     Args:
@@ -491,36 +431,35 @@ def task_export_req():
     &#34;&#34;&#34;
     if dir_path.is_dir():
         with logger_context(f&#39;Delete `{dir_path}`&#39;):
-            shutil.rmtree(dir_path)
-    return  # Indicates that action completed when called from DoIt task</code></pre>
+            shutil.rmtree(dir_path)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_base.echo"><code class="name flex">
-<span>def <span class="ident">echo</span></span>(<span>msg)</span>
+<span>def <span class="ident">echo</span></span>(<span>msg: str) ‑> NoneType</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Wrap the system print command.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>msg</code></strong></dt>
-<dd>string to <code>print</code></dd>
+<dd>string to write to STDOUT</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def echo(msg):
+<pre><code class="python">def echo(msg: str) -&gt; None:
     &#34;&#34;&#34;Wrap the system print command.
 
     Args:
-        msg: string to `print`
+        msg: string to write to STDOUT
 
     &#34;&#34;&#34;
     print(msg)  # noqa: T001</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_base.ensure_dir"><code class="name flex">
-<span>def <span class="ident">ensure_dir</span></span>(<span>dir_path)</span>
+<span>def <span class="ident">ensure_dir</span></span>(<span>dir_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Make sure that the specified dir_path exists and create any missing folders from a DoIt task.</p>
@@ -533,7 +472,7 @@ def task_export_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ensure_dir(dir_path):
+<pre><code class="python">def ensure_dir(dir_path: Path) -&gt; None:
     &#34;&#34;&#34;Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
     Args:
@@ -541,12 +480,11 @@ def task_export_req():
 
     &#34;&#34;&#34;
     with logger_context(f&#39;Create `{dir_path}`&#39;):
-        dir_path.mkdir(parents=True, exist_ok=True)
-    return  # Indicates that action completed when called from DoIt task</code></pre>
+        dir_path.mkdir(parents=True, exist_ok=True)</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_base.if_found_unlink"><code class="name flex">
-<span>def <span class="ident">if_found_unlink</span></span>(<span>file_path)</span>
+<span>def <span class="ident">if_found_unlink</span></span>(<span>file_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Remove file if it exists. Function is intended to a DoIt action.</p>
@@ -559,7 +497,7 @@ def task_export_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def if_found_unlink(file_path):
+<pre><code class="python">def if_found_unlink(file_path: Path) -&gt; None:
     &#34;&#34;&#34;Remove file if it exists. Function is intended to a DoIt action.
 
     Args:
@@ -571,7 +509,7 @@ def task_export_req():
 </details>
 </dd>
 <dt id="dash_dev.doit_base.open_in_browser"><code class="name flex">
-<span>def <span class="ident">open_in_browser</span></span>(<span>file_path)</span>
+<span>def <span class="ident">open_in_browser</span></span>(<span>file_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Open the path in the default web browser.</p>
@@ -584,7 +522,7 @@ def task_export_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def open_in_browser(file_path):
+<pre><code class="python">def open_in_browser(file_path: Path) -&gt; None:
     &#34;&#34;&#34;Open the path in the default web browser.
 
     Args:
@@ -595,76 +533,32 @@ def task_export_req():
 </details>
 </dd>
 <dt id="dash_dev.doit_base.task_export_req"><code class="name flex">
-<span>def <span class="ident">task_export_req</span></span>(<span>)</span>
+<span>def <span class="ident">task_export_req</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a <code>requirements.txt</code> file for non-Poetry users and for Github security tools.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code>dict</code></dt>
+<dt><code><a title="dash_dev.doit_base.DoItTask" href="#dash_dev.doit_base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_export_req():
+<pre><code class="python">def task_export_req() -&gt; DoItTask:
     &#34;&#34;&#34;Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
     Returns:
-        dict: DoIt task
+        DoItTask: DoIt task
 
     &#34;&#34;&#34;
     req_path = DIG.toml_path.parent / &#39;requirements.txt&#39;
-    return debug_action([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
-</details>
-</dd>
-<dt id="dash_dev.doit_base.task_watchcode"><code class="name flex">
-<span>def <span class="ident">task_watchcode</span></span>(<span>) ‑> dict</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Return Interactive <code>watchcode</code> task for specified file.</p>
-<p>Example: <code>doit run watchcode -p scripts/main.py</code></p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>dict</code></dt>
-<dd>DoIt task</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def task_watchcode() -&gt; dict:
-    &#34;&#34;&#34;Return Interactive `watchcode` task for specified file.
-
-    Example: `doit run watchcode -p scripts/main.py`
-
-    Returns:
-        dict: DoIt task
-
-    &#34;&#34;&#34;
-    def create_yaml(py_path: str) -&gt; None:
-        &#34;&#34;&#34;Create the YAML file.&#34;&#34;&#34;
-        wc_yaml = _WatchCodeYAML(
-            commands=[f&#39;poetry run python {py_path}&#39;],
-            include=[py_path],
-        )
-        wc_yaml.write()
-
-    action = debug_action([
-        (create_yaml, ),
-        Interactive(&#39;poetry run watchcode&#39;),
-    ])
-    action[&#39;params&#39;] = [{
-        &#39;name&#39;: &#39;py_path&#39;, &#39;short&#39;: &#39;p&#39;, &#39;long&#39;: &#39;py_path&#39;, &#39;default&#39;: &#39;&#39;,
-        &#39;help&#39;: (&#39;Python file to re-run on changes\nSee: &#39;
-                 &#39;https://github.com/bluenote10/watchcode&#39;),
-    }]
-    return action</code></pre>
+    return debug_task([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.doit_base.write_text"><code class="name flex">
-<span>def <span class="ident">write_text</span></span>(<span>file_path, text)</span>
+<span>def <span class="ident">write_text</span></span>(<span>file_path: pathlib.Path, text: str) ‑> NoneType</span>
 </code></dt>
 <dd>
 <div class="desc"><p>file_path.write_text wrapper for DoIt.</p>
@@ -679,7 +573,7 @@ def task_export_req():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write_text(file_path, text):
+<pre><code class="python">def write_text(file_path: Path, text: str) -&gt; None:
     &#34;&#34;&#34;file_path.write_text wrapper for DoIt.
 
     Args:
@@ -687,8 +581,7 @@ def task_export_req():
         text: string to write to file
 
     &#34;&#34;&#34;
-    file_path.write_text(text)
-    return  # Indicates that action completed when called from DoIt task</code></pre>
+    file_path.write_text(text)</code></pre>
 </details>
 </dd>
 </dl>
@@ -762,7 +655,7 @@ def task_export_req():
     pkg_version = None
 
     def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
-                  doc_dir: Optional[Path] = None):
+                  doc_dir: Optional[Path] = None) -&gt; None:
         &#34;&#34;&#34;Set data members based on working directory.
 
         Args:
@@ -775,8 +668,10 @@ def task_export_req():
 
         &#34;&#34;&#34;
         self.source_path = Path.cwd() if source_path is None else source_path
+        logger.info(f&#39;Setting DIG paths for {pkg_name} at {self.source_path}&#39;, pkg_name=pkg_name,
+                    source_path=source_path, self_source_path=self.source_path, doc_dir=doc_dir)
 
-        # Define the output directory with relevant subdirectories
+        # Define the output directory with relevant sub_directories
         self.test_path = self.source_path / &#39;tests&#39;
         self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
         self.template_dir = self.doc_dir / &#39;templates&#39;
@@ -800,12 +695,13 @@ def task_export_req():
             self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
         # Create list of directories and paths to isort and format
-        subdirs = [self.pkg_name] + self.external_doc_dirs
-        self.lint_paths = [self.source_path / subdir for subdir in subdirs]
+        sub_dirs = [self.pkg_name] + self.external_doc_dirs
+        self.lint_paths = [self.source_path / subdir for subdir in sub_dirs]
         self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
         self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
 
-        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;)</code></pre>
+        logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;
+                       &#39;Additionally, all of the paths should be logged for troubleshooting if needed&#39;)</code></pre>
 </details>
 <h3>Class variables</h3>
 <dl>
@@ -882,7 +778,7 @@ def task_export_req():
 <h3>Methods</h3>
 <dl>
 <dt id="dash_dev.doit_base.DoItGlobals.set_paths"><code class="name flex">
-<span>def <span class="ident">set_paths</span></span>(<span>self, *, pkg_name: Union[str, NoneType] = None, source_path: Union[pathlib.Path, NoneType] = None, doc_dir: Union[pathlib.Path, NoneType] = None)</span>
+<span>def <span class="ident">set_paths</span></span>(<span>self, *, pkg_name: Union[str, NoneType] = None, source_path: Union[pathlib.Path, NoneType] = None, doc_dir: Union[pathlib.Path, NoneType] = None) ‑> NoneType</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Set data members based on working directory.</p>
@@ -905,7 +801,7 @@ def task_export_req():
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def set_paths(self, *, pkg_name: Optional[str] = None, source_path: Optional[Path] = None,
-              doc_dir: Optional[Path] = None):
+              doc_dir: Optional[Path] = None) -&gt; None:
     &#34;&#34;&#34;Set data members based on working directory.
 
     Args:
@@ -918,8 +814,10 @@ def task_export_req():
 
     &#34;&#34;&#34;
     self.source_path = Path.cwd() if source_path is None else source_path
+    logger.info(f&#39;Setting DIG paths for {pkg_name} at {self.source_path}&#39;, pkg_name=pkg_name,
+                source_path=source_path, self_source_path=self.source_path, doc_dir=doc_dir)
 
-    # Define the output directory with relevant subdirectories
+    # Define the output directory with relevant sub_directories
     self.test_path = self.source_path / &#39;tests&#39;
     self.doc_dir = self.source_path / &#39;docs&#39; if doc_dir is None else doc_dir
     self.template_dir = self.doc_dir / &#39;templates&#39;
@@ -943,12 +841,13 @@ def task_export_req():
         self.src_examples_dir = None  # If the directory is not present, deactivate this functionality
 
     # Create list of directories and paths to isort and format
-    subdirs = [self.pkg_name] + self.external_doc_dirs
-    self.lint_paths = [self.source_path / subdir for subdir in subdirs]
+    sub_dirs = [self.pkg_name] + self.external_doc_dirs
+    self.lint_paths = [self.source_path / subdir for subdir in sub_dirs]
     self.lint_paths.extend([self.test_path] + [*self.source_path.glob(&#39;*.py&#39;)])
     self.lint_paths = {lint_path for lint_path in self.lint_paths if lint_path.exists()}
 
-    logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;)</code></pre>
+    logger.warning(&#39;Completed DIG initialization, but this needs to be decomposed.&#39;
+                   &#39;Additionally, all of the paths should be logged for troubleshooting if needed&#39;)</code></pre>
 </details>
 </dd>
 </dl>
@@ -1020,14 +919,15 @@ setTimeout(() => input.focus(), 100);
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
+<li><code><a title="dash_dev.doit_base.DoItTask" href="#dash_dev.doit_base.DoItTask">DoItTask</a></code></li>
 <li><code><a title="dash_dev.doit_base.debug_action" href="#dash_dev.doit_base.debug_action">debug_action</a></code></li>
+<li><code><a title="dash_dev.doit_base.debug_task" href="#dash_dev.doit_base.debug_task">debug_task</a></code></li>
 <li><code><a title="dash_dev.doit_base.delete_dir" href="#dash_dev.doit_base.delete_dir">delete_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.echo" href="#dash_dev.doit_base.echo">echo</a></code></li>
 <li><code><a title="dash_dev.doit_base.ensure_dir" href="#dash_dev.doit_base.ensure_dir">ensure_dir</a></code></li>
 <li><code><a title="dash_dev.doit_base.if_found_unlink" href="#dash_dev.doit_base.if_found_unlink">if_found_unlink</a></code></li>
 <li><code><a title="dash_dev.doit_base.open_in_browser" href="#dash_dev.doit_base.open_in_browser">open_in_browser</a></code></li>
 <li><code><a title="dash_dev.doit_base.task_export_req" href="#dash_dev.doit_base.task_export_req">task_export_req</a></code></li>
-<li><code><a title="dash_dev.doit_base.task_watchcode" href="#dash_dev.doit_base.task_watchcode">task_watchcode</a></code></li>
 <li><code><a title="dash_dev.doit_base.write_text" href="#dash_dev.doit_base.write_text">write_text</a></code></li>
 </ul>
 </li>

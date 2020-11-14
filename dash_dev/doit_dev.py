@@ -5,9 +5,11 @@ from typing import Any, Optional, Sequence
 
 import attr
 from doit.tools import Interactive
+from loguru import logger
 from ruamel.yaml import YAML
 
 from .doit_base import DIG, DoItTask, debug_task
+from .log_helpers import log_fun
 
 # ======================================================================================================================
 # Watch Code Tasks
@@ -50,6 +52,7 @@ class _WatchCodeYAML:  # noqa: H601
 
     def __attrs_post_init__(self) -> None:
         """Complete initialization and merge settings."""
+        logger.info('Initializing _WatchCodeYAML')
         self.merge_settings()
 
     def _merge_nested_setting(self, key: str, task_name: str, sub_key: str, values: Sequence[Any]) -> None:
@@ -62,6 +65,7 @@ class _WatchCodeYAML:  # noqa: H601
             values: sequence of values to add to the WatchDog dictionary for specified keys
 
         """
+        logger.debug(f'Adding {values}', key=key, task_name=task_name, sub_key=sub_key, values=values)
         _values = self.dict_watchcode[key][task_name][sub_key]
         _values.extend(values)
         self.dict_watchcode[key][task_name][sub_key] = [*set(_values)]
@@ -71,15 +75,18 @@ class _WatchCodeYAML:  # noqa: H601
         for file_key in ['include', 'exclude']:
             self._merge_nested_setting('filesets', 'default', file_key, getattr(self, file_key))
         self._merge_nested_setting('tasks', 'default', 'commands', self.commands)
+        logger.info('Completed merging watchcode settings', self_dict_watchcode=self.dict_watchcode)
 
     def write(self) -> None:
         """Write the WatchCode YAML file."""
         yaml = YAML()
         if self.path_wc is None:
             self.path_wc = DIG.source_path
+        logger.info(f'Writing the watchcode YAML file to {self.path_wc}', self_path_wc=self.path_wc)
         yaml.dump(self.dict_watchcode, self.path_wc / '.watchcode.yaml')
 
 
+@log_fun
 def _create_yaml(py_path: str) -> None:
     """Create the YAML file.
 
@@ -94,6 +101,7 @@ def _create_yaml(py_path: str) -> None:
     wc_yaml.write()
 
 
+@log_fun
 def task_watchcode() -> DoItTask:
     """Return Interactive `watchcode` task for specified file.
 

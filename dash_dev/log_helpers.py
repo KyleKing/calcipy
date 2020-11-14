@@ -3,16 +3,18 @@
 # PLANNED: Files like this should be in the production dependencies, but dash-dev is designed to be a dev-only
 
 import json
-from typing import Any, Dict
+import time
+from inspect import signature
+from typing import Any, Callable, Dict
 
-from decorator import contextmanager
+from decorator import contextmanager, decorator
 from loguru import logger
 
 
 def serializable_compact(record: Dict[str, Any]) -> str:
-    """Loguru formatter to return a compact dumpped JSON string for jsonlines output.
+    """Loguru formatter to return a compact JSON string for JSONLines output.
 
-    Loguru Record Documentation: https://loguru.readthedocs.io/en/stable/api/logger.html#record
+    `record` documentation: https://loguru.readthedocs.io/en/stable/api/logger.html#record
 
     Based on the `_serialize_record` method:
     https://github.com/Delgan/loguru/blob/44f6771/loguru/_handler.py#L222
@@ -38,33 +40,57 @@ def serializable_compact(record: Dict[str, Any]) -> str:
             'value': exception.value,
             'traceback': bool(record['exception'].traceback),
         }
-
     simplified = {
         'record': {
-            'elapsed': {
-                'seconds': record['elapsed'].total_seconds(),
-            },
             'exception': exception,
             'extra': record['extra'],
-            'file': {'name': record['file'].name, 'path': record['file'].path},
+            'file': {'path': record['file'].path},
             'function': record['function'].strip('<>'),
-            'level': {
-                'name': record['level'].name,
-            },
+            'level': {'name': record['level'].name},
             'line': record['line'],
             'message': record['message'],
             'module': record['module'],
             'name': record['name'],
-            'time': {'repr': record['time'], 'timestamp': record['time'].timestamp()},
+            'time': {'timestamp': record['time'].timestamp()},
         },
     }
     return json.dumps(simplified, default=str).replace('{', '{{').replace('}', '}}') + '\n'
 
 
 @contextmanager
-def logger_context(message: str, level: str = 'INFO', _logger: Any = logger) -> None:
+def log_action(message: str, level: str = 'INFO', _logger: type(logger) = logger, **kwargs: Any) -> None:
+    """Log the beggining and end of an action.
 
-    # TODO: Bind some sort of indicator to make these two related events easier to find?
-    _logger.log(level, f'Started: {message}', context=True)
-    yield
-    _logger.log(level, f'Completed: {message}', context=False)
+    Args:
+        message: string message to describe the context
+        level: log level. Default is `INFO`
+        _logger: Optional logger instance
+        **kwargs: function keyword arguments passed to the start log statement
+
+    Yields:
+        yields the logger instance
+
+    """
+    start_time = time.time_ns()
+    _logger.log(level, f'(start) {message}', start_time=start_time, **kwargs)
+    yield _logger
+    runtime = time.time_ns() - start_time
+    _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)
+
+
+@decorator
+def log_fun(fun: Callable, *args: Any, **kwargs: Any) -> Any:
+    """Decorate a function to log the function name and completed time.
+
+    Args:
+        fun: the decorated function
+        *args: functional arguments
+        **kwargs: function keyword arguments
+
+    Returns:
+        Any: result of the function
+
+    """
+    fun_name = fun.__name__
+    with log_action(f'Entering {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
+        return fun(*args, **kwargs)

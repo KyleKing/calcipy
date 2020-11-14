@@ -45,6 +45,10 @@
 
 ### Changes
 
+* Improve logger context manager. [Kyle King]
+
+* Add task to summarize tags. Fixes #2. [Kyle King]
+
 * Move watchcode to separate file. [Kyle King]
 
 * Mark additional globals as private. [Kyle King]

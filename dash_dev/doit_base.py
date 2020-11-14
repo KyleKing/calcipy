@@ -3,12 +3,12 @@
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, Callable, Dict, NewType, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
 
 import toml
 from loguru import logger
 
-from .log_helpers import logger_context
+from .log_helpers import log_action, log_fun
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
@@ -133,6 +133,26 @@ DIG = DoItGlobals()
 """Global DoIt Globals class used to manage global variables."""
 
 # ----------------------------------------------------------------------------------------------------------------------
+# Really General...
+
+
+@log_fun
+def read_lines(file_path: Path) -> List[str]:
+    """Read a file and split on newlines for later parsing.
+
+    Args:
+        file_path: path to the file
+
+    Returns:
+        List[str]: lines of text as list
+
+    """
+    if file_path.is_file():
+        return file_path.read_text().split('\n')
+    return []
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Manage Directories
 
 
@@ -144,10 +164,11 @@ def delete_dir(dir_path: Path) -> None:
 
     """
     if dir_path.is_dir():
-        with logger_context(f'Delete `{dir_path}`'):
-            shutil.rmtree(dir_path)
+        logger.info(f'Deleting `{dir_path}`', dir_path=dir_path)
+        shutil.rmtree(dir_path)
 
 
+@log_fun
 def ensure_dir(dir_path: Path) -> None:
     """Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
@@ -155,14 +176,15 @@ def ensure_dir(dir_path: Path) -> None:
         dir_path: Path to directory that needs to exists
 
     """
-    with logger_context(f'Create `{dir_path}`'):
+    with log_action(f'Create `{dir_path}`'):
         dir_path.mkdir(parents=True, exist_ok=True)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# General Utilities
+# General DoIt Utilities
 
 
+@log_fun
 def _show_cmd(task: DoItTask) -> str:
     """For debugging, log the full command to the console.
 
@@ -177,6 +199,7 @@ def _show_cmd(task: DoItTask) -> str:
     return f'{task.name} > [{actions}\n]\n'
 
 
+@log_fun
 def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
@@ -188,19 +211,23 @@ def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
         DoItTask: DoIt task
 
     """
-    return {
+    task = {
         'actions': actions,
         'title': _show_cmd,
         'verbosity': verbosity,
     }
+    logger.info('Created task', task=task)
+    return task
 
 
+@log_fun
 def debug_action(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:  # noqa
     import warnings
     warnings.warn('debug_action is deprecated. Replace with `debug_task`')
     return debug_task(actions, verbosity)
 
 
+@log_fun
 def echo(msg: str) -> None:
     """Wrap the system print command.
 
@@ -211,6 +238,7 @@ def echo(msg: str) -> None:
     print(msg)  # noqa: T001
 
 
+@log_fun
 def write_text(file_path: Path, text: str) -> None:
     """file_path.write_text wrapper for DoIt.
 
@@ -222,6 +250,7 @@ def write_text(file_path: Path, text: str) -> None:
     file_path.write_text(text)
 
 
+@log_fun
 def open_in_browser(file_path: Path) -> None:
     """Open the path in the default web browser.
 
@@ -240,6 +269,7 @@ def if_found_unlink(file_path: Path) -> None:
 
     """
     if file_path.is_file():
+        logger.info(f'Deleting `{file_path}`', file_path=file_path)
         file_path.unlink()
 
 
@@ -247,6 +277,7 @@ def if_found_unlink(file_path: Path) -> None:
 # Manage Requirements
 
 
+@log_fun
 def task_export_req() -> DoItTask:
     """Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
