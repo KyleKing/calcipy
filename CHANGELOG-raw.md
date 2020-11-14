@@ -5,6 +5,31 @@
 
 ### New
 
+* Move DIG to separate file. [Kyle King]
+
+* Move tasks to use a wildcard import. [Kyle King]
+
+  - Breaking changes, but a huge improvement!
+
+### Changes
+
+* Improve how tags are located. [Kyle King]
+
+* Chg: update documentation @WIP. [Kyle King]
+
+* Minor type annotation fixes. [Kyle King]
+
+  - Note: making the paths clickable in TAG_SUMMARY would appear to require the full local path, which isn’t worth tracking in git
+
+### Other
+
+* Merge branch 'main' into dev/development. [Kyle King]
+
+
+## 0.0.1 (2020-11-14)
+
+### New
+
 * Add logging. Fixes #5. [Kyle King]
 
 * New: intialized tag-finding logic @WIP. [Kyle King]
@@ -46,10 +71,6 @@
 * Initialize poetry project. [Kyle King]
 
 ### Changes
-
-* Minor type annotation fixes. [Kyle King]
-
-  - Note: making the paths clickable in TAG_SUMMARY would appear to require the full local path, which isn’t worth tracking in git
 
 * Improve logging. Addresses #5. [Kyle King]
 
@@ -120,6 +141,22 @@
 * Document dash extras in README. [Kyle King]
 
 ### Other
+
+* Merge pull request #12 from KyleKing/dev/development. [Kyle King]
+
+  Improve Logging
+
+* Merge pull request #11 from KyleKing/dev/development. [Kyle King]
+
+  Add summary of TODO, FIXME, etc.
+
+* Merge pull request #10 from KyleKing/dev/development. [Kyle King]
+
+  Add Loger Configuration and Type Annotations
+
+* Merge pull request #8 from KyleKing/dev/development. [Kyle King]
+
+  - Merge code privacy changes and Deep Source fixes
 
 * Initial commit. [Kyle King]
 

@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "dash_dev"
 version = "0.0.1"
-description = "Development package for development of Plotly/Dash applications"
+description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = [ "Kyle King <https://github.com/KyleKing>",]
 maintainers = []
@@ -108,6 +108,7 @@ pyannotate = "*"
 pycallgraph3 = "*"
 pytype = "*"
 pyupgrade = "*"
+rich = "*"
 vulture = "*"
 
 [tool.poetry.dev-dependencies.watchcode]

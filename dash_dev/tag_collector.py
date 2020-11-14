@@ -103,10 +103,9 @@ def _search_files(file_paths: Sequence[Path],
         except UnicodeDecodeError as err:
             logger.warning(f'Could not parse: {file_path}', err=err)
 
-        if lines:
-            comments = _search_lines(lines, regex_compiled)
-            if comments:
-                matches.append(_Tags(file_path, comments))
+        comments = _search_lines(lines, regex_compiled)
+        if comments:
+            matches.append(_Tags(file_path, comments))
 
     return matches
 

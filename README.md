@@ -44,8 +44,8 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `dash_dev/doit_helpers/test.py` | 40 | 13 | 0 | 67.5% |
 | `dash_dev/log_helpers.py` | 24 | 5 | 0 | 79.2% |
 | `dash_dev/registered_tasks.py` | 6 | 6 | 0 | 0.0% |
-| `dash_dev/tag_collector.py` | 71 | 16 | 0 | 77.5% |
+| `dash_dev/tag_collector.py` | 86 | 34 | 0 | 60.5% |
 
-Generated on: 2020-11-14T11:01:06.997503
+Generated on: 2020-11-14T11:50:47.015891
 
 <!-- /COVERAGE -->

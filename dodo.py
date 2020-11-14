@@ -37,10 +37,10 @@ DOIT_CONFIG = {
         'set_lint_config',
         'create_tag_file',
         'auto_format',
-        'lint_pre_commit',
-        # 'type_checking',
         'document',
         # 'open_docs',
+        'lint_pre_commit',
+        # 'type_checking',
     ],
 }
 """DoIt Configuration Settings. Run with `poetry run doit`."""
