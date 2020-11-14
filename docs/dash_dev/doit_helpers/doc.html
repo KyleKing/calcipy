@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.1" />
-<title>dash_dev.doit_doc API documentation</title>
+<title>dash_dev.doit_helpers.doc API documentation</title>
 <meta name="description" content="DoIt Documentation Utilities." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -59,7 +59,7 @@ padding: 0 5px;
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>dash_dev.doit_doc</code></h1>
+<h1 class="title">Module <code>dash_dev.doit_helpers.doc</code></h1>
 </header>
 <section id="section-intro">
 <p>DoIt Documentation Utilities.</p>
@@ -77,14 +77,17 @@ from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
 import sh
+from loguru import logger
 from transitions import Machine
 
-from .doit_base import DIG, DoItTask, debug_task, open_in_browser
+from .base import DIG, DoItTask, debug_task, open_in_browser, read_lines
+from ..log_helpers import log_fun
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Tags
 
 
+@log_fun
 def task_create_tag() -&gt; DoItTask:
     &#34;&#34;&#34;Create a git tag based on the version in pyproject.toml.
 
@@ -100,6 +103,7 @@ def task_create_tag() -&gt; DoItTask:
     ])
 
 
+@log_fun
 def task_remove_tag() -&gt; DoItTask:
     &#34;&#34;&#34;Delete tag for current version in pyproject.toml.
 
@@ -160,6 +164,7 @@ logger.enable(__pkg__name__)
 &#34;&#34;&#34;Python code to be appended to `__init__.py` with the base loguru logger configuration.&#34;&#34;&#34;
 
 
+@log_fun
 def _write_readme_to_init() -&gt; None:
     &#34;&#34;&#34;Write the README contents to the package `__init__.py` file.&#34;&#34;&#34;
     readme = (DIG.source_path / &#39;README.md&#39;).read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # Escape quotes
@@ -171,7 +176,8 @@ def _write_readme_to_init() -&gt; None:
     try:
         break_index = init_lines.index(_INIT_DIVIDER) + 1
         user_text = &#39;\n&#39;.join(init_lines[break_index:])
-    except ValueError:
+    except ValueError as err:
+        logger.warning(&#39;Did not find a divider, so overwriting any existing user text&#39;, err=err)
         user_text = &#39;&#39;
     init_path.write_text(init_text.replace(&#39;\t&#39;, &#39; &#39; * 4) + user_text)
 
@@ -229,6 +235,7 @@ _PDOC_HEAD: str = &#34;&#34;&#34;&lt;style&gt;
 &#34;&#34;&#34;PDOC3 custom CSS styles.&#34;&#34;&#34;
 
 
+@log_fun
 def _write_pdoc_config_files() -&gt; None:
     &#34;&#34;&#34;Write the head and config mako files for pdoc.&#34;&#34;&#34;
     (DIG.template_dir / &#39;head.mako&#39;).write_text(_PDOC_HEAD)
@@ -238,6 +245,7 @@ def _write_pdoc_config_files() -&gt; None:
 # Manage Changelog
 
 
+@log_fun
 def task_update_cl() -&gt; DoItTask:
     &#34;&#34;&#34;Update a Changelog file with the raw Git history.
 
@@ -269,8 +277,9 @@ class _ReadMeMachine:  # noqa: H601
         &#34;&#34;&#34;Initialize state machine.&#34;&#34;&#34;
         self.machine = Machine(model=self, states=self.states, initial=&#39;readme&#39;, transitions=self.transitions)
 
-    def parse(self, lines: List[str], comment_pattern: Pattern[str],
-              new_text: Dict[str, str]) -&gt; List[str]:  # noqa: CCR001
+    @log_fun
+    def parse(self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
+              new_text: Dict[str, str]) -&gt; List[str]:
         &#34;&#34;&#34;Parse lines and insert new_text.
 
         Args:
@@ -295,9 +304,15 @@ class _ReadMeMachine:  # noqa: H601
             elif self.state == &#39;readme&#39;:
                 self.readme_lines.append(line)
 
+            new_line = self.readme_lines[-1]
+            made_change = (line != new_line)
+            logger.debug(&#39;Parsed README Line&#39;, self_state=self.state, line=line,
+                         made_change=made_change, new_line=new_line if made_change else None)
+
         return self.readme_lines
 
 
+@log_fun
 def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -&gt; None:
     &#34;&#34;&#34;Wrap _ReadMeMachine. Handle reading then writing changes to the README.
 
@@ -307,29 +322,32 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -&
 
     &#34;&#34;&#34;
     readme_path = DIG.source_path / &#39;README.md&#39;
-    lines = readme_path.read_text().split(&#39;\n&#39;)
-    readme_lines = _ReadMeMachine().parse(lines, comment_pattern, new_text)
+    readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
     readme_path.write_text(&#39;\n&#39;.join(readme_lines))
 
 
+@log_fun
 def _write_code_to_readme() -&gt; None:
     &#34;&#34;&#34;Replace commented sections in README with linked file contents.&#34;&#34;&#34;
     comment_pattern = re.compile(r&#39;\s*&lt;!-- /?(CODE:.*) --&gt;&#39;)
     fn = &#39;tests/examples/readme.py&#39;
     script_path = DIG.source_path / fn
     if script_path.is_file():
-        source_code = [&#39;```py&#39;, *script_path.read_text().split(&#39;\n&#39;), &#39;```&#39;]
+        source_code = [&#39;```py&#39;, *read_lines(script_path), &#39;```&#39;]
         new_text = {f&#39;CODE:{fn}&#39;: [f&#39;{line}&#39;.rstrip() for line in source_code]}
         _write_to_readme(comment_pattern, new_text)
+    else:
+        logger.warning(f&#39;Could not locate: {script_path}&#39;)
 
 
+@log_fun
 def _write_coverage_to_readme() -&gt; None:
     &#34;&#34;&#34;Read the coverage.json file and write a Markdown table to the README file.&#34;&#34;&#34;
     # Create the &#39;coverage.json&#39; file from .coverage SQL database. Suppress errors if failed
     try:
         sh.poetry.run.python(&#39;-m&#39;, &#39;coverage&#39;, &#39;json&#39;)
     except sh.ErrorReturnCode_1:
-        pass
+        logger.exception(&#39;Coverage conversion to JSON failed&#39;)
 
     coverage_path = (DIG.source_path / &#39;coverage.json&#39;)
     if coverage_path.is_file():
@@ -351,6 +369,7 @@ def _write_coverage_to_readme() -&gt; None:
         _write_to_readme(comment_pattern, {&#39;COVERAGE&#39;: table_lines})
 
 
+@log_fun
 def _write_redirect_html() -&gt; None:
     &#34;&#34;&#34;Create an index.html file in the project directory that redirects to the pdoc output.&#34;&#34;&#34;
     index_path = DIG.source_path / &#39;index.html&#39;
@@ -365,31 +384,39 @@ If using github pages, make sure to check in this file to git and the files docs
 # Main Documentation Tasks
 
 
+@log_fun
 def _clear_docs() -&gt; None:
     &#34;&#34;&#34;Clear the documentation directory before running pdoc.&#34;&#34;&#34;
     staging_dir = DIG.doc_dir / DIG.pkg_name
     if staging_dir.is_dir():
+        logger.debug(f&#39;Removing {staging_dir}&#39;)
         shutil.rmtree(staging_dir)
 
 
+@log_fun
 def _clear_examples() -&gt; None:
     &#34;&#34;&#34;Clear the examples from within the package directory.&#34;&#34;&#34;
     if DIG.tmp_examples_dir.is_dir():
+        logger.debug(f&#39;Removing {DIG.tmp_examples_dir}&#39;)
         shutil.rmtree(DIG.tmp_examples_dir)
 
 
+@log_fun
 def _stage_examples() -&gt; None:
     &#34;&#34;&#34;Format the code examples as docstrings to be loaded into the documentation.&#34;&#34;&#34;
     if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
         DIG.tmp_examples_dir.mkdir(exist_ok=False)
         (DIG.tmp_examples_dir / &#39;__init__.py&#39;).write_text(&#39;&#34;&#34;&#34;Code Examples (documentation-only, not in package).&#34;&#34;&#34;&#39;)
-        for file_path in DIG.src_examples_dir.glob(&#39;*.py&#39;):
+        example_files = [*DIG.src_examples_dir.glob(&#39;*.py&#39;)]
+        logger.debug(f&#39;Found {len(example_files)} files&#39;, example_files=example_files)
+        for file_path in example_files:
             content = file_path.read_text().replace(&#39;&#34;&#39;, r&#39;\&#34;&#39;)  # read and escape quotes
             dest_fn = DIG.tmp_examples_dir / file_path.name
             docstring = f&#39;From file: `{file_path.relative_to(DIG.source_path.parent)}`&#39;
             dest_fn.write_text(f&#39;&#34;&#34;&#34;{docstring}\n```\n{content}\n```\n&#34;&#34;&#34;&#39;)
 
 
+@log_fun
 def task_document() -&gt; DoItTask:
     &#34;&#34;&#34;Build the HTML documentation and push to gh-pages branch.
 
@@ -412,6 +439,7 @@ def task_document() -&gt; DoItTask:
     ])
 
 
+@log_fun
 def task_open_docs() -&gt; DoItTask:
     &#34;&#34;&#34;Open the documentation files in the default browser.
 
@@ -431,8 +459,8 @@ def task_open_docs() -&gt; DoItTask:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="dash_dev.doit_doc.task_create_tag"><code class="name flex">
-<span>def <span class="ident">task_create_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.doc.task_create_tag"><code class="name flex">
+<span>def <span class="ident">task_create_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a git tag based on the version in pyproject.toml.</p>
@@ -445,7 +473,8 @@ def task_open_docs() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_create_tag() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_create_tag() -&gt; DoItTask:
     &#34;&#34;&#34;Create a git tag based on the version in pyproject.toml.
 
     Returns:
@@ -460,8 +489,8 @@ def task_open_docs() -&gt; DoItTask:
     ])</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_doc.task_document"><code class="name flex">
-<span>def <span class="ident">task_document</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.doc.task_document"><code class="name flex">
+<span>def <span class="ident">task_document</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Build the HTML documentation and push to gh-pages branch.</p>
@@ -474,7 +503,8 @@ def task_open_docs() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_document() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_document() -&gt; DoItTask:
     &#34;&#34;&#34;Build the HTML documentation and push to gh-pages branch.
 
     Returns:
@@ -496,8 +526,8 @@ def task_open_docs() -&gt; DoItTask:
     ])</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_doc.task_open_docs"><code class="name flex">
-<span>def <span class="ident">task_open_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.doc.task_open_docs"><code class="name flex">
+<span>def <span class="ident">task_open_docs</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Open the documentation files in the default browser.</p>
@@ -510,7 +540,8 @@ def task_open_docs() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_open_docs() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_open_docs() -&gt; DoItTask:
     &#34;&#34;&#34;Open the documentation files in the default browser.
 
     Returns:
@@ -522,8 +553,8 @@ def task_open_docs() -&gt; DoItTask:
     ])</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_doc.task_remove_tag"><code class="name flex">
-<span>def <span class="ident">task_remove_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.doc.task_remove_tag"><code class="name flex">
+<span>def <span class="ident">task_remove_tag</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Delete tag for current version in pyproject.toml.</p>
@@ -536,7 +567,8 @@ def task_open_docs() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_remove_tag() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_remove_tag() -&gt; DoItTask:
     &#34;&#34;&#34;Delete tag for current version in pyproject.toml.
 
     Returns:
@@ -550,8 +582,8 @@ def task_open_docs() -&gt; DoItTask:
     ])</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_doc.task_update_cl"><code class="name flex">
-<span>def <span class="ident">task_update_cl</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.doc.task_update_cl"><code class="name flex">
+<span>def <span class="ident">task_update_cl</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update a Changelog file with the raw Git history.</p>
@@ -564,7 +596,8 @@ def task_open_docs() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_update_cl() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_update_cl() -&gt; DoItTask:
     &#34;&#34;&#34;Update a Changelog file with the raw Git history.
 
     Returns:
@@ -615,7 +648,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = 'search.html#' + encodeURIComponent(query);
+const url = '../search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -634,16 +667,16 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="dash_dev" href="index.html">dash_dev</a></code></li>
+<li><code><a title="dash_dev.doit_helpers" href="index.html">dash_dev.doit_helpers</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="dash_dev.doit_doc.task_create_tag" href="#dash_dev.doit_doc.task_create_tag">task_create_tag</a></code></li>
-<li><code><a title="dash_dev.doit_doc.task_document" href="#dash_dev.doit_doc.task_document">task_document</a></code></li>
-<li><code><a title="dash_dev.doit_doc.task_open_docs" href="#dash_dev.doit_doc.task_open_docs">task_open_docs</a></code></li>
-<li><code><a title="dash_dev.doit_doc.task_remove_tag" href="#dash_dev.doit_doc.task_remove_tag">task_remove_tag</a></code></li>
-<li><code><a title="dash_dev.doit_doc.task_update_cl" href="#dash_dev.doit_doc.task_update_cl">task_update_cl</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_create_tag" href="#dash_dev.doit_helpers.doc.task_create_tag">task_create_tag</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_document" href="#dash_dev.doit_helpers.doc.task_document">task_document</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_open_docs" href="#dash_dev.doit_helpers.doc.task_open_docs">task_open_docs</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_remove_tag" href="#dash_dev.doit_helpers.doc.task_remove_tag">task_remove_tag</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.doc.task_update_cl" href="#dash_dev.doit_helpers.doc.task_update_cl">task_update_cl</a></code></li>
 </ul>
 </li>
 </ul>

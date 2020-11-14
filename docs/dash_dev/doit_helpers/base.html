@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.9.1" />
-<title>dash_dev.doit_base API documentation</title>
+<title>dash_dev.doit_helpers.base API documentation</title>
 <meta name="description" content="General DoIt Utilities and Requirements." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -59,7 +59,7 @@ padding: 0 5px;
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>dash_dev.doit_base</code></h1>
+<h1 class="title">Module <code>dash_dev.doit_helpers.base</code></h1>
 </header>
 <section id="section-intro">
 <p>General DoIt Utilities and Requirements.</p>
@@ -72,12 +72,12 @@ padding: 0 5px;
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, Callable, Dict, NewType, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
 
 import toml
 from loguru import logger
 
-from .log_helpers import logger_context
+from ..log_helpers import log_action, log_fun
 
 # TODO: Show dodo.py in the documentation
 # TODO: Show README.md in the documentation (may need to update paths?)
@@ -95,7 +95,7 @@ DoItTask = NewType(&#39;DoItTask&#39;, Dict[str, Union[str, Tuple[Callable, Sequ
 class DoItGlobals:
     &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
 
-    dash_dev_dir: Path = Path(__file__).parent
+    dash_dev_dir: Path = Path(__file__).parents[1]
     &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
 
     flake8_path: Optional[Path] = None
@@ -202,6 +202,26 @@ DIG = DoItGlobals()
 &#34;&#34;&#34;Global DoIt Globals class used to manage global variables.&#34;&#34;&#34;
 
 # ----------------------------------------------------------------------------------------------------------------------
+# Really General...
+
+
+@log_fun
+def read_lines(file_path: Path) -&gt; List[str]:
+    &#34;&#34;&#34;Read a file and split on newlines for later parsing.
+
+    Args:
+        file_path: path to the file
+
+    Returns:
+        List[str]: lines of text as list
+
+    &#34;&#34;&#34;
+    if file_path.is_file():
+        return file_path.read_text().split(&#39;\n&#39;)
+    return []
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Manage Directories
 
 
@@ -213,10 +233,11 @@ def delete_dir(dir_path: Path) -&gt; None:
 
     &#34;&#34;&#34;
     if dir_path.is_dir():
-        with logger_context(f&#39;Delete `{dir_path}`&#39;):
-            shutil.rmtree(dir_path)
+        logger.info(f&#39;Deleting `{dir_path}`&#39;, dir_path=dir_path)
+        shutil.rmtree(dir_path)
 
 
+@log_fun
 def ensure_dir(dir_path: Path) -&gt; None:
     &#34;&#34;&#34;Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
@@ -224,14 +245,15 @@ def ensure_dir(dir_path: Path) -&gt; None:
         dir_path: Path to directory that needs to exists
 
     &#34;&#34;&#34;
-    with logger_context(f&#39;Create `{dir_path}`&#39;):
+    with log_action(f&#39;Create `{dir_path}`&#39;):
         dir_path.mkdir(parents=True, exist_ok=True)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# General Utilities
+# General DoIt Utilities
 
 
+@log_fun
 def _show_cmd(task: DoItTask) -&gt; str:
     &#34;&#34;&#34;For debugging, log the full command to the console.
 
@@ -246,6 +268,7 @@ def _show_cmd(task: DoItTask) -&gt; str:
     return f&#39;{task.name} &gt; [{actions}\n]\n&#39;
 
 
+@log_fun
 def debug_task(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:
     &#34;&#34;&#34;Activate verbose logging for the specified actions.
 
@@ -257,19 +280,23 @@ def debug_task(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:
         DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return {
+    task = {
         &#39;actions&#39;: actions,
         &#39;title&#39;: _show_cmd,
         &#39;verbosity&#39;: verbosity,
     }
+    logger.info(&#39;Created task&#39;, task=task)
+    return task
 
 
+@log_fun
 def debug_action(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:  # noqa
     import warnings
     warnings.warn(&#39;debug_action is deprecated. Replace with `debug_task`&#39;)
     return debug_task(actions, verbosity)
 
 
+@log_fun
 def echo(msg: str) -&gt; None:
     &#34;&#34;&#34;Wrap the system print command.
 
@@ -280,6 +307,7 @@ def echo(msg: str) -&gt; None:
     print(msg)  # noqa: T001
 
 
+@log_fun
 def write_text(file_path: Path, text: str) -&gt; None:
     &#34;&#34;&#34;file_path.write_text wrapper for DoIt.
 
@@ -291,6 +319,7 @@ def write_text(file_path: Path, text: str) -&gt; None:
     file_path.write_text(text)
 
 
+@log_fun
 def open_in_browser(file_path: Path) -&gt; None:
     &#34;&#34;&#34;Open the path in the default web browser.
 
@@ -309,6 +338,7 @@ def if_found_unlink(file_path: Path) -&gt; None:
 
     &#34;&#34;&#34;
     if file_path.is_file():
+        logger.info(f&#39;Deleting `{file_path}`&#39;, file_path=file_path)
         file_path.unlink()
 
 
@@ -316,6 +346,7 @@ def if_found_unlink(file_path: Path) -&gt; None:
 # Manage Requirements
 
 
+@log_fun
 def task_export_req() -&gt; DoItTask:
     &#34;&#34;&#34;Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
@@ -332,7 +363,7 @@ def task_export_req() -&gt; DoItTask:
 <section>
 <h2 class="section-title" id="header-variables">Global variables</h2>
 <dl>
-<dt id="dash_dev.doit_base.DIG"><code class="name">var <span class="ident">DIG</span></code></dt>
+<dt id="dash_dev.doit_helpers.base.DIG"><code class="name">var <span class="ident">DIG</span></code></dt>
 <dd>
 <div class="desc"><p>Global DoIt Globals class used to manage global variables.</p></div>
 </dd>
@@ -341,7 +372,7 @@ def task_export_req() -&gt; DoItTask:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="dash_dev.doit_base.DoItTask"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.DoItTask"><code class="name flex">
 <span>def <span class="ident">DoItTask</span></span>(<span>x)</span>
 </code></dt>
 <dd>
@@ -354,8 +385,8 @@ def task_export_req() -&gt; DoItTask:
     return x</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.debug_action"><code class="name flex">
-<span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.base.debug_action"><code class="name flex">
+<span>def <span class="ident">debug_action</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -363,14 +394,15 @@ def task_export_req() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def debug_action(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:  # noqa
+<pre><code class="python">@log_fun
+def debug_action(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:  # noqa
     import warnings
     warnings.warn(&#39;debug_action is deprecated. Replace with `debug_task`&#39;)
     return debug_task(actions, verbosity)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.debug_task"><code class="name flex">
-<span>def <span class="ident">debug_task</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.base.debug_task"><code class="name flex">
+<span>def <span class="ident">debug_task</span></span>(<span>actions: Sequence[Any], verbosity: int = 2) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Activate verbose logging for the specified actions.</p>
@@ -383,14 +415,15 @@ def task_export_req() -&gt; DoItTask:
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="dash_dev.doit_base.DoItTask" href="#dash_dev.doit_base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
+<dt><code><a title="dash_dev.doit_helpers.base.DoItTask" href="#dash_dev.doit_helpers.base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def debug_task(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def debug_task(actions: Sequence[Any], verbosity: int = 2) -&gt; DoItTask:
     &#34;&#34;&#34;Activate verbose logging for the specified actions.
 
     Args:
@@ -401,14 +434,16 @@ def task_export_req() -&gt; DoItTask:
         DoItTask: DoIt task
 
     &#34;&#34;&#34;
-    return {
+    task = {
         &#39;actions&#39;: actions,
         &#39;title&#39;: _show_cmd,
         &#39;verbosity&#39;: verbosity,
-    }</code></pre>
+    }
+    logger.info(&#39;Created task&#39;, task=task)
+    return task</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.delete_dir"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.delete_dir"><code class="name flex">
 <span>def <span class="ident">delete_dir</span></span>(<span>dir_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
@@ -430,11 +465,11 @@ def task_export_req() -&gt; DoItTask:
 
     &#34;&#34;&#34;
     if dir_path.is_dir():
-        with logger_context(f&#39;Delete `{dir_path}`&#39;):
-            shutil.rmtree(dir_path)</code></pre>
+        logger.info(f&#39;Deleting `{dir_path}`&#39;, dir_path=dir_path)
+        shutil.rmtree(dir_path)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.echo"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.echo"><code class="name flex">
 <span>def <span class="ident">echo</span></span>(<span>msg: str) ‑> NoneType</span>
 </code></dt>
 <dd>
@@ -448,7 +483,8 @@ def task_export_req() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def echo(msg: str) -&gt; None:
+<pre><code class="python">@log_fun
+def echo(msg: str) -&gt; None:
     &#34;&#34;&#34;Wrap the system print command.
 
     Args:
@@ -458,7 +494,7 @@ def task_export_req() -&gt; DoItTask:
     print(msg)  # noqa: T001</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.ensure_dir"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.ensure_dir"><code class="name flex">
 <span>def <span class="ident">ensure_dir</span></span>(<span>dir_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
@@ -472,18 +508,19 @@ def task_export_req() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ensure_dir(dir_path: Path) -&gt; None:
+<pre><code class="python">@log_fun
+def ensure_dir(dir_path: Path) -&gt; None:
     &#34;&#34;&#34;Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
     Args:
         dir_path: Path to directory that needs to exists
 
     &#34;&#34;&#34;
-    with logger_context(f&#39;Create `{dir_path}`&#39;):
+    with log_action(f&#39;Create `{dir_path}`&#39;):
         dir_path.mkdir(parents=True, exist_ok=True)</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.if_found_unlink"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.if_found_unlink"><code class="name flex">
 <span>def <span class="ident">if_found_unlink</span></span>(<span>file_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
@@ -505,10 +542,11 @@ def task_export_req() -&gt; DoItTask:
 
     &#34;&#34;&#34;
     if file_path.is_file():
+        logger.info(f&#39;Deleting `{file_path}`&#39;, file_path=file_path)
         file_path.unlink()</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.open_in_browser"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.open_in_browser"><code class="name flex">
 <span>def <span class="ident">open_in_browser</span></span>(<span>file_path: pathlib.Path) ‑> NoneType</span>
 </code></dt>
 <dd>
@@ -522,7 +560,8 @@ def task_export_req() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def open_in_browser(file_path: Path) -&gt; None:
+<pre><code class="python">@log_fun
+def open_in_browser(file_path: Path) -&gt; None:
     &#34;&#34;&#34;Open the path in the default web browser.
 
     Args:
@@ -532,21 +571,57 @@ def task_export_req() -&gt; DoItTask:
     webbrowser.open(Path(file_path).as_uri())</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.task_export_req"><code class="name flex">
-<span>def <span class="ident">task_export_req</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fae7d72cca0></span>
+<dt id="dash_dev.doit_helpers.base.read_lines"><code class="name flex">
+<span>def <span class="ident">read_lines</span></span>(<span>file_path: pathlib.Path) ‑> List[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read a file and split on newlines for later parsing.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>file_path</code></strong></dt>
+<dd>path to the file</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[str]</code></dt>
+<dd>lines of text as list</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@log_fun
+def read_lines(file_path: Path) -&gt; List[str]:
+    &#34;&#34;&#34;Read a file and split on newlines for later parsing.
+
+    Args:
+        file_path: path to the file
+
+    Returns:
+        List[str]: lines of text as list
+
+    &#34;&#34;&#34;
+    if file_path.is_file():
+        return file_path.read_text().split(&#39;\n&#39;)
+    return []</code></pre>
+</details>
+</dd>
+<dt id="dash_dev.doit_helpers.base.task_export_req"><code class="name flex">
+<span>def <span class="ident">task_export_req</span></span>(<span>) ‑> <function NewType.<locals>.new_type at 0x7fb594606820></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a <code>requirements.txt</code> file for non-Poetry users and for Github security tools.</p>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><code><a title="dash_dev.doit_base.DoItTask" href="#dash_dev.doit_base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
+<dt><code><a title="dash_dev.doit_helpers.base.DoItTask" href="#dash_dev.doit_helpers.base.DoItTask">NewType.<locals>.new_type()</a></code></dt>
 <dd>DoIt task</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def task_export_req() -&gt; DoItTask:
+<pre><code class="python">@log_fun
+def task_export_req() -&gt; DoItTask:
     &#34;&#34;&#34;Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
     Returns:
@@ -557,7 +632,7 @@ def task_export_req() -&gt; DoItTask:
     return debug_task([f&#39;poetry export -f {req_path.name} -o &#34;{req_path}&#34; --without-hashes --dev&#39;])</code></pre>
 </details>
 </dd>
-<dt id="dash_dev.doit_base.write_text"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.write_text"><code class="name flex">
 <span>def <span class="ident">write_text</span></span>(<span>file_path: pathlib.Path, text: str) ‑> NoneType</span>
 </code></dt>
 <dd>
@@ -573,7 +648,8 @@ def task_export_req() -&gt; DoItTask:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def write_text(file_path: Path, text: str) -&gt; None:
+<pre><code class="python">@log_fun
+def write_text(file_path: Path, text: str) -&gt; None:
     &#34;&#34;&#34;file_path.write_text wrapper for DoIt.
 
     Args:
@@ -589,7 +665,7 @@ def task_export_req() -&gt; DoItTask:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="dash_dev.doit_base.DoItGlobals"><code class="flex name class">
+<dt id="dash_dev.doit_helpers.base.DoItGlobals"><code class="flex name class">
 <span>class <span class="ident">DoItGlobals</span></span>
 </code></dt>
 <dd>
@@ -601,7 +677,7 @@ def task_export_req() -&gt; DoItTask:
 <pre><code class="python">class DoItGlobals:
     &#34;&#34;&#34;Global Variables for DoIt.&#34;&#34;&#34;
 
-    dash_dev_dir: Path = Path(__file__).parent
+    dash_dev_dir: Path = Path(__file__).parents[1]
     &#34;&#34;&#34;The dash_dev directory (may be within `.venv`).&#34;&#34;&#34;
 
     flake8_path: Optional[Path] = None
@@ -705,79 +781,79 @@ def task_export_req() -&gt; DoItTask:
 </details>
 <h3>Class variables</h3>
 <dl>
-<dt id="dash_dev.doit_base.DoItGlobals.coverage_path"><code class="name">var <span class="ident">coverage_path</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.coverage_path"><code class="name">var <span class="ident">coverage_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to the coverage index.html file. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.dash_dev_dir"><code class="name">var <span class="ident">dash_dev_dir</span> : pathlib.Path</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.dash_dev_dir"><code class="name">var <span class="ident">dash_dev_dir</span> : pathlib.Path</code></dt>
 <dd>
 <div class="desc"><p>The dash_dev directory (may be within <code>.venv</code>).</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.doc_dir"><code class="name">var <span class="ident">doc_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.doc_dir"><code class="name">var <span class="ident">doc_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to documentation directory for working project. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.excluded_files"><code class="name">var <span class="ident">excluded_files</span></code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.excluded_files"><code class="name">var <span class="ident">excluded_files</span></code></dt>
 <dd>
 <div class="desc"><p>List of excluded filenames.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.external_doc_dirs"><code class="name">var <span class="ident">external_doc_dirs</span></code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.external_doc_dirs"><code class="name">var <span class="ident">external_doc_dirs</span></code></dt>
 <dd>
 <div class="desc"><p>List of subdir names relative to <code>source_path</code> containing Python code that should be in the documentation.</p>
 <p>Note: for nested directories, combine subdirectires into a single string, ex: <code>('examples', 'examples/sub_dir')</code></p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.flake8_path"><code class="name">var <span class="ident">flake8_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to flake8 file. Set in <code>set_paths()</code> based on source_path</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.lint_paths"><code class="name">var <span class="ident">lint_paths</span></code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.lint_paths"><code class="name">var <span class="ident">lint_paths</span></code></dt>
 <dd>
 <div class="desc"><p>Current directory for source code (working project). Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.path_gitchangelog"><code class="name">var <span class="ident">path_gitchangelog</span> : pathlib.Path</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.path_gitchangelog"><code class="name">var <span class="ident">path_gitchangelog</span> : pathlib.Path</code></dt>
 <dd>
 <div class="desc"><p>Path to isort file. Default is for the isort file from dash_dev.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.pkg_name"><code class="name">var <span class="ident">pkg_name</span> : Union[str, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.pkg_name"><code class="name">var <span class="ident">pkg_name</span> : Union[str, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Name of the current package based on the poetry configuration file. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.pkg_version"><code class="name">var <span class="ident">pkg_version</span></code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.pkg_version"><code class="name">var <span class="ident">pkg_version</span></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.source_path"><code class="name">var <span class="ident">source_path</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.source_path"><code class="name">var <span class="ident">source_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Current directory for source code (working project). Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.src_examples_dir"><code class="name">var <span class="ident">src_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.src_examples_dir"><code class="name">var <span class="ident">src_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to example code directory for working project. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.template_dir"><code class="name">var <span class="ident">template_dir</span></code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.template_dir"><code class="name">var <span class="ident">template_dir</span></code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.test_path"><code class="name">var <span class="ident">test_path</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.test_path"><code class="name">var <span class="ident">test_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Current directory for tests directory. Resolved as '<code>source_path</code>/tests' in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.test_report_path"><code class="name">var <span class="ident">test_report_path</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.test_report_path"><code class="name">var <span class="ident">test_report_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to the test report file. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.tmp_examples_dir"><code class="name">var <span class="ident">tmp_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.tmp_examples_dir"><code class="name">var <span class="ident">tmp_examples_dir</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to temporary directory to move examples while creating documentation. Set in <code>set_paths</code>.</p></div>
 </dd>
-<dt id="dash_dev.doit_base.DoItGlobals.toml_path"><code class="name">var <span class="ident">toml_path</span> : Union[pathlib.Path, NoneType]</code></dt>
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.toml_path"><code class="name">var <span class="ident">toml_path</span> : Union[pathlib.Path, NoneType]</code></dt>
 <dd>
 <div class="desc"><p>Path to <code>pyproject.toml</code> file for working project. Set in <code>set_paths</code>.</p></div>
 </dd>
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="dash_dev.doit_base.DoItGlobals.set_paths"><code class="name flex">
+<dt id="dash_dev.doit_helpers.base.DoItGlobals.set_paths"><code class="name flex">
 <span>def <span class="ident">set_paths</span></span>(<span>self, *, pkg_name: Union[str, NoneType] = None, source_path: Union[pathlib.Path, NoneType] = None, doc_dir: Union[pathlib.Path, NoneType] = None) ‑> NoneType</span>
 </code></dt>
 <dd>
@@ -890,7 +966,7 @@ const query = new URL(window.location).searchParams.get('q');
 if (query)
 search(query);
 function search(query) {
-const url = 'search.html#' + encodeURIComponent(query);
+const url = '../search.html#' + encodeURIComponent(query);
 new tingle.modal({
 cssClass: ['modal-dialog'],
 onClose: () => {
@@ -909,51 +985,52 @@ setTimeout(() => input.focus(), 100);
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="dash_dev" href="index.html">dash_dev</a></code></li>
+<li><code><a title="dash_dev.doit_helpers" href="index.html">dash_dev.doit_helpers</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-variables">Global variables</a></h3>
 <ul class="">
-<li><code><a title="dash_dev.doit_base.DIG" href="#dash_dev.doit_base.DIG">DIG</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DIG" href="#dash_dev.doit_helpers.base.DIG">DIG</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="dash_dev.doit_base.DoItTask" href="#dash_dev.doit_base.DoItTask">DoItTask</a></code></li>
-<li><code><a title="dash_dev.doit_base.debug_action" href="#dash_dev.doit_base.debug_action">debug_action</a></code></li>
-<li><code><a title="dash_dev.doit_base.debug_task" href="#dash_dev.doit_base.debug_task">debug_task</a></code></li>
-<li><code><a title="dash_dev.doit_base.delete_dir" href="#dash_dev.doit_base.delete_dir">delete_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.echo" href="#dash_dev.doit_base.echo">echo</a></code></li>
-<li><code><a title="dash_dev.doit_base.ensure_dir" href="#dash_dev.doit_base.ensure_dir">ensure_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.if_found_unlink" href="#dash_dev.doit_base.if_found_unlink">if_found_unlink</a></code></li>
-<li><code><a title="dash_dev.doit_base.open_in_browser" href="#dash_dev.doit_base.open_in_browser">open_in_browser</a></code></li>
-<li><code><a title="dash_dev.doit_base.task_export_req" href="#dash_dev.doit_base.task_export_req">task_export_req</a></code></li>
-<li><code><a title="dash_dev.doit_base.write_text" href="#dash_dev.doit_base.write_text">write_text</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItTask" href="#dash_dev.doit_helpers.base.DoItTask">DoItTask</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.debug_action" href="#dash_dev.doit_helpers.base.debug_action">debug_action</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.debug_task" href="#dash_dev.doit_helpers.base.debug_task">debug_task</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.delete_dir" href="#dash_dev.doit_helpers.base.delete_dir">delete_dir</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.echo" href="#dash_dev.doit_helpers.base.echo">echo</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.ensure_dir" href="#dash_dev.doit_helpers.base.ensure_dir">ensure_dir</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.if_found_unlink" href="#dash_dev.doit_helpers.base.if_found_unlink">if_found_unlink</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.open_in_browser" href="#dash_dev.doit_helpers.base.open_in_browser">open_in_browser</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.read_lines" href="#dash_dev.doit_helpers.base.read_lines">read_lines</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.task_export_req" href="#dash_dev.doit_helpers.base.task_export_req">task_export_req</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.write_text" href="#dash_dev.doit_helpers.base.write_text">write_text</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="dash_dev.doit_base.DoItGlobals" href="#dash_dev.doit_base.DoItGlobals">DoItGlobals</a></code></h4>
+<h4><code><a title="dash_dev.doit_helpers.base.DoItGlobals" href="#dash_dev.doit_helpers.base.DoItGlobals">DoItGlobals</a></code></h4>
 <ul class="two-column">
-<li><code><a title="dash_dev.doit_base.DoItGlobals.coverage_path" href="#dash_dev.doit_base.DoItGlobals.coverage_path">coverage_path</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.dash_dev_dir" href="#dash_dev.doit_base.DoItGlobals.dash_dev_dir">dash_dev_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.doc_dir" href="#dash_dev.doit_base.DoItGlobals.doc_dir">doc_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.excluded_files" href="#dash_dev.doit_base.DoItGlobals.excluded_files">excluded_files</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.external_doc_dirs" href="#dash_dev.doit_base.DoItGlobals.external_doc_dirs">external_doc_dirs</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.flake8_path" href="#dash_dev.doit_base.DoItGlobals.flake8_path">flake8_path</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.lint_paths" href="#dash_dev.doit_base.DoItGlobals.lint_paths">lint_paths</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.path_gitchangelog" href="#dash_dev.doit_base.DoItGlobals.path_gitchangelog">path_gitchangelog</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.pkg_name" href="#dash_dev.doit_base.DoItGlobals.pkg_name">pkg_name</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.pkg_version" href="#dash_dev.doit_base.DoItGlobals.pkg_version">pkg_version</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.set_paths" href="#dash_dev.doit_base.DoItGlobals.set_paths">set_paths</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.source_path" href="#dash_dev.doit_base.DoItGlobals.source_path">source_path</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.src_examples_dir" href="#dash_dev.doit_base.DoItGlobals.src_examples_dir">src_examples_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.template_dir" href="#dash_dev.doit_base.DoItGlobals.template_dir">template_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.test_path" href="#dash_dev.doit_base.DoItGlobals.test_path">test_path</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.test_report_path" href="#dash_dev.doit_base.DoItGlobals.test_report_path">test_report_path</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.tmp_examples_dir" href="#dash_dev.doit_base.DoItGlobals.tmp_examples_dir">tmp_examples_dir</a></code></li>
-<li><code><a title="dash_dev.doit_base.DoItGlobals.toml_path" href="#dash_dev.doit_base.DoItGlobals.toml_path">toml_path</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.coverage_path" href="#dash_dev.doit_helpers.base.DoItGlobals.coverage_path">coverage_path</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.dash_dev_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.dash_dev_dir">dash_dev_dir</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.doc_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.doc_dir">doc_dir</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.excluded_files" href="#dash_dev.doit_helpers.base.DoItGlobals.excluded_files">excluded_files</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.external_doc_dirs" href="#dash_dev.doit_helpers.base.DoItGlobals.external_doc_dirs">external_doc_dirs</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.flake8_path" href="#dash_dev.doit_helpers.base.DoItGlobals.flake8_path">flake8_path</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.lint_paths" href="#dash_dev.doit_helpers.base.DoItGlobals.lint_paths">lint_paths</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.path_gitchangelog" href="#dash_dev.doit_helpers.base.DoItGlobals.path_gitchangelog">path_gitchangelog</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.pkg_name" href="#dash_dev.doit_helpers.base.DoItGlobals.pkg_name">pkg_name</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.pkg_version" href="#dash_dev.doit_helpers.base.DoItGlobals.pkg_version">pkg_version</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.set_paths" href="#dash_dev.doit_helpers.base.DoItGlobals.set_paths">set_paths</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.source_path" href="#dash_dev.doit_helpers.base.DoItGlobals.source_path">source_path</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.src_examples_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.src_examples_dir">src_examples_dir</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.template_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.template_dir">template_dir</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.test_path" href="#dash_dev.doit_helpers.base.DoItGlobals.test_path">test_path</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.test_report_path" href="#dash_dev.doit_helpers.base.DoItGlobals.test_report_path">test_report_path</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.tmp_examples_dir" href="#dash_dev.doit_helpers.base.DoItGlobals.tmp_examples_dir">tmp_examples_dir</a></code></li>
+<li><code><a title="dash_dev.doit_helpers.base.DoItGlobals.toml_path" href="#dash_dev.doit_helpers.base.DoItGlobals.toml_path">toml_path</a></code></li>
 </ul>
 </li>
 </ul>
