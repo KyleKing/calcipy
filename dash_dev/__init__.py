@@ -52,7 +52,7 @@ Generated on: 2020-11-14T11:50:47.015891
 <!-- /COVERAGE -->
 """  # noqa
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __pkg_name__ = 'dash_dev'
 
 import logging

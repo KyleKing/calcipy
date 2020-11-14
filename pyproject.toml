@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "dash_dev"
-version = "0.0.1"
+version = "0.0.2"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = [ "Kyle King <https://github.com/KyleKing>",]

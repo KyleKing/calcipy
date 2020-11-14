@@ -22,7 +22,7 @@ from pathlib import Path
 
 from dash_dev.doit_helpers.base import debug_task
 from dash_dev.doit_helpers.doit_globals import DIG, DoItTask
-from dash_dev.registered_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks)
+from dash_dev.registered_tasks import *  # noqa: F401,F403,H303 skipcq: PYL-W0614 (Run 'doit list' to see tasks)
 
 # Configure Dash paths
 DIG.set_paths(source_path=Path(__file__).resolve().parent)

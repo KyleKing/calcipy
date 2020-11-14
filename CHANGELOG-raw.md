@@ -13,6 +13,8 @@
 
 ### Changes
 
+* Update documentation. [Kyle King]
+
 * Improve how tags are located. [Kyle King]
 
 * Chg: update documentation @WIP. [Kyle King]
