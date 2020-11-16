@@ -19,8 +19,8 @@ def task_test() -> DoItTask:
 
     """
     return debug_task([
-        f'poetry run pytest "{DIG.test_path}" -x -l --ff -vv',
-    ], verbosity=2)
+        LongRunning(f'poetry run pytest "{DIG.test_path}" -x -l --ff -vv'),
+    ])
 
 
 @log_fun
@@ -32,8 +32,8 @@ def task_test_all() -> DoItTask:
 
     """
     return debug_task([
-        f'poetry run pytest "{DIG.test_path}" --ff -vv',
-    ], verbosity=2)
+        LongRunning(f'poetry run pytest "{DIG.test_path}" --ff -vv'),
+    ])
 
 
 @log_fun
@@ -46,15 +46,13 @@ def task_test_marker() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    return {
-        'actions': [f'poetry run pytest "{DIG.test_path}" -x -l --ff -v -m "%(marker)s"'],
-        'params': [{
-            'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
-            'help': ('Runs test with specified marker logic\nSee: '
-                     'https://docs.pytest.org/en/latest/example/markers.html?highlight=-m'),
-        }],
-        'verbosity': 2,
-    }
+    task = debug_task([LongRunning(f'poetry run pytest "{DIG.test_path}" -x -l --ff -v -m "%(marker)s"')])
+    task['params'] = [{
+        'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
+        'help': ('Runs test with specified marker logic\nSee: '
+                 'https://docs.pytest.org/en/latest/example/markers.html?highlight=-m'),
+    }]
+    return task
 
 
 @log_fun

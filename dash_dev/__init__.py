@@ -43,12 +43,12 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `dash_dev/doit_helpers/doc.py` | 139 | 79 | 0 | 43.2% |
 | `dash_dev/doit_helpers/doit_globals.py` | 54 | 2 | 0 | 96.3% |
 | `dash_dev/doit_helpers/lint.py` | 81 | 19 | 0 | 76.5% |
-| `dash_dev/doit_helpers/test.py` | 40 | 13 | 0 | 67.5% |
+| `dash_dev/doit_helpers/test.py` | 42 | 16 | 0 | 61.9% |
 | `dash_dev/log_helpers.py` | 24 | 5 | 0 | 79.2% |
 | `dash_dev/registered_tasks.py` | 5 | 5 | 0 | 0.0% |
-| `dash_dev/tag_collector.py` | 86 | 28 | 0 | 67.4% |
+| `dash_dev/tag_collector.py` | 91 | 29 | 0 | 68.1% |
 
-Generated on: 2020-11-14T15:09:13.454349
+Generated on: 2020-11-15T19:23:01.841616
 
 <!-- /COVERAGE -->
 """  # noqa
