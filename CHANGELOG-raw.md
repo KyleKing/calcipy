@@ -1,9 +1,11 @@
 # Changelog
 
 
-## (unreleased)
+## 0.0.2 (2020-11-14)
 
 ### New
+
+* Separate task_git_add_docs. [Kyle King]
 
 * Archive watchcode task. [Kyle King]
 
