@@ -1,6 +1,13 @@
 # Changelog
 
 
+## (unreleased)
+
+### Changes
+
+* Try long running for pytest. [Kyle King]
+
+
 ## 0.0.2 (2020-11-14)
 
 ### New
@@ -30,6 +37,14 @@
   - Note: making the paths clickable in TAG_SUMMARY would appear to require the full local path, which isn’t worth tracking in git
 
 ### Other
+
+* Merge pull request #14 from KyleKing/dev/development. [Kyle King]
+
+  Archive WatchCode and new, separate task_git_add_docs
+
+* Merge pull request #13 from KyleKing/dev/development. [Kyle King]
+
+  Merge breaking changes to simplify task imports
 
 * Merge branch 'main' into dev/development. [Kyle King]
 
