@@ -67,16 +67,15 @@ logger.disable(__pkg_name__)
 
 LOG_DIR = Path(__file__).resolve().parent / '.logs'
 \"\"\"Output directory for log files.\"\"\"
-LOG_DIR.mkdir(exist_ok=True)
 
 LOGGER_CONFIG = {
     'handlers': [
         {'sink': sys.stdout,
          'backtrace': True, 'diagnose': False},
         {'sink': LOG_DIR / 'debug-{time}.jsonl', 'mode': 'w', 'level': logging.DEBUG, 'serialize': True,
-         'rotation': '1 hour', 'backtrace': True, 'diagnose': True},
+         'rotation': '1h', 'backtrace': True, 'diagnose': True},
         {'sink': LOG_DIR / 'debug-{time}.log', 'mode': 'w', 'level': logging.DEBUG,
-         'rotation': '1 hour', 'backtrace': True, 'diagnose': True},
+         'rotation': '1h', 'backtrace': True, 'diagnose': True},
     ],
     'extra': {'package': __pkg_name__},
 }
@@ -110,8 +109,8 @@ def _write_readme_to_init() -> None:
         user_text = '\n'.join(init_lines[break_index:])
     except ValueError as err:
         logger.warning('Did not find a divider, so overwriting any existing user text', err=err)
-        user_text = ''
-    init_path.write_text(init_text.replace('\t', ' ' * 4) + user_text)
+        user_text = '\nLOG_DIR.mkdir(exist_ok=True)'
+    init_path.write_text((init_text.replace('\t', ' ' * 4) + user_text).strip() + '\n')
 
 
 # ----------------------------------------------------------------------------------------------------------------------

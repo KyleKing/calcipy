@@ -47,6 +47,6 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `dash_dev/registered_tasks.py` | 5 | 5 | 0 | 0.0% |
 | `dash_dev/tag_collector.py` | 91 | 29 | 0 | 68.1% |
 
-Generated on: 2020-11-15T19:23:01.841616
+Generated on: 2020-11-21T20:02:54.261460
 
 <!-- /COVERAGE -->
