@@ -7,7 +7,6 @@ import shutil
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
-import sh
 from loguru import logger
 from transitions import Machine
 
@@ -276,7 +275,11 @@ def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
     # Create the 'coverage.json' file from .coverage SQL database. Suppress errors if failed
     try:
+        import sh
         sh.poetry.run.python('-m', 'coverage', 'json')
+    except ImportError:
+        # HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
+        print('Submit an issue on Github: https://github.com/KyleKing/dash_dev/issues/new')
     except sh.ErrorReturnCode_1:
         logger.exception('Coverage conversion to JSON failed')
 
