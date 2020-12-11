@@ -20,7 +20,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     https://github.com/Delgan/loguru/blob/44f6771/loguru/_handler.py#L222
 
     ```py
-    from dash_dev.log_helpers import serializable_compact
+    from calcipy.log_helpers import serializable_compact
 
     logger.add(LOG_DIR / 'pkg-compact-{time}.jsonl', mode='w', level=logging.INFO,
                format=serializable_compact)

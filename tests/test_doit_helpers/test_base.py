@@ -4,15 +4,15 @@ import shutil
 
 import attr
 
-from dash_dev.doit_helpers.base import _show_cmd, debug_task, if_found_unlink, task_export_req
-from dash_dev.doit_helpers.doit_globals import DIG, DoItGlobals
+from calcipy.doit_helpers.base import _show_cmd, debug_task, if_found_unlink, task_export_req
+from calcipy.doit_helpers.doit_globals import DIG, DoItGlobals
 
 from ..configuration import DIG_CWD, TEST_DATA_DIR
 
 
 def test_dig_props():
     """Test the DIG global variable from DoItGlobals."""
-    public_props = ['coverage_path', 'dash_dev_dir', 'doc_dir', 'excluded_files', 'external_doc_dirs', 'flake8_path',
+    public_props = ['coverage_path', 'calcipy_dir', 'doc_dir', 'excluded_files', 'external_doc_dirs', 'flake8_path',
                     'lint_paths', 'path_gitchangelog', 'pkg_name', 'set_paths', 'source_path', 'src_examples_dir',
                     'test_path', 'test_report_path', 'tmp_examples_dir', 'toml_path', 'template_dir', 'pkg_version']
     dig = DoItGlobals()
@@ -34,9 +34,9 @@ def test_dig_paths():
     dig.set_paths(source_path=DIG_CWD)  # act
 
     # Test the properties set by default
-    assert dig.dash_dev_dir.name == 'dash_dev'
+    assert dig.calcipy_dir.name == 'calcipy'
     assert dig.flake8_path == DIG_CWD / '.flake8'
-    assert dig.path_gitchangelog == dig.dash_dev_dir / '.gitchangelog.rc'
+    assert dig.path_gitchangelog == dig.calcipy_dir / '.gitchangelog.rc'
     # Test the properties set by set_paths
     assert dig.source_path == DIG_CWD
     assert dig.toml_path == DIG_CWD / 'pyproject.toml'

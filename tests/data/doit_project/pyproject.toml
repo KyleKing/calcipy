@@ -10,7 +10,7 @@ default_section = "THIRDPARTY"
 [tool.poetry]
 name = "doit_project"
 version = "0.0.0"
-description = "Test files and folders for dash_dev unit tests"
+description = "Test files and folders for calcipy unit tests"
 authors = [ "Kyle King <https://github.com/KyleKing>",]
 
 [tool.poetry.dependencies]

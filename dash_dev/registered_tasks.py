@@ -1,6 +1,6 @@
 """Registered tasks. Import with the below snippet.
 
-`from dash_dev.registered_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks)`
+`from calcipy.registered_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks)`
 
 """
 

@@ -10,15 +10,15 @@ length_sort = false
 line_length = 120
 
 [tool.poetry]
-name = "dash_dev"
+name = "calcipy"
 version = "0.0.3"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = [ "Kyle King <https://github.com/KyleKing>",]
 maintainers = []
 readme = "README.md"
-repository = "https://github.com/kyleking/dash_dev"
-documentation = "https://kyleking.me/dash_dev/"
+repository = "https://github.com/kyleking/calcipy"
+documentation = "https://kyleking.me/calcipy/"
 
 [tool.notes]
 cmd = "poetry run pytest ./tests -x -l --ff -vv --typeguard-packages sw_client"
@@ -26,7 +26,7 @@ error = "`LOGIN_PARSER = (Cmd2ArgumentParser(description='Prompt for Username an
 typeguard = "^2.10.0"
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/kyleking/dash_dev/issues"
+"Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 
 [tool.poetry.dependencies]
 python = "^3.8, <3.9"

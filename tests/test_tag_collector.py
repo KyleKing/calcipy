@@ -4,7 +4,7 @@
 
 from pathlib import Path
 
-from dash_dev.tag_collector import _format_report, _search_lines, _TaggedComment, _Tags
+from calcipy.tag_collector import _format_report, _search_lines, _TaggedComment, _Tags
 
 from .configuration import DIG_CWD
 
