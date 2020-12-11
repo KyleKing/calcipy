@@ -30,7 +30,7 @@ from calcipy.registered_tasks import *  # noqa: F401,F403,H303 skipcq: PYL-W0614
 logger.configure(**LOGGER_CONFIG)
 logger.info('Starting DoIt tasks in dodo.py')
 
-# Configure Dash paths
+# Configure source code root path
 DIG.set_paths(source_path=Path(__file__).resolve().parent)
 
 # Create list of all tasks run with `poetry run doit`. Comment on/off as needed

@@ -1,4 +1,6 @@
-# Dash_Dev ([Github](https://github.com/KyleKing/calcipy))
+<!-- TODO: Add a banner image -->
+
+`calcipy` is named after the calcium carbonate in hard coral. As a package, `calcipy` implements the best practices for code style (linting, auto-fixes, and more), generating documentation, configuring logging, and many more common tasks and features.
 
 ## Quick Start
 

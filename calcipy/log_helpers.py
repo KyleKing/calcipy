@@ -1,7 +1,5 @@
 """Loguru Helpers."""
 
-# PLANNED: Files like this should be in the production dependencies, but dash-dev is designed to be a dev-only
-
 import json
 import time
 from inspect import signature
