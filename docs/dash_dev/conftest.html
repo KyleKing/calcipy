@@ -126,9 +126,12 @@ def pytest_html_results_table_row(report: Any, cells: Any) -&gt; None:
         cells: argument from pytest
 
     &#34;&#34;&#34;
-    cells.insert(1, html.td(report.description))
-    cells.insert(1, html.td(datetime.utcnow(), class_=&#39;col-time&#39;))
-    cells.pop()
+    try:
+        cells.insert(1, html.td(report.description))
+        cells.insert(1, html.td(datetime.utcnow(), class_=&#39;col-time&#39;))
+        cells.pop()
+    except AttributeError:
+        pass  # The test suite likely failed
 
 
 @pytest.mark.hookwrapper
@@ -143,9 +146,12 @@ def pytest_runtest_makereport(item: Any, call: Any) -&gt; None:
         outcome: required by pytest
 
     &#34;&#34;&#34;
-    outcome = yield
-    report = outcome.get_result()
-    report.description = str(item.function.__doc__)
+    try:
+        outcome = yield
+        report = outcome.get_result()
+        report.description = str(item.function.__doc__)
+    except AttributeError:
+        pass  # The test suite likely failed
 
 
 def pytest_configure(config: Any) -&gt; None:
@@ -263,9 +269,12 @@ def pytest_html_results_table_row(report: Any, cells: Any) -&gt; None:
         cells: argument from pytest
 
     &#34;&#34;&#34;
-    cells.insert(1, html.td(report.description))
-    cells.insert(1, html.td(datetime.utcnow(), class_=&#39;col-time&#39;))
-    cells.pop()</code></pre>
+    try:
+        cells.insert(1, html.td(report.description))
+        cells.insert(1, html.td(datetime.utcnow(), class_=&#39;col-time&#39;))
+        cells.pop()
+    except AttributeError:
+        pass  # The test suite likely failed</code></pre>
 </details>
 </dd>
 <dt id="dash_dev.conftest.pytest_runtest_makereport"><code class="name flex">
@@ -301,9 +310,12 @@ def pytest_runtest_makereport(item: Any, call: Any) -&gt; None:
         outcome: required by pytest
 
     &#34;&#34;&#34;
-    outcome = yield
-    report = outcome.get_result()
-    report.description = str(item.function.__doc__)</code></pre>
+    try:
+        outcome = yield
+        report = outcome.get_result()
+        report.description = str(item.function.__doc__)
+    except AttributeError:
+        pass  # The test suite likely failed</code></pre>
 </details>
 </dd>
 </dl>

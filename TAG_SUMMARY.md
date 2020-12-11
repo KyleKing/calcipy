@@ -7,11 +7,16 @@ README.md
     line   3   FIXME: Rename to doit_bootstrap -->
     line  11    TODO: Replace with CookieCutter Instructions -->
 
+dash_dev/__init__.py
+
 dash_dev/doit_helpers/base.py
     line  13    TODO: Show dodo.py in the documentation
     line  14    TODO: Show README.md in the documentation (may need to update paths?)
     line  15    TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
     line  16    TODO: Show table of contents in __init__.py file. Use ast:
+
+dash_dev/doit_helpers/doc.py
+    line 281    HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
 
 dash_dev/doit_helpers/doit_globals.py
     line  70 PLANNED: Document
@@ -26,5 +31,5 @@ dash_dev/tag_collector.py
 dodo.py
     line  55    TODO: Implement type checking with pytype, mypy, etc.
 
-Found tagged comments for FIXME (3),  TODO (8),  PLANNED (6),  TBD (1)
+Found tagged comments for FIXME (1),  TODO (6),  HACK (1),  PLANNED (4)
 ```

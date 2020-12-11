@@ -11,7 +11,7 @@ line_length = 120
 
 [tool.poetry]
 name = "dash_dev"
-version = "0.0.2"
+version = "0.0.3"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = [ "Kyle King <https://github.com/KyleKing>",]
