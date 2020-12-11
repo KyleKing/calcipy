@@ -1,14 +1,8 @@
 # Dash_Dev ([Github](https://github.com/KyleKing/dash_dev))
 
-<!-- FIXME: Rename to doit_bootstrap -->
-
-Python package to simplify ("bootstrap") development. Includes functionality for task running, testing, linting, documenting, and more
-
-Note: the package name is a misnomer and is not specific to Plotly/Dash projects (and I haven't thought of a better replacement yet). If you want to build Plotly/Dash applications, see [dash_charts](https://github.com/KyleKing/dash_charts)
-
 ## Quick Start
 
-<!-- TODO: Replace with CookieCutter Instructions -->
+<!-- TODO: Replace with ~CookieCutter~ (Copier) Instructions -->
 
 Add to a poetry project in `pyproject.toml`:
 
