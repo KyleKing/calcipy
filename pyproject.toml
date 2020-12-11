@@ -20,11 +20,6 @@ readme = "README.md"
 repository = "https://github.com/kyleking/calcipy"
 documentation = "https://kyleking.me/calcipy/"
 
-[tool.notes]
-cmd = "poetry run pytest ./tests -x -l --ff -vv --typeguard-packages sw_client"
-error = "`LOGIN_PARSER = (Cmd2ArgumentParser(description='Prompt for Username and Password')` >> TypeError: unsupported operand type(s) for |: 'Cmd2ArgumentParser' and 'function'"
-typeguard = "^2.10.0"
-
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 
