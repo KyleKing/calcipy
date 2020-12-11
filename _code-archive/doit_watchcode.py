@@ -2,7 +2,7 @@
 
 Looks like WatchCode is no longer maintained. See: https://github.com/bluenote10/watchcode
 
-Alternatively, watchdog may have a more up-to-date implementation with watchmedo:
+Alternatively, watchmedo (watchdog) may have a more up-to-date implementation:
 https://github.com/gorakhargosh/watchdog#shell-utilities
 
 """

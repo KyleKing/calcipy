@@ -47,9 +47,12 @@ def pytest_html_results_table_row(report: Any, cells: Any) -> None:
         cells: argument from pytest
 
     """
-    cells.insert(1, html.td(report.description))
-    cells.insert(1, html.td(datetime.utcnow(), class_='col-time'))
-    cells.pop()
+    try:
+        cells.insert(1, html.td(report.description))
+        cells.insert(1, html.td(datetime.utcnow(), class_='col-time'))
+        cells.pop()
+    except AttributeError:
+        pass  # The test suite likely failed
 
 
 @pytest.mark.hookwrapper
@@ -64,9 +67,12 @@ def pytest_runtest_makereport(item: Any, call: Any) -> None:
         outcome: required by pytest
 
     """
-    outcome = yield
-    report = outcome.get_result()
-    report.description = str(item.function.__doc__)
+    try:
+        outcome = yield
+        report = outcome.get_result()
+        report.description = str(item.function.__doc__)
+    except AttributeError:
+        pass  # The test suite likely failed
 
 
 def pytest_configure(config: Any) -> None:
