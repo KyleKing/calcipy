@@ -22,28 +22,28 @@ from pathlib import Path
 
 from loguru import logger
 
-from dash_dev import LOGGER_CONFIG
-from dash_dev.doit_helpers.base import debug_task
-from dash_dev.doit_helpers.doit_globals import DIG, DoItTask
-from dash_dev.registered_tasks import *  # noqa: F401,F403,H303 skipcq: PYL-W0614 (Run 'doit list' to see tasks)
+from calcipy import LOGGER_CONFIG
+from calcipy.doit_helpers.base import debug_task
+from calcipy.doit_helpers.doit_globals import DIG, DoItTask
+from calcipy.registered_tasks import *  # noqa: F401,F403,H303 skipcq: PYL-W0614 (Run 'doit list' to see tasks)
 
 logger.configure(**LOGGER_CONFIG)
 logger.info('Starting DoIt tasks in dodo.py')
 
-# Configure Dash paths
+# Configure source code root path
 DIG.set_paths(source_path=Path(__file__).resolve().parent)
 
 # Create list of all tasks run with `poetry run doit`. Comment on/off as needed
 DOIT_CONFIG = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'export_req', 'update_cl',
+        'export_req',  # 'update_cl',
         'coverage',
         # 'open_test_docs',
         'set_lint_config',
         'create_tag_file',
         'auto_format',
-        'document',
+        # 'document',
         # 'open_docs',
         'lint_pre_commit',
         # 'type_checking',

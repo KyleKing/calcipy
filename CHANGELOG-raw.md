@@ -3,9 +3,21 @@
 
 ## (unreleased)
 
+### New
+
+* ADR template and notes. [Kyle King]
+
 ### Changes
 
+* Chg: remove sh for Windows support @WIP. [Kyle King]
+
 * Try long running for pytest. [Kyle King]
+
+### Fix
+
+* Bury attr exceptions for coverage table. [Kyle King]
+
+* Make creating the log directory optional. [Kyle King]
 
 
 ## 0.0.2 (2020-11-14)

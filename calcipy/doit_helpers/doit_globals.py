@@ -18,14 +18,14 @@ DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])
 class DoItGlobals:
     """Global Variables for DoIt."""
 
-    dash_dev_dir: Path = Path(__file__).parents[1]
-    """The dash_dev directory (may be within `.venv`)."""
+    calcipy_dir: Path = Path(__file__).parents[1]
+    """The calcipy directory (may be within `.venv`)."""
 
     flake8_path: Optional[Path] = None
     """Path to flake8 file. Set in `set_paths()` based on source_path """
 
-    path_gitchangelog: Path = dash_dev_dir / '.gitchangelog.rc'
-    """Path to isort file. Default is for the isort file from dash_dev."""
+    path_gitchangelog: Path = calcipy_dir / '.gitchangelog.rc'
+    """Path to isort file. Default is for the isort file from calcipy."""
 
     lint_paths = []
     """Current directory for source code (working project). Set in `set_paths`."""

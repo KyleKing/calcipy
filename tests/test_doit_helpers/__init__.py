@@ -1,1 +1,1 @@
-"""Test dash_dev/doit_helpers."""
+"""Test calcipy/doit_helpers."""

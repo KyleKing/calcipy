@@ -5,8 +5,8 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from dash_dev.doit_helpers.doit_globals import DIG
-from dash_dev.doit_helpers.lint import _check_linting_errors, _collect_py_files, _lint_project
+from calcipy.doit_helpers.doit_globals import DIG
+from calcipy.doit_helpers.lint import _check_linting_errors, _collect_py_files, _lint_project
 
 from ..configuration import DIG_CWD
 

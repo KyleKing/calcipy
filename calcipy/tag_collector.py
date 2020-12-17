@@ -1,6 +1,6 @@
 """Collect issue tags and output for review in a single location."""
 
-# PLANNED: Revisit and standardize wording for tag vs. task vs. comment
+# PLANNED: Revisit and standardize wording for tag vs. comment
 
 import re
 from collections import defaultdict

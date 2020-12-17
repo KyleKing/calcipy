@@ -2,7 +2,7 @@
 
 import toml
 
-from dash_dev import __version__
+from calcipy import __version__
 
 
 def test_version():

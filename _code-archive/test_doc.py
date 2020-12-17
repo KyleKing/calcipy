@@ -4,8 +4,8 @@ import os
 import shutil
 from pathlib import Path
 
-from dash_dev.doit_helpers.doc import _write_pdoc_config_files, task_tag_create, task_tag_remove, task_update_cl
-from dash_dev.doit_helpers.doit_globals import DIG
+from calcipy.doit_helpers.doc import _write_pdoc_config_files, task_tag_create, task_tag_remove, task_update_cl
+from calcipy.doit_helpers.doit_globals import DIG
 
 from ..configuration import DIG_CWD
 

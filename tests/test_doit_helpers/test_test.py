@@ -2,8 +2,8 @@
 
 import pytest
 
-from dash_dev.doit_helpers.doit_globals import DIG
-from dash_dev.doit_helpers.test import task_test_marker
+from calcipy.doit_helpers.doit_globals import DIG
+from calcipy.doit_helpers.test import task_test_marker
 
 from ..configuration import DIG_CWD
 
