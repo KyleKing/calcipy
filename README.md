@@ -35,10 +35,10 @@ poetry install
 poetry run python tests/test_loguru.py
 
 # Or with pytest
-poetry run pytest
+poetry run pytest -x
 ```
 
-Depending on how the file is configured, all of the output would look like this:
+Depending on how the file is configured, *all* of the output would look like this:
 
 ```sh
 ❯ poetry run python tests/test_loguru.py
