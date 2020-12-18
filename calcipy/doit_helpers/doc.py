@@ -80,12 +80,12 @@ LOGGER_CONFIG = {
 \"\"\"Loguru configuration. Loguru is deactivated for this package by default and must be activated.
 
 ```py
-from this_package import __pkg__name__
+from this_package_name_here import LOGGER_CONFIG, __pkg__name__
 
 logger.configure(**LOGGER_CONFIG)
 logger.enable(__pkg__name__)
 
-# You can continue to import and enable additional packages as needed, but you should only call configure once
+# You can continue to import and enable additional packages as needed, but you should only call 'configure' once
 ```
 
 \"\"\"
@@ -259,7 +259,7 @@ def task_document() -> DoItTask:
         (_write_code_to_readme, ()),
         (_write_coverage_to_readme, ()),
         (_write_readme_to_init, ()),
-        # args = f'{DIG.pkg_name} --html --force --template-dir "{DIG.template_dir}" --output-dir "{DIG.doc_dir}"'
+        # args = f'{DIG.pkg_name} --html --force --output-dir "{DIG.doc_dir}"'
         # f'poetry run portray {args}',  # PLANNED: Implement portray or mkdocs!
     ])
 

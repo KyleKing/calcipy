@@ -90,5 +90,5 @@ def log_fun(fun: Callable, *args: Any, **kwargs: Any) -> Any:
 
     """
     fun_name = fun.__name__
-    with log_action(f'Entering {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
+    with log_action(f'Running {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
         return fun(*args, **kwargs)

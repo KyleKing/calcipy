@@ -33,7 +33,7 @@ def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[
     if not isinstance(add_paths, (list, tuple)):
         raise TypeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
     if sub_directories is None:
-        sub_directories = [DIG.pkg_name] + DIG.external_doc_dirs
+        sub_directories = [DIG.pkg_name]  # FIXME: maybe `+ DIG.lint_config.paths`?
     package_files = [*add_paths] + [*DIG.source_path.glob('*.py')]
     for subdir in sub_directories:  # Capture files in package and in tests directory
         package_files.extend([*(DIG.source_path / subdir).rglob('*.py')])

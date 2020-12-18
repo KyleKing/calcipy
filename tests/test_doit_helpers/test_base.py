@@ -14,7 +14,7 @@ def test_dig_props():
     """Test the DIG global variable from DoItGlobals."""
     public_props = ['coverage_path', 'calcipy_dir', 'doc_dir', 'excluded_files', 'external_doc_dirs', 'flake8_path',
                     'lint_paths', 'path_gitchangelog', 'pkg_name', 'set_paths', 'source_path', 'src_examples_dir',
-                    'test_path', 'test_report_path', 'tmp_examples_dir', 'toml_path', 'template_dir', 'pkg_version']
+                    'test_path', 'test_report_path', 'tmp_examples_dir', 'toml_path', 'pkg_version']
     dig = DoItGlobals()
 
     result = [prop for prop in dir(dig) if not prop.startswith('_')]
