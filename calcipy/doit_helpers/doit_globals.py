@@ -19,44 +19,38 @@ DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])
 """DoIt task type for annotations."""
 
 
-def _member_filter(member: Any, instance_type: Any, prefix: Optional[str],
-                   debug: bool = False) -> bool:
+def _member_filter(member: Any, instance_type: Any) -> bool:
     """Return True if the member matches the filters.
 
     Args:
         cls: class
         instance_type: optional instance type
-        prefix: optional string prefix to check starts with
-        debug: if True, will log debug information
 
     Returns:
         List[Tuple[str, Callable]]: filtered members from the class
 
     """
-    match_instance = (instance_type is None or isinstance(member, instance_type))
-    match_prefix = (prefix is None or (hasattr(member, '__name__')  # noqa: P002
-                                        and member.__name__.startswith(prefix)))
-    if debug:
-        name = member.__name__ if hasattr(member, '__name__') else '__no_name__'  # noqa: P002
-        logger.debug('{match_instance} and {match_prefix} ({name}={member})', match_instance=match_instance,
-                     match_prefix=match_prefix, member=member, name=name)
-    return match_instance and match_prefix
+    return (instance_type is None or isinstance(member, instance_type))
 
 
-def _get_members(cls: object, **kwargs: Any) -> List[Tuple[str, Callable]]:
+def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable]]:
     """Return the members that match the parameters.
 
     Example to return all methods that start with `do_`: `_get_members(cls, instance_type=Callable, prefix='do_')`
 
     Args:
         cls: class
+        prefix: optional string prefix to check starts with
         **kwargs: keyword arguments passed to `_member_filter`
 
     Returns:
         List[Tuple[str, Callable]]: filtered members from the class
 
     """
-    return inspect.getmembers(cls, predicate=partial(_member_filter, **kwargs))
+    members = inspect.getmembers(cls, predicate=partial(_member_filter, **kwargs))
+    if prefix:
+        members = [(name, member) for (name, member) in members if name.startswith(prefix)]
+    return members  # noqa: R504
 
 
 def _verify_initialized_paths(cls: object) -> None:
@@ -72,15 +66,7 @@ def _verify_initialized_paths(cls: object) -> None:
 
     """
     logger.info(f'Class: {cls}')
-
-    missing = []
-    for name, path_raw in _get_members(cls, instance_type=(type(Path()), type(None)), prefix=None):
-        if name.startswith('path_') and path_raw is None:
-            # ^ PLANNED: filter for startswith in `_get_members` instead of `_member_filter`
-            missing.append(name)
-        else:
-            logger.warning(f'{name}, {path_raw}, {type(path_raw)}')
-
+    missing = [name for name, _m in _get_members(cls, instance_type=type(None), prefix='path_')]
     if missing:
         kwargs = ', '.join(missing)
         raise RuntimeError(f'Missing keyword arguments for: {kwargs}')

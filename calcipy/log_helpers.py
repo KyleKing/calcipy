@@ -3,7 +3,7 @@
 import json
 import time
 from inspect import signature
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, Type
 
 from decorator import contextmanager, decorator
 from loguru import logger
@@ -56,7 +56,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
 
 
 @contextmanager
-def log_action(message: str, level: str = 'INFO', _logger: type(logger) = logger, **kwargs: Any) -> None:
+def log_action(message: str, level: str = 'INFO', _logger: Type(logger) = logger, **kwargs: Any) -> None:
     """Log the beggining and end of an action.
 
     Args:
