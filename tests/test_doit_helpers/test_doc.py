@@ -1,10 +1,9 @@
 """Test doit_helpers/doc.py."""
 
 import os
-import shutil
 from pathlib import Path
 
-from calcipy.doit_helpers.doc import _write_pdoc_config_files, task_tag_create, task_tag_remove, task_update_cl
+from calcipy.doit_helpers.doc import task_tag_create, task_tag_remove, task_update_cl
 from calcipy.doit_helpers.doit_globals import DIG
 
 from ..configuration import DIG_CWD
@@ -41,16 +40,3 @@ def test_task_tag_remove():
     assert result['actions'][0].startswith('git tag -d')
     assert result['actions'][1] == 'git tag -n10 --list'
     assert result['actions'][2].startswith('git push origin :refs/tags/')
-
-
-def test_write_pdoc_config_files():
-    """Test write_pdoc_config_files."""
-    DIG.set_paths(source_path=DIG_CWD)
-    head_file = (DIG.template_dir / 'head.mako')
-    config_file = (DIG.template_dir / 'config.mako')
-
-    _write_pdoc_config_files()  # act
-
-    assert head_file.is_file()
-    assert config_file.is_file()
-    shutil.rmtree(config_file.parent)
