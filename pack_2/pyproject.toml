@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "pack_2"
+version = "0.0.2"
+description = ""
+authors = [ "Kyle King <https://github.com/KyleKing>",]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+loguru = "*"
+pack_1 = {path = "../pack_1", develop = true}
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = [ "poetry-core>=1.0.0",]
+build-backend = "poetry.core.masonry.api"
