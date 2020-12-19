@@ -14,6 +14,7 @@ from .doit_globals import DIG, DoItTask
 # General
 
 
+# TODO: Possibly remove - may be unused
 @log_fun
 def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[Sequence[Path]] = None) -> List[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
@@ -203,7 +204,7 @@ def task_lint_pre_commit() -> DoItTask:
 
     """
     ignore_errors = [
-        # 'ANN001', 'ANN201', 'ANN202', 'ANN204',  # WIP: temporarily ignore all type annotation errors from pre-commit
+        # > 'ANN001', 'ANN201', 'ANN202', 'ANN204',  # WIP: temporarily ignore all type annotation errors from pre-commit
         'AAA01',  # AAA01 / act block in pytest
         'C901',  # C901 / complexity from "max-complexity = 10"
         'D417',  # D417 / missing arg descriptors
