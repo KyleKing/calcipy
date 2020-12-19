@@ -4,9 +4,9 @@
 
 from pathlib import Path
 
-from calcipy.tag_collector import _format_report, _search_lines, _TaggedComment, _Tags
+from calcipy.doit_tasks.tag_collector import _format_report, _search_lines, _TaggedComment, _Tags
 
-from .configuration import DIG_CWD
+from ..configuration import DIG_CWD
 
 
 def test_search_lines():

@@ -7,8 +7,6 @@ Register all defaults DoIt tasks in a dodo.py file with the below snippet:
 """
 
 __all__ = [  # noqa: F405
-    # from ..tag_collector
-    'task_create_tag_file',
     # from .base
     'task_export_req',
     # from .doc
@@ -23,6 +21,8 @@ __all__ = [  # noqa: F405
     'task_lint_project',
     'task_radon_lint',
     'task_set_lint_config',
+    # from ..tag_collector
+    'task_create_tag_file',
     # from .test
     'task_coverage',
     'task_open_test_docs',
@@ -36,8 +36,8 @@ __all__ = [  # noqa: F405
     'task_test_marker',
 ]
 
-from ..tag_collector import task_create_tag_file  # noqa: F401,F403,H303
 from .base import *  # noqa: F401,F403,H303
 from .doc import *  # noqa: F401,F403,H303
 from .lint import *  # noqa: F401,F403,H303
+from .tag_collector import task_create_tag_file
 from .test import *  # noqa: F401,F403,H303

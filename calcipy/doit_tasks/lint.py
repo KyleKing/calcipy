@@ -217,7 +217,7 @@ def task_lint_pre_commit() -> DoItTask:
         # 'PD901',  # PD901 / 'df' is a bad variable name
         'S101',  # S101 / assert
         'S605', 'S607',  # S605,S607 / os.popen(...)
-        'T100', 'T101',  # T100,T101 / fixme and todo comments
+        'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
     ]
     return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=ignore_errors))
 

@@ -7,27 +7,24 @@ README.md
     line   1    TODO: Add a banner image -->
     line   7    TODO: Replace with ~CookieCutter~ (Copier) Instructions -->
 
-calcipy/__init__.py
-    line  17 PLANNED: Convert to a function (with production/development toggle?)
-
-calcipy/doit_helpers/base.py
+calcipy/doit_tasks/base.py
     line  13    TODO: Show dodo.py in the documentation
     line  14    TODO: Show README.md in the documentation (may need to update paths?)
     line  15    TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
     line  16    TODO: Show table of contents in __init__.py file. Use ast:
 
-calcipy/doit_helpers/doc.py
+calcipy/doit_tasks/doc.py
     line  96    TODO: Revisit with the new documentation strategy with mkdocs
     line 221    HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
     line 263 PLANNED: Implement portray or mkdocs!
 
-calcipy/doit_helpers/doit_globals.py
+calcipy/doit_tasks/doit_globals.py
     line 207 PLANNED: Check if Optional[PackageMeta] is necessary
 
-calcipy/tag_collector.py
+calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment
-    line  19 PLANNED: Maybe make this configurable?
-    line 155   FIXME: How does this change with the new DIG implementation?
+    line  18 PLANNED: Maybe make this configurable?
+    line 154   FIXME: How does this change with the new DIG implementation?
 
 dodo.py
     line  55    TODO: Implement type checking with pytype, mypy, etc.
@@ -35,5 +32,5 @@ dodo.py
 tests/configuration.py
     line  17   FIXME: rename to PATH_TEST_SOURCE
 
-Found tagged comments for TODO (12),  PLANNED (10),  HACK (2),  FIXME (3)
+Found tagged comments for TODO (14),  HACK (2),  PLANNED (8),  FIXME (3)
 ```
