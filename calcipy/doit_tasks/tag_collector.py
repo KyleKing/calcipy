@@ -75,7 +75,7 @@ def _search_lines(lines: Sequence[str],
         match = regex_compiled.search(line)
         if lineno <= 3 and ':skip_tags:' in line:
             break
-        elif match:
+        if match:
             mg = match.groupdict()
             comments.append(_TaggedComment(lineno + 1, tag=mg['tag'], text=mg['text']))
     return comments

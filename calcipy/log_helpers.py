@@ -56,8 +56,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     return json.dumps(simplified, default=str).replace('{', '{{').replace('}', '}}') + '\n'
 
 
-@contextmanager
-def log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **kwargs: Any) -> None:
+def _log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **kwargs: Any) -> None:
     """Log the beggining and end of an action.
 
     Args:
@@ -75,6 +74,11 @@ def log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **kw
     yield _logger
     runtime = time.time_ns() - start_time
     _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)
+
+
+# When using `contextmanager` as a decorator, Deepsource won't see the __enter__/__exit__ methods (PYL-E1129)
+#   Rather than skipping each use of log_action, use `contextmanager` as a function
+log_action = contextmanager(_log_action)
 
 
 @decorator
