@@ -23,11 +23,11 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
     """Return True if the member matches the filters.
 
     Args:
-        cls: class
+        member: class data- or method-member
         instance_type: optional instance type
 
     Returns:
-        List[Tuple[str, Callable]]: filtered members from the class
+        bool: True if the member matches the applied filter
 
     """
     return (instance_type is None or isinstance(member, instance_type))
@@ -161,13 +161,13 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class TestConfig(_PathAttrBase):  # noqa: H601
+class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
     path_out: Path
     """Path to the report output directory."""
 
-    path_test_dir: Path = Path('tests')
+    path_tests: Path = Path('tests')
     """Path to the tests directory."""
 
     path_report_index: Path = attr.ib(init=False)
@@ -187,10 +187,10 @@ class TestConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    path_out: Path
+    path_out: Path = Path('docs')
     """Path to the documentation output directory."""
 
-    path_changelog: Path = Path('.gitchangelog.rc')
+    path_changelog: Path = Path(__file__).resolve().parents[1] / '.gitchangelog.rc'
     """Path to the changelog configuration file."""
 
     paths_excluded: List[Path] = _DEF_EXCLUDE
@@ -207,13 +207,13 @@ class DoItGlobals:
     meta: PackageMeta = attr.ib(init=False)  # PLANNED: Check if Optional[PackageMeta] is necessary
     """Package Meta-Information."""
 
-    lint_config: LintConfig = attr.ib(init=False)
+    lint: LintConfig = attr.ib(init=False)
     """Lint Config."""
 
-    test_config: TestConfig = attr.ib(init=False)
+    test: TestingConfig = attr.ib(init=False)
     """Test Config."""
 
-    doc_config: DocConfig = attr.ib(init=False)
+    doc: DocConfig = attr.ib(init=False)
     """Documentation Config."""
 
     @log_fun
@@ -231,22 +231,16 @@ class DoItGlobals:
         self.meta = PackageMeta(path_source=path_source)
         meta_kwargs = {'path_source': self.meta.path_source}
 
-        self.lint_config = LintConfig(**meta_kwargs)
-        self.lint_config.paths.append(self.meta.path_source / self.meta.pkg_name)
+        self.lint = LintConfig(**meta_kwargs)
+        self.lint.paths.append(self.meta.path_source / self.meta.pkg_name)
 
-        self.test_config = TestConfig(path_out=Path(), **meta_kwargs)
+        self.test = TestingConfig(path_out=Path(), **meta_kwargs)
 
         doc_dir = self.meta.path_source / 'docs' if doc_dir is None else doc_dir
-        self.doc_config = DocConfig(path_out=doc_dir, **meta_kwargs)
+        self.doc = DocConfig(path_out=doc_dir, **meta_kwargs)
 
         logger.info(self)
 
 
 DIG = DoItGlobals()
 """Global DoIt Globals class used to manage global variables."""
-
-# HACK: Temporary for debugging
-logger.enable('calcipy')
-logger.debug(DIG)
-
-DIG.set_paths()

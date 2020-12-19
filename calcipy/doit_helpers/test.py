@@ -19,7 +19,7 @@ def task_test() -> DoItTask:
 
     """
     return debug_task([
-        LongRunning(f'poetry run pytest "{DIG.test_path}" -x -l --ff -vv'),
+        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -vv'),
     ])
 
 
@@ -32,7 +32,7 @@ def task_test_all() -> DoItTask:
 
     """
     return debug_task([
-        LongRunning(f'poetry run pytest "{DIG.test_path}" --ff -vv'),
+        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" --ff -vv'),
     ])
 
 
@@ -46,7 +46,7 @@ def task_test_marker() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    task = debug_task([LongRunning(f'poetry run pytest "{DIG.test_path}" -x -l --ff -v -m "%(marker)s"')])
+    task = debug_task([LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
         'help': ('Runs test with specified marker logic\nSee: '
@@ -66,7 +66,7 @@ def task_test_keyword() -> DoItTask:
 
     """
     return {
-        'actions': [f'poetry run pytest "{DIG.test_path}" -x -l --ff -v -k "%(keyword)s"'],
+        'actions': [f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
             'help': ('Runs only tests that match the string pattern\nSee: '
@@ -84,9 +84,10 @@ def task_coverage() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    kwargs = f'--cov-report=html:"{DIG.coverage_path.parent}"  --html="{DIG.test_report_path}"  --self-contained-html'
+    kwargs = (f'--cov-report=html:"{DIG.test.path_coverage_index.parent}"  --html="{DIG.test.path_report_index}"'
+              '  --self-contained-html')
     return debug_task([
-        (f'poetry run pytest "{DIG.test_path}" -x -l --ff -v --cov={DIG.pkg_name} {kwargs}'),
+        (f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}'),
     ], verbosity=2)
 
 
@@ -99,8 +100,8 @@ def task_open_test_docs() -> DoItTask:
 
     """
     return debug_task([
-        (open_in_browser, (DIG.coverage_path, )),
-        (open_in_browser, (DIG.test_report_path, )),
+        (open_in_browser, (DIG.test.path_coverage_index, )),
+        (open_in_browser, (DIG.test.path_report_index, )),
     ])
 
 
@@ -120,7 +121,7 @@ def ptw_task(cli_args: str) -> DoItTask:
 
     """
     return {
-        'actions': [LongRunning(f'poetry run ptw -- "{DIG.test_path}" {cli_args}')],
+        'actions': [LongRunning(f'poetry run ptw -- "{DIG.test.path_tests}" {cli_args}')],
         'verbosity': 2,
     }
 

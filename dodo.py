@@ -31,7 +31,7 @@ logger.configure(**LOGGER_CONFIG)
 logger.info('Starting DoIt tasks in dodo.py')
 
 # Configure source code root path
-DIG.set_paths(source_path=Path(__file__).resolve().parent)
+DIG.set_paths(path_source=Path(__file__).resolve().parent)
 
 # Create list of all tasks run with `poetry run doit`. Comment on/off as needed
 DOIT_CONFIG = {
@@ -43,7 +43,7 @@ DOIT_CONFIG = {
         'set_lint_config',
         'create_tag_file',
         'auto_format',
-        # 'document',
+        'document',
         # 'open_docs',
         'lint_pre_commit',
         # 'type_checking',
@@ -62,6 +62,6 @@ def task_type_checking() -> DoItTask:
     """
     return debug_task([
         # 'poetry run pytype --config pytype.cfg',
-        f'poetry run mypy {DIG.pkg_name}',  # --ignore-missing-imports (see config file...)
+        f'poetry run mypy {DIG.meta.pkg_name}',  # --ignore-missing-imports (see config file...)
         # (note: mypy needs `lxml` for the HTML report output)
     ])

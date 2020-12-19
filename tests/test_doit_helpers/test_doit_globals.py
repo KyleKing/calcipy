@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from calcipy.doit_helpers.doit_globals import DocConfig, TestConfig
+from calcipy.doit_helpers.doit_globals import DocConfig, TestingConfig
 
 
 def test_path_attr_base_path_resolver():
@@ -13,9 +13,7 @@ def test_path_attr_base_path_resolver():
 
     dp = DocConfig(path_source=base_path)  # act
 
-    assert not DocConfig.path_changelog.is_absolute()
     assert dp.path_changelog.is_absolute()
-    assert dp.path_changelog == base_path / DocConfig.path_changelog
 
 
 # Parametrize for path_source to be none or a path and show that both raise an error for different missing paths...
@@ -23,4 +21,4 @@ def test_path_attr_base_path_resolver():
 # >> RuntimeError: Missing keyword arguments for: path_out, path_source
 # def test_path_attr_base_path_verifier():
 #     with pytest.raises(RuntimeError, tbd=''):
-#         TestConfig(path_source=None)
+#         TestingConfig(path_source=None)

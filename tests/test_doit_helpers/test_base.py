@@ -1,6 +1,6 @@
 """Test doit_helpers/base.py."""
 
-import shutil
+from typing import Any, List
 
 import attr
 
@@ -10,45 +10,38 @@ from calcipy.doit_helpers.doit_globals import DIG, DoItGlobals
 from ..configuration import DIG_CWD, TEST_DATA_DIR
 
 
+def _get_public_props(obj: Any) -> List[str]:
+    return [prop for prop in dir(obj) if not prop.startswith('_')]
+
+
 def test_dig_props():
     """Test the DIG global variable from DoItGlobals."""
-    public_props = ['coverage_path', 'calcipy_dir', 'doc_dir', 'excluded_files', 'external_doc_dirs', 'flake8_path',
-                    'lint_paths', 'path_gitchangelog', 'pkg_name', 'set_paths', 'source_path', 'src_examples_dir',
-                    'test_path', 'test_report_path', 'tmp_examples_dir', 'toml_path', 'pkg_version']
-    dig = DoItGlobals()
+    public_props = ['calcipy_dir', 'set_paths']
+    settable_props = public_props + ['meta', 'lint', 'test', 'doc']
 
-    result = [prop for prop in dir(dig) if not prop.startswith('_')]
+    dig = DoItGlobals()  # act
 
-    assert result == sorted(public_props)
-    assert dir(dig) == dir(DIG)
+    assert _get_public_props(dig) == sorted(public_props)
+    dig.set_paths(path_source=DIG_CWD)
+    assert _get_public_props(dig) == sorted(settable_props)
 
 
 def test_dig_paths():
     """Test the DIG global variable from DoItGlobals."""
     dig = DoItGlobals()
     pkg_name = DIG_CWD.name
-    src_examples_dir = DIG_CWD / 'tests/examples'
-    if src_examples_dir.is_dir():
-        shutil.rmtree(src_examples_dir)
 
-    dig.set_paths(source_path=DIG_CWD)  # act
+    dig.set_paths(path_source=DIG_CWD)  # act
 
     # Test the properties set by default
     assert dig.calcipy_dir.name == 'calcipy'
-    assert dig.flake8_path == DIG_CWD / '.flake8'
-    assert dig.path_gitchangelog == dig.calcipy_dir / '.gitchangelog.rc'
+    assert dig.lint.path_flake8 == DIG_CWD / '.flake8'
+    assert dig.doc.path_changelog == dig.calcipy_dir / '.gitchangelog.rc'
     # Test the properties set by set_paths
-    assert dig.source_path == DIG_CWD
-    assert dig.toml_path == DIG_CWD / 'pyproject.toml'
-    assert dig.pkg_name == pkg_name
-    assert dig.doc_dir == DIG_CWD / 'docs'
-    assert dig.src_examples_dir is None
-    assert dig.tmp_examples_dir == DIG_CWD / f'{pkg_name}/0EX'
-    # Create src_examples_dir and ensure that the property is updated
-    src_examples_dir.mkdir(parents=True)
-    dig.set_paths(source_path=DIG_CWD)
-    assert dig.src_examples_dir == src_examples_dir
-    shutil.rmtree(src_examples_dir)
+    assert dig.meta.path_source == DIG_CWD
+    assert dig.meta.path_toml == DIG_CWD / 'pyproject.toml'
+    assert dig.meta.pkg_name == pkg_name
+    assert dig.doc.path_out == DIG_CWD / 'docs'
 
 
 def test_show_cmd():
@@ -88,7 +81,7 @@ def test_if_found_unlink():
 
 def test_task_export_req():
     """Test task_export_req."""
-    DIG.set_paths(source_path=DIG_CWD)
+    DIG.set_paths(path_source=DIG_CWD)
 
     result = task_export_req()
 

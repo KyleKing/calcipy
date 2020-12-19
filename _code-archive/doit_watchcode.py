@@ -89,7 +89,7 @@ class _WatchCodeYAML:  # noqa: H601
         """Write the WatchCode YAML file."""
         yaml = YAML()
         if self.path_wc is None:
-            self.path_wc = DIG.source_path
+            self.path_wc = DIG.meta.path_source
         logger.info(f'Writing the watchcode YAML file to {self.path_wc}', self_path_wc=self.path_wc)
         yaml.dump(self.dict_watchcode, self.path_wc / '.watchcode.yaml')
 

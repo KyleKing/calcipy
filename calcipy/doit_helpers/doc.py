@@ -27,7 +27,7 @@ def task_tag_create() -> DoItTask:
     """
     message = 'New Revision from PyProject.toml'
     return debug_task([
-        f'git tag -a {DIG.pkg_version} -m "{message}"',
+        f'git tag -a {DIG.meta.pkg_version} -m "{message}"',
         'git tag -n10 --list',
         'git push origin --tags',
     ])
@@ -42,9 +42,9 @@ def task_tag_remove() -> DoItTask:
 
     """
     return debug_task([
-        f'git tag -d "{DIG.pkg_version}"',
+        f'git tag -d "{DIG.meta.pkg_version}"',
         'git tag -n10 --list',
-        f'git push origin :refs/tags/{DIG.pkg_version}',
+        f'git push origin :refs/tags/{DIG.meta.pkg_version}',
     ])
 
 
@@ -93,14 +93,14 @@ logger.enable(__pkg__name__)
 """Python code to be appended to `__init__.py` with the base loguru logger configuration."""
 
 
+# TODO: Revisit with the new documentation strategy with mkdocs
 @log_fun
-def _write_readme_to_init() -> None:
-    """Write the README contents to the package `__init__.py` file."""
-    readme = (DIG.source_path / 'README.md').read_text().replace('"', r'\"')  # Escape quotes
-    init_text = (f'"""\n{readme}"""  # noqa\n\n'
-                 f"__version__ = '{DIG.pkg_version}'\n__pkg_name__ = '{DIG.pkg_name}'\n"
+def _write_pkg_init() -> None:
+    """Write the package `__init__.py` file."""
+    init_text = (f'"""{DIG.meta.pkg_name}."""\n\n'
+                 f"__version__ = '{DIG.meta.pkg_version}'\n__pkg_name__ = '{DIG.meta.pkg_name}'\n"
                  f'{_LOGGER_CONFIG}\n{_INIT_DIVIDER}\n')
-    init_path = (DIG.source_path / DIG.pkg_name / '__init__.py')
+    init_path = (DIG.meta.path_source / DIG.meta.pkg_name / '__init__.py')
     init_lines = init_path.read_text().strip().split('\n')
     try:
         break_index = init_lines.index(_INIT_DIVIDER) + 1
@@ -123,7 +123,7 @@ def task_update_cl() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.path_gitchangelog.as_posix()
+    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.doc.path_changelog.as_posix()
     return debug_task(['gitchangelog > CHANGELOG-raw.md'])
 
 
@@ -191,7 +191,7 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
         new_text: dictionary with comment string as key
 
     """
-    readme_path = DIG.source_path / 'README.md'
+    readme_path = DIG.meta.path_source / 'README.md'
     readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
 
@@ -201,7 +201,7 @@ def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
     fn = 'tests/examples/readme.py'
-    script_path = DIG.source_path / fn
+    script_path = DIG.meta.path_source / fn
     if script_path.is_file():
         source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
@@ -219,11 +219,11 @@ def _write_coverage_to_readme() -> None:
         sh.poetry.run.python('-m', 'coverage', 'json')
     except ImportError:
         # HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
-        print('Submit an issue on Github: https://github.com/KyleKing/calcipy/issues/new')
+        logger.warning('Could not use "sh." Submit an issue on Github: https://github.com/KyleKing/calcipy/issues/new')
     except sh.ErrorReturnCode_1:
         logger.exception('Coverage conversion to JSON failed')
 
-    coverage_path = (DIG.source_path / 'coverage.json')
+    coverage_path = (DIG.meta.path_source / 'coverage.json')
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -232,7 +232,7 @@ def _write_coverage_to_readme() -> None:
         int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
         rows = [legend, ['--:'] * len(legend)]
         for file_path, file_obj in coverage['files'].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.source_path).as_posix()
+            rel_path = Path(file_path).resolve().relative_to(DIG.meta.path_source).as_posix()
             per = round(file_obj['summary']['percent_covered'], 1)
             rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown
@@ -258,8 +258,8 @@ def task_document() -> DoItTask:
     return debug_task([
         (_write_code_to_readme, ()),
         (_write_coverage_to_readme, ()),
-        (_write_readme_to_init, ()),
-        # args = f'{DIG.pkg_name} --html --force --output-dir "{DIG.doc_dir}"'
+        (_write_pkg_init, ()),
+        # args = f'{DIG.meta.pkg_name} --html --force --output-dir "{DIG.doc.path_out}"'
         # f'poetry run portray {args}',  # PLANNED: Implement portray or mkdocs!
     ])
 
@@ -272,6 +272,7 @@ def task_open_docs() -> DoItTask:
         DoItTask: DoIt task
 
     """
+    path_doc_index = DIG.doc.path_out / DIG.meta.pkg_name / 'index.html'
     return debug_task([
-        (open_in_browser, (DIG.doc_dir / DIG.pkg_name / 'index.html',)),
+        (open_in_browser, (path_doc_index,)),
     ])

@@ -14,6 +14,7 @@ logger.disable(__pkg_name__)
 LOG_DIR = Path(__file__).resolve().parent / '.logs'
 """Output directory for log files."""
 
+# PLANNED: Convert to a function (with production/development toggle?)
 LOGGER_CONFIG = {
     'handlers': [
         {'sink': sys.stdout,

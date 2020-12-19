@@ -169,5 +169,5 @@ def task_export_req() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    req_path = DIG.toml_path.parent / 'requirements.txt'
+    req_path = DIG.meta.path_toml.parent / 'requirements.txt'
     return debug_task([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])

@@ -14,13 +14,13 @@ def test_task_update_cl():
     result = task_update_cl()
 
     assert len(result['actions']) == 1
-    assert Path(os.environ['GITCHANGELOG_CONFIG_FILENAME']) == DIG.path_gitchangelog
+    assert Path(os.environ['GITCHANGELOG_CONFIG_FILENAME']) == DIG.doc.path_changelog
     assert result['actions'][0] == 'gitchangelog > CHANGELOG-raw.md'
 
 
 def test_task_tag_create():
     """Test task_tag_create."""
-    DIG.set_paths(source_path=DIG_CWD)
+    DIG.set_paths(path_source=DIG_CWD)
 
     result = task_tag_create()
 
@@ -32,7 +32,7 @@ def test_task_tag_create():
 
 def test_task_tag_remove():
     """Test task_tag_remove."""
-    DIG.set_paths(source_path=DIG_CWD)
+    DIG.set_paths(path_source=DIG_CWD)
 
     result = task_tag_remove()
 

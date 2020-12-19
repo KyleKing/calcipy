@@ -11,7 +11,7 @@ from ..configuration import DIG_CWD
 def test_task_test_marker():
     """Test task_test_marker."""
     pytest.skip('Needs to be updated for LongRunning')
-    DIG.set_paths(source_path=DIG_CWD)
+    DIG.set_paths(path_source=DIG_CWD)
 
     result = task_test_marker()
 
