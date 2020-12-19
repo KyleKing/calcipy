@@ -1,10 +1,10 @@
-"""Test doit_helpers/doit_globals.py."""
+"""Test doit_tasks/doit_globals.py."""
 
 from pathlib import Path
 
 import pytest
 
-from calcipy.doit_helpers.doit_globals import DocConfig, TestingConfig
+from calcipy.doit_tasks.doit_globals import DocConfig, TestingConfig
 
 
 def test_path_attr_base_path_resolver():

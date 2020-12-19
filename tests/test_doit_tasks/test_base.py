@@ -1,11 +1,11 @@
-"""Test doit_helpers/base.py."""
+"""Test doit_tasks/base.py."""
 
 from typing import Any, List
 
 import attr
 
-from calcipy.doit_helpers.base import _show_cmd, debug_task, if_found_unlink, task_export_req
-from calcipy.doit_helpers.doit_globals import DIG, DoItGlobals
+from calcipy.doit_tasks.base import _show_cmd, debug_task, if_found_unlink, task_export_req
+from calcipy.doit_tasks.doit_globals import DIG, DoItGlobals
 
 from ..configuration import DIG_CWD, TEST_DATA_DIR
 

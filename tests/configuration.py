@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from calcipy.doit_helpers.doit_globals import DoItGlobals
+from calcipy.doit_tasks.doit_globals import DoItGlobals
 
 TEST_DIR: Path = Path(__file__).parent
 """Path to the `test` directory that contains this file and all other tests."""

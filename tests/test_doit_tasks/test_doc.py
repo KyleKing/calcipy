@@ -1,10 +1,10 @@
-"""Test doit_helpers/doc.py."""
+"""Test doit_tasks/doc.py."""
 
 import os
 from pathlib import Path
 
-from calcipy.doit_helpers.doc import task_tag_create, task_tag_remove, task_update_cl
-from calcipy.doit_helpers.doit_globals import DIG
+from calcipy.doit_tasks.doc import task_tag_create, task_tag_remove, task_update_cl
+from calcipy.doit_tasks.doit_globals import DIG
 
 from ..configuration import DIG_CWD
 

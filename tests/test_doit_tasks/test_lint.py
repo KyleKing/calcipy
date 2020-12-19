@@ -1,12 +1,12 @@
-"""Test doit_helpers/lint.py."""
+"""Test doit_tasks/lint.py."""
 
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
 
-from calcipy.doit_helpers.doit_globals import DIG
-from calcipy.doit_helpers.lint import _check_linting_errors, _collect_py_files, _lint_project
+from calcipy.doit_tasks.doit_globals import DIG
+from calcipy.doit_tasks.lint import _check_linting_errors, _collect_py_files, _lint_project
 
 from ..configuration import DIG_CWD
 
