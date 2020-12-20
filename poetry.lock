@@ -1587,18 +1587,6 @@ python-versions = ">=3.5"
 dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
 [[package]]
-name = "yesqa"
-version = "1.2.2"
-description = "Automatically remove unnecessary `# noqa` comments."
-category = "dev"
-optional = false
-python-versions = ">=3.6.1"
-
-[package.dependencies]
-flake8 = ">=3.8"
-tokenize-rt = ">=2.1"
-
-[[package]]
 name = "zipp"
 version = "3.4.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -1617,7 +1605,7 @@ serializers = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8, <3.9"
-content-hash = "4d74091894ae588b35f7eb9533c570692194dd28c91fe2fbde8e6562446978f8"
+content-hash = "5a600468000cb1fa1e13cea8ba206d8c92f70c649a1c6fd7735176c72a53028a"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2382,10 +2370,6 @@ wcwidth = [
 win32-setctime = [
     {file = "win32_setctime-1.0.3-py3-none-any.whl", hash = "sha256:dc925662de0a6eb987f0b01f599c01a8236cb8c62831c22d9cada09ad958243e"},
     {file = "win32_setctime-1.0.3.tar.gz", hash = "sha256:4e88556c32fdf47f64165a2180ba4552f8bb32c1103a2fafd05723a0bd42bd4b"},
-]
-yesqa = [
-    {file = "yesqa-1.2.2-py2.py3-none-any.whl", hash = "sha256:c7ddd5e234b0a0793ea1f763a02b6e8e5b85c3285caa1435016ced792cfe86dc"},
-    {file = "yesqa-1.2.2.tar.gz", hash = "sha256:49e95921828bc62b18311d8f179438438f26bf65e1fa7fc08fe74c0f094d71b9"},
 ]
 zipp = [
     {file = "zipp-3.4.0-py3-none-any.whl", hash = "sha256:102c24ef8f171fd729d46599845e95c7ab894a4cf45f5de11a44cc7444fb1108"},
