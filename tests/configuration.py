@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from calcipy.doit_helpers.doit_globals import DoItGlobals
+from calcipy.doit_tasks.doit_globals import DoItGlobals
 
 TEST_DIR: Path = Path(__file__).parent
 """Path to the `test` directory that contains this file and all other tests."""
@@ -14,7 +14,7 @@ TEST_DATA_DIR: Path = TEST_DIR / 'data'
 
 DIG_CWD: Path = TEST_DATA_DIR / 'doit_project'
 """Local directory used for testing the DoIt globals."""
-
+# ^ FIXME: rename to PATH_TEST_SOURCE
 
 @pytest.fixture()
 def initialize_dig() -> DoItGlobals:
@@ -25,5 +25,5 @@ def initialize_dig() -> DoItGlobals:
 
     """
     dig = DoItGlobals()
-    dig.set_paths(source_path=DIG_CWD)
+    dig.set_paths(path_source=DIG_CWD)
     return dig

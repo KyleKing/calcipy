@@ -7,6 +7,7 @@ from typing import Any, Callable, Dict
 
 from decorator import contextmanager, decorator
 from loguru import logger
+from loguru._logger import Logger
 
 
 def serializable_compact(record: Dict[str, Any]) -> str:
@@ -55,8 +56,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     return json.dumps(simplified, default=str).replace('{', '{{').replace('}', '}}') + '\n'
 
 
-@contextmanager
-def log_action(message: str, level: str = 'INFO', _logger: type(logger) = logger, **kwargs: Any) -> None:
+def _log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **kwargs: Any) -> None:
     """Log the beggining and end of an action.
 
     Args:
@@ -76,6 +76,11 @@ def log_action(message: str, level: str = 'INFO', _logger: type(logger) = logger
     _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)
 
 
+# When using `contextmanager` as a decorator, Deepsource won't see the __enter__/__exit__ methods (PYL-E1129)
+#   Rather than skipping each use of log_action, use `contextmanager` as a function
+log_action = contextmanager(_log_action)
+
+
 @decorator
 def log_fun(fun: Callable, *args: Any, **kwargs: Any) -> Any:
     """Decorate a function to log the function name and completed time.
@@ -90,5 +95,5 @@ def log_fun(fun: Callable, *args: Any, **kwargs: Any) -> Any:
 
     """
     fun_name = fun.__name__
-    with log_action(f'Entering {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
+    with log_action(f'Running {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
         return fun(*args, **kwargs)

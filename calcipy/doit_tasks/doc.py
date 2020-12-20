@@ -3,7 +3,6 @@
 import json
 import os
 import re
-import shutil
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
@@ -28,7 +27,7 @@ def task_tag_create() -> DoItTask:
     """
     message = 'New Revision from PyProject.toml'
     return debug_task([
-        f'git tag -a {DIG.pkg_version} -m "{message}"',
+        f'git tag -a {DIG.meta.pkg_version} -m "{message}"',
         'git tag -n10 --list',
         'git push origin --tags',
     ])
@@ -43,9 +42,9 @@ def task_tag_remove() -> DoItTask:
 
     """
     return debug_task([
-        f'git tag -d "{DIG.pkg_version}"',
+        f'git tag -d "{DIG.meta.pkg_version}"',
         'git tag -n10 --list',
-        f'git push origin :refs/tags/{DIG.pkg_version}',
+        f'git push origin :refs/tags/{DIG.meta.pkg_version}',
     ])
 
 
@@ -81,12 +80,12 @@ LOGGER_CONFIG = {
 \"\"\"Loguru configuration. Loguru is deactivated for this package by default and must be activated.
 
 ```py
-from this_package import __pkg__name__
+from this_package_name_here import LOGGER_CONFIG, __pkg__name__
 
 logger.configure(**LOGGER_CONFIG)
 logger.enable(__pkg__name__)
 
-# You can continue to import and enable additional packages as needed, but you should only call configure once
+# You can continue to import and enable additional packages as needed, but you should only call 'configure' once
 ```
 
 \"\"\"
@@ -94,14 +93,14 @@ logger.enable(__pkg__name__)
 """Python code to be appended to `__init__.py` with the base loguru logger configuration."""
 
 
+# TODO: Revisit with the new documentation strategy with mkdocs
 @log_fun
-def _write_readme_to_init() -> None:
-    """Write the README contents to the package `__init__.py` file."""
-    readme = (DIG.source_path / 'README.md').read_text().replace('"', r'\"')  # Escape quotes
-    init_text = (f'"""\n{readme}"""  # noqa\n\n'
-                 f"__version__ = '{DIG.pkg_version}'\n__pkg_name__ = '{DIG.pkg_name}'\n"
+def _write_pkg_init() -> None:
+    """Write the package `__init__.py` file."""
+    init_text = (f'"""{DIG.meta.pkg_name}."""\n\n'
+                 f"__version__ = '{DIG.meta.pkg_version}'\n__pkg_name__ = '{DIG.meta.pkg_name}'\n"
                  f'{_LOGGER_CONFIG}\n{_INIT_DIVIDER}\n')
-    init_path = (DIG.source_path / DIG.pkg_name / '__init__.py')
+    init_path = (DIG.meta.path_source / DIG.meta.pkg_name / '__init__.py')
     init_lines = init_path.read_text().strip().split('\n')
     try:
         break_index = init_lines.index(_INIT_DIVIDER) + 1
@@ -111,65 +110,6 @@ def _write_readme_to_init() -> None:
         user_text = '\nLOG_DIR.mkdir(exist_ok=True)'
     init_path.write_text((init_text.replace('\t', ' ' * 4) + user_text).strip() + '\n')
 
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Manage PDoc
-
-_PDOC_CONFIG: str = """<%!
-    show_inherited_members = True
-    hljs_stylename = 'atom-one-light'
-    lunr_search = {'fuzziness': 1, 'index_docstrings': True}
-%>"""
-"""PDOC3 configuration."""
-
-_PDOC_HEAD: str = """<style>
-    a {
-        text-decoration: underline;
-    }
-    h1,h2,h3,h4 {
-        font-weight: 400;
-    }
-    h2 {
-        margin: 0.50em 0 .25em 0;
-    }
-    dd p {
-        margin: 5px 0;
-    }
-    dl dl:last-child {
-        margin-bottom: 2.5em;
-    }
-    main {
-        margin-bottom: 80vh;
-    }
-    #content {
-        max-width: 1100px;
-    }
-    .source summary {
-        background-color: #fafafa; /* match HLJS background */
-        padding: 1px 5px;
-    }
-    .source summary:focus {
-        outline: none !important;
-    }
-    .source pre {
-        background-color: #fafafa; /* match HLJS background */
-    }
-    .source pre code {
-        padding-bottom: 1em;
-    }
-    table, th, td {
-       border: 1px solid #d4d4d4;
-       padding: 0 5px;
-    }
-</style>"""
-"""PDOC3 custom CSS styles."""
-
-
-@log_fun
-def _write_pdoc_config_files() -> None:
-    """Write the head and config mako files for pdoc."""
-    (DIG.template_dir / 'head.mako').write_text(_PDOC_HEAD)
-    (DIG.template_dir / 'config.mako').write_text(_PDOC_CONFIG)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -183,7 +123,7 @@ def task_update_cl() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.path_gitchangelog.as_posix()
+    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.doc.path_changelog.as_posix()
     return debug_task(['gitchangelog > CHANGELOG-raw.md'])
 
 
@@ -251,7 +191,7 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
         new_text: dictionary with comment string as key
 
     """
-    readme_path = DIG.source_path / 'README.md'
+    readme_path = DIG.meta.path_source / 'README.md'
     readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
 
@@ -261,7 +201,7 @@ def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
     fn = 'tests/examples/readme.py'
-    script_path = DIG.source_path / fn
+    script_path = DIG.meta.path_source / fn
     if script_path.is_file():
         source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
@@ -279,11 +219,11 @@ def _write_coverage_to_readme() -> None:
         sh.poetry.run.python('-m', 'coverage', 'json')
     except ImportError:
         # HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
-        print('Submit an issue on Github: https://github.com/KyleKing/calcipy/issues/new')
+        logger.warning('Could not use "sh." Submit an issue on Github: https://github.com/KyleKing/calcipy/issues/new')
     except sh.ErrorReturnCode_1:
         logger.exception('Coverage conversion to JSON failed')
 
-    coverage_path = (DIG.source_path / 'coverage.json')
+    coverage_path = (DIG.meta.path_source / 'coverage.json')
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -292,7 +232,7 @@ def _write_coverage_to_readme() -> None:
         int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
         rows = [legend, ['--:'] * len(legend)]
         for file_path, file_obj in coverage['files'].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.source_path).as_posix()
+            rel_path = Path(file_path).resolve().relative_to(DIG.meta.path_source).as_posix()
             per = round(file_obj['summary']['percent_covered'], 1)
             rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown
@@ -303,51 +243,8 @@ def _write_coverage_to_readme() -> None:
         _write_to_readme(comment_pattern, {'COVERAGE': table_lines})
 
 
-@log_fun
-def _write_redirect_html() -> None:
-    """Create an index.html file in the project directory that redirects to the pdoc output."""
-    index_path = DIG.source_path / 'index.html'
-    index_path.write_text(f"""<!-- Do not modify this file. It is automatically generated by calcipy
-If using github pages, make sure to check in this file to git and the files docs/{DIG.pkg_name}/*.html -->
-
-<meta http-equiv="refresh" content="0; url=./docs/{DIG.pkg_name}/" />
-""")
-
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Main Documentation Tasks
-
-
-@log_fun
-def _clear_docs() -> None:
-    """Clear the documentation directory before running pdoc."""
-    staging_dir = DIG.doc_dir / DIG.pkg_name
-    if staging_dir.is_dir():
-        logger.debug(f'Removing {staging_dir}')
-        shutil.rmtree(staging_dir)
-
-
-@log_fun
-def _clear_examples() -> None:
-    """Clear the examples from within the package directory."""
-    if DIG.tmp_examples_dir.is_dir():
-        logger.debug(f'Removing {DIG.tmp_examples_dir}')
-        shutil.rmtree(DIG.tmp_examples_dir)
-
-
-@log_fun
-def _stage_examples() -> None:
-    """Format the code examples as docstrings to be loaded into the documentation."""
-    if DIG.src_examples_dir and DIG.src_examples_dir.is_dir():
-        DIG.tmp_examples_dir.mkdir(exist_ok=False)
-        (DIG.tmp_examples_dir / '__init__.py').write_text('"""Code Examples (documentation-only, not in package)."""')
-        example_files = [*DIG.src_examples_dir.glob('*.py')]
-        logger.debug(f'Found {len(example_files)} files', example_files=example_files)
-        for file_path in example_files:
-            content = file_path.read_text().replace('"', r'\"')  # read and escape quotes
-            dest_fn = DIG.tmp_examples_dir / file_path.name
-            docstring = f'From file: `{file_path.relative_to(DIG.source_path.parent)}`'
-            dest_fn.write_text(f'"""{docstring}\n```\n{content}\n```\n"""')
 
 
 @log_fun
@@ -358,31 +255,12 @@ def task_document() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    pdoc_args = f'{DIG.pkg_name} --html --force --template-dir "{DIG.template_dir}" --output-dir "{DIG.doc_dir}"'
     return debug_task([
-        (_clear_docs, ()),
-        (_clear_examples, ()),
-        (_write_pdoc_config_files, ()),
-        (_stage_examples, ()),
         (_write_code_to_readme, ()),
         (_write_coverage_to_readme, ()),
-        (_write_readme_to_init, ()),
-        f'poetry run pdoc3 {pdoc_args}',
-        (_write_redirect_html, ()),
-        (_clear_examples, ()),
-    ])
-
-
-@log_fun
-def task_git_add_docs() -> DoItTask:
-    """Override local gitignore rules to ensure that all HTML files for the docs are tracked.
-
-    Returns:
-        DoItTask: DoIt task
-
-    """
-    return debug_task([
-        f'git add docs/{DIG.pkg_name}/**/*.html -f',
+        (_write_pkg_init, ()),
+        # args = f'{DIG.meta.pkg_name} --html --force --output-dir "{DIG.doc.path_out}"'
+        # f'poetry run portray {args}',  # PLANNED: Implement portray or mkdocs!
     ])
 
 
@@ -394,6 +272,7 @@ def task_open_docs() -> DoItTask:
         DoItTask: DoIt task
 
     """
+    path_doc_index = DIG.doc.path_out / DIG.meta.pkg_name / 'index.html'
     return debug_task([
-        (open_in_browser, (DIG.doc_dir / DIG.pkg_name / 'index.html',)),
+        (open_in_browser, (path_doc_index,)),
     ])

@@ -14,6 +14,7 @@ logger.disable(__pkg_name__)
 LOG_DIR = Path(__file__).resolve().parent / '.logs'
 """Output directory for log files."""
 
+# PLANNED: Convert to a function (with production/development toggle?)
 LOGGER_CONFIG = {
     'handlers': [
         {'sink': sys.stdout,
@@ -28,12 +29,12 @@ LOGGER_CONFIG = {
 """Loguru configuration. Loguru is deactivated for this package by default and must be activated.
 
 ```py
-from this_package import __pkg__name__
+from this_package_name_here import LOGGER_CONFIG, __pkg__name__
 
 logger.configure(**LOGGER_CONFIG)
 logger.enable(__pkg__name__)
 
-# You can continue to import and enable additional packages as needed, but you should only call configure once
+# You can continue to import and enable additional packages as needed, but you should only call 'configure' once
 ```
 
 """

@@ -1,9 +1,9 @@
-"""Test doit_helpers/test.py."""
+"""Test doit_tasks/test.py."""
 
 import pytest
 
-from calcipy.doit_helpers.doit_globals import DIG
-from calcipy.doit_helpers.test import task_test_marker
+from calcipy.doit_tasks.doit_globals import DIG
+from calcipy.doit_tasks.test import task_test_marker
 
 from ..configuration import DIG_CWD
 
@@ -11,7 +11,7 @@ from ..configuration import DIG_CWD
 def test_task_test_marker():
     """Test task_test_marker."""
     pytest.skip('Needs to be updated for LongRunning')
-    DIG.set_paths(source_path=DIG_CWD)
+    DIG.set_paths(path_source=DIG_CWD)
 
     result = task_test_marker()
 
