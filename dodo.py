@@ -24,6 +24,7 @@ from loguru import logger
 
 from calcipy import __pkg_name__
 from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq: PYL-W0614
+from calcipy.doit_tasks import DOIT_CONFIG_RECOMMENDED
 from calcipy.doit_tasks.base import debug_task
 from calcipy.doit_tasks.doit_globals import DIG, DoItTask
 from calcipy.log_helpers import build_logger_config
@@ -42,24 +43,8 @@ logger.info('Starting DoIt tasks in dodo.py')
 # Configure source code root path
 DIG.set_paths(path_source=path_parent)  # FIXME: This should be `path_user`?
 
-# Create list of all tasks run with `poetry run doit`. Comment on/off as needed
-DOIT_CONFIG = {
-    'action_string_formatting': 'old',  # Required for keyword-based tasks
-    'default_tasks': [
-        'export_req', 'cl_write',
-        'coverage',
-        # 'open_test_docs',
-        'set_lint_config',
-        'create_tag_file',
-        'auto_format',
-        'document',
-        # 'open_docs',
-        'pre_commit_hooks',
-        'lint_critical_only',
-        # 'type_checking',
-    ],
-}
-"""DoIt Configuration Settings. Run with `poetry run doit`."""
+# Create list of all tasks run with `poetry run doit`
+DOIT_CONFIG = DOIT_CONFIG_RECOMMENDED
 
 
 # TODO: Implement type checking with pytype, mypy, or other

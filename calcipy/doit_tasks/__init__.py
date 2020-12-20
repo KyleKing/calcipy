@@ -7,6 +7,7 @@ Register all defaults DoIt tasks in a dodo.py file with the below snippet:
 """
 
 __all__ = [  # noqa: F405
+    'DOIT_CONFIG_RECOMMENDED',
     # from .base
     'task_export_req',
     # from .doc
@@ -43,3 +44,22 @@ from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .tag_collector import task_create_tag_file
 from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+
+DOIT_CONFIG_RECOMMENDED = {
+    'action_string_formatting': 'old',  # Required for keyword-based tasks
+    'default_tasks': [
+        'export_req',
+        'cl_write',
+        'coverage',
+        # 'open_test_docs',
+        'set_lint_config',
+        'create_tag_file',
+        'auto_format',
+        'document',
+        # 'open_docs',
+        'pre_commit_hooks',
+        'lint_critical_only',
+        # 'type_checking',
+    ],
+}
+"""DoIt Configuration Settings. Run with `poetry run doit`."""
