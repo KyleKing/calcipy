@@ -164,7 +164,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-    path_out: Path
+    path_out: Path = Path('release/tests')
     """Path to the report output directory."""
 
     path_tests: Path = Path('tests')
@@ -179,6 +179,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        self.path_out.mkdir(exist_ok=True, parents=True)
         self.path_report_index = self.path_out / 'test_report.html'
         self.path_coverage_index = self.path_out / 'cov_html/index.html'
 
@@ -187,11 +188,16 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    path_out: Path = Path('docs')
+    path_out: Path = Path('release/docs')
     """Path to the documentation output directory."""
 
     paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
+
+    def __attrs_post_init__(self) -> None:
+        """Finish initializing class attributes."""
+        super().__attrs_post_init__()
+        self.path_out.mkdir(exist_ok=True, parents=True)
 
 
 @attr.s(auto_attribs=True, kw_only=True)
