@@ -267,4 +267,7 @@ def task_pre_commit_hooks() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    return debug_task([LongRunning('poetry run pre-commit run --all-files')])
+    return debug_task([
+        LongRunning('poetry run pre-commit autoupdate'),
+        LongRunning('poetry run pre-commit run --all-files'),
+    ])
