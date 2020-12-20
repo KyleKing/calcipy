@@ -145,8 +145,10 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
     logger.info(f'Started logging to {log_dir} (production={production})')
     log_level = logging.INFO if production else logging.DEBUG
 
-    jsonl_handler = {'sink': log_dir / 'debug-{time}.jsonl', 'mode': 'w', 'level': log_level,
-                     'rotation': '1h', 'backtrace': True, 'diagnose': not production}
+    jsonl_handler = {
+        'sink': log_dir / 'debug-{time}.jsonl', 'mode': 'w', 'level': log_level,
+        'rotation': '1h', 'backtrace': True, 'diagnose': not production,
+    }
     if production:
         jsonl_handler['format'] = serializable_compact
     else:
@@ -154,10 +156,14 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
 
     return {
         'handlers': [
-            {'sink': sys.stdout, 'level': logging.WARNING if production else logging.INFO,
-             'backtrace': True, 'diagnose': not production},
+            {
+                'sink': sys.stdout, 'level': logging.WARNING if production else logging.INFO,
+                'backtrace': True, 'diagnose': not production,
+            },
             jsonl_handler,
-            {'sink': log_dir / 'debug-{time}.log', 'mode': 'w', 'level': log_level,
-             'rotation': '1h', 'backtrace': True, 'diagnose': not production},
+            {
+                'sink': log_dir / 'debug-{time}.log', 'mode': 'w', 'level': log_level,
+                'rotation': '1h', 'backtrace': True, 'diagnose': not production,
+            },
         ],
     }

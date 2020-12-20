@@ -135,8 +135,10 @@ class _ReadMeMachine:  # noqa: H601
         """Initialize state machine."""
         self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
 
-    def parse(self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
-              new_text: Dict[str, str]) -> List[str]:
+    def parse(
+        self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
+        new_text: Dict[str, str],
+    ) -> List[str]:
         """Parse lines and insert new_text.
 
         Args:
@@ -163,8 +165,10 @@ class _ReadMeMachine:  # noqa: H601
 
             new_line = self.readme_lines[-1]
             made_change = (line != new_line)
-            logger.debug('Parsed README Line', self_state=self.state, line=line,
-                         made_change=made_change, new_line=new_line if made_change else None)
+            logger.debug(
+                'Parsed README Line', self_state=self.state, line=line,
+                made_change=made_change, new_line=new_line if made_change else None,
+            )
 
         return self.readme_lines
 
@@ -238,7 +242,7 @@ def task_serve_fast() -> DoItTask:
 
     """
     return debug_task([
-        (webbrowser.open, ('http://localhost:8000', )),
+        (webbrowser.open, ('http://localhost:8000',)),
         LongRunning('poetry run mkdocs serve --dirtyreload'),
     ])
 

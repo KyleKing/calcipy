@@ -45,8 +45,10 @@ def task_test_marker() -> DoItTask:
     task = debug_task([LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
-        'help': ('Runs test with specified marker logic\nSee: '
-                 'https://docs.pytest.org/en/latest/example/markers.html?highlight=-m'),
+        'help': (
+            'Runs test with specified marker logic\nSee: '
+            'https://docs.pytest.org/en/latest/example/markers.html?highlight=-m'
+        ),
     }]
     return task
 
@@ -66,8 +68,10 @@ def task_test_keyword() -> DoItTask:
         ],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
-            'help': ('Runs only tests that match the string pattern\nSee: '
-                     'https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests'),
+            'help': (
+                'Runs only tests that match the string pattern\nSee: '
+                'https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests'
+            ),
         }],
         'verbosity': 2,
     }
@@ -80,8 +84,10 @@ def task_coverage() -> DoItTask:
         DoItTask: DoIt task
 
     """
-    kwargs = (f'--cov-report=html:"{DIG.test.path_coverage_index.parent}"  --html="{DIG.test.path_report_index}"'
-              '  --self-contained-html')
+    kwargs = (
+        f'--cov-report=html:"{DIG.test.path_coverage_index.parent}"  --html="{DIG.test.path_report_index}"'
+        '  --self-contained-html'
+    )
     return debug_task([
         LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}'),
     ])
@@ -95,8 +101,8 @@ def task_open_test_docs() -> DoItTask:
 
     """
     return debug_task([
-        (open_in_browser, (DIG.test.path_coverage_index, )),
-        (open_in_browser, (DIG.test.path_report_index, )),
+        (open_in_browser, (DIG.test.path_coverage_index,)),
+        (open_in_browser, (DIG.test.path_report_index,)),
     ])
 
 
@@ -168,7 +174,9 @@ def task_ptw_marker() -> DoItTask:
     task = ptw_task('-vvv -m "%(marker)s"')
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
-        'help': ('Runs test with specified marker logic\nSee: '
-                 'https://docs.pytest.org/en/latest/example/markers.html?highlight=-m'),
+        'help': (
+            'Runs test with specified marker logic\nSee: '
+            'https://docs.pytest.org/en/latest/example/markers.html?highlight=-m'
+        ),
     }]
     return task

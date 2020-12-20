@@ -35,8 +35,10 @@ logger.enable(__pkg_name__)  # This will enable output from calcipy, which is of
 path_parent = Path(__file__).resolve().parent
 log_config = build_logger_config(path_parent, production=False)
 logger.configure(**log_config)
-logger.info('Started logging to {path_parent}/.logs with {log_config}', path_parent=path_parent,
-            log_config=log_config)
+logger.info(
+    'Started logging to {path_parent}/.logs with {log_config}', path_parent=path_parent,
+    log_config=log_config,
+)
 
 logger.info('Starting DoIt tasks in dodo.py')
 

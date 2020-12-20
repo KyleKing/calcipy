@@ -145,8 +145,10 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
                 lines.append(line)
         log_contents = '\n'.join(lines)
         flake8_log_path.write_text(log_contents)
-        review_info = (f' even when ignoring {ignore_errors}.\nReview: {flake8_log_path}'
-                       f'\nNote: the full list linting errors are reported in {flake8_full_path}')
+        review_info = (
+            f' even when ignoring {ignore_errors}.\nReview: {flake8_log_path}'
+            f'\nNote: the full list linting errors are reported in {flake8_full_path}'
+        )
     else:
         if_found_unlink(flake8_full_path)
 
@@ -156,8 +158,10 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
     if_found_unlink(flake8_log_path)
 
 
-def _lint_project(lint_paths: List[Path], path_flake8: Path,
-                  ignore_errors: Optional[List[str]] = None) -> DoItTask:
+def _lint_project(
+    lint_paths: List[Path], path_flake8: Path,
+    ignore_errors: Optional[List[str]] = None,
+) -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
     Args:
@@ -171,7 +175,7 @@ def _lint_project(lint_paths: List[Path], path_flake8: Path,
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
     flake8_log_path = DIG.meta.path_source / 'flake8.log'
-    actions = [(if_found_unlink, (flake8_log_path, ))]
+    actions = [(if_found_unlink, (flake8_log_path,))]
     run = 'poetry run python -m'
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
     for lint_path in _list_lint_file_paths(lint_paths):
@@ -225,7 +229,7 @@ def task_radon_lint() -> DoItTask:
     actions = []
     for args in ['mi', 'cc --total-average -nb', 'hal']:
         actions.extend(
-            [(echo, (f'# Radon with args: {args}', ))]
+            [(echo, (f'# Radon with args: {args}',))]
             + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DIG.lint.paths)],
         )
     return debug_task([*map(LongRunning, actions)])

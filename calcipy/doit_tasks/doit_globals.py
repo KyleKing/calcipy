@@ -219,8 +219,10 @@ class DoItGlobals:
     """Documentation Config."""
 
     @log_fun
-    def set_paths(self, *, path_source: Optional[Path] = None,
-                  doc_dir: Optional[Path] = None) -> None:
+    def set_paths(
+        self, *, path_source: Optional[Path] = None,
+        doc_dir: Optional[Path] = None,
+    ) -> None:
         """Set data members based on working directory.
 
         Args:

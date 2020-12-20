@@ -56,8 +56,10 @@ _COMPILED_RE = _compile_issue_regex(_regex_raw, _tags)
 """Default compiled regular expression."""
 
 
-def _search_lines(lines: Sequence[str],
-                  regex_compiled: Pattern[str] = _COMPILED_RE) -> List[_TaggedComment]:
+def _search_lines(
+    lines: Sequence[str],
+    regex_compiled: Pattern[str] = _COMPILED_RE,
+) -> List[_TaggedComment]:
     """Search lines of text for matches to the compiled regular expression.
 
     Args:
@@ -79,8 +81,10 @@ def _search_lines(lines: Sequence[str],
     return comments
 
 
-def _search_files(paths_file: Sequence[Path],
-                  regex_compiled: Pattern[str] = _COMPILED_RE) -> List[_Tags]:
+def _search_files(
+    paths_file: Sequence[Path],
+    regex_compiled: Pattern[str] = _COMPILED_RE,
+) -> List[_Tags]:
     """Collect matches from multiple files.
 
     Args:
@@ -154,8 +158,10 @@ def _find_files() -> List[Path]:
     for path_dir in paths_sub_dir:
         for suffix in supported_suffixes:
             paths_file.extend([pth for pth in path_dir.rglob(f'*{suffix}') if pth.name not in ignored_filenames])
-    logger.info(f'Found {len(paths_file)} files in {len(paths_sub_dir)} dir', paths_file=paths_file,
-                paths_sub_dir=paths_sub_dir)
+    logger.info(
+        f'Found {len(paths_file)} files in {len(paths_sub_dir)} dir', paths_file=paths_file,
+        paths_sub_dir=paths_sub_dir,
+    )
     return paths_file
 
 
@@ -185,4 +191,4 @@ def task_create_tag_file() -> DoItTask:
 
     """
     path_tag_summary = DIG.meta.path_source / _TAG_SUMMARY_FILENAME
-    return debug_task([(_create_tag_file, (path_tag_summary, ))])
+    return debug_task([(_create_tag_file, (path_tag_summary,))])
