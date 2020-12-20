@@ -9,9 +9,12 @@
 Add to a poetry project in `pyproject.toml`:
 
 ```toml
-[tool.poetry.dev-dependencies.calcipy]
+[tool.poetry.dependencies.calcipy]
 git = "https://github.com/KyleKing/calcipy.git"
 branch = "main"
+
+[tool.poetry.dev-dependencies]
+calcipy = {version = "*", extras = ["dev"]}
 ```
 
 Then copy the [`https://github.com/KyleKing/calcipy/blob/main/dodo.py`](https://github.com/KyleKing/calcipy/blob/main/dodo.py) file into your project and call with `poetry run doit`
