@@ -1,21 +1,17 @@
 """Test doit_tasks/doc.py."""
 
-import os
-from pathlib import Path
-
-from calcipy.doit_tasks.doc import task_tag_create, task_tag_remove, task_update_cl
+from calcipy.doit_tasks.doc import task_tag_create, task_tag_remove, task_cl_write
 from calcipy.doit_tasks.doit_globals import DIG
 
 from ..configuration import DIG_CWD
 
 
-def test_task_update_cl():
-    """Test task_update_cl."""
-    result = task_update_cl()
+def test_task_cl_write():
+    """Test task_cl_write."""
+    result = task_cl_write()
 
     assert len(result['actions']) == 1
-    assert Path(os.environ['GITCHANGELOG_CONFIG_FILENAME']) == DIG.doc.path_changelog
-    assert result['actions'][0] == 'gitchangelog > CHANGELOG-raw.md'
+    assert result['actions'][0] == 'poetry run cz changelog'
 
 
 def test_task_tag_create():

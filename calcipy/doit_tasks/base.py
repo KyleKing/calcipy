@@ -7,7 +7,7 @@ from typing import Any, List, Sequence
 
 from loguru import logger
 
-from ..log_helpers import log_action, log_fun
+from ..log_helpers import log_action
 from .doit_globals import DIG, DoItTask
 
 # TODO: Show dodo.py in the documentation
@@ -20,7 +20,6 @@ from .doit_globals import DIG, DoItTask
 # Really General...
 
 
-@log_fun
 def read_lines(file_path: Path) -> List[str]:
     """Read a file and split on newlines for later parsing.
 
@@ -52,7 +51,6 @@ def delete_dir(dir_path: Path) -> None:
         shutil.rmtree(dir_path)
 
 
-@log_fun
 def ensure_dir(dir_path: Path) -> None:
     """Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
 
@@ -68,7 +66,6 @@ def ensure_dir(dir_path: Path) -> None:
 # General DoIt Utilities
 
 
-@log_fun
 def _show_cmd(task: DoItTask) -> str:
     """For debugging, log the full command to the console.
 
@@ -83,7 +80,6 @@ def _show_cmd(task: DoItTask) -> str:
     return f'{task.name} > [{actions}\n]\n'
 
 
-@log_fun
 def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
@@ -100,18 +96,16 @@ def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
         'title': _show_cmd,
         'verbosity': verbosity,
     }
-    logger.info('Created task', task=task)
+    logger.debug('Created task. See extras', task=f'{task}')
     return task
 
 
-@log_fun
 def debug_action(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:  # noqa
     import warnings
     warnings.warn('debug_action is deprecated. Replace with `debug_task`')
     return debug_task(actions, verbosity)
 
 
-@log_fun
 def echo(msg: str) -> None:
     """Wrap the system print command.
 
@@ -122,7 +116,6 @@ def echo(msg: str) -> None:
     print(msg)  # noqa: T001
 
 
-@log_fun
 def write_text(file_path: Path, text: str) -> None:
     """file_path.write_text wrapper for DoIt.
 
@@ -134,7 +127,6 @@ def write_text(file_path: Path, text: str) -> None:
     file_path.write_text(text)
 
 
-@log_fun
 def open_in_browser(file_path: Path) -> None:
     """Open the path in the default web browser.
 
@@ -161,7 +153,6 @@ def if_found_unlink(file_path: Path) -> None:
 # Manage Requirements
 
 
-@log_fun
 def task_export_req() -> DoItTask:
     """Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 

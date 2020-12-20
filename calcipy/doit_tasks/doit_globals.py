@@ -84,10 +84,9 @@ def _resolve_class_paths(cls: object, base_path: Path) -> None:
     """
     logger.info(f'Class: {cls}')
     for name, path_raw in _get_members(cls, instance_type=type(Path()), prefix=None):
-        logger.debug(f'self.{name}={path_raw} ({path_raw.is_absolute()})')
         if not path_raw.is_absolute():
             setattr(cls, name, base_path / path_raw)
-            logger.info(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
+            logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
 
 
 _DEF_EXCLUDE = [*map(Path, ['__init__.py'])]
@@ -164,7 +163,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-    path_out: Path
+    path_out: Path = Path('releases/tests')
     """Path to the report output directory."""
 
     path_tests: Path = Path('tests')
@@ -179,6 +178,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        self.path_out.mkdir(exist_ok=True, parents=True)
         self.path_report_index = self.path_out / 'test_report.html'
         self.path_coverage_index = self.path_out / 'cov_html/index.html'
 
@@ -187,14 +187,16 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    path_out: Path = Path('docs')
+    path_out: Path = Path('releases/site')
     """Path to the documentation output directory."""
-
-    path_changelog: Path = Path(__file__).resolve().parents[1] / '.gitchangelog.rc'
-    """Path to the changelog configuration file."""
 
     paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
+
+    def __attrs_post_init__(self) -> None:
+        """Finish initializing class attributes."""
+        super().__attrs_post_init__()
+        self.path_out.mkdir(exist_ok=True, parents=True)
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -234,10 +236,8 @@ class DoItGlobals:
         self.lint = LintConfig(**meta_kwargs)
         self.lint.paths.append(self.meta.path_source / self.meta.pkg_name)
 
-        self.test = TestingConfig(path_out=Path(), **meta_kwargs)
-
-        doc_dir = self.meta.path_source / 'docs' if doc_dir is None else doc_dir
-        self.doc = DocConfig(path_out=doc_dir, **meta_kwargs)
+        self.test = TestingConfig(**meta_kwargs)
+        self.doc = DocConfig(**meta_kwargs)
 
         logger.info(self)
 

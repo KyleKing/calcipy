@@ -35,7 +35,6 @@ class _Tags:  # noqa: H601
     tagged_comments: List[_TaggedComment]
 
 
-@log_fun
 def _compile_issue_regex(regex_raw: str, tags: List[str]) -> Pattern[str]:
     """Compile the regex for the specified raw regular expression string and tags.
 
@@ -57,7 +56,6 @@ _COMPILED_RE = _compile_issue_regex(_regex_raw, _tags)
 """Default compiled regular expression."""
 
 
-@log_fun
 def _search_lines(lines: Sequence[str],
                   regex_compiled: Pattern[str] = _COMPILED_RE) -> List[_TaggedComment]:
     """Search lines of text for matches to the compiled regular expression.
@@ -81,13 +79,12 @@ def _search_lines(lines: Sequence[str],
     return comments
 
 
-@log_fun
-def _search_files(file_paths: Sequence[Path],
+def _search_files(paths_file: Sequence[Path],
                   regex_compiled: Pattern[str] = _COMPILED_RE) -> List[_Tags]:
     """Collect matches from multiple files.
 
     Args:
-        file_paths: list of files to parse
+        paths_file: list of files to parse
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
@@ -95,7 +92,7 @@ def _search_files(file_paths: Sequence[Path],
 
     """
     matches = []
-    for file_path in file_paths:
+    for file_path in paths_file:
         lines = []
         try:
             lines = read_lines(file_path)
@@ -109,7 +106,6 @@ def _search_files(file_paths: Sequence[Path],
     return matches
 
 
-@log_fun
 def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:  # noqa: CCR001
     """Pretty-format the tagged items by file and line number.
 
@@ -121,17 +117,13 @@ def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:  # no
         str: pretty-formatted text
 
     """
-    history = []
     output = ''
     counter = defaultdict(lambda: 0)
     for comments in sorted(tagged_collection, key=lambda tc: tc.file_path, reverse=False):
         output += f'{comments.file_path.relative_to(base_dir)}\n'
         for comment in comments.tagged_comments:
-            combined = comment.tag + comment.text
-            if combined not in history:
-                output += f'    line {comment.lineno:>3} {comment.tag:>7}: {comment.text}\n'
-                counter[comment.tag] += 1
-            history.append(combined)
+            output += f'    line {comment.lineno:>3} {comment.tag:>7}: {comment.text}\n'
+            counter[comment.tag] += 1
         output += '\n'
 
     formatted_summary = ',  '.join([f'{tag} ({count})' for tag, count in counter.items()])
@@ -140,7 +132,6 @@ def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:  # no
     return output
 
 
-@log_fun
 def _find_files() -> List[Path]:
     """Find files within the project directory that should be parsed for tags. Ignores .venv, output, etc.
 
@@ -148,14 +139,24 @@ def _find_files() -> List[Path]:
         List[Path]: list of file paths to parse
 
     """
-    file_paths = [pth for pth in DIG.meta.path_source.glob('*.*') if pth.name not in [_TAG_SUMMARY_FILENAME]]
-    dir_paths = [*DIG.meta.path_source.glob('*')]
-    for dir_files in dir_paths:
-        # FIXME: How does this change with the new DIG implementation?
-        if dir_files.name not in ['.venv', DIG.doc.path_out.name]:
-            file_paths.extend(dir_files.rglob('*.*'))
-    logger.debug(f'Found {len(file_paths)} files in {len(dir_paths)} dir', file_paths=file_paths, dir_paths=dir_paths)
-    return file_paths
+    # TODO: Move all of these configuration items into DIG
+    dot_directories = [pth for pth in DIG.meta.path_source.glob('.*') if pth.is_dir()]
+    ignored_sub_dirs = [DIG.test.path_out.parent.name] + dot_directories
+    ignored_filenames = [_TAG_SUMMARY_FILENAME]
+    supported_suffixes = ['.md', '.py']
+
+    paths_file = []
+    # NOTE: THE TOP LEVEL path_source MUST USE GLOB (NOT RGLOB!)
+    for suffix in supported_suffixes:
+        paths_file.extend([pth for pth in DIG.meta.path_source.glob(f'*{suffix}') if pth.name not in ignored_filenames])
+
+    paths_sub_dir = [pth for pth in DIG.meta.path_source.glob('*') if pth.is_dir() and pth not in ignored_sub_dirs]
+    for path_dir in paths_sub_dir:
+        for suffix in supported_suffixes:
+            paths_file.extend([pth for pth in path_dir.rglob(f'*{suffix}') if pth.name not in ignored_filenames])
+    logger.info(f'Found {len(paths_file)} files in {len(paths_sub_dir)} dir', paths_file=paths_file,
+                paths_sub_dir=paths_sub_dir)
+    return paths_file
 
 
 @log_fun
@@ -176,7 +177,6 @@ def _create_tag_file(path_tag_summary: Path) -> None:
         path_tag_summary.unlink()
 
 
-@log_fun
 def task_create_tag_file() -> DoItTask:
     """Create a summary file with all of the found tagged comments.
 

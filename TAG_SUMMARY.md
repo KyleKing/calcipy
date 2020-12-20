@@ -14,23 +14,26 @@ calcipy/doit_tasks/base.py
     line  16    TODO: Show table of contents in __init__.py file. Use ast:
 
 calcipy/doit_tasks/doc.py
-    line  96    TODO: Revisit with the new documentation strategy with mkdocs
-    line 221    HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
-    line 263 PLANNED: Implement portray or mkdocs!
+    line  20   FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
 
 calcipy/doit_tasks/doit_globals.py
-    line 207 PLANNED: Check if Optional[PackageMeta] is necessary
+    line 209 PLANNED: Check if Optional[PackageMeta] is necessary
+
+calcipy/doit_tasks/lint.py
+    line  18    TODO: Possibly remove - may be unused
 
 calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment
     line  18 PLANNED: Maybe make this configurable?
-    line 154   FIXME: How does this change with the new DIG implementation?
+    line 142    TODO: Move all of these configuration items into DIG
+    line 149    NOTE: THE TOP LEVEL path_source MUST USE GLOB (NOT RGLOB!)
 
 dodo.py
-    line  55    TODO: Implement type checking with pytype, mypy, etc.
+    line  44   FIXME: This should be `path_user`?
+    line  50    TODO: Implement type checking with pytype, mypy, or other
 
 tests/configuration.py
     line  17   FIXME: rename to PATH_TEST_SOURCE
 
-Found tagged comments for TODO (14),  HACK (2),  PLANNED (8),  FIXME (3)
+Found tagged comments for TODO (9),  FIXME (3),  PLANNED (3),  NOTE (1)
 ```

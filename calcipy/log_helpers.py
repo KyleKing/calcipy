@@ -1,13 +1,20 @@
 """Loguru Helpers."""
 
-import json
+import logging
+import sys
 import time
 from inspect import signature
-from typing import Any, Callable, Dict
+from pathlib import Path
+from typing import Any, Callable, Dict, Optional
 
 from decorator import contextmanager, decorator
 from loguru import logger
 from loguru._logger import Logger
+
+try:
+    from preconvert.output import simplejson as json
+except ImportError:
+    import json
 
 
 def serializable_compact(record: Dict[str, Any]) -> str:
@@ -29,7 +36,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
         record: dictionary passed by loguru for formatting
 
     Returns:
-        str: dumped JSON
+        str: dumped JSON without newlines
 
     """
     exception = record['exception']
@@ -97,3 +104,60 @@ def log_fun(fun: Callable, *args: Any, **kwargs: Any) -> Any:
     fun_name = fun.__name__
     with log_action(f'Running {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
         return fun(*args, **kwargs)
+
+
+def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:
+    """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
+
+    ```py
+    # Typical example enabling loguru for a package
+
+    from pathlib import Path
+
+    from loguru import logger
+
+    from calcipy import __pkg_name__
+    from calcipy.log_helpers import build_logger_config
+
+    logger.enable(__pkg_name__)  # This will enable output from calcipy, which is off by default
+    # See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
+
+    path_parent = Path(__file__).resolve().parent
+    log_config = build_logger_config(path_parent, production=False)
+    logger.configure(**log_config)
+    logger.info('Started logging to {path_parent}/.logs with {log_config}', path_parent=path_parent,
+                log_config=log_config)
+    ```
+
+    Args:
+        path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package
+        production: if True, will tweak logging configuration for production code. Default is True
+
+    Returns:
+        Dict[str, Any]: the logger configuration as a dictionary
+
+    """
+    if path_parent is None:
+        path_parent = Path(__file__).resolve().parent
+
+    log_dir = path_parent / '.logs'
+    log_dir.mkdir(exist_ok=True, parents=True)
+    logger.info(f'Started logging to {log_dir} (production={production})')
+    log_level = logging.INFO if production else logging.DEBUG
+
+    jsonl_handler = {'sink': log_dir / 'debug-{time}.jsonl', 'mode': 'w', 'level': log_level,
+                     'rotation': '1h', 'backtrace': True, 'diagnose': not production}
+    if production:
+        jsonl_handler['format'] = serializable_compact
+    else:
+        jsonl_handler['serialize'] = True
+
+    return {
+        'handlers': [
+            {'sink': sys.stdout, 'level': logging.WARNING if production else logging.INFO,
+             'backtrace': True, 'diagnose': not production},
+            jsonl_handler,
+            {'sink': log_dir / 'debug-{time}.log', 'mode': 'w', 'level': log_level,
+             'rotation': '1h', 'backtrace': True, 'diagnose': not production},
+        ],
+    }
