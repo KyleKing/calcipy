@@ -187,7 +187,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    path_out: Path = Path('releases/docs')
+    path_out: Path = Path('releases/site')
     """Path to the documentation output directory."""
 
     paths_excluded: List[Path] = _DEF_EXCLUDE
@@ -236,10 +236,8 @@ class DoItGlobals:
         self.lint = LintConfig(**meta_kwargs)
         self.lint.paths.append(self.meta.path_source / self.meta.pkg_name)
 
-        self.test = TestingConfig(path_out=Path(), **meta_kwargs)
-
-        doc_dir = self.meta.path_source / 'docs' if doc_dir is None else doc_dir
-        self.doc = DocConfig(path_out=doc_dir, **meta_kwargs)
+        self.test = TestingConfig(**meta_kwargs)
+        self.doc = DocConfig(**meta_kwargs)
 
         logger.info(self)
 

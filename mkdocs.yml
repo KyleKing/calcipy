@@ -4,6 +4,8 @@ site_description: calcipy project documentation
 repo_name: KyleKing/calcipy
 repo_url: https://github.com/KyleKing/calcipy
 edit_uri: edit/main/docs
+docs_dir: docs
+site_dir: releases/site
 
 theme:
   name: material
