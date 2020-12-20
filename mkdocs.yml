@@ -9,6 +9,9 @@ site_dir: releases/site
 
 theme:
   name: material
+  palette:
+    - scheme: default
+      accent: green
   icon:
     repo: fontawesome/brands/github
   features:
@@ -21,6 +24,19 @@ plugins:
   - mkdocstrings:
       watch:
         - calcipy
+      handlers:
+        python:
+          selection:
+            members: true
+            inherited_members: true
+            filters:
+              - "!^_"  # exclude all members starting with _
+              - "^__init__$"  # but always include __init__ and __attrs_post_init__
+              - "^__attrs_post_init__$"
+          rendering:
+            show_root_heading: true
+            show_category_heading: false
+            show_if_no_docstring: true
 
 markdown_extensions:
   - admonition
@@ -38,4 +54,7 @@ markdown_extensions:
       clickable_checkbox: false
   - toc:
       permalink: ⚓︎
-      toc_depth: 3
+      toc_depth: 5
+
+extra_css:
+  - _stylesheets/mkdocstrings.css

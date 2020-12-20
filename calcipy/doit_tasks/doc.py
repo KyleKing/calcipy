@@ -2,9 +2,11 @@
 
 import json
 import re
+import webbrowser
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
+from doit.tools import LongRunning
 from loguru import logger
 from transitions import Machine
 
@@ -228,11 +230,33 @@ def _write_coverage_to_readme() -> None:
 # ----------------------------------------------------------------------------------------------------------------------
 # mkdocs
 
-
-# poetry run mkdocs serve
-# poetry run mkdocs build --site-dir releases/docs
+# poetry run mkdocs build --site-dir releases/site
 # poetry run mkdocs build --site-dir DIG.doc.path_out
 
+
+def task_serve_fast() -> DoItTask:
+    """Serve the site with `--dirtyreload` and open in a web browser.
+
+    Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
+
+    Returns:
+        DoItTask: DoIt task
+
+    """
+    return debug_task([
+        (webbrowser.open, ('http://localhost:8000', )),
+        LongRunning('poetry run mkdocs serve --dirtyreload'),
+    ])
+
+
+def task_deploy() -> DoItTask:
+    """Deploy to Github `gh-pages` branch.
+
+    Returns:
+        DoItTask: DoIt task
+
+    """
+    return debug_task([LongRunning('poetry run mkdocs gh-deploy')])
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Main Documentation Tasks
