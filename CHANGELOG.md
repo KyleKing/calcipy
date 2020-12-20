@@ -1,3 +1,9 @@
+## Unreleased
+
+### Fix
+
+- unincremented version in toml
+
 ## 0.1.0 (2020-12-19)
 
 ### Feat

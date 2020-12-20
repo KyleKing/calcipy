@@ -181,7 +181,7 @@ def _lint_project(lint_paths: List[Path], path_flake8: Path,
     for lint_path in _list_lint_file_paths(lint_paths):
         actions.append(f'{run} flake8 "{lint_path}" {flags}')
     actions.append((_check_linting_errors, (flake8_log_path, ignore_errors)))
-    return [*map(LongRunning, actions)]
+    return actions
 
 
 @log_fun

@@ -1,8 +1,5 @@
 """Test doit_tasks/doc.py."""
 
-import os
-from pathlib import Path
-
 from calcipy.doit_tasks.doc import task_tag_create, task_tag_remove, task_write_cl
 from calcipy.doit_tasks.doit_globals import DIG
 
