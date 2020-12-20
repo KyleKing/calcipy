@@ -37,7 +37,7 @@ DIG.set_paths(path_source=Path(__file__).resolve().parent)
 DOIT_CONFIG = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'export_req', 'write_cl',
+        'export_req', 'cl_write',
         'coverage',
         # 'open_test_docs',
         'set_lint_config',

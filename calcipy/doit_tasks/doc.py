@@ -1,7 +1,6 @@
 """DoIt Documentation Utilities."""
 
 import json
-import os
 import re
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
@@ -116,14 +115,33 @@ def _write_pkg_init() -> None:
 
 
 @log_fun
-def task_write_cl() -> DoItTask:
+def task_cl_write() -> DoItTask:
     """Write a Changelog file with the raw Git history.
+
+    Resources:
+
+    - https://keepachangelog.com/en/1.0.0/
+    - https://www.conventionalcommits.org/en/v1.0.0/
+    - https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message
+    - https://chris.beams.io/posts/git-commit/
+    - https://semver.org/
 
     Returns:
         DoItTask: DoIt task
 
     """
     return debug_task(['poetry run cz changelog'])
+
+
+@log_fun
+def task_cl_bump() -> DoItTask:
+    """Bump and write the Changelog file with the raw Git history.
+
+    Returns:
+        DoItTask: DoIt task
+
+    """
+    return debug_task(['poetry run cz bump --changelog'])
 
 
 # ----------------------------------------------------------------------------------------------------------------------
