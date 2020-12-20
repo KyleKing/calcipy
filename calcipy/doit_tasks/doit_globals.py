@@ -84,10 +84,9 @@ def _resolve_class_paths(cls: object, base_path: Path) -> None:
     """
     logger.info(f'Class: {cls}')
     for name, path_raw in _get_members(cls, instance_type=type(Path()), prefix=None):
-        logger.debug(f'self.{name}={path_raw} ({path_raw.is_absolute()})')
         if not path_raw.is_absolute():
             setattr(cls, name, base_path / path_raw)
-            logger.info(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
+            logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
 
 
 _DEF_EXCLUDE = [*map(Path, ['__init__.py'])]

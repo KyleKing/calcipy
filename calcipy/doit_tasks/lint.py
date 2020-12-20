@@ -85,7 +85,6 @@ _ISORT: Dict[str, Union[int, str]] = {
 """ISort configuration file settings."""
 
 
-@log_fun
 def task_set_lint_config() -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
@@ -105,7 +104,6 @@ def task_set_lint_config() -> DoItTask:
 # Linting
 
 
-@log_fun
 def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     """Create a list of all Python files specified in the path_list.
 
@@ -123,7 +121,6 @@ def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     return [pth for pth in file_paths if pth.name not in DIG.lint.paths_excluded]
 
 
-@log_fun
 def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:  # noqa: CCR001
     """Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
@@ -159,7 +156,6 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
     if_found_unlink(flake8_log_path)
 
 
-@log_fun
 def _lint_project(lint_paths: List[Path], path_flake8: Path,
                   ignore_errors: Optional[List[str]] = None) -> DoItTask:
     """Lint specified files creating summary log file of errors.
@@ -184,7 +180,6 @@ def _lint_project(lint_paths: List[Path], path_flake8: Path,
     return actions
 
 
-@log_fun
 def task_lint_project() -> DoItTask:
     """Lint files from DIG creating summary log file of errors.
 
@@ -195,7 +190,6 @@ def task_lint_project() -> DoItTask:
     return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=None))
 
 
-@log_fun
 def task_lint_critical_only() -> DoItTask:
     """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
 
@@ -221,7 +215,6 @@ def task_lint_critical_only() -> DoItTask:
     return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=ignore_errors))
 
 
-@log_fun
 def task_radon_lint() -> DoItTask:
     """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
 
@@ -242,7 +235,6 @@ def task_radon_lint() -> DoItTask:
 # Formatting
 
 
-@log_fun
 def task_auto_format() -> DoItTask:
     """Format code with isort and autopep8.
 
@@ -259,7 +251,6 @@ def task_auto_format() -> DoItTask:
     return debug_task([*map(LongRunning, actions)])
 
 
-@log_fun
 def task_pre_commit_hooks() -> DoItTask:
     """Run the pre-commit hooks on all files.
 

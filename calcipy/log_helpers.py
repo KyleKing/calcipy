@@ -142,7 +142,7 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
 
     log_dir = path_parent / '.logs'
     log_dir.mkdir(exist_ok=True, parents=True)
-    logger.debug(f'Started logging to {log_dir} (production={production})')
+    logger.info(f'Started logging to {log_dir} (production={production})')
     log_level = logging.INFO if production else logging.DEBUG
 
     jsonl_handler = {'sink': log_dir / 'debug-{time}.jsonl', 'mode': 'w', 'level': log_level,

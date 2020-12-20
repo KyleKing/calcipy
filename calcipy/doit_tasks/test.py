@@ -2,7 +2,6 @@
 
 from doit.tools import LongRunning
 
-from ..log_helpers import log_fun
 from .base import debug_task, open_in_browser
 from .doit_globals import DIG, DoItTask
 
@@ -10,7 +9,6 @@ from .doit_globals import DIG, DoItTask
 # Manage Testing
 
 
-@log_fun
 def task_test() -> DoItTask:
     """Run tests with Pytest.
 
@@ -23,7 +21,6 @@ def task_test() -> DoItTask:
     ])
 
 
-@log_fun
 def task_test_all() -> DoItTask:
     """Run tests with Pytest.
 
@@ -36,7 +33,6 @@ def task_test_all() -> DoItTask:
     ])
 
 
-@log_fun
 def task_test_marker() -> DoItTask:
     r"""Specify a marker to run a subset of tests.
 
@@ -55,7 +51,6 @@ def task_test_marker() -> DoItTask:
     return task
 
 
-@log_fun
 def task_test_keyword() -> DoItTask:
     r"""Specify a keyword to run a subset of tests.
 
@@ -78,7 +73,6 @@ def task_test_keyword() -> DoItTask:
     }
 
 
-@log_fun
 def task_coverage() -> DoItTask:
     """Run pytest and create coverage and test reports.
 
@@ -93,7 +87,6 @@ def task_coverage() -> DoItTask:
     ])
 
 
-@log_fun
 def task_open_test_docs() -> DoItTask:
     """Open the test and coverage files in default browser.
 
@@ -111,7 +104,6 @@ def task_open_test_docs() -> DoItTask:
 # Implement long running ptw tasks
 
 
-@log_fun
 def ptw_task(cli_args: str) -> DoItTask:
     """Return DoIt LongRunning `ptw` task.
 
@@ -128,7 +120,6 @@ def ptw_task(cli_args: str) -> DoItTask:
     }
 
 
-@log_fun
 def task_ptw_not_chrome() -> DoItTask:
     """Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
@@ -141,7 +132,6 @@ def task_ptw_not_chrome() -> DoItTask:
     return ptw_task('-m "not CHROME" -vvv')
 
 
-@log_fun
 def task_ptw_ff() -> DoItTask:
     """Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
@@ -154,7 +144,6 @@ def task_ptw_ff() -> DoItTask:
     return ptw_task('--last-failed --new-first -m "not CHROME" -vv')
 
 
-@log_fun
 def task_ptw_current() -> DoItTask:
     """Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
@@ -167,7 +156,6 @@ def task_ptw_current() -> DoItTask:
     return ptw_task('-m "CURRENT" -vv')
 
 
-@log_fun
 def task_ptw_marker() -> DoItTask:
     r"""Specify a marker to run a subset of tests in LongRunning `ptw` task.
 

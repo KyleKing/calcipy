@@ -8,7 +8,6 @@ from typing import Dict, List, Optional, Pattern
 from loguru import logger
 from transitions import Machine
 
-from ..log_helpers import log_fun
 from .base import debug_task, open_in_browser, read_lines
 from .doit_globals import DIG, DoItTask
 
@@ -16,7 +15,6 @@ from .doit_globals import DIG, DoItTask
 # Manage Tags
 
 
-@log_fun
 def task_tag_create() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
@@ -32,7 +30,6 @@ def task_tag_create() -> DoItTask:
     ])
 
 
-@log_fun
 def task_tag_remove() -> DoItTask:
     """Delete tag for current version in pyproject.toml.
 
@@ -65,7 +62,6 @@ logger.disable(__pkg_name__)
 """Python code to be appended to `__init__.py`."""
 
 
-@log_fun
 def _write_pkg_init() -> None:
     """Write the package `__init__.py` file."""
     init_text = _LOGGER_CONFIG.format(
@@ -88,7 +84,6 @@ def _write_pkg_init() -> None:
 # Manage Changelog
 
 
-@log_fun
 def task_cl_write() -> DoItTask:
     """Write a Changelog file with the raw Git history.
 
@@ -107,7 +102,6 @@ def task_cl_write() -> DoItTask:
     return debug_task(['poetry run cz changelog'])
 
 
-@log_fun
 def task_cl_bump() -> DoItTask:
     """Bump and write the Changelog file with the raw Git history.
 
@@ -138,7 +132,6 @@ class _ReadMeMachine:  # noqa: H601
         """Initialize state machine."""
         self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
 
-    @log_fun
     def parse(self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
               new_text: Dict[str, str]) -> List[str]:
         """Parse lines and insert new_text.
@@ -173,7 +166,6 @@ class _ReadMeMachine:  # noqa: H601
         return self.readme_lines
 
 
-@log_fun
 def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -> None:
     """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
 
@@ -187,7 +179,6 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
     readme_path.write_text('\n'.join(readme_lines))
 
 
-@log_fun
 def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
@@ -201,18 +192,18 @@ def _write_code_to_readme() -> None:
         logger.warning(f'Could not locate: {script_path}')
 
 
-@log_fun
 def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
     # Create the 'coverage.json' file from .coverage SQL database. Suppress errors if failed
     try:
+        # FIXME: replace with subprocess or Mac/Windows alternative to sh
+        #   ^ sh doesn't work in Windows because of fcntl dependency
         import sh
         sh.poetry.run.python('-m', 'coverage', 'json')
     except ImportError:
-        # HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
-        logger.warning('Could not use "sh." Submit an issue on Github: https://github.com/KyleKing/calcipy/issues/new')
-    except sh.ErrorReturnCode_1:
-        logger.exception('Coverage conversion to JSON failed')
+        logger.warning('Could not use "sh" / Need alternative')
+    # except sh.ErrorReturnCode_1:
+    #     logger.exception('Coverage conversion to JSON failed')
 
     coverage_path = (DIG.meta.path_source / 'coverage.json')
     if coverage_path.is_file():
@@ -247,7 +238,6 @@ def _write_coverage_to_readme() -> None:
 # Main Documentation Tasks
 
 
-@log_fun
 def task_document() -> DoItTask:
     """Build the HTML documentation.
 
@@ -264,7 +254,6 @@ def task_document() -> DoItTask:
     ])
 
 
-@log_fun
 def task_open_docs() -> DoItTask:
     """Open the documentation files in the default browser.
 
