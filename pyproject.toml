@@ -22,7 +22,7 @@ documentation = "https://kyleking.me/calcipy/"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.0.3"
+version = "0.1.0"
 tag_format = "$version"
 version_files = [ "calcipy/__init__.py",]
 
