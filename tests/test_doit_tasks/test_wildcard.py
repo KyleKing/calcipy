@@ -1,6 +1,6 @@
 """Test that the wildcard import works as expected."""
 
-from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq: PYL-W0614
+from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq
 
 
 def test_doit_tasks_imports():
