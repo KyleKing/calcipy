@@ -11,7 +11,7 @@ line_length = 120
 
 [tool.poetry]
 name = "calcipy"
-version = "0.0.3"
+version = "0.1.0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = [ "Kyle King <https://github.com/KyleKing>",]
@@ -24,7 +24,7 @@ documentation = "https://kyleking.me/calcipy/"
 name = "cz_conventional_commits"
 version = "0.1.0"
 tag_format = "$version"
-version_files = [ "calcipy/__init__.py",]
+version_files = [ "pyproject.toml", "calcipy/__init__.py",]
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
