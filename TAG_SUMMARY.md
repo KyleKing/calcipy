@@ -7,9 +7,6 @@ README.md
     line   1    TODO: Add a banner image -->
     line   7    TODO: Replace with ~CookieCutter~ (Copier) Instructions -->
 
-calcipy/__init__.py
-    line  17 PLANNED: Convert to a function (with production/development toggle?)
-
 calcipy/doit_tasks/base.py
     line  13    TODO: Show dodo.py in the documentation
     line  14    TODO: Show README.md in the documentation (may need to update paths?)
@@ -17,26 +14,27 @@ calcipy/doit_tasks/base.py
     line  16    TODO: Show table of contents in __init__.py file. Use ast:
 
 calcipy/doit_tasks/doc.py
-    line  96    TODO: Revisit with the new documentation strategy with mkdocs
-    line 221    HACK: sh doesn't work in Windows because of fcntl dependency. Need alternative
-    line 263 PLANNED: Implement portray or mkdocs!
+    line 201   FIXME: replace with subprocess or Mac/Windows alternative to sh
+    line 275 PLANNED: Implement portray or mkdocs!
 
 calcipy/doit_tasks/doit_globals.py
-    line 207 PLANNED: Check if Optional[PackageMeta] is necessary
+    line 209 PLANNED: Check if Optional[PackageMeta] is necessary
 
 calcipy/doit_tasks/lint.py
-    line  17    TODO: Possibly remove - may be unused
+    line  18    TODO: Possibly remove - may be unused
 
 calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment
     line  18 PLANNED: Maybe make this configurable?
-    line 154   FIXME: How does this change with the new DIG implementation?
+    line 142    TODO: Move all of these configuration items into DIG
+    line 149    NOTE: THE TOP LEVEL path_source MUST USE GLOB (NOT RGLOB!)
 
 dodo.py
-    line  55    TODO: Implement type checking with pytype, mypy, etc.
+    line  44   FIXME: This should be `path_user`?
+    line  50    TODO: Implement type checking with pytype, mypy, or other
 
 tests/configuration.py
     line  17   FIXME: rename to PATH_TEST_SOURCE
 
-Found tagged comments for TODO (16),  PLANNED (10),  HACK (2),  FIXME (3)
+Found tagged comments for TODO (9),  FIXME (3),  PLANNED (4),  NOTE (1)
 ```
