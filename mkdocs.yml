@@ -32,7 +32,6 @@ plugins:
             filters:
               - "!^_"  # exclude all members starting with _
               - "^__init__$"  # but always include __init__ and __attrs_post_init__
-              - "^__attrs_post_init__$"
           rendering:
             show_root_heading: true
             show_category_heading: false
