@@ -83,7 +83,6 @@ def _show_cmd(task: DoItTask) -> str:
     return f'{task.name} > [{actions}\n]\n'
 
 
-@log_fun
 def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
@@ -100,7 +99,7 @@ def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
         'title': _show_cmd,
         'verbosity': verbosity,
     }
-    logger.info('Created task', task=task)
+    logger.info('Created task', task=f'{task}')
     return task
 
 

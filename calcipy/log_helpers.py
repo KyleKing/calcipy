@@ -1,6 +1,5 @@
 """Loguru Helpers."""
 
-import json
 import logging
 import sys
 import time
@@ -11,6 +10,11 @@ from typing import Any, Callable, Dict, Optional
 from decorator import contextmanager, decorator
 from loguru import logger
 from loguru._logger import Logger
+
+try:
+    from preconvert.output import simplejson as json
+except ImportError:
+    import json
 
 
 def serializable_compact(record: Dict[str, Any]) -> str:
@@ -32,7 +36,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
         record: dictionary passed by loguru for formatting
 
     Returns:
-        str: dumped JSON
+        str: dumped JSON without newlines
 
     """
     exception = record['exception']
@@ -140,12 +144,19 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
     log_dir.mkdir(exist_ok=True, parents=True)
     logger.debug(f'Started logging to {log_dir} (production={production})')
     log_level = logging.INFO if production else logging.DEBUG
+
+    jsonl_handler = {'sink': log_dir / 'debug-{time}.jsonl', 'mode': 'w', 'level': log_level,
+                     'rotation': '1h', 'backtrace': True, 'diagnose': not production}
+    if production:
+        jsonl_handler['format'] = serializable_compact
+    else:
+        jsonl_handler['serialize'] = True
+
     return {
         'handlers': [
             {'sink': sys.stdout, 'level': logging.WARNING if production else logging.INFO,
              'backtrace': True, 'diagnose': not production},
-            {'sink': log_dir / 'debug-{time}.jsonl', 'mode': 'w', 'level': log_level, 'serialize': True,
-             'rotation': '1h', 'backtrace': True, 'diagnose': not production},
+            jsonl_handler,
             {'sink': log_dir / 'debug-{time}.log', 'mode': 'w', 'level': log_level,
              'rotation': '1h', 'backtrace': True, 'diagnose': not production},
         ],

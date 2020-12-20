@@ -1105,6 +1105,19 @@ toml = "*"
 virtualenv = ">=20.0.8"
 
 [[package]]
+name = "preconvert"
+version = "0.0.6"
+description = "A Library to enable preconversion of any Python type into one that is easily serializable"
+category = "dev"
+optional = false
+python-versions = ">=3.5"
+
+[package.extras]
+bson = ["pymongo"]
+msgpack = ["msgpack"]
+simplejson = ["simplejson"]
+
+[[package]]
 name = "prompt-toolkit"
 version = "3.0.8"
 description = "Library for building powerful interactive command lines in Python"
@@ -1517,11 +1530,12 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 
 [extras]
 dev = ["toml"]
+serializers = []
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8, <3.9"
-content-hash = "909432ed8a4d375b12f22f39247c8614bdf14a23b3df33318f1f5803755a2099"
+content-hash = "480159aa8d5e27ebb7d09c65c25014d372a56a86e95e377cfe6282a1aa1f2b6b"
 
 [metadata.files]
 appdirs = [
@@ -1976,6 +1990,10 @@ pluggy = [
 pre-commit = [
     {file = "pre_commit-2.9.3-py2.py3-none-any.whl", hash = "sha256:6c86d977d00ddc8a60d68eec19f51ef212d9462937acf3ea37c7adec32284ac0"},
     {file = "pre_commit-2.9.3.tar.gz", hash = "sha256:ee784c11953e6d8badb97d19bc46b997a3a9eded849881ec587accd8608d74a4"},
+]
+preconvert = [
+    {file = "preconvert-0.0.6-py3-none-any.whl", hash = "sha256:4824251345c20e4af085b463623ed7825da070e900df683c0ef4e34431ff832e"},
+    {file = "preconvert-0.0.6.tar.gz", hash = "sha256:ddc2c0b6cd8e02e9ed8ea9b983854a06c06ab4030f6e09836504157cde3b29c3"},
 ]
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.8-py3-none-any.whl", hash = "sha256:7debb9a521e0b1ee7d2fe96ee4bd60ef03c6492784de0547337ca4433e46aa63"},
