@@ -164,7 +164,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-    path_out: Path = Path('release/tests')
+    path_out: Path = Path('releases/tests')
     """Path to the report output directory."""
 
     path_tests: Path = Path('tests')
@@ -188,7 +188,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    path_out: Path = Path('release/docs')
+    path_out: Path = Path('releases/docs')
     """Path to the documentation output directory."""
 
     paths_excluded: List[Path] = _DEF_EXCLUDE

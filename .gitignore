@@ -148,8 +148,6 @@ dmypy.json
 ~*.*
 ~$*
 
-.watchcode.yaml
-
 # SQLite DB files (Note: use *.dvc to check these into git)
 *.db
 *.sqlite
@@ -167,25 +165,14 @@ coverage.json
 # Static Type Checkers
 .pytype/*
 
-# Ignore doc outputs
-docs/*
-
 # Ignore DOIT cache files
 **/.doit.*
 
 # Ignore testmon cache files
 **/.testmondata
 
-# Temporary folders created for documentation
-*/0*
-
-# Other common ignore rules
-**/secret.json
-**/*.html
-
 # Ignore temporary files
 /tmp.txt
 
-# Track hosted documentation (update for package name)
-!docs/*/**/*.html
-!index.html
+# Built Outputs
+/releases/

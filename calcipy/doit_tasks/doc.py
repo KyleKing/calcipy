@@ -261,6 +261,15 @@ def _write_coverage_to_readme() -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+# mkdocs
+
+
+# poetry run mkdocs serve
+# poetry run mkdocs build --site-dir releases/docs
+# poetry run mkdocs build --site-dir DIG.doc.path_out
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Main Documentation Tasks
 
 
