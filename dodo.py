@@ -45,7 +45,8 @@ DOIT_CONFIG = {
         'auto_format',
         'document',
         # 'open_docs',
-        'lint_pre_commit',
+        'pre_commit_hooks',
+        'lint_critical_only',
         # 'type_checking',
     ],
 }

@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Union
 
 import toml
+from doit.tools import LongRunning
 from loguru import logger
 
 from ..log_helpers import log_fun
@@ -258,3 +259,14 @@ def task_auto_format() -> DoItTask:
         for fn in _list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
     return debug_task(actions)
+
+
+@log_fun
+def task_pre_commit_hooks() -> DoItTask:
+    """Run the pre-commit hooks on all files.
+
+    Returns:
+        DoItTask: DoIt task
+
+    """
+    return debug_task([LongRunning('poetry run pre-commit run --all-files')])
