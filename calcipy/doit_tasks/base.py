@@ -1,4 +1,4 @@
-"""General DoIt Utilities and Requirements."""
+"""General doit Utilities and Requirements."""
 
 import shutil
 import webbrowser
@@ -40,7 +40,7 @@ def read_lines(file_path: Path) -> List[str]:
 
 
 def delete_dir(dir_path: Path) -> None:
-    """Delete the specified directory from a DoIt task.
+    """Delete the specified directory from a doit task.
 
     Args:
         dir_path: Path to directory to delete
@@ -52,7 +52,7 @@ def delete_dir(dir_path: Path) -> None:
 
 
 def ensure_dir(dir_path: Path) -> None:
-    """Make sure that the specified dir_path exists and create any missing folders from a DoIt task.
+    """Make sure that the specified dir_path exists and create any missing folders from a doit task.
 
     Args:
         dir_path: Path to directory that needs to exists
@@ -63,14 +63,14 @@ def ensure_dir(dir_path: Path) -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# General DoIt Utilities
+# General doit Utilities
 
 
 def _show_cmd(task: DoItTask) -> str:
     """For debugging, log the full command to the console.
 
     Args:
-        task: DoIt task
+        task: doit task
 
     Returns:
         str: describing the sequence of actions
@@ -84,11 +84,11 @@ def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
     Args:
-        actions: list of DoIt actions
+        actions: list of doit actions
         verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     task = {
@@ -117,7 +117,7 @@ def echo(msg: str) -> None:
 
 
 def write_text(file_path: Path, text: str) -> None:
-    """file_path.write_text wrapper for DoIt.
+    """file_path.write_text wrapper for doit.
 
     Args:
         file_path: Path to the file
@@ -138,7 +138,7 @@ def open_in_browser(file_path: Path) -> None:
 
 
 def if_found_unlink(file_path: Path) -> None:
-    """Remove file if it exists. Function is intended to a DoIt action.
+    """Remove file if it exists. Function is intended to a doit action.
 
     Args:
         file_path: Path to file to remove
@@ -157,7 +157,7 @@ def task_export_req() -> DoItTask:
     """Create a `requirements.txt` file for non-Poetry users and for Github security tools.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     req_path = DIG.meta.path_toml.parent / 'requirements.txt'

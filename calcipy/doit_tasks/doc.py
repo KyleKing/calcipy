@@ -1,4 +1,4 @@
-"""DoIt Documentation Utilities."""
+"""doit Documentation Utilities."""
 
 import json
 import re
@@ -22,7 +22,7 @@ def task_tag_create() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     message = 'New Revision from PyProject.toml'
@@ -37,7 +37,7 @@ def task_tag_remove() -> DoItTask:
     """Delete tag for current version in pyproject.toml.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -99,7 +99,7 @@ def task_cl_write() -> DoItTask:
     - https://semver.org/
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task(['poetry run cz changelog'])
@@ -109,7 +109,7 @@ def task_cl_bump() -> DoItTask:
     """Bump and write the Changelog file with the raw Git history.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task(['poetry run cz bump --changelog'])
@@ -135,8 +135,8 @@ class _ReadMeMachine:  # noqa: H601
         """Initialize state machine."""
         self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
 
-    def parse(
-        self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
+    def parse(  # noqa: CCR001
+        self, lines: List[str], comment_pattern: Pattern[str],
         new_text: Dict[str, str],
     ) -> List[str]:
         """Parse lines and insert new_text.
@@ -238,7 +238,7 @@ def task_serve_fast() -> DoItTask:
     Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -251,7 +251,7 @@ def task_deploy() -> DoItTask:
     """Deploy to Github `gh-pages` branch.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([LongRunning('poetry run mkdocs gh-deploy')])
@@ -264,7 +264,7 @@ def task_document() -> DoItTask:
     """Build the HTML documentation.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -279,7 +279,7 @@ def task_open_docs() -> DoItTask:
     """Open the documentation files in the default browser.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     path_doc_index = DIG.doc.path_out / DIG.meta.pkg_name / 'index.html'

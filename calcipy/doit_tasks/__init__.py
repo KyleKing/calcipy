@@ -1,6 +1,6 @@
-"""DoIt Helpers.
+"""doit Helpers.
 
-Register all defaults DoIt tasks in a dodo.py file with the below snippet:
+Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 `from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq: PYL-W0614`
 
@@ -62,4 +62,4 @@ DOIT_CONFIG_RECOMMENDED = {
         # 'type_checking',  # Not yet implemented
     ],
 }
-"""DoIt Configuration Settings. Run with `poetry run doit`."""
+"""doit Configuration Settings. Run with `poetry run doit`."""

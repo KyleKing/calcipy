@@ -187,7 +187,7 @@ def task_create_tag_file() -> DoItTask:
     """Create a summary file with all of the found tagged comments.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     path_tag_summary = DIG.meta.path_source / _TAG_SUMMARY_FILENAME

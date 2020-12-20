@@ -1,10 +1,9 @@
-"""DoIt Linting Utilities."""
+"""doit Linting Utilities."""
 
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Union
 
 import toml
-from doit.tools import LongRunning
 from loguru import logger
 
 from ..log_helpers import log_fun
@@ -89,7 +88,7 @@ def task_set_lint_config() -> DoItTask:
     """Lint specified files creating summary log file of errors.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     user_toml = toml.load(DIG.meta.path_toml)
@@ -170,7 +169,7 @@ def _lint_project(
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
@@ -188,7 +187,7 @@ def task_lint_project() -> DoItTask:
     """Lint files from DIG creating summary log file of errors.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=None))
@@ -198,7 +197,7 @@ def task_lint_critical_only() -> DoItTask:
     """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     ignore_errors = [
@@ -223,7 +222,7 @@ def task_radon_lint() -> DoItTask:
     """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     actions = []
@@ -243,7 +242,7 @@ def task_auto_format() -> DoItTask:
     """Format code with isort and autopep8.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     run = 'poetry run python -m'
@@ -259,7 +258,7 @@ def task_pre_commit_hooks() -> DoItTask:
     """Run the pre-commit hooks on all files.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([

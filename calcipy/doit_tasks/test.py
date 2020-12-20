@@ -1,4 +1,4 @@
-"""DoIt Test Utilities."""
+"""doit Test Utilities."""
 
 from doit.tools import LongRunning
 
@@ -13,7 +13,7 @@ def task_test() -> DoItTask:
     """Run tests with Pytest.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -25,7 +25,7 @@ def task_test_all() -> DoItTask:
     """Run tests with Pytest.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -39,7 +39,7 @@ def task_test_marker() -> DoItTask:
     Example: `doit run test_marker -m \"not MARKER\"` or `doit run test_marker -m \"MARKER\"`
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     task = debug_task([LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
@@ -59,7 +59,7 @@ def task_test_keyword() -> DoItTask:
     Example: `doit run test_keyword -k \"KEYWORD\"`
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return {
@@ -81,7 +81,7 @@ def task_coverage() -> DoItTask:
     """Run pytest and create coverage and test reports.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     kwargs = (
@@ -98,7 +98,7 @@ def task_open_test_docs() -> DoItTask:
     """Open the test and coverage files in default browser.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -112,13 +112,13 @@ def task_open_test_docs() -> DoItTask:
 
 
 def ptw_task(cli_args: str) -> DoItTask:
-    """Return DoIt LongRunning `ptw` task.
+    """Return doit LongRunning `ptw` task.
 
     Args:
         cli_args: string CLI args to pass to `ptw`
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return {
@@ -128,36 +128,36 @@ def ptw_task(cli_args: str) -> DoItTask:
 
 
 def task_ptw_not_chrome() -> DoItTask:
-    """Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+    """Return doit LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `-m 'not CHROME' -vvv`
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return ptw_task('-m "not CHROME" -vvv')
 
 
 def task_ptw_ff() -> DoItTask:
-    """Return DoIt LongRunning `ptw` task to run failed first and skip the CHROME marker.
+    """Return doit LongRunning `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `--last-failed --new-first -m 'not CHROME' -vv`
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return ptw_task('--last-failed --new-first -m "not CHROME" -vv')
 
 
 def task_ptw_current() -> DoItTask:
-    """Return DoIt LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
+    """Return doit LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
 
     kwargs: `-m 'CURRENT' -vv`
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return ptw_task('-m "CURRENT" -vv')
@@ -169,7 +169,7 @@ def task_ptw_marker() -> DoItTask:
     Example: `doit run ptw_marker -m \"not MARKER\"` or `doit run ptw_marker -m \"MARKER\"`
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     task = ptw_task('-vvv -m "%(marker)s"')

@@ -1,4 +1,4 @@
-"""Global Variables for DoIt."""
+"""Global Variables for doit."""
 
 import inspect
 import warnings
@@ -16,7 +16,7 @@ from ..log_helpers import log_fun
 # Global Variables
 
 DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])  # noqa: ECE001
-"""DoIt task type for annotations."""
+"""doit task type for annotations."""
 
 
 def _member_filter(member: Any, instance_type: Any) -> bool:
@@ -201,7 +201,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 
 @attr.s(auto_attribs=True, kw_only=True)
 class DoItGlobals:
-    """Global Variables for DoIt."""
+    """Global Variables for doit."""
 
     calcipy_dir: Path = Path(__file__).parents[1]
     """The calcipy directory (likely within `.venv`)."""
@@ -245,4 +245,4 @@ class DoItGlobals:
 
 
 DIG = DoItGlobals()
-"""Global DoIt Globals class used to manage global variables."""
+"""Global doit Globals class used to manage global variables."""

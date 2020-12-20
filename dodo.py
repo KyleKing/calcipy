@@ -1,4 +1,4 @@
-"""DoIt Script.
+"""doit Script.
 
 ```sh
 # Ensure that packages are installed
@@ -40,7 +40,7 @@ logger.info(
     log_config=log_config,
 )
 
-logger.info('Starting DoIt tasks in dodo.py')
+logger.info('Starting doit tasks in dodo.py')
 
 # Configure source code root path
 DIG.set_paths(path_source=path_parent)  # FIXME: This should be `path_user`?
@@ -54,7 +54,7 @@ def task_type_checking() -> DoItTask:
     """Run type annotation checks.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([

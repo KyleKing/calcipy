@@ -13,7 +13,7 @@ TEST_DATA_DIR: Path = TEST_DIR / 'data'
 """Path to subdirectory with test data within the Test Directory."""
 
 DIG_CWD: Path = TEST_DATA_DIR / 'doit_project'
-"""Local directory used for testing the DoIt globals."""
+"""Local directory used for testing the doit globals."""
 # ^ FIXME: rename to PATH_TEST_SOURCE
 
 @pytest.fixture()
