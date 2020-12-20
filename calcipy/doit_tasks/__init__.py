@@ -50,18 +50,16 @@ from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'export_req',
-        'cl_write',
-        'coverage',
-        # 'open_test_docs',
         'set_lint_config',
+        'cl_write',
         'create_tag_file',
+        'export_req',
+        'coverage',
         'auto_format',
         'document',
-        # 'open_docs',
         'pre_commit_hooks',
         'lint_critical_only',
-        # 'type_checking',
+        # 'type_checking',  # Not yet implemented
     ],
 }
 """DoIt Configuration Settings. Run with `poetry run doit`."""

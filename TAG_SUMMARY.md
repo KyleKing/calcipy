@@ -13,6 +13,9 @@ calcipy/doit_tasks/base.py
     line  15    TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
     line  16    TODO: Show table of contents in __init__.py file. Use ast:
 
+calcipy/doit_tasks/doc.py
+    line  20   FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
+
 calcipy/doit_tasks/doit_globals.py
     line 209 PLANNED: Check if Optional[PackageMeta] is necessary
 
@@ -32,5 +35,5 @@ dodo.py
 tests/configuration.py
     line  17   FIXME: rename to PATH_TEST_SOURCE
 
-Found tagged comments for TODO (9),  PLANNED (3),  NOTE (1),  FIXME (2)
+Found tagged comments for TODO (9),  FIXME (3),  PLANNED (3),  NOTE (1)
 ```

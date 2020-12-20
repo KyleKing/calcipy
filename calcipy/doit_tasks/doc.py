@@ -17,6 +17,7 @@ from .doit_globals import DIG, DoItTask
 # Manage Tags
 
 
+# FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
 def task_tag_create() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
@@ -226,9 +227,6 @@ def _write_coverage_to_readme() -> None:
 # ----------------------------------------------------------------------------------------------------------------------
 # mkdocs
 
-# poetry run mkdocs build --site-dir releases/site
-# poetry run mkdocs build --site-dir DIG.doc.path_out
-
 
 def task_serve_fast() -> DoItTask:
     """Serve the site with `--dirtyreload` and open in a web browser.
@@ -269,8 +267,7 @@ def task_document() -> DoItTask:
         (_write_code_to_readme, ()),
         (_write_coverage_to_readme, ()),
         (_write_pkg_init, ()),
-        # args = f'{DIG.meta.pkg_name} --html --force --output-dir "{DIG.doc.path_out}"'
-        # f'poetry run portray {args}',  # PLANNED: Implement portray or mkdocs!
+        'poetry run mkdocs build',  # --site-dir DIG.doc.path_out
     ])
 
 
