@@ -45,8 +45,7 @@ def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[
 # ----------------------------------------------------------------------------------------------------------------------
 # Configuration Settings
 
-_FLAKE8: str = """
-[flake8]
+_FLAKE8: str = """[flake8]
 annoy = true
 assertive-snakecase = true
 cohesion-below = 50.0
@@ -97,7 +96,7 @@ def task_set_lint_config() -> DoItTask:
     user_toml = toml.load(DIG.meta.path_toml)
     user_toml['tool']['isort'] = _ISORT
     return debug_task([
-        (write_text, (DIG.lint.path_flake8, _FLAKE8.strip())),
+        (write_text, (DIG.lint.path_flake8, _FLAKE8)),
         (write_text, (DIG.meta.path_toml, toml.dumps(user_toml))),
     ])
 
@@ -182,7 +181,7 @@ def _lint_project(lint_paths: List[Path], path_flake8: Path,
     for lint_path in _list_lint_file_paths(lint_paths):
         actions.append(f'{run} flake8 "{lint_path}" {flags}')
     actions.append((_check_linting_errors, (flake8_log_path, ignore_errors)))
-    return actions
+    return [*map(LongRunning, actions)]
 
 
 @log_fun
@@ -197,7 +196,7 @@ def task_lint_project() -> DoItTask:
 
 
 @log_fun
-def task_lint_pre_commit() -> DoItTask:
+def task_lint_critical_only() -> DoItTask:
     """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
 
     Returns:
@@ -215,7 +214,6 @@ def task_lint_pre_commit() -> DoItTask:
         'H601',  # H601 / class with low cohesion
         'P101', 'P103',  # P101,P103 / format string
         'PD013',
-        # 'PD901',  # PD901 / 'df' is a bad variable name
         'S101',  # S101 / assert
         'S605', 'S607',  # S605,S607 / os.popen(...)
         'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
@@ -237,7 +235,7 @@ def task_radon_lint() -> DoItTask:
             [(echo, (f'# Radon with args: {args}', ))]
             + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DIG.lint.paths)],
         )
-    return debug_task(actions)
+    return debug_task([*map(LongRunning, actions)])
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -258,7 +256,7 @@ def task_auto_format() -> DoItTask:
         actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.meta.path_toml}"')
         for fn in _list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
-    return debug_task(actions)
+    return debug_task([*map(LongRunning, actions)])
 
 
 @log_fun

@@ -66,7 +66,9 @@ def task_test_keyword() -> DoItTask:
 
     """
     return {
-        'actions': [f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'],
+        'actions': [
+            LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'),
+        ],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
             'help': ('Runs only tests that match the string pattern\nSee: '
@@ -87,8 +89,8 @@ def task_coverage() -> DoItTask:
     kwargs = (f'--cov-report=html:"{DIG.test.path_coverage_index.parent}"  --html="{DIG.test.path_report_index}"'
               '  --self-contained-html')
     return debug_task([
-        (f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}'),
-    ], verbosity=2)
+        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}'),
+    ])
 
 
 @log_fun
