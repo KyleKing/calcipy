@@ -2,7 +2,7 @@
 
 Register all defaults DoIt tasks in a dodo.py file with the below snippet:
 
-`from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq`
+`from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq: PYL-W0614`
 
 """
 
@@ -36,8 +36,8 @@ __all__ = [  # noqa: F405
     'task_test_marker',
 ]
 
-from .base import *  # noqa: F401,F403,H303
-from .doc import *  # noqa: F401,F403,H303
-from .lint import *  # noqa: F401,F403,H303
+from .base import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .tag_collector import task_create_tag_file
-from .test import *  # noqa: F401,F403,H303
+from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
