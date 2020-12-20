@@ -9,9 +9,9 @@ def test_path_attr_base_path_resolver():
     """Test the _PathAttrBase class."""
     base_path = Path().resolve()
 
-    dp = DocConfig(path_source=base_path)  # act
+    doc = DocConfig(path_source=base_path)  # act
 
-    assert dp.path_changelog.is_absolute()
+    assert doc.path_out.is_absolute()
 
 
 # import pytest

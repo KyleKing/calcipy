@@ -116,15 +116,14 @@ def _write_pkg_init() -> None:
 
 
 @log_fun
-def task_update_cl() -> DoItTask:
-    """Update a Changelog file with the raw Git history.
+def task_write_cl() -> DoItTask:
+    """Write a Changelog file with the raw Git history.
 
     Returns:
         DoItTask: DoIt task
 
     """
-    os.environ['GITCHANGELOG_CONFIG_FILENAME'] = DIG.doc.path_changelog.as_posix()
-    return debug_task(['gitchangelog > CHANGELOG-raw.md'])
+    return debug_task(['poetry run cz changelog'])
 
 
 # ----------------------------------------------------------------------------------------------------------------------

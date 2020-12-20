@@ -36,7 +36,6 @@ def test_dig_paths():
     # Test the properties set by default
     assert dig.calcipy_dir.name == 'calcipy'
     assert dig.lint.path_flake8 == DIG_CWD / '.flake8'
-    assert dig.doc.path_changelog == dig.calcipy_dir / '.gitchangelog.rc'
     # Test the properties set by set_paths
     assert dig.meta.path_source == DIG_CWD
     assert dig.meta.path_toml == DIG_CWD / 'pyproject.toml'

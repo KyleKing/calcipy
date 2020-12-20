@@ -190,9 +190,6 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     path_out: Path = Path('docs')
     """Path to the documentation output directory."""
 
-    path_changelog: Path = Path(__file__).resolve().parents[1] / '.gitchangelog.rc'
-    """Path to the changelog configuration file."""
-
     paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
 

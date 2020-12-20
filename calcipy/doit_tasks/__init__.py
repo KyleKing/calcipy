@@ -14,7 +14,7 @@ __all__ = [  # noqa: F405
     'task_open_docs',
     'task_tag_create',
     'task_tag_remove',
-    'task_update_cl',
+    'task_write_cl',
     # from .lint
     'task_auto_format',
     'task_lint_project',

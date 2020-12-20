@@ -24,7 +24,7 @@ documentation = "https://kyleking.me/calcipy/"
 name = "cz_conventional_commits"
 version = "0.0.3"
 tag_format = "$version"
-version_files = [ "__init__.py",]
+version_files = [ "calcipy/__init__.py",]
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
