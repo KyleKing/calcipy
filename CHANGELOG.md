@@ -1,18 +1,19 @@
 ## Unreleased
 
+### Feat
+
+- new add-trailing-comma and pyupgrade hooks
+- new mkdocs tasks and improvements
+- new optional preconvert to serialize logs
+- move logger configuration to log_helpers
+- new cl_bump task. Closes #21
+
 ### Refactor
 
 - replace sh with subprocess-tee
 - reduce excess logging
 - move DOIT_CONFIG to import
 - move dig test to dig test file
-
-### Feat
-
-- new mkdocs tasks and improvements
-- new optional preconvert to serialize logs
-- move logger configuration to log_helpers
-- new cl_bump task. Closes #21
 
 ### Fix
 

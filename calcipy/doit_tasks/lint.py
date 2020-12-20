@@ -232,7 +232,7 @@ def task_radon_lint() -> DoItTask:
             [(echo, (f'# Radon with args: {args}',))]
             + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DIG.lint.paths)],
         )
-    return debug_task([*map(LongRunning, actions)])
+    return debug_task(actions)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -252,7 +252,7 @@ def task_auto_format() -> DoItTask:
         actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.meta.path_toml}"')
         for fn in _list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
-    return debug_task([*map(LongRunning, actions)])
+    return debug_task(actions)
 
 
 def task_pre_commit_hooks() -> DoItTask:
@@ -263,6 +263,6 @@ def task_pre_commit_hooks() -> DoItTask:
 
     """
     return debug_task([
-        LongRunning('poetry run pre-commit autoupdate'),
-        LongRunning('poetry run pre-commit run --all-files'),
+        'poetry run pre-commit autoupdate',
+        'poetry run pre-commit run --all-files',
     ])

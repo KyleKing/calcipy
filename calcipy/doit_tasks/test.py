@@ -88,8 +88,9 @@ def task_coverage() -> DoItTask:
         f'--cov-report=html:"{DIG.test.path_coverage_index.parent}"  --html="{DIG.test.path_report_index}"'
         '  --self-contained-html'
     )
+    # Note: removed LongRunning so that doit would catch test failures, but the output will not have colors
     return debug_task([
-        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}'),
+        f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}',
     ])
 
 

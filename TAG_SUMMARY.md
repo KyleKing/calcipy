@@ -25,12 +25,12 @@ calcipy/doit_tasks/lint.py
 calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment
     line  18 PLANNED: Maybe make this configurable?
-    line 142    TODO: Move all of these configuration items into DIG
-    line 149    NOTE: THE TOP LEVEL path_source MUST USE GLOB (NOT RGLOB!)
+    line 146    TODO: Move all of these configuration items into DIG
+    line 153    NOTE: THE TOP LEVEL path_source MUST USE GLOB (NOT RGLOB!)
 
 dodo.py
-    line  44   FIXME: This should be `path_user`?
-    line  50    TODO: Implement type checking with pytype, mypy, or other
+    line  46   FIXME: This should be `path_user`?
+    line  52    TODO: Implement type checking with pytype, mypy, or other
 
 tests/configuration.py
     line  17   FIXME: rename to PATH_TEST_SOURCE

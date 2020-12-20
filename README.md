@@ -45,6 +45,6 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `calcipy/doit_tasks/test.py` | 30 | 16 | 0 | 46.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2020-12-20T10:11:53.240843
+Generated on: 2020-12-20T16:43:24.820015
 
 <!-- /COVERAGE -->
