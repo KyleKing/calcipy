@@ -13,10 +13,6 @@ calcipy/doit_tasks/base.py
     line  15    TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
     line  16    TODO: Show table of contents in __init__.py file. Use ast:
 
-calcipy/doit_tasks/doc.py
-    line 201   FIXME: replace with subprocess or Mac/Windows alternative to sh
-    line 275 PLANNED: Implement portray or mkdocs!
-
 calcipy/doit_tasks/doit_globals.py
     line 209 PLANNED: Check if Optional[PackageMeta] is necessary
 
@@ -36,5 +32,5 @@ dodo.py
 tests/configuration.py
     line  17   FIXME: rename to PATH_TEST_SOURCE
 
-Found tagged comments for TODO (9),  FIXME (3),  PLANNED (4),  NOTE (1)
+Found tagged comments for TODO (9),  PLANNED (3),  NOTE (1),  FIXME (2)
 ```

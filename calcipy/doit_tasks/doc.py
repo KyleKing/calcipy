@@ -196,16 +196,12 @@ def _write_code_to_readme() -> None:
 
 def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
-    # Create the 'coverage.json' file from .coverage SQL database. Suppress errors if failed
     try:
-        # FIXME: replace with subprocess or Mac/Windows alternative to sh
-        #   ^ sh doesn't work in Windows because of fcntl dependency
-        import sh
-        sh.poetry.run.python('-m', 'coverage', 'json')
+        from subprocess_tee import run  # noqa: S404
     except ImportError:
-        logger.warning('Could not use "sh" / Need alternative')
-    # except sh.ErrorReturnCode_1:
-    #     logger.exception('Coverage conversion to JSON failed')
+        from subprocess import run  # noqa: S404
+    # Attempt to create the coverage file
+    run('poetry run python -m coverage json')  # noqa: S603, S607
 
     coverage_path = (DIG.meta.path_source / 'coverage.json')
     if coverage_path.is_file():

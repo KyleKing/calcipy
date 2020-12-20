@@ -34,18 +34,17 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 
 | File | Statements | Missing | Excluded | Coverage |
 | --: | --: | --: | --: | --: |
-| `calcipy/__init__.py` | 10 | 0 | 0 | 100.0% |
+| `calcipy/__init__.py` | 4 | 0 | 0 | 100.0% |
 | `calcipy/conftest.py` | 29 | 11 | 0 | 62.1% |
-| `calcipy/doit_helpers/__init__.py` | 0 | 0 | 0 | 100.0% |
-| `calcipy/doit_helpers/base.py` | 51 | 14 | 0 | 72.5% |
-| `calcipy/doit_helpers/doc.py` | 141 | 82 | 0 | 41.8% |
-| `calcipy/doit_helpers/doit_globals.py` | 54 | 2 | 0 | 96.3% |
-| `calcipy/doit_helpers/lint.py` | 81 | 19 | 0 | 76.5% |
-| `calcipy/doit_helpers/test.py` | 42 | 16 | 0 | 61.9% |
-| `calcipy/log_helpers.py` | 24 | 5 | 0 | 79.2% |
-| `calcipy/registered_tasks.py` | 5 | 5 | 0 | 0.0% |
-| `calcipy/tag_collector.py` | 91 | 29 | 0 | 68.1% |
+| `calcipy/doit_tasks/__init__.py` | 8 | 0 | 0 | 100.0% |
+| `calcipy/doit_tasks/base.py` | 42 | 14 | 0 | 66.7% |
+| `calcipy/doit_tasks/doc.py` | 96 | 62 | 0 | 35.4% |
+| `calcipy/doit_tasks/doit_globals.py` | 97 | 6 | 0 | 93.8% |
+| `calcipy/doit_tasks/lint.py` | 77 | 20 | 0 | 74.0% |
+| `calcipy/doit_tasks/tag_collector.py` | 86 | 35 | 0 | 59.3% |
+| `calcipy/doit_tasks/test.py` | 30 | 16 | 0 | 46.7% |
+| `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2020-12-10T20:43:26.996114
+Generated on: 2020-12-20T10:02:18.673484
 
 <!-- /COVERAGE -->
