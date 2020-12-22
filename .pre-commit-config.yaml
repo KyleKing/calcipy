@@ -38,20 +38,23 @@ repos:
     hooks:
       - id: add-trailing-comma
         stages: [push]
-  # FIXME: these hooks aren't working. Exit code of 1 for lock_dependencies
-  # - repo: local
-  #   hooks:
-  #     - id: lock_deps
-  #       name: lock_dependencies
-  #       # entry: poetry lock
-  #       entry: poetry
-  #       args: [lock]
-  #       language: system
-  #       # stages: [push]
-  #     # - id: doit
-  #     #   name: doit
-  #     #   entry: poetry run doit run coverage document
-  #     #   language: system
-  #     #   stages: [push]
-
-# {% block custom %}{% endblock %}
+  - repo: local
+    hooks:
+      - id: copier-forbidden-files
+        name: copier_forbidden_files
+        entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
+        language: fail
+        files: "\\.rej$"
+      # FIXME: these hooks aren't working. Exit code of 1 for lock_dependencies
+      # - id: lock_deps
+      #   name: lock_dependencies
+      #   # entry: poetry lock
+      #   entry: poetry
+      #   args: [lock]
+      #   language: system
+        # stages: [push]
+      # - id: doit
+      #   name: doit
+      #   entry: poetry run doit run coverage document
+      #   language: system
+      #   stages: [push]

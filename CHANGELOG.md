@@ -2,6 +2,7 @@
 
 ### Fix
 
+- rollback hook changes as they are not working
 - install hooks for push
 - LongRunning passed tasks that should fail
 - yesqa removed necessary noqa (H303, etc)

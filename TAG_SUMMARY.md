@@ -21,6 +21,7 @@ calcipy/doit_tasks/doit_globals.py
 
 calcipy/doit_tasks/lint.py
     line  17    TODO: Possibly remove - may be unused
+    line 268   FIXME: the push hooks aren't running
 
 calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment
@@ -32,5 +33,5 @@ dodo.py
     line  46   FIXME: This should be `path_user`?
     line  52    TODO: Implement type checking with pytype, mypy, or other
 
-Found tagged comments for TODO (9),  FIXME (2),  PLANNED (3),  NOTE (1)
+Found tagged comments for TODO (9),  FIXME (3),  PLANNED (3),  NOTE (1)
 ```

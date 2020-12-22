@@ -2,8 +2,8 @@
 name = "add-trailing-comma"
 version = "2.0.1"
 description = "Automatically add trailing commas to calls and literals"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [package.dependencies]
@@ -13,16 +13,16 @@ tokenize-rt = ">=3.0.1"
 name = "appdirs"
 version = "1.4.4"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "argcomplete"
 version = "1.12.2"
 description = "Bash tab completion for argparse"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.extras]
@@ -32,8 +32,8 @@ test = ["coverage", "flake8", "pexpect", "wheel"]
 name = "astpretty"
 version = "2.0.0"
 description = "Pretty print the output of python stdlib `ast.parse`."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [package.extras]
@@ -43,8 +43,8 @@ typed = ["typed-ast"]
 name = "asttokens"
 version = "2.0.4"
 description = "Annotate AST trees with source code positions"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -57,8 +57,8 @@ test = ["astroid", "pytest"]
 name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -79,8 +79,8 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 name = "autopep8"
 version = "1.5.4"
 description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -91,8 +91,8 @@ toml = "*"
 name = "bandit"
 version = "1.7.0"
 description = "Security oriented static analyser for python code."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -106,8 +106,8 @@ stevedore = ">=1.20.0"
 name = "beautifulsoup4"
 version = "4.9.3"
 description = "Screen-scraping library"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -121,8 +121,8 @@ lxml = ["lxml"]
 name = "better-exceptions"
 version = "0.2.2"
 description = "Pretty and helpful exceptions, automatically"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -132,40 +132,40 @@ colorama = {version = "*", markers = "sys_platform == \"win32\""}
 name = "cfgv"
 version = "3.2.0"
 description = "Validate configuration and produce human readable error messages."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [[package]]
 name = "click"
 version = "7.1.2"
 description = "Composable command line interface toolkit"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "cloudpickle"
 version = "1.6.0"
 description = "Extended pickling support for Python objects"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [[package]]
 name = "cognitive-complexity"
 version = "1.2.0"
 description = "Library to calculate Python functions cognitive complexity via code"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
 name = "cohesion"
 version = "1.0.0"
 description = "A tool for measuring Python class cohesion."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -180,8 +180,8 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "commitizen"
 version = "2.11.1"
 description = "Python commitizen client tool"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1,<4.0.0"
 
 [package.dependencies]
@@ -199,8 +199,8 @@ tomlkit = ">=0.5.3,<0.6.0"
 name = "coverage"
 version = "5.3.1"
 description = "Code coverage measurement for Python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 
 [package.extras]
@@ -210,16 +210,16 @@ toml = ["toml"]
 name = "darglint"
 version = "1.5.8"
 description = "A utility for ensuring Google-style docstrings stay up to date with the source code."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "decli"
 version = "0.5.2"
 description = "Minimal, easy-to-use, declarative cli tool"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
@@ -234,16 +234,16 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 name = "distlib"
 version = "0.3.1"
 description = "Distribution utilities"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "dlint"
 version = "0.11.0"
 description = "Dlint is a tool for encouraging best coding practices and helping ensure Python code is secure."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -253,16 +253,16 @@ flake8 = ">=3.6.0,<4.0.0"
 name = "docopt"
 version = "0.6.2"
 description = "Pythonic argument parser, that will make you smile"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "doit"
 version = "0.33.1"
 description = "doit - Automation Tool"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -274,24 +274,24 @@ pyinotify = {version = "*", markers = "sys_platform == \"linux\""}
 name = "eradicate"
 version = "2.0.0"
 description = "Removes commented-out code."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "filelock"
 version = "3.0.12"
 description = "A platform independent file lock."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "flake8"
 version = "3.8.4"
 description = "the modular source code checker: pep8 pyflakes and co"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
 [package.dependencies]
@@ -303,8 +303,8 @@ pyflakes = ">=2.2.0,<2.3.0"
 name = "flake8-2020"
 version = "1.6.0"
 description = "flake8 plugin which checks for misuse of `sys.version` or `sys.version_info`"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [package.dependencies]
@@ -314,8 +314,8 @@ flake8 = ">=3.7"
 name = "flake8-aaa"
 version = "0.11.0"
 description = "A Flake8 plugin that checks Python tests follow the Arrange-Act-Assert pattern"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6, <4"
 
 [package.dependencies]
@@ -325,8 +325,8 @@ asttokens = ">=2"
 name = "flake8-annotations"
 version = "2.4.1"
 description = "Flake8 Type Annotation Checks"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1,<4.0.0"
 
 [package.dependencies]
@@ -336,8 +336,8 @@ flake8 = ">=3.7,<3.9"
 name = "flake8-assertive"
 version = "1.3.0"
 description = "Flake8 unittest assert method checker"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -347,8 +347,8 @@ flake8 = "*"
 name = "flake8-bandit"
 version = "2.1.2"
 description = "Automated security testing with bandit and flake8."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -361,16 +361,16 @@ pycodestyle = "*"
 name = "flake8-blind-except"
 version = "0.1.1"
 description = "A flake8 extension that checks for blind except: statements"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "flake8-breakpoint"
 version = "1.1.0"
 description = "Flake8 plugin that check forgotten breakpoints"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
@@ -380,8 +380,8 @@ flake8-plugin-utils = ">=1.0,<2.0"
 name = "flake8-broken-line"
 version = "0.3.0"
 description = "Flake8 plugin to forbid backslashes for line breaks"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
@@ -391,8 +391,8 @@ flake8 = ">=3.5,<4.0"
 name = "flake8-bugbear"
 version = "20.11.1"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -406,8 +406,8 @@ dev = ["coverage", "black", "hypothesis", "hypothesmith"]
 name = "flake8-builtins"
 version = "1.5.3"
 description = "Check for python builtins being used as variables or parameters."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -420,8 +420,8 @@ test = ["coverage", "coveralls", "mock", "pytest", "pytest-cov"]
 name = "flake8-cognitive-complexity"
 version = "0.1.0"
 description = "An extension for flake8 that validates cognitive functions complexity"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -431,8 +431,8 @@ cognitive_complexity = "*"
 name = "flake8-commas"
 version = "2.0.0"
 description = "Flake8 lint for trailing commas."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -442,8 +442,8 @@ flake8 = ">=2,<4.0.0"
 name = "flake8-comprehensions"
 version = "3.3.1"
 description = "A flake8 plugin to help you write better list/set/dict comprehensions."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -453,8 +453,8 @@ flake8 = ">=3.0,<3.2.0 || >3.2.0,<4"
 name = "flake8-debugger"
 version = "4.0.0"
 description = "ipdb/pdb statement checker plugin for flake8"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -466,8 +466,8 @@ six = "*"
 name = "flake8-deprecated"
 version = "1.3"
 description = "Warns about deprecated method calls."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -477,8 +477,8 @@ flake8 = ">=3.0.0"
 name = "flake8-docstrings"
 version = "1.5.0"
 description = "Extension for flake8 which uses pydocstyle to check docstrings"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -489,8 +489,8 @@ pydocstyle = ">=2.1"
 name = "flake8-eradicate"
 version = "1.0.0"
 description = "Flake8 plugin to find commented out code"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
@@ -502,8 +502,8 @@ flake8 = ">=3.5,<4.0"
 name = "flake8-expression-complexity"
 version = "0.0.8"
 description = "A flake8 extension that checks expressions complexity"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -514,16 +514,16 @@ flake8 = "*"
 name = "flake8-fixme"
 version = "1.1.1"
 description = "Check for FIXME, TODO and other temporary developer notes. Plugin for flake8."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "flake8-functions"
 version = "0.0.4"
 description = "A flake8 extension that checks functions"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -533,8 +533,8 @@ pytest = "*"
 name = "flake8-isort"
 version = "4.0.0"
 description = "flake8 plugin that integrates isort ."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -549,16 +549,16 @@ test = ["pytest (>=4.0.2,<6)", "toml"]
 name = "flake8-logging-format"
 version = "0.6.0"
 description = "Flake8 extension to validate (lack of) logging format strings"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "flake8-markdown"
 version = "0.2.0"
 description = "Lints Python code blocks in Markdown files using flake8"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
@@ -568,16 +568,16 @@ flake8 = ">=3.7,<4.0"
 name = "flake8-mock"
 version = "0.3"
 description = "Provides checking for non-existent mock methods"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "flake8-mutable"
 version = "1.2.0"
 description = "mutable defaults flake8 extension"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -587,8 +587,8 @@ flake8 = "*"
 name = "flake8-pep3101"
 version = "1.3.0"
 description = "Checks for old string formatting."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -601,8 +601,8 @@ test = ["pytest", "testfixtures"]
 name = "flake8-plone-hasattr"
 version = "0.2.post0"
 description = "Checks for hasattr, which is considered harmful in Plone projects."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -612,16 +612,16 @@ flake8 = "*"
 name = "flake8-plugin-utils"
 version = "1.3.1"
 description = "The package provides base classes and utils for flake8 plugin writing"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "flake8-polyfill"
 version = "1.0.2"
 description = "Polyfill package for Flake8 plugins"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -631,8 +631,8 @@ flake8 = "*"
 name = "flake8-print"
 version = "4.0.0"
 description = "print statement checker plugin for flake8"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -644,8 +644,8 @@ six = "*"
 name = "flake8-printf-formatting"
 version = "1.1.0"
 description = "flake8 plugin which forbids printf-style string formatting"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -656,8 +656,8 @@ importlib-metadata = "*"
 name = "flake8-pytest-style"
 version = "1.3.0"
 description = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
@@ -667,8 +667,8 @@ flake8-plugin-utils = ">=1.3.1,<2.0.0"
 name = "flake8-quotes"
 version = "3.2.0"
 description = "Flake8 lint for quotes."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -678,8 +678,8 @@ flake8 = "*"
 name = "flake8-return"
 version = "1.1.2"
 description = "Flake8 plugin that checks return values"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
@@ -689,8 +689,8 @@ flake8-plugin-utils = ">=1.0,<2.0"
 name = "flake8-sql"
 version = "0.4.1"
 description = "Flake8 plugin that checks SQL code against opinionated style rules"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -701,8 +701,8 @@ sqlparse = "*"
 name = "flake8-string-format"
 version = "0.3.0"
 description = "string format checker, plugin for flake8"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -712,8 +712,8 @@ flake8 = "*"
 name = "flake8-tuple"
 version = "0.4.1"
 description = "Check code for 1 element tuple."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -724,24 +724,24 @@ six = "*"
 name = "flake8-variables-names"
 version = "0.0.3"
 description = "A flake8 extension that helps to make more readable variables names"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "future"
 version = "0.18.2"
 description = "Clean single-source support for Python 3 and 2"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "gitdb"
 version = "4.0.5"
 description = "Git Object Database"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.4"
 
 [package.dependencies]
@@ -751,8 +751,8 @@ smmap = ">=3.0.1,<4"
 name = "gitpython"
 version = "3.1.11"
 description = "Python Git Library"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.4"
 
 [package.dependencies]
@@ -762,8 +762,8 @@ gitdb = ">=4.0.1,<5"
 name = "hacking"
 version = "4.0.0"
 description = "OpenStack Hacking Guideline Enforcement"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -777,8 +777,8 @@ pep257 = ["flake8-docstrings (==0.2.1.post1)"]
 name = "identify"
 version = "1.5.10"
 description = "File identification library for Python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
 [package.extras]
@@ -788,8 +788,8 @@ license = ["editdistance"]
 name = "importlib-metadata"
 version = "3.3.0"
 description = "Read metadata from Python packages"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -803,16 +803,16 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "iniparse"
 version = "0.5"
 description = "Accessing and Modifying INI files"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -822,8 +822,8 @@ six = "*"
 name = "isort"
 version = "5.6.4"
 description = "A Python utility / library to sort Python imports."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.extras]
@@ -835,8 +835,8 @@ colors = ["colorama (>=0.4.3,<0.5.0)"]
 name = "jinja2"
 version = "2.11.2"
 description = "A very fast and expressive template engine."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
@@ -849,16 +849,16 @@ i18n = ["Babel (>=0.8)"]
 name = "joblib"
 version = "1.0.0"
 description = "Lightweight pipelining with Python functions"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
 name = "livereload"
 version = "2.6.3"
 description = "Python LiveReload is an awesome tool for web developers"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -884,8 +884,8 @@ dev = ["codecov (>=2.0.15)", "colorama (>=0.3.4)", "flake8 (>=3.7.7)", "tox (>=3
 name = "lunr"
 version = "0.5.8"
 description = "A Python implementation of Lunr.js"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -900,16 +900,16 @@ languages = ["nltk (>=3.2.5,<3.5)", "nltk (>=3.2.5)"]
 name = "macfsevents"
 version = "0.8.1"
 description = "Thread-based interface to file system observation primitives."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "mando"
 version = "0.6.4"
 description = "Create Python CLI apps with little to no effort at all!"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -922,8 +922,8 @@ restructuredText = ["rst2ansi"]
 name = "markdown"
 version = "3.3.3"
 description = "Python implementation of Markdown."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.extras]
@@ -933,8 +933,8 @@ testing = ["coverage", "pyyaml"]
 name = "markdown-include"
 version = "0.6.0"
 description = "This is an extension to Python-Markdown which provides an \"include\" function, similar to that found in LaTeX (and also the C pre-processor and Fortran). I originally wrote it for my FORD Fortran auto-documentation generator."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -944,24 +944,24 @@ markdown = "*"
 name = "markupsafe"
 version = "1.1.1"
 description = "Safely add untrusted strings to HTML/XML markup."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
 
 [[package]]
 name = "mccabe"
 version = "0.6.1"
 description = "McCabe checker, plugin for flake8"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "mkdocs"
 version = "1.1.2"
 description = "Project documentation with Markdown."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -977,8 +977,8 @@ tornado = ">=5.0"
 name = "mkdocs-material"
 version = "6.1.7"
 description = "A Material Design theme for MkDocs"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -992,8 +992,8 @@ pymdown-extensions = ">=7.0"
 name = "mkdocs-material-extensions"
 version = "1.0.1"
 description = "Extension pack for Python Markdown."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -1003,8 +1003,8 @@ mkdocs-material = ">=5.0.0"
 name = "mkdocstrings"
 version = "0.13.6"
 description = "Automatic documentation from sources, for MkDocs."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
@@ -1020,8 +1020,8 @@ tests = ["coverage (>=5.2.1,<6.0.0)", "invoke (>=1.4.1,<2.0.0)", "mkdocs-materia
 name = "nltk"
 version = "3.5"
 description = "Natural Language Toolkit"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1042,24 +1042,24 @@ twitter = ["twython"]
 name = "nodeenv"
 version = "1.5.0"
 description = "Node.js virtual environment builder"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "numpy"
 version = "1.19.4"
 description = "NumPy is the fundamental package for array computing with Python."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [[package]]
 name = "packaging"
 version = "20.8"
 description = "Core utilities for Python packages"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.dependencies]
@@ -1069,8 +1069,8 @@ pyparsing = ">=2.0.2"
 name = "pandas-vet"
 version = "0.2.2"
 description = "A flake8 plugin to lint pandas in an opinionated way"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1081,16 +1081,16 @@ flake8 = ">3.0.0"
 name = "pbr"
 version = "5.5.1"
 description = "Python Build Reasonableness"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.6"
 
 [[package]]
 name = "pep8-naming"
 version = "0.11.1"
 description = "Check PEP-8 naming conventions, plugin for flake8"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1100,8 +1100,8 @@ flake8-polyfill = ">=1.0.2,<2"
 name = "pluggy"
 version = "0.13.1"
 description = "plugin and hook calling mechanisms for python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
@@ -1111,8 +1111,8 @@ dev = ["pre-commit", "tox"]
 name = "pre-commit"
 version = "2.9.3"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [package.dependencies]
@@ -1127,8 +1127,8 @@ virtualenv = ">=20.0.8"
 name = "preconvert"
 version = "0.0.6"
 description = "A Library to enable preconversion of any Python type into one that is easily serializable"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.extras]
@@ -1140,8 +1140,8 @@ simplejson = ["simplejson"]
 name = "preconvert-numpy"
 version = "0.0.3"
 description = "Preconverts common numpy types to their serializable (jsonifiable, msgpackable, etc...) form."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -1157,8 +1157,8 @@ simplejson = ["simplejson"]
 name = "prompt-toolkit"
 version = "3.0.8"
 description = "Library for building powerful interactive command lines in Python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [package.dependencies]
@@ -1168,8 +1168,8 @@ wcwidth = "*"
 name = "proselint"
 version = "0.10.2"
 description = "A linter for prose."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1181,24 +1181,24 @@ six = "*"
 name = "py"
 version = "1.10.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pycodestyle"
 version = "2.6.0"
 description = "Python style guide checker"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pydocstyle"
 version = "5.1.1"
 description = "Python docstring style checker"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -1208,32 +1208,32 @@ snowballstemmer = "*"
 name = "pyflakes"
 version = "2.2.0"
 description = "passive checker of Python programs"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pygments"
 version = "2.7.3"
 description = "Pygments is a syntax highlighting package written in Python."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [[package]]
 name = "pyinotify"
 version = "0.9.6"
 description = "Linux filesystem events monitoring"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "pymdown-extensions"
 version = "8.0.1"
 description = "Extension pack for Python Markdown."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -1243,24 +1243,24 @@ Markdown = ">=3.2"
 name = "pyparsing"
 version = "2.4.7"
 description = "Python parsing module"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "pystache"
 version = "0.5.4"
 description = "Mustache for Python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "pytest"
 version = "6.2.1"
 description = "pytest: simple powerful testing with Python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1280,8 +1280,8 @@ testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xm
 name = "pytest-cov"
 version = "2.10.1"
 description = "Pytest plugin for measuring coverage."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
@@ -1295,8 +1295,8 @@ testing = ["fields", "hunter", "process-tests (==2.0.2)", "six", "pytest-xdist",
 name = "pytest-html"
 version = "3.1.1"
 description = "pytest plugin for generating HTML reports"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1307,8 +1307,8 @@ pytest-metadata = "*"
 name = "pytest-metadata"
 version = "1.11.0"
 description = "pytest plugin for test session metadata"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [package.dependencies]
@@ -1318,8 +1318,8 @@ pytest = ">=2.9.0"
 name = "pytest-watch"
 version = "4.2.0"
 description = "Local continuous test runner with pytest and watchdog."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1332,8 +1332,8 @@ watchdog = ">=0.6.0"
 name = "pytkdocs"
 version = "0.9.0"
 description = "Load Python objects documentation."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<4.0"
 
 [package.extras]
@@ -1343,8 +1343,8 @@ tests = ["coverage (>=5.2.1,<6.0.0)", "invoke (>=1.4.1,<2.0.0)", "marshmallow (>
 name = "pyupgrade"
 version = "2.7.4"
 description = "A tool to automatically upgrade syntax for newer versions."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [package.dependencies]
@@ -1354,16 +1354,16 @@ tokenize-rt = ">=3.2.0"
 name = "pyyaml"
 version = "5.3.1"
 description = "YAML parser and emitter for Python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "questionary"
 version = "1.9.0"
 description = "Python library to build pretty command line user prompts ⭐️"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6,<3.10"
 
 [package.dependencies]
@@ -1376,8 +1376,8 @@ docs = ["Sphinx (>=3.3,<4.0)", "sphinx-rtd-theme (>=0.5.0,<0.6.0)", "sphinx-auto
 name = "radon"
 version = "4.3.2"
 description = "Code Metrics in Python"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -1392,8 +1392,8 @@ flake8 = ["flake8-polyfill"]
 name = "regex"
 version = "2020.11.13"
 description = "Alternative regular expression module, to replace re."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1408,40 +1408,40 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "smmap"
 version = "3.0.4"
 description = "A pure Python implementation of a sliding window memory map manager"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "snowballstemmer"
 version = "2.0.0"
 description = "This package provides 26 stemmers for 25 languages generated from Snowball algorithms."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "soupsieve"
 version = "2.1"
 description = "A modern CSS selector implementation for Beautiful Soup."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [[package]]
 name = "sqlparse"
 version = "0.4.1"
 description = "A non-validating SQL parser."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.5"
 
 [[package]]
 name = "stevedore"
 version = "3.3.0"
 description = "Manage dynamic plugins for Python applications"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1451,8 +1451,8 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 name = "subprocess-tee"
 version = "0.2.0"
 description = "subprocess-tee"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.extras]
@@ -1463,16 +1463,16 @@ test = ["enrich (>=1.2.5)", "mock (>=3.0.5)", "pytest-cov (>=2.7.1)", "pytest-pl
 name = "termcolor"
 version = "1.1.0"
 description = "ANSII Color formatting for output in terminal."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
 name = "testfixtures"
 version = "6.17.0"
 description = "A collection of helpers and mock objects for unit tests and doc tests."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [package.extras]
@@ -1484,8 +1484,8 @@ test = ["pytest (>=3.6)", "pytest-cov", "pytest-django", "zope.component", "sybi
 name = "tokenize-rt"
 version = "4.0.0"
 description = "A wrapper around the stdlib `tokenize` which roundtrips."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6.1"
 
 [[package]]
@@ -1500,24 +1500,24 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "tomlkit"
 version = "0.5.11"
 description = "Style preserving TOML library"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "tornado"
 version = "6.1"
 description = "Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">= 3.5"
 
 [[package]]
 name = "tqdm"
 version = "4.54.1"
 description = "Fast, Extensible Progress Meter"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
 [package.extras]
@@ -1542,8 +1542,8 @@ test = ["pytest"]
 name = "virtualenv"
 version = "20.2.2"
 description = "Virtual Python Environment builder"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 
 [package.dependencies]
@@ -1560,8 +1560,8 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 name = "watchdog"
 version = "1.0.2"
 description = "Filesystem events monitoring"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.extras]
@@ -1571,8 +1571,8 @@ watchmedo = ["PyYAML (>=3.10)", "argh (>=0.24.1)"]
 name = "wcwidth"
 version = "0.2.5"
 description = "Measures the displayed width of unicode strings in a terminal"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1590,8 +1590,8 @@ dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 name = "zipp"
 version = "3.4.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.6"
 
 [package.extras]
@@ -1599,13 +1599,13 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "jaraco.test (>=3.2.0)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [extras]
-dev = ["toml"]
-serializers = []
+development = ["add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "mkdocs-material", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "tqdm", "markdown-include", "mkdocstrings"]
+serializers = ["preconvert", "preconvert_numpy"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8, <3.9"
-content-hash = "5a600468000cb1fa1e13cea8ba206d8c92f70c649a1c6fd7735176c72a53028a"
+content-hash = "280cdaa43de05d57ed9f7fd2a8ae0c4d41a63a394d7588ab856c6dfee30d06e5"
 
 [metadata.files]
 add-trailing-comma = [
