@@ -33,7 +33,7 @@ dodo.py
     line  52    TODO: Implement type checking with pytype, mypy, or other
 
 tests/configuration.py
-    line  17   FIXME: rename to PATH_TEST_SOURCE
+    line  17   FIXME: rename to PATH_TEST_PROJECT
 
 Found tagged comments for TODO (9),  FIXME (3),  PLANNED (3),  NOTE (1)
 ```

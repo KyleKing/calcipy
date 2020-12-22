@@ -3,7 +3,7 @@
 from calcipy.doit_tasks.doc import task_tag_create, task_tag_remove, task_cl_write
 from calcipy.doit_tasks.doit_globals import DIG
 
-from ..configuration import DIG_CWD
+from ..configuration import PATH_TEST_PROJECT
 
 
 def test_task_cl_write():
@@ -16,7 +16,7 @@ def test_task_cl_write():
 
 def test_task_tag_create():
     """Test task_tag_create."""
-    DIG.set_paths(path_source=DIG_CWD)
+    DIG.set_paths(path_source=PATH_TEST_PROJECT)
 
     result = task_tag_create()
 
@@ -28,7 +28,7 @@ def test_task_tag_create():
 
 def test_task_tag_remove():
     """Test task_tag_remove."""
-    DIG.set_paths(path_source=DIG_CWD)
+    DIG.set_paths(path_source=PATH_TEST_PROJECT)
 
     result = task_tag_remove()
 

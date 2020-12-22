@@ -5,7 +5,7 @@ import attr
 from calcipy.doit_tasks.base import _show_cmd, debug_task, if_found_unlink, task_export_req
 from calcipy.doit_tasks.doit_globals import DIG
 
-from ..configuration import DIG_CWD, TEST_DATA_DIR
+from ..configuration import PATH_TEST_PROJECT, TEST_DATA_DIR
 
 
 def test_show_cmd():
@@ -45,7 +45,7 @@ def test_if_found_unlink():
 
 def test_task_export_req():
     """Test task_export_req."""
-    DIG.set_paths(path_source=DIG_CWD)
+    DIG.set_paths(path_source=PATH_TEST_PROJECT)
 
     result = task_export_req()
 

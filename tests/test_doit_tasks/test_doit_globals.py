@@ -5,7 +5,7 @@ from typing import Any, List
 
 from calcipy.doit_tasks.doit_globals import DocConfig, DoItGlobals
 
-from ..configuration import DIG_CWD
+from ..configuration import PATH_TEST_PROJECT
 
 
 def _get_public_props(obj: Any) -> List[str]:
@@ -21,24 +21,24 @@ def test_dig_props():
     dig = DoItGlobals()  # act
 
     assert _get_public_props(dig) == sorted(public_props)
-    dig.set_paths(path_source=DIG_CWD)
+    dig.set_paths(path_source=PATH_TEST_PROJECT)
     assert _get_public_props(dig) == sorted(settable_props)
 
 
 def test_dig_paths():
     """Test the DIG global variable from DoItGlobals."""
     dig = DoItGlobals()
-    pkg_name = DIG_CWD.name
-    path_out_base = DIG_CWD / 'releases'
+    pkg_name = PATH_TEST_PROJECT.name
+    path_out_base = PATH_TEST_PROJECT / 'releases'
 
-    dig.set_paths(path_source=DIG_CWD)  # act
+    dig.set_paths(path_source=PATH_TEST_PROJECT)  # act
 
     # Test the properties set by default
     assert dig.calcipy_dir.name == 'calcipy'
-    assert dig.lint.path_flake8 == DIG_CWD / '.flake8'
+    assert dig.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
     # Test the properties set by set_paths
-    assert dig.meta.path_source == DIG_CWD
-    assert dig.meta.path_toml == DIG_CWD / 'pyproject.toml'
+    assert dig.meta.path_source == PATH_TEST_PROJECT
+    assert dig.meta.path_toml == PATH_TEST_PROJECT / 'pyproject.toml'
     assert dig.meta.pkg_name == pkg_name
     assert dig.doc.path_out == path_out_base / 'site'
     assert dig.test.path_out == path_out_base / 'tests'
