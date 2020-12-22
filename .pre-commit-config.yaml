@@ -8,10 +8,22 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.4.0
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      # - id: check-yaml  # The mkdocs YAML file isn't valid...
       - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-vcs-permalinks
+      # - id: check-yaml  # The mkdocs YAML file isn't valid...
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: fix-encoding-pragma
+        args: ["--remove"]
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+      - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.11.1
     hooks:
@@ -21,7 +33,16 @@ repos:
     rev: v2.7.4
     hooks:
       - id: pyupgrade
+        stages: [push]
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.0.1
     hooks:
       - id: add-trailing-comma
+        stages: [push]
+  - repo: local
+    hooks:
+      - id: lock_deps
+        name: lock-dependencies
+        entry: poetry lock
+        language: system
+        stages: [push]
