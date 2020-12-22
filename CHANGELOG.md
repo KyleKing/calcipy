@@ -1,17 +1,8 @@
 ## Unreleased
 
-### Refactor
-
-- rename DIG_CWD as PATH_TEST_PROJECT
-- rename test file
-- doit is lowercase (CC looks like Dolt)
-- replace sh with subprocess-tee
-- reduce excess logging
-- move DOIT_CONFIG to import
-- move dig test to dig test file
-
 ### Fix
 
+- install hooks for push
 - LongRunning passed tasks that should fail
 - yesqa removed necessary noqa (H303, etc)
 - incorrect output paths
@@ -21,11 +12,23 @@
 
 ### Feat
 
+- improve git pre-commit hooks
 - new add-trailing-comma and pyupgrade hooks
 - new mkdocs tasks and improvements
 - new optional preconvert to serialize logs
 - move logger configuration to log_helpers
 - new cl_bump task. Closes #21
+
+### Refactor
+
+- rename path_source to path_project
+- rename DIG_CWD as PATH_TEST_PROJECT
+- rename test file
+- doit is lowercase (CC looks like Dolt)
+- replace sh with subprocess-tee
+- reduce excess logging
+- move DOIT_CONFIG to import
+- move dig test to dig test file
 
 ## 0.1.0 (2020-12-19)
 

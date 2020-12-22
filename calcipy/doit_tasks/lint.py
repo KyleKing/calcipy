@@ -265,6 +265,7 @@ def task_pre_commit_hooks() -> DoItTask:
     """
     return debug_task([
         'poetry run pre-commit install --install-hooks',
+        'poetry run pre-commit install -t pre-push',  # FIXME: the push hooks aren't running
         'poetry run pre-commit autoupdate',
         'poetry run pre-commit run --all-files',
     ])
