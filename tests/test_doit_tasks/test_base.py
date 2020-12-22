@@ -45,7 +45,7 @@ def test_if_found_unlink():
 
 def test_task_export_req():
     """Test task_export_req."""
-    DIG.set_paths(path_source=PATH_TEST_PROJECT)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = task_export_req()
 

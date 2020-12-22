@@ -16,7 +16,7 @@ def test_task_cl_write():
 
 def test_task_tag_create():
     """Test task_tag_create."""
-    DIG.set_paths(path_source=PATH_TEST_PROJECT)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = task_tag_create()
 
@@ -28,7 +28,7 @@ def test_task_tag_create():
 
 def test_task_tag_remove():
     """Test task_tag_remove."""
-    DIG.set_paths(path_source=PATH_TEST_PROJECT)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = task_tag_remove()
 

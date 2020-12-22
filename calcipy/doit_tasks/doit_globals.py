@@ -96,7 +96,7 @@ _DEF_EXCLUDE = [*map(Path, ['__init__.py'])]
 @attr.s(auto_attribs=True, kw_only=True)
 class _PathAttrBase:  # noqa: H601
 
-    path_source: Path
+    path_project: Path
     """Path to the package directory."""
 
     def __attrs_post_init__(self) -> None:
@@ -106,9 +106,9 @@ class _PathAttrBase:  # noqa: H601
             RuntimeError: if any paths are None
 
         """
-        if self.path_source is None:
-            raise RuntimeError('Missing keyword argument "path_source"')
-        _resolve_class_paths(self, self.path_source)
+        if self.path_project is None:
+            raise RuntimeError('Missing keyword argument "path_project"')
+        _resolve_class_paths(self, self.path_project)
         _verify_initialized_paths(self)
 
 
@@ -136,7 +136,7 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         try:
             poetry_config = toml.load(self.path_toml)['tool']['poetry']
         except FileNotFoundError:
-            raise FileNotFoundError(f'Check that "{self.path_source}" is correct. Could not find: {self.path_toml}')
+            raise FileNotFoundError(f'Check that "{self.path_project}" is correct. Could not find: {self.path_toml}')
 
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
@@ -220,23 +220,23 @@ class DoItGlobals:
 
     @log_fun
     def set_paths(
-        self, *, path_source: Optional[Path] = None,
+        self, *, path_project: Optional[Path] = None,
         doc_dir: Optional[Path] = None,
     ) -> None:
         """Set data members based on working directory.
 
         Args:
-            path_source: optional source directory Path. Defaults to the `pkg_name`
+            path_project: optional source directory Path. Defaults to the `pkg_name`
             doc_dir: optional destination directory for project documentation. Defaults to './output'
 
         """
-        logger.info(f'Setting DIG paths for {path_source}', path_source=path_source, cwd=Path.cwd(), doc_dir=doc_dir)
-        path_source = Path.cwd() if path_source is None else path_source
-        self.meta = PackageMeta(path_source=path_source)
-        meta_kwargs = {'path_source': self.meta.path_source}
+        logger.info(f'Setting DIG paths for {path_project}', path_project=path_project, cwd=Path.cwd(), doc_dir=doc_dir)
+        path_project = Path.cwd() if path_project is None else path_project
+        self.meta = PackageMeta(path_project=path_project)
+        meta_kwargs = {'path_project': self.meta.path_project}
 
         self.lint = LintConfig(**meta_kwargs)
-        self.lint.paths.append(self.meta.path_source / self.meta.pkg_name)
+        self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
 
         self.test = TestingConfig(**meta_kwargs)
         self.doc = DocConfig(**meta_kwargs)

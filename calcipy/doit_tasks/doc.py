@@ -72,7 +72,7 @@ def _write_pkg_init() -> None:
         pkg_version=DIG.meta.pkg_version,
         pkg_name=DIG.meta.pkg_name,
     ) + '\n' + _INIT_DIVIDER
-    init_path = (DIG.meta.path_source / DIG.meta.pkg_name / '__init__.py')
+    init_path = (DIG.meta.path_project / DIG.meta.pkg_name / '__init__.py')
     init_lines = init_path.read_text().strip().split('\n')
     try:
         break_index = init_lines.index(_INIT_DIVIDER) + 1
@@ -181,7 +181,7 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
         new_text: dictionary with comment string as key
 
     """
-    readme_path = DIG.meta.path_source / 'README.md'
+    readme_path = DIG.meta.path_project / 'README.md'
     readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
 
@@ -190,7 +190,7 @@ def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
     fn = 'tests/examples/readme.py'
-    script_path = DIG.meta.path_source / fn
+    script_path = DIG.meta.path_project / fn
     if script_path.is_file():
         source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
@@ -208,7 +208,7 @@ def _write_coverage_to_readme() -> None:
     # Attempt to create the coverage file
     run('poetry run python -m coverage json')  # noqa: S603, S607
 
-    coverage_path = (DIG.meta.path_source / 'coverage.json')
+    coverage_path = (DIG.meta.path_project / 'coverage.json')
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -217,7 +217,7 @@ def _write_coverage_to_readme() -> None:
         int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
         rows = [legend, ['--:'] * len(legend)]
         for file_path, file_obj in coverage['files'].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.meta.path_source).as_posix()
+            rel_path = Path(file_path).resolve().relative_to(DIG.meta.path_project).as_posix()
             per = round(file_obj['summary']['percent_covered'], 1)
             rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown

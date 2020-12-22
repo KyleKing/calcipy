@@ -13,7 +13,7 @@ from ..configuration import PATH_TEST_PROJECT
 
 def test_collect_py_files():
     """Test collect_py_files."""
-    DIG.set_paths(path_source=PATH_TEST_PROJECT)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = _collect_py_files(add_paths=(), sub_directories=None)
 
@@ -24,7 +24,7 @@ def test_collect_py_files():
 
 def test_lint_project():
     """Test lint_project."""
-    DIG.set_paths(path_source=PATH_TEST_PROJECT)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = _lint_project(
         lint_paths=[PATH_TEST_PROJECT / 'test_file.py', PATH_TEST_PROJECT / 'tests/test_file_2.py'],

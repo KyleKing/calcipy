@@ -20,20 +20,17 @@ calcipy/doit_tasks/doit_globals.py
     line 209 PLANNED: Check if Optional[PackageMeta] is necessary
 
 calcipy/doit_tasks/lint.py
-    line  18    TODO: Possibly remove - may be unused
+    line  17    TODO: Possibly remove - may be unused
 
 calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment
     line  18 PLANNED: Maybe make this configurable?
     line 146    TODO: Move all of these configuration items into DIG
-    line 153    NOTE: THE TOP LEVEL path_source MUST USE GLOB (NOT RGLOB!)
+    line 153    NOTE: THE TOP LEVEL path_project MUST USE GLOB (NOT RGLOB!)
 
 dodo.py
     line  46   FIXME: This should be `path_user`?
     line  52    TODO: Implement type checking with pytype, mypy, or other
 
-tests/configuration.py
-    line  17   FIXME: rename to PATH_TEST_PROJECT
-
-Found tagged comments for TODO (9),  FIXME (3),  PLANNED (3),  NOTE (1)
+Found tagged comments for TODO (9),  FIXME (2),  PLANNED (3),  NOTE (1)
 ```

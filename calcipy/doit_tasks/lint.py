@@ -34,8 +34,8 @@ def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[
         raise TypeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
     if sub_directories is None:
         sub_directories = []
-    sub_directories.extend([DIG.meta.path_source / DIG.meta.pkg_name, DIG.test.path_tests] + DIG.lint.paths)
-    package_files = [*add_paths] + [*DIG.meta.path_source.glob('*.py')]
+    sub_directories.extend([DIG.meta.path_project / DIG.meta.pkg_name, DIG.test.path_tests] + DIG.lint.paths)
+    package_files = [*add_paths] + [*DIG.meta.path_project.glob('*.py')]
     for subdir in sub_directories:  # Capture files in package and in tests directory
         package_files.extend([*subdir.rglob('*.py')])
     return [str(file_path) for file_path in package_files if file_path.name not in DIG.lint.paths_excluded]
@@ -173,7 +173,7 @@ def _lint_project(
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
-    flake8_log_path = DIG.meta.path_source / 'flake8.log'
+    flake8_log_path = DIG.meta.path_project / 'flake8.log'
     actions = [(if_found_unlink, (flake8_log_path,))]
     run = 'poetry run python -m'
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'

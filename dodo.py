@@ -43,7 +43,7 @@ logger.info(
 logger.info('Starting doit tasks in dodo.py')
 
 # Configure source code root path
-DIG.set_paths(path_source=path_parent)  # FIXME: This should be `path_user`?
+DIG.set_paths(path_project=path_parent)  # FIXME: This should be `path_user`?
 
 # Create list of all tasks run with `poetry run doit`
 DOIT_CONFIG = DOIT_CONFIG_RECOMMENDED

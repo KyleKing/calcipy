@@ -40,11 +40,11 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `calcipy/doit_tasks/base.py` | 42 | 14 | 0 | 66.7% |
 | `calcipy/doit_tasks/doc.py` | 96 | 62 | 0 | 35.4% |
 | `calcipy/doit_tasks/doit_globals.py` | 97 | 6 | 0 | 93.8% |
-| `calcipy/doit_tasks/lint.py` | 77 | 20 | 0 | 74.0% |
-| `calcipy/doit_tasks/tag_collector.py` | 86 | 35 | 0 | 59.3% |
+| `calcipy/doit_tasks/lint.py` | 76 | 20 | 0 | 73.7% |
+| `calcipy/doit_tasks/tag_collector.py` | 87 | 36 | 0 | 58.6% |
 | `calcipy/doit_tasks/test.py` | 30 | 16 | 0 | 46.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2020-12-20T16:57:15.104852
+Generated on: 2020-12-21T21:53:07.298420
 
 <!-- /COVERAGE -->

@@ -25,5 +25,5 @@ def initialize_dig() -> DoItGlobals:
 
     """
     dig = DoItGlobals()
-    dig.set_paths(path_source=PATH_TEST_PROJECT)
+    dig.set_paths(path_project=PATH_TEST_PROJECT)
     return dig
