@@ -257,12 +257,14 @@ def task_auto_format() -> DoItTask:
 def task_pre_commit_hooks() -> DoItTask:
     """Run the pre-commit hooks on all files.
 
+    Note: use `git commit` or `git push` with `--no-verify` if needed
+
     Returns:
         DoItTask: doit task
 
     """
     return debug_task([
-        # 'poetry run pre-commit install',
+        'poetry run pre-commit install --install-hooks',
         'poetry run pre-commit autoupdate',
         'poetry run pre-commit run --all-files',
     ])

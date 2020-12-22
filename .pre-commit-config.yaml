@@ -10,8 +10,6 @@ repos:
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
-      - id: check-docstring-first
-      - id: check-executables-have-shebangs
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-vcs-permalinks
@@ -46,3 +44,10 @@ repos:
         entry: poetry lock
         language: system
         stages: [push]
+      - id: doit
+        name: doit
+        entry: poetry run doit
+        language: system
+        stages: [push]
+
+# {% block custom %}{% endblock %}
