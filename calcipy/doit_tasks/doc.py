@@ -173,6 +173,7 @@ class _ReadMeMachine:  # noqa: H601
         return self.readme_lines
 
 
+# FIXME: This was for a very specific implementation. See #36 for variable defintion
 def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -> None:
     """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
 

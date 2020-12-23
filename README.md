@@ -52,12 +52,12 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `calcipy/doit_tasks/__init__.py` | 7 | 0 | 0 | 100.0% |
 | `calcipy/doit_tasks/base.py` | 35 | 11 | 0 | 68.6% |
 | `calcipy/doit_tasks/doc.py` | 96 | 62 | 0 | 35.4% |
-| `calcipy/doit_tasks/doit_globals.py` | 97 | 6 | 0 | 93.8% |
+| `calcipy/doit_tasks/doit_globals.py` | 103 | 9 | 0 | 91.3% |
 | `calcipy/doit_tasks/lint.py` | 69 | 17 | 0 | 75.4% |
 | `calcipy/doit_tasks/tag_collector.py` | 87 | 36 | 0 | 58.6% |
 | `calcipy/doit_tasks/test.py` | 30 | 16 | 0 | 46.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2020-12-22T22:47:46.494050
+Generated on: 2020-12-23T07:07:09.244435
 
 <!-- /COVERAGE -->

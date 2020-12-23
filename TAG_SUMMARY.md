@@ -11,7 +11,7 @@ calcipy/doit_tasks/doc.py
     line  20   FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
 
 calcipy/doit_tasks/doit_globals.py
-    line 209 PLANNED: Check if Optional[PackageMeta] is necessary
+    line 222 PLANNED: Check if Optional[PackageMeta] is necessary
 
 calcipy/doit_tasks/lint.py
     line  16    TODO: Possibly remove - may be unused
