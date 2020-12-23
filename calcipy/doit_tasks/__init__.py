@@ -57,3 +57,5 @@ DOIT_CONFIG_RECOMMENDED = {
     ],
 }
 """doit Configuration Settings. Run with `poetry run doit`."""
+
+_DOIT_TASK_IMPORT_ERROR  = 'User must install the optional calcipy extra "development" to utilize "doit_tasks"'

@@ -7,10 +7,15 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
 
 import attr
-import toml
 from loguru import logger
 
 from ..log_helpers import log_fun
+from . import _DOIT_TASK_IMPORT_ERROR
+
+try:
+    import toml
+except ImportError:
+    toml = None
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
@@ -129,10 +134,16 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes.
 
         Raises:
+            RuntimeError: if the toml package is not available
             FileNotFoundError: if the toml could not be located
 
         """
         super().__attrs_post_init__()
+
+        # Note: toml is an optional dependency required only when using the `doit_tasks` in development
+        if toml is None:
+            raise RuntimeError(_DOIT_TASK_IMPORT_ERROR)
+
         try:
             poetry_config = toml.load(self.path_toml)['tool']['poetry']
         except FileNotFoundError:

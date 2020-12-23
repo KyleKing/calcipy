@@ -20,23 +20,24 @@ readme = "README.md"
 repository = "https://github.com/kyleking/calcipy"
 documentation = "https://kyleking.me/calcipy/"
 
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.1.0"
 tag_format = "$version"
 version_files = [ "pyproject.toml", "calcipy/__init__.py",]
 
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 
 [tool.poetry.dependencies]
 python = "^3.8, <3.9"
 attrs = "*"
 decorator = "*"
 loguru = "*"
-toml = "*"
 transitions = "*"
 
+# Development
 add-trailing-comma = {version = "*", optional = true}
 autopep8 = {version = "*", optional = true}
 better-exceptions = {version = "*", optional = true}
@@ -91,8 +92,6 @@ mkdocstrings = {version = "*", optional = true}
 pandas-vet = {version = "*", optional = true}
 pep8-naming = {version = "*", optional = true}
 pre-commit = {version = "*", optional = true}
-preconvert = {version = "*", optional = true}
-preconvert_numpy = {version = "*", optional = true}
 proselint = {version = "*", optional = true}
 pystache = {version = "*", optional = true}
 pytest = {version = "*", optional = true}
@@ -102,10 +101,15 @@ pytest-watch = {version = "*", optional = true}
 pyupgrade = {version = "*", optional = true}
 radon = {version = "*", optional = true}
 subprocess-tee = {version = "*", optional = true}
+toml = {version = "*", optional = true}
 tqdm = {version = "*", optional = true}
+
+# Serializers
+preconvert = {version = "*", optional = true}
+preconvert_numpy = {version = "*", optional = true}
 
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.extras]
-development = [ "add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "mkdocs-material", "matplotlib", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "tqdm", "markdown-include", "mkdocstrings",]
+development = [ "add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "mkdocs-material", "matplotlib", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "toml", "tqdm", "markdown-include", "mkdocstrings",]
 serializers = [ "preconvert", "preconvert_numpy",]
