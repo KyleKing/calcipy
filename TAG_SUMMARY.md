@@ -14,8 +14,8 @@ calcipy/doit_tasks/doit_globals.py
     line 209 PLANNED: Check if Optional[PackageMeta] is necessary
 
 calcipy/doit_tasks/lint.py
-    line  17    TODO: Possibly remove - may be unused
-    line 268   FIXME: the push hooks aren't running
+    line  16    TODO: Possibly remove - may be unused
+    line 209   FIXME: the push hooks aren't running
 
 calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment

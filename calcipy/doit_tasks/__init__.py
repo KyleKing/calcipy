@@ -23,7 +23,6 @@ __all__ = [  # noqa: F405
     'task_lint_project',
     'task_pre_commit_hooks',
     'task_radon_lint',
-    'task_set_lint_config',
     # from ..tag_collector
     'task_create_tag_file',
     # from .test
@@ -47,7 +46,6 @@ from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'set_lint_config',
         'cl_write',
         'create_tag_file',
         'coverage',
