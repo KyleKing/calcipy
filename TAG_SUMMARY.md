@@ -9,6 +9,7 @@ README.md
 
 calcipy/doit_tasks/doc.py
     line  20   FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
+    line 176   FIXME: This was for a very specific implementation. See #36 for variable defintion
 
 calcipy/doit_tasks/doit_globals.py
     line 222 PLANNED: Check if Optional[PackageMeta] is necessary
@@ -26,5 +27,5 @@ calcipy/doit_tasks/tag_collector.py
 dodo.py
     line  52    TODO: Implement type checking with pytype, mypy, or other
 
-Found tagged comments for TODO (5),  FIXME (2),  PLANNED (3),  NOTE (1)
+Found tagged comments for TODO (5),  FIXME (3),  PLANNED (3),  NOTE (1)
 ```

@@ -1,5 +1,16 @@
 ## Unreleased
 
+### Feat
+
+- use cz_legacy to generate changelogs
+- remove task in anticipation of copier #26
+- improve git pre-commit hooks
+- new add-trailing-comma and pyupgrade hooks
+- new mkdocs tasks and improvements
+- new optional preconvert to serialize logs
+- move logger configuration to log_helpers
+- new cl_bump task. Closes #21
+
 ### Fix
 
 - prevent circular import in doit_tasks
@@ -24,16 +35,6 @@
 - reduce excess logging
 - move DOIT_CONFIG to import
 - move dig test to dig test file
-
-### Feat
-
-- remove task in anticipation of copier #26
-- improve git pre-commit hooks
-- new add-trailing-comma and pyupgrade hooks
-- new mkdocs tasks and improvements
-- new optional preconvert to serialize logs
-- move logger configuration to log_helpers
-- new cl_bump task. Closes #21
 
 ## 0.1.0 (2020-12-19)
 
