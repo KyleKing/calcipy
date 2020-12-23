@@ -8,13 +8,7 @@ from typing import Any, List, Sequence
 from loguru import logger
 
 from ..log_helpers import log_action
-from .doit_globals import DIG, DoItTask
-
-# TODO: Show dodo.py in the documentation
-# TODO: Show README.md in the documentation (may need to update paths?)
-# TODO: Replace src_examples_dir and make more generic to specify code to include in documentation
-# TODO: Show table of contents in __init__.py file. Use ast:
-#   https://www.ecosia.org/search?q=ast+find+all+functions+and+classes+in+python+package
+from .doit_globals import DoItTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Really General...
@@ -100,12 +94,6 @@ def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
     return task
 
 
-def debug_action(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:  # noqa
-    import warnings
-    warnings.warn('debug_action is deprecated. Replace with `debug_task`')
-    return debug_task(actions, verbosity)
-
-
 def echo(msg: str) -> None:
     """Wrap the system print command.
 
@@ -147,18 +135,3 @@ def if_found_unlink(file_path: Path) -> None:
     if file_path.is_file():
         logger.info(f'Deleting `{file_path}`', file_path=file_path)
         file_path.unlink()
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Manage Requirements
-
-
-def task_export_req() -> DoItTask:
-    """Create a `requirements.txt` file for non-Poetry users and for Github security tools.
-
-    Returns:
-        DoItTask: doit task
-
-    """
-    req_path = DIG.meta.path_toml.parent / 'requirements.txt'
-    return debug_task([f'poetry export -f {req_path.name} -o "{req_path}" --without-hashes --dev'])

@@ -8,8 +8,6 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
-    # from .base
-    'task_export_req',
     # from .doc
     'task_cl_bump',
     'task_cl_write',
@@ -41,7 +39,6 @@ __all__ = [  # noqa: F405
     'task_test',
 ]
 
-from .base import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .tag_collector import task_create_tag_file
@@ -53,7 +50,6 @@ DOIT_CONFIG_RECOMMENDED = {
         'set_lint_config',
         'cl_write',
         'create_tag_file',
-        'export_req',
         'coverage',
         'auto_format',
         'document',

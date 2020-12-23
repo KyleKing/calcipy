@@ -2,6 +2,7 @@
 
 ### Fix
 
+- extras need to be defined as optional
 - rollback hook changes as they are not working
 - install hooks for push
 - LongRunning passed tasks that should fail

@@ -2,10 +2,9 @@
 
 import attr
 
-from calcipy.doit_tasks.base import _show_cmd, debug_task, if_found_unlink, task_export_req
-from calcipy.doit_tasks.doit_globals import DIG
+from calcipy.doit_tasks.base import _show_cmd, debug_task, if_found_unlink
 
-from ..configuration import PATH_TEST_PROJECT, TEST_DATA_DIR
+from ..configuration import TEST_DATA_DIR
 
 
 def test_show_cmd():
@@ -41,12 +40,3 @@ def test_if_found_unlink():
     assert file_path.is_file()
     if_found_unlink(file_path)
     assert not file_path.is_file()
-
-
-def test_task_export_req():
-    """Test task_export_req."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
-
-    result = task_export_req()
-
-    assert result['actions'][0].startswith('poetry export -f requirements.txt')

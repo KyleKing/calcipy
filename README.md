@@ -2,6 +2,17 @@
 
 `calcipy` is named after the calcium carbonate in hard coral. As a package, `calcipy` implements the best practices for code style (linting, auto-fixes, and more), generating documentation, configuring logging, and many more common tasks and features.
 
+## Local Development
+
+```sh
+git clone https://github.com/KyleKing/calcipy.git
+cd calcipy
+
+poetry install -E development -E serializers
+poetry run doit list
+poetry run doit
+```
+
 ## Quick Start
 
 <!-- TODO: Replace with ~CookieCutter~ (Copier) Instructions -->
@@ -38,15 +49,15 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | --: | --: | --: | --: | --: |
 | `calcipy/__init__.py` | 4 | 0 | 0 | 100.0% |
 | `calcipy/conftest.py` | 29 | 11 | 0 | 62.1% |
-| `calcipy/doit_tasks/__init__.py` | 8 | 0 | 0 | 100.0% |
-| `calcipy/doit_tasks/base.py` | 42 | 14 | 0 | 66.7% |
+| `calcipy/doit_tasks/__init__.py` | 7 | 0 | 0 | 100.0% |
+| `calcipy/doit_tasks/base.py` | 35 | 11 | 0 | 68.6% |
 | `calcipy/doit_tasks/doc.py` | 96 | 62 | 0 | 35.4% |
 | `calcipy/doit_tasks/doit_globals.py` | 97 | 6 | 0 | 93.8% |
-| `calcipy/doit_tasks/lint.py` | 76 | 20 | 0 | 73.7% |
+| `calcipy/doit_tasks/lint.py` | 69 | 17 | 0 | 75.4% |
 | `calcipy/doit_tasks/tag_collector.py` | 87 | 36 | 0 | 58.6% |
 | `calcipy/doit_tasks/test.py` | 30 | 16 | 0 | 46.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2020-12-21T21:53:07.298420
+Generated on: 2020-12-22T22:47:46.494050
 
 <!-- /COVERAGE -->
