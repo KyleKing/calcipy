@@ -10,12 +10,14 @@ import attr
 from loguru import logger
 
 from ..log_helpers import log_fun
-from . import _DOIT_TASK_IMPORT_ERROR
 
 try:
     import toml
 except ImportError:
     toml = None
+
+_DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "development" to utilize "doit_tasks"'
+"""Standard error message when an optional import is not available. Raise with RuntimeError."""
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
