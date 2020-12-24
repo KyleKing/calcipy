@@ -7,7 +7,14 @@ README.md
     line   1    TODO: Add a banner image -->
     line  18    TODO: Replace with ~CookieCutter~ (Copier) Instructions -->
 
+calcipy/conftest.py
+    line  24   FIXME: This will fail if pytest is not installed...
+
+calcipy/doit_tasks/__init__.py
+    line   9    TODO: Until https://github.com/python-poetry/poetry/issues/2270 is implemented, create a placeholder
+
 calcipy/doit_tasks/doc.py
+    line   9   FIXME: This will fail if doit is not installed...
     line  20   FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
     line 176   FIXME: This was for a very specific implementation. See #36 for variable defintion
 
@@ -16,7 +23,7 @@ calcipy/doit_tasks/doit_globals.py
 
 calcipy/doit_tasks/lint.py
     line  16    TODO: Possibly remove - may be unused
-    line 209   FIXME: the push hooks aren't running
+    line 208   FIXME: This didn't work on a new project... (cz_legacy)
 
 calcipy/doit_tasks/tag_collector.py
     line   3 PLANNED: Revisit and standardize wording for tag vs. comment
@@ -27,5 +34,5 @@ calcipy/doit_tasks/tag_collector.py
 dodo.py
     line  52    TODO: Implement type checking with pytype, mypy, or other
 
-Found tagged comments for TODO (5),  FIXME (3),  PLANNED (3),  NOTE (1)
+Found tagged comments for TODO (6),  FIXME (5),  PLANNED (3),  NOTE (1)
 ```

@@ -6,7 +6,7 @@ import webbrowser
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
-from doit.tools import LongRunning
+from doit.tools import LongRunning  # FIXME: This will fail if doit is not installed...
 from loguru import logger
 from transitions import Machine
 

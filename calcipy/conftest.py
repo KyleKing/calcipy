@@ -21,7 +21,7 @@ from calcipy.conftest import pytest_runtest_makereport  # noqa: F401
 from datetime import datetime
 from typing import Any
 
-import pytest
+import pytest  # FIXME: This will fail if pytest is not installed...
 from py.xml import html
 
 

@@ -6,6 +6,10 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 """
 
+# TODO: Until https://github.com/python-poetry/poetry/issues/2270 is implemented, create a placeholder
+#   import for optional packages that will allow no-dev use of calcipy
+#   Maybe revisit: https://github.com/KyleKing/calcipy/issues/19 (See Pandas/SO)
+
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
     # from .doc
