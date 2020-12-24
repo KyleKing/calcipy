@@ -2,20 +2,9 @@
 
 `calcipy` is named after the calcium carbonate in hard coral. As a package, `calcipy` implements the best practices for code style (linting, auto-fixes, and more), generating documentation, configuring logging, and many more common tasks and features.
 
-## Local Development
-
-```sh
-git clone https://github.com/KyleKing/calcipy.git
-cd calcipy
-
-poetry install -E development -E serializers
-poetry run doit list
-poetry run doit
-```
-
 ## Quick Start
 
-<!-- TODO: Replace with ~CookieCutter~ (Copier) Instructions -->
+<!-- TODO: Replace with Copier Instructions -->
 
 Add to a poetry project in `pyproject.toml`:
 
@@ -36,10 +25,15 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 
 ## Where Used
 
-- [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts)
-- [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm)
-- [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability)
-- [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *Planned*
+- [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
+- [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *WIP*
+- [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
+- [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability) - *On Hold*
+- [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
+
+### Developer Information
+
+See [./CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Test Coverage
 
@@ -58,6 +52,6 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 | `calcipy/doit_tasks/test.py` | 30 | 16 | 0 | 46.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2020-12-23T07:11:21.895030
+Generated on: 2020-12-24T13:43:14.251885
 
 <!-- /COVERAGE -->

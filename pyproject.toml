@@ -2,6 +2,17 @@
 requires = [ "poetry-core>=1.0",]
 build-backend = "poetry.core.masonry.api"
 
+[tool.commitizen]
+name = "cz_legacy"
+version = "0.1.0"
+tag_format = "$version"
+version_files = [ "pyproject.toml", "calcipy/__init__.py",]
+
+[tool.commitizen.cz_legacy_map]
+Chg = "Change (old)"
+Fix = "Fix (old)"
+New = "New (old)"
+
 [tool.isort]
 balanced_wrapping = true
 default_section = "THIRDPARTY"
@@ -14,28 +25,27 @@ name = "calcipy"
 version = "0.1.0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
-authors = [ "Kyle King <https://github.com/KyleKing>",]
+authors = [ "Kyle King <dev.act.kyle@gmail.com>",]
 maintainers = []
-readme = "README.md"
 repository = "https://github.com/kyleking/calcipy"
-documentation = "https://kyleking.me/calcipy/"
+documentation = "https://github.com/kyleking/calcipy"
+readme = "README.md"
+include = [ "LICENSE.md",]
+keywords = [ "python-poetry", "doit",]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 
-[tool.commitizen]
-name = "cz_legacy"
-version = "0.1.0"
-tag_format = "$version"
-version_files = [ "pyproject.toml", "calcipy/__init__.py",]
-
-[tool.commitizen.cz_legacy_map]
-Chg = "Change (old)"
-Fix = "Fix (old)"
-New = "New (old)"
-
 [tool.poetry.dependencies]
-python = "^3.8, <3.9"
+python = "^3.7"
 attrs = "*"
 decorator = "*"
 loguru = "*"
@@ -47,6 +57,7 @@ autopep8 = {version = "*", optional = true}
 better-exceptions = {version = "*", optional = true}
 cohesion = {version = "*", optional = true}
 commitizen = {version = "*", optional = true}
+cz_legacy = {version = "*", optional = true}
 darglint = {version = "*", optional = true}
 dlint = {version = "*", optional = true}
 doit = {version = "*", optional = true}
@@ -112,10 +123,7 @@ tqdm = {version = "*", optional = true}
 preconvert = {version = "*", optional = true}
 preconvert_numpy = {version = "*", optional = true}
 
-[tool.poetry.dev-dependencies.cz_legacy]
-git = "https://github.com/kyleking/cz_legacy.git"
-branch = "main"
-
 [tool.poetry.extras]
-development = [ "add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "mkdocs-material", "matplotlib", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "toml", "tqdm", "markdown-include", "mkdocstrings",]
+development = [ "add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "doit", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "mkdocs-material", "matplotlib", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "toml", "tqdm", "markdown-include", "mkdocstrings",]
+commitizen_legacy = [ "cz_legacy",]
 serializers = [ "preconvert", "preconvert_numpy",]

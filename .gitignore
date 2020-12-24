@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------------------------------------------------
-# General Python Ignore Patterns from Github
+# General Python Ignore Patterns from Github and https://www.gitignore.io/api/python
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -119,6 +119,11 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
 
 # mkdocs documentation
 /site
