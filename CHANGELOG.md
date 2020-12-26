@@ -13,6 +13,7 @@
 
 ### Fix
 
+- prevent legacy types for new commits
 - prevent circular import in doit_tasks
 - extras need to be defined as optional
 - rollback hook changes as they are not working
@@ -26,6 +27,7 @@
 
 ### Refactor
 
+- update local TODO notes
 - make toml an optional import
 - rename path_source to path_project
 - rename DIG_CWD as PATH_TEST_PROJECT
@@ -48,7 +50,36 @@
 - show STDOUT formatting in DoIt task
 - remove archived code
 
-### Change (old)
+### New (Old)
+
+- initialize new DIG for #7 (@WIP)
+- last version with dash_dev package name (#22)
+- ADR template and notes
+- separate task_git_add_docs
+- archive watchcode task
+- move DIG to separate file
+- move tasks to use a wildcard import
+- add logging. Fixes #5
+- intialized tag-finding logic @WIP
+- use a new DoItTask type for annotations
+- add type annotations
+- Loguru configuration for init @WIP
+- activate DeepSource
+- allow user-content in __init__. Fixes #1
+- indicate private functions. Fixes #4
+- add loguru!
+- add watchcode task for arbitrary files
+- flake8-ann & drop pur
+- show README contents in __init__
+- dump isort & flake8 settings in source path
+- improve linting & test tasks
+- vastly expanded test coverage
+- add ptw as a DoIt LongRunning task
+- initialize index.html as redirect
+- implement source code from dash_charts
+- initialize poetry project
+
+### Change (Old)
 
 - try skipcq above the line
 - suppress LGTM warnings
@@ -100,7 +131,7 @@
 - call out issues with task_commit_docs @wip
 - set Dash version & update whitelist
 
-### Fix (old)
+### Fix (Old)
 
 - remaining DS wilcard issue
 - try one more time to fix DeepSource * issues
@@ -118,32 +149,3 @@
 - commit_docs task
 - add missing pystache dep for gitchangelog
 - document dash extras in README
-
-### New (old)
-
-- initialize new DIG for #7 (@WIP)
-- last version with dash_dev package name (#22)
-- ADR template and notes
-- separate task_git_add_docs
-- archive watchcode task
-- move DIG to separate file
-- move tasks to use a wildcard import
-- add logging. Fixes #5
-- intialized tag-finding logic @WIP
-- use a new DoItTask type for annotations
-- add type annotations
-- Loguru configuration for init @WIP
-- activate DeepSource
-- allow user-content in __init__. Fixes #1
-- indicate private functions. Fixes #4
-- add loguru!
-- add watchcode task for arbitrary files
-- flake8-ann & drop pur
-- show README contents in __init__
-- dump isort & flake8 settings in source path
-- improve linting & test tasks
-- vastly expanded test coverage
-- add ptw as a DoIt LongRunning task
-- initialize index.html as redirect
-- implement source code from dash_charts
-- initialize poetry project
