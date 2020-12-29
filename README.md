@@ -1,10 +1,20 @@
-<!-- TODO: Add a banner image -->
+# Calcipy
 
-`calcipy` is named after the calcium carbonate in hard coral. As a package, `calcipy` implements the best practices for code style (linting, auto-fixes, and more), generating documentation, configuring logging, and many more common tasks and features.
+<!-- TODO: Add a banner image (#27) -->
+
+`calcipy` is a Python package that implements best practices such as code style (linting, auto-fixes), documentation, and logging. Like the calcium carbonate in hard coral, packages can be built on the `calcipy` foundation
+
+## Where Used
+
+- [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
+- [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *WIP*
+- [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
+- [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability) - *On Hold*
+- [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
 
 ## Quick Start
 
-<!-- TODO: Replace with Copier Instructions -->
+<!-- TODO: Replace with Copier Instructions (#26 / #38) And when calcipy is published to PyPi... -->
 
 Add to a poetry project in `pyproject.toml`:
 
@@ -23,17 +33,9 @@ Then copy the [`https://github.com/KyleKing/calcipy/blob/main/dodo.py`](https://
 
 If you have any questions, please [open an issue on Github](https://github.com/KyleKing/calcipy/issues/new)
 
-## Where Used
-
-- [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
-- [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *WIP*
-- [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
-- [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability) - *On Hold*
-- [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
-
 ### Developer Information
 
-See [./CONTRIBUTING.md](./CONTRIBUTING.md)
+See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) and [./CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Test Coverage
 
