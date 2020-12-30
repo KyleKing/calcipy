@@ -1,4 +1,4 @@
-"""DoIt Documentation Utilities."""
+"""doit Documentation Utilities."""
 
 import json
 import re
@@ -6,7 +6,7 @@ import webbrowser
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
-from doit.tools import LongRunning
+from doit.tools import LongRunning  # FIXME: This will fail if doit is not installed...
 from loguru import logger
 from transitions import Machine
 
@@ -22,7 +22,7 @@ def task_tag_create() -> DoItTask:
     """Create a git tag based on the version in pyproject.toml.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     message = 'New Revision from PyProject.toml'
@@ -37,7 +37,7 @@ def task_tag_remove() -> DoItTask:
     """Delete tag for current version in pyproject.toml.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -72,7 +72,7 @@ def _write_pkg_init() -> None:
         pkg_version=DIG.meta.pkg_version,
         pkg_name=DIG.meta.pkg_name,
     ) + '\n' + _INIT_DIVIDER
-    init_path = (DIG.meta.path_source / DIG.meta.pkg_name / '__init__.py')
+    init_path = (DIG.meta.path_project / DIG.meta.pkg_name / '__init__.py')
     init_lines = init_path.read_text().strip().split('\n')
     try:
         break_index = init_lines.index(_INIT_DIVIDER) + 1
@@ -99,7 +99,7 @@ def task_cl_write() -> DoItTask:
     - https://semver.org/
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task(['poetry run cz changelog'])
@@ -109,7 +109,7 @@ def task_cl_bump() -> DoItTask:
     """Bump and write the Changelog file with the raw Git history.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task(['poetry run cz bump --changelog'])
@@ -135,8 +135,10 @@ class _ReadMeMachine:  # noqa: H601
         """Initialize state machine."""
         self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
 
-    def parse(self, lines: List[str], comment_pattern: Pattern[str],  # noqa: CCR001
-              new_text: Dict[str, str]) -> List[str]:
+    def parse(  # noqa: CCR001
+        self, lines: List[str], comment_pattern: Pattern[str],
+        new_text: Dict[str, str],
+    ) -> List[str]:
         """Parse lines and insert new_text.
 
         Args:
@@ -163,12 +165,15 @@ class _ReadMeMachine:  # noqa: H601
 
             new_line = self.readme_lines[-1]
             made_change = (line != new_line)
-            logger.debug('Parsed README Line', self_state=self.state, line=line,
-                         made_change=made_change, new_line=new_line if made_change else None)
+            logger.debug(
+                'Parsed README Line', self_state=self.state, line=line,
+                made_change=made_change, new_line=new_line if made_change else None,
+            )
 
         return self.readme_lines
 
 
+# FIXME: This was for a very specific implementation. See #36 for variable defintion
 def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -> None:
     """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
 
@@ -177,7 +182,7 @@ def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) ->
         new_text: dictionary with comment string as key
 
     """
-    readme_path = DIG.meta.path_source / 'README.md'
+    readme_path = DIG.meta.path_project / 'README.md'
     readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
     readme_path.write_text('\n'.join(readme_lines))
 
@@ -186,7 +191,7 @@ def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
     fn = 'tests/examples/readme.py'
-    script_path = DIG.meta.path_source / fn
+    script_path = DIG.meta.path_project / fn
     if script_path.is_file():
         source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
@@ -204,7 +209,7 @@ def _write_coverage_to_readme() -> None:
     # Attempt to create the coverage file
     run('poetry run python -m coverage json')  # noqa: S603, S607
 
-    coverage_path = (DIG.meta.path_source / 'coverage.json')
+    coverage_path = (DIG.meta.path_project / 'coverage.json')
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -213,7 +218,7 @@ def _write_coverage_to_readme() -> None:
         int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
         rows = [legend, ['--:'] * len(legend)]
         for file_path, file_obj in coverage['files'].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.meta.path_source).as_posix()
+            rel_path = Path(file_path).resolve().relative_to(DIG.meta.path_project).as_posix()
             per = round(file_obj['summary']['percent_covered'], 1)
             rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown
@@ -234,11 +239,11 @@ def task_serve_fast() -> DoItTask:
     Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
-        (webbrowser.open, ('http://localhost:8000', )),
+        (webbrowser.open, ('http://localhost:8000',)),
         LongRunning('poetry run mkdocs serve --dirtyreload'),
     ])
 
@@ -247,7 +252,7 @@ def task_deploy() -> DoItTask:
     """Deploy to Github `gh-pages` branch.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([LongRunning('poetry run mkdocs gh-deploy')])
@@ -260,7 +265,7 @@ def task_document() -> DoItTask:
     """Build the HTML documentation.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([
@@ -275,7 +280,7 @@ def task_open_docs() -> DoItTask:
     """Open the documentation files in the default browser.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     path_doc_index = DIG.doc.path_out / DIG.meta.pkg_name / 'index.html'

@@ -5,13 +5,13 @@ import pytest
 from calcipy.doit_tasks.doit_globals import DIG
 from calcipy.doit_tasks.test import task_test_marker
 
-from ..configuration import DIG_CWD
+from ..configuration import PATH_TEST_PROJECT
 
 
 def test_task_test_marker():
     """Test task_test_marker."""
     pytest.skip('Needs to be updated for LongRunning')
-    DIG.set_paths(path_source=DIG_CWD)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = task_test_marker()
 

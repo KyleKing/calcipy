@@ -8,26 +8,26 @@ import pytest
 from calcipy.doit_tasks.doit_globals import DIG
 from calcipy.doit_tasks.lint import _check_linting_errors, _collect_py_files, _lint_project
 
-from ..configuration import DIG_CWD
+from ..configuration import PATH_TEST_PROJECT
 
 
 def test_collect_py_files():
     """Test collect_py_files."""
-    DIG.set_paths(path_source=DIG_CWD)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = _collect_py_files(add_paths=(), sub_directories=None)
 
     assert len(result) == 2
-    assert str(DIG_CWD / 'test_file.py') in result
-    assert str(DIG_CWD / 'tests/test_file_2.py') in result
+    assert str(PATH_TEST_PROJECT / 'test_file.py') in result
+    assert str(PATH_TEST_PROJECT / 'tests/test_file_2.py') in result
 
 
 def test_lint_project():
     """Test lint_project."""
-    DIG.set_paths(path_source=DIG_CWD)
+    DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = _lint_project(
-        lint_paths=[DIG_CWD / 'test_file.py', DIG_CWD / 'tests/test_file_2.py'],
+        lint_paths=[PATH_TEST_PROJECT / 'test_file.py', PATH_TEST_PROJECT / 'tests/test_file_2.py'],
         path_flake8=DIG.lint.path_flake8,
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )

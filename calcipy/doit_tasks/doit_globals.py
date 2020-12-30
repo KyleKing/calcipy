@@ -1,4 +1,4 @@
-"""Global Variables for DoIt."""
+"""Global Variables for doit."""
 
 import inspect
 import warnings
@@ -7,16 +7,23 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
 
 import attr
-import toml
 from loguru import logger
 
 from ..log_helpers import log_fun
+
+try:
+    import toml
+except ImportError:
+    toml = None
+
+_DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "development" to utilize "doit_tasks"'
+"""Standard error message when an optional import is not available. Raise with RuntimeError."""
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
 DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])  # noqa: ECE001
-"""DoIt task type for annotations."""
+"""doit task type for annotations."""
 
 
 def _member_filter(member: Any, instance_type: Any) -> bool:
@@ -96,7 +103,7 @@ _DEF_EXCLUDE = [*map(Path, ['__init__.py'])]
 @attr.s(auto_attribs=True, kw_only=True)
 class _PathAttrBase:  # noqa: H601
 
-    path_source: Path
+    path_project: Path
     """Path to the package directory."""
 
     def __attrs_post_init__(self) -> None:
@@ -106,9 +113,9 @@ class _PathAttrBase:  # noqa: H601
             RuntimeError: if any paths are None
 
         """
-        if self.path_source is None:
-            raise RuntimeError('Missing keyword argument "path_source"')
-        _resolve_class_paths(self, self.path_source)
+        if self.path_project is None:
+            raise RuntimeError('Missing keyword argument "path_project"')
+        _resolve_class_paths(self, self.path_project)
         _verify_initialized_paths(self)
 
 
@@ -129,14 +136,20 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes.
 
         Raises:
+            RuntimeError: if the toml package is not available
             FileNotFoundError: if the toml could not be located
 
         """
         super().__attrs_post_init__()
+
+        # Note: toml is an optional dependency required only when using the `doit_tasks` in development
+        if toml is None:
+            raise RuntimeError(_DOIT_TASK_IMPORT_ERROR)
+
         try:
             poetry_config = toml.load(self.path_toml)['tool']['poetry']
         except FileNotFoundError:
-            raise FileNotFoundError(f'Check that "{self.path_source}" is correct. Could not find: {self.path_toml}')
+            raise FileNotFoundError(f'Check that "{self.path_project}" is correct. Could not find: {self.path_toml}')
 
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
@@ -201,7 +214,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 
 @attr.s(auto_attribs=True, kw_only=True)
 class DoItGlobals:
-    """Global Variables for DoIt."""
+    """Global Variables for doit."""
 
     calcipy_dir: Path = Path(__file__).parents[1]
     """The calcipy directory (likely within `.venv`)."""
@@ -219,22 +232,24 @@ class DoItGlobals:
     """Documentation Config."""
 
     @log_fun
-    def set_paths(self, *, path_source: Optional[Path] = None,
-                  doc_dir: Optional[Path] = None) -> None:
+    def set_paths(
+        self, *, path_project: Optional[Path] = None,
+        doc_dir: Optional[Path] = None,
+    ) -> None:
         """Set data members based on working directory.
 
         Args:
-            path_source: optional source directory Path. Defaults to the `pkg_name`
+            path_project: optional source directory Path. Defaults to the `pkg_name`
             doc_dir: optional destination directory for project documentation. Defaults to './output'
 
         """
-        logger.info(f'Setting DIG paths for {path_source}', path_source=path_source, cwd=Path.cwd(), doc_dir=doc_dir)
-        path_source = Path.cwd() if path_source is None else path_source
-        self.meta = PackageMeta(path_source=path_source)
-        meta_kwargs = {'path_source': self.meta.path_source}
+        logger.info(f'Setting DIG paths for {path_project}', path_project=path_project, cwd=Path.cwd(), doc_dir=doc_dir)
+        path_project = Path.cwd() if path_project is None else path_project
+        self.meta = PackageMeta(path_project=path_project)
+        meta_kwargs = {'path_project': self.meta.path_project}
 
         self.lint = LintConfig(**meta_kwargs)
-        self.lint.paths.append(self.meta.path_source / self.meta.pkg_name)
+        self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
 
         self.test = TestingConfig(**meta_kwargs)
         self.doc = DocConfig(**meta_kwargs)
@@ -243,4 +258,4 @@ class DoItGlobals:
 
 
 DIG = DoItGlobals()
-"""Global DoIt Globals class used to manage global variables."""
+"""Global doit Globals class used to manage global variables."""

@@ -1,4 +1,4 @@
-"""DoIt Script.
+"""doit Script.
 
 ```sh
 # Ensure that packages are installed
@@ -35,13 +35,15 @@ logger.enable(__pkg_name__)  # This will enable output from calcipy, which is of
 path_parent = Path(__file__).resolve().parent
 log_config = build_logger_config(path_parent, production=False)
 logger.configure(**log_config)
-logger.info('Started logging to {path_parent}/.logs with {log_config}', path_parent=path_parent,
-            log_config=log_config)
+logger.info(
+    'Started logging to {path_parent}/.logs with {log_config}', path_parent=path_parent,
+    log_config=log_config,
+)
 
-logger.info('Starting DoIt tasks in dodo.py')
+logger.info('Starting doit tasks in dodo.py')
 
 # Configure source code root path
-DIG.set_paths(path_source=path_parent)  # FIXME: This should be `path_user`?
+DIG.set_paths(path_project=path_parent)
 
 # Create list of all tasks run with `poetry run doit`
 DOIT_CONFIG = DOIT_CONFIG_RECOMMENDED
@@ -52,7 +54,7 @@ def task_type_checking() -> DoItTask:
     """Run type annotation checks.
 
     Returns:
-        DoItTask: DoIt task
+        DoItTask: doit task
 
     """
     return debug_task([

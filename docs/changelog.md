@@ -1,1 +1,3 @@
+# CHANGELOG
+
 {!CHANGELOG.md!}

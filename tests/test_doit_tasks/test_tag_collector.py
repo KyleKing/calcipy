@@ -6,7 +6,7 @@ from pathlib import Path
 
 from calcipy.doit_tasks.tag_collector import _format_report, _search_lines, _TaggedComment, _Tags
 
-from ..configuration import DIG_CWD
+from ..configuration import PATH_TEST_PROJECT
 
 
 def test_search_lines():
@@ -41,7 +41,7 @@ def test_format_report():
     """Test _format_report."""
     lines = ['# DEBUG: Example 1', '# TODO: Example 2']  # noqa: T101
     comments = [_TaggedComment(lineno, *line.split(': ')) for lineno, line in enumerate(lines)]
-    tagged_collection = [_Tags(file_path=DIG_CWD, tagged_comments=comments)]
+    tagged_collection = [_Tags(file_path=PATH_TEST_PROJECT, tagged_comments=comments)]
 
     output = _format_report(Path().resolve(), tagged_collection)  # act
 
