@@ -54,6 +54,6 @@ See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) and [./CONTRIBUTING.md](./CONTR
 | `calcipy/doit_tasks/test.py` | 30 | 16 | 0 | 46.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2020-12-24T13:43:14.251885
+Generated on: 2020-12-29T22:14:43.944618
 
 <!-- /COVERAGE -->
