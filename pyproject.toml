@@ -101,6 +101,7 @@ flake8-SQL = {version = "*", optional = true}
 flake8-string-format = {version = "*", optional = true}
 flake8-tuple = {version = "*", optional = true}
 flake8-variables-names = {version = "*", optional = true}
+gitlint = {version = "*", optional = true}
 hacking = {version = "*", optional = true}
 iniparse = {version = "*", optional = true}
 isort = {version = "*", optional = true}

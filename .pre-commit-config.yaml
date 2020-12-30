@@ -1,6 +1,8 @@
 # Common commands:
 # poetry run pre-commit install
-# poetry run pre-commit run --all-files (poetry run doit run pre_commit_hooks)
+# poetry run pre-commit run --hook-stage commit --all-files
+# poetry run pre-commit run --hook-stage push --all-files
+# poetry run doit run pre_commit_hooks
 #
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
@@ -28,6 +30,11 @@ repos:
     hooks:
       - id: commitizen
         additional_dependencies: ["git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08"]
+        stages: [commit-msg]
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.15.0
+    hooks:
+      - id: gitlint
         stages: [commit-msg]
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.7.4
