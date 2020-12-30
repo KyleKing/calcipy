@@ -1,6 +1,6 @@
 # Docs: https://gist.github.com/thatisuday/b3b6096457e64cdfa20796315ed29fbd
 
-name: github
+name: github_labeler
 
 on: push
 
@@ -8,11 +8,9 @@ jobs:
   labeler:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Run Labeler
+      - name: Run Labeler
         if: success()
         uses: crazy-max/ghaction-github-labeler@v3
         with:
@@ -20,6 +18,3 @@ jobs:
           yaml-file: .github/labels.yml
           skip-delete: false
           dry-run: false
-          exclude: |
-            help*
-            *issue
