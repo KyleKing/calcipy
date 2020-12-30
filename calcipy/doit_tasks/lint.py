@@ -207,10 +207,7 @@ def task_pre_commit_hooks() -> DoItTask:
     return debug_task([
         'poetry run pre-commit autoupdate',
 
-        # TODO: Is there one command to rule them all?
-        'poetry run pre-commit install --install-hooks',
-        'poetry run pre-commit install --hook-type commit-msg',
-        'poetry run pre-commit install --hook-type pre-push',
+        'poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push',
 
         'poetry run pre-commit run --hook-stage commit --all-files',
         'poetry run pre-commit run --hook-stage push --all-files',
