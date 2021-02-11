@@ -1,7 +1,12 @@
-## Unreleased
+## 2021.0.2.0a0 (2021-02-11)
 
 ### Feat
 
+- push tags with no pre-commit hooks on pre
+- use Interactive instead of —yes for cl_bump*
+- remove tag create/remove tasks
+- new task cl_bump_pre
+- replace MIT license with Unlicense
 - use cz_legacy to generate changelogs
 - remove task in anticipation of copier #26
 - improve git pre-commit hooks
@@ -13,6 +18,8 @@
 
 ### Fix
 
+- do not pass filenames to pre-commit
+- **#43**: add year to version for pseudo-calver
 - prevent legacy types for new commits
 - prevent circular import in doit_tasks
 - extras need to be defined as optional
@@ -27,6 +34,8 @@
 
 ### Refactor
 
+- **#22**: restore MIT license
+- copy+paste unmodified labels workflow
 - update local TODO notes
 - make toml an optional import
 - rename path_source to path_project
