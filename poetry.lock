@@ -1645,13 +1645,13 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-development = ["add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "doit", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "markdown-include", "mkdocs-material", "mkdocstrings", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "toml", "tqdm"]
+development = ["add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "doit", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "markdown-include", "mkdocs-material", "mkdocstrings", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "toml"]
 serializers = ["preconvert", "preconvert_numpy"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "8fe85d195e186b5c8fac6569edd1d88c23c0caa28160d7965f0f339f4c68bcf6"
+content-hash = "ded1c866c74e9143890268992e68f8e18c80a1823bc3eda36151a231e413c24e"
 
 [metadata.files]
 add-trailing-comma = [
