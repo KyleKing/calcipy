@@ -1,6 +1,6 @@
 """Test doit_tasks/doc.py."""
 
-from calcipy.doit_tasks.doc import task_tag_create, task_tag_remove, task_cl_write
+from calcipy.doit_tasks.doc import task_cl_bump, task_cl_bump_pre, task_cl_write
 from calcipy.doit_tasks.doit_globals import DIG
 
 from ..configuration import PATH_TEST_PROJECT
@@ -10,29 +10,34 @@ def test_task_cl_write():
     """Test task_cl_write."""
     result = task_cl_write()
 
-    assert len(result['actions']) == 1
-    assert result['actions'][0] == 'poetry run cz changelog'
+    actions = result['actions']
+    assert len(actions) == 1
+    assert actions[0] == 'poetry run cz changelog'
 
 
-def test_task_tag_create():
-    """Test task_tag_create."""
+def test_task_cl_bump():
+    """Test task_cl_bump."""
     DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
-    result = task_tag_create()
+    result = task_cl_bump()
 
-    assert len(result['actions']) == 3
-    assert result['actions'][0].startswith('git tag -a')
-    assert result['actions'][1] == 'git tag -n10 --list'
-    assert result['actions'][2] == 'git push origin --tags'
+    actions = result['actions']
+    assert len(actions) == 3
+    assert 'poetry run cz bump --changelog --annotated-tag' in str(actions[0])
+    assert actions[2] == 'git push origin --tags'
 
 
-def test_task_tag_remove():
-    """Test task_tag_remove."""
+def test_task_cl_bump_pre():
+    """Test task_cl_bump_pre."""
     DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
-    result = task_tag_remove()
+    result = task_cl_bump_pre()
 
-    assert len(result['actions']) == 3
-    assert result['actions'][0].startswith('git tag -d')
-    assert result['actions'][1] == 'git tag -n10 --list'
-    assert result['actions'][2].startswith('git push origin :refs/tags/')
+    actions = result['actions']
+    assert len(actions) == 2
+    assert 'poetry run cz bump --changelog --prerelease' in str(actions[0])
+    assert actions[1] == 'git push origin --tags --no-verify'
+    params = result['params']
+    assert len(params) == 1
+    assert params[0]['name'] == 'prerelease'
+    assert params[0]['short'] == 'p'
