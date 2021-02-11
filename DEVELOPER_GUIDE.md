@@ -40,12 +40,24 @@ poetry publish --build
 
 > Replace "..." with the API token generated on TestPyPi/PyPi respectively
 
-Other useful poetry snippets
+### Changelog Snippets
+
+Typically `poetry run doit run cl_bump` and `cl_bump_pre alpha` is sufficient for most cases. If additional changelog options are needed, see below:
+
+<!-- TODO: make `cl_bump_pre alpha` and remove this section -->
 
 ```sh
 # Specify a Pre-Release ({alpha,beta,rc})
-poetry run cz bump --prerelease rc --changelog
+poetry run cz bump --changelog --prerelease rc
 poetry run cz bump --changelog --dry-run
 poetry run cz bump --changelog
 git push --tags
 ```
+
+### Checklist
+
+- [ ] Run doit tasks (test) `poetry run doit`
+- [ ] Commit and push all local changes
+- [ ] Increment version: `poetry run doit run cl_bump`
+- [ ] Check that the README and other Markdown files are up-to-date
+- [ ] Publish (see above)

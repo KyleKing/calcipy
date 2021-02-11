@@ -209,6 +209,6 @@ def task_pre_commit_hooks() -> DoItTask:
 
         'poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push',
 
-        'poetry run pre-commit run --hook-stage commit',  #  --all-files
-        'poetry run pre-commit run --hook-stage push',  #  --all-files
+        'poetry run pre-commit run --hook-stage commit',  # --all-files
+        'poetry run pre-commit run --hook-stage push',  # --all-files
     ])
