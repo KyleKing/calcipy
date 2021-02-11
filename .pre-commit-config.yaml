@@ -26,18 +26,18 @@ repos:
       - id: trailing-whitespace
         stages: [push]
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.12.1
+    rev: v2.14.2
     hooks:
       - id: commitizen
         additional_dependencies: ["git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08"]
         stages: [commit-msg]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.7.4
+    rev: v2.10.0
     hooks:
       - id: pyupgrade
         stages: [push]
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.0.1
+    rev: v2.1.0
     hooks:
       - id: add-trailing-comma
         stages: [push]
@@ -52,11 +52,13 @@ repos:
         name: lock_dependencies
         entry: poetry lock
         language: system
-        files: "pyproject.toml"
+        files: pyproject.toml
         stages: [push]
+        pass_filenames: false
       - id: doit
         name: doit
         entry: poetry run doit run test
         language: system
-        files: \.py
+        files: "\\.py"
         stages: [push]
+        pass_filenames: false

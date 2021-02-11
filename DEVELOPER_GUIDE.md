@@ -12,6 +12,9 @@ poetry run doit list
 
 # Run the default task list (lint, auto-format, test coverage, etc.)
 poetry run doit
+
+# Make code changes and run specific tasks as needed:
+poetry run doit run test
 ```
 
 ## Publishing
@@ -40,12 +43,10 @@ poetry publish --build
 
 > Replace "..." with the API token generated on TestPyPi/PyPi respectively
 
-Other useful poetry snippets
+### Checklist
 
-```sh
-# Specify a Pre-Release ({alpha,beta,rc})
-poetry run cz bump --prerelease rc --changelog
-poetry run cz bump --changelog --dry-run
-poetry run cz bump --changelog
-git push --tags
-```
+- [ ] Run doit tasks (test) `poetry run doit`
+- [ ] Commit and push all local changes
+- [ ] Increment version: `poetry run doit run cl_bump`
+- [ ] Check that the README and other Markdown files are up-to-date
+- [ ] Publish (see above)

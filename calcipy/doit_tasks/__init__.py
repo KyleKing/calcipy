@@ -14,13 +14,12 @@ __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
     # from .doc
     'task_cl_bump',
+    'task_cl_bump_pre',
     'task_cl_write',
     'task_deploy',
     'task_document',
     'task_open_docs',
     'task_serve_fast',
-    'task_tag_create',
-    'task_tag_remove',
     # from .lint
     'task_auto_format',
     'task_lint_critical_only',
@@ -50,7 +49,6 @@ from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'cl_write',
         'create_tag_file',
         'coverage',
         'auto_format',

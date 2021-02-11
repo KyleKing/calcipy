@@ -6,46 +6,12 @@ import webbrowser
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
-from doit.tools import LongRunning  # FIXME: This will fail if doit is not installed...
+from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
 from transitions import Machine
 
-from .base import debug_task, open_in_browser, read_lines
+from .base import debug_task, echo, open_in_browser, read_lines
 from .doit_globals import DIG, DoItTask
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Manage Tags
-
-
-# FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
-def task_tag_create() -> DoItTask:
-    """Create a git tag based on the version in pyproject.toml.
-
-    Returns:
-        DoItTask: doit task
-
-    """
-    message = 'New Revision from PyProject.toml'
-    return debug_task([
-        f'git tag -a {DIG.meta.pkg_version} -m "{message}"',
-        'git tag -n10 --list',
-        'git push origin --tags',
-    ])
-
-
-def task_tag_remove() -> DoItTask:
-    """Delete tag for current version in pyproject.toml.
-
-    Returns:
-        DoItTask: doit task
-
-    """
-    return debug_task([
-        f'git tag -d "{DIG.meta.pkg_version}"',
-        'git tag -n10 --list',
-        f'git push origin :refs/tags/{DIG.meta.pkg_version}',
-    ])
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Update __init__.py with Documentation
@@ -97,6 +63,7 @@ def task_cl_write() -> DoItTask:
     - https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message
     - https://chris.beams.io/posts/git-commit/
     - https://semver.org/
+    - https://calver.org/
 
     Returns:
         DoItTask: doit task
@@ -106,14 +73,37 @@ def task_cl_write() -> DoItTask:
 
 
 def task_cl_bump() -> DoItTask:
-    """Bump and write the Changelog file with the raw Git history.
+    """Bumps project version based on project history and settings in pyproject.toml.
 
     Returns:
         DoItTask: doit task
 
     """
-    return debug_task(['poetry run cz bump --changelog'])
+    return debug_task([
+        InteractiveAction('poetry run cz bump --changelog --annotated-tag'),
+        (echo, ('Attempting to push tags to origin with pre-commit checks',)),
+        'git push origin --tags',
+    ])
 
+
+def task_cl_bump_pre() -> DoItTask:
+    """Bump with specified pre-release tag. Creates Changelog.
+
+    Example: `doit run cl_bump_pre -p alpha` or `doit run cl_bump_pre -p rc`
+
+    Returns:
+        DoItTask: doit task
+
+    """
+    task = debug_task([
+        InteractiveAction('poetry run cz bump --changelog --prerelease %(prerelease)s'),
+        'git push origin --tags --no-verify',
+    ])
+    task['params'] = [{
+        'name': 'prerelease', 'short': 'p', 'long': 'prerelease', 'default': '',
+        'help': 'Specify prerelease version for bump (alpha, beta, rc)',
+    }]
+    return task
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage README Updates

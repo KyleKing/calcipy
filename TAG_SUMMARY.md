@@ -14,9 +14,7 @@ calcipy/doit_tasks/__init__.py
     line   9    TODO: Until https://github.com/python-poetry/poetry/issues/2270 is implemented, create a placeholder
 
 calcipy/doit_tasks/doc.py
-    line   9   FIXME: This will fail if doit is not installed...
-    line  20   FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
-    line 176   FIXME: This was for a very specific implementation. See #36 for variable defintion
+    line 166   FIXME: This was for a very specific implementation. See #36 for variable defintion
 
 calcipy/doit_tasks/doit_globals.py
     line 222 PLANNED: Check if Optional[PackageMeta] is necessary
@@ -33,5 +31,5 @@ calcipy/doit_tasks/tag_collector.py
 dodo.py
     line  52    TODO: Implement type checking with pytype, mypy, or other
 
-Found tagged comments for TODO (6),  FIXME (4),  PLANNED (3),  NOTE (1)
+Found tagged comments for TODO (6),  FIXME (2),  PLANNED (3),  NOTE (1)
 ```

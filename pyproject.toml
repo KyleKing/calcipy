@@ -1,5 +1,5 @@
 [build-system]
-requires = [ "poetry-core>=1.0",]
+requires = [ "poetry-core>=1.0.0",]
 build-backend = "poetry.core.masonry.api"
 
 [tool.commitizen]
@@ -8,8 +8,8 @@ change_type_order = [
     "BREAKING CHANGE", "Feat", "Fix", "Refactor", "Perf",
     "New (Old)", "Change (Old)", "Fix (Old)",
 ]
-version = "0.1.0"
-tag_format = "$version"
+version = "0.2.0a0"
+tag_format = "2021.$version"
 version_files = [ "pyproject.toml", "calcipy/__init__.py",]
 
 [tool.commitizen.cz_legacy_map]
@@ -26,9 +26,9 @@ line_length = 120
 
 [tool.poetry]
 name = "calcipy"
-version = "0.1.0"
+version = "0.2.0a0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
-license = "MIT"
+license = "Unlicense"
 authors = [ "Kyle King <dev.act.kyle@gmail.com>",]
 maintainers = []
 repository = "https://github.com/kyleking/calcipy"
@@ -37,19 +37,25 @@ readme = "README.md"
 include = [ "LICENSE.md",]
 keywords = [ "python-poetry", "doit",]
 classifiers = [
+    # https://pypi.org/classifiers/
+    "Development Status :: 3 - Alpha",
+    "Framework :: Flake8",
+    "Framework :: Pytest",
     "Intended Audience :: Developers",
+    "License :: OSI Approved :: The Unlicense (Unlicense)",
     "Operating System :: OS Independent",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
 ]
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.7.1"
 attrs = "*"
 decorator = "*"
 loguru = "*"
@@ -84,7 +90,7 @@ flake8-docstrings = {version = "*", optional = true}
 flake8-eradicate = {version = "*", optional = true}
 flake8-expression-complexity = {version = "*", optional = true}
 flake8-fixme = {version = "*", optional = true}
-flake8-functions = {version = "*", optional = true}
+flake8-functions = {version = "<0.0.4", optional = true}
 flake8-isort = {version = "*", optional = true}
 flake8-logging-format = {version = "*", optional = true}
 flake8-markdown = {version = "*", optional = true}
@@ -120,7 +126,6 @@ pyupgrade = {version = "*", optional = true}
 radon = {version = "*", optional = true}
 subprocess-tee = {version = "*", optional = true}
 toml = {version = "*", optional = true}
-tqdm = {version = "*", optional = true}
 
 # commitizen_legacy
 cz_legacy = {version = "*", optional = true}
@@ -129,14 +134,7 @@ cz_legacy = {version = "*", optional = true}
 preconvert = {version = "*", optional = true}
 preconvert_numpy = {version = "*", optional = true}
 
-[tool.poetry.dev-dependencies]
-
-[tool.poetry.dev-dependencies.commitizen]
-git = "https://github.com/kyleking/commitizen.git"
-branch = "issues/319"
-optional = true
-
 [tool.poetry.extras]
-development = [ "add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "doit", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "markdown-include", "mkdocs-material", "mkdocstrings", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "toml", "tqdm",]
+development = [ "add-trailing-comma", "autopep8", "better-exceptions", "cohesion", "commitizen", "darglint", "dlint", "doit", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "iniparse", "isort", "markdown-include", "mkdocs-material", "mkdocstrings", "pandas-vet", "pep8-naming", "pre-commit", "proselint", "pystache", "pytest", "pytest-cov", "pytest-html", "pytest-watch", "pyupgrade", "radon", "subprocess-tee", "toml",]
 commitizen_legacy = [ "cz_legacy",]
 serializers = [ "preconvert", "preconvert_numpy",]
