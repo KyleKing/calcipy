@@ -6,45 +6,12 @@ import webbrowser
 from pathlib import Path
 from typing import Dict, List, Optional, Pattern
 
-from doit.tools import LongRunning  # FIXME: This will fail if doit is not installed...
+from doit.tools import LongRunning
 from loguru import logger
 from transitions import Machine
 
 from .base import debug_task, open_in_browser, read_lines
 from .doit_globals import DIG, DoItTask
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Manage Tags
-
-
-# FIXME: May be replaced with cl_bump for creating tags, but 0.1.0 tag does not appear to be pushed to origin?
-def task_tag_create() -> DoItTask:
-    """Create a git tag based on the version in pyproject.toml.
-
-    Returns:
-        DoItTask: doit task
-
-    """
-    message = 'New Revision from PyProject.toml'
-    return debug_task([
-        f'git tag -a {DIG.meta.pkg_version} -m "{message}"',
-        'git tag -n10 --list',
-        'git push origin --tags',
-    ])
-
-
-def task_tag_remove() -> DoItTask:
-    """Delete tag for current version in pyproject.toml.
-
-    Returns:
-        DoItTask: doit task
-
-    """
-    return debug_task([
-        f'git tag -d "{DIG.meta.pkg_version}"',
-        'git tag -n10 --list',
-        f'git push origin :refs/tags/{DIG.meta.pkg_version}',
-    ])
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -115,7 +82,7 @@ def task_cl_bump() -> DoItTask:
     """
     return debug_task([
         'poetry run cz bump --changelog --yes --annotated-tag',
-        'git push --tags',
+        'git push origin --tags',
     ])
 
 
@@ -130,7 +97,7 @@ def task_cl_bump_pre() -> DoItTask:
     """
     task = debug_task([
         'poetry run cz bump --changelog --yes --prerelease %(prerelease)s',
-        'git push --tags',
+        'git push origin --tags',
     ])
     task['params'] = [{
         'name': 'prerelease', 'short': 'p', 'long': 'prerelease', 'default': '',

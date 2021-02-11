@@ -20,8 +20,6 @@ __all__ = [  # noqa: F405
     'task_document',
     'task_open_docs',
     'task_serve_fast',
-    'task_tag_create',
-    'task_tag_remove',
     # from .lint
     'task_auto_format',
     'task_lint_critical_only',
