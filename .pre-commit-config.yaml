@@ -54,9 +54,11 @@ repos:
         language: system
         files: pyproject.toml
         stages: [push]
+        pass_filenames: false
       - id: doit
         name: doit
         entry: poetry run doit run test
         language: system
         files: "\\.py"
         stages: [push]
+        pass_filenames: false
