@@ -14,6 +14,7 @@ __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
     # from .doc
     'task_cl_bump',
+    'task_cl_bump_pre',
     'task_cl_write',
     'task_deploy',
     'task_document',

@@ -97,6 +97,7 @@ def task_cl_write() -> DoItTask:
     - https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message
     - https://chris.beams.io/posts/git-commit/
     - https://semver.org/
+    - https://calver.org/
 
     Returns:
         DoItTask: doit task
@@ -106,14 +107,36 @@ def task_cl_write() -> DoItTask:
 
 
 def task_cl_bump() -> DoItTask:
-    """Bump and write the Changelog file with the raw Git history.
+    """Bumps project version based on project history and settings in pyproject.toml.
 
     Returns:
         DoItTask: doit task
 
     """
-    return debug_task(['poetry run cz bump --changelog'])
+    return debug_task([
+        'poetry run cz bump --changelog --yes --annotated-tag',
+        'git push --tags',
+    ])
 
+
+def task_cl_bump_pre() -> DoItTask:
+    """Bump with specified pre-release tag. Creates Changelog.
+
+    Example: `doit run cl_bump_pre -p alpha` or `doit run cl_bump_pre -p rc`
+
+    Returns:
+        DoItTask: doit task
+
+    """
+    task = debug_task([
+        'poetry run cz bump --changelog --yes --prerelease %(prerelease)s',
+        'git push --tags',
+    ])
+    task['params'] = [{
+        'name': 'prerelease', 'short': 'p', 'long': 'prerelease', 'default': '',
+        'help': 'Specify prerelease version for bump (alpha, beta, rc)',
+    }]
+    return task
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage README Updates
