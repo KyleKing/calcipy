@@ -19,7 +19,7 @@ The [Changelog](https://keepachangelog.com/en/1.0.0/) is an important part of a 
 - `semver`: `fix : PATCH / feat : MINOR / BREAKING CHANGE : MAJOR`
     - Use `git rebase -i` to fix commit names prior to merging if incorrect types/scopes are used
 
-### Commitizen
+### Commitizen Types and Scopes
 
 - Types
     - fix: A bug fix
@@ -34,7 +34,7 @@ The [Changelog](https://keepachangelog.com/en/1.0.0/) is an important part of a 
 - Scopes
     - Class, File name, Issue Number, other approved noun
 
-### Guidelines
+### Git Message Guidelines
 
 - [Commit message guidelines](https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message)
     - Full sentence with verb (*lowercase*) and concise description. Below are modified examples for Conventional Commits
@@ -45,68 +45,96 @@ The [Changelog](https://keepachangelog.com/en/1.0.0/) is an important part of a 
         - `perf(cli): rewrite methods`
         - `feat(api): endpoints to implement new customer dashboard`
 - [How to write a good commit message](https://chris.beams.io/posts/git-commit/)
-    - A diff will tell you what changed, but only the commit message can properly tell you why.
+	- A diff will tell you what changed, but only the commit message can properly tell you why.
     - Keep in mind: [This](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) [has](https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines) [all](https://github.com/torvalds/subsurface-for-dirk/blob/master/README.md#contributing) [been](http://who-t.blogspot.co.at/2009/12/on-commit-messages.html) [said](https://github.com/erlang/otp/wiki/writing-good-commit-messages) [before](https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md#format-commit-messages).
     - The seven rules of a great Git commit message
         - 2. [Try for 50 characters, but consider 72 the hard limit](https://chris.beams.io/posts/git-commit/#limit-50)
         - 7. [Use the body to explain what and why vs. how](https://chris.beams.io/posts/git-commit/#why-not-how)
 
-### Github Labels
+### Issue Labels and Milestones
 
 Personal Guide
 
 - Labels
-    - Type: (Bug, Maintenance, Idea, Feature)
+    + `Needs Discussion`: (#ff5722) Ticket needs discussion and prioritization
+    + `Type: Bug`: (#d73a4a) Something isn't working
+    + `Type: Documentation`: (#69cde9) Documentation changes
+    + `Type: Maintenance`: (#c5def5) Chore including build/dep, CI, refactor, or perf
+    + `Type: Idea`: (#fbca04) General idea or concept that could become a feature request
+    + `Type: Feature`: (#0075ca) Clearly defined new feature request
 - Milestones
-    - Main Milestone (Currently Active Tasks) - name could change based on a specific project or month
+    - Current Tasks (Main Milestone) - name could change based on a specific project, sprint, or month
     - Next Tasks
     - Blue Sky
 - Search
     - `is:open is:issue assignee:KyleKing archived:false milestone:"blue sky"` or `no:milestone` etc.
 
-#### Research
-
-- [Sane Github Labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63) and see [sensible-github-labels](https://github.com/Relequestual/sensible-github-labels) for full descriptions of each
-    - “it is much more helpful to see the status and type of all issues at a glance.”
-    - One of each:
-        - Status: …
-            - Abandoned, Accepted, Available, Blocked, Completed, In Progress, On Hold, Pending, Review Needed, Revision Needed
-        - Type: …
-            - Bug, Maintenance, Question, Enhancement
-        - Priority: …
-            - Critical, High, Medium, Low
-- [Britecharts](https://britecharts.github.io/britecharts/github-labels.html)
-    - Status: …
-        - On Review – Request that we are pondering if including or not
-        - Needs Reproducing – For bugs that need to be reproduced in order to get fixed
-        - Needs Design – Feature that needs a design
-        - Ready to Go – Issue that has been defined and is ready to get started with
-        - In Progress – Issue that is being worked on right now.
-        - Completed – Finished feature or fix
-    - Type: …
-        - Bug – An unexpected problem or unintended behavior
-        - Feature – A new feature request
-        - Maintenance – A regular maintenance chore or task, including refactors, build system, CI, performance improvements
-        - Documentation – A documentation improvement task
-        - Question – An issue or PR that needs more information or a user question
-    - Not Included
-        - Priority: They would add complexity and overhead due to the discussions, but could help with the roadmap
-        - Technology Labels: It can create too much overhead, as properly tag with technologies all the issues could be time consuming
-- [Ian Bicking Blog](https://www.ianbicking.org/blog/2014/03/use-github-issues-to-organize-a-project.html)
-    - Milestone Overview
-        - What are we doing right now?
-        - What aren’t we doing right now?
-            - 2a. Stuff we’ll probably do soon
-            - 2b. Stuff we probably won’t do soon
-        - What aren’t we sure about?
-    - Milestone Descriptions
-        - Stuff we are doing right now: this is the “main” milestone. We give it a name (like Alpha 2 or Strawberry Rhubarb Pie) and we write down what we are trying to accomplish with the milestone. We create a new milestone when we are ready for the next iteration.
-        - Stuff we’ll probably do soon: this is a standing “**Next Tasks**” milestone. We never change or rename this milestone.
-            - We use a permanent “Next Tasks” milestone (as opposed to renaming it to “Alpha 3” or actual-next-iteration milestone) because we don’t want to presume or default to including something in the real next iteration. When we’re ready to start planning the next iteration we’ll create a new milestone, and only deliberately move things into that milestone.
-        - Stuff we probably won’t do soon: this is a standing “**Blue Sky**” milestone. We refer to these tickets and sometimes look through them, but they are easy to ignore, somewhat intentionally ignored.
-        - What aren’t we sure about?: issues with no milestone.
-    - Label: “Needs Discussion” - (addressed in a triage meeting) - use liberally for either big or small tickets
-    - “It’s better to give people more power: it’s actually helpful if people can overreach because it is an opportunity to establish where the limits really are and what purpose those limits have”
+<details>
+<summary>Research</summary>
+<ul>
+<li>[Sane Github Labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63) and see [sensible-github-labels](https://github.com/Relequestual/sensible-github-labels) for full descriptions of each</li>
+    <ul>
+    <li>“it is much more helpful to see the status and type of all issues at a glance.”</li>
+    <li>One of each:</li>
+        <ul>
+        <li>Status: …</li>
+            <ul><li>Abandoned, Accepted, Available, Blocked, Completed, In Progress, On Hold, Pending, Review Needed, Revision Needed</li></ul>
+        <li>Type: …</li>
+            <ul><li>Bug, Maintenance, Question, Enhancement</li></ul>
+        <li>Priority: …</li>
+            <ul><li>Critical, High, Medium, Low</li></ul>
+        </ul>
+    </ul>
+<li>[Britecharts](https://britecharts.github.io/britecharts/github-labels.html)</li>
+    <ul>
+    <li>Status: …</li>
+        <ul>
+        <li>On Review – Request that we are pondering if including or not</li>
+        <li>Needs Reproducing – For bugs that need to be reproduced in order to get fixed</li>
+        <li>Needs Design – Feature that needs a design</li>
+        <li>Ready to Go – Issue that has been defined and is ready to get started with</li>
+        <li>In Progress – Issue that is being worked on right now.</li>
+        <li>Completed – Finished feature or fix</li>
+        </ul>
+    <li>Type: …</li>
+        <ul>
+        <li>Bug – An unexpected problem or unintended behavior</li>
+        <li>Feature – A new feature request</li>
+        <li>Maintenance – A regular maintenance chore or task, including refactors, build system, CI, performance improvements</li>
+        <li>Documentation – A documentation improvement task</li>
+        <li>Question – An issue or PR that needs more information or a user question</li>
+        </ul>
+    <li>Not Included</li>
+        <ul>
+        <li>Priority: They would add complexity and overhead due to the discussions, but could help with the roadmap</li>
+        <li>Technology Labels: It can create too much overhead, as properly tag with technologies all the issues could be time consuming</li>
+        </ul>
+    </ul>
+<li>[Ian Bicking Blog](https://www.ianbicking.org/blog/2014/03/use-github-issues-to-organize-a-project.html)</li>
+    <ul>
+    <li>Milestone Overview</li>
+        <ul>
+        <li>What are we doing right now?</li>
+        <li>What aren’t we doing right now?</li>
+            <ul>
+            <li>2a. Stuff we’ll probably do soon</li>
+            <li>2b. Stuff we probably won’t do soon</li>
+            </ul>
+        <li>What aren’t we sure about?</li>
+        </ul>
+    <li>Milestone Descriptions</li>
+        <ul>
+        <li>Stuff we are doing right now: this is the “main” milestone. We give it a name (like Alpha 2 or Strawberry Rhubarb Pie) and we write down what we are trying to accomplish with the milestone. We create a new milestone when we are ready for the next iteration.</li>
+        <li>Stuff we’ll probably do soon: this is a standing “**Next Tasks**” milestone. We never change or rename this milestone.</li>
+            <ul><li>We use a permanent “Next Tasks” milestone (as opposed to renaming it to “Alpha 3” or actual-next-iteration milestone) because we don’t want to presume or default to including something in the real next iteration. When we’re ready to start planning the next iteration we’ll create a new milestone, and only deliberately move things into that milestone.</li></ul>
+        <li>Stuff we probably won’t do soon: this is a standing “**Blue Sky**” milestone. We refer to these tickets and sometimes look through them, but they are easy to ignore, somewhat intentionally ignored.</li>
+        <li>What aren’t we sure about?: issues with no milestone.</li>
+        </ul>
+    <li>Label: “Needs Discussion” - (addressed in a triage meeting) - use liberally for either big or small tickets</li>
+    <li>“It’s better to give people more power: it’s actually helpful if people can overreach because it is an opportunity to establish where the limits really are and what purpose those limits have”</li>
+    </ul>
+</ul>
+</details>
 
 ### External Links
 
@@ -130,6 +158,10 @@ Personal Guide
     - https://gist.github.com/sloria/7001839
     - http://www.nilunder.com/blog/2013/08/03/pythonic-sensibilities/
     - https://innoq.github.io/cards42org_en/
+    - https://docs.openstack.org/hacking/latest/user/hacking.html#styleguide
+    - https://www.python.org/doc/humor/
+    - https://docs.python-guide.org/writing/reading/
+    - https://realpython.com/python-refactoring/
 
 ## ADRs
 

@@ -24,3 +24,12 @@ If you run into any issues, please open a new issue or respond to the correspond
 
 - Link the issue with `Fixes #N` in the Pull Request body
 - Please add a short summary of `why` the change was made, `what changed`, and any relevant information or screenshots
+
+```sh
+# SHA is the SHA of the commit you want to fix
+git commit --fixup=SHA
+# Once all the changes are approved, you can squash your commits:
+git rebase --interactive --autosquash main
+# Force Push
+git push --force
+```
