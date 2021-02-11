@@ -90,7 +90,7 @@ flake8-docstrings = {version = "*", optional = true}
 flake8-eradicate = {version = "*", optional = true}
 flake8-expression-complexity = {version = "*", optional = true}
 flake8-fixme = {version = "*", optional = true}
-flake8-functions = {version = "*", optional = true}
+flake8-functions = {version = "<0.0.4", optional = true}
 flake8-isort = {version = "*", optional = true}
 flake8-logging-format = {version = "*", optional = true}
 flake8-markdown = {version = "*", optional = true}

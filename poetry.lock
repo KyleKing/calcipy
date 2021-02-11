@@ -523,14 +523,13 @@ python-versions = "*"
 
 [[package]]
 name = "flake8-functions"
-version = "0.0.5"
+version = "0.0.3"
 description = "A flake8 extension that checks functions"
 category = "main"
 optional = true
 python-versions = "*"
 
 [package.dependencies]
-mr-proper = "*"
 pytest = "*"
 
 [[package]]
@@ -1024,17 +1023,6 @@ pymdown-extensions = ">=6.3,<9.0"
 pytkdocs = ">=0.2.0,<0.11.0"
 
 [[package]]
-name = "mr-proper"
-version = "0.0.6"
-description = "Package to find typos in russian text."
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-stdlib-list = ">=0.5.0"
-
-[[package]]
 name = "nltk"
 version = "3.5"
 description = "Natural Language Toolkit"
@@ -1452,17 +1440,6 @@ optional = true
 python-versions = ">=3.5"
 
 [[package]]
-name = "stdlib-list"
-version = "0.8.0"
-description = "A list of Python Standard Libraries (2.6-7, 3.2-9)."
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.extras]
-develop = ["sphinx"]
-
-[[package]]
 name = "stevedore"
 version = "3.3.0"
 description = "Manage dynamic plugins for Python applications"
@@ -1651,7 +1628,7 @@ serializers = ["preconvert", "preconvert_numpy"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "ded1c866c74e9143890268992e68f8e18c80a1823bc3eda36151a231e413c24e"
+content-hash = "00101c9a458c10c16c34b0f8dc3fff66b1a1dfe891d472df1b3dbaf3672cfcb4"
 
 [metadata.files]
 add-trailing-comma = [
@@ -1886,7 +1863,7 @@ flake8-fixme = [
     {file = "flake8_fixme-1.1.1-py2.py3-none-any.whl", hash = "sha256:226a6f2ef916730899f29ac140bed5d4a17e5aba79f00a0e3ae1eff1997cb1ac"},
 ]
 flake8-functions = [
-    {file = "flake8_functions-0.0.5.tar.gz", hash = "sha256:a3229bd980f6ce60adf3c566fb4c8f749b2999aabff68fbcb67ec053616bf24c"},
+    {file = "flake8_functions-0.0.3.tar.gz", hash = "sha256:3ee113bef71b854c438996d27da8244d474cf5a04905016240d9f6efc23a3f16"},
 ]
 flake8-isort = [
     {file = "flake8-isort-4.0.0.tar.gz", hash = "sha256:2b91300f4f1926b396c2c90185844eb1a3d5ec39ea6138832d119da0a208f4d9"},
@@ -2078,9 +2055,6 @@ mkdocs-material-extensions = [
 mkdocstrings = [
     {file = "mkdocstrings-0.14.0-py3-none-any.whl", hash = "sha256:ac821a339c53e843045d3915de208e389d48493f2612a4317cde841677bcbe48"},
     {file = "mkdocstrings-0.14.0.tar.gz", hash = "sha256:f1b832943c4fe980fcfc17d07abfe9a8091044dbf553cb7be0ca263953130b2c"},
-]
-mr-proper = [
-    {file = "mr_proper-0.0.6.tar.gz", hash = "sha256:12da55d81f04dd0e8ede6f8a1d76e6e5026d3f758b7942c8c215e07d86227bd1"},
 ]
 nltk = [
     {file = "nltk-3.5.zip", hash = "sha256:845365449cd8c5f9731f7cb9f8bd6fd0767553b9d53af9eb1b3abf7700936b35"},
@@ -2305,10 +2279,6 @@ snowballstemmer = [
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},
     {file = "sqlparse-0.4.1.tar.gz", hash = "sha256:0f91fd2e829c44362cbcfab3e9ae12e22badaa8a29ad5ff599f9ec109f0454e8"},
-]
-stdlib-list = [
-    {file = "stdlib-list-0.8.0.tar.gz", hash = "sha256:a1e503719720d71e2ed70ed809b385c60cd3fb555ba7ec046b96360d30b16d9f"},
-    {file = "stdlib_list-0.8.0-py3-none-any.whl", hash = "sha256:2ae0712a55b68f3fbbc9e58d6fa1b646a062188f49745b495f94d3310a9fdd3e"},
 ]
 stevedore = [
     {file = "stevedore-3.3.0-py3-none-any.whl", hash = "sha256:50d7b78fbaf0d04cd62411188fa7eedcb03eb7f4c4b37005615ceebe582aa82a"},
