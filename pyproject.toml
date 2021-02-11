@@ -9,7 +9,7 @@ change_type_order = [
     "New (Old)", "Change (Old)", "Fix (Old)",
 ]
 version = "0.1.0"
-tag_format = "$version"
+tag_format = "2021.$version"
 version_files = [ "pyproject.toml", "calcipy/__init__.py",]
 
 [tool.commitizen.cz_legacy_map]
