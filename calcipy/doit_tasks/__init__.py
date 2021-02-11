@@ -49,7 +49,6 @@ from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'cl_write',
         'create_tag_file',
         'coverage',
         'auto_format',
