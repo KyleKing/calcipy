@@ -9,12 +9,12 @@
 - [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
 - [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *WIP*
 - [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
-- [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability) - *On Hold*
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
 
 ## Quick Start
 
 <!-- TODO: Replace with Copier Instructions (#26 / #38) And when calcipy is published to PyPi... -->
+<!-- TODO: Confirm that development does not need to be specified -->
 
 Add to a poetry project in `pyproject.toml`:
 
@@ -26,7 +26,7 @@ branch = "main"
 [tool.poetry.dev-dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
 branch = "main"
-extras = [ "development", "serializers",]
+extras = [ "lint", "test",]
 ```
 
 Then copy the [`https://github.com/KyleKing/calcipy/blob/main/dodo.py`](https://github.com/KyleKing/calcipy/blob/main/dodo.py) file into your project and call with `poetry run doit`
