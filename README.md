@@ -14,8 +14,6 @@
 ## Quick Start
 
 <!-- TODO: Replace with Copier Instructions (#26 / #38) And when calcipy is published to PyPi... -->
-<!-- TODO: Confirm that development does not need to be specified -->
-
 Add to a poetry project in `pyproject.toml`:
 
 ```toml
