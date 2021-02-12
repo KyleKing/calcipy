@@ -16,7 +16,7 @@ try:
 except ImportError:
     toml = None
 
-_DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "development" to utilize "doit_tasks"'
+_DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -176,22 +176,19 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
+
+
     path_out: Path = Path('releases/tests')
-    """Path to the report output directory."""
+    """Path to the report output directory. Default is `releases/tests`."""
 
     path_tests: Path = Path('tests')
-    """Path to the tests directory."""
-
-    path_report_index: Path = attr.ib(init=False)
-    """Path to the report HTML file."""
-
-    path_coverage_index: Path = attr.ib(init=False)
-    """Path to the coverage HTML file."""
+    """Path to the tests directory. Default is `tests`."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         self.path_out.mkdir(exist_ok=True, parents=True)
+        # Configure the paths to the report HTML and coverage HTML files
         self.path_report_index = self.path_out / 'test_report.html'
         self.path_coverage_index = self.path_out / 'cov_html/index.html'
 
@@ -216,10 +213,10 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 class DoItGlobals:
     """Global Variables for doit."""
 
-    calcipy_dir: Path = Path(__file__).parents[1]
+    calcipy_dir: Path = Path(__file__).resolve().parents[1]
     """The calcipy directory (likely within `.venv`)."""
 
-    meta: PackageMeta = attr.ib(init=False)  # PLANNED: Check if Optional[PackageMeta] is necessary
+    meta: PackageMeta = attr.ib(init=False)
     """Package Meta-Information."""
 
     lint: LintConfig = attr.ib(init=False)

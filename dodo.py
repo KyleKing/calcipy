@@ -18,6 +18,9 @@ poetry run doit
 
 """
 
+# TODO: cz_legacy - don't overwrite the init file
+# TODO: cz_legacy - no mkdocs.yml file. Fix this with copier?
+
 from pathlib import Path
 
 from loguru import logger
