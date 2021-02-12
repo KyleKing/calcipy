@@ -9,13 +9,11 @@
 - [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
 - [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *WIP*
 - [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
-- [KyleKing/Kitsu_Library_Availability](https://github.com/KyleKing/Kitsu_Library_Availability) - *On Hold*
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
 
 ## Quick Start
 
 <!-- TODO: Replace with Copier Instructions (#26 / #38) And when calcipy is published to PyPi... -->
-
 Add to a poetry project in `pyproject.toml`:
 
 ```toml
@@ -26,7 +24,7 @@ branch = "main"
 [tool.poetry.dev-dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
 branch = "main"
-extras = [ "development", "serializers",]
+extras = [ "dev", "lint", "test",]
 ```
 
 Then copy the [`https://github.com/KyleKing/calcipy/blob/main/dodo.py`](https://github.com/KyleKing/calcipy/blob/main/dodo.py) file into your project and call with `poetry run doit`
@@ -54,6 +52,6 @@ See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) and [./CONTRIBUTING.md](./CONTR
 | `calcipy/doit_tasks/test.py` | 30 | 13 | 0 | 56.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2021-02-11T08:21:40.024235
+Generated on: 2021-02-11T20:23:39.857535
 
 <!-- /COVERAGE -->
