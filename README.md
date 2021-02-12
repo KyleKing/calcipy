@@ -24,7 +24,7 @@ branch = "main"
 [tool.poetry.dev-dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
 branch = "main"
-extras = [ "lint", "test",]
+extras = [ "dev", "lint", "test",]
 ```
 
 Then copy the [`https://github.com/KyleKing/calcipy/blob/main/dodo.py`](https://github.com/KyleKing/calcipy/blob/main/dodo.py) file into your project and call with `poetry run doit`
@@ -52,6 +52,6 @@ See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) and [./CONTRIBUTING.md](./CONTR
 | `calcipy/doit_tasks/test.py` | 30 | 13 | 0 | 56.7% |
 | `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
 
-Generated on: 2021-02-11T08:21:40.024235
+Generated on: 2021-02-11T20:23:39.857535
 
 <!-- /COVERAGE -->
