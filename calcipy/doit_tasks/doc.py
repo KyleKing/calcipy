@@ -8,10 +8,14 @@ from typing import Dict, List, Optional, Pattern
 
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
-from transitions import Machine
 
 from .base import debug_task, echo, open_in_browser, read_lines
 from .doit_globals import DIG, DoItTask
+
+try:
+    from transitions import Machine
+except ImportError:
+    Machine = None
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Update __init__.py with Documentation

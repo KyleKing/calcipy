@@ -59,7 +59,6 @@ python = "^3.7.1"
 attrs = "*"
 decorator = "*"
 loguru = "*"
-transitions = "*"
 
 # Development
 better-exceptions = {version = "*", optional = true}
@@ -72,6 +71,7 @@ pre-commit = {version = "*", optional = true}
 pyupgrade = {version = "*", optional = true}
 subprocess-tee = {version = "*", optional = true}
 toml = {version = "*", optional = true}
+transitions = {version = "*", optional = true}
 
 # Lint
 add-trailing-comma = {version = "*", optional = true}
@@ -124,6 +124,7 @@ proselint = {version = "*", optional = true}
 radon = {version = "*", optional = true}
 
 # Test
+nox-poetry = {version = "*", optional = true}  # TODO: Implement nox for test/build
 pytest = {version = "*", optional = true}
 pytest-cov = {version = "*", optional = true}
 pytest-html = {version = "*", optional = true}
