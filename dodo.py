@@ -27,9 +27,7 @@ from loguru import logger
 
 from calcipy import __pkg_name__
 from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq: PYL-W0614
-from calcipy.doit_tasks import DOIT_CONFIG_RECOMMENDED
-from calcipy.doit_tasks.base import debug_task
-from calcipy.doit_tasks.doit_globals import DIG, DoItTask
+from calcipy.doit_tasks import DIG, DOIT_CONFIG_RECOMMENDED, DoItTask, debug_task
 from calcipy.log_helpers import build_logger_config
 
 logger.enable(__pkg_name__)  # This will enable output from calcipy, which is off by default

@@ -240,7 +240,7 @@ class DoItGlobals:
             doc_dir: optional destination directory for project documentation. Defaults to './output'
 
         """
-        logger.info(f'Setting DIG paths for {path_project}', path_project=path_project, cwd=Path.cwd(), doc_dir=doc_dir)
+        logger.info(f'Setting DIG path: {path_project}', path_project=path_project, cwd=Path.cwd(), doc_dir=doc_dir)
         path_project = Path.cwd() if path_project is None else path_project
         self.meta = PackageMeta(path_project=path_project)
         meta_kwargs = {'path_project': self.meta.path_project}
