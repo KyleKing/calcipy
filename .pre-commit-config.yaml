@@ -31,7 +31,7 @@ repos:
       - id: mixed-line-ending
         args: ['--fix=lf']
       - id: pretty-format-json
-        args: ['--autofix']  # --no-sort-keys']
+        args: ['--autofix']
       - id: requirements-txt-fixer
       - id: trailing-whitespace
         stages: [push]

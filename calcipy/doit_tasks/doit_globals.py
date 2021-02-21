@@ -176,7 +176,8 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-
+    pythons: List[str] = ['3.7', '3.9']
+    """Python versions to test against. Default is `['3.6', '3.9']`."""
 
     path_out: Path = Path('releases/tests')
     """Path to the report output directory. Default is `releases/tests`."""
@@ -256,3 +257,5 @@ class DoItGlobals:
 
 DIG = DoItGlobals()
 """Global doit Globals class used to manage global variables."""
+
+DIG.set_paths(path_project=Path.cwd().resolve())

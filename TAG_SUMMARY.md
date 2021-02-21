@@ -14,10 +14,7 @@ calcipy/doit_tasks/__init__.py
     line   9    TODO: Until https://github.com/python-poetry/poetry/issues/2270 is implemented, create a placeholder
 
 calcipy/doit_tasks/doc.py
-    line 166   FIXME: This was for a very specific implementation. See #36 for variable defintion
-
-calcipy/doit_tasks/doit_globals.py
-    line 222 PLANNED: Check if Optional[PackageMeta] is necessary
+    line 170   FIXME: This was for a very specific implementation. See #36 for variable defintion
 
 calcipy/doit_tasks/lint.py
     line  16    TODO: Possibly remove - may be unused
@@ -29,7 +26,9 @@ calcipy/doit_tasks/tag_collector.py
     line 153    NOTE: THE TOP LEVEL path_project MUST USE GLOB (NOT RGLOB!)
 
 dodo.py
-    line  52    TODO: Implement type checking with pytype, mypy, or other
+    line  21    TODO: cz_legacy - don't overwrite the __init__ file. Use copier instead
+    line  22    TODO: cz_legacy - no mkdocs.yml file. Fix this with copier?
+    line  48    TODO: Implement type checking with pytype, mypy, or other
 
-Found tagged comments for TODO (6),  FIXME (2),  PLANNED (3),  NOTE (1)
+Found tagged comments for TODO (8),  FIXME (2),  PLANNED (2),  NOTE (1)
 ```
