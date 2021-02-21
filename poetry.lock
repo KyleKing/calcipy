@@ -1007,22 +1007,6 @@ python-versions = ">=3.5"
 mkdocs-material = ">=5.0.0"
 
 [[package]]
-name = "mkdocstrings"
-version = "0.14.0"
-description = "Automatic documentation from sources, for MkDocs."
-category = "main"
-optional = true
-python-versions = ">=3.6,<4.0"
-
-[package.dependencies]
-Jinja2 = ">=2.11,<3.0"
-Markdown = ">=3.3,<4.0"
-MarkupSafe = ">=1.1,<2.0"
-mkdocs = ">=1.1,<2.0"
-pymdown-extensions = ">=6.3,<9.0"
-pytkdocs = ">=0.2.0,<0.11.0"
-
-[[package]]
 name = "nltk"
 version = "3.5"
 description = "Natural Language Toolkit"
@@ -1362,17 +1346,6 @@ pytest = ">=2.6.4"
 watchdog = ">=0.6.0"
 
 [[package]]
-name = "pytkdocs"
-version = "0.10.1"
-description = "Load Python objects documentation."
-category = "main"
-optional = true
-python-versions = ">=3.6,<4.0"
-
-[package.dependencies]
-typing-extensions = {version = ">=3.7.4.3,<4.0.0.0", markers = "python_version == \"3.6\" or python_version == \"3.7\""}
-
-[[package]]
 name = "pyupgrade"
 version = "2.10.0"
 description = "A tool to automatically upgrade syntax for newer versions."
@@ -1644,7 +1617,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-dev = ["better-exceptions", "commitizen", "doit", "markdown-include", "mkdocs-material", "mkdocstrings", "pre-commit", "pyupgrade", "subprocess-tee", "toml"]
+dev = ["better-exceptions", "commitizen", "doit", "markdown-include", "mkdocs-material", "pre-commit", "pyupgrade", "subprocess-tee", "toml"]
 lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon"]
 serializers = ["preconvert", "preconvert_numpy"]
 test = ["nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-watch"]
@@ -1652,7 +1625,7 @@ test = ["nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-watch"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "98770e630c3e1caaa1c5a5c3285f33c303fb94ada740792ef3fa9f6f3f2c2f8c"
+content-hash = "9a66dc86da26e7deabf916a54c142656c78fda481a8c267bf6753d39cb149a0f"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2075,10 +2048,6 @@ mkdocs-material-extensions = [
     {file = "mkdocs-material-extensions-1.0.1.tar.gz", hash = "sha256:6947fb7f5e4291e3c61405bad3539d81e0b3cd62ae0d66ced018128af509c68f"},
     {file = "mkdocs_material_extensions-1.0.1-py3-none-any.whl", hash = "sha256:d90c807a88348aa6d1805657ec5c0b2d8d609c110e62b9dce4daf7fa981fa338"},
 ]
-mkdocstrings = [
-    {file = "mkdocstrings-0.14.0-py3-none-any.whl", hash = "sha256:ac821a339c53e843045d3915de208e389d48493f2612a4317cde841677bcbe48"},
-    {file = "mkdocstrings-0.14.0.tar.gz", hash = "sha256:f1b832943c4fe980fcfc17d07abfe9a8091044dbf553cb7be0ca263953130b2c"},
-]
 nltk = [
     {file = "nltk-3.5.zip", hash = "sha256:845365449cd8c5f9731f7cb9f8bd6fd0767553b9d53af9eb1b3abf7700936b35"},
 ]
@@ -2209,10 +2178,6 @@ pytest-metadata = [
 ]
 pytest-watch = [
     {file = "pytest-watch-4.2.0.tar.gz", hash = "sha256:06136f03d5b361718b8d0d234042f7b2f203910d8568f63df2f866b547b3d4b9"},
-]
-pytkdocs = [
-    {file = "pytkdocs-0.10.1-py3-none-any.whl", hash = "sha256:01fbb6f624abab5e034fffe9283ef1f36aa01702c0afae7dd29da16b3f48ce3b"},
-    {file = "pytkdocs-0.10.1.tar.gz", hash = "sha256:f3d510063e7c2951c7b52cc860846ecbd7b21ec4b2253ae5c0084a26b233132f"},
 ]
 pyupgrade = [
     {file = "pyupgrade-2.10.0-py2.py3-none-any.whl", hash = "sha256:b26a00db6e2d745fe5a949e1fd02c5286c3999edaf804f746c69d559c8f8b365"},
