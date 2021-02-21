@@ -18,9 +18,6 @@ poetry run doit
 
 """
 
-# TODO: cz_legacy - don't overwrite the __init__ file. Use copier instead
-# TODO: cz_legacy - no mkdocs.yml file. Fix this with copier?
-
 from pathlib import Path
 
 from loguru import logger
@@ -45,7 +42,7 @@ logger.info(
 DOIT_CONFIG = DOIT_CONFIG_RECOMMENDED
 
 
-# TODO: Implement type checking with pytype, mypy, or other
+# PLANNED: Implement type checking with pytype or mypy
 def task_type_checking() -> DoItTask:
     """Run type annotation checks.
 
