@@ -1,6 +1,6 @@
 # calcipy
 
-<!-- TODO: Add a banner image (#27) -->
+![./calcipy.svg](./calcipy.svg)
 
 `calcipy` is a Python package that implements best practices such as code style (linting, auto-fixes), documentation, and logging. Like the calcium carbonate in hard coral, packages can be built on the `calcipy` foundation
 

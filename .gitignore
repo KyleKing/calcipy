@@ -180,5 +180,6 @@ coverage.json
 /tmp.txt
 
 # Built Outputs
+!/docs/*.svg
 /docs/*/*
 /releases/

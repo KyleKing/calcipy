@@ -1,3 +1,5 @@
 # Calcipy
 
-Full documentation, here: [docs/README.md](docs/README.md)
+Full documentation, here: [./docs/](docs/)
+
+![docs/calcipy.svg](docs/calcipy.svg)
