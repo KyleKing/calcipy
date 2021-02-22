@@ -168,6 +168,13 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     paths: List[Path] = []
     """List of file and directory Paths to lint."""
 
+    # FIXME: Just use folders and not specific files. See example snippets below
+    # poetry run isort --recursive --check --diff calcipy/ tests/
+    # poetry run isort --recursive calcipy/ tests/
+    # poetry run flake8 calcipy/ tests/
+    # poetry run safety check -i 39462
+    # poetry run bandit -r calcipy/
+
     paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
 

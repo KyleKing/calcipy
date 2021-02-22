@@ -266,6 +266,11 @@ def task_document() -> DoItTask:
         (_write_code_to_readme, ()),
         (_write_coverage_to_readme, ()),
         (_write_pkg_init, ()),
+        # PLANNED: Delete /docs/ folder
+        # 'poetry run pdocs as_markdown calcipy --overwrite --template-dir? /path/dir',  # PLANNED: DIG.package_name?
+        # Copy all *.md (and */*.md?) files into /docs!
+        # TODO: Remove all extra None ("\nNone\n") and "Module "...
+        #   PLANNED: Consider a different template with different formatting for code and arguments?
         'poetry run mkdocs build',  # --site-dir DIG.doc.path_out
     ])
 
