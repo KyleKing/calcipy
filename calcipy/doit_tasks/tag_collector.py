@@ -1,6 +1,7 @@
 """Collect issue tags and output for review in a single location."""
 
-# PLANNED: Revisit and standardize wording for tag vs. comment
+# PLANNED: Revisit and standardize wording for tag vs. comment. codetag?
+# FIXME: File is now in ./docs/TAG_SUMMARY.md
 
 import re
 from collections import defaultdict
