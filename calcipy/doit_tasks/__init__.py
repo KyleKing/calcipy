@@ -29,6 +29,7 @@ __all__ = [  # noqa: F405
     # from ..tag_collector
     'task_create_tag_file',
     # from .test
+    'task_check_types',
     'task_coverage',
     'task_open_test_docs',
     'task_ptw_current',
@@ -55,7 +56,7 @@ DOIT_CONFIG_RECOMMENDED = {
         'document',
         'pre_commit_hooks',
         'lint_critical_only',
-        # 'type_checking',  # Not yet implemented
+        'check_types',
     ],
 }
 """doit Configuration Settings. Run with `poetry run doit`."""

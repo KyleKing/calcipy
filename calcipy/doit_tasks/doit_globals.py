@@ -22,7 +22,7 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
-DoItTask = Dict[str, Union[str, object, Tuple[Any, Sequence[Any]]]]
+DoItTask = Dict[str, Union[str, object, Tuple[Any, Sequence[Any]]]]  # noqa: ECE001
 """doit task type for annotations."""
 
 
@@ -199,6 +199,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
         # Configure the paths to the report HTML and coverage HTML files
         self.path_report_index = self.path_out / 'test_report.html'
         self.path_coverage_index = self.path_out / 'cov_html/index.html'
+        self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 
 
 @attr.s(auto_attribs=True, kw_only=True)

@@ -24,8 +24,10 @@ from loguru import logger
 
 from calcipy import __pkg_name__
 from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq: PYL-W0614
-from calcipy.doit_tasks import DIG, DOIT_CONFIG_RECOMMENDED, DoItTask, debug_task
+from calcipy.doit_tasks import DOIT_CONFIG_RECOMMENDED
 from calcipy.log_helpers import build_logger_config
+
+# PLANNED: Move all of this into a function! (and/or task?)
 
 logger.enable(__pkg_name__)  # This will enable output from calcipy, which is off by default
 # See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
@@ -40,17 +42,3 @@ logger.info(
 
 # Create list of all tasks run with `poetry run doit`
 DOIT_CONFIG = DOIT_CONFIG_RECOMMENDED
-DOIT_CONFIG['default_tasks'].append('check_types')
-
-
-# TODO: Implement type checking with mypy
-def task_check_types() -> DoItTask:
-    """Run type annotation checks.
-
-    Returns:
-        DoItTask: doit task
-
-    """
-    return debug_task([
-        f'poetry run mypy {DIG.meta.pkg_name}',
-    ])

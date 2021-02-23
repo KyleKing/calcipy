@@ -94,6 +94,18 @@ def task_coverage() -> DoItTask:
     ])
 
 
+def task_check_types() -> DoItTask:
+    """Run type annotation checks.
+
+    Returns:
+        DoItTask: doit task
+
+    """
+    return debug_task([
+        f'poetry run mypy {DIG.meta.pkg_name}',
+    ])
+
+
 def task_open_test_docs() -> DoItTask:
     """Open the test and coverage files in default browser.
 
@@ -101,10 +113,13 @@ def task_open_test_docs() -> DoItTask:
         DoItTask: doit task
 
     """
-    return debug_task([
+    tasks = [
         (open_in_browser, (DIG.test.path_coverage_index,)),
         (open_in_browser, (DIG.test.path_report_index,)),
-    ])
+    ]
+    if DIG.test.path_mypy_index.is_file():
+        tasks.append((open_in_browser, (DIG.test.path_mypy_index, )))
+    return debug_task(tasks)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
