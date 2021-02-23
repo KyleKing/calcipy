@@ -1,7 +1,4 @@
-"""Collect issue tags and output for review in a single location."""
-
-# PLANNED: Revisit and standardize wording for tag vs. comment. codetag?
-# FIXME: File is now in ./docs/TAG_SUMMARY.md
+"""Collect code tags and output for review in a single location."""
 
 import re
 from collections import defaultdict
@@ -15,13 +12,13 @@ from ..log_helpers import log_fun
 from .base import debug_task, read_lines
 from .doit_globals import DIG, DoItTask
 
-_TAG_SUMMARY_FILENAME = 'TAG_SUMMARY.md'
+_TAG_SUMMARY_PATH = Path('docs/CODE_TAG_SUMMARY.md')
 """Name of the tag summary file."""  # PLANNED: Maybe make this configurable?
 
 
 @attr.s(auto_attribs=True)
-class _TaggedComment:  # noqa: H601
-    """Tagged (FIXME,TODO,etc) with contextual information."""  # noqa: T100,T101
+class _CodeTag:  # noqa: H601
+    """Code Tag (FIXME,TODO,etc) with contextual information."""  # noqa: T100,T101
 
     lineno: int
     tag: str
@@ -30,10 +27,10 @@ class _TaggedComment:  # noqa: H601
 
 @attr.s(auto_attribs=True)
 class _Tags:  # noqa: H601
-    """Collection of tagged comments with additional contextual information."""
+    """Collection of code tags with additional contextual information."""
 
     file_path: Path
-    tagged_comments: List[_TaggedComment]
+    code_tags: List[_CodeTag]
 
 
 def _compile_issue_regex(regex_raw: str, tags: List[str]) -> Pattern[str]:
@@ -50,17 +47,17 @@ def _compile_issue_regex(regex_raw: str, tags: List[str]) -> Pattern[str]:
     return re.compile(regex_raw.format(tag='|'.join(tags)))
 
 
-_regex_raw = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
-_tags = ['DEBUG', 'FIXME', 'FYI', 'HACK', 'NOTE', 'PLANNED', 'REVIEW', 'TBD', 'TODO']  # noqa: T100,T101,T103
+_REGEX_RAW = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
+_TAGS = ['FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE']  # noqa: T100,T101,T103
 
-_COMPILED_RE = _compile_issue_regex(_regex_raw, _tags)
+_COMPILED_RE = _compile_issue_regex(_REGEX_RAW, _TAGS)
 """Default compiled regular expression."""
 
 
 def _search_lines(
     lines: Sequence[str],
     regex_compiled: Pattern[str] = _COMPILED_RE,
-) -> List[_TaggedComment]:
+) -> List[_CodeTag]:
     """Search lines of text for matches to the compiled regular expression.
 
     Args:
@@ -68,7 +65,7 @@ def _search_lines(
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
-        List[_TaggedComment]: list of all tagged comments found in lines
+        List[_CodeTag]: list of all code tags found in lines
 
     """
     comments = []
@@ -78,7 +75,7 @@ def _search_lines(
             break
         if match:
             mg = match.groupdict()
-            comments.append(_TaggedComment(lineno + 1, tag=mg['tag'], text=mg['text']))
+            comments.append(_CodeTag(lineno + 1, tag=mg['tag'], text=mg['text']))
     return comments
 
 
@@ -93,7 +90,7 @@ def _search_files(
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
-        List[_Tags]: list of all tagged comments found in files
+        List[_Tags]: list of all code tags found in files
 
     """
     matches = []
@@ -111,12 +108,12 @@ def _search_files(
     return matches
 
 
-def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:  # noqa: CCR001
-    """Pretty-format the tagged items by file and line number.
+def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR001
+    """Pretty-format the code tags by file and line number.
 
     Args:
         base_dir: base directory relative to the searched files
-        tagged_collection: list of all tagged comments found in files
+        code_tags: list of all code tags found in files
 
     Returns:
         str: pretty-formatted text
@@ -124,16 +121,17 @@ def _format_report(base_dir: Path, tagged_collection: List[_Tags]) -> str:  # no
     """
     output = ''
     counter = defaultdict(lambda: 0)
-    for comments in sorted(tagged_collection, key=lambda tc: tc.file_path, reverse=False):
-        output += f'{comments.file_path.relative_to(base_dir)}\n'
-        for comment in comments.tagged_comments:
-            output += f'    line {comment.lineno:>3} {comment.tag:>7}: {comment.text}\n'
+    for comments in sorted(code_tags, key=lambda tc: tc.file_path, reverse=False):
+        output += f'- {comments.file_path.relative_to(base_dir)}\n'
+        for comment in comments.code_tags:
+            output += f'    - line {comment.lineno:>3} {comment.tag:>7}: {comment.text}\n'
             counter[comment.tag] += 1
         output += '\n'
 
-    formatted_summary = ',  '.join([f'{tag} ({count})' for tag, count in counter.items()])
+    sorted_counter = {tag: counter[tag] for tag in _TAGS if tag in counter}
+    formatted_summary = ',  '.join([f'{tag} ({count})' for tag, count in sorted_counter.items()])
     if formatted_summary:
-        output += f'Found tagged comments for {formatted_summary}\n'
+        output += f'Found code tags for {formatted_summary}\n'
     return output
 
 
@@ -147,7 +145,7 @@ def _find_files() -> List[Path]:
     # TODO: Move all of these configuration items into DIG
     dot_directories = [pth for pth in DIG.meta.path_project.glob('.*') if pth.is_dir()]
     ignored_sub_dirs = [DIG.test.path_out.parent.name] + dot_directories
-    ignored_filenames = [_TAG_SUMMARY_FILENAME]
+    ignored_filenames = [_TAG_SUMMARY_PATH.name]
     supported_suffixes = ['.md', '.py']
 
     paths_file = []
@@ -168,15 +166,15 @@ def _find_files() -> List[Path]:
 
 
 @log_fun
-def _create_tag_file(path_tag_summary: Path) -> None:
-    """Create the tag summary file.
+def _write_code_tag_file(path_tag_summary: Path) -> None:
+    """Create the code tag summary file.
 
     Args:
         path_tag_summary: Path to the output file
 
     """
-    header = f'# Task Summary\n\nAuto-Generated by {DIG.meta.pkg_name}\n\n```log\n'
-    footer = '```\n'
+    header = f'# Task Summary\n\nAuto-Generated by {DIG.meta.pkg_name}\n\n'
+    footer = '\n'
     matches = _search_files(_find_files())
     report = _format_report(DIG.meta.path_project, matches)
     if report.strip():
@@ -185,12 +183,12 @@ def _create_tag_file(path_tag_summary: Path) -> None:
         path_tag_summary.unlink()
 
 
-def task_create_tag_file() -> DoItTask:
-    """Create a summary file with all of the found tagged comments.
+def task_collect_code_tags() -> DoItTask:
+    """Create a summary file with all of the found code tags.
 
     Returns:
         DoItTask: doit task
 
     """
-    path_tag_summary = DIG.meta.path_project / _TAG_SUMMARY_FILENAME
-    return debug_task([(_create_tag_file, (path_tag_summary,))])
+    path_tag_summary = DIG.meta.path_project / _TAG_SUMMARY_PATH
+    return debug_task([(_write_code_tag_file, (path_tag_summary,))])

@@ -6,12 +6,10 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 """
 
-# TODO: Until https://github.com/python-poetry/poetry/issues/2270 is implemented, create a placeholder
-#   import for optional packages that will allow no-dev use of calcipy
-#   Maybe revisit: https://github.com/KyleKing/calcipy/issues/19 (See Pandas/SO)
-
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
+    # from .code_tag_collector
+    'task_collect_code_tags',
     # from .doc
     'task_cl_bump',
     'task_cl_bump_pre',
@@ -26,8 +24,6 @@ __all__ = [  # noqa: F405
     'task_lint_project',
     'task_pre_commit_hooks',
     'task_radon_lint',
-    # from ..tag_collector
-    'task_create_tag_file',
     # from .test
     'task_check_types',
     'task_coverage',
@@ -42,15 +38,15 @@ __all__ = [  # noqa: F405
     'task_test',
 ]
 
+from .code_tag_collector import task_collect_code_tags
 from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
-from .tag_collector import task_create_tag_file
 from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
-        'create_tag_file',
+        'task_collect_code_tags',
         'coverage',
         'auto_format',
         'document',
