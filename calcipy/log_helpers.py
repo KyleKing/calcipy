@@ -5,7 +5,7 @@ import sys
 import time
 from inspect import signature
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, Generator, Iterable, Optional
 
 from decorator import contextmanager, decorator
 from loguru import logger
@@ -14,7 +14,7 @@ from loguru._logger import Logger
 try:
     from preconvert.output import simplejson as json
 except ImportError:
-    import json
+    import json  # type: ignore
 
 
 def serializable_compact(record: Dict[str, Any]) -> str:
@@ -60,27 +60,28 @@ def serializable_compact(record: Dict[str, Any]) -> str:
             'time': {'timestamp': record['time'].timestamp()},
         },
     }
-    return json.dumps(simplified, default=str).replace('{', '{{').replace('}', '}}') + '\n'
+    str_json: str = json.dumps(simplified, default=str).replace('{', '{{').replace('}', '}}')
+    return str_json + '\n'
 
 
-def _log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **kwargs: Any) -> None:
+def _log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **kwargs: Any) -> Generator:
     """Log the beggining and end of an action.
 
     Args:
         message: string message to describe the context
         level: log level. Default is `INFO`
         _logger: Optional logger instance
-        **kwargs: function keyword arguments passed to the start log statement
+        kwargs: function keyword arguments passed to the start log statement
 
     Yields:
         yields the logger instance
 
     """
     start_time = time.time_ns()
-    _logger.log(level, f'(start) {message}', start_time=start_time, **kwargs)
+    _logger.log(level, f'(start) {message}', start_time=start_time, **kwargs)  # type: ignore
     yield _logger
     runtime = time.time_ns() - start_time
-    _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)
+    _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)  # type: ignore
 
 
 # When using `contextmanager` as a decorator, Deepsource won't see the __enter__/__exit__ methods (PYL-E1129)
@@ -89,13 +90,13 @@ log_action = contextmanager(_log_action)
 
 
 @decorator
-def log_fun(fun: Callable, *args: Any, **kwargs: Any) -> Any:
+def log_fun(fun: Callable, *args: Iterable[Any], **kwargs: Any) -> Any:
     """Decorate a function to log the function name and completed time.
 
     Args:
         fun: the decorated function
-        *args: functional arguments
-        **kwargs: function keyword arguments
+        args: functional arguments
+        kwargs: function keyword arguments
 
     Returns:
         Any: result of the function

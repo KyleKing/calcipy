@@ -6,7 +6,7 @@ Thanks for taking a look! This is primarily a personal project, but Pull Request
 
 ### Code Development
 
-See [./DEVELOPERS.md](./DEVELOPERS.md)
+See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
 
 ### PR Process
 

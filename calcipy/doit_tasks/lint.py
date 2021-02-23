@@ -15,7 +15,7 @@ from .doit_globals import DIG, DoItTask
 
 # TODO: Possibly remove - may be unused
 @log_fun
-def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[Sequence[Path]] = None) -> List[str]:
+def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[List[Path]] = None) -> List[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
     Args:

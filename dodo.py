@@ -40,10 +40,11 @@ logger.info(
 
 # Create list of all tasks run with `poetry run doit`
 DOIT_CONFIG = DOIT_CONFIG_RECOMMENDED
+DOIT_CONFIG['default_tasks'].append('check_types')
 
 
-# PLANNED: Implement type checking with pytype or mypy
-def task_type_checking() -> DoItTask:
+# TODO: Implement type checking with mypy
+def task_check_types() -> DoItTask:
     """Run type annotation checks.
 
     Returns:
@@ -51,7 +52,5 @@ def task_type_checking() -> DoItTask:
 
     """
     return debug_task([
-        # 'poetry run pytype --config pytype.cfg',
-        f'poetry run mypy {DIG.meta.pkg_name}',  # --ignore-missing-imports (see config file...)
-        # (note: mypy needs `lxml` for the HTML report output)
+        f'poetry run mypy {DIG.meta.pkg_name}',
     ])

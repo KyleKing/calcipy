@@ -4,7 +4,7 @@ import inspect
 import warnings
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
 
 import attr
 from loguru import logger
@@ -22,7 +22,7 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
-DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])  # noqa: ECE001
+DoItTask = Dict[str, Union[str, object, Tuple[Any, Sequence[Any]]]]
 """doit task type for annotations."""
 
 
@@ -48,7 +48,7 @@ def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> List[Tupl
     Args:
         cls: class
         prefix: optional string prefix to check starts with
-        **kwargs: keyword arguments passed to `_member_filter`
+        kwargs: keyword arguments passed to `_member_filter`
 
     Returns:
         List[Tuple[str, Callable]]: filtered members from the class
@@ -253,11 +253,11 @@ class DoItGlobals:
         self.meta = PackageMeta(path_project=path_project)
         meta_kwargs = {'path_project': self.meta.path_project}
 
-        self.lint = LintConfig(**meta_kwargs)
+        self.lint = LintConfig(**meta_kwargs)  # type: ignore
         self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
 
-        self.test = TestingConfig(**meta_kwargs)
-        self.doc = DocConfig(**meta_kwargs)
+        self.test = TestingConfig(**meta_kwargs)  # type: ignore
+        self.doc = DocConfig(**meta_kwargs)  # type: ignore
 
         logger.info(self)
 
