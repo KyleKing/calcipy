@@ -118,7 +118,7 @@ def task_open_test_docs() -> DoItTask:
         (open_in_browser, (DIG.test.path_report_index,)),
     ]
     if DIG.test.path_mypy_index.is_file():
-        tasks.append((open_in_browser, (DIG.test.path_mypy_index, )))
+        tasks.append((open_in_browser, (DIG.test.path_mypy_index,)))
     return debug_task(tasks)
 
 
