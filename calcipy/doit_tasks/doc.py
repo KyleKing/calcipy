@@ -4,7 +4,7 @@ import json
 import re
 import webbrowser
 from pathlib import Path
-from typing import Dict, List, Optional, Pattern
+from typing import Dict, List, Optional, Callable
 
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
@@ -79,71 +79,50 @@ def task_cl_bump_pre() -> DoItTask:
 
 
 class _ReadMeMachine:  # noqa: H601
-    """State machine to replace commented sections of readme with new text."""
+    """State machine to replace auto-formatted comment sections of markdown files with handler callback."""
 
-    states: List[str] = ['readme', 'new']
+    states: List[str] = ['user', 'autoformatted']
 
     transitions: List[Dict[str, str]] = [
-        {'trigger': 'start_new', 'source': 'readme', 'dest': 'new'},
-        {'trigger': 'end', 'source': 'new', 'dest': 'readme'},
+        {'trigger': 'start_auto', 'source': 'user', 'dest': 'autoformatted'},
+        {'trigger': 'end', 'source': 'autoformatted', 'dest': 'user'},
     ]
 
-    readme_lines: Optional[List[str]] = None
-
     def __init__(self) -> None:
-        """Initialize state machine."""
-        self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
+        """Initialize the state machine."""
+        self.machine = Machine(model=self, states=self.states, initial='user', transitions=self.transitions)
 
     def parse(  # noqa: CCR001
-        self, lines: List[str], comment_pattern: Pattern[str],
-        new_text: Dict[str, str],
+        self, lines: List[str], handlers: Optional[Dict[str, Callable[[str, Path], str]]],
     ) -> List[str]:
-        """Parse lines and insert new_text.
+        """Parse lines and insert new_text based on provided handlers.
 
         Args:
-            lines: list of text files
-            comment_pattern: comment pattern to match (ex: ``)
-            new_text: dictionary with comment string as key
+            lines: list of string from source file
+            handlers: Lookup dictionary for autoformatted sections of the project's markdown files
 
         Returns:
-            list: list of strings for README
+            List[str]: modified list of strings
 
         """
-        self.readme_lines = []
+        lines_modified = []
         for line in lines:
-            if comment_pattern.match(line):
-                self.readme_lines.append(line)
-                if line.strip().startswith('<!-- /'):
-                    self.end()
+            line_strip = line.strip()
+            if line_strip.endswith(' // -->'):
+                lines_modified.append(line)
+                self.end()
+            elif line_strip.startswith('<--?'):
+                self.start_auto()
+                for startswith, handler in handlers.items():
+                    if line_strip.startswith(startswith):
+                        lines_modified.extend(handler(line))
+                        break
                 else:
-                    key = comment_pattern.match(line).group(1)
-                    self.readme_lines.extend(['', *new_text[key], ''])
-                    self.start_new()
-            elif self.state == 'readme':
-                self.readme_lines.append(line)
+                    logger.error(f'Could not parse comment: {line}', line=line)
+            elif self.state == 'user':
+                lines_modified.append(line)
 
-            new_line = self.readme_lines[-1]
-            made_change = (line != new_line)
-            logger.debug(
-                'Parsed README Line', self_state=self.state, line=line,
-                made_change=made_change, new_line=new_line if made_change else None,
-            )
-
-        return self.readme_lines
-
-
-# FIXME: This was for a very specific implementation. See #36 for variable defintion
-def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -> None:
-    """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
-
-    Args:
-        comment_pattern: comment pattern to match (ex: ``)
-        new_text: dictionary with comment string as key
-
-    """
-    readme_path = DIG.meta.path_project / 'README.md'
-    readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
-    readme_path.write_text('\n'.join(readme_lines))
+        return lines_modified
 
 
 def _write_code_to_readme() -> None:
@@ -196,32 +175,33 @@ def _write_coverage_to_readme() -> None:
 # PLANNED: Integrate with/replace the above ReadMeMachine (#36)
 
 
-def _autoformat_md(path_md: Path) -> str:
-    """Autoformat the sections of the specified markdown file.
-
-    Args:
-        path_md: Path to the markdown file
-
-    Returns:
-        str: updated markdown file with autoformatted sections replaced with new content
-
-    """
-    sections = []
-    for section in path_md.read_text().split('\n\n'):
-        for startswith, action in DIG.doc.startswith_action_lookup.items():
-            if section.strip().startswith(startswith):
-                sections.append(action(section, path_md))
-                break
-        else:
-            sections.append(section)
-    return '\n\n'.join(sections)
+# def _autoformat_md(path_md: Path) -> str:
+#     """Autoformat the sections of the specified markdown file.
+#
+#     Args:
+#         path_md: Path to the markdown file
+#
+#     Returns:
+#         str: updated markdown file with autoformatted sections replaced with new content
+#
+#     """
+#     sections = []
+#     for section in path_md.read_text().split('\n\n'):
+#         for startswith, action in DIG.doc.startswith_action_lookup.items():
+#             if section.strip().startswith(startswith):
+#                 sections.append(action(section, path_md))
+#                 break
+#         else:
+#             sections.append(section)
+#     return '\n\n'.join(sections)
 
 
 def write_autoformatted_md_sections() -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic."""
     for path_md in DIG.doc.paths_md:
         logger.info('> {path_md}', path_md=path_md)
-        path_md.write_text(_autoformat_md(path_md))
+        md_lines = _ReadMeMachine().parse(read_lines(path_md), DIG.doc.startswith_action_lookup)
+        path_md.write_text('\n'.join(md_lines))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
