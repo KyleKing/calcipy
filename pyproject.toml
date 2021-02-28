@@ -71,7 +71,6 @@ pre-commit = {version = "*", optional = true}
 pyupgrade = {version = "*", optional = true}
 subprocess-tee = {version = "*", optional = true}
 toml = {version = "*", optional = true}
-transitions = {version = "*", optional = true}
 
 # Lint
 add-trailing-comma = {version = "*", optional = true}

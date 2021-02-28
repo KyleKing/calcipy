@@ -241,13 +241,34 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     path_out: Path = Path('releases/site')
     """Path to the documentation output directory."""
 
-    paths_excluded: List[Path] = _DEF_EXCLUDE
-    """List of excluded relative Paths."""
+    paths_md: List[Path] = []
+    """List of Paths to the project markdown files."""
+
+    startswith_action_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
+    """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         self.path_out.mkdir(exist_ok=True, parents=True)
+        if not self.paths_md:
+            self.find_markdown_files()
+
+    def find_markdown_files(self, excluded_files: List[str] = (DEF_PATH_CODE_TAG_SUMMARY.name, '__TOC.md'),
+                            excluded_dirs: List[str] = ('.',)) -> None:
+        """Overwrite the paths to the markdown files for the specified project path and the excluded file names.
+
+        Args:
+            excluded_files: optional list of file names to ignore. Defaults to remove typical auto-generated files
+                `(DEF_PATH_CODE_TAG_SUMMARY.name, '__TOC.md')
+            excluded_dirs: optional list of string paths to exclude if startswith. Defaults to only: `('.')`
+
+        """
+        self.paths_md = []
+        for pth in self.path_project.rglob('*.md'):
+            if pth.name not in excluded_files:
+                if not any(pth.relative_to(self.path_project).as_posix().startswith(_dir) for _dir in excluded_dirs):
+                    self.paths_md.append(pth)
 
 
 @attr.s(auto_attribs=True, kw_only=True)

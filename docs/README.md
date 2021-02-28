@@ -34,24 +34,3 @@ If you have any questions, please [open an issue on Github](https://github.com/K
 ### Developer Information
 
 See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) and [./CONTRIBUTING.md](./CONTRIBUTING.md)
-
-## Test Coverage
-
-<!-- COVERAGE -->
-
-| File | Statements | Missing | Excluded | Coverage |
-| --: | --: | --: | --: | --: |
-| `calcipy/__init__.py` | 4 | 0 | 0 | 100.0% |
-| `calcipy/conftest.py` | 29 | 11 | 0 | 62.1% |
-| `calcipy/doit_tasks/__init__.py` | 7 | 0 | 0 | 100.0% |
-| `calcipy/doit_tasks/base.py` | 35 | 11 | 0 | 68.6% |
-| `calcipy/doit_tasks/doc.py` | 98 | 63 | 0 | 35.7% |
-| `calcipy/doit_tasks/doit_globals.py` | 102 | 9 | 0 | 91.2% |
-| `calcipy/doit_tasks/lint.py` | 69 | 17 | 0 | 75.4% |
-| `calcipy/doit_tasks/tag_collector.py` | 87 | 36 | 0 | 58.6% |
-| `calcipy/doit_tasks/test.py` | 30 | 13 | 0 | 56.7% |
-| `calcipy/log_helpers.py` | 43 | 16 | 0 | 62.8% |
-
-Generated on: 2021-02-21T15:51:52.684476
-
-<!-- /COVERAGE -->
