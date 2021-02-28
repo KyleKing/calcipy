@@ -4,12 +4,18 @@ import json
 import re
 import webbrowser
 from pathlib import Path
+from typing import Dict, List, Optional, Pattern
 
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
 
 from .base import debug_task, echo, open_in_browser, read_lines
 from .doit_globals import DIG, DoItTask
+
+try:
+    from transitions import Machine
+except ImportError:
+    Machine = None
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -72,6 +78,74 @@ def task_cl_bump_pre() -> DoItTask:
 # Manage README Updates
 
 
+class _ReadMeMachine:  # noqa: H601
+    """State machine to replace commented sections of readme with new text."""
+
+    states: List[str] = ['readme', 'new']
+
+    transitions: List[Dict[str, str]] = [
+        {'trigger': 'start_new', 'source': 'readme', 'dest': 'new'},
+        {'trigger': 'end', 'source': 'new', 'dest': 'readme'},
+    ]
+
+    readme_lines: Optional[List[str]] = None
+
+    def __init__(self) -> None:
+        """Initialize state machine."""
+        self.machine = Machine(model=self, states=self.states, initial='readme', transitions=self.transitions)
+
+    def parse(  # noqa: CCR001
+        self, lines: List[str], comment_pattern: Pattern[str],
+        new_text: Dict[str, str],
+    ) -> List[str]:
+        """Parse lines and insert new_text.
+
+        Args:
+            lines: list of text files
+            comment_pattern: comment pattern to match (ex: ``)
+            new_text: dictionary with comment string as key
+
+        Returns:
+            list: list of strings for README
+
+        """
+        self.readme_lines = []
+        for line in lines:
+            if comment_pattern.match(line):
+                self.readme_lines.append(line)
+                if line.strip().startswith('<!-- /'):
+                    self.end()
+                else:
+                    key = comment_pattern.match(line).group(1)
+                    self.readme_lines.extend(['', *new_text[key], ''])
+                    self.start_new()
+            elif self.state == 'readme':
+                self.readme_lines.append(line)
+
+            new_line = self.readme_lines[-1]
+            made_change = (line != new_line)
+            logger.debug(
+                'Parsed README Line', self_state=self.state, line=line,
+                made_change=made_change, new_line=new_line if made_change else None,
+            )
+
+        return self.readme_lines
+
+
+# FIXME: This was for a very specific implementation. See #36 for variable defintion
+def _write_to_readme(comment_pattern: Pattern[str], new_text: Dict[str, str]) -> None:
+    """Wrap _ReadMeMachine. Handle reading then writing changes to the README.
+
+    Args:
+        comment_pattern: comment pattern to match (ex: ``)
+        new_text: dictionary with comment string as key
+
+    """
+    readme_path = DIG.meta.path_project / 'README.md'
+    readme_lines = _ReadMeMachine().parse(read_lines(readme_path), comment_pattern, new_text)
+    readme_path.write_text('\n'.join(readme_lines))
+
+
 def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
@@ -80,7 +154,8 @@ def _write_code_to_readme() -> None:
     if script_path.is_file():
         source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
-        # {comment_pattern: new_text}
+        {comment_pattern: new_text}
+        # _write_to_readme(comment_pattern, new_text)
         # FIXME: implement this according to #36 changes
     else:
         logger.warning(f'Could not locate: {script_path}')
@@ -111,7 +186,7 @@ def _write_coverage_to_readme() -> None:
         table_lines = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
         table_lines.extend(['', f"Generated on: {coverage['meta']['timestamp']}"])
         # Replace coverage section in README
-        comment_pattern = re.compile(r'<!-- /?(COVERAGE) -->')
+        # comment_pattern = re.compile(r'<!-- /?(COVERAGE) -->')
         # _write_to_readme(comment_pattern, {'COVERAGE': table_lines})
         # FIXME: implement this according to #36 changes
 
