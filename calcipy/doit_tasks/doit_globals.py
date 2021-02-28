@@ -1,10 +1,11 @@
 """Global Variables for doit."""
 
 import inspect
+import re
 import warnings
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
 
 import attr
 from loguru import logger
@@ -202,6 +203,34 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 
 
+DEF_PATH_CODE_TAG_SUMMARY = Path('docs/CODE_TAG_SUMMARY.md')
+"""Default path to the Code Tag summary file in the documentation output directory."""
+
+@attr.s(auto_attribs=True, kw_only=True)
+class CodeTagConfig(_PathAttrBase):  # noqa: H601
+    """Code Tag Config."""
+
+    path_code_tag_summary: Path = DEF_PATH_CODE_TAG_SUMMARY
+    """Path to the Code Tag summary file in the documentation output directory."""
+
+    tags: List[str] = [
+        'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
+    ]
+    """List of ordered tag names to match."""
+
+    re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
+    """string regular expression that contains `{tag}`."""
+
+    def compile_issue_regex(self) -> Pattern[str]:
+        """Compile the regex for the specified raw regular expression string and tags.
+
+        Returns:
+            Pattern[str]: compiled regular expression to match all of the specified tags
+
+        """
+        return re.compile(self.re_raw.format(tag='|'.join(self.tags)))
+
+
 @attr.s(auto_attribs=True, kw_only=True)
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
@@ -258,6 +287,7 @@ class DoItGlobals:
         self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
 
         self.test = TestingConfig(**meta_kwargs)  # type: ignore
+        self.ct = CodeTagConfig(**meta_kwargs)  # type: ignore
         self.doc = DocConfig(**meta_kwargs)  # type: ignore
 
         logger.info(self)
