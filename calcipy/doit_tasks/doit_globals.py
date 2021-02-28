@@ -176,6 +176,8 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     # poetry run safety check -i 39462
     # poetry run bandit -r calcipy/
 
+    # FIXME: replace find_files() in code_tag_*.py with DIG.*.something? Shared functionality with lint/doc/etc.
+
     paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
 
@@ -205,6 +207,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 
 DEF_PATH_CODE_TAG_SUMMARY = Path('docs/CODE_TAG_SUMMARY.md')
 """Default path to the Code Tag summary file in the documentation output directory."""
+
 
 @attr.s(auto_attribs=True, kw_only=True)
 class CodeTagConfig(_PathAttrBase):  # noqa: H601

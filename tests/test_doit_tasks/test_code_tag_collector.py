@@ -1,12 +1,11 @@
-"""Test tag_collector.py."""
+"""Test code_tag_collector.py."""
 
 # :skip_tags:
 
-from pathlib import Path
+from calcipy.doit_tasks import DIG
+from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags
 
-from calcipy.doit_tasks.tag_collector import _format_report, _search_lines, _TaggedComment, _Tags
-
-from ..configuration import PATH_TEST_PROJECT
+from ..configuration import PATH_TEST_PROJECT, TEST_DIR
 
 
 def test_search_lines():
@@ -26,8 +25,9 @@ def test_search_lines():
         '   //TODO: Not matched',  # noqa: T101
         '   pass  # Both FIXME: and TODO: in the same line, but only match the first',  # noqa: T100,T101
     ]
+    regex_compiled = DIG.ct.compile_issue_regex()
 
-    comments = _search_lines(lines)  # act
+    comments = _search_lines(lines, regex_compiled)  # act
 
     assert len(comments) == 11
     assert comments[1].lineno == 3
@@ -40,15 +40,15 @@ def test_search_lines():
 def test_format_report():
     """Test _format_report."""
     lines = ['# DEBUG: Example 1', '# TODO: Example 2']  # noqa: T101
-    comments = [_TaggedComment(lineno, *line.split(': ')) for lineno, line in enumerate(lines)]
-    tagged_collection = [_Tags(file_path=PATH_TEST_PROJECT, tagged_comments=comments)]
+    comments = [_CodeTag(lineno, *line.split('# ')[1].split(': ')) for lineno, line in enumerate(lines)]
+    tagged_collection = [_Tags(path_source=PATH_TEST_PROJECT, code_tags=comments)]
 
-    output = _format_report(Path().resolve(), tagged_collection)  # act
+    output = _format_report(TEST_DIR, tagged_collection)  # act
 
-    expected = """tests/data/doit_project
-    line   0 # DEBUG: Example 1
-    line   1  # TODO: Example 2
+    expected = """- data/doit_project
+    - line   0   DEBUG: Example 1
+    - line   1    TODO: Example 2
 
-Found tagged comments for # DEBUG (1),  # TODO (1)
+Found code tags for TODO (1), DEBUG (1)
 """  # noqa: T100,T101
-    assert output == expected, f'`{output}`'
+    assert output == expected, f'Received: `{output}`'

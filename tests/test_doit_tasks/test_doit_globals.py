@@ -16,7 +16,7 @@ def _get_public_props(obj: Any) -> List[str]:
 def test_dig_props():
     """Test the DIG global variable from DoItGlobals."""
     public_props = ['calcipy_dir', 'set_paths']
-    settable_props = public_props + ['meta', 'lint', 'test', 'doc']
+    settable_props = public_props + ['meta', 'ct', 'lint', 'test', 'doc']
 
     dig = DoItGlobals()  # act
 

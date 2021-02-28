@@ -2,9 +2,10 @@
 
 from pathlib import Path
 
-import pytest
+from loguru import logger
 
-from calcipy.doit_tasks.doit_globals import DoItGlobals
+from calcipy import __pkg_name__
+from calcipy.log_helpers import build_logger_config
 
 TEST_DIR: Path = Path(__file__).parent
 """Path to the `test` directory that contains this file and all other tests."""
@@ -15,15 +16,15 @@ TEST_DATA_DIR: Path = TEST_DIR / 'data'
 PATH_TEST_PROJECT: Path = TEST_DATA_DIR / 'doit_project'
 """Local directory used for testing the doit globals."""
 
+# PLANNED: Move all of this into a function! (and/or task?) {Duplicate of dodo.py}
 
-@pytest.fixture()
-def initialize_dig() -> DoItGlobals:
-    """Initialize DoItGlobals as a fixture.
+logger.enable(__pkg_name__)  # This will enable output from calcipy, which is off by default
+# See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
 
-    Returns:
-        DoItGlobals: DoItGlobals instance with the cwd set to `PATH_TEST_PROJECT`
-
-    """
-    dig = DoItGlobals()
-    dig.set_paths(path_project=PATH_TEST_PROJECT)
-    return dig
+path_project = Path(__file__).resolve().parent
+log_config = build_logger_config(path_project, production=False)
+logger.configure(**log_config)
+logger.info(
+    'Started logging to {path_project}/.logs with {log_config}', path_project=path_project,
+    log_config=log_config,
+)
