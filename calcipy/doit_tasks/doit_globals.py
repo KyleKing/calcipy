@@ -254,8 +254,10 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         if not self.paths_md:
             self.find_markdown_files()
 
-    def find_markdown_files(self, excluded_files: List[str] = (DEF_PATH_CODE_TAG_SUMMARY.name, '__TOC.md'),
-                            excluded_dirs: List[str] = ('.',)) -> None:
+    def find_markdown_files(
+        self, excluded_files: List[str] = (DEF_PATH_CODE_TAG_SUMMARY.name, '__TOC.md'),
+        excluded_dirs: List[str] = ('.',),
+    ) -> None:
         """Overwrite the paths to the markdown files for the specified project path and the excluded file names.
 
         Args:
