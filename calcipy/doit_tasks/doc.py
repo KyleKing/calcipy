@@ -78,7 +78,7 @@ def task_cl_bump_pre() -> DoItTask:
 # Manage README Updates
 
 
-class _ReadMeMachine:  # noqa: H601
+class _MarkdownMachine:  # noqa: H601
     """State machine to replace auto-formatted comment sections of markdown files with handler callback."""
 
     states: List[str] = ['user', 'autoformatted']
@@ -170,37 +170,11 @@ def _write_coverage_to_readme() -> None:
         # FIXME: implement this according to #36 changes
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Markdown Formatting
-# PLANNED: Integrate with/replace the above ReadMeMachine (#36)
-
-
-# def _autoformat_md(path_md: Path) -> str:
-#     """Autoformat the sections of the specified markdown file.
-#
-#     Args:
-#         path_md: Path to the markdown file
-#
-#     Returns:
-#         str: updated markdown file with autoformatted sections replaced with new content
-#
-#     """
-#     sections = []
-#     for section in path_md.read_text().split('\n\n'):
-#         for startswith, action in DIG.doc.startswith_action_lookup.items():
-#             if section.strip().startswith(startswith):
-#                 sections.append(action(section, path_md))
-#                 break
-#         else:
-#             sections.append(section)
-#     return '\n\n'.join(sections)
-
-
 def write_autoformatted_md_sections() -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic."""
     for path_md in DIG.doc.paths_md:
         logger.info('> {path_md}', path_md=path_md)
-        md_lines = _ReadMeMachine().parse(read_lines(path_md), DIG.doc.startswith_action_lookup)
+        md_lines = _MarkdownMachine().parse(read_lines(path_md), DIG.doc.startswith_action_lookup)
         path_md.write_text('\n'.join(md_lines))
 
 
@@ -237,18 +211,18 @@ def task_deploy() -> DoItTask:
 # Main Documentation Tasks
 
 
-def _format_header(section: str, path_md: Path) -> str:
+def _format_header(line: str, path_md: Path) -> str:
     """Replace the do not modify header information."""  # noqa: DAR101,DAR201,DAR401
-    if '\n' in section:
-        logger.error('Found: "{section}"', section=section)
+    if '\n' in line:  # FIXME: Function signature has changed with the restored README Machine
+        logger.error('Found: "{line}"', line=line)
         raise RuntimeError(f'Found unexpected newline in header comment of: {path_md}')
     return '<!-- Do not modify sections with "AUTO-*". They are updated by with a DoIt task -->'
 
 
-def _check_unknown(section: str, path_md: Path) -> str:
+def _check_unknown(line: str, path_md: Path) -> str:
     """Pass-through to catch sections not parsed by the function logic."""  # noqa: DAR101,DAR201
-    logger.warning('Could not parse: {section} from: {path_md}', section=section, path_md=path_md)
-    return section
+    logger.warning('Could not parse: {line} from: {path_md}', line=line, path_md=path_md)
+    return line
 
 
 def _configure_action_lookup() -> None:
