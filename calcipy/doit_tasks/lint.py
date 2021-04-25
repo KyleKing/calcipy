@@ -189,7 +189,7 @@ def task_auto_format() -> DoItTask:
     run = 'poetry run python -m'
     actions = []
     for lint_path in DIG.lint.paths:
-        actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.meta.path_toml}"')
+        actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.lint.path_isort}"')
         for fn in _list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
     return debug_task(actions)

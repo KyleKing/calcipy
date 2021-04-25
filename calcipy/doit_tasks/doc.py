@@ -4,7 +4,7 @@ import json
 import re
 import webbrowser
 from pathlib import Path
-from typing import Dict, List, Optional, Callable
+from typing import Callable, Dict, List, Optional
 
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger

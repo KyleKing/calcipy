@@ -164,7 +164,10 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     """Lint Config."""
 
     path_flake8: Path = Path('.flake8')
-    """Path to the flake8 configuration file."""
+    """Path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
+
+    path_isort: Path = Path('.isort.cfg')
+    """Path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
 
     paths: List[Path] = []
     """List of file and directory Paths to lint."""

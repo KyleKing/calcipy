@@ -35,13 +35,13 @@ repos:
       - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.15.3
+    rev: v2.17.4
     hooks:
       - id: commitizen
         additional_dependencies: ['git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08']
         stages: [commit-msg]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.10.0
+    rev: v2.13.0
     hooks:
       - id: pyupgrade
         stages: [push]
