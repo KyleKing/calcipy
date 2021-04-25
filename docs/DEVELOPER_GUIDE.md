@@ -3,7 +3,7 @@
 ## Local Development
 
 ```sh
-git clone https://github.com/KyleKing/calcipy.git
+git clone https://github.com/kyleking/calcipy.git
 cd calcipy
 poetry install -E lint -E test -E commitizen_legacy -E serializers
 

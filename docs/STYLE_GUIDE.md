@@ -45,7 +45,7 @@ The [Changelog](https://keepachangelog.com/en/1.0.0/) is an important part of a 
         - `perf(cli): rewrite methods`
         - `feat(api): endpoints to implement new customer dashboard`
 - [How to write a good commit message](https://chris.beams.io/posts/git-commit/)
-	- A diff will tell you what changed, but only the commit message can properly tell you why.
+    - A diff will tell you what changed, but only the commit message can properly tell you why.
     - Keep in mind: [This](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) [has](https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines) [all](https://github.com/torvalds/subsurface-for-dirk/blob/master/README.md#contributing) [been](http://who-t.blogspot.co.at/2009/12/on-commit-messages.html) [said](https://github.com/erlang/otp/wiki/writing-good-commit-messages) [before](https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md#format-commit-messages).
     - The seven rules of a great Git commit message
         - 2. [Try for 50 characters, but consider 72 the hard limit](https://chris.beams.io/posts/git-commit/#limit-50)
@@ -56,12 +56,12 @@ The [Changelog](https://keepachangelog.com/en/1.0.0/) is an important part of a 
 Personal Guide
 
 - Labels
-    + `Needs Discussion`: (#ff5722) Ticket needs discussion and prioritization
-    + `Type: Bug`: (#d73a4a) Something isn't working
-    + `Type: Documentation`: (#69cde9) Documentation changes
-    + `Type: Maintenance`: (#c5def5) Chore including build/dep, CI, refactor, or perf
-    + `Type: Idea`: (#fbca04) General idea or concept that could become a feature request
-    + `Type: Feature`: (#0075ca) Clearly defined new feature request
+    - `Needs Discussion`: (#ff5722) Ticket needs discussion and prioritization
+    - `Type: Bug`: (#d73a4a) Something isn't working
+    - `Type: Documentation`: (#69cde9) Documentation changes
+    - `Type: Maintenance`: (#c5def5) Chore including build/dep, CI, refactor, or perf
+    - `Type: Idea`: (#fbca04) General idea or concept that could become a feature request
+    - `Type: Feature`: (#0075ca) Clearly defined new feature request
 - Milestones
     - Current Tasks (Main Milestone) - name could change based on a specific project, sprint, or month
     - Next Tasks

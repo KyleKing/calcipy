@@ -17,13 +17,6 @@ Chg = "Change (Old)"
 Fix = "Fix (Old)"
 New = "New (Old)"
 
-[tool.isort]
-balanced_wrapping = true
-default_section = "THIRDPARTY"
-force_grid_wrap = 0
-length_sort = false
-line_length = 120
-
 [tool.poetry]
 name = "calcipy"
 version = "0.2.0a0"
@@ -32,7 +25,7 @@ license = "Unlicense"
 authors = [ "Kyle King <dev.act.kyle@gmail.com>",]
 maintainers = []
 repository = "https://github.com/kyleking/calcipy"
-documentation = "https://github.com/kyleking/calcipy"
+documentation = "https://github.com/kyleking/calcipy/docs"
 readme = "README.md"
 include = [ "LICENSE.md",]
 keywords = [ "python-poetry", "doit",]

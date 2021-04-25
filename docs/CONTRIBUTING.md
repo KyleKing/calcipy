@@ -16,9 +16,9 @@ See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
 4. Before submitting the review and pushing, make sure to run `poetry run doit`
 5. Open a new Pull Request
 
-> Recommended: See my style guide for [commit message conventions](https://gist.github.com/KyleKing/729914c4c88c8de8bcb11f7e978d24cc)
+> See the style guide for commit message format ([./STYLE_GUIDE](./STYLE_GUIDE))
 
-If you run into any issues, please open a new issue or respond to the corresponding open issue
+If you run into any issues, please check to see if there is an open issues or open a new one
 
 ### Other PR Tips
 
