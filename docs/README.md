@@ -21,11 +21,11 @@ cd new_project
     ```toml
     [tool.poetry.dependencies.calcipy]
     git = "https://github.com/kyleking/calcipy.git"
-    branch = "main"
+    branch = "dev/development"
 
     [tool.poetry.dev-dependencies.calcipy]
     git = "https://github.com/kyleking/calcipy.git"
-    branch = "main"
+    branch = "dev/development"
     extras = [ "dev", "lint", "test",]
     ```
 

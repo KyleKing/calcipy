@@ -7,7 +7,7 @@ from loguru import logger
 from calcipy import __pkg_name__
 from calcipy.log_helpers import build_logger_config
 
-TEST_DIR: Path = Path(__file__).parent
+TEST_DIR: Path = Path(__file__).resolve().parent
 """Path to the `test` directory that contains this file and all other tests."""
 
 TEST_DATA_DIR: Path = TEST_DIR / 'data'
