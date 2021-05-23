@@ -10,7 +10,7 @@ from .doit_globals import DIG, DoItTask
 
 
 def task_test() -> DoItTask:
-    """Run tests with Pytest.
+    """Run tests with Pytest and stop on the first failure.
 
     Returns:
         DoItTask: doit task
@@ -22,7 +22,7 @@ def task_test() -> DoItTask:
 
 
 def task_test_all() -> DoItTask:
-    """Run tests with Pytest.
+    """Run all possible tests with Pytest even if one or more failures.
 
     Returns:
         DoItTask: doit task
@@ -90,7 +90,7 @@ def task_coverage() -> DoItTask:
     )
     # Note: removed LongRunning so that doit would catch test failures, but the output will not have colors
     return debug_task([
-        f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}',
+        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}'),
     ])
 
 
@@ -102,7 +102,8 @@ def task_check_types() -> DoItTask:
 
     """
     return debug_task([
-        f'poetry run mypy {DIG.meta.pkg_name}',
+        LongRunning(f'poetry run pytype {DIG.meta.pkg_name}'),
+        LongRunning(f'poetry run mypy {DIG.meta.pkg_name}'),
     ])
 
 
