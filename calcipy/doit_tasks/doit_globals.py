@@ -212,16 +212,15 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 
 
-DEF_PATH_CODE_TAG_SUMMARY = Path('docs/CODE_TAG_SUMMARY.md')
-"""Default path to the Code Tag summary file in the documentation output directory."""
-
-
 @attr.s(auto_attribs=True, kw_only=True)
 class CodeTagConfig(_PathAttrBase):  # noqa: H601
     """Code Tag Config."""
 
-    path_code_tag_summary: Path = DEF_PATH_CODE_TAG_SUMMARY
-    """Path to the Code Tag summary file in the documentation output directory."""
+    doc_dir: Path = Path('docs')
+    """Path to the source documentation directory."""
+
+    _code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
+    """Name of the code tag summary file."""
 
     tags: List[str] = [
         'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
@@ -230,6 +229,12 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
 
     re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
     """string regular expression that contains `{tag}`."""
+
+    def __attrs_post_init__(self) -> None:
+        """Finish initializing class attributes."""
+        super().__attrs_post_init__()
+        # Configure full path to the code tag summary file
+        self.path_code_tag_summary = self.doc_dir / self._code_tag_summary_filename
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
@@ -245,6 +250,9 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
+    doc_dir: Path = Path('docs')
+    """Path to the source documentation directory."""
+
     path_out: Path = Path('releases/site')
     """Path to the documentation output directory."""
 
@@ -258,23 +266,21 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         self.path_out.mkdir(exist_ok=True, parents=True)
-        if not self.paths_md:
-            self.find_markdown_files()
 
     def find_markdown_files(
-        self, excluded_files: List[str] = (DEF_PATH_CODE_TAG_SUMMARY.name, '__TOC.md'),
+        self, excluded_files: List[str] = (),
         excluded_dirs: List[str] = ('.',),
     ) -> None:
         """Overwrite the paths to the markdown files for the specified project path and the excluded file names.
 
         Args:
             excluded_files: optional list of file names to ignore. Defaults to remove typical auto-generated files
-                `(DEF_PATH_CODE_TAG_SUMMARY.name, '__TOC.md')
             excluded_dirs: optional list of string paths to exclude if startswith. Defaults to only: `('.')`
 
         """
         self.paths_md = []
         for pth in self.path_project.rglob('*.md'):
+            # TODO: Use gitignore instead - see notes elsewhere
             if pth.name not in excluded_files:
                 if not any(pth.relative_to(self.path_project).as_posix().startswith(_dir) for _dir in excluded_dirs):
                     self.paths_md.append(pth)
@@ -296,6 +302,9 @@ class DoItGlobals:
     test: TestingConfig = attr.ib(init=False)
     """Test Config."""
 
+    ct: CodeTagConfig = attr.ib(init=False)
+    """Documentation Config."""
+
     doc: DocConfig = attr.ib(init=False)
     """Documentation Config."""
 
@@ -308,7 +317,7 @@ class DoItGlobals:
 
         Args:
             path_project: optional source directory Path. Defaults to the `pkg_name`
-            doc_dir: optional destination directory for project documentation. Defaults to './output'
+            doc_dir: source directory for project documentation. Defaults to './docs'
 
         """
         logger.info(f'Setting DIG path: {path_project}', path_project=path_project, cwd=Path.cwd(), doc_dir=doc_dir)
@@ -316,12 +325,19 @@ class DoItGlobals:
         self.meta = PackageMeta(path_project=path_project)
         meta_kwargs = {'path_project': self.meta.path_project}
 
+        if not doc_dir:
+            doc_dir = self.meta.path_project / 'docs'
+
         self.lint = LintConfig(**meta_kwargs)  # type: ignore
         self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
 
         self.test = TestingConfig(**meta_kwargs)  # type: ignore
-        self.ct = CodeTagConfig(**meta_kwargs)  # type: ignore
-        self.doc = DocConfig(**meta_kwargs)  # type: ignore
+        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore
+        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore
+
+        # FIXME: Replace this awkward exclusion logic with gitignore filtering && per-file ignore syntax:
+        #   Maybe: "<!-- calcipy:ignore -->" ?
+        self.doc.find_markdown_files(excluded_files=(self.ct._code_tag_summary_filename, '__TOC.md'))
 
         logger.info(self)
 
