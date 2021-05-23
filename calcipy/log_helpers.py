@@ -5,7 +5,7 @@ import sys
 import time
 from inspect import signature
 from pathlib import Path
-from typing import Any, Callable, Dict, Generator, Iterable, Optional
+from typing import Any, Callable, Dict, Generator, Iterable, List, Optional
 
 from decorator import contextmanager, decorator
 from loguru import logger
@@ -168,3 +168,27 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
             },
         ],
     }
+
+
+def activate_debug_logging(*, pkg_names: List[str]) -> Path:
+    """Wrap `build_logger_config` to configure verbose logging for debug use.
+
+    Args:
+        pkg_names: list of string package names to activate. If empty, likely no log output.
+
+    Returns:
+        Path: path to the project directory
+
+    """
+    # See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
+    for pkg_name in pkg_names:
+        logger.enable(pkg_name)
+
+    path_project = Path(__file__).resolve().parent
+    log_config = build_logger_config(path_project, production=False)
+    logger.configure(**log_config)
+    logger.debug(
+        'Started logging to {path_project}/.logs with {log_config}', path_project=path_project,
+        log_config=log_config,
+    )
+    return path_project
