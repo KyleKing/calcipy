@@ -106,6 +106,7 @@ def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR0
     return output
 
 
+# FIXME: Ignore the code_tag_summary.md file...
 def _find_files() -> List[Path]:
     """Find files within the project directory that should be parsed for tags. Ignores .venv, output, etc.
 

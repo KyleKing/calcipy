@@ -3,12 +3,12 @@
 import shutil
 import webbrowser
 from pathlib import Path
-from typing import Any, List, Sequence
+from typing import List, Sequence
 
 from loguru import logger
 
 from ..log_helpers import log_action
-from .doit_globals import DoItTask
+from .doit_globals import Action, DoItTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Really General...
@@ -70,11 +70,11 @@ def _show_cmd(task: DoItTask) -> str:
         str: describing the sequence of actions
 
     """
-    actions = ''.join([f'\n\t{act}' for act in task.actions])
+    actions = ''.join(f'\n\t{act}' for act in task.actions)
     return f'{task.name} > [{actions}\n]\n'
 
 
-def debug_task(actions: Sequence[Any], verbosity: int = 2) -> DoItTask:
+def debug_task(actions: Sequence[Action], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
     Args:

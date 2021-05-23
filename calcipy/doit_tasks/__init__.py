@@ -49,7 +49,7 @@ DOIT_CONFIG_RECOMMENDED = {
         'collect_code_tags',
         'coverage',
         'auto_format',
-        'document',
+        'document',  # FIXME: 'cl_write',?
         'pre_commit_hooks',
         'lint_critical_only',
         'check_types',

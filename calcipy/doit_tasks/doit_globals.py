@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
 
 import attr
+from doit.action import BaseAction
 from loguru import logger
 
 from ..log_helpers import log_fun
@@ -22,6 +23,9 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
+
+# FIXME: Replace use of Any...
+Action = Union[BaseAction, str]
 
 DoItTask = Dict[str, Union[str, object, Tuple[Any, Sequence[Any]]]]  # noqa: ECE001
 """doit task type for annotations."""
