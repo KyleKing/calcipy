@@ -1857,7 +1857,7 @@ test = ["lxml", "mypy", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "py
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1"
-content-hash = "b01045e2fad36fd8ffc3f794f2788212f5b5c0966a49403fcf49fe38fd706492"
+content-hash = "7667b435e1782ee53d29290a2804d9546aeb598406057eea27ce7c6103393a22"
 
 [metadata.files]
 add-trailing-comma = [
