@@ -9,9 +9,9 @@ environment:
   #   For linux: https://www.appveyor.com/docs/linux-images-software/#python
   matrix:
     - PYTHON_WIN: C:/Python37
-      PYTHON_NIX: $HOME/venv3.7
+      PYTHON_NIX: venv3.7
     # - PYTHON_WIN: C:/Python39
-    #   PYTHON_NIX: $HOME/venv3.9
+    #   PYTHON_NIX: venv3.9
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d
@@ -27,12 +27,15 @@ build: off
 install:
 # Set Python paths based on environment variable from matrix
 - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
-- sh: PATH=$PYTHON_NIX/Scripts;$PYTHON_NIX;$PATH
+- sh: echo $HOME
+- sh: echo $HOME/$PYTHON
+- sh: which python
+- sh: python --version
+- sh: PATH=$HOME/$PYTHON_NIX/Scripts;$HOME/$PYTHON_NIX;$PATH
 - python --version
 # Install pipx to manage CLI installations (poetry, codecov)
 - python -m pip install pipx
 # Set the path to the pipx bin because "python -m pipx ensurepath" doesn't work without reload
-- python -m pipx ensurepath
 - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
 - sh: PATH=~/.local/bin;$PATH
 # Debug the PATH (if needed)
@@ -61,6 +64,5 @@ on_failure:
 - echo "On Error..."
 
 artifacts:
-  # PLANNED: Can multiple files be specified or need a zip?
+  # PLANNED: Specify single files, like wheels, but zip the docs/reports
   - path: releases/tests/*
-  - path: releases/tests/test_report.html
