@@ -27,17 +27,14 @@ build: off
 install:
 # Set Python paths based on environment variable from matrix
 - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
-- sh: echo $HOME
-- sh: echo $HOME/$PYTHON
-- sh: which python
-- sh: python --version
-- sh: PATH=$HOME/$PYTHON_NIX/Scripts;$HOME/$PYTHON_NIX;$PATH
+- sh: echo $PATH
+- sh: PATH=$HOME/$PYTHON_NIX/Scripts/:$HOME/$PYTHON_NIX/:$PATH
 - python --version
 # Install pipx to manage CLI installations (poetry, codecov)
 - python -m pip install pipx
 # Set the path to the pipx bin because "python -m pipx ensurepath" doesn't work without reload
 - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
-- sh: PATH=~/.local/bin;$PATH
+- sh: PATH=~/.local/bin:$PATH
 # Debug the PATH (if needed)
 - cmd: echo %PATH%
 - sh: echo $PATH
