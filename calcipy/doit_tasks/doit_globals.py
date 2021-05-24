@@ -326,12 +326,12 @@ class DoItGlobals:
 
         # Parse the Copier file for configuration information
         path_copier = self.meta.path_project / '.copier-answers.yml'
+        copier_ans = {}
         try:
             copier_ans = yaml.safe_load(path_copier.read_text())
-            doc_dir = self.meta.path_project / copier_ans['doc_dir']
-        except (FileNotFoundError, KeyError) as err:
+        except (FileNotFoundError) as err:
             logger.warning(f'Unexpected error reading the copier file: {err}')
-            doc_dir = self.meta.path_project / 'docs'
+        doc_dir = self.meta.path_project / copier_ans.get('doc_dir', 'docs')
         doc_dir.mkdir(exist_ok=True, parents=True)
 
         self.lint = LintConfig(**meta_kwargs)  # type: ignore
