@@ -9,14 +9,17 @@ environment:
   #   For linux: https://www.appveyor.com/docs/linux-images-software/#python
   matrix:
     - PYTHON_WIN: C:/Python37
-      stack: python 3.7
+      PYTHON_STACK: 3.7
     # - PYTHON_WIN: C:/Python39
-    #   stack: python 3.9
+    #   PYTHON_STACK: 3.9
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d
 
   # To encrypt passwords, in the AppVeyor Account, go to "Settings" -> "Encrypt YAML"
+
+# See: https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
+stack: python %PYTHON_STACK%
 
 cache:
   - .venv -> poetry.lock
