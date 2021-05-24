@@ -1,17 +1,17 @@
 version: 0.0.{build}
 
 image:
-  - Visual Studio 2019
   - Ubuntu
+  - Visual Studio 2019
 
 environment:
   # Windows Python versions: https://www.appveyor.com/docs/windows-images-software/#python
   #   For linux: https://www.appveyor.com/docs/linux-images-software/#python
   matrix:
     - PYTHON_WIN: C:/Python37
-      PYTHON_NIX: venv3.7
+      stack: python 3.7
     # - PYTHON_WIN: C:/Python39
-    #   PYTHON_NIX: venv3.9
+    #   stack: python 3.9
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d
@@ -27,8 +27,6 @@ build: off
 install:
 # Set Python paths based on environment variable from matrix
 - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
-- sh: echo $PATH
-- sh: PATH=$HOME/$PYTHON_NIX/Scripts/:$HOME/$PYTHON_NIX/:$PATH
 - python --version
 # Install pipx to manage CLI installations (poetry, codecov)
 - python -m pip install pipx
