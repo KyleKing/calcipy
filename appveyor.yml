@@ -6,7 +6,7 @@ environment:
   # Set Python version here. See: https://www.appveyor.com/docs/windows-images-software/#pythonor
   # For linux: https://www.appveyor.com/docs/linux-images-software/
   matrix:
-    - PYTHON: C:/Python36
+    - PYTHON: C:/Python37
     - PYTHON: C:/Python39
 
   # To encrypt password, in the AppVeyor Account, go to "Settings" -> "Encrypt YAML"
@@ -14,7 +14,7 @@ environment:
 cache:
   - '.venv'
 
-init:
+install:
 - cmd: ECHO $cd%
 - cmd: DIR
 # Choose Python version
@@ -29,9 +29,8 @@ init:
 - cmd: python -m pipx install poetry
 - cmd: poetry config --list
 - cmd: poetry config virtualenvs.in-project true
-
-install:
-- cmd: poetry install -E dev -E lint -E test -E cz_legacy
+# Install project-specific dependencies and extras
+- cmd: poetry install -E dev -E lint -E test -E commitizen_legacy
 
 test_script:
 - cmd: poetry run doit run test
