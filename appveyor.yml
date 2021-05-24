@@ -9,54 +9,56 @@ environment:
   #   For linux: https://www.appveyor.com/docs/linux-images-software/#python
   matrix:
     - PYTHON_WIN: C:/Python37
+      PYTHON_NIX: $HOME/venv3.7
     # - PYTHON_WIN: C:/Python39
-    - PYTHON_NIX: $HOME/venv3.7
-    # - PYTHON_NIX: $HOME/venv3.9
+    #   PYTHON_NIX: $HOME/venv3.9
 
-  CODECOV_TOKEN: 'd414dacb-5b8d-4c0b-94e1-42fe8393187d'
+  APPVEYOR_SAVE_CACHE_ON_ERROR: true
+  CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d
 
-  # To encrypt password, in the AppVeyor Account, go to "Settings" -> "Encrypt YAML"
+  # To encrypt passwords, in the AppVeyor Account, go to "Settings" -> "Encrypt YAML"
 
 cache:
-  - '.venv'
+  - .venv -> poetry.lock
 
 build: off
 
 # Specify commands specific to platform (cmd-Windows/sh-Linux/None-Both)
 install:
-# Choose Python version
-- cmd: set PATH=%PYTHON%/Scripts;%PYTHON%;%PATH%
-- sh: PATH=$PYTHON/Scripts;$PYTHON;$PATH
+# Set Python paths based on environment variable from matrix
+- cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
+- sh: PATH=$PYTHON_NIX/Scripts;$PYTHON_NIX;$PATH
 - python --version
-# Install pipx to manage poetry installation
+# Install pipx to manage CLI installations (poetry, codecov)
 - python -m pip install pipx
-# - python -m pipx ensurepath
-- cmd: set PATH=%USERPROFILE%/.local/bin;%PATH%
+# Set the path to the pipx bin because "python -m pipx ensurepath" doesn't work without reload
+- python -m pipx ensurepath
+- cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
 - sh: PATH=~/.local/bin;$PATH
+# Debug the PATH (if needed)
 - cmd: echo %PATH%
 - sh: echo $PATH
-# Install poetry
+# Install poetry and configure
 - python -m pipx install poetry
 - poetry config --list
 - poetry config virtualenvs.in-project true
 # Install project-specific dependencies and extras
 - poetry install -E dev -E lint -E test -E commitizen_legacy
-# Add codecov to later upload reports
-- python -m pipx install codecov
 
 test_script:
 - poetry run doit run coverage
-- codecov
 
 deploy_script:
 - echo "Deploying..."
 
 on_success:
 - echo "On Success..."
+# Install codecov and upload the coverage results
+- python -m pipx install codecov
+- codecov
 
 on_failure:
 - echo "On Error..."
-- poetry run doit
 
 artifacts:
   # PLANNED: Can multiple files be specified or need a zip?
