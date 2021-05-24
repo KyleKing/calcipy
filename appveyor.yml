@@ -8,10 +8,9 @@ environment:
   # Windows Python versions: https://www.appveyor.com/docs/windows-images-software/#python
   #   For linux: https://www.appveyor.com/docs/linux-images-software/#python
   matrix:
-    - PYTHON_WIN: C:/Python37
-      PYTHON_STACK: 3.7
-    # - PYTHON_WIN: C:/Python39
-    #   PYTHON_STACK: 3.9
+    # Nox will handle python version testing. This only sets the global environment for pipx/poetry/etc.
+    - PYTHON_WIN: C:/Python39
+      PYTHON_STACK: 3.9
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d

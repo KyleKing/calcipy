@@ -327,6 +327,8 @@ class DoItGlobals:
 
         if not doc_dir:
             doc_dir = self.meta.path_project / 'docs'
+        doc_dir.mkdir(exist_ok=True, parents=True)
+        # FIXME: The doc_dir is shared with calcipy_template!!! Read from copier answer file for this path!
 
         self.lint = LintConfig(**meta_kwargs)  # type: ignore
         self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)

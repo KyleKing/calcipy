@@ -15,7 +15,7 @@ from .doit_globals import DIG, DoItTask
 try:
     from transitions import Machine
 except ImportError:
-    Machine = None
+    Machine = None  # type: ignore
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog

@@ -12,3 +12,7 @@ project_description: Python package to simplify development. Includes functional
 project_name: calcipy
 repository_namespace: kyleking
 repository_provider: https://github.com
+# TODO: "doc_dir: './docs/'"
+#   import yaml
+#   path_copier = path_project / '.copier-answers.yml'
+#   yaml.load(path_copier.read_text())

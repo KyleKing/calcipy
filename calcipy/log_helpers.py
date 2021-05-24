@@ -170,21 +170,21 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
     }
 
 
-def activate_debug_logging(*, pkg_names: List[str]) -> Path:
+def activate_debug_logging(*, pkg_names: List[str], path_project: Optional[Path] = None) -> None:
     """Wrap `build_logger_config` to configure verbose logging for debug use.
 
     Args:
         pkg_names: list of string package names to activate. If empty, likely no log output.
-
-    Returns:
-        Path: path to the project directory
+        path_project: path to the project directory. Defaults to `CWD` if not specified
 
     """
+    if not path_project:
+        path_project = Path.cwd()
+
     # See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
     for pkg_name in pkg_names:
         logger.enable(pkg_name)
 
-    path_project = Path(__file__).resolve().parent
     log_config = build_logger_config(path_project, production=False)
     logger.configure(**log_config)
     logger.debug(

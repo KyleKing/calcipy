@@ -13,6 +13,7 @@ Create a new project with [kyleking/calcipy_template](https://github.com/KyleKin
 pipx install copier
 copier copy gh:KyleKing/calcipy_template new_project
 cd new_project
+# Static files can then be kept in sync with "copier update"!
 ```
 
 !!! tip
@@ -22,6 +23,8 @@ cd new_project
     [tool.poetry.dependencies.calcipy]
     git = "https://github.com/kyleking/calcipy.git"
     branch = "dev/development"
+    rev = "56802cf"  # Always pin to a commit
+    develop = true  # Optional: will reinstall each time
 
     [tool.poetry.dev-dependencies.calcipy]
     git = "https://github.com/kyleking/calcipy.git"
