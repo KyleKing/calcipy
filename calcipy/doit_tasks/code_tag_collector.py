@@ -91,7 +91,7 @@ def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR0
     output = ''
     counter = defaultdict(lambda: 0)
     for comments in sorted(code_tags, key=lambda tc: tc.path_source, reverse=False):
-        output += f'- {comments.path_source.relative_to(base_dir)}\n'
+        output += f'- {comments.path_source.relative_to(base_dir).as_posix()}\n'
         for comment in comments.code_tags:
             output += f'    - line {comment.lineno:>3} {comment.tag:>7}: {comment.text}\n'
             counter[comment.tag] += 1
@@ -100,7 +100,7 @@ def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR0
 
     sorted_counter = {tag: counter[tag] for tag in DIG.ct.tags if tag in counter}
     logger.debug('sorted_counter={sorted_counter}', sorted_counter=sorted_counter)
-    formatted_summary = ', '.join([f'{tag} ({count})' for tag, count in sorted_counter.items()])
+    formatted_summary = ', '.join(f'{tag} ({count})' for tag, count in sorted_counter.items())
     if formatted_summary:
         output += f'Found code tags for {formatted_summary}\n'
     return output

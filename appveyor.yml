@@ -1,49 +1,55 @@
 version: 0.0.{build}
 
-image: Visual Studio 2019
+image:
+  - Visual Studio 2019
+  - Ubuntu
 
 environment:
   # Set Python version here. See: https://www.appveyor.com/docs/windows-images-software/#pythonor
   # For linux: https://www.appveyor.com/docs/linux-images-software/
   matrix:
     - PYTHON: C:/Python37
-    - PYTHON: C:/Python39
+    # - PYTHON: C:/Python39
 
   # To encrypt password, in the AppVeyor Account, go to "Settings" -> "Encrypt YAML"
 
 cache:
   - '.venv'
 
+build: off
+
+# Specify commands specific to platform (cmd-Windows/sh-Linux/None-Both)
 install:
-- cmd: ECHO $cd%
-- cmd: DIR
 # Choose Python version
-- cmd: set PATH=%PYTHON%\Scripts;%PYTHON%;%PATH%
-- cmd: python --version
+- cmd: set PATH=%PYTHON%/Scripts;%PYTHON%;%PATH%
+- sh: PATH=$PYTHON/Scripts;$PYTHON;$PATH
+- python --version
 # Install pipx to manage poetry installation
-- cmd: python -m pip install pipx
-# - cmd: python -m pipx ensurepath
-- cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
-- cmd: ECHO %PATH%
+- python -m pip install pipx
+# - python -m pipx ensurepath
+- cmd: set PATH=%USERPROFILE%/.local/bin;%PATH%
+- sh: PATH=~/.local/bin;$PATH
+- cmd: echo %PATH%
+- sh: echo $PATH
 # Install poetry
-- cmd: python -m pipx install poetry
-- cmd: poetry config --list
-- cmd: poetry config virtualenvs.in-project true
+- python -m pipx install poetry
+- poetry config --list
+- poetry config virtualenvs.in-project true
 # Install project-specific dependencies and extras
-- cmd: poetry install -E dev -E lint -E test -E commitizen_legacy
+- poetry install -E dev -E lint -E test -E commitizen_legacy
 
 test_script:
-- cmd: poetry run doit run test
+- poetry run doit run test
 
 deploy_script:
-- cmd: ECHO "Deploying..."
+- echo "Deploying..."
 
 on_success:
-- cmd: ECHO "On Success..."
+- echo "On Success..."
 
 on_failure:
-- cmd: ECHO "On Error..."
-- cmd: poetry run doit
+- echo "On Error..."
+- poetry run doit
 
 artifacts:
   # PLANNED: Can multiple files be specified or need a zip?
