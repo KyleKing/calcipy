@@ -10,8 +10,8 @@ poetry run doit list
 # > doit list
 
 # Run tasks individually (examples below)
+poetry run doit run ptw_ff
 poetry doit run coverage open_test_docs
-poetry doit run set_lint_config create_tag_file document
 # Or all of the tasks in DOIT_CONFIG
 poetry run doit
 ```

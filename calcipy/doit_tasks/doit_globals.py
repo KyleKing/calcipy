@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
 
 import attr
+import yaml
 from doit.action import BaseAction
 from loguru import logger
 
@@ -311,24 +312,27 @@ class DoItGlobals:
     @log_fun
     def set_paths(
         self, *, path_project: Optional[Path] = None,
-        doc_dir: Optional[Path] = None,
     ) -> None:
         """Set data members based on working directory.
 
         Args:
             path_project: optional source directory Path. Defaults to the `pkg_name`
-            doc_dir: source directory for project documentation. Defaults to './docs'
 
         """
-        logger.info(f'Setting DIG path: {path_project}', path_project=path_project, cwd=Path.cwd(), doc_dir=doc_dir)
+        logger.info(f'Setting DIG path: {path_project}', path_project=path_project, cwd=Path.cwd())
         path_project = Path.cwd() if path_project is None else path_project
         self.meta = PackageMeta(path_project=path_project)
         meta_kwargs = {'path_project': self.meta.path_project}
 
-        if not doc_dir:
+        # Parse the Copier file for configuration information
+        path_copier = self.meta.path_project / '.copier-answers.yml'
+        try:
+            copier_ans = yaml.safe_load(path_copier.read_text())
+            doc_dir = self.meta.path_project / copier_ans['doc_dir']
+        except (FileNotFoundError, KeyError) as err:
+            logger.warning(f'Unexpected error reading the copier file: {err}')
             doc_dir = self.meta.path_project / 'docs'
         doc_dir.mkdir(exist_ok=True, parents=True)
-        # FIXME: The doc_dir is shared with calcipy_template!!! Read from copier answer file for this path!
 
         self.lint = LintConfig(**meta_kwargs)  # type: ignore
         self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
@@ -338,7 +342,7 @@ class DoItGlobals:
         self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore
 
         # FIXME: Replace this awkward exclusion logic with gitignore filtering && per-file ignore syntax:
-        #   Maybe: "<!-- calcipy:ignore -->" ?
+        #   Maybe: "<!-- calcipy:exclude -->" ?
         self.doc.find_markdown_files(excluded_files=(self.ct._code_tag_summary_filename, '__TOC.md'))
 
         logger.info(self)
