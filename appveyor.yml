@@ -5,11 +5,15 @@ image:
   - Ubuntu
 
 environment:
-  # Set Python version here. See: https://www.appveyor.com/docs/windows-images-software/#pythonor
-  # For linux: https://www.appveyor.com/docs/linux-images-software/
+  # Windows Python versions: https://www.appveyor.com/docs/windows-images-software/#python
+  #   For linux: https://www.appveyor.com/docs/linux-images-software/#python
   matrix:
-    - PYTHON: C:/Python37
-    # - PYTHON: C:/Python39
+    - PYTHON_WIN: C:/Python37
+    # - PYTHON_WIN: C:/Python39
+    - PYTHON_NIX: $HOME/venv3.7
+    # - PYTHON_NIX: $HOME/venv3.9
+
+  CODECOV_TOKEN: 'd414dacb-5b8d-4c0b-94e1-42fe8393187d'
 
   # To encrypt password, in the AppVeyor Account, go to "Settings" -> "Encrypt YAML"
 
@@ -37,9 +41,12 @@ install:
 - poetry config virtualenvs.in-project true
 # Install project-specific dependencies and extras
 - poetry install -E dev -E lint -E test -E commitizen_legacy
+# Add codecov to later upload reports
+- python -m pipx install codecov
 
 test_script:
-- poetry run doit run test
+- poetry run doit run coverage
+- codecov
 
 deploy_script:
 - echo "Deploying..."
