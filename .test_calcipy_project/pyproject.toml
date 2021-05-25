@@ -1,0 +1,46 @@
+[build-system]
+requires = [ "poetry-core>=1.0.0",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.1"
+tag_format = "$version"
+version_files = [ "pyproject.toml", "test_project/__init__.py",]
+
+[tool.poetry]
+name = "test_project"
+version = "0.0.1"
+description = "This project is testing the functionality of copier_calcipy"
+license = "MIT"
+authors = [ "Kyle King <dev.act.kyle@gmail.com>",]
+maintainers = []
+repository = "https://github.com/kyleking/test_project"
+documentation = "https://github.com/kyleking/test_project/docs"
+readme = "README.md"
+include = [ "LICENSE.md",]
+keywords = []
+classifiers = [
+    # https://pypi.org/classifiers/
+    "Development Status :: 1 - Planning",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/kyleking/test_project/issues"
+
+[tool.poetry.dependencies]
+python = "^3.7.1"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.dependencies.calcipy]
+version = "*"
+
+[tool.poetry.dev-dependencies.calcipy]
+version = "*"
+extras = [ "dev", "lint", "test",]

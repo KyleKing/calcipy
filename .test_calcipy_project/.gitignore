@@ -178,9 +178,5 @@ coverage.json
 
 # Built Outputs
 /releases/
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Custom Rules
-
-# Make sure that all files from the test project are tracked
-# !/.test_calcipy_project
