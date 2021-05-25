@@ -1,8 +1,12 @@
 """doit Linting Utilities."""
 
-from pathlib import Path
-from typing import List, Optional, Sequence
+from __future__ import annotations
 
+from collections.abc import Iterable
+from pathlib import Path
+from typing import Optional
+
+from doit.tools import LongRunning
 from loguru import logger
 
 from ..log_helpers import log_fun
@@ -15,7 +19,7 @@ from .doit_globals import DG, DoitTask
 
 # TODO: Possibly remove - may be unused
 @log_fun
-def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[List[Path]] = None) -> List[str]:
+def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[list[Path]] = None) -> list[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
     Args:
@@ -44,7 +48,7 @@ def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[
 # Linting
 
 
-def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
+def _list_lint_file_paths(path_list: list[Path]) -> list[Path]:
     """Create a list of all Python files specified in the path_list.
 
     Args:
@@ -99,8 +103,8 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
 
 
 def _lint_project(
-    lint_paths: List[Path], path_flake8: Path,
-    ignore_errors: Optional[List[str]] = None,
+    lint_paths: list[Path], path_flake8: Path,
+    ignore_errors: Optional[list[str]] = None,
 ) -> DoitTask:
     """Lint specified files creating summary log file of errors.
 
@@ -205,10 +209,7 @@ def task_pre_commit_hooks() -> DoitTask:
 
     """
     return debug_task([
-        'poetry run pre-commit autoupdate',
-
-        'poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push',
-
-        'poetry run pre-commit run --hook-stage commit',  # --all-files
-        'poetry run pre-commit run --hook-stage push',  # --all-files
+        LongRunning('poetry run pre-commit autoupdate'),
+        LongRunning('poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push'),
+        LongRunning('poetry run pre-commit run --all-files'),
     ])

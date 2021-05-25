@@ -101,10 +101,15 @@ def task_check_types() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task([
-        LongRunning(f'poetry run pytype {DG.meta.pkg_name}'),
-        LongRunning(f'poetry run mypy {DG.meta.pkg_name}'),
-    ])
+    actions = []
+    try:
+        import pytype  # noqa: F401
+        actions.append(LongRunning(f'poetry run pytype {DG.meta.pkg_name}'))
+    except ImportError:
+        pass
+
+    actions.append(LongRunning(f'poetry run mypy {DG.meta.pkg_name}'))
+    return debug_task(actions)
 
 
 def task_open_test_docs() -> DoitTask:
@@ -114,13 +119,13 @@ def task_open_test_docs() -> DoitTask:
         DoitTask: doit task
 
     """
-    tasks = [
+    actions = [
         (open_in_browser, (DG.test.path_coverage_index,)),
         (open_in_browser, (DG.test.path_report_index,)),
     ]
     if DG.test.path_mypy_index.is_file():
-        tasks.append((open_in_browser, (DG.test.path_mypy_index,)))
-    return debug_task(tasks)
+        actions.append((open_in_browser, (DG.test.path_mypy_index,)))
+    return debug_task(actions)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

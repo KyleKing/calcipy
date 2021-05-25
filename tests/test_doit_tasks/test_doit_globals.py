@@ -1,14 +1,15 @@
 """Test doit_tasks/doit_globals.py."""
 
+from __future__ import annotations
+
 from pathlib import Path
-from typing import Any, List
 
 from calcipy.doit_tasks.doit_globals import DocConfig, DoitGlobals
 
 from ..configuration import PATH_TEST_PROJECT
 
 
-def _get_public_props(obj: Any) -> List[str]:
+def _get_public_props(obj) -> list[str]:
     """Return the list of public props from an object."""
     return [prop for prop in dir(obj) if not prop.startswith('_')]
 

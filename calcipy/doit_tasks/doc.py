@@ -1,10 +1,13 @@
 """doit Documentation Utilities."""
 
+from __future__ import annotations
+
 import json
 import re
 import webbrowser
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, Dict, List, Optional
+from typing import Optional
 
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
@@ -15,7 +18,7 @@ from .doit_globals import DG, DoitTask
 try:
     from transitions import Machine
 except ImportError:  # pragma: no cover
-    Machine = None  # type: ignore
+    Machine = None
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -98,9 +101,9 @@ def task_cl_bump_pre() -> DoitTask:
 class _MarkdownMachine:  # noqa: H601
     """State machine to replace auto-formatted comment sections of markdown files with handler callback."""
 
-    states: List[str] = ['user', 'autoformatted']
+    states: list[str] = ['user', 'autoformatted']
 
-    transitions: List[Dict[str, str]] = [
+    transitions: list[dict[str, str]] = [
         {'trigger': 'start_auto', 'source': 'user', 'dest': 'autoformatted'},
         {'trigger': 'end', 'source': 'autoformatted', 'dest': 'user'},
     ]
@@ -110,8 +113,8 @@ class _MarkdownMachine:  # noqa: H601
         self.machine = Machine(model=self, states=self.states, initial='user', transitions=self.transitions)
 
     def parse(  # noqa: CCR001
-        self, lines: List[str], handlers: Optional[Dict[str, Callable[[str, Path], str]]],
-    ) -> List[str]:
+        self, lines: list[str], handlers: Optional[dict[str, Callable[[str, Path], str]]],
+    ) -> list[str]:
         """Parse lines and insert new_text based on provided handlers.
 
         Args:

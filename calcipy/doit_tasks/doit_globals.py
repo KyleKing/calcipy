@@ -1,11 +1,15 @@
 """Global Variables for doit."""
 
+from __future__ import annotations
+
 import inspect
 import re
 import warnings
+from collections.abc import Callable, Iterable
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Tuple, Union
+from re import Pattern
+from typing import Any, Dict, Optional, Tuple, Union
 
 import attr
 import yaml
@@ -26,7 +30,7 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
-_DoitCallableArgs = Iterable[Union[str, float, int, Path, dict]]
+_DoitCallableArgs = Iterable[Union[str, float, int, Path, Dict[str, Any]]]
 """Type: legal types that can be passed to a Python callable for doit actions."""
 
 DoitAction = Union[str, BaseAction, Tuple[Callable, _DoitCallableArgs]]
@@ -50,7 +54,7 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
     return (instance_type is None or isinstance(member, instance_type))
 
 
-def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable]]:
+def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> list[tuple[str, Callable[[Any], Any]]]:
     """Return the members that match the parameters.
 
     Example to return all methods that start with `do_`: `_get_members(cls, instance_type=Callable, prefix='do_')`
@@ -178,7 +182,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     path_isort: Path = Path('.isort.cfg')
     """Path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
 
-    paths: List[Path] = []
+    paths: list[Path] = []
     """List of file and directory Paths to lint."""
 
     # FIXME: Just use folders and not specific files. See example snippets below
@@ -190,7 +194,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 
     # FIXME: replace find_files() in code_tag_*.py with DG.*.something? Shared functionality with lint/doc/etc.
 
-    paths_excluded: List[Path] = _DEF_EXCLUDE
+    paths_excluded: list[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
 
 
@@ -198,8 +202,8 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-    pythons: List[str] = ['3.7', '3.9']
-    """Python versions to test against. Default is `['3.6', '3.9']`."""
+    pythons: list[str] = ['3.8', '3.9']
+    """Python versions to test against. Default is `['3.8', '3.9']`."""
 
     path_out: Path = Path('releases/tests')
     """Path to the report output directory. Default is `releases/tests`."""
@@ -227,7 +231,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     _code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
     """Name of the code tag summary file."""
 
-    tags: List[str] = [
+    tags: list[str] = [
         'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
     ]
     """List of ordered tag names to match."""
@@ -261,10 +265,10 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     path_out: Path = Path('releases/site')
     """Path to the documentation output directory."""
 
-    paths_md: List[Path] = []
+    paths_md: list[Path] = []
     """List of Paths to the project markdown files."""
 
-    startswith_action_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
+    startswith_action_lookup: Optional[dict[str, Callable[[str, Path], str]]] = None
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     def __attrs_post_init__(self) -> None:
@@ -273,8 +277,8 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         self.path_out.mkdir(exist_ok=True, parents=True)
 
     def find_markdown_files(
-        self, excluded_files: List[str] = (),
-        excluded_dirs: List[str] = ('.',),
+        self, excluded_files: Iterable[str] = (),
+        excluded_dirs: Iterable[str] = ('.',),
     ) -> None:
         """Overwrite the paths to the markdown files for the specified project path and the excluded file names.
 

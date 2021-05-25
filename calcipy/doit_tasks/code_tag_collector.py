@@ -1,8 +1,11 @@
 """Collect code tags and output for review in a single location."""
 
+from __future__ import annotations
+
 from collections import defaultdict
+from collections.abc import Sequence
 from pathlib import Path
-from typing import List, Pattern, Sequence
+from re import Pattern
 
 import attr
 from loguru import logger
@@ -26,10 +29,10 @@ class _Tags:  # noqa: H601
     """Collection of code tags with additional contextual information."""
 
     path_source: Path
-    code_tags: List[_CodeTag]
+    code_tags: list[_CodeTag]
 
 
-def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> List[_CodeTag]:
+def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> list[_CodeTag]:
     """Search lines of text for matches to the compiled regular expression.
 
     Args:
@@ -52,7 +55,7 @@ def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> List[_C
     return comments
 
 
-def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) -> List[_Tags]:
+def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) -> list[_Tags]:
     """Collect matches from multiple files.
 
     Args:
@@ -78,7 +81,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     return matches
 
 
-def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR001
+def _format_report(base_dir: Path, code_tags: list[_Tags]) -> str:  # noqa: CCR001
     """Pretty-format the code tags by file and line number.
 
     Args:
@@ -109,7 +112,7 @@ def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR0
 
 # TODO: Ensure that code_tag_summary.md is ignored. Remove one-off workarounds (Should be fixed with :skip_tags:)
 # FIXME: Standardize lookup to ignore some keyphrase in header and gitignore rules
-def _find_files() -> List[Path]:
+def _find_files() -> list[Path]:
     """Find files within the project directory that should be parsed for tags. Ignores .venv, output, etc.
 
     Returns:

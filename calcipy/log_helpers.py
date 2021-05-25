@@ -1,15 +1,17 @@
 """Loguru Helpers."""
 
+from __future__ import annotations
+
 import logging
 import sys
 import time
+from collections.abc import Callable, Generator
 from inspect import signature
 from pathlib import Path
-from typing import Any, Callable, Dict, Generator, Iterable, List, Optional
+from typing import Any, Iterable, Optional
 
 from decorator import contextmanager, decorator
-from loguru import logger
-from loguru._logger import Logger
+from loguru import _Logger, logger
 
 try:
     from preconvert.output import simplejson as json
@@ -17,7 +19,7 @@ except ImportError:  # pragma: no cover
     import json  # type: ignore
 
 
-def serializable_compact(record: Dict[str, Any]) -> str:
+def serializable_compact(record: dict[str, Any]) -> str:
     """Loguru formatter to return a compact JSON string for JSONLines output.
 
     `record` documentation: https://loguru.readthedocs.io/en/stable/api/logger.html#record
@@ -64,7 +66,8 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     return str_json + '\n'
 
 
-def _log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **kwargs: Any) -> Generator:
+def _log_action(message: str, level: str = 'INFO', _logger: _Logger = logger,
+                **kwargs: Any) -> Generator[_Logger, None, None]:
     """Log the beggining and end of an action.
 
     Args:
@@ -78,10 +81,10 @@ def _log_action(message: str, level: str = 'INFO', _logger: Logger = logger, **k
 
     """
     start_time = time.time_ns()
-    _logger.log(level, f'(start) {message}', start_time=start_time, **kwargs)  # type: ignore
+    _logger.log(level, f'(start) {message}', start_time=start_time, **kwargs)
     yield _logger
     runtime = time.time_ns() - start_time
-    _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)  # type: ignore
+    _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)
 
 
 # When using `contextmanager` as a decorator, Deepsource won't see the __enter__/__exit__ methods (PYL-E1129)
@@ -90,7 +93,7 @@ log_action = contextmanager(_log_action)
 
 
 @decorator
-def log_fun(fun: Callable, *args: Iterable[Any], **kwargs: Any) -> Any:
+def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> Any:
     """Decorate a function to log the function name and completed time.
 
     Args:
@@ -107,7 +110,7 @@ def log_fun(fun: Callable, *args: Iterable[Any], **kwargs: Any) -> Any:
         return fun(*args, **kwargs)
 
 
-def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:
+def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> dict[str, Any]:
     """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
 
     ```py
@@ -170,7 +173,7 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
     }
 
 
-def activate_debug_logging(*, pkg_names: List[str], path_project: Optional[Path] = None) -> None:
+def activate_debug_logging(*, pkg_names: list[str], path_project: Optional[Path] = None) -> None:
     """Wrap `build_logger_config` to configure verbose logging for debug use.
 
     Args:

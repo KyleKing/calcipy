@@ -1,11 +1,14 @@
 """General doit Utilities and Requirements."""
 
+from __future__ import annotations
+
 import shutil
 import webbrowser
 from collections.abc import Iterable
 from pathlib import Path
 
 from beartype import beartype
+from doit.task import Task
 from loguru import logger
 
 from ..log_helpers import log_action
@@ -23,7 +26,7 @@ def read_lines(file_path: Path) -> list[str]:
         file_path: path to the file
 
     Returns:
-        list[str]: lines of text as list
+        List[str]: lines of text as list
 
     """
     if file_path.is_file():
@@ -65,11 +68,11 @@ def ensure_dir(dir_path: Path) -> None:
 
 
 @beartype
-def _show_cmd(task: DoitTask) -> str:
+def _show_cmd(task: Task) -> str:
     """For debugging, log the full command to the console.
 
     Args:
-        task: doit task
+        task: doit Task
 
     Returns:
         str: describing the sequence of actions
