@@ -11,8 +11,9 @@ def test_task_cl_write():
     result = task_cl_write()
 
     actions = result['actions']
-    assert len(actions) == 1
+    assert len(actions) == 2
     assert actions[0] == 'poetry run cz changelog'
+    assert '_move_cl' in str(actions[1][0])
 
 
 def test_task_cl_bump():
@@ -24,6 +25,7 @@ def test_task_cl_bump():
     actions = result['actions']
     assert len(actions) == 3
     assert 'poetry run cz bump --changelog --annotated-tag' in str(actions[0])
+    assert '_move_cl' in str(actions[1][0])
     assert actions[2] == 'git push origin --tags --no-verify'
 
 
@@ -34,9 +36,10 @@ def test_task_cl_bump_pre():
     result = task_cl_bump_pre()
 
     actions = result['actions']
-    assert len(actions) == 2
+    assert len(actions) == 3
     assert 'poetry run cz bump --changelog --prerelease' in str(actions[0])
-    assert actions[1] == 'git push origin --tags --no-verify'
+    assert '_move_cl' in str(actions[1][0])
+    assert actions[2] == 'git push origin --tags --no-verify'
     params = result['params']
     assert len(params) == 1
     assert params[0]['name'] == 'prerelease'

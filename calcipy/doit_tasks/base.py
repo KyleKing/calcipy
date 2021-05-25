@@ -2,26 +2,28 @@
 
 import shutil
 import webbrowser
+from collections.abc import Iterable
 from pathlib import Path
-from typing import List, Sequence
 
+from beartype import beartype
 from loguru import logger
 
 from ..log_helpers import log_action
-from .doit_globals import Action, DoItTask
+from .doit_globals import DoItAction, DoItTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Really General...
 
 
-def read_lines(file_path: Path) -> List[str]:
+@beartype
+def read_lines(file_path: Path) -> list[str]:
     """Read a file and split on newlines for later parsing.
 
     Args:
         file_path: path to the file
 
     Returns:
-        List[str]: lines of text as list
+        list[str]: lines of text as list
 
     """
     if file_path.is_file():
@@ -33,6 +35,7 @@ def read_lines(file_path: Path) -> List[str]:
 # Manage Directories
 
 
+@beartype
 def delete_dir(dir_path: Path) -> None:
     """Delete the specified directory from a doit task.
 
@@ -45,6 +48,7 @@ def delete_dir(dir_path: Path) -> None:
         shutil.rmtree(dir_path)
 
 
+@beartype
 def ensure_dir(dir_path: Path) -> None:
     """Make sure that the specified dir_path exists and create any missing folders from a doit task.
 
@@ -60,6 +64,7 @@ def ensure_dir(dir_path: Path) -> None:
 # General doit Utilities
 
 
+@beartype
 def _show_cmd(task: DoItTask) -> str:
     """For debugging, log the full command to the console.
 
@@ -74,7 +79,8 @@ def _show_cmd(task: DoItTask) -> str:
     return f'{task.name} > [{actions}\n]\n'
 
 
-def debug_task(actions: Sequence[Action], verbosity: int = 2) -> DoItTask:
+@beartype
+def debug_task(actions: Iterable[DoItAction], verbosity: int = 2) -> DoItTask:
     """Activate verbose logging for the specified actions.
 
     Args:
@@ -94,6 +100,7 @@ def debug_task(actions: Sequence[Action], verbosity: int = 2) -> DoItTask:
     return task
 
 
+@beartype
 def echo(msg: str) -> None:
     """Wrap the system print command.
 
@@ -101,9 +108,10 @@ def echo(msg: str) -> None:
         msg: string to write to STDOUT
 
     """
-    print(msg)  # noqa: T001
+    print(msg)  # noqa: T001  # pragma: no cover
 
 
+@beartype
 def write_text(file_path: Path, text: str) -> None:
     """file_path.write_text wrapper for doit.
 
@@ -112,9 +120,10 @@ def write_text(file_path: Path, text: str) -> None:
         text: string to write to file
 
     """
-    file_path.write_text(text)
+    file_path.write_text(text)  # pragma: no cover
 
 
+@beartype
 def open_in_browser(file_path: Path) -> None:
     """Open the path in the default web browser.
 
@@ -122,9 +131,10 @@ def open_in_browser(file_path: Path) -> None:
         file_path: Path to file
 
     """
-    webbrowser.open(Path(file_path).as_uri())
+    webbrowser.open(Path(file_path).as_uri())  # pragma: no cover
 
 
+@beartype
 def if_found_unlink(file_path: Path) -> None:
     """Remove file if it exists. Function is intended to a doit action.
 

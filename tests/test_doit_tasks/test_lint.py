@@ -13,14 +13,19 @@ from ..configuration import PATH_TEST_PROJECT
 
 def test_collect_py_files():
     """Test collect_py_files."""
-    pytest.skip('FIXME: Finding files from ../calcipy & not only PATH_TEST_PROJECT')
     DIG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = _collect_py_files(add_paths=(), sub_directories=None)
 
-    assert len(result) == 2
-    assert str(PATH_TEST_PROJECT / 'test_file.py') in result
-    assert str(PATH_TEST_PROJECT / 'tests/test_file_2.py') in result
+    assert len(result) == 7
+    paths = sorted([Path(pth).relative_to(PATH_TEST_PROJECT) for pth in result])
+    assert paths == [Path('dodo.py'),
+                     Path('noxfile.py'),
+                     Path('test_project/__init__.py'),
+                     Path('tests/__init__.py'),
+                     Path('tests/configuration.py'),
+                     Path('tests/conftest.py'),
+                     Path('tests/test_zz_test_project.py')]
 
 
 def test_lint_project():

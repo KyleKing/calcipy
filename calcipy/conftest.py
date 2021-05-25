@@ -26,12 +26,12 @@ try:
     import pytest
     from py.xml import html
     has_test_imports = True
-except ImportError:
+except ImportError:  # pragma: no cover
     pass
 
 if has_test_imports:
-    @pytest.mark.optionalhook
-    def pytest_html_results_table_header(cells: Any) -> None:
+    @pytest.mark.optionalhook()
+    def pytest_html_results_table_header(cells: Any) -> None:  # pragma: no cover
         """Modify results table in the pytest-html output.
 
         Args:
@@ -42,8 +42,8 @@ if has_test_imports:
         cells.insert(1, html.th('Time', class_='sortable time', col='time'))
         cells.pop()
 
-    @pytest.mark.optionalhook
-    def pytest_html_results_table_row(report: Any, cells: Any) -> None:
+    @pytest.mark.optionalhook()
+    def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: no cover
         """Modify results table in the pytest-html output.
 
         Args:
@@ -58,8 +58,8 @@ if has_test_imports:
         except AttributeError:
             pass  # The test suite likely failed
 
-    @pytest.mark.hookwrapper
-    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore
+    @pytest.mark.hookwrapper()
+    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore  # pragma: no cover
         """Modify the pytest-html output.
 
         Args:

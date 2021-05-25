@@ -5,7 +5,7 @@
 from calcipy.doit_tasks import DIG
 from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags
 
-from ..configuration import PATH_TEST_PROJECT, TEST_DIR
+from ..configuration import PATH_TEST_PROJECT
 
 
 def test_search_lines():
@@ -43,9 +43,9 @@ def test_format_report():
     comments = [_CodeTag(lineno, *line.split('# ')[1].split(': ')) for lineno, line in enumerate(lines)]
     tagged_collection = [_Tags(path_source=PATH_TEST_PROJECT, code_tags=comments)]
 
-    output = _format_report(TEST_DIR, tagged_collection)  # act
+    output = _format_report(PATH_TEST_PROJECT.parent, tagged_collection)  # act
 
-    expected = """- data/doit_project
+    expected = f"""- {PATH_TEST_PROJECT.name}
     - line   0   DEBUG: Example 1
     - line   1    TODO: Example 2
 

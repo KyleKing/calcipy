@@ -1,6 +1,6 @@
 """Test doit_tasks/base.py."""
 
-import attr
+from doit.task import Task
 
 from calcipy.doit_tasks.base import _show_cmd, debug_task, if_found_unlink
 
@@ -9,11 +9,10 @@ from ..configuration import TEST_DATA_DIR
 
 def test_show_cmd():
     """Test show_cmd."""
-    task = attr.make_class('task', ('name', 'actions'))
     name = 'this_action'
-    actions = [123, 'abc']
+    actions = ['123', 'abc']
 
-    result = _show_cmd(task(name, actions))
+    result = _show_cmd(Task(name=name, actions=actions))
 
     assert f'{name} > ' in result
     assert all(str(act) in result for act in actions)

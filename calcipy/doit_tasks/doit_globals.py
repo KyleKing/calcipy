@@ -5,19 +5,20 @@ import re
 import warnings
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Pattern, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Tuple, Union
 
 import attr
 import yaml
 from doit.action import BaseAction
+from doit.task import Task
 from loguru import logger
 
 from ..log_helpers import log_fun
 
 try:
     import toml
-except ImportError:
-    toml = None
+except ImportError:  # pragma: no cover
+    toml = None  # type: ignore
 
 _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""
@@ -25,11 +26,14 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
-# FIXME: Replace use of Any...
-Action = Union[BaseAction, str]
+_DoItCallableArgs = Iterable[Union[str, float, int, Path, dict]]
+"""Type: legal types that can be passed to a Python callable for doit actions."""
 
-DoItTask = Dict[str, Union[str, object, Tuple[Any, Sequence[Any]]]]  # noqa: ECE001
-"""doit task type for annotations."""
+DoItAction = Union[str, BaseAction, Tuple[Callable, _DoItCallableArgs]]
+"""Type: individual doit action."""
+
+DoItTask = Union[Task, Dict[str, DoItAction]]
+"""Type: full doit task."""
 
 
 def _member_filter(member: Any, instance_type: Any) -> bool:
@@ -120,7 +124,7 @@ class _PathAttrBase:  # noqa: H601
 
         """
         if self.path_project is None:
-            raise RuntimeError('Missing keyword argument "path_project"')
+            raise RuntimeError('Missing keyword argument "path_project"')  # pragma: no cover
         _resolve_class_paths(self, self.path_project)
         _verify_initialized_paths(self)
 
@@ -149,18 +153,18 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         super().__attrs_post_init__()
 
         # Note: toml is an optional dependency required only when using the `doit_tasks` in development
-        if toml is None:
+        if toml is None:  # pragma: no cover
             raise RuntimeError(_DOIT_TASK_IMPORT_ERROR)
 
         try:
             poetry_config = toml.load(self.path_toml)['tool']['poetry']
-        except FileNotFoundError:
+        except FileNotFoundError:  # pragma: no cover
             raise FileNotFoundError(f'Check that "{self.path_project}" is correct. Could not find: {self.path_toml}')
 
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
 
-        if '-' in self.pkg_name:
+        if '-' in self.pkg_name:  # pragma: no cover
             warnings.warn(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.path_toml}')
 
 
@@ -326,16 +330,15 @@ class DoItGlobals:
 
         # Parse the Copier file for configuration information
         path_copier = self.meta.path_project / '.copier-answers.yml'
-        copier_ans = {}
         try:
             copier_ans = yaml.safe_load(path_copier.read_text())
-        except (FileNotFoundError) as err:
+            doc_dir = self.meta.path_project / copier_ans['doc_dir']
+        except (FileNotFoundError, KeyError) as err:  # pragma: no cover
             logger.warning(f'Unexpected error reading the copier file: {err}')
-        doc_dir = self.meta.path_project / copier_ans.get('doc_dir', 'docs')
+            doc_dir = self.meta.path_project / 'docs'
         doc_dir.mkdir(exist_ok=True, parents=True)
 
-        self.lint = LintConfig(**meta_kwargs)  # type: ignore
-        self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
+        self.lint = LintConfig(**meta_kwargs, paths=[self.meta.path_project / self.meta.pkg_name])  # type: ignore
 
         self.test = TestingConfig(**meta_kwargs)  # type: ignore
         self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore

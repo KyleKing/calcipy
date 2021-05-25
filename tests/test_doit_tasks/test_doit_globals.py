@@ -28,7 +28,6 @@ def test_dig_props():
 def test_dig_paths():
     """Test the DIG global variable from DoItGlobals."""
     dig = DoItGlobals()
-    pkg_name = PATH_TEST_PROJECT.name
     path_out_base = PATH_TEST_PROJECT / 'releases'
 
     dig.set_paths(path_project=PATH_TEST_PROJECT)  # act
@@ -39,7 +38,7 @@ def test_dig_paths():
     # Test the properties set by set_paths
     assert dig.meta.path_project == PATH_TEST_PROJECT
     assert dig.meta.path_toml == PATH_TEST_PROJECT / 'pyproject.toml'
-    assert dig.meta.pkg_name == pkg_name
+    assert dig.meta.pkg_name == 'test_project'
     assert dig.doc.path_out == path_out_base / 'site'
     assert dig.test.path_out == path_out_base / 'tests'
 

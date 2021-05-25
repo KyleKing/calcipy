@@ -13,7 +13,7 @@ from loguru._logger import Logger
 
 try:
     from preconvert.output import simplejson as json
-except ImportError:
+except ImportError:  # pragma: no cover
     import json  # type: ignore
 
 
@@ -191,4 +191,3 @@ def activate_debug_logging(*, pkg_names: List[str], path_project: Optional[Path]
         'Started logging to {path_project}/.logs with {log_config}', path_project=path_project,
         log_config=log_config,
     )
-    return path_project

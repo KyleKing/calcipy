@@ -37,7 +37,7 @@ def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[
     package_files = [*add_paths] + [*DIG.meta.path_project.glob('*.py')]
     for subdir in sub_directories:  # Capture files in package and in tests directory
         package_files.extend([*subdir.rglob('*.py')])
-    return [str(file_path) for file_path in package_files if file_path.name not in DIG.lint.paths_excluded]
+    return {file_path.as_posix() for file_path in package_files if file_path.name not in DIG.lint.paths_excluded}
 
 
 # ----------------------------------------------------------------------------------------------------------------------

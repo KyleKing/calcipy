@@ -14,11 +14,24 @@ from .doit_globals import DIG, DoItTask
 
 try:
     from transitions import Machine
-except ImportError:
+except ImportError:  # pragma: no cover
     Machine = None  # type: ignore
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
+
+
+def _move_cl() -> None:
+    """Move the `CHANGELOG.md` file to the document directory.
+
+    Raises:
+        FileNotFoundError: if the changelog was not found
+
+    """
+    path_cl = DIG.meta.path_project / 'CHANGELOG.md'
+    if not path_cl.is_file():
+        raise FileNotFoundError(f'Could not locate the changelog at: {path_cl}')
+    path_cl.replace(DIG.doc.doc_dir / path_cl.name)
 
 
 def task_cl_write() -> DoItTask:
@@ -37,7 +50,10 @@ def task_cl_write() -> DoItTask:
         DoItTask: doit task
 
     """
-    return debug_task(['poetry run cz changelog'])
+    return debug_task([
+        'poetry run cz changelog',
+        (_move_cl, ()),
+    ])
 
 
 def task_cl_bump() -> DoItTask:
@@ -47,9 +63,9 @@ def task_cl_bump() -> DoItTask:
         DoItTask: doit task
 
     """
-    # FIXME: Move the changelog.md file to the doc_dir!
     return debug_task([
         InteractiveAction('poetry run cz bump --changelog --annotated-tag'),
+        (_move_cl, ()),
         'git push origin --tags --no-verify',
     ])
 
@@ -63,9 +79,9 @@ def task_cl_bump_pre() -> DoItTask:
         DoItTask: doit task
 
     """
-    # FIXME: Move the changelog.md file to the doc_dir!
     task = debug_task([
         InteractiveAction('poetry run cz bump --changelog --prerelease %(prerelease)s'),
+        (_move_cl, ()),
         'git push origin --tags --no-verify',
     ])
     task['params'] = [{
@@ -145,7 +161,7 @@ def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
     try:
         from subprocess_tee import run  # noqa: S404
-    except ImportError:
+    except ImportError:  # pragma: no cover
         from subprocess import run  # noqa: S404
     # Attempt to create the coverage file
     run('poetry run python -m coverage json')  # noqa: S603, S607
