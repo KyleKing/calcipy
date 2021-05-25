@@ -1,10 +1,7 @@
 """doit Linting Utilities."""
 
-from __future__ import annotations
-
-from collections.abc import Iterable
 from pathlib import Path
-from typing import Optional
+from typing import Iterable, List, Optional, Set
 
 from beartype import beartype
 from doit.tools import LongRunning
@@ -21,7 +18,7 @@ from .doit_globals import DG, DoitAction, DoitTask
 # TODO: Possibly remove - may be unused
 @log_fun
 @beartype
-def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[list[Path]] = None) -> set[str]:
+def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[List[Path]] = None) -> Set[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
     Args:
@@ -29,7 +26,7 @@ def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[
         sub_directories: folder Paths to recursively check for Python files
 
     Returns:
-        set[str]: all unique path names as string
+        Set[str]: all unique path names as string
 
     """
     if sub_directories is None:
@@ -45,7 +42,7 @@ def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[
 # Linting
 
 
-def _list_lint_file_paths(path_list: list[Path]) -> list[Path]:
+def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     """Create a list of all Python files specified in the path_list.
 
     Args:
@@ -55,7 +52,7 @@ def _list_lint_file_paths(path_list: list[Path]) -> list[Path]:
         list: list of file Paths
 
     """
-    file_paths: list[Path] = []
+    file_paths: List[Path] = []
     for path_item in path_list:
         file_paths.extend([*path_item.rglob('*.py')] if path_item.is_dir() else [path_item])
     logger.debug(f'Found {len(file_paths)} files', file_paths=file_paths)
@@ -82,7 +79,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
         # Exclude the errors specificed to be ignored by the user
         lines = []
         for line in log_contents.split('\n'):
-            if not any(f': {error_code}' in line for error_code in ignore_errors):
+            if all(f': {error_code}' in line for error_code in ignore_errors):
                 lines.append(line)
         log_contents = '\n'.join(lines)
         flake8_log_path.write_text(log_contents)
@@ -100,8 +97,8 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
 
 
 def _lint_project(
-    lint_paths: list[Path], path_flake8: Path,
-    ignore_errors: Optional[list[str]] = None,
+    lint_paths: List[Path], path_flake8: Path,
+    ignore_errors: Optional[List[str]] = None,
 ) -> DoitTask:
     """Lint specified files creating summary log file of errors.
 
@@ -116,7 +113,7 @@ def _lint_project(
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
     flake8_log_path = DG.meta.path_project / 'flake8.log'
-    actions: list[DoitAction] = [(if_found_unlink, (flake8_log_path,))]
+    actions: List[DoitAction] = [(if_found_unlink, (flake8_log_path,))]
     run = 'poetry run python -m'
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
     for lint_path in _list_lint_file_paths(lint_paths):
@@ -167,7 +164,7 @@ def task_radon_lint() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions: list[DoitAction] = []
+    actions: List[DoitAction] = []
     for args in ['mi', 'cc --total-average -nb', 'hal']:
         actions.extend(
             [(echo, (f'# Radon with args: {args}',))]

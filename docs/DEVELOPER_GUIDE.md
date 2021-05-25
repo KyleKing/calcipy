@@ -5,7 +5,7 @@
 ```sh
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
-poetry install -E lint -E test -E commitizen_legacy -E serializers
+poetry install -E dev -E lint -E test -E commitizen_legacy -E serializers
 
 # See the available tasks
 poetry run doit list

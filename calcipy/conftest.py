@@ -18,11 +18,8 @@ from calcipy.conftest import pytest_runtest_makereport  # noqa: F401
 
 """
 
-from __future__ import annotations
-
-from collections.abc import Generator
 from datetime import datetime
-from typing import Any
+from typing import Any, Generator
 
 has_test_imports = False
 try:

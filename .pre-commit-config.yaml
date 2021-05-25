@@ -44,7 +44,7 @@ repos:
           ]
         stages: [commit-msg]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.18.2
+    rev: v2.18.3
     hooks:
       - id: pyupgrade
         stages: [push]
@@ -54,12 +54,11 @@ repos:
     hooks:
       - id: add-trailing-comma
         stages: [push]
-  - repo: https://github.com/sondrelg/pep585-upgrade
-    rev: "bcc3d077ee46c94bc1dac5f5274e2fb43de570e9"
-    hooks:
-      # FYI: Only necessary to support <3.9
-      - id: upgrade-type-hints
-        args: ["--futures=true"]
+  # - repo: https://github.com/sondrelg/pep585-upgrade
+  #   rev: "bcc3d077ee46c94bc1dac5f5274e2fb43de570e9"
+  #   hooks:
+  #     # FYI: Re-run when dropping Python 3.8
+  #     - id: upgrade-type-hints
   - repo: local
     hooks:
       - id: copier-forbidden-files

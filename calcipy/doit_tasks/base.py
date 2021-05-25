@@ -1,11 +1,9 @@
 """General doit Utilities and Requirements."""
 
-from __future__ import annotations
-
 import shutil
 import webbrowser
-from collections.abc import Iterable
 from pathlib import Path
+from typing import Iterable, List
 
 from beartype import beartype
 from doit.task import Task
@@ -19,14 +17,14 @@ from .doit_globals import DoitAction, DoitTask
 
 
 @beartype
-def read_lines(file_path: Path) -> list[str]:
+def read_lines(file_path: Path) -> List[str]:
     """Read a file and split on newlines for later parsing.
 
     Args:
         file_path: path to the file
 
     Returns:
-        list[str]: lines of text as list
+        List[str]: lines of text as list
 
     """
     if file_path.is_file():

@@ -3,7 +3,6 @@
 ### Feat
 
 - rename DIG to DG because doit is one word
-- move changelog into doc_dir
 - retrieve doc_dir from copier
 - add log-setup fun for doit
 - make (source) doc_dir configurable
@@ -17,12 +16,11 @@
 
 ### Fix
 
-- remaining non-PEP585 Dict/Tuple
+- resolve file explosion from _find_files
 - import the loguru Logger class safely
-- revert PEP585 changes, which are not available in 3.8
-- type errors identified by mypy
-- correct type annotation for DoitTask & start beartyping
-- collect python files non-redundantly
+- additional problems found with mypy
+- fix Doit Types and start beartype
+- add no-verify to cl_bump
 - correct isort configuration
 - restore ReadMeMachine
 - repair small bugs found in tests
@@ -30,9 +28,7 @@
 
 ### Refactor
 
-- make additional mypy fixes
-- apply the pep585 pre-commit hook
-- apply PEP585 for stdlib typing
+- apply PEP585 and add pre-commit hook
 - fix capitalization for doit (one word, all lowercase)
 - improve activate_debug_logging
 - try to replace Any with BaseAction

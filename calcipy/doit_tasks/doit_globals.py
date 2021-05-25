@@ -1,15 +1,11 @@
 """Global Variables for doit."""
 
-from __future__ import annotations
-
 import inspect
 import re
 import warnings
-from collections.abc import Callable, Iterable
 from functools import partial
 from pathlib import Path
-from re import Pattern
-from typing import Any, Optional, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Tuple, Union
 
 import attr
 import yaml
@@ -30,13 +26,13 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
-_DoitCallableArgs = Iterable[Union[str, float, int, Path, dict[str, Any]]]
+_DoitCallableArgs = Iterable[Union[str, float, int, Path, Dict[str, Any]]]
 """Type: legal types that can be passed to a Python callable for doit actions."""
 
-DoitAction = Union[str, BaseAction, tuple[Callable, _DoitCallableArgs]]  # typing: ignore
+DoitAction = Union[str, BaseAction, Tuple[Callable, _DoitCallableArgs]]  # typing: ignore
 """Type: individual doit action."""
 
-DoitTask = Union[Task, dict[str, DoitAction]]
+DoitTask = Union[Task, Dict[str, DoitAction]]
 """Type: full doit task."""
 
 
@@ -54,7 +50,7 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
     return (instance_type is None or isinstance(member, instance_type))
 
 
-def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> list[tuple[str, Callable[[Any], Any]]]:
+def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable[[Any], Any]]]:
     """Return the members that match the parameters.
 
     Example to return all methods that start with `do_`: `_get_members(cls, instance_type=Callable, prefix='do_')`
@@ -65,7 +61,7 @@ def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> list[tupl
         kwargs: keyword arguments passed to `_member_filter`
 
     Returns:
-        list[tuple[str, Callable]]: filtered members from the class
+        List[Tuple[str, Callable]]: filtered members from the class
 
     """
     members = inspect.getmembers(cls, predicate=partial(_member_filter, **kwargs))
@@ -182,7 +178,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     path_isort: Path = Path('.isort.cfg')
     """Path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
 
-    paths: list[Path] = []
+    paths: List[Path] = []
     """List of file and directory Paths to lint."""
 
     # FIXME: Just use folders and not specific files. See example snippets below
@@ -194,7 +190,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 
     # FIXME: replace find_files() in code_tag_*.py with DG.*.something? Shared functionality with lint/doc/etc.
 
-    paths_excluded: list[Path] = _DEF_EXCLUDE
+    paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
 
 
@@ -202,7 +198,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-    pythons: list[str] = ['3.8', '3.9']
+    pythons: List[str] = ['3.8', '3.9']
     """Python versions to test against. Default is `['3.8', '3.9']`."""
 
     path_out: Path = Path('releases/tests')
@@ -231,7 +227,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     _code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
     """Name of the code tag summary file."""
 
-    tags: list[str] = [
+    tags: List[str] = [
         'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
     ]
     """List of ordered tag names to match."""
@@ -265,10 +261,10 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     path_out: Path = Path('releases/site')
     """Path to the documentation output directory."""
 
-    paths_md: list[Path] = []
+    paths_md: List[Path] = []
     """List of Paths to the project markdown files."""
 
-    startswith_action_lookup: dict[str, Callable[[str, Path], str]] = {}
+    startswith_action_lookup: Dict[str, Callable[[str, Path], str]] = {}
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     def __attrs_post_init__(self) -> None:
@@ -291,7 +287,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         for pth in self.path_project.rglob('*.md'):
             # TODO: Use gitignore instead - see notes elsewhere
             if pth.name not in excluded_files:
-                if not any(pth.relative_to(self.path_project).as_posix().startswith(_dir) for _dir in excluded_dirs):
+                if all(pth.relative_to(self.path_project).as_posix().startswith(_dir) for _dir in excluded_dirs):
                     self.paths_md.append(pth)
 
 

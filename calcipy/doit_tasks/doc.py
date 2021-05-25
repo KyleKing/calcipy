@@ -1,12 +1,10 @@
 """doit Documentation Utilities."""
 
-from __future__ import annotations
-
 import json
 import re
 import webbrowser
-from collections.abc import Callable
 from pathlib import Path
+from typing import Callable, Dict, List
 
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
@@ -96,9 +94,9 @@ def task_cl_bump_pre() -> DoitTask:
 class _MarkdownMachine(Machine):  # noqa: H601
     """State machine to replace auto-formatted comment sections of markdown files with handler callback."""
 
-    states: list[str] = ['user', 'autoformatted']
+    states: List[str] = ['user', 'autoformatted']
 
-    transitions: list[dict[str, str]] = [
+    transitions: List[Dict[str, str]] = [
         {'trigger': 'start_auto', 'source': 'user', 'dest': 'autoformatted'},
         {'trigger': 'end', 'source': 'autoformatted', 'dest': 'user'},
     ]
@@ -108,8 +106,8 @@ class _MarkdownMachine(Machine):  # noqa: H601
         super().__init__(states=self.states, initial=self.states[0], transitions=self.transitions)
 
     def parse(  # noqa: CCR001
-        self, lines: list[str], handlers: dict[str, Callable[[str, Path], str]],
-    ) -> list[str]:
+        self, lines: List[str], handlers: Dict[str, Callable[[str, Path], str]],
+    ) -> List[str]:
         """Parse lines and insert new_text based on provided handlers.
 
         Args:
@@ -117,7 +115,7 @@ class _MarkdownMachine(Machine):  # noqa: H601
             handlers: Lookup dictionary for autoformatted sections of the project's markdown files
 
         Returns:
-            list[str]: modified list of strings
+            List[str]: modified list of strings
 
         """
         lines_modified = []

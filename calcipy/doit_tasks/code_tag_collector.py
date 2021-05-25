@@ -1,12 +1,9 @@
 """Collect code tags and output for review in a single location."""
 
-from __future__ import annotations
-
 from collections import defaultdict
-from collections.abc import Sequence
 from copy import copy
 from pathlib import Path
-from re import Pattern
+from typing import Dict, List, Pattern, Sequence
 
 import attr
 from loguru import logger
@@ -30,10 +27,10 @@ class _Tags:  # noqa: H601
     """Collection of code tags with additional contextual information."""
 
     path_source: Path
-    code_tags: list[_CodeTag]
+    code_tags: List[_CodeTag]
 
 
-def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> list[_CodeTag]:
+def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> List[_CodeTag]:
     """Search lines of text for matches to the compiled regular expression.
 
     Args:
@@ -41,7 +38,7 @@ def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> list[_C
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
-        list[_CodeTag]: list of all code tags found in lines
+        List[_CodeTag]: list of all code tags found in lines
 
     """
     comments = []
@@ -56,7 +53,7 @@ def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> list[_C
     return comments
 
 
-def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) -> list[_Tags]:
+def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) -> List[_Tags]:
     """Collect matches from multiple files.
 
     Args:
@@ -64,7 +61,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
-        list[_Tags]: list of all code tags found in files
+        List[_Tags]: list of all code tags found in files
 
     """
     matches = []
@@ -82,7 +79,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     return matches
 
 
-def _format_report(base_dir: Path, code_tags: list[_Tags]) -> str:  # noqa: CCR001
+def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR001
     """Pretty-format the code tags by file and line number.
 
     Args:
@@ -94,7 +91,7 @@ def _format_report(base_dir: Path, code_tags: list[_Tags]) -> str:  # noqa: CCR0
 
     """
     output = ''
-    counter: dict[str, int] = defaultdict(lambda: 0)
+    counter: Dict[str, int] = defaultdict(lambda: 0)
     for comments in sorted(code_tags, key=lambda tc: tc.path_source, reverse=False):
         output += f'- {comments.path_source.relative_to(base_dir).as_posix()}\n'
         for comment in comments.code_tags:
@@ -113,17 +110,17 @@ def _format_report(base_dir: Path, code_tags: list[_Tags]) -> str:  # noqa: CCR0
 
 # TODO: Ensure that code_tag_summary.md is ignored. Remove one-off workarounds (Should be fixed with :skip_tags:)
 # FIXME: Standardize lookup to ignore some keyphrase in header and gitignore rules
-def _find_files() -> list[Path]:
+def _find_files() -> List[Path]:
     """Find files within the project directory that should be parsed for tags. Ignores .venv, output, etc.
 
     Returns:
-        list[Path]: list of file paths to parse
+        List[Path]: list of file paths to parse
 
     """
     # TODO: Move all of these configuration items into DG
     dot_directories = [pth for pth in DG.meta.path_project.glob('.*') if pth.is_dir()]
     ignored_sub_dirs = [DG.test.path_out.parent] + dot_directories
-    ignored_filenames: list[str] = []
+    ignored_filenames: List[str] = []
     supported_suffixes = ['.py']
 
     paths_source = copy(DG.doc.paths_md)
