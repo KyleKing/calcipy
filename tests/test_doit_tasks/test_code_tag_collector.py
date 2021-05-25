@@ -2,7 +2,7 @@
 
 # :skip_tags:
 
-from calcipy.doit_tasks import DIG
+from calcipy.doit_tasks import DG
 from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags
 
 from ..configuration import PATH_TEST_PROJECT
@@ -25,7 +25,7 @@ def test_search_lines():
         '   //TODO: Not matched',  # noqa: T101
         '   pass  # Both FIXME: and TODO: in the same line, but only match the first',  # noqa: T100,T101
     ]
-    regex_compiled = DIG.ct.compile_issue_regex()
+    regex_compiled = DG.ct.compile_issue_regex()
 
     comments = _search_lines(lines, regex_compiled)  # act
 

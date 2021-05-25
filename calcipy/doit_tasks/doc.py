@@ -10,7 +10,7 @@ from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
 
 from .base import debug_task, open_in_browser, read_lines
-from .doit_globals import DIG, DoitTask
+from .doit_globals import DG, DoitTask
 
 try:
     from transitions import Machine
@@ -28,10 +28,10 @@ def _move_cl() -> None:
         FileNotFoundError: if the changelog was not found
 
     """
-    path_cl = DIG.meta.path_project / 'CHANGELOG.md'
+    path_cl = DG.meta.path_project / 'CHANGELOG.md'
     if not path_cl.is_file():
         raise FileNotFoundError(f'Could not locate the changelog at: {path_cl}')
-    path_cl.replace(DIG.doc.doc_dir / path_cl.name)
+    path_cl.replace(DG.doc.doc_dir / path_cl.name)
 
 
 def task_cl_write() -> DoitTask:
@@ -146,7 +146,7 @@ def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
     fn = 'tests/examples/readme.py'
-    script_path = DIG.meta.path_project / fn
+    script_path = DG.meta.path_project / fn
     if script_path.is_file():
         source_code = ['```py', *read_lines(script_path), '```']
         new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
@@ -166,7 +166,7 @@ def _write_coverage_to_readme() -> None:
     # Attempt to create the coverage file
     run('poetry run python -m coverage json')  # noqa: S603, S607
 
-    coverage_path = (DIG.meta.path_project / 'coverage.json')
+    coverage_path = (DG.meta.path_project / 'coverage.json')
     if coverage_path.is_file():
         # Read coverage information from json file
         coverage = json.loads(coverage_path.read_text())
@@ -175,7 +175,7 @@ def _write_coverage_to_readme() -> None:
         int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
         rows = [legend, ['--:'] * len(legend)]
         for file_path, file_obj in coverage['files'].items():
-            rel_path = Path(file_path).resolve().relative_to(DIG.meta.path_project).as_posix()
+            rel_path = Path(file_path).resolve().relative_to(DG.meta.path_project).as_posix()
             per = round(file_obj['summary']['percent_covered'], 1)
             rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown
@@ -189,9 +189,9 @@ def _write_coverage_to_readme() -> None:
 
 def write_autoformatted_md_sections() -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic."""
-    for path_md in DIG.doc.paths_md:
+    for path_md in DG.doc.paths_md:
         logger.info('> {path_md}', path_md=path_md)
-        md_lines = _MarkdownMachine().parse(read_lines(path_md), DIG.doc.startswith_action_lookup)
+        md_lines = _MarkdownMachine().parse(read_lines(path_md), DG.doc.startswith_action_lookup)
         path_md.write_text('\n'.join(md_lines))
 
 
@@ -244,8 +244,8 @@ def _check_unknown(line: str, path_md: Path) -> str:
 
 def _configure_action_lookup() -> None:
     """Configure the action lookup for markdown file autoformatting if not already configured."""
-    if DIG.doc.startswith_action_lookup is None:
-        DIG.doc.startswith_action_lookup = {
+    if DG.doc.startswith_action_lookup is None:
+        DG.doc.startswith_action_lookup = {
             '<!-- Do not modify sections with ': _format_header,
             '<!-- ': _check_unknown,
         }
@@ -262,11 +262,11 @@ def task_document() -> DoitTask:
     return debug_task([
         (write_autoformatted_md_sections, ()),
         # PLANNED: Delete /docs/ folder
-        # 'poetry run pdocs as_markdown calcipy --overwrite --template-dir? /path/dir',  # PLANNED: DIG.package_name?
+        # 'poetry run pdocs as_markdown calcipy --overwrite --template-dir? /path/dir',  # PLANNED: DG.package_name?
         # Copy all *.md (and */*.md?) files into /docs!
         # TODO: Remove all extra None ("\nNone\n") and "Module "...
         #   PLANNED: Consider a different template with different formatting for code and arguments?
-        'poetry run mkdocs build',  # --site-dir DIG.doc.path_out
+        'poetry run mkdocs build',  # --site-dir DG.doc.path_out
     ])
 
 
@@ -278,7 +278,7 @@ def task_open_docs() -> DoitTask:
         DoitTask: doit task
 
     """
-    path_doc_index = DIG.doc.path_out / DIG.meta.pkg_name / 'index.html'
+    path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
     return debug_task([
         (open_in_browser, (path_doc_index,)),
     ])

@@ -7,7 +7,7 @@ from loguru import logger
 
 from ..log_helpers import log_fun
 from .base import debug_task, echo, if_found_unlink
-from .doit_globals import DIG, DoitTask
+from .doit_globals import DG, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
@@ -33,11 +33,11 @@ def _collect_py_files(add_paths: Sequence[Path] = (), sub_directories: Optional[
         raise TypeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
     if sub_directories is None:
         sub_directories = []
-    sub_directories.extend([DIG.meta.path_project / DIG.meta.pkg_name, DIG.test.path_tests] + DIG.lint.paths)
-    package_files = [*add_paths] + [*DIG.meta.path_project.glob('*.py')]
+    sub_directories.extend([DG.meta.path_project / DG.meta.pkg_name, DG.test.path_tests] + DG.lint.paths)
+    package_files = [*add_paths] + [*DG.meta.path_project.glob('*.py')]
     for subdir in sub_directories:  # Capture files in package and in tests directory
         package_files.extend([*subdir.rglob('*.py')])
-    return {file_path.as_posix() for file_path in package_files if file_path.name not in DIG.lint.paths_excluded}
+    return {file_path.as_posix() for file_path in package_files if file_path.name not in DG.lint.paths_excluded}
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     for path_item in path_list:
         file_paths.extend([*path_item.rglob('*.py')] if path_item.is_dir() else [path_item])
     logger.debug(f'Found {len(file_paths)} files', file_paths=file_paths)
-    return [pth for pth in file_paths if pth.name not in DIG.lint.paths_excluded]
+    return [pth for pth in file_paths if pth.name not in DG.lint.paths_excluded]
 
 
 def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:  # noqa: CCR001
@@ -114,7 +114,7 @@ def _lint_project(
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
-    flake8_log_path = DIG.meta.path_project / 'flake8.log'
+    flake8_log_path = DG.meta.path_project / 'flake8.log'
     actions = [(if_found_unlink, (flake8_log_path,))]
     run = 'poetry run python -m'
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
@@ -125,17 +125,17 @@ def _lint_project(
 
 
 def task_lint_project() -> DoitTask:
-    """Lint files from DIG creating summary log file of errors.
+    """Lint files from DG creating summary log file of errors.
 
     Returns:
         DoitTask: doit task
 
     """
-    return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=None))
+    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8, ignore_errors=None))
 
 
 def task_lint_critical_only() -> DoitTask:
-    """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
+    """Lint files from DG creating summary log file of errors, but ignore non-critical errors.
 
     Returns:
         DoitTask: doit task
@@ -156,7 +156,7 @@ def task_lint_critical_only() -> DoitTask:
         'S605', 'S607',  # S605,S607 / os.popen(...)
         'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
     ]
-    return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=ignore_errors))
+    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8, ignore_errors=ignore_errors))
 
 
 def task_radon_lint() -> DoitTask:
@@ -170,7 +170,7 @@ def task_radon_lint() -> DoitTask:
     for args in ['mi', 'cc --total-average -nb', 'hal']:
         actions.extend(
             [(echo, (f'# Radon with args: {args}',))]
-            + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DIG.lint.paths)],
+            + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DG.lint.paths)],
         )
     return debug_task(actions)
 
@@ -188,8 +188,8 @@ def task_auto_format() -> DoitTask:
     """
     run = 'poetry run python -m'
     actions = []
-    for lint_path in DIG.lint.paths:
-        actions.append(f'{run} isort "{lint_path}" --settings-path "{DIG.lint.path_isort}"')
+    for lint_path in DG.lint.paths:
+        actions.append(f'{run} isort "{lint_path}" --settings-path "{DG.lint.path_isort}"')
         for fn in _list_lint_file_paths([lint_path]):
             actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
     return debug_task(actions)

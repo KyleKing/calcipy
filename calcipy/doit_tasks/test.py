@@ -3,7 +3,7 @@
 from doit.tools import LongRunning
 
 from .base import debug_task, open_in_browser
-from .doit_globals import DIG, DoitTask
+from .doit_globals import DG, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Testing
@@ -17,7 +17,7 @@ def task_test() -> DoitTask:
 
     """
     return debug_task([
-        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -vv'),
+        LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -vv'),
     ])
 
 
@@ -29,7 +29,7 @@ def task_test_all() -> DoitTask:
 
     """
     return debug_task([
-        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" --ff -vv'),
+        LongRunning(f'poetry run pytest "{DG.test.path_tests}" --ff -vv'),
     ])
 
 
@@ -42,7 +42,7 @@ def task_test_marker() -> DoitTask:
         DoitTask: doit task
 
     """
-    task = debug_task([LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
+    task = debug_task([LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
         'help': (
@@ -64,7 +64,7 @@ def task_test_keyword() -> DoitTask:
     """
     return {
         'actions': [
-            LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'),
+            LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'),
         ],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
@@ -85,12 +85,12 @@ def task_coverage() -> DoitTask:
 
     """
     kwargs = (
-        f'--cov-report=html:"{DIG.test.path_coverage_index.parent}"  --html="{DIG.test.path_report_index}"'
+        f'--cov-report=html:"{DG.test.path_coverage_index.parent}"  --html="{DG.test.path_report_index}"'
         '  --self-contained-html'
     )
     # Note: removed LongRunning so that doit would catch test failures, but the output will not have colors
     return debug_task([
-        LongRunning(f'poetry run pytest "{DIG.test.path_tests}" -x -l --ff -v --cov={DIG.meta.pkg_name} {kwargs}'),
+        LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v --cov={DG.meta.pkg_name} {kwargs}'),
     ])
 
 
@@ -102,8 +102,8 @@ def task_check_types() -> DoitTask:
 
     """
     return debug_task([
-        LongRunning(f'poetry run pytype {DIG.meta.pkg_name}'),
-        LongRunning(f'poetry run mypy {DIG.meta.pkg_name}'),
+        LongRunning(f'poetry run pytype {DG.meta.pkg_name}'),
+        LongRunning(f'poetry run mypy {DG.meta.pkg_name}'),
     ])
 
 
@@ -115,11 +115,11 @@ def task_open_test_docs() -> DoitTask:
 
     """
     tasks = [
-        (open_in_browser, (DIG.test.path_coverage_index,)),
-        (open_in_browser, (DIG.test.path_report_index,)),
+        (open_in_browser, (DG.test.path_coverage_index,)),
+        (open_in_browser, (DG.test.path_report_index,)),
     ]
-    if DIG.test.path_mypy_index.is_file():
-        tasks.append((open_in_browser, (DIG.test.path_mypy_index,)))
+    if DG.test.path_mypy_index.is_file():
+        tasks.append((open_in_browser, (DG.test.path_mypy_index,)))
     return debug_task(tasks)
 
 
@@ -138,7 +138,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 
     """
     return {
-        'actions': [LongRunning(f'poetry run ptw -- "{DIG.test.path_tests}" {cli_args}')],
+        'actions': [LongRunning(f'poetry run ptw -- "{DG.test.path_tests}" {cli_args}')],
         'verbosity': 2,
     }
 

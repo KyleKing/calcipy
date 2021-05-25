@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from calcipy.doit_tasks.doit_globals import DIG
+from calcipy.doit_tasks.doit_globals import DG
 from calcipy.doit_tasks.lint import _check_linting_errors, _collect_py_files, _lint_project
 
 from ..configuration import PATH_TEST_PROJECT
@@ -13,7 +13,7 @@ from ..configuration import PATH_TEST_PROJECT
 
 def test_collect_py_files():
     """Test collect_py_files."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
+    DG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = _collect_py_files(add_paths=(), sub_directories=None)
 
@@ -30,11 +30,11 @@ def test_collect_py_files():
 
 def test_lint_project():
     """Test lint_project."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
+    DG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = _lint_project(
         lint_paths=[PATH_TEST_PROJECT / 'test_file.py', PATH_TEST_PROJECT / 'tests/test_file_2.py'],
-        path_flake8=DIG.lint.path_flake8,
+        path_flake8=DG.lint.path_flake8,
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
 

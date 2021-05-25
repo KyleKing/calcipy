@@ -188,7 +188,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     # poetry run safety check -i 39462
     # poetry run bandit -r calcipy/
 
-    # FIXME: replace find_files() in code_tag_*.py with DIG.*.something? Shared functionality with lint/doc/etc.
+    # FIXME: replace find_files() in code_tag_*.py with DG.*.something? Shared functionality with lint/doc/etc.
 
     paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
@@ -292,7 +292,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class DoItGlobals:
+class DoitGlobals:
     """Global Variables for doit."""
 
     calcipy_dir: Path = Path(__file__).resolve().parents[1]
@@ -323,7 +323,7 @@ class DoItGlobals:
             path_project: optional source directory Path. Defaults to the `pkg_name`
 
         """
-        logger.info(f'Setting DIG path: {path_project}', path_project=path_project, cwd=Path.cwd())
+        logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
         path_project = Path.cwd() if path_project is None else path_project
         self.meta = PackageMeta(path_project=path_project)
         meta_kwargs = {'path_project': self.meta.path_project}
@@ -351,7 +351,7 @@ class DoItGlobals:
         logger.info(self)
 
 
-DIG = DoItGlobals()
+DG = DoitGlobals()
 """Global doit Globals class used to manage global variables."""
 
-DIG.set_paths(path_project=Path.cwd().resolve())
+DG.set_paths(path_project=Path.cwd().resolve())

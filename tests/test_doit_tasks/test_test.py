@@ -1,6 +1,6 @@
 """Test doit_tasks/test.py."""
 
-from calcipy.doit_tasks.doit_globals import DIG
+from calcipy.doit_tasks.doit_globals import DG
 from calcipy.doit_tasks.test import task_test_marker
 
 from ..configuration import PATH_TEST_PROJECT
@@ -8,7 +8,7 @@ from ..configuration import PATH_TEST_PROJECT
 
 def test_task_test_marker():
     """Test task_test_marker."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
+    DG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = task_test_marker()
 

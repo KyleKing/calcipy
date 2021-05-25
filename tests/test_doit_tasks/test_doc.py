@@ -1,7 +1,7 @@
 """Test doit_tasks/doc.py."""
 
 from calcipy.doit_tasks.doc import task_cl_bump, task_cl_bump_pre, task_cl_write
-from calcipy.doit_tasks.doit_globals import DIG
+from calcipy.doit_tasks.doit_globals import DG
 
 from ..configuration import PATH_TEST_PROJECT
 
@@ -18,7 +18,7 @@ def test_task_cl_write():
 
 def test_task_cl_bump():
     """Test task_cl_bump."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
+    DG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = task_cl_bump()
 
@@ -31,7 +31,7 @@ def test_task_cl_bump():
 
 def test_task_cl_bump_pre():
     """Test task_cl_bump_pre."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
+    DG.set_paths(path_project=PATH_TEST_PROJECT)
 
     result = task_cl_bump_pre()
 

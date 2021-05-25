@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Any, List
 
-from calcipy.doit_tasks.doit_globals import DocConfig, DoItGlobals
+from calcipy.doit_tasks.doit_globals import DocConfig, DoitGlobals
 
 from ..configuration import PATH_TEST_PROJECT
 
@@ -14,11 +14,11 @@ def _get_public_props(obj: Any) -> List[str]:
 
 
 def test_dig_props():
-    """Test the DIG global variable from DoItGlobals."""
+    """Test the DG global variable from DoitGlobals."""
     public_props = ['calcipy_dir', 'set_paths']
     settable_props = public_props + ['meta', 'ct', 'lint', 'test', 'doc']
 
-    dig = DoItGlobals()  # act
+    dig = DoitGlobals()  # act
 
     assert _get_public_props(dig) == sorted(public_props)
     dig.set_paths(path_project=PATH_TEST_PROJECT)
@@ -26,8 +26,8 @@ def test_dig_props():
 
 
 def test_dig_paths():
-    """Test the DIG global variable from DoItGlobals."""
-    dig = DoItGlobals()
+    """Test the DG global variable from DoitGlobals."""
+    dig = DoitGlobals()
     path_out_base = PATH_TEST_PROJECT / 'releases'
 
     dig.set_paths(path_project=PATH_TEST_PROJECT)  # act
