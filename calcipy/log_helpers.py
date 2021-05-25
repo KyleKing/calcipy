@@ -10,8 +10,9 @@ from inspect import signature
 from pathlib import Path
 from typing import Any, Iterable, Optional
 
+import loguru
 from decorator import contextmanager, decorator
-from loguru import _Logger, logger
+from loguru import logger
 
 try:
     from preconvert.output import simplejson as json
@@ -66,8 +67,8 @@ def serializable_compact(record: dict[str, Any]) -> str:
     return str_json + '\n'
 
 
-def _log_action(message: str, level: str = 'INFO', _logger: _Logger = logger,
-                **kwargs: Any) -> Generator[_Logger, None, None]:
+def _log_action(message: str, level: str = 'INFO', _logger: loguru.Logger = logger,
+                **kwargs: Any) -> Generator[loguru.Logger, None, None]:
     """Log the beggining and end of an action.
 
     Args:
