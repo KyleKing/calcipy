@@ -18,13 +18,30 @@ def configure_nox() -> None:
 
 @session(python=[DIG.test.pythons], reuse_venv=True)
 def tests(session: Session) -> None:
-    """Run doit test task for specified python versions."""
+    """Run doit test task for specified python versions.
+
+    Args:
+        session: nox-poetry session
+
+    """
     session.install('.[dev]', '.[test]')
     session.run(*shlex.split('poetry run doit run test'))
 
 
 @session(python=[DIG.test.pythons[-1]], reuse_venv=False)
 def build(session: Session) -> None:
-    """Build the project files within a controlled environment for repeatability."""
+    """Build the project files within a controlled environment for repeatability.
+
+    Args:
+        session: nox-poetry session
+
+    """
     path_wheel = session.poetry.build_package()
     logger.info(path_wheel)
+
+
+# TODO: Check Imports in Production (without dev dependencies)
+# 1. Build the wheel file
+# 2. python -c "import calcipy; ..."
+#   https://stackoverflow.com/questions/34855071/importing-all-functions-from-a-package-from-import
+#   https://gist.github.com/cescoferraro/ddad728b227f75d13a36

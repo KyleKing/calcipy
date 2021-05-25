@@ -9,7 +9,7 @@ from typing import Callable, Dict, List, Optional
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
 
-from .base import debug_task, echo, open_in_browser, read_lines
+from .base import debug_task, open_in_browser, read_lines
 from .doit_globals import DIG, DoItTask
 
 try:
@@ -47,9 +47,9 @@ def task_cl_bump() -> DoItTask:
         DoItTask: doit task
 
     """
+    # FIXME: Move the changelog.md file to the doc_dir!
     return debug_task([
         InteractiveAction('poetry run cz bump --changelog --annotated-tag'),
-        (echo, ('Attempting to push tags to origin with pre-commit checks',)),
         'git push origin --tags --no-verify',
     ])
 
@@ -63,6 +63,7 @@ def task_cl_bump_pre() -> DoItTask:
         DoItTask: doit task
 
     """
+    # FIXME: Move the changelog.md file to the doc_dir!
     task = debug_task([
         InteractiveAction('poetry run cz bump --changelog --prerelease %(prerelease)s'),
         'git push origin --tags --no-verify',
