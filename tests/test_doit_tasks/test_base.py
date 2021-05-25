@@ -1,14 +1,38 @@
 """Test doit_tasks/base.py."""
 
+from pathlib import Path
+
 from doit.task import Task
 
-from calcipy.doit_tasks.base import _show_cmd, debug_task, if_found_unlink
+from calcipy.doit_tasks.base import _show_cmd, debug_task, delete_dir, ensure_dir, if_found_unlink, read_lines
 
-from ..configuration import TEST_DATA_DIR
+from ..configuration import TEST_DATA_DIR, TEST_DIR
+
+
+def test_read_lines():
+    """Test read_lines."""
+    result = read_lines(Path(__file__).resolve())
+
+    assert result[0] == '"""Test doit_tasks/base.py."""'
+    assert len(result) > 40
+
+
+def test_dir_tools():
+    """Test delete_dir & ensure_dir."""
+    tmp_dir = TEST_DIR / '.tmp-test_delete_dir'
+    tmp_dir.mkdir(exist_ok=True)
+    (tmp_dir / 'tmp.txt').write_text('Placeholder\n')
+    tmp_subdir = tmp_dir / 'subdir'
+
+    ensure_dir(tmp_subdir)  # act
+
+    assert tmp_subdir.is_dir()
+    delete_dir(tmp_dir)
+    assert not tmp_dir.is_dir()
 
 
 def test_show_cmd():
-    """Test show_cmd."""
+    """Test _show_cmd."""
     name = 'this_action'
     actions = ['123', 'abc']
 
