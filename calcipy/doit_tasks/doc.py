@@ -7,18 +7,13 @@ import re
 import webbrowser
 from collections.abc import Callable
 from pathlib import Path
-from typing import Optional
 
 from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
+from transitions import Machine
 
 from .base import debug_task, open_in_browser, read_lines
 from .doit_globals import DG, DoitTask
-
-try:
-    from transitions import Machine
-except ImportError:  # pragma: no cover
-    Machine = None
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -110,10 +105,10 @@ class _MarkdownMachine(Machine):  # noqa: H601
 
     def __init__(self) -> None:
         """Initialize the state machine."""
-        super().__init__(model=self, states=self.states, initial=self.states[0], transitions=self.transitions)
+        super().__init__(states=self.states, initial=self.states[0], transitions=self.transitions)
 
     def parse(  # noqa: CCR001
-        self, lines: list[str], handlers: Optional[dict[str, Callable[[str, Path], str]]],
+        self, lines: list[str], handlers: dict[str, Callable[[str, Path], str]],
     ) -> list[str]:
         """Parse lines and insert new_text based on provided handlers.
 
@@ -193,8 +188,8 @@ def _write_coverage_to_readme() -> None:
 
 def write_autoformatted_md_sections() -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic."""
+    logger.info('> {paths_md}', paths_md=DG.doc.paths_md)
     for path_md in DG.doc.paths_md:
-        logger.info('> {path_md}', path_md=path_md)
         md_lines = _MarkdownMachine().parse(read_lines(path_md), DG.doc.startswith_action_lookup)
         path_md.write_text('\n'.join(md_lines))
 
@@ -248,7 +243,7 @@ def _check_unknown(line: str, path_md: Path) -> str:
 
 def _configure_action_lookup() -> None:
     """Configure the action lookup for markdown file autoformatting if not already configured."""
-    if DG.doc.startswith_action_lookup is None:
+    if not [*DG.doc.startswith_action_lookup.keys()]:
         DG.doc.startswith_action_lookup = {
             '<!-- Do not modify sections with ': _format_header,
             '<!-- ': _check_unknown,

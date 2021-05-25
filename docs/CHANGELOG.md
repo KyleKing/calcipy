@@ -1,3 +1,48 @@
+## Unreleased
+
+### Feat
+
+- rename DIG to DG because doit is one word
+- move changelog into doc_dir
+- retrieve doc_dir from copier
+- add log-setup fun for doit
+- make (source) doc_dir configurable
+- add sanitizer
+- add pytype
+- **#36**: start WIP ReadMeMachine
+- **#36**: merge logic of markdown auto-formatters
+- make code tag partially configurable
+- move check_types into calcipy
+- import templates from pdocs
+
+### Fix
+
+- remaining non-PEP585 Dict/Tuple
+- import the loguru Logger class safely
+- revert PEP585 changes, which are not available in 3.8
+- type errors identified by mypy
+- correct type annotation for DoitTask & start beartyping
+- collect python files non-redundantly
+- correct isort configuration
+- restore ReadMeMachine
+- repair small bugs found in tests
+- make transitions optional
+
+### Refactor
+
+- make additional mypy fixes
+- apply the pep585 pre-commit hook
+- apply PEP585 for stdlib typing
+- fix capitalization for doit (one word, all lowercase)
+- improve activate_debug_logging
+- try to replace Any with BaseAction
+- apply 0.0.2 minor fixes
+- apply 0.0.1 version of calcipy_template
+- minor renaming for _MarkdownMachine
+- fix lock file and line length
+- run more pre-commit checks on commit
+- standardize on code tags and cleanup
+
 ## 2021.0.2.0a0 (2021-02-11)
 
 ### Feat
@@ -63,7 +108,45 @@
 
 - initialize new DIG for #7 (@WIP)
 - last version with dash_dev package name (#22)
+- use the climate strike license (#22)
 - ADR template and notes
+
+### Change (Old)
+
+- try skipcq above the line
+- suppress LGTM warnings
+- skip all DeepSource checks of wildcard import
+- make dev-dep an “Extra” Fix #19
+- test wildcard imports
+- remove temp files used to test DeepSource
+- rename doit_helpers folder to doit_tasks
+- register tasks in __init__ with __all__
+- WIP remove old DIG
+- restore documentation tasks from archive
+- remove pdoc3 documentation tasks
+- final changes to intialize calcipy. Fixes #22
+- move notes on typeguard to #28
+- rename folder to calcipy #22
+- rename source to calcipy for #22
+- remove pdoc3 & archive documentation tasks
+- remove sh for Windows support @WIP
+- try long running for pytest
+
+### Fix (Old)
+
+- remaining DS wilcard issue
+- try one more time to fix DeepSource * issues
+- attempt to resolve deepsource issues
+- circular import for tag_collector
+- breaking changes from DIG changes (#7)
+- refactor the missing keyword argument logic
+- bury attr exceptions for coverage table
+- make creating the log directory optional
+
+## 0.0.2 (2020-11-14)
+
+### New (Old)
+
 - separate task_git_add_docs
 - archive watchcode task
 - move DIG to separate file
@@ -90,24 +173,6 @@
 
 ### Change (Old)
 
-- try skipcq above the line
-- suppress LGTM warnings
-- skip all DeepSource checks of wildcard import
-- make dev-dep an “Extra” Fix #19
-- test wildcard imports
-- remove temp files used to test DeepSource
-- rename doit_helpers folder to doit_tasks
-- register tasks in __init__ with __all__
-- WIP remove old DIG
-- restore documentation tasks from archive
-- remove pdoc3 documentation tasks
-- final changes to intialize calcipy. Fixes #22
-- move notes on typeguard to #28
-- rename folder to calcipy #22
-- rename source to calcipy for #22
-- remove pdoc3 & archive documentation tasks
-- remove sh for Windows support @WIP
-- try long running for pytest
 - add skipcq & update version
 - update documentation
 - improve how tags are located
@@ -142,14 +207,6 @@
 
 ### Fix (Old)
 
-- remaining DS wilcard issue
-- try one more time to fix DeepSource * issues
-- attempt to resolve deepsource issues
-- circular import for tag_collector
-- breaking changes from DIG changes (#7)
-- refactor the missing keyword argument logic
-- bury attr exceptions for coverage table
-- make creating the log directory optional
 - replace subprocess with sh
 - problems found by DeepSource
 - path to the .flake8 should be in source_path

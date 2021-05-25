@@ -268,7 +268,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     paths_md: list[Path] = []
     """List of Paths to the project markdown files."""
 
-    startswith_action_lookup: Optional[dict[str, Callable[[str, Path], str]]] = None
+    startswith_action_lookup: dict[str, Callable[[str, Path], str]] = {}
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     def __attrs_post_init__(self) -> None:

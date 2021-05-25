@@ -48,6 +48,7 @@ repos:
     hooks:
       - id: pyupgrade
         stages: [push]
+        args: ["--keep-runtime-typing"]
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.1.0
     hooks:

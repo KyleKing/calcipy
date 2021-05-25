@@ -67,8 +67,10 @@ def serializable_compact(record: dict[str, Any]) -> str:
     return str_json + '\n'
 
 
-def _log_action(message: str, level: str = 'INFO', _logger: loguru.Logger = logger,
-                **kwargs: Any) -> Generator[loguru.Logger, None, None]:
+def _log_action(
+    message: str, level: str = 'INFO', _logger: loguru.Logger = logger,
+    **kwargs: Any
+) -> Generator[loguru.Logger, None, None]:
     """Log the beggining and end of an action.
 
     Args:

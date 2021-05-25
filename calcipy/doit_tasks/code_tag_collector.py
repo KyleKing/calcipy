@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from collections.abc import Sequence
+from copy import copy
 from pathlib import Path
 from re import Pattern
 
@@ -120,12 +121,12 @@ def _find_files() -> list[Path]:
 
     """
     # TODO: Move all of these configuration items into DG
-    dot_directories = [pth.as_posix() for pth in DG.meta.path_project.glob('.*') if pth.is_dir()]
-    ignored_sub_dirs = [DG.test.path_out.parent.name] + dot_directories
+    dot_directories = [pth for pth in DG.meta.path_project.glob('.*') if pth.is_dir()]
+    ignored_sub_dirs = [DG.test.path_out.parent] + dot_directories
     ignored_filenames: list[str] = []
     supported_suffixes = ['.py']
 
-    paths_source = DG.doc.paths_md
+    paths_source = copy(DG.doc.paths_md)
     # NOTE: THE TOP LEVEL path_project MUST USE GLOB (NOT RGLOB!)
     for suffix in supported_suffixes:
         paths = [*DG.meta.path_project.glob(f'*{suffix}')]

@@ -6,6 +6,7 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Optional
 
+from beartype import beartype
 from doit.tools import LongRunning
 from loguru import logger
 
@@ -19,6 +20,7 @@ from .doit_globals import DG, DoitAction, DoitTask
 
 # TODO: Possibly remove - may be unused
 @log_fun
+@beartype
 def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[list[Path]] = None) -> set[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
@@ -29,12 +31,7 @@ def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[
     Returns:
         set[str]: all unique path names as string
 
-    Raises:
-        TypeError: if the add_paths argument is not a list or tuple
-
     """
-    if not isinstance(add_paths, (list, tuple)):
-        raise TypeError(f'Expected add_paths to be a list of Paths, but received: {add_paths}')
     if sub_directories is None:
         sub_directories = []
     sub_directories.extend([DG.meta.path_project / DG.meta.pkg_name, DG.test.path_tests] + DG.lint.paths)
