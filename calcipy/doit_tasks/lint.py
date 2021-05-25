@@ -11,7 +11,7 @@ from loguru import logger
 
 from ..log_helpers import log_fun
 from .base import debug_task, echo, if_found_unlink
-from .doit_globals import DG, DoitTask
+from .doit_globals import DG, DoitAction, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
@@ -19,7 +19,7 @@ from .doit_globals import DG, DoitTask
 
 # TODO: Possibly remove - may be unused
 @log_fun
-def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[list[Path]] = None) -> list[str]:
+def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[list[Path]] = None) -> set[str]:
     """Collect the tracked files for linting and formatting. Return as list of string paths.
 
     Args:
@@ -27,7 +27,7 @@ def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[
         sub_directories: folder Paths to recursively check for Python files
 
     Returns:
-        list: of string path names
+        set[str]: all unique path names as string
 
     Raises:
         TypeError: if the add_paths argument is not a list or tuple
@@ -58,7 +58,7 @@ def _list_lint_file_paths(path_list: list[Path]) -> list[Path]:
         list: list of file Paths
 
     """
-    file_paths = []
+    file_paths: list[Path] = []
     for path_item in path_list:
         file_paths.extend([*path_item.rglob('*.py')] if path_item.is_dir() else [path_item])
     logger.debug(f'Found {len(file_paths)} files', file_paths=file_paths)
@@ -119,7 +119,7 @@ def _lint_project(
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
     flake8_log_path = DG.meta.path_project / 'flake8.log'
-    actions = [(if_found_unlink, (flake8_log_path,))]
+    actions: list[DoitAction] = [(if_found_unlink, (flake8_log_path,))]
     run = 'poetry run python -m'
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
     for lint_path in _list_lint_file_paths(lint_paths):
@@ -170,7 +170,7 @@ def task_radon_lint() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = []
+    actions: list[DoitAction] = []
     for args in ['mi', 'cc --total-average -nb', 'hal']:
         actions.extend(
             [(echo, (f'# Radon with args: {args}',))]

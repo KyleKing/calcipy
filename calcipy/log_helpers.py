@@ -107,7 +107,7 @@ def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> A
     """
     fun_name = fun.__name__
     with log_action(f'Running {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
-        return fun(*args, **kwargs)
+        return fun(*args, **kwargs)  # type: ignore
 
 
 def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> dict[str, Any]:
@@ -138,7 +138,7 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
         production: if True, will tweak logging configuration for production code. Default is True
 
     Returns:
-        Dict[str, Any]: the logger configuration as a dictionary
+        dict[str, Any]: the logger configuration as a dictionary
 
     """
     if path_parent is None:

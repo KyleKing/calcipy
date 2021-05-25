@@ -26,7 +26,7 @@ def read_lines(file_path: Path) -> list[str]:
         file_path: path to the file
 
     Returns:
-        List[str]: lines of text as list
+        list[str]: lines of text as list
 
     """
     if file_path.is_file():

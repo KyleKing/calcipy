@@ -98,7 +98,7 @@ def task_cl_bump_pre() -> DoitTask:
 # Manage README Updates
 
 
-class _MarkdownMachine:  # noqa: H601
+class _MarkdownMachine(Machine):  # noqa: H601
     """State machine to replace auto-formatted comment sections of markdown files with handler callback."""
 
     states: list[str] = ['user', 'autoformatted']
@@ -110,7 +110,7 @@ class _MarkdownMachine:  # noqa: H601
 
     def __init__(self) -> None:
         """Initialize the state machine."""
-        self.machine = Machine(model=self, states=self.states, initial='user', transitions=self.transitions)
+        super().__init__(model=self, states=self.states, initial=self.states[0], transitions=self.transitions)
 
     def parse(  # noqa: CCR001
         self, lines: list[str], handlers: Optional[dict[str, Callable[[str, Path], str]]],
@@ -122,7 +122,7 @@ class _MarkdownMachine:  # noqa: H601
             handlers: Lookup dictionary for autoformatted sections of the project's markdown files
 
         Returns:
-            List[str]: modified list of strings
+            list[str]: modified list of strings
 
         """
         lines_modified = []
@@ -135,7 +135,8 @@ class _MarkdownMachine:  # noqa: H601
                 self.start_auto()
                 for startswith, handler in handlers.items():
                     if line_strip.startswith(startswith):
-                        lines_modified.extend(handler(line))
+                        path_md = Path.home()  # FIXME: Need to handle passing the path for debugging
+                        lines_modified.extend(handler(line, path_md))
                         break
                 else:
                     logger.error(f'Could not parse comment: {line}', line=line)
@@ -165,7 +166,7 @@ def _write_coverage_to_readme() -> None:
     try:
         from subprocess_tee import run  # noqa: S404
     except ImportError:  # pragma: no cover
-        from subprocess import run  # noqa: S404
+        from subprocess import run  # type: ignore  # noqa: S404
     # Attempt to create the coverage file
     run('poetry run python -m coverage json')  # noqa: S603, S607
 

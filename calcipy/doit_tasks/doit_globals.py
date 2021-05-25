@@ -9,7 +9,7 @@ from collections.abc import Callable, Iterable
 from functools import partial
 from pathlib import Path
 from re import Pattern
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Optional, Union
 
 import attr
 import yaml
@@ -30,13 +30,13 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
-_DoitCallableArgs = Iterable[Union[str, float, int, Path, Dict[str, Any]]]
+_DoitCallableArgs = Iterable[Union[str, float, int, Path, dict[str, Any]]]
 """Type: legal types that can be passed to a Python callable for doit actions."""
 
-DoitAction = Union[str, BaseAction, Tuple[Callable, _DoitCallableArgs]]
+DoitAction = Union[str, BaseAction, tuple[Callable, _DoitCallableArgs]]  # typing: ignore
 """Type: individual doit action."""
 
-DoitTask = Union[Task, Dict[str, DoitAction]]
+DoitTask = Union[Task, dict[str, DoitAction]]
 """Type: full doit task."""
 
 
@@ -65,7 +65,7 @@ def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> list[tupl
         kwargs: keyword arguments passed to `_member_filter`
 
     Returns:
-        List[Tuple[str, Callable]]: filtered members from the class
+        list[tuple[str, Callable]]: filtered members from the class
 
     """
     members = inspect.getmembers(cls, predicate=partial(_member_filter, **kwargs))
@@ -105,8 +105,8 @@ def _resolve_class_paths(cls: object, base_path: Path) -> None:
     """
     logger.info(f'Class: {cls}')
     for name, path_raw in _get_members(cls, instance_type=type(Path()), prefix=None):
-        if not path_raw.is_absolute():
-            setattr(cls, name, base_path / path_raw)
+        if not path_raw.is_absolute():  # typing: ignore
+            setattr(cls, name, base_path / path_raw)  # typing: ignore
             logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
 
 

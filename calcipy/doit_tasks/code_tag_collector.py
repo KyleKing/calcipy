@@ -40,7 +40,7 @@ def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> list[_C
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
-        List[_CodeTag]: list of all code tags found in lines
+        list[_CodeTag]: list of all code tags found in lines
 
     """
     comments = []
@@ -63,7 +63,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
-        List[_Tags]: list of all code tags found in files
+        list[_Tags]: list of all code tags found in files
 
     """
     matches = []
@@ -93,7 +93,7 @@ def _format_report(base_dir: Path, code_tags: list[_Tags]) -> str:  # noqa: CCR0
 
     """
     output = ''
-    counter = defaultdict(lambda: 0)
+    counter: dict[str, int] = defaultdict(lambda: 0)
     for comments in sorted(code_tags, key=lambda tc: tc.path_source, reverse=False):
         output += f'- {comments.path_source.relative_to(base_dir).as_posix()}\n'
         for comment in comments.code_tags:
@@ -116,13 +116,13 @@ def _find_files() -> list[Path]:
     """Find files within the project directory that should be parsed for tags. Ignores .venv, output, etc.
 
     Returns:
-        List[Path]: list of file paths to parse
+        list[Path]: list of file paths to parse
 
     """
     # TODO: Move all of these configuration items into DG
-    dot_directories = [pth for pth in DG.meta.path_project.glob('.*') if pth.is_dir()]
+    dot_directories = [pth.as_posix() for pth in DG.meta.path_project.glob('.*') if pth.is_dir()]
     ignored_sub_dirs = [DG.test.path_out.parent.name] + dot_directories
-    ignored_filenames = []
+    ignored_filenames: list[str] = []
     supported_suffixes = ['.py']
 
     paths_source = DG.doc.paths_md
