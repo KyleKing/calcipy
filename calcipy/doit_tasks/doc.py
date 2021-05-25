@@ -10,7 +10,7 @@ from doit.tools import InteractiveAction, LongRunning
 from loguru import logger
 
 from .base import debug_task, open_in_browser, read_lines
-from .doit_globals import DIG, DoItTask
+from .doit_globals import DIG, DoitTask
 
 try:
     from transitions import Machine
@@ -34,7 +34,7 @@ def _move_cl() -> None:
     path_cl.replace(DIG.doc.doc_dir / path_cl.name)
 
 
-def task_cl_write() -> DoItTask:
+def task_cl_write() -> DoitTask:
     """Write a Changelog file with the raw Git history.
 
     Resources:
@@ -47,7 +47,7 @@ def task_cl_write() -> DoItTask:
     - https://calver.org/
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     return debug_task([
@@ -56,11 +56,11 @@ def task_cl_write() -> DoItTask:
     ])
 
 
-def task_cl_bump() -> DoItTask:
+def task_cl_bump() -> DoitTask:
     """Bumps project version based on project history and settings in pyproject.toml.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     return debug_task([
@@ -70,13 +70,13 @@ def task_cl_bump() -> DoItTask:
     ])
 
 
-def task_cl_bump_pre() -> DoItTask:
+def task_cl_bump_pre() -> DoitTask:
     """Bump with specified pre-release tag. Creates Changelog.
 
     Example: `doit run cl_bump_pre -p alpha` or `doit run cl_bump_pre -p rc`
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     task = debug_task([
@@ -199,13 +199,13 @@ def write_autoformatted_md_sections() -> None:
 # mkdocs
 
 
-def task_serve_fast() -> DoItTask:
+def task_serve_fast() -> DoitTask:
     """Serve the site with `--dirtyreload` and open in a web browser.
 
     Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     return debug_task([
@@ -214,11 +214,11 @@ def task_serve_fast() -> DoItTask:
     ])
 
 
-def task_deploy() -> DoItTask:
+def task_deploy() -> DoitTask:
     """Deploy to Github `gh-pages` branch.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     return debug_task([LongRunning('poetry run mkdocs gh-deploy')])
@@ -233,7 +233,7 @@ def _format_header(line: str, path_md: Path) -> str:
     if '\n' in line:  # FIXME: Function signature has changed with the restored README Machine
         logger.error('Found: "{line}"', line=line)
         raise RuntimeError(f'Found unexpected newline in header comment of: {path_md}')
-    return '<!-- Do not modify sections with "AUTO-*". They are updated by with a DoIt task -->'
+    return '<!-- Do not modify sections with "AUTO-*". They are updated by with a doit task -->'
 
 
 def _check_unknown(line: str, path_md: Path) -> str:
@@ -251,11 +251,11 @@ def _configure_action_lookup() -> None:
         }
 
 
-def task_document() -> DoItTask:
+def task_document() -> DoitTask:
     """Build the HTML documentation.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     _configure_action_lookup()
@@ -271,11 +271,11 @@ def task_document() -> DoItTask:
 
 
 # PLANNED: Only works for static documentation files (projects could use either mkdocs served or static...)
-def task_open_docs() -> DoItTask:
+def task_open_docs() -> DoitTask:
     """Open the documentation files in the default browser.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     path_doc_index = DIG.doc.path_out / DIG.meta.pkg_name / 'index.html'

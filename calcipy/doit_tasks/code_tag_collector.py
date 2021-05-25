@@ -9,7 +9,7 @@ from loguru import logger
 
 from ..log_helpers import log_fun
 from .base import debug_task, read_lines
-from .doit_globals import DIG, DoItTask
+from .doit_globals import DIG, DoitTask
 
 
 @attr.s(auto_attribs=True)
@@ -157,11 +157,11 @@ def _write_code_tag_file(path_tag_summary: Path) -> None:
         path_tag_summary.unlink()
 
 
-def task_collect_code_tags() -> DoItTask:
+def task_collect_code_tags() -> DoitTask:
     """Create a summary file with all of the found code tags.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     path_tag_summary = DIG.meta.path_project / DIG.ct.path_code_tag_summary

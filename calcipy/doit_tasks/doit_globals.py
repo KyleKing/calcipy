@@ -26,13 +26,13 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 # ----------------------------------------------------------------------------------------------------------------------
 # Global Variables
 
-_DoItCallableArgs = Iterable[Union[str, float, int, Path, dict]]
+_DoitCallableArgs = Iterable[Union[str, float, int, Path, dict]]
 """Type: legal types that can be passed to a Python callable for doit actions."""
 
-DoItAction = Union[str, BaseAction, Tuple[Callable, _DoItCallableArgs]]
+DoitAction = Union[str, BaseAction, Tuple[Callable, _DoitCallableArgs]]
 """Type: individual doit action."""
 
-DoItTask = Union[Task, Dict[str, DoItAction]]
+DoitTask = Union[Task, Dict[str, DoitAction]]
 """Type: full doit task."""
 
 

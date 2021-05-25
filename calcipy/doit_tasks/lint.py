@@ -7,7 +7,7 @@ from loguru import logger
 
 from ..log_helpers import log_fun
 from .base import debug_task, echo, if_found_unlink
-from .doit_globals import DIG, DoItTask
+from .doit_globals import DIG, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
@@ -101,7 +101,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
 def _lint_project(
     lint_paths: List[Path], path_flake8: Path,
     ignore_errors: Optional[List[str]] = None,
-) -> DoItTask:
+) -> DoitTask:
     """Lint specified files creating summary log file of errors.
 
     Args:
@@ -110,7 +110,7 @@ def _lint_project(
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
@@ -124,21 +124,21 @@ def _lint_project(
     return actions
 
 
-def task_lint_project() -> DoItTask:
+def task_lint_project() -> DoitTask:
     """Lint files from DIG creating summary log file of errors.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=None))
 
 
-def task_lint_critical_only() -> DoItTask:
+def task_lint_critical_only() -> DoitTask:
     """Lint files from DIG creating summary log file of errors, but ignore non-critical errors.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     ignore_errors = [
@@ -159,11 +159,11 @@ def task_lint_critical_only() -> DoItTask:
     return debug_task(_lint_project(DIG.lint.paths, path_flake8=DIG.lint.path_flake8, ignore_errors=ignore_errors))
 
 
-def task_radon_lint() -> DoItTask:
+def task_radon_lint() -> DoitTask:
     """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     actions = []
@@ -179,11 +179,11 @@ def task_radon_lint() -> DoItTask:
 # Formatting
 
 
-def task_auto_format() -> DoItTask:
+def task_auto_format() -> DoitTask:
     """Format code with isort and autopep8.
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     run = 'poetry run python -m'
@@ -195,13 +195,13 @@ def task_auto_format() -> DoItTask:
     return debug_task(actions)
 
 
-def task_pre_commit_hooks() -> DoItTask:
+def task_pre_commit_hooks() -> DoitTask:
     """Run the pre-commit hooks on all files.
 
     Note: use `git commit` or `git push` with `--no-verify` if needed
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     return debug_task([

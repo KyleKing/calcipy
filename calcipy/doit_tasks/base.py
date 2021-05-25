@@ -9,7 +9,7 @@ from beartype import beartype
 from loguru import logger
 
 from ..log_helpers import log_action
-from .doit_globals import DoItAction, DoItTask
+from .doit_globals import DoitAction, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Really General...
@@ -65,7 +65,7 @@ def ensure_dir(dir_path: Path) -> None:
 
 
 @beartype
-def _show_cmd(task: DoItTask) -> str:
+def _show_cmd(task: DoitTask) -> str:
     """For debugging, log the full command to the console.
 
     Args:
@@ -80,7 +80,7 @@ def _show_cmd(task: DoItTask) -> str:
 
 
 @beartype
-def debug_task(actions: Iterable[DoItAction], verbosity: int = 2) -> DoItTask:
+def debug_task(actions: Iterable[DoitAction], verbosity: int = 2) -> DoitTask:
     """Activate verbose logging for the specified actions.
 
     Args:
@@ -88,7 +88,7 @@ def debug_task(actions: Iterable[DoItAction], verbosity: int = 2) -> DoItTask:
         verbosity: 2 is maximum, while 0 is deactivated. Default is 2
 
     Returns:
-        DoItTask: doit task
+        DoitTask: doit task
 
     """
     task = {
