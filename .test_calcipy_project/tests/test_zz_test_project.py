@@ -1,7 +1,6 @@
 """Final test alphabetically (zz) to catch general integration cases."""
 
 import toml
-
 from test_project import __version__
 
 

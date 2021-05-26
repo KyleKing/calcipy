@@ -14,7 +14,7 @@ from doit.task import Task
 from loguru import logger
 
 from ..log_helpers import log_fun
-from .base import find_project_files, find_project_files_by_suffix
+from .file_search import find_project_files, find_project_files_by_suffix
 
 try:
     import toml
@@ -198,7 +198,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
-        self.paths.extend(find_project_files_by_suffix(self.meta.path_project).get('py', []))
+        self.paths.extend(find_project_files_by_suffix(self.path_project).get('py', []))
 
     # FIXME: Just use folders and not specific files. See example snippets below
     # poetry run isort --recursive --check --diff calcipy/ tests/
@@ -209,7 +209,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 
     def shorted_path_list(self) -> Set[str]:
         """Shorten the list of `paths` using the project directory."""
-        return {pth.parent.relative_to(self.meta.project_dir) for pth in self.paths}
+        return {pth.parent.relative_to(self.project_dir) for pth in self.paths}
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -261,7 +261,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
         self.path_code_tag_summary = self.doc_dir / self._code_tag_summary_filename
-        self.paths.extend(find_project_files(self.meta.path_project))
+        self.paths.extend(find_project_files(self.path_project))
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
