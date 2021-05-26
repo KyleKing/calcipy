@@ -165,11 +165,11 @@ def _write_code_to_readme() -> None:
 def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
     try:
-        from subprocess_tee import run  # noqa: S404
+        from subprocess_tee import run  # nosec # noqa: S404
     except ImportError:  # pragma: no cover
-        from subprocess import run  # type: ignore[no-redef]  # noqa: S404
+        from subprocess import run  # type: ignore[no-redef]  # nosec # noqa: S404
     # Attempt to create the coverage file
-    run('poetry run python -m coverage json')  # noqa: S603, S607
+    run('poetry run python -m coverage json')  # nosec # noqa: S603, S607
 
     coverage_path = (DG.meta.path_project / 'coverage.json')
     if coverage_path.is_file():

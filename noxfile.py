@@ -43,3 +43,4 @@ def build(session: Session) -> None:
 # PLANNED: Make an environment to check the built wheel file for imports once most are optional:
 #   https://stackoverflow.com/questions/34855071/importing-all-functions-from-a-package-from-import
 # PLANNED: Make an environment for pytype because it has tighter Python constraints than "calcipy"
+# PLANNED: Add environment for safety, see https://github.com/KyleKing/calcipy/issues/32 for snippet

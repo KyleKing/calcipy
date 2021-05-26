@@ -22,6 +22,7 @@ __all__ = [  # noqa: F405
     'task_auto_format',
     'task_lint_critical_only',
     'task_lint_project',
+    'task_security_checks',
     'task_pre_commit_hooks',
     'task_radon_lint',
     # from .test
@@ -53,6 +54,7 @@ DOIT_CONFIG_RECOMMENDED = {
         'document',
         'pre_commit_hooks',
         'lint_critical_only',
+        'security_checks',
         'check_types',
     ],
 }

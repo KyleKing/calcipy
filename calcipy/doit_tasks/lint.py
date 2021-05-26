@@ -128,6 +128,19 @@ def task_radon_lint() -> DoitTask:
     return debug_task(actions)
 
 
+@beartype
+def task_security_checks() -> DoitTask:
+    """Use linting tools to identify possible security vulnerabilities.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        Interactive(f'poetry run bandit -r {DG.meta.pkg_name}'),
+    ])
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Formatting
 
@@ -136,17 +149,22 @@ def task_radon_lint() -> DoitTask:
 def task_auto_format() -> DoitTask:
     """Format code with isort and autopep8.
 
+    Other Useful Format Snippets:
+
+    ```sh
+    poetry run isort --recursive --check --diff calcipy/ tests/
+    ```
+
     Returns:
         DoitTask: doit task
 
     """
     run = 'poetry run python -m'
     paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths)
-    actions = [
+    return debug_task([
         f'{run} autopep8 {paths} --in-place --aggressive',
         f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',
-    ]
-    return debug_task(actions)
+    ])
 
 
 @beartype

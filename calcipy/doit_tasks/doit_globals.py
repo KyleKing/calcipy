@@ -189,15 +189,10 @@ class LintConfig(_PathAttrBase):  # noqa: H601
         super().__attrs_post_init__()
         self.paths = find_project_files_by_suffix(self.path_project).get('py', [])
 
-    # FIXME: Just use folders and not specific files. See example snippets below
-    # poetry run isort --recursive --check --diff calcipy/ tests/
-    # poetry run isort --recursive calcipy/ tests/
-    # poetry run flake8 calcipy/ tests/
-    # poetry run safety check -i 39462
-    # poetry run bandit -r calcipy/
-
-    def shorted_path_list(self) -> Set[str]:
+    def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
         """Shorten the list of `paths` using the project directory.
+
+        > Not currently used, but could be useful
 
         Returns:
             Set[str]: set of most common top-level directories relative to the project dir
