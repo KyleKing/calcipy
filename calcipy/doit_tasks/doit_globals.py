@@ -357,8 +357,7 @@ class DoitGlobals:
             doc_dir = self.meta.path_project / 'docs'
         doc_dir.mkdir(exist_ok=True, parents=True)
 
-        self.lint = LintConfig(**meta_kwargs, paths=[self.meta.path_project / self.meta.pkg_name])  # type: ignore[arg-type]
-
+        self.lint = LintConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
         self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]

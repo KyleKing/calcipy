@@ -138,7 +138,6 @@ def task_auto_format() -> DoitTask:
         actions.append(f'{run} isort "{lint_path}" --settings-path "{DG.lint.path_isort}"')
         actions.append(f'{run} autopep8 "{lint_path}" --in-place --aggressive')
     # FIXME: autopep8 can take a list of space-separated files
-    # FIXME: autopep8 errored on parsing the calcipy directory?
     return debug_task(actions)
 
 
