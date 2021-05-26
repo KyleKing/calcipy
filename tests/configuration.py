@@ -24,6 +24,9 @@ Note: outside of `tests/` to prevent pytest from finding test files.
 
 """
 
+# Set the DoitGlobals instance to use the Test Project for all tests
+DG.set_paths(path_project=PATH_TEST_PROJECT)
+
 
 @contextmanager
 def _temp_dg(path_project: Path = PATH_TEST_PROJECT) -> Generator[None, None, None]:
