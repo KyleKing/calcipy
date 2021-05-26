@@ -1,5 +1,6 @@
 """General doit Utilities."""
 
+import os
 import shutil
 import webbrowser
 from pathlib import Path
@@ -30,6 +31,36 @@ def read_lines(path_file: Path) -> List[str]:
     if path_file.is_file():
         return path_file.read_text().split('\n')
     return []
+
+
+def tail_lines(path_file: Path, *, count: int) -> List[str]:
+    """Tail a file for up to the last count (or full file) lines.
+
+    Based on: https://stackoverflow.com/a/54278929
+
+    > Tip: `file_size = fh.tell()` -or- `os.fstat(fh.fileno()).st_size` -or- return from `fh.seek(0, os.SEEK_END)`
+
+    Args:
+        path_file: path to the file
+        count: maximum number of lines to return
+
+    Returns:
+        List[str]: lines of text as list
+
+    """
+    with open(path_file, 'rb') as fh:
+        rem_bytes = fh.seek(0, os.SEEK_END)
+        step_size = 1  # Initially set to 1 so that the last byte is read
+        found_lines = 0
+        while found_lines < count and rem_bytes >= step_size:
+            rem_bytes = fh.seek(-1 * step_size, os.SEEK_CUR)
+            if fh.read(1) == b'\n':
+                found_lines += 1
+            step_size = 2  # Increase so that repeats(read 1 / back 2)
+
+        if rem_bytes < step_size:
+            fh.seek(0, os.SEEK_SET)
+        return fh.read().decode().split('\n')
 
 
 # ----------------------------------------------------------------------------------------------------------------------

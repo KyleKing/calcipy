@@ -4,9 +4,11 @@ from pathlib import Path
 
 from doit.task import Task
 
-from calcipy.doit_tasks.base import _show_cmd, debug_task, delete_dir, ensure_dir, if_found_unlink, read_lines
+from calcipy.doit_tasks.base import (
+    _show_cmd, debug_task, delete_dir, ensure_dir, if_found_unlink, read_lines, tail_lines,
+)
 
-from ..configuration import TEST_DATA_DIR, TEST_DIR
+from ..configuration import TEST_DATA_DIR, TEST_TMP_CACHE
 
 
 def test_read_lines():
@@ -17,9 +19,21 @@ def test_read_lines():
     assert len(result) > 40
 
 
+def test_tail_lines():
+    """Test tail_lines."""
+    path_file = TEST_TMP_CACHE / 'tmp.txt'
+    path_file.write_text('line 1\nline 2\n')
+
+    result = tail_lines(path_file, count=1)
+
+    assert result == ['']
+    assert tail_lines(path_file, count=2) == ['line 2', '']
+    assert tail_lines(path_file, count=10) == ['line 1', 'line 2', '']
+
+
 def test_dir_tools():
     """Test delete_dir & ensure_dir."""
-    tmp_dir = TEST_DIR / '.tmp-test_delete_dir'
+    tmp_dir = TEST_TMP_CACHE / '.tmp-test_delete_dir'
     tmp_dir.mkdir(exist_ok=True)
     (tmp_dir / 'tmp.txt').write_text('Placeholder\n')
     tmp_subdir = tmp_dir / 'subdir'

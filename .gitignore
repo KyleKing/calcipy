@@ -179,6 +179,9 @@ coverage.json
 # Built Outputs
 /releases/
 
+# Other Calcipy Ignores
+/tests/_tmp_cache
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Custom Rules
 

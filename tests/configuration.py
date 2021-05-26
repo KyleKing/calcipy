@@ -6,6 +6,7 @@ from typing import Generator
 from decorator import contextmanager
 
 from calcipy import __pkg_name__
+from calcipy.doit_tasks.base import delete_dir, ensure_dir
 from calcipy.doit_tasks.doit_globals import DG
 from calcipy.log_helpers import activate_debug_logging
 
@@ -17,12 +18,25 @@ TEST_DIR = Path(__file__).resolve().parent
 TEST_DATA_DIR = TEST_DIR / 'data'
 """Path to subdirectory with test data within the Test Directory."""
 
-PATH_TEST_PROJECT: Path = TEST_DIR.parent / '.test_calcipy_project'
+TEST_TMP_CACHE = TEST_DIR / '_tmp_cache'
+"""Path to the temporary cache folder in the Test directory."""
+
+PATH_TEST_PROJECT = TEST_DIR.parent / '.test_calcipy_project'
 """Local directory used for testing the doit globals.
 
 Note: outside of `tests/` to prevent pytest from finding test files.
 
 """
+
+
+def clear_test_cache() -> None:
+    """Remove the test cache directory if present."""
+    delete_dir(TEST_TMP_CACHE)
+    ensure_dir(TEST_TMP_CACHE)
+
+
+# Ensure that the temporary cache directory exists
+clear_test_cache()
 
 # Set the DoitGlobals instance to use the Test Project for all tests
 DG.set_paths(path_project=PATH_TEST_PROJECT)
