@@ -144,7 +144,9 @@ def task_lint_critical_only() -> DoitTask:
 
 
 def task_radon_lint() -> DoitTask:
-    """See documentation: https://radon.readthedocs.io/en/latest/intro.html. Lint project with Radon.
+    """Lint project with Radon.
+
+    See documentation: https://radon.readthedocs.io/en/latest/intro.html
 
     Returns:
         DoitTask: doit task

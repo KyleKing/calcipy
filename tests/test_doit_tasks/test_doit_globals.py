@@ -13,34 +13,34 @@ def _get_public_props(obj) -> List[str]:
     return [prop for prop in dir(obj) if not prop.startswith('_')]
 
 
-def test_dig_props():
+def test_dg_props():
     """Test the DG global variable from DoitGlobals."""
     public_props = ['calcipy_dir', 'set_paths']
     settable_props = public_props + ['meta', 'ct', 'lint', 'test', 'doc']
 
-    dig = DoitGlobals()  # act
+    dg = DoitGlobals()  # act
 
-    assert _get_public_props(dig) == sorted(public_props)
-    dig.set_paths(path_project=PATH_TEST_PROJECT)
-    assert _get_public_props(dig) == sorted(settable_props)
+    assert _get_public_props(dg) == sorted(public_props)
+    dg.set_paths(path_project=PATH_TEST_PROJECT)
+    assert _get_public_props(dg) == sorted(settable_props)
 
 
-def test_dig_paths():
+def test_dg_paths():
     """Test the DG global variable from DoitGlobals."""
-    dig = DoitGlobals()
-    path_out_base = PATH_TEST_PROJECT / 'releases'
+    dg = DoitGlobals()
 
-    dig.set_paths(path_project=PATH_TEST_PROJECT)  # act
+    dg.set_paths(path_project=PATH_TEST_PROJECT)  # act
 
     # Test the properties set by default
-    assert dig.calcipy_dir.name == 'calcipy'
-    assert dig.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
+    assert dg.calcipy_dir.name == 'calcipy'
+    assert dg.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
     # Test the properties set by set_paths
-    assert dig.meta.path_project == PATH_TEST_PROJECT
-    assert dig.meta.path_toml == PATH_TEST_PROJECT / 'pyproject.toml'
-    assert dig.meta.pkg_name == 'test_project'
-    assert dig.doc.path_out == path_out_base / 'site'
-    assert dig.test.path_out == path_out_base / 'tests'
+    assert dg.meta.path_project == PATH_TEST_PROJECT
+    assert dg.meta.path_toml == PATH_TEST_PROJECT / 'pyproject.toml'
+    assert dg.meta.pkg_name == 'test_project'
+    path_out_base = PATH_TEST_PROJECT / 'releases'
+    assert dg.doc.path_out == path_out_base / 'site'
+    assert dg.test.path_out == path_out_base / 'tests'
 
 
 def test_path_attr_base_path_resolver():

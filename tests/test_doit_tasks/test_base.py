@@ -10,20 +10,17 @@ from calcipy.doit_tasks.base import (
 from calcipy.doit_tasks.doit_globals import DG
 
 from ..configuration import TEST_DATA_DIR, TEST_DIR
-from .test_doit_globals import temp_dg
 
 
 def test_find_project_files():
     """Test find_project_files."""
-    with temp_dg():
+    result = find_project_files(DG.meta.path_project)
 
-        result = find_project_files(DG.meta.path_project)
-
-        assert len(result) != 0, f'Error: see {DG.meta.path_project}/README.md for configuring the directory'
-        assert [*result.keys()] == ['yml', 'toml', '', 'md', 'cfg', 'yaml', 'py', 'ini']
-        assert result[''][0].name == '.flake8'
-        assert result[''][2].name == 'LICENSE'
-        assert result['md'][0].relative_to(DG.meta.path_project).as_posix() == '.github/ISSUE_TEMPLATE/bug_report.md'
+    assert len(result) != 0, f'Error: see {DG.meta.path_project}/README.md for configuring the directory'
+    assert [*result.keys()] == ['yml', 'toml', '', 'md', 'cfg', 'yaml', 'py', 'ini']
+    assert result[''][0].name == '.flake8'
+    assert result[''][2].name == 'LICENSE'
+    assert result['md'][0].relative_to(DG.meta.path_project).as_posix() == '.github/ISSUE_TEMPLATE/bug_report.md'
 
 
 def test_read_lines():

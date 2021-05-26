@@ -1,4 +1,4 @@
-"""General doit Utilities and Requirements."""
+"""General doit Utilities."""
 
 import os
 import shutil
@@ -39,11 +39,13 @@ def read_lines(file_path: Path) -> List[str]:
 
 @beartype
 @contextmanager
-def temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
+def _temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
     """Temporarily change the working directory.
 
+    FYI: Not currently used because I implemented `_get_all_files`
+
     ```py
-    with temp_chdir(DG.meta.path_project):
+    with _temp_chdir(DG.meta.path_project):
         print(f'Current in: {Path.cwd()}')
     ```
 
@@ -63,7 +65,7 @@ def temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
 
 
 @beartype
-def get_all_files(cwd: Path) -> List[str]:
+def _get_all_files(cwd: Path) -> List[str]:
     """Get all files using git. Modified `pre_commit.git.get_all_files` to accept `cwd`.
 
     https://github.com/pre-commit/pre-commit/blob/488b1999f36cac62b6b0d9bc8eae99418ae5c226/pre_commit/git.py#L153
@@ -92,7 +94,7 @@ def find_project_files(path_project: Path) -> Dict[str, List[Path]]:
 
     """
     file_lookup = defaultdict(list)
-    for rel_file in get_all_files(cwd=path_project):
+    for rel_file in _get_all_files(cwd=path_project):
         path_file = path_project / rel_file
         if path_file.is_file():
             file_lookup[path_file.suffix.lstrip('.')].append(path_file)

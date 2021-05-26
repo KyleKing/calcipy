@@ -1,7 +1,5 @@
 """Test doit_tasks/doc.py."""
 
-import pytest
-
 from calcipy.doit_tasks.doc import _move_cl, task_cl_bump, task_cl_bump_pre, task_cl_write
 
 
@@ -15,7 +13,6 @@ def test_task_cl_write():
     assert isinstance(actions[1][0], type(_move_cl))
 
 
-@pytest.mark.usefixtures('_fix_dg')
 def test_task_cl_bump():
     """Test task_cl_bump."""
     result = task_cl_bump()
@@ -27,7 +24,6 @@ def test_task_cl_bump():
     assert actions[2] == 'git push origin --tags --no-verify'
 
 
-@pytest.mark.usefixtures('_fix_dg')
 def test_task_cl_bump_pre():
     """Test task_cl_bump_pre."""
     result = task_cl_bump_pre()
