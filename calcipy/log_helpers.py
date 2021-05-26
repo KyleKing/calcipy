@@ -12,6 +12,7 @@ from typing import Any, Callable, Dict, Generator, Iterable, List, Optional
 import loguru
 from decorator import contextmanager, decorator
 from loguru import logger
+from .file_helpers import delete_dir
 
 try:
     from preconvert.output import simplejson as json
@@ -112,6 +113,10 @@ def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> A
         return fun(*args, **kwargs)  # type: ignore[call-arg]
 
 
+_LOG_SUB_DIR = '.logs'
+"""Subdirectory to store log files relative to the project directory."""
+
+
 def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:
     """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
 
@@ -146,7 +151,7 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
     if path_parent is None:
         path_parent = Path(__file__).resolve().parent
 
-    log_dir = path_parent / '.logs'
+    log_dir = path_parent / _LOG_SUB_DIR
     log_dir.mkdir(exist_ok=True, parents=True)
     logger.info(f'Started logging to {log_dir} (production={production})')
     log_level = logging.INFO if production else logging.DEBUG
@@ -175,12 +180,14 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
     }
 
 
-def activate_debug_logging(*, pkg_names: List[str], path_project: Optional[Path] = None) -> None:
+def activate_debug_logging(*, pkg_names: List[str], path_project: Optional[Path] = None,
+                           clear_log: bool = False) -> None:
     """Wrap `build_logger_config` to configure verbose logging for debug use.
 
     Args:
         pkg_names: list of string package names to activate. If empty, likely no log output.
         path_project: path to the project directory. Defaults to `CWD` if not specified
+        clear_log: if True, delete the logs directory
 
     """
     if not path_project:
@@ -189,6 +196,9 @@ def activate_debug_logging(*, pkg_names: List[str], path_project: Optional[Path]
     # See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
     for pkg_name in pkg_names:
         logger.enable(pkg_name)
+
+    if clear_log:
+        delete_dir(path_project / _LOG_SUB_DIR)
 
     log_config = build_logger_config(path_project, production=False)
     logger.configure(**log_config)

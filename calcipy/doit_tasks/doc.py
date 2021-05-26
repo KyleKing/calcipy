@@ -10,7 +10,8 @@ from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
 
-from .base import debug_task, open_in_browser, read_lines
+from ..file_helpers import read_lines
+from .base import debug_task, open_in_browser
 from .doit_globals import DG, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------

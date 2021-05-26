@@ -6,11 +6,11 @@ from typing import Generator
 from decorator import contextmanager
 
 from calcipy import __pkg_name__
-from calcipy.doit_tasks.base import delete_dir, ensure_dir
 from calcipy.doit_tasks.doit_globals import DG
+from calcipy.file_helpers import delete_dir, ensure_dir
 from calcipy.log_helpers import activate_debug_logging
 
-activate_debug_logging(pkg_names=[__pkg_name__])
+activate_debug_logging(pkg_names=[__pkg_name__], clear_log=True)
 
 TEST_DIR = Path(__file__).resolve().parent
 """Path to the `test` directory that contains this file and all other tests."""
