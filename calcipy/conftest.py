@@ -57,7 +57,7 @@ if has_test_imports:
             pass  # The test suite likely failed
 
     @pytest.hookimpl(hookwrapper=True)
-    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore  # pragma: no cover
+    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover
         """Modify the pytest-html output.
 
         Args:

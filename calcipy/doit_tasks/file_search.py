@@ -52,7 +52,7 @@ def _get_all_files(*, cwd: Path) -> List[str]:
         List[str]: list of all file paths relative to the `cwd`
 
     """
-    return zsplit(cmd_output('git', 'ls-files', '-z', cwd=cwd)[1])
+    return zsplit(cmd_output('git', 'ls-files', '-z', cwd=cwd)[1])  # type: ignore[no-any-return]
 
 
 @beartype

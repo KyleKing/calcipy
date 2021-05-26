@@ -16,7 +16,7 @@ from loguru import logger
 try:
     from preconvert.output import simplejson as json
 except ImportError:  # pragma: no cover
-    import json  # type: ignore
+    import json  # type: ignore[no-redef]
 
 
 def serializable_compact(record: Dict[str, Any]) -> str:
@@ -109,7 +109,7 @@ def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> A
     """
     fun_name = fun.__name__
     with log_action(f'Running {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
-        return fun(*args, **kwargs)  # type: ignore
+        return fun(*args, **kwargs)  # type: ignore[call-arg]
 
 
 def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:

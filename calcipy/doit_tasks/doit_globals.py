@@ -19,7 +19,7 @@ from .file_search import find_project_files, find_project_files_by_suffix
 try:
     import toml
 except ImportError:  # pragma: no cover
-    toml = None  # type: ignore
+    toml = None  # type: ignore[assignment]
 
 _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""
@@ -30,7 +30,7 @@ _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to
 _DoitCallableArgs = Iterable[Union[str, float, int, Path, Dict[str, Any]]]
 """Type: legal types that can be passed to a Python callable for doit actions."""
 
-DoitAction = Union[str, BaseAction, Tuple[Callable, _DoitCallableArgs]]  # typing: ignore
+DoitAction = Union[str, BaseAction, Tuple[Callable, _DoitCallableArgs]]  # type: ignore[type-arg]
 """Type: individual doit action."""
 
 DoitTask = Union[Task, Dict[str, DoitAction]]
@@ -102,8 +102,8 @@ def _resolve_class_paths(cls: object, base_path: Path) -> None:
     """
     logger.info(f'Class: {cls}')
     for name, path_raw in _get_members(cls, instance_type=type(Path()), prefix=None):
-        if not path_raw.is_absolute():  # typing: ignore
-            setattr(cls, name, base_path / path_raw)  # typing: ignore
+        if not path_raw.is_absolute():  # type: ignore[attr-defined]
+            setattr(cls, name, base_path / path_raw)  # type: ignore[operator]
             logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
 
 
@@ -209,7 +209,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 
     def shorted_path_list(self) -> Set[str]:
         """Shorten the list of `paths` using the project directory."""
-        return {pth.parent.relative_to(self.project_dir) for pth in self.paths}
+        return {pth.parent.relative_to(self.project_dir).as_posix() for pth in self.paths}  # type: ignore[attr-defined]
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -360,11 +360,11 @@ class DoitGlobals:
             doc_dir = self.meta.path_project / 'docs'
         doc_dir.mkdir(exist_ok=True, parents=True)
 
-        self.lint = LintConfig(**meta_kwargs, paths=[self.meta.path_project / self.meta.pkg_name])  # type: ignore
+        self.lint = LintConfig(**meta_kwargs, paths=[self.meta.path_project / self.meta.pkg_name])  # type: ignore[arg-type]
 
-        self.test = TestingConfig(**meta_kwargs)  # type: ignore
-        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore
-        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore
+        self.test = TestingConfig(**meta_kwargs)  # type: ignore[arg-type]
+        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
+        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
 
         # FIXME: Replace this awkward exclusion logic with gitignore filtering && per-file ignore syntax:
         #   Maybe: "<!-- calcipy:exclude -->" ?

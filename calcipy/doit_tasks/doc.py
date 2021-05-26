@@ -91,7 +91,7 @@ def task_cl_bump_pre() -> DoitTask:
 # Manage README Updates
 
 
-class _MarkdownMachine(Machine):  # noqa: H601
+class _MarkdownMachine(Machine):  # type: ignore[misc] # noqa: H601
     """State machine to replace auto-formatted comment sections of markdown files with handler callback."""
 
     states: List[str] = ['user', 'autoformatted']
@@ -159,7 +159,7 @@ def _write_coverage_to_readme() -> None:
     try:
         from subprocess_tee import run  # noqa: S404
     except ImportError:  # pragma: no cover
-        from subprocess import run  # type: ignore  # noqa: S404
+        from subprocess import run  # type: ignore[no-redef]  # noqa: S404
     # Attempt to create the coverage file
     run('poetry run python -m coverage json')  # noqa: S603, S607
 

@@ -108,7 +108,7 @@ def task_check_types() -> DoitTask:
     except ImportError:
         pass
 
-    actions.append(Interactive(f'poetry run mypy {DG.meta.pkg_name}'))
+    actions.append(Interactive(f'poetry run mypy {DG.meta.pkg_name} --show-error-codes'))
     return debug_task(actions)
 
 

@@ -11,10 +11,10 @@ from calcipy.log_helpers import activate_debug_logging
 
 activate_debug_logging(pkg_names=[__pkg_name__])
 
-TEST_DIR: Path = Path(__file__).resolve().parent
+TEST_DIR = Path(__file__).resolve().parent
 """Path to the `test` directory that contains this file and all other tests."""
 
-TEST_DATA_DIR: Path = TEST_DIR / 'data'
+TEST_DATA_DIR = TEST_DIR / 'data'
 """Path to subdirectory with test data within the Test Directory."""
 
 PATH_TEST_PROJECT: Path = TEST_DIR.parent / '.test_calcipy_project'

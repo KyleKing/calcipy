@@ -116,10 +116,8 @@ def task_radon_lint() -> DoitTask:
     """
     actions: List[DoitAction] = []
     for args in ['mi', 'cc --total-average -nb', 'hal']:
-        actions.extend(
-            [(echo, (f'# Radon with args: {args}',))]
-            + [f'poetry run radon {args} "{lint_path}"' for lint_path in DG.lint.paths],
-        )
+        actions.append((echo, (f'# Radon with args: {args}',)))
+        actions.extend([f'poetry run radon {args} "{lint_path}"' for lint_path in DG.lint.paths])
     return debug_task(actions)
 
 
