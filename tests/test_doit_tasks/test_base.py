@@ -1,12 +1,48 @@
 """Test doit_tasks/base.py."""
 
 from pathlib import Path
+from typing import Generator
 
+from decorator import contextmanager
 from doit.task import Task
 
-from calcipy.doit_tasks.base import _show_cmd, debug_task, delete_dir, ensure_dir, if_found_unlink, read_lines
+from calcipy.doit_tasks.base import (
+    _show_cmd, debug_task, delete_dir, ensure_dir, find_project_files, if_found_unlink, read_lines,
+)
+from calcipy.doit_tasks.doit_globals import DG
 
-from ..configuration import TEST_DATA_DIR, TEST_DIR
+from ..configuration import PATH_TEST_PROJECT, TEST_DATA_DIR, TEST_DIR
+
+
+@contextmanager
+def temp_dg(path_project: Path = PATH_TEST_PROJECT) -> Generator[None, None, None]:
+    """Temporarily change the DG project directory.
+
+    Args:
+        path_project: path to the project directory to pass to `DG`
+
+    Yields:
+        None: continues execution with the specified `path_project`
+
+    """
+    path_original = DG.meta.path_project
+    if path_original != path_project:
+        DG.set_paths(path_project=path_project)
+        yield
+        DG.set_paths(path_project=path_original)
+
+
+def test_find_project_files():
+    """Test find_project_files."""
+    with temp_dg():
+
+        result = find_project_files(DG.meta.path_project)
+
+        assert len(result) != 0, f'Error: see {DG.meta.path_project}/README.md for configuring the directory'
+        assert [*result.keys()] == ['yml', 'toml', '', 'md', 'cfg', 'yaml', 'py', 'ini']
+        assert result[''][0].name == '.flake8'
+        assert result[''][2].name == 'LICENSE'
+        assert result['md'][0].relative_to(DG.meta.path_project).as_posix() == '.github/ISSUE_TEMPLATE/bug_report.md'
 
 
 def test_read_lines():
