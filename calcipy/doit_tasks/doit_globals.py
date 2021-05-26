@@ -282,9 +282,11 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         self.paths_md = []
         for pth in self.path_project.rglob('*.md'):
             # TODO: Use gitignore instead - see notes elsewhere
-            if pth.name not in excluded_files:
-                if not any(pth.relative_to(self.path_project).as_posix().startswith(_dir) for _dir in excluded_dirs):
-                    self.paths_md.append(pth)
+            if pth.name not in excluded_files and not any(
+                pth.relative_to(self.path_project).as_posix().startswith(_dir)
+                for _dir in excluded_dirs
+            ):
+                self.paths_md.append(pth)
 
 
 @attr.s(auto_attribs=True, kw_only=True)

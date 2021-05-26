@@ -61,7 +61,7 @@ def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
     return [pth for pth in file_paths if pth.name not in DIG.lint.paths_excluded]
 
 
-def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:  # noqa: CCR001
+def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:    # noqa: CCR001
     """Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
     Args:
@@ -79,10 +79,14 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
         # Backup the full list of errors
         flake8_full_path.write_text(log_contents)
         # Exclude the errors specificed to be ignored by the user
-        lines = []
-        for line in log_contents.split('\n'):
-            if not any(f': {error_code}' in line for error_code in ignore_errors):
-                lines.append(line)
+        lines = [
+            line
+            for line in log_contents.split('\n')
+            if all(
+                f': {error_code}' not in line for error_code in ignore_errors
+            )
+        ]
+
         log_contents = '\n'.join(lines)
         flake8_log_path.write_text(log_contents)
         review_info = (
