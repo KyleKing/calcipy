@@ -40,7 +40,6 @@ if has_test_imports:
         """
         cells.insert(1, html.th('Description'))
         cells.insert(1, html.th('Time', class_='sortable time', col='time'))
-        cells.pop()
 
     @pytest.mark.optionalhook()
     def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: no cover
@@ -54,11 +53,10 @@ if has_test_imports:
         try:
             cells.insert(1, html.td(report.description))
             cells.insert(1, html.td(str(datetime.utcnow()), class_='col-time'))
-            cells.pop()
         except AttributeError:
             pass  # The test suite likely failed
 
-    @pytest.mark.hookwrapper()
+    @pytest.hookimpl(hookwrapper=True)
     def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore  # pragma: no cover
         """Modify the pytest-html output.
 
@@ -74,6 +72,7 @@ if has_test_imports:
             outcome = yield
             report = outcome.get_result()
             report.description = str(item.function.__doc__)
+            report.duration_formatter = '%H:%M:%S.%f'
         except AttributeError:
             pass  # The test suite likely failed
 
