@@ -20,12 +20,12 @@ def test_lint_project():
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
 
-    assert len(result) == 4  # Setup, 2x files, cleanup
+    assert len(result) == 3
     assert isinstance(result[0][0], type(if_found_unlink))
     assert result[0][1][0].name == 'flake8.log'
-    assert result[1].startswith('poetry run python -m flake8 "')
+    assert result[1].startswith('poetry run python -m flake8 --config')
     assert 'test_file.py' in result[1]
-    assert isinstance(result[0][0], type(_check_linting_errors))
+    assert isinstance(result[-1][0], type(_check_linting_errors))
 
 
 FLAKE8_LOG = """doit_project/test_file.py:3:1: F401 'doit' imported but unused
@@ -62,13 +62,11 @@ def test_task_lint_project():
     result = task_lint_project()
 
     actions = result['actions']
-    assert len(actions) == 9
+    assert len(actions) == 3
     assert isinstance(actions[0][0], type(if_found_unlink))
     assert len(actions[0][1]) == 1
     assert actions[0][1][0].name == 'flake8.log'
-    for act in actions[1:-1]:
-        assert act.startswith('poetry run python -m flake8 "')
-        assert act.endswith(' --exit-zero')
+    assert actions[1].startswith('poetry run python -m flake8 --config')
     assert 'dodo.py" ' in actions[1]
     assert '.flake8 ' in actions[1]
     assert 'flake8.log ' in actions[1]
@@ -83,7 +81,7 @@ def test_task_lint_critical_only():
     result = task_lint_critical_only()
 
     actions = result['actions']
-    assert len(actions) == 9
+    assert len(actions) == 3
     assert 'DUO106' not in actions[1]
     assert isinstance(actions[-1][0], type(_check_linting_errors))
     assert len(actions[-1][1]) == 2
@@ -97,7 +95,6 @@ def test_task_radon_lint():
     result = task_radon_lint()
 
     actions = result['actions']
-
     count = len(DG.lint.paths)
     assert len(actions) == 3 * (1 + count)
     for action in actions:

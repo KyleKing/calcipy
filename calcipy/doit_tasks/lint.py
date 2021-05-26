@@ -73,7 +73,7 @@ def _lint_project(
     actions: List[DoitAction] = [(if_found_unlink, (flake8_log_path,))]
     run = 'poetry run python -m'
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
-    actions.extend([f'{run} flake8 "{lint_path}" {flags}' for lint_path in lint_paths])
+    actions.append(f'{run} flake8 {flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths))
     actions.append((_check_linting_errors, (flake8_log_path, ignore_errors)))
     return actions
 
