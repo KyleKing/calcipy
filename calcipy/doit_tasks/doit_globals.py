@@ -290,24 +290,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         self.path_out.mkdir(exist_ok=True, parents=True)
-
-    def find_markdown_files(
-        self, excluded_files: Iterable[str] = (),
-        excluded_dirs: Iterable[str] = ('.',),
-    ) -> None:
-        """Overwrite the paths to the markdown files for the specified project path and the excluded file names.
-
-        Args:
-            excluded_files: optional list of file names to ignore. Defaults to remove typical auto-generated files
-            excluded_dirs: optional list of string paths to exclude if startswith. Defaults to only: `('.')`
-
-        """
-        self.paths_md = []
-        for pth in self.path_project.rglob('*.md'):
-            # TODO: Use gitignore instead - see notes elsewhere
-            if pth.name not in excluded_files:
-                if all(pth.relative_to(self.path_project).as_posix().startswith(_dir) for _dir in excluded_dirs):
-                    self.paths_md.append(pth)
+        self.paths_md = find_project_files_by_suffix(self.path_project).get('md', [])
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -361,10 +344,6 @@ class DoitGlobals:
         self.test = TestingConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
         self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
-
-        # FIXME: Replace this awkward exclusion logic with gitignore filtering && per-file ignore syntax:
-        #   Maybe: "<!-- calcipy:exclude -->" ?
-        self.doc.find_markdown_files(excluded_files=(self.ct._code_tag_summary_filename, '__TOC.md'))
 
         logger.info(self)
 
