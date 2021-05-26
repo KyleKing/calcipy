@@ -109,9 +109,9 @@ def test_task_auto_format():
     result = task_auto_format()
 
     actions = result['actions']
-    assert len(actions) == 14
-    assert ' isort ' in actions[0]
-    assert ' autopep8 ' in actions[1]
+    assert len(actions) == 2
+    assert ' autopep8 ' in actions[0]
+    assert ' isort ' in actions[1]
 
 
 def test_task_pre_commit_hooks():

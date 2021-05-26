@@ -141,11 +141,11 @@ def task_auto_format() -> DoitTask:
 
     """
     run = 'poetry run python -m'
-    actions = []
-    for lint_path in DG.lint.paths:
-        actions.append(f'{run} isort "{lint_path}" --settings-path "{DG.lint.path_isort}"')
-        actions.append(f'{run} autopep8 "{lint_path}" --in-place --aggressive')
-    # FIXME: autopep8 can take a list of space-separated files
+    paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths)
+    actions = [
+        f'{run} autopep8 {paths} --in-place --aggressive',
+        f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',
+    ]
     return debug_task(actions)
 
 
