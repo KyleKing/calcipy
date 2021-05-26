@@ -193,6 +193,23 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     paths_excluded: List[Path] = _DEF_EXCLUDE
     """List of excluded relative Paths."""
 
+    ignore_errors: List[str] = [
+        'AAA01',  # AAA01 / act block in pytest
+        'C901',  # C901 / complexity from "max-complexity = 10"
+        'D417',  # D417 / missing arg descriptors
+        'DAR101', 'DAR201', 'DAR401',  # https://pypi.org/project/darglint/ (Scroll to error codes)
+        'DUO106',  # DUO106 / insecure use of os
+        'E800',  # E800 / Commented out code
+        'G001',  # G001 / logging format for un-indexed parameters
+        'H601',  # H601 / class with low cohesion
+        'P101', 'P103',  # P101,P103 / format string
+        'PD013',
+        'S101',  # S101 / assert
+        'S605', 'S607',  # S605,S607 / os.popen(...)
+        'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
+    ]
+    """List of additional excluded flake8 rules for the pre-commit check."""
+
 
 @attr.s(auto_attribs=True, kw_only=True)
 class TestingConfig(_PathAttrBase):  # noqa: H601

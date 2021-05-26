@@ -139,22 +139,8 @@ def task_lint_critical_only() -> DoitTask:
         DoitTask: doit task
 
     """
-    ignore_errors = [
-        'AAA01',  # AAA01 / act block in pytest
-        'C901',  # C901 / complexity from "max-complexity = 10"
-        'D417',  # D417 / missing arg descriptors
-        'DAR101', 'DAR201', 'DAR401',  # https://pypi.org/project/darglint/ (Scroll to error codes)
-        'DUO106',  # DUO106 / insecure use of os
-        'E800',  # E800 / Commented out code
-        'G001',  # G001 / logging format for un-indexed parameters
-        'H601',  # H601 / class with low cohesion
-        'P101', 'P103',  # P101,P103 / format string
-        'PD013',
-        'S101',  # S101 / assert
-        'S605', 'S607',  # S605,S607 / os.popen(...)
-        'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
-    ]
-    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8, ignore_errors=ignore_errors))
+    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8,
+                                    ignore_errors=DG.lint.ignore_errors))
 
 
 def task_radon_lint() -> DoitTask:
