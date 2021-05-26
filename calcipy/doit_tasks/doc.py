@@ -6,7 +6,7 @@ import webbrowser
 from pathlib import Path
 from typing import Callable, Dict, List
 
-from doit.tools import InteractiveAction, Interactive
+from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
 
@@ -60,7 +60,7 @@ def task_cl_bump() -> DoitTask:
 
     """
     return debug_task([
-        InteractiveAction('poetry run cz bump --changelog --annotated-tag'),
+        Interactive('poetry run cz bump --changelog --annotated-tag'),
         (_move_cl, ()),
         'git push origin --tags --no-verify',
     ])
@@ -76,7 +76,7 @@ def task_cl_bump_pre() -> DoitTask:
 
     """
     task = debug_task([
-        InteractiveAction('poetry run cz bump --changelog --prerelease %(prerelease)s'),
+        Interactive('poetry run cz bump --changelog --prerelease %(prerelease)s'),
         (_move_cl, ()),
         'git push origin --tags --no-verify',
     ])

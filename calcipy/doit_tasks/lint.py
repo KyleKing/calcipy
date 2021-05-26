@@ -10,7 +10,6 @@ from loguru import logger
 from .base import debug_task, echo, if_found_unlink
 from .doit_globals import DG, DoitAction, DoitTask
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Linting
 
