@@ -39,9 +39,6 @@ def clear_test_cache() -> None:
     ensure_dir(TEST_TMP_CACHE)
 
 
-# Ensure that the temporary cache directory exists
-clear_test_cache()
-
 # Set the DoitGlobals instance to use the Test Project for all tests
 DG.set_paths(path_project=PATH_TEST_PROJECT)
 

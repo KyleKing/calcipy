@@ -43,6 +43,18 @@ def __temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
 
 
 @pytest.fixture()
+def fix_test_cache() -> Path:
+    """Fixture to clear and return the test cache directory for use.
+
+    Returns:
+        Path: Path to the test cache directory
+
+    """
+    clear_test_cache()
+    return TEST_TMP_CACHE
+
+
+@pytest.fixture()
 def fix_dg() -> DoitGlobals:
     """Fixture to create a new DoitGlobals instance for `TEST_TMP_CACHE`.
 
