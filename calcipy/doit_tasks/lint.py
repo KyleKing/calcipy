@@ -5,30 +5,13 @@ from typing import List, Optional
 
 from beartype import beartype
 from doit.tools import Interactive
-from loguru import logger
 
 from .base import debug_task, echo, if_found_unlink
 from .doit_globals import DG, DoitAction, DoitTask
 
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Linting
-
-
-def _list_lint_file_paths(path_list: List[Path]) -> List[Path]:
-    """Create a list of all Python files specified in the path_list.
-
-    Args:
-        path_list: list of paths to directories or files
-
-    Returns:
-        list: list of file Paths
-
-    """
-    file_paths: List[Path] = []
-    for path_item in path_list:
-        file_paths.extend([*path_item.rglob('*.py')] if path_item.is_dir() else [path_item])
-    logger.debug(f'Found {len(file_paths)} files', file_paths=file_paths)
-    return [pth for pth in file_paths if pth.name not in DG.lint.paths_excluded]
 
 
 def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:  # noqa: CCR001
@@ -88,8 +71,7 @@ def _lint_project(
     actions: List[DoitAction] = [(if_found_unlink, (flake8_log_path,))]
     run = 'poetry run python -m'
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
-    for lint_path in _list_lint_file_paths(lint_paths):
-        actions.append(f'{run} flake8 "{lint_path}" {flags}')
+    actions.extend([f'{run} flake8 "{lint_path}" {flags}' for lint_path in lint_paths])
     actions.append((_check_linting_errors, (flake8_log_path, ignore_errors)))
     return actions
 
@@ -128,7 +110,7 @@ def task_radon_lint() -> DoitTask:
     for args in ['mi', 'cc --total-average -nb', 'hal']:
         actions.extend(
             [(echo, (f'# Radon with args: {args}',))]
-            + [f'poetry run radon {args} "{lint_path}"' for lint_path in _list_lint_file_paths(DG.lint.paths)],
+            + [f'poetry run radon {args} "{lint_path}"' for lint_path in DG.lint.paths],
         )
     return debug_task(actions)
 
@@ -148,8 +130,7 @@ def task_auto_format() -> DoitTask:
     actions = []
     for lint_path in DG.lint.paths:
         actions.append(f'{run} isort "{lint_path}" --settings-path "{DG.lint.path_isort}"')
-        for fn in _list_lint_file_paths([lint_path]):
-            actions.append(f'{run} autopep8 "{fn}" --in-place --aggressive')
+        actions.append(f'{run} autopep8 "{lint_path}" --in-place --aggressive')
     return debug_task(actions)
 
 

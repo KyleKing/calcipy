@@ -16,6 +16,9 @@
 
 ### Fix
 
+- **#51**: replace glob with git-based file identification
+- **#53**: Use Interact instead of LongRunning
+- undo PEP585 for runtime beartype
 - resolve file explosion from _find_files
 - import the loguru Logger class safely
 - additional problems found with mypy
@@ -28,6 +31,8 @@
 
 ### Refactor
 
+- update isort for trailing-comma
+- move excluded lint rules to DG
 - apply PEP585 and add pre-commit hook
 - fix capitalization for doit (one word, all lowercase)
 - improve activate_debug_logging

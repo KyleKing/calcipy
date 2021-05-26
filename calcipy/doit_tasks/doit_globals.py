@@ -5,7 +5,7 @@ import re
 import warnings
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
 
 import attr
 import yaml
@@ -14,6 +14,7 @@ from doit.task import Task
 from loguru import logger
 
 from ..log_helpers import log_fun
+from .base import find_project_files, find_project_files_by_suffix
 
 try:
     import toml
@@ -106,10 +107,6 @@ def _resolve_class_paths(cls: object, base_path: Path) -> None:
             logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
 
 
-_DEF_EXCLUDE = [*map(Path, ['__init__.py'])]
-"""Default list of excluded filenames."""
-
-
 @attr.s(auto_attribs=True, kw_only=True)
 class _PathAttrBase:  # noqa: H601
 
@@ -181,19 +178,6 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     paths: List[Path] = []
     """List of file and directory Paths to lint."""
 
-    # FIXME: Just use folders and not specific files. See example snippets below
-    # TODO: use "paths_rel = {pth.parent.relative_to(TBD) for pth in paths}"
-    # poetry run isort --recursive --check --diff calcipy/ tests/
-    # poetry run isort --recursive calcipy/ tests/
-    # poetry run flake8 calcipy/ tests/
-    # poetry run safety check -i 39462
-    # poetry run bandit -r calcipy/
-
-    # FIXME: replace find_files() in code_tag_*.py with DG.*.something? Shared functionality with lint/doc/etc.
-
-    paths_excluded: List[Path] = _DEF_EXCLUDE
-    """List of excluded relative Paths."""
-
     ignore_errors: List[str] = [
         'AAA01',  # AAA01 / act block in pytest
         'C901',  # C901 / complexity from "max-complexity = 10"
@@ -210,6 +194,22 @@ class LintConfig(_PathAttrBase):  # noqa: H601
         'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
     ]
     """List of additional excluded flake8 rules for the pre-commit check."""
+
+    def __attrs_post_init__(self) -> None:
+        """Finish initializing class attributes."""
+        super().__attrs_post_init__()
+        self.paths.extend(find_project_files_by_suffix(self.meta.path_project).get('py', []))
+
+    # FIXME: Just use folders and not specific files. See example snippets below
+    # poetry run isort --recursive --check --diff calcipy/ tests/
+    # poetry run isort --recursive calcipy/ tests/
+    # poetry run flake8 calcipy/ tests/
+    # poetry run safety check -i 39462
+    # poetry run bandit -r calcipy/
+
+    def shorted_path_list(self) -> Set[str]:
+        """Shorten the list of `paths` using the project directory."""
+        return {pth.parent.relative_to(self.meta.project_dir) for pth in self.paths}
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -253,11 +253,15 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
     """string regular expression that contains `{tag}`."""
 
+    paths: List[Path] = []
+    """List of paths to all files that could contain a relevant tag."""
+
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
         self.path_code_tag_summary = self.doc_dir / self._code_tag_summary_filename
+        self.paths.extend(find_project_files(self.meta.path_project))
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
