@@ -182,6 +182,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     """List of file and directory Paths to lint."""
 
     # FIXME: Just use folders and not specific files. See example snippets below
+    # TODO: use "paths_rel = {pth.parent.relative_to(TBD) for pth in paths}"
     # poetry run isort --recursive --check --diff calcipy/ tests/
     # poetry run isort --recursive calcipy/ tests/
     # poetry run flake8 calcipy/ tests/

@@ -5,16 +5,16 @@ from pathlib import Path
 from doit.task import Task
 
 from calcipy.doit_tasks.base import (
-    _show_cmd, debug_task, delete_dir, ensure_dir, find_project_files, if_found_unlink, read_lines,
+    _show_cmd, debug_task, delete_dir, ensure_dir, find_project_files_by_suffix, if_found_unlink, read_lines,
 )
 from calcipy.doit_tasks.doit_globals import DG
 
 from ..configuration import TEST_DATA_DIR, TEST_DIR
 
 
-def test_find_project_files():
-    """Test find_project_files."""
-    result = find_project_files(DG.meta.path_project)
+def test_find_project_files_by_suffix():
+    """Test find_project_files_by_suffix."""
+    result = find_project_files_by_suffix(DG.meta.path_project)
 
     assert len(result) != 0, f'Error: see {DG.meta.path_project}/README.md for configuring the directory'
     assert [*result.keys()] == ['yml', 'toml', '', 'md', 'cfg', 'yaml', 'py', 'ini']
