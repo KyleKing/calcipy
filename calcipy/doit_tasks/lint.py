@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Iterable, List, Optional, Set
 
 from beartype import beartype
-from doit.tools import LongRunning
+from doit.tools import Interactive
 from loguru import logger
 
 from ..log_helpers import log_fun
@@ -203,7 +203,7 @@ def task_pre_commit_hooks() -> DoitTask:
 
     """
     return debug_task([
-        LongRunning('poetry run pre-commit autoupdate'),
-        LongRunning('poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push'),
-        LongRunning('poetry run pre-commit run --all-files'),
+        Interactive('poetry run pre-commit autoupdate'),
+        Interactive('poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push'),
+        Interactive('poetry run pre-commit run --all-files'),
     ])

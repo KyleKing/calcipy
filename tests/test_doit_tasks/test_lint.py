@@ -138,5 +138,6 @@ def test_task_pre_commit_hooks():
     actions = result['actions']
     assert len(actions) == 3
     assert 'poetry run pre-commit autoupdate' in str(actions[0])
-    assert 'poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push' in str(actions[1])
+    install_cmd = 'poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push'
+    assert install_cmd in str(actions[1])
     assert 'poetry run pre-commit run --all-files' in str(actions[2])

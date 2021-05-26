@@ -1,6 +1,6 @@
 """doit Test Utilities."""
 
-from doit.tools import LongRunning
+from doit.tools import Interactive
 
 from .base import debug_task, open_in_browser
 from .doit_globals import DG, DoitTask
@@ -17,7 +17,7 @@ def task_test() -> DoitTask:
 
     """
     return debug_task([
-        LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -vv'),
+        Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -vv'),
     ])
 
 
@@ -29,7 +29,7 @@ def task_test_all() -> DoitTask:
 
     """
     return debug_task([
-        LongRunning(f'poetry run pytest "{DG.test.path_tests}" --ff -vv'),
+        Interactive(f'poetry run pytest "{DG.test.path_tests}" --ff -vv'),
     ])
 
 
@@ -42,7 +42,7 @@ def task_test_marker() -> DoitTask:
         DoitTask: doit task
 
     """
-    task = debug_task([LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
+    task = debug_task([Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
         'help': (
@@ -64,7 +64,7 @@ def task_test_keyword() -> DoitTask:
     """
     return {
         'actions': [
-            LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'),
+            Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'),
         ],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
@@ -88,9 +88,8 @@ def task_coverage() -> DoitTask:
         f'--cov-report=html:"{DG.test.path_coverage_index.parent}"  --html="{DG.test.path_report_index}"'
         '  --self-contained-html'
     )
-    # Note: removed LongRunning so that doit would catch test failures, but the output will not have colors
     return debug_task([
-        LongRunning(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v --cov={DG.meta.pkg_name} {kwargs}'),
+        Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v --cov={DG.meta.pkg_name} {kwargs}'),
     ])
 
 
@@ -104,11 +103,11 @@ def task_check_types() -> DoitTask:
     actions = []
     try:
         import pytype  # noqa: F401
-        actions.append(LongRunning(f'poetry run pytype {DG.meta.pkg_name}'))
+        actions.append(Interactive(f'poetry run pytype {DG.meta.pkg_name}'))
     except ImportError:
         pass
 
-    actions.append(LongRunning(f'poetry run mypy {DG.meta.pkg_name}'))
+    actions.append(Interactive(f'poetry run mypy {DG.meta.pkg_name}'))
     return debug_task(actions)
 
 
@@ -133,7 +132,7 @@ def task_open_test_docs() -> DoitTask:
 
 
 def ptw_task(cli_args: str) -> DoitTask:
-    """Return doit LongRunning `ptw` task.
+    """Return doit Interactive `ptw` task.
 
     Args:
         cli_args: string CLI args to pass to `ptw`
@@ -143,13 +142,13 @@ def ptw_task(cli_args: str) -> DoitTask:
 
     """
     return {
-        'actions': [LongRunning(f'poetry run ptw -- "{DG.test.path_tests}" {cli_args}')],
+        'actions': [Interactive(f'poetry run ptw -- "{DG.test.path_tests}" {cli_args}')],
         'verbosity': 2,
     }
 
 
 def task_ptw_not_chrome() -> DoitTask:
-    """Return doit LongRunning `ptw` task to run failed first and skip the CHROME marker.
+    """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `-m 'not CHROME' -vvv`
 
@@ -161,7 +160,7 @@ def task_ptw_not_chrome() -> DoitTask:
 
 
 def task_ptw_ff() -> DoitTask:
-    """Return doit LongRunning `ptw` task to run failed first and skip the CHROME marker.
+    """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
 
     kwargs: `--last-failed --new-first -m 'not CHROME' -vv`
 
@@ -173,7 +172,7 @@ def task_ptw_ff() -> DoitTask:
 
 
 def task_ptw_current() -> DoitTask:
-    """Return doit LongRunning `ptw` task to run only tests tagged with the CURRENT marker.
+    """Return doit Interactive `ptw` task to run only tests tagged with the CURRENT marker.
 
     kwargs: `-m 'CURRENT' -vv`
 
@@ -185,7 +184,7 @@ def task_ptw_current() -> DoitTask:
 
 
 def task_ptw_marker() -> DoitTask:
-    r"""Specify a marker to run a subset of tests in LongRunning `ptw` task.
+    r"""Specify a marker to run a subset of tests in Interactive `ptw` task.
 
     Example: `doit run ptw_marker -m \"not MARKER\"` or `doit run ptw_marker -m \"MARKER\"`
 

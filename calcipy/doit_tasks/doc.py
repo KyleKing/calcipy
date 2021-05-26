@@ -6,7 +6,7 @@ import webbrowser
 from pathlib import Path
 from typing import Callable, Dict, List
 
-from doit.tools import InteractiveAction, LongRunning
+from doit.tools import InteractiveAction, Interactive
 from loguru import logger
 from transitions import Machine
 
@@ -207,7 +207,7 @@ def task_serve_fast() -> DoitTask:
     """
     return debug_task([
         (webbrowser.open, ('http://localhost:8000',)),
-        LongRunning('poetry run mkdocs serve --dirtyreload'),
+        Interactive('poetry run mkdocs serve --dirtyreload'),
     ])
 
 
@@ -218,7 +218,7 @@ def task_deploy() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task([LongRunning('poetry run mkdocs gh-deploy')])
+    return debug_task([Interactive('poetry run mkdocs gh-deploy')])
 
 
 # ----------------------------------------------------------------------------------------------------------------------
