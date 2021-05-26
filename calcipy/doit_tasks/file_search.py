@@ -1,42 +1,13 @@
 """Find Files."""
 
-import os
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, Generator, List
+from typing import Dict, List
 
 from beartype import beartype
-from decorator import contextmanager
 from loguru import logger
 from pre_commit.git import zsplit
 from pre_commit.util import cmd_output
-
-
-@beartype
-@contextmanager
-def _temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
-    """Temporarily change the working directory.
-
-    > Not currently used because setting `cwd` for a modified version of `_get_all_files` is more robust
-
-    ```py
-    with _temp_chdir(DG.meta.path_project):
-        print(f'Current in: {Path.cwd()}')
-    ```
-
-    Args:
-        path_tmp: path to use as the working directory
-
-    Yields:
-        None: continues execution with the specified `path_tmp` working directory
-
-    """
-    path_cwd = Path.cwd()
-    try:
-        os.chdir(path_tmp)
-        yield
-    finally:
-        os.chdir(path_cwd)
 
 
 @beartype
