@@ -13,6 +13,7 @@ from .doit_globals import DG, DoitAction, DoitTask
 # Linting
 
 
+@beartype
 def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = ()) -> None:  # noqa: CCR001
     """Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
@@ -31,10 +32,11 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
         # Backup the full list of errors
         flake8_full_path.write_text(log_contents)
         # Exclude the errors specificed to be ignored by the user
-        lines = []
-        for line in log_contents.split('\n'):
-            if all(f': {error_code}' in line for error_code in ignore_errors):
-                lines.append(line)
+        lines = log_contents.split('\n')
+        lines = [
+            line for line in lines
+            if all(f': {error_code}' in line for error_code in ignore_errors)
+        ]
         log_contents = '\n'.join(lines)
         flake8_log_path.write_text(log_contents)
         review_info = (
@@ -50,10 +52,11 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
     if_found_unlink(flake8_log_path)
 
 
+@beartype
 def _lint_project(
     lint_paths: List[Path], path_flake8: Path,
     ignore_errors: Iterable[str] = (),
-) -> DoitTask:
+) -> List[DoitAction]:  # FIXME: Docstrings should report an error here for mismatch in types?
     """Lint specified files creating summary log file of errors.
 
     Args:
@@ -75,6 +78,7 @@ def _lint_project(
     return actions
 
 
+@beartype
 def task_lint_project() -> DoitTask:
     """Lint files from DG creating summary log file of errors.
 
@@ -90,6 +94,7 @@ def task_lint_project() -> DoitTask:
     )
 
 
+@beartype
 def task_lint_critical_only() -> DoitTask:
     """Lint files from DG creating summary log file of errors, but ignore non-critical errors.
 
@@ -105,6 +110,7 @@ def task_lint_critical_only() -> DoitTask:
     )
 
 
+@beartype
 def task_radon_lint() -> DoitTask:
     """Lint project with Radon.
 
@@ -125,6 +131,7 @@ def task_radon_lint() -> DoitTask:
 # Formatting
 
 
+@beartype
 def task_auto_format() -> DoitTask:
     """Format code with isort and autopep8.
 
@@ -141,6 +148,7 @@ def task_auto_format() -> DoitTask:
     return debug_task(actions)
 
 
+@beartype
 def task_pre_commit_hooks() -> DoitTask:
     """Run the pre-commit hooks on all files.
 

@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Generator, Iterable, List, Optional
 
 import loguru
+from beartype import beartype
 from decorator import contextmanager, decorator
 from loguru import logger
 
@@ -21,6 +22,7 @@ except ImportError:  # pragma: no cover
     import json  # type: ignore[no-redef]
 
 
+@beartype
 def serializable_compact(record: Dict[str, Any]) -> str:
     """Loguru formatter to return a compact JSON string for JSONLines output.
 
@@ -68,6 +70,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     return str_json + '\n'
 
 
+# Note: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
 def _log_action(
     message: str, level: str = 'INFO', _logger: loguru.Logger = logger,
     **kwargs: Any,
@@ -118,6 +121,7 @@ _LOG_SUB_DIR = '.logs'
 """Subdirectory to store log files relative to the project directory."""
 
 
+@beartype
 def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:
     """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
 
@@ -181,8 +185,11 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
     }
 
 
-def activate_debug_logging(*, pkg_names: List[str], path_project: Optional[Path] = None,
-                           clear_log: bool = False) -> None:
+@beartype
+def activate_debug_logging(
+    *, pkg_names: List[str], path_project: Optional[Path] = None,
+    clear_log: bool = False,
+) -> None:
     """Wrap `build_logger_config` to configure verbose logging for debug use.
 
     Args:

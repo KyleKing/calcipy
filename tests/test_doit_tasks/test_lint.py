@@ -52,7 +52,7 @@ def test_check_linting_errors_runtime_error(fix_test_cache):
     flake8_log_path.write_text(FLAKE8_LOG)
 
     with pytest.raises(RuntimeError):
-        _check_linting_errors(flake8_log_path, ignore_errors=None)
+        _check_linting_errors(flake8_log_path, ignore_errors=[])
 
     assert flake8_log_path.read_text() == FLAKE8_LOG
 

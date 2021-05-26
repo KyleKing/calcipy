@@ -52,6 +52,7 @@ def read_lines(path_file: Path) -> List[str]:
     return []
 
 
+@beartype
 def tail_lines(path_file: Path, *, count: int) -> List[str]:
     """Tail a file for up to the last count (or full file) lines.
 

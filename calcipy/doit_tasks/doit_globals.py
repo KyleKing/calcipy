@@ -9,6 +9,7 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, 
 
 import attr
 import yaml
+from beartype import beartype
 from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger
@@ -34,6 +35,7 @@ DoitTask = Union[Task, Dict[str, DoitAction]]
 """Type: full doit task."""
 
 
+@beartype
 def _member_filter(member: Any, instance_type: Any) -> bool:
     """Return True if the member matches the filters.
 
@@ -46,62 +48,6 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
 
     """
     return (instance_type is None or isinstance(member, instance_type))
-
-
-def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable[[Any], Any]]]:
-    """Return the members that match the parameters.
-
-    Example to return all methods that start with `do_`: `_get_members(cls, instance_type=Callable, prefix='do_')`
-
-    Args:
-        cls: class
-        prefix: optional string prefix to check starts with
-        kwargs: keyword arguments passed to `_member_filter`
-
-    Returns:
-        List[Tuple[str, Callable]]: filtered members from the class
-
-    """
-    members = inspect.getmembers(cls, predicate=partial(_member_filter, **kwargs))
-    if prefix:
-        members = [(name, member) for (name, member) in members if name.startswith(prefix)]
-    return members  # noqa: R504
-
-
-def _verify_initialized_paths(cls: object) -> None:
-    """Verify that all paths are not None.
-
-    WARN: will not raise on error the class attribute
-
-    Args:
-        cls: class
-
-    Raises:
-        RuntimeError: if any paths are None
-
-    """
-    logger.info(f'Class: {cls}')
-    missing = [name for name, _m in _get_members(cls, instance_type=type(None), prefix='path_')]
-    if missing:
-        kwargs = ', '.join(missing)
-        raise RuntimeError(f'Missing keyword arguments for: {kwargs}')
-
-
-def _resolve_class_paths(cls: object, base_path: Path) -> None:
-    """Resolve all partial paths with the specified base path.
-
-    WARN: will mutate the class attribute
-
-    Args:
-        cls: class
-        base_path: base path to apply to all found relative paths
-
-    """
-    logger.info(f'Class: {cls}')
-    for name, path_raw in _get_members(cls, instance_type=type(Path()), prefix=None):
-        if not path_raw.is_absolute():  # type: ignore[attr-defined]
-            setattr(cls, name, base_path / path_raw)  # type: ignore[operator]
-            logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -119,8 +65,54 @@ class _PathAttrBase:  # noqa: H601
         """
         if self.path_project is None:
             raise RuntimeError('Missing keyword argument "path_project"')  # pragma: no cover
-        _resolve_class_paths(self, self.path_project)
-        _verify_initialized_paths(self)
+        self._resolve_class_paths(self.path_project)
+        self._verify_initialized_paths()
+
+    def _get_members(self, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable[[Any], Any]]]:
+        """Return the members that match the parameters.
+
+        Example to return all methods that start with `do_`: `self._get_members(instance_type=Callable, prefix='do_')`
+
+        Args:
+            prefix: optional string prefix to check starts with
+            kwargs: keyword arguments passed to `_member_filter`
+
+        Returns:
+            List[Tuple[str, Callable]]: filtered members from the class
+
+        """
+        members = inspect.getmembers(self, predicate=partial(_member_filter, **kwargs))
+        if prefix:
+            members = [(name, member) for (name, member) in members if name.startswith(prefix)]
+        return members  # noqa: R504
+
+    def _resolve_class_paths(self, base_path: Path) -> None:
+        """Resolve all partial paths with the specified base path.
+
+        WARN: will mutate the class attribute
+
+        Args:
+            base_path: base path to apply to all found relative paths
+
+        """
+        for name, path_raw in self._get_members(instance_type=type(Path()), prefix=None):
+            if not path_raw.is_absolute():  # type: ignore[attr-defined]
+                setattr(self, name, base_path / path_raw)  # type: ignore[operator]
+                logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(self, name)})')
+
+    def _verify_initialized_paths(self) -> None:
+        """Verify that all paths are not None.
+
+        WARN: will not raise on error the class attribute
+
+        Raises:
+            RuntimeError: if any paths are None
+
+        """
+        missing = [name for name, _m in self._get_members(instance_type=type(None), prefix='path_')]
+        if missing:
+            kwargs = ', '.join(missing)
+            raise RuntimeError(f'Missing keyword arguments for: {kwargs}')
 
 
 @attr.s(auto_attribs=True, kw_only=True)

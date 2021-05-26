@@ -1,5 +1,6 @@
 """doit Test Utilities."""
 
+from beartype import beartype
 from doit.tools import Interactive
 
 from .base import debug_task, open_in_browser
@@ -9,6 +10,7 @@ from .doit_globals import DG, DoitTask
 # Manage Testing
 
 
+@beartype
 def task_test() -> DoitTask:
     """Run tests with Pytest and stop on the first failure.
 
@@ -21,6 +23,7 @@ def task_test() -> DoitTask:
     ])
 
 
+@beartype
 def task_test_all() -> DoitTask:
     """Run all possible tests with Pytest even if one or more failures.
 
@@ -33,6 +36,7 @@ def task_test_all() -> DoitTask:
     ])
 
 
+@beartype
 def task_test_marker() -> DoitTask:
     r"""Specify a marker to run a subset of tests.
 
@@ -53,6 +57,7 @@ def task_test_marker() -> DoitTask:
     return task
 
 
+@beartype
 def task_test_keyword() -> DoitTask:
     r"""Specify a keyword to run a subset of tests.
 
@@ -77,6 +82,7 @@ def task_test_keyword() -> DoitTask:
     }
 
 
+@beartype
 def task_coverage() -> DoitTask:
     """Run pytest and create coverage and test reports.
 
@@ -93,6 +99,7 @@ def task_coverage() -> DoitTask:
     ])
 
 
+@beartype
 def task_check_types() -> DoitTask:
     """Run type annotation checks.
 
@@ -113,6 +120,7 @@ def task_check_types() -> DoitTask:
     return debug_task(actions)
 
 
+@beartype
 def task_open_test_docs() -> DoitTask:
     """Open the test and coverage files in default browser.
 
@@ -133,6 +141,7 @@ def task_open_test_docs() -> DoitTask:
 # Implement long running ptw tasks
 
 
+@beartype
 def ptw_task(cli_args: str) -> DoitTask:
     """Return doit Interactive `ptw` task.
 
@@ -149,6 +158,7 @@ def ptw_task(cli_args: str) -> DoitTask:
     }
 
 
+@beartype
 def task_ptw_not_chrome() -> DoitTask:
     """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
 
@@ -161,6 +171,7 @@ def task_ptw_not_chrome() -> DoitTask:
     return ptw_task('-m "not CHROME" -vvv')
 
 
+@beartype
 def task_ptw_ff() -> DoitTask:
     """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
 
@@ -173,6 +184,7 @@ def task_ptw_ff() -> DoitTask:
     return ptw_task('--last-failed --new-first -m "not CHROME" -vv')
 
 
+@beartype
 def task_ptw_current() -> DoitTask:
     """Return doit Interactive `ptw` task to run only tests tagged with the CURRENT marker.
 
@@ -185,6 +197,7 @@ def task_ptw_current() -> DoitTask:
     return ptw_task('-m "CURRENT" -vv')
 
 
+@beartype
 def task_ptw_marker() -> DoitTask:
     r"""Specify a marker to run a subset of tests in Interactive `ptw` task.
 

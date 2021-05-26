@@ -6,6 +6,7 @@ import webbrowser
 from pathlib import Path
 from typing import Callable, Dict, List
 
+from beartype import beartype
 from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
@@ -18,6 +19,7 @@ from .doit_globals import DG, DoitTask
 # Manage Changelog
 
 
+@beartype
 def _move_cl() -> None:
     """Move the `CHANGELOG.md` file to the document directory.
 
@@ -31,6 +33,7 @@ def _move_cl() -> None:
     path_cl.replace(DG.doc.doc_dir / path_cl.name)
 
 
+@beartype
 def task_cl_write() -> DoitTask:
     """Write a Changelog file with the raw Git history.
 
@@ -53,6 +56,7 @@ def task_cl_write() -> DoitTask:
     ])
 
 
+@beartype
 def task_cl_bump() -> DoitTask:
     """Bumps project version based on project history and settings in pyproject.toml.
 
@@ -67,6 +71,7 @@ def task_cl_bump() -> DoitTask:
     ])
 
 
+@beartype
 def task_cl_bump_pre() -> DoitTask:
     """Bump with specified pre-release tag. Creates Changelog.
 
@@ -140,6 +145,7 @@ class _MarkdownMachine(Machine):  # type: ignore[misc] # noqa: H601
         return lines_modified
 
 
+@beartype
 def _write_code_to_readme() -> None:
     """Replace commented sections in README with linked file contents."""
     comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
@@ -155,6 +161,7 @@ def _write_code_to_readme() -> None:
         logger.warning(f'Could not locate: {script_path}')
 
 
+@beartype
 def _write_coverage_to_readme() -> None:
     """Read the coverage.json file and write a Markdown table to the README file."""
     try:
@@ -185,6 +192,7 @@ def _write_coverage_to_readme() -> None:
         # FIXME: implement this according to #36 changes
 
 
+@beartype
 def write_autoformatted_md_sections() -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic."""
     logger.info('> {paths_md}', paths_md=DG.doc.paths_md)
@@ -197,6 +205,7 @@ def write_autoformatted_md_sections() -> None:
 # mkdocs
 
 
+@beartype
 def task_serve_fast() -> DoitTask:
     """Serve the site with `--dirtyreload` and open in a web browser.
 
@@ -212,6 +221,7 @@ def task_serve_fast() -> DoitTask:
     ])
 
 
+@beartype
 def task_deploy() -> DoitTask:
     """Deploy to Github `gh-pages` branch.
 
@@ -226,6 +236,7 @@ def task_deploy() -> DoitTask:
 # Main Documentation Tasks
 
 
+@beartype
 def _format_header(line: str, path_md: Path) -> str:
     """Replace the do not modify header information."""  # noqa: DAR101,DAR201,DAR401
     if '\n' in line:  # FIXME: Function signature has changed with the restored README Machine
@@ -234,12 +245,14 @@ def _format_header(line: str, path_md: Path) -> str:
     return '<!-- Do not modify sections with "AUTO-*". They are updated by with a doit task -->'
 
 
+@beartype
 def _check_unknown(line: str, path_md: Path) -> str:
     """Pass-through to catch sections not parsed by the function logic."""  # noqa: DAR101,DAR201
     logger.warning('Could not parse: {line} from: {path_md}', line=line, path_md=path_md)
     return line
 
 
+@beartype
 def _configure_action_lookup() -> None:
     """Configure the action lookup for markdown file autoformatting if not already configured."""
     if not [*DG.doc.startswith_action_lookup.keys()]:
@@ -249,6 +262,7 @@ def _configure_action_lookup() -> None:
         }
 
 
+@beartype
 def task_document() -> DoitTask:
     """Build the HTML documentation.
 
@@ -269,6 +283,7 @@ def task_document() -> DoitTask:
 
 
 # PLANNED: Only works for static documentation files (projects could use either mkdocs served or static...)
+@beartype
 def task_open_docs() -> DoitTask:
     """Open the documentation files in the default browser.
 

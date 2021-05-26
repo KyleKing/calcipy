@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Pattern, Sequence
 
 import attr
+from beartype import beartype
 from loguru import logger
 
 from ..file_helpers import read_lines
@@ -30,6 +31,7 @@ class _Tags:  # noqa: H601
     code_tags: List[_CodeTag]
 
 
+@beartype
 def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> List[_CodeTag]:
     """Search lines of text for matches to the compiled regular expression.
 
@@ -54,6 +56,7 @@ def _search_lines(lines: Sequence[str], regex_compiled: Pattern[str]) -> List[_C
     return comments
 
 
+@beartype
 def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) -> List[_Tags]:
     """Collect matches from multiple files.
 
@@ -80,6 +83,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     return matches
 
 
+@beartype
 def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR001
     """Pretty-format the code tags by file and line number.
 
@@ -110,6 +114,7 @@ def _format_report(base_dir: Path, code_tags: List[_Tags]) -> str:  # noqa: CCR0
 
 
 @log_fun
+@beartype
 def _write_code_tag_file(path_tag_summary: Path) -> None:
     """Create the code tag summary file.
 
@@ -127,6 +132,7 @@ def _write_code_tag_file(path_tag_summary: Path) -> None:
         path_tag_summary.unlink()
 
 
+@beartype
 def task_collect_code_tags() -> DoitTask:
     """Create a summary file with all of the found code tags.
 
