@@ -65,15 +65,14 @@ def test_task_lint_project():
     result = task_lint_project()
 
     actions = result['actions']
-    assert len(actions) == 10
+    assert len(actions) == 9
     assert isinstance(actions[0][0], type(if_found_unlink))
     assert len(actions[0][1]) == 1
     assert actions[0][1][0].name == 'flake8.log'
     for act in actions[1:-1]:
         assert act.startswith('poetry run python -m flake8 "')
         assert act.endswith(' --exit-zero')
-    assert 'test_project" ' in actions[1]
-    assert 'dodo.py" ' in actions[2]
+    assert 'dodo.py" ' in actions[1]
     assert '.flake8 ' in actions[1]
     assert 'flake8.log ' in actions[1]
     assert isinstance(actions[-1][0], type(_check_linting_errors))
@@ -87,7 +86,7 @@ def test_task_lint_critical_only():
     result = task_lint_critical_only()
 
     actions = result['actions']
-    assert len(actions) == 10
+    assert len(actions) == 9
     assert 'DUO106' not in actions[1]
     assert isinstance(actions[-1][0], type(_check_linting_errors))
     assert len(actions[-1][1]) == 2
@@ -116,7 +115,7 @@ def test_task_auto_format():
     result = task_auto_format()
 
     actions = result['actions']
-    assert len(actions) == 16
+    assert len(actions) == 14
     assert ' isort ' in actions[0]
     assert ' autopep8 ' in actions[1]
 

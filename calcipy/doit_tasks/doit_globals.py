@@ -195,7 +195,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
-        self.paths.extend(find_project_files_by_suffix(self.path_project).get('py', []))
+        self.paths = find_project_files_by_suffix(self.path_project).get('py', [])
 
     # FIXME: Just use folders and not specific files. See example snippets below
     # poetry run isort --recursive --check --diff calcipy/ tests/
