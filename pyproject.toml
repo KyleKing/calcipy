@@ -110,7 +110,7 @@ flake8-SQL = {version = "*", optional = true}
 flake8-string-format = {version = "*", optional = true}
 flake8-tuple = {version = "*", optional = true}
 flake8-variables-names = {version = "*", optional = true}
-hacking = {version = "^4", optional = true}  # FYI: Prevent oscillation back to 3
+hacking = {version = "^4", optional = true}  # Version set to prevent oscillation back to 3
 isort = {version = "*", optional = true}
 pandas-vet = {version = "*", optional = true}
 pep8-naming = {version = "*", optional = true}
@@ -118,7 +118,7 @@ proselint = {version = "*", optional = true}
 radon = {version = "*", optional = true}
 
 # Test
-lxml = {version = "*", optional = true}  # required for some mypy reports
+lxml = {version = "*", optional = true}  # required for the HTML mypy report format
 mypy = {version = "*", optional = true}
 nox-poetry = {version = "*", optional = true}
 pytest = {version = "*", optional = true}
@@ -134,7 +134,6 @@ preconvert = {version = "*", optional = true}
 preconvert_numpy = {version = "*", optional = true}
 
 # (Also part of "Test")
-# FIXME: Make this installable in a nox environment...
 [tool.poetry.dev-dependencies.pytype]
 python = ">=3.8,<3.10"
 optional = true

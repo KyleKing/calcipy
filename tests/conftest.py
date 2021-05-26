@@ -13,7 +13,7 @@ from calcipy.conftest import pytest_html_results_table_row  # noqa: F401
 from calcipy.conftest import pytest_runtest_makereport  # noqa: F401
 from calcipy.doit_tasks.doit_globals import DoitGlobals
 
-from .configuration import PATH_TEST_PROJECT  # PLANNED: Replace
+from .configuration import TEST_TMP_CACHE, clear_test_cache
 
 
 @contextmanager
@@ -44,7 +44,7 @@ def __temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
 
 @pytest.fixture()
 def fix_dg() -> DoitGlobals:
-    """Fixture to create a new DoitGlobals instance for `tbd`.
+    """Fixture to create a new DoitGlobals instance for `TEST_TMP_CACHE`.
 
     > Note use non-yielding fixtures with: `@pytest.mark.usefixtures('_fix_dg')`
 
@@ -52,7 +52,7 @@ def fix_dg() -> DoitGlobals:
         DoitGlobals: continues execution with DG set to the specified `path_project`
 
     """
-    tbd = PATH_TEST_PROJECT  # PLANNED: Create a temporary directory that can be used...
+    clear_test_cache()
     dg = DoitGlobals()
-    dg.set_paths(tbd)
+    dg.set_paths(TEST_TMP_CACHE)
     return dg

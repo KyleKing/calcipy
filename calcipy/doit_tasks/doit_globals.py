@@ -24,9 +24,6 @@ except ImportError:  # pragma: no cover
 _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Global Variables
-
 _DoitCallableArgs = Iterable[Union[str, float, int, Path, Dict[str, Any]]]
 """Type: legal types that can be passed to a Python callable for doit actions."""
 

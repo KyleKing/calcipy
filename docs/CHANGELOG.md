@@ -2,6 +2,7 @@
 
 ### Feat
 
+- new tail-like reverse read_lines
 - rename DIG to DG because doit is one word
 - retrieve doc_dir from copier
 - add log-setup fun for doit
@@ -16,6 +17,8 @@
 
 ### Fix
 
+- lint typing and improve tests
+- create separate file_search file to fix imports
 - **#51**: replace glob with git-based file identification
 - **#53**: Use Interact instead of LongRunning
 - undo PEP585 for runtime beartype
@@ -31,6 +34,10 @@
 
 ### Refactor
 
+- move __temp_chdir and improve fix_dg
+- narrow type ignore use
+- use path_file of file_path
+- apply auto-fixes from pre-commit
 - replace all glob-search with find_files
 - remove find_files from code_tag script
 - update isort for trailing-comma

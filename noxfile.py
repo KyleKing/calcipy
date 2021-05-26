@@ -28,3 +28,8 @@ def build(session: Session) -> None:
     """Build the project files within a controlled environment for repeatability."""
     path_wheel = session.poetry.build_package()
     logger.info(path_wheel)
+
+
+# PLANNED: Make an environment to check the built wheel file for imports once most are optional:
+#   https://stackoverflow.com/questions/34855071/importing-all-functions-from-a-package-from-import
+# PLANNED: Make an environment for pytype because it has tighter Python constraints than "calcipy"
