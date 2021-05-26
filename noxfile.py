@@ -18,14 +18,24 @@ def configure_nox() -> None:
 
 @session(python=[DG.test.pythons], reuse_venv=True)
 def tests(session: Session) -> None:
-    """Run doit test task for specified python versions."""
+    """Run doit test task for specified python versions.
+
+    Args:
+        session: nox_poetry Session
+
+    """
     session.install('.[dev]', '.[test]')
     session.run(*shlex.split('poetry run doit run test'))
 
 
 @session(python=[DG.test.pythons[-1]], reuse_venv=False)
 def build(session: Session) -> None:
-    """Build the project files within a controlled environment for repeatability."""
+    """Build the project files within a controlled environment for repeatability.
+
+    Args:
+        session: nox_poetry Session
+
+    """
     path_wheel = session.poetry.build_package()
     logger.info(path_wheel)
 

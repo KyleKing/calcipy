@@ -52,6 +52,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
     if_found_unlink(flake8_log_path)
 
 
+# TODO: see if all return types could be removed from docstrings b/c technically optional and not linted
 @beartype
 def _lint_project(
     lint_paths: List[Path], path_flake8: Path,

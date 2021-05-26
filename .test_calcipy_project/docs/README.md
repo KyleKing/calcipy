@@ -1,42 +1,16 @@
-# Test Project (test_project)
+# Test Project
 
-This project is testing the functionality of copier_calcipy
+This is a test project for use in testing `calcipy` and indirectly testing `calcipy_template`
 
-<!-- TODO: See https://github.com/KyleKing/calcipy/issues/38 -->
+For `calcipy` testing, ensure that the below commands are manually run:
 
-## Installation
+<!-- FIXME: convert this to a submodule (on an orphan branch of calcipy?) so that checkouts work on other computers - otherwise, may fail in AppVeyor -->
 
-1. ...
-2. ...
-
-    ```sh
-    echo Hello World!
-    ```
-
-3. ...
-
-## Usage
-
-<!-- TODO: Show an example (screenshots, terminal recording, etc.) -->
-
-For more examples, see [Scripts](https://github.com/kyleking/test_project/scripts) or [Tests](https://github.com/kyleking/test_project/tests)
-
-## Roadmap
-
-See the `Open Issues` and `Milestones` for current status and [./CODE_TAG_SUMMARY.md](./CODE_TAG_SUMMARY.md) for annotations in the source code.
-
-For release history, see the [./CHANGELOG.md](./CHANGELOG.md)
-
-## Contributing
-
-See the Developer Guide, Contribution Guidelines, etc
-
-- [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
-- [./STYLE_GUIDE.md](./STYLE_GUIDE.md)
-- [./CONTRIBUTING.md](./CONTRIBUTING.md)
-- [./CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
-- [./SECURITY.md](./SECURITY.md)
-
-## License
-
-[LICENSE](https://github.com/kyleking/test_project/LICENSE)
+```sh
+# A git instance is required for finding files
+git init
+git add .
+git commit -m "test: check-in files"
+# These files are managed by the "calcipy_template" and should be updated when the template changes
+copier update
+```

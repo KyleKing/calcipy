@@ -2,7 +2,12 @@
 
 ![./calcipy.svg](./calcipy.svg)
 
-`calcipy` is a Python package that implements best practices such as code style (linting, auto-fixes), documentation, and logging. Like the calcium carbonate in hard coral, packages can be built on the `calcipy` foundation
+`calcipy` is a Python package that implements best practices such as code style (linting, auto-fixes), documentation, CI/CD, and logging. Like the calcium carbonate in hard coral, packages can be built on the `calcipy` foundation.
+
+`calcipy` has some configurability, but is still very opinionated for my particular use cases. There are a number of alternatives to consider:
+
+- [tidypy](https://github.com/jayclassless/tidypy#features) offers similar functionality of bundling and running static checkers, but makes far fewer assumptions about the project itself (and has a really nice progress indicator!)
+- [black](https://black.readthedocs.io/en/stable/) is an opinionated, but really popular formatter
 
 ## Installation
 

@@ -197,7 +197,12 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     # poetry run bandit -r calcipy/
 
     def shorted_path_list(self) -> Set[str]:
-        """Shorten the list of `paths` using the project directory."""
+        """Shorten the list of `paths` using the project directory.
+
+        Returns:
+            Set[str]: set of most common top-level directories relative to the project dir
+
+        """
         return {pth.parent.relative_to(self.project_dir).as_posix() for pth in self.paths}  # type: ignore[attr-defined]
 
 
