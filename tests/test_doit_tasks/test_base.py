@@ -1,9 +1,7 @@
 """Test doit_tasks/base.py."""
 
 from pathlib import Path
-from typing import Generator
 
-from decorator import contextmanager
 from doit.task import Task
 
 from calcipy.doit_tasks.base import (
@@ -11,25 +9,8 @@ from calcipy.doit_tasks.base import (
 )
 from calcipy.doit_tasks.doit_globals import DG
 
-from ..configuration import PATH_TEST_PROJECT, TEST_DATA_DIR, TEST_DIR
-
-
-@contextmanager
-def temp_dg(path_project: Path = PATH_TEST_PROJECT) -> Generator[None, None, None]:
-    """Temporarily change the DG project directory.
-
-    Args:
-        path_project: path to the project directory to pass to `DG`
-
-    Yields:
-        None: continues execution with the specified `path_project`
-
-    """
-    path_original = DG.meta.path_project
-    if path_original != path_project:
-        DG.set_paths(path_project=path_project)
-        yield
-        DG.set_paths(path_project=path_original)
+from ..configuration import TEST_DATA_DIR, TEST_DIR
+from .test_doit_globals import temp_dg
 
 
 def test_find_project_files():

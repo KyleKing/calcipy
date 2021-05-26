@@ -1,9 +1,8 @@
 """Test doit_tasks/doc.py."""
 
-from calcipy.doit_tasks.doc import _move_cl, task_cl_bump, task_cl_bump_pre, task_cl_write
-from calcipy.doit_tasks.doit_globals import DG
+import pytest
 
-from ..configuration import PATH_TEST_PROJECT
+from calcipy.doit_tasks.doc import _move_cl, task_cl_bump, task_cl_bump_pre, task_cl_write
 
 
 def test_task_cl_write():
@@ -16,10 +15,9 @@ def test_task_cl_write():
     assert isinstance(actions[1][0], type(_move_cl))
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_task_cl_bump():
     """Test task_cl_bump."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = task_cl_bump()
 
     actions = result['actions']
@@ -29,10 +27,9 @@ def test_task_cl_bump():
     assert actions[2] == 'git push origin --tags --no-verify'
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_task_cl_bump_pre():
     """Test task_cl_bump_pre."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = task_cl_bump_pre()
 
     actions = result['actions']

@@ -15,10 +15,9 @@ from calcipy.doit_tasks.lint import (
 from ..configuration import PATH_TEST_PROJECT
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_collect_py_files():
     """Test collect_py_files."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = _collect_py_files(add_paths=(), sub_directories=None)
 
     assert len(result) == 7
@@ -34,10 +33,9 @@ def test_collect_py_files():
     ]
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_lint_project():
     """Test lint_project."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = _lint_project(
         lint_paths=[PATH_TEST_PROJECT / 'test_file.py', PATH_TEST_PROJECT / 'tests/test_file_2.py'],
         path_flake8=DG.lint.path_flake8,
@@ -81,10 +79,9 @@ def test_check_linting_errors_runtime_error():
             _check_linting_errors(flake8_log_path, ignore_errors=None)
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_task_lint_project():
     """Test task_lint_project."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = task_lint_project()
 
     actions = result['actions']
@@ -94,10 +91,9 @@ def test_task_lint_project():
     # TODO: Check the argument with "ignore_errors"
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_task_lint_critical_only():
     """Test task_lint_critical_only."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = task_lint_critical_only()
 
     actions = result['actions']
@@ -106,10 +102,9 @@ def test_task_lint_critical_only():
     # TODO: Check the argument with "ignore_errors"
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_task_radon_lint():
     """Test task_radon_lint."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = task_radon_lint()
 
     actions = result['actions']
@@ -117,10 +112,9 @@ def test_task_radon_lint():
     assert all(action.startswith('poetry run radon ') for action in actions[1::2])
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_task_auto_format():
     """Test task_auto_format."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = task_auto_format()
 
     actions = result['actions']
@@ -129,10 +123,9 @@ def test_task_auto_format():
     assert ' autopep8 ' in actions[1]
 
 
+@pytest.mark.usefixtures('_fix_dg')
 def test_task_pre_commit_hooks():
     """Test task_pre_commit_hooks."""
-    DG.set_paths(path_project=PATH_TEST_PROJECT)
-
     result = task_pre_commit_hooks()
 
     actions = result['actions']
