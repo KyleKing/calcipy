@@ -104,16 +104,17 @@ stevedore = ">=1.20.0"
 
 [[package]]
 name = "beartype"
-version = "0.6.0"
+version = "0.7.0"
 description = "Unbearably fast runtime type checking in pure Python."
 category = "main"
 optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-dev = ["mypy (>=0.800)", "pytest (>=4.0.0)", "tox (>=3.20.1)", "sphinx (>=3.4.3)"]
+dev = ["coverage (>=5.5)", "mypy (>=0.800)", "pytest (>=4.0.0)", "tox (>=3.20.1)", "sphinx (>=3.4.3)"]
 doc-rtd = ["sphinx (==3.4.3)", "sphinx-rtd-theme (==0.5.1)"]
 test-tox = ["mypy (>=0.800)", "pytest (>=4.0.0)"]
+test-tox-coverage = ["coverage (>=5.5)"]
 
 [[package]]
 name = "better-exceptions"
@@ -844,7 +845,7 @@ requests = "*"
 
 [[package]]
 name = "identify"
-version = "2.2.5"
+version = "2.2.6"
 description = "File identification library for Python"
 category = "main"
 optional = true
@@ -1499,7 +1500,7 @@ watchdog = ">=0.6.0"
 
 [[package]]
 name = "pytype"
-version = "2021.5.19"
+version = "2021.5.25"
 description = "Python type inferencer"
 category = "dev"
 optional = true
@@ -1516,7 +1517,7 @@ typed_ast = ">=1.4.3"
 
 [[package]]
 name = "pyupgrade"
-version = "2.18.2"
+version = "2.18.3"
 description = "A tool to automatically upgrade syntax for newer versions."
 category = "main"
 optional = true
@@ -1846,8 +1847,8 @@ bandit = [
     {file = "bandit-1.7.0.tar.gz", hash = "sha256:8a4c7415254d75df8ff3c3b15cfe9042ecee628a1e40b44c15a98890fbfc2608"},
 ]
 beartype = [
-    {file = "beartype-0.6.0-py3-none-any.whl", hash = "sha256:03c2a9984890da13319acfffd53979a7a778caf111cff390dcb7c490845e728b"},
-    {file = "beartype-0.6.0.tar.gz", hash = "sha256:f6167aaa2691db46669f1c2e2aa1f2c38f456fe8a669fe9d3f2af6ed97d083ec"},
+    {file = "beartype-0.7.0-py3-none-any.whl", hash = "sha256:4ccd61484b68c2bcd979dd25ae6d83ddd70b1a800a0c80ff70d5b28ddce15cde"},
+    {file = "beartype-0.7.0.tar.gz", hash = "sha256:eee491b0f9636a88dd8af3f6cf893bd094f6e5669fce2d45b7c5f6171d501c6a"},
 ]
 better-exceptions = [
     {file = "better_exceptions-0.3.3-py3-none-any.whl", hash = "sha256:9c70b1c61d5a179b84cd2c9d62c3324b667d74286207343645ed4306fdaad976"},
@@ -2169,8 +2170,8 @@ hug = [
     {file = "hug-2.6.1.tar.gz", hash = "sha256:b0edace2acb618873779c9ce6ecf9165db54fef95c22262f5700fcdd9febaec9"},
 ]
 identify = [
-    {file = "identify-2.2.5-py2.py3-none-any.whl", hash = "sha256:9c3ab58543c03bd794a1735e4552ef6dec49ec32053278130d525f0982447d47"},
-    {file = "identify-2.2.5.tar.gz", hash = "sha256:bc1705694253763a3160b943316867792ec00ba7a0ee40b46e20aebaf4e0c46a"},
+    {file = "identify-2.2.6-py2.py3-none-any.whl", hash = "sha256:1560bb645b93d5c05c3535c72a4f4884133006423d02c692ac6862a45eb0d521"},
+    {file = "identify-2.2.6.tar.gz", hash = "sha256:01ebbc7af37043806216c7550539210cde4f82451983eb8735a02b3b9d013e40"},
 ]
 idna = [
     {file = "idna-2.10-py2.py3-none-any.whl", hash = "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"},
@@ -2496,19 +2497,19 @@ pytest-watch = [
     {file = "pytest-watch-4.2.0.tar.gz", hash = "sha256:06136f03d5b361718b8d0d234042f7b2f203910d8568f63df2f866b547b3d4b9"},
 ]
 pytype = [
-    {file = "pytype-2021.5.19-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:12a49abe3474a590e9f8fdcbc4f87f61447d91485f834cb2241d4dd270e861ae"},
-    {file = "pytype-2021.5.19-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bb094a49732c231c99f1f6b972bb80b30ec84960ef6fb31b31e22c0c7f138863"},
-    {file = "pytype-2021.5.19-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:07fc4d7bff9e3372b5065d8fa1ed71915af8bdb84b00c43bfb60c112d47fe9e0"},
-    {file = "pytype-2021.5.19-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8dab83baa0b9c3f6983b3058135f5542911e90c5cccdd683baf775bae275cd0e"},
-    {file = "pytype-2021.5.19-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:1fe71100871b510b1f38176716c05a697125b10e408a5501676f5e94d79f7d89"},
-    {file = "pytype-2021.5.19-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9e74acee406a842bad026ba49e89d6b31ad893b26a52c494976cf1e760e49c64"},
-    {file = "pytype-2021.5.19-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:43d617c53687f13614741ffead6f488a0086257c092019f9c539602666768e0a"},
-    {file = "pytype-2021.5.19-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:458a796190d54ef660c9325800222687c1c40e53981cc91b0eb6461456941978"},
-    {file = "pytype-2021.5.19.tar.gz", hash = "sha256:12e88238e32d03ff160342db6309b28ae38c1491f4a7f8016db1027f150720da"},
+    {file = "pytype-2021.5.25-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:f0eadaf3dc338109a4d7e184f8c02d4163c27cc7306d7e619ee218401e530976"},
+    {file = "pytype-2021.5.25-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b20d5e1cc3d01986211fe024a8c44400920c675c7e163919ec977e0a91448473"},
+    {file = "pytype-2021.5.25-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:a3eb1f603273b920206933776be9d6b76eb83f626d192c7a2ae06347fac458d5"},
+    {file = "pytype-2021.5.25-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5fafa02fba7959e6b9d837e4040e966fe1874a7c791c64b54f279a063a5e9aad"},
+    {file = "pytype-2021.5.25-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:c94fa1fab9b775fb3e9a2700a8c5002152c5a8310cf209c98e249e3c705e34f3"},
+    {file = "pytype-2021.5.25-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:01ab9e4bd9aef7b5c510e3cd6719a4496fcaa99d58d870ab69872300b0a90786"},
+    {file = "pytype-2021.5.25-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:ba17569236b2d856a7e7951ec386cb655df2fcb8fa1726b47fcf0184aa160acf"},
+    {file = "pytype-2021.5.25-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a889b73d29e52a22f2d15fc45b7e1e0bbc41a25762e6e615d7bec49d487e8bc7"},
+    {file = "pytype-2021.5.25.tar.gz", hash = "sha256:30029caedd345ccc79867163b4bbaa82376fbb876a45b6bddb48d11cfa08a1aa"},
 ]
 pyupgrade = [
-    {file = "pyupgrade-2.18.2-py2.py3-none-any.whl", hash = "sha256:3bbf8a6f9febe28f128c40f640e3975dba588cf3642f20a666e6ea2cd907909d"},
-    {file = "pyupgrade-2.18.2.tar.gz", hash = "sha256:dc3fb2699ed206de9efd18ef683dc2a117a91328ed86945d47e125d9009226ac"},
+    {file = "pyupgrade-2.18.3-py2.py3-none-any.whl", hash = "sha256:499db2e6ca9859bbf038dd9446c56fb34162ed04178a416363e94f8bc5d0fbae"},
+    {file = "pyupgrade-2.18.3.tar.gz", hash = "sha256:2e540367ac3f8720b4efb20ac2b94ec1820af45a38d7ad310892e176e01d0d84"},
 ]
 pyyaml = [
     {file = "PyYAML-5.4.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:3b2b1824fe7112845700f815ff6a489360226a5609b96ec2190a45e62a9fc922"},

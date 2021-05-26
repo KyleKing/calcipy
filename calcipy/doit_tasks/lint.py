@@ -82,8 +82,12 @@ def task_lint_project() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8,
-                                    ignore_errors=[]))
+    return debug_task(
+        _lint_project(
+            DG.lint.paths, path_flake8=DG.lint.path_flake8,
+            ignore_errors=[],
+        ),
+    )
 
 
 def task_lint_critical_only() -> DoitTask:
@@ -93,8 +97,12 @@ def task_lint_critical_only() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8,
-                                    ignore_errors=DG.lint.ignore_errors))
+    return debug_task(
+        _lint_project(
+            DG.lint.paths, path_flake8=DG.lint.path_flake8,
+            ignore_errors=DG.lint.ignore_errors,
+        ),
+    )
 
 
 def task_radon_lint() -> DoitTask:
