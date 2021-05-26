@@ -1,6 +1,6 @@
 """Test code_tag_collector.py."""
 
-# :skip_tags:
+# calcipy:skip_tags
 
 from calcipy.doit_tasks import DG
 from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags
