@@ -1,7 +1,5 @@
 """Test code_tag_collector.py."""
 
-# calcipy:skip_tags
-
 from calcipy.doit_tasks import DG
 from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags
 
@@ -52,3 +50,5 @@ def test_format_report():
 Found code tags for TODO (1), DEBUG (1)
 """  # noqa: T100,T101
     assert output == expected, f'Received: `{output}`'
+
+# calcipy:skip_tags
