@@ -31,6 +31,8 @@
 
 ### Refactor
 
+- replace all glob-search with find_files
+- remove find_files from code_tag script
 - update isort for trailing-comma
 - move excluded lint rules to DG
 - apply PEP585 and add pre-commit hook

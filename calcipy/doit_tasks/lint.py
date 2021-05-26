@@ -1,7 +1,7 @@
 """doit Linting Utilities."""
 
 from pathlib import Path
-from typing import List, Optional
+from typing import Iterable, List
 
 from beartype import beartype
 from doit.tools import Interactive
@@ -9,12 +9,11 @@ from doit.tools import Interactive
 from .base import debug_task, echo, if_found_unlink
 from .doit_globals import DG, DoitAction, DoitTask
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Linting
 
 
-def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = None) -> None:  # noqa: CCR001
+def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = ()) -> None:  # noqa: CCR001
     """Check for errors reported in flake8 log file. Removes log file if no errors detected.
 
     Args:
@@ -53,7 +52,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Optional[str] = 
 
 def _lint_project(
     lint_paths: List[Path], path_flake8: Path,
-    ignore_errors: Optional[List[str]] = None,
+    ignore_errors: Iterable[str] = (),
 ) -> DoitTask:
     """Lint specified files creating summary log file of errors.
 
@@ -83,7 +82,8 @@ def task_lint_project() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8, ignore_errors=None))
+    return debug_task(_lint_project(DG.lint.paths, path_flake8=DG.lint.path_flake8,
+                                    ignore_errors=[]))
 
 
 def task_lint_critical_only() -> DoitTask:
@@ -131,6 +131,8 @@ def task_auto_format() -> DoitTask:
     for lint_path in DG.lint.paths:
         actions.append(f'{run} isort "{lint_path}" --settings-path "{DG.lint.path_isort}"')
         actions.append(f'{run} autopep8 "{lint_path}" --in-place --aggressive')
+    # FIXME: autopep8 can take a list of space-separated files
+    # FIXME: autopep8 errored on parsing the calcipy directory?
     return debug_task(actions)
 
 

@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
-from calcipy.doit_tasks.base import if_found_unlink
+from calcipy.doit_tasks.base import echo, if_found_unlink
 from calcipy.doit_tasks.doit_globals import DG
 from calcipy.doit_tasks.lint import (
     _check_linting_errors, _lint_project, task_auto_format, task_lint_critical_only,
@@ -65,10 +65,21 @@ def test_task_lint_project():
     result = task_lint_project()
 
     actions = result['actions']
-    assert len(actions) == 3
-    # PLANNED: Check the file that was matched!
-    # PLANNED: Check the flake8 configuration file
-    # TODO: Check the argument with "ignore_errors"
+    assert len(actions) == 10
+    assert isinstance(actions[0][0], type(if_found_unlink))
+    assert len(actions[0][1]) == 1
+    assert actions[0][1][0].name == 'flake8.log'
+    for act in actions[1:-1]:
+        assert act.startswith('poetry run python -m flake8 "')
+        assert act.endswith(' --exit-zero')
+    assert 'test_project" ' in actions[1]
+    assert 'dodo.py" ' in actions[2]
+    assert '.flake8 ' in actions[1]
+    assert 'flake8.log ' in actions[1]
+    assert isinstance(actions[-1][0], type(_check_linting_errors))
+    assert len(actions[-1][1]) == 2
+    assert actions[-1][1][0].name == 'flake8.log'
+    assert len(actions[-1][1][1]) == 0
 
 
 def test_task_lint_critical_only():
@@ -76,9 +87,13 @@ def test_task_lint_critical_only():
     result = task_lint_critical_only()
 
     actions = result['actions']
-    assert len(actions) == 3
-    # PLANNED: Check the flake8 configuration file
-    # TODO: Check the argument with "ignore_errors"
+    assert len(actions) == 10
+    assert 'DUO106' not in actions[1]
+    assert isinstance(actions[-1][0], type(_check_linting_errors))
+    assert len(actions[-1][1]) == 2
+    assert actions[-1][1][0].name == 'flake8.log'
+    assert len(actions[-1][1][1]) >= 15
+    assert 'DUO106' in actions[-1][1][1]
 
 
 def test_task_radon_lint():
@@ -86,8 +101,14 @@ def test_task_radon_lint():
     result = task_radon_lint()
 
     actions = result['actions']
-    assert len(actions) == 6
-    assert all(action.startswith('poetry run radon ') for action in actions[1::2])
+
+    count = len(DG.lint.paths)
+    assert len(actions) == 3 * (1 + count)
+    for action in actions:
+        if isinstance(action, tuple):
+            assert isinstance(action[0], type(echo))
+        else:
+            assert action.startswith('poetry run radon ')
 
 
 def test_task_auto_format():
@@ -95,7 +116,7 @@ def test_task_auto_format():
     result = task_auto_format()
 
     actions = result['actions']
-    assert len(actions) == 2
+    assert len(actions) == 16
     assert ' isort ' in actions[0]
     assert ' autopep8 ' in actions[1]
 
