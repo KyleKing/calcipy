@@ -56,10 +56,10 @@ def test_debug_task():
 
 def test_if_found_unlink():
     """Test if_found_unlink."""
-    file_path = TEST_DATA_DIR / 'if_found_unlink-test_file.txt'
+    path_file = TEST_DATA_DIR / 'if_found_unlink-test_file.txt'
 
-    file_path.write_text('')  # act
+    path_file.write_text('')  # act
 
-    assert file_path.is_file()
-    if_found_unlink(file_path)
-    assert not file_path.is_file()
+    assert path_file.is_file()
+    if_found_unlink(path_file)
+    assert not path_file.is_file()

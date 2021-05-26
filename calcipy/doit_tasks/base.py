@@ -17,18 +17,18 @@ from .doit_globals import DoitAction, DoitTask
 
 
 @beartype
-def read_lines(file_path: Path) -> List[str]:
+def read_lines(path_file: Path) -> List[str]:
     """Read a file and split on newlines for later parsing.
 
     Args:
-        file_path: path to the file
+        path_file: path to the file
 
     Returns:
         List[str]: lines of text as list
 
     """
-    if file_path.is_file():
-        return file_path.read_text().split('\n')
+    if path_file.is_file():
+        return path_file.read_text().split('\n')
     return []
 
 
@@ -113,36 +113,36 @@ def echo(msg: str) -> None:
 
 
 @beartype
-def write_text(file_path: Path, text: str) -> None:
-    """file_path.write_text wrapper for doit.
+def write_text(path_file: Path, text: str) -> None:
+    """path_file.write_text wrapper for doit.
 
     Args:
-        file_path: Path to the file
+        path_file: Path to the file
         text: string to write to file
 
     """
-    file_path.write_text(text)  # pragma: no cover
+    path_file.write_text(text)  # pragma: no cover
 
 
 @beartype
-def open_in_browser(file_path: Path) -> None:
+def open_in_browser(path_file: Path) -> None:
     """Open the path in the default web browser.
 
     Args:
-        file_path: Path to file
+        path_file: Path to file
 
     """
-    webbrowser.open(Path(file_path).as_uri())  # pragma: no cover
+    webbrowser.open(Path(path_file).as_uri())  # pragma: no cover
 
 
 @beartype
-def if_found_unlink(file_path: Path) -> None:
+def if_found_unlink(path_file: Path) -> None:
     """Remove file if it exists. Function is intended to a doit action.
 
     Args:
-        file_path: Path to file to remove
+        path_file: Path to file to remove
 
     """
-    if file_path.is_file():
-        logger.info(f'Deleting `{file_path}`', file_path=file_path)
-        file_path.unlink()
+    if path_file.is_file():
+        logger.info(f'Deleting `{path_file}`', path_file=path_file)
+        path_file.unlink()

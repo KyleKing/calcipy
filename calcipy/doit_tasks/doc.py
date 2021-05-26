@@ -171,8 +171,8 @@ def _write_coverage_to_readme() -> None:
         legend = ['File', 'Statements', 'Missing', 'Excluded', 'Coverage']
         int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
         rows = [legend, ['--:'] * len(legend)]
-        for file_path, file_obj in coverage['files'].items():
-            rel_path = Path(file_path).resolve().relative_to(DG.meta.path_project).as_posix()
+        for path_file, file_obj in coverage['files'].items():
+            rel_path = Path(path_file).resolve().relative_to(DG.meta.path_project).as_posix()
             per = round(file_obj['summary']['percent_covered'], 1)
             rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
         # Format table for Github Markdown
