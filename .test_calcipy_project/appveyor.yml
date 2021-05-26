@@ -63,3 +63,5 @@ on_failure:
 artifacts:
   # PLANNED: Specify single files, like wheels, but zip the docs/reports
   - path: releases/tests/*
+
+# 'calcipy:skip_tags'

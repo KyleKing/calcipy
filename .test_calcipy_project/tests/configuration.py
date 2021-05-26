@@ -25,3 +25,5 @@ logger.info(
     'Started logging to {path_project}/.logs with {log_config}', path_project=path_project,
     log_config=log_config,
 )
+
+# 'calcipy:skip_tags'

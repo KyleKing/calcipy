@@ -18,6 +18,7 @@
 
 ### Fix
 
+- reset Lint paths instead of extend
 - use find_files for code tag summary
 - don't manually add the package source dir
 - lint typing and improve tests
