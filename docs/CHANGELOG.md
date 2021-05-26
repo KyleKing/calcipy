@@ -2,6 +2,7 @@
 
 ### Feat
 
+- optionally clear log directory. Move file_helpers from base
 - new tail-like reverse read_lines
 - rename DIG to DG because doit is one word
 - retrieve doc_dir from copier
@@ -17,6 +18,8 @@
 
 ### Fix
 
+- use find_files for code tag summary
+- don't manually add the package source dir
 - lint typing and improve tests
 - create separate file_search file to fix imports
 - **#51**: replace glob with git-based file identification
@@ -34,6 +37,8 @@
 
 ### Refactor
 
+- use calcipy:skip-tags
+- fix minor code tags
 - move __temp_chdir and improve fix_dg
 - narrow type ignore use
 - use path_file of file_path
