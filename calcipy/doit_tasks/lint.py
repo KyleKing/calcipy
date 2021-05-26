@@ -1,41 +1,14 @@
 """doit Linting Utilities."""
 
 from pathlib import Path
-from typing import Iterable, List, Optional, Set
+from typing import List, Optional
 
 from beartype import beartype
 from doit.tools import Interactive
 from loguru import logger
 
-from ..log_helpers import log_fun
 from .base import debug_task, echo, if_found_unlink
 from .doit_globals import DG, DoitAction, DoitTask
-
-# ----------------------------------------------------------------------------------------------------------------------
-# General
-
-
-# TODO: Possibly remove - may be unused
-@log_fun
-@beartype
-def _collect_py_files(add_paths: Iterable[Path] = (), sub_directories: Optional[List[Path]] = None) -> Set[str]:
-    """Collect the tracked files for linting and formatting. Return as list of string paths.
-
-    Args:
-        add_paths: List of absolute paths to additional Python files to process. Default is an empty list
-        sub_directories: folder Paths to recursively check for Python files
-
-    Returns:
-        Set[str]: all unique path names as string
-
-    """
-    if sub_directories is None:
-        sub_directories = []
-    sub_directories.extend([DG.meta.path_project / DG.meta.pkg_name, DG.test.path_tests] + DG.lint.paths)
-    package_files = [*add_paths] + [*DG.meta.path_project.glob('*.py')]
-    for subdir in sub_directories:  # Capture files in package and in tests directory
-        package_files.extend([*subdir.rglob('*.py')])
-    return {file_path.as_posix() for file_path in package_files if file_path.name not in DG.lint.paths_excluded}
 
 
 # ----------------------------------------------------------------------------------------------------------------------

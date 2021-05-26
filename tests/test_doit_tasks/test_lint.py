@@ -8,28 +8,11 @@ import pytest
 from calcipy.doit_tasks.base import if_found_unlink
 from calcipy.doit_tasks.doit_globals import DG
 from calcipy.doit_tasks.lint import (
-    _check_linting_errors, _collect_py_files, _lint_project, task_auto_format,
-    task_lint_critical_only, task_lint_project, task_pre_commit_hooks, task_radon_lint,
+    _check_linting_errors, _lint_project, task_auto_format, task_lint_critical_only,
+    task_lint_project, task_pre_commit_hooks, task_radon_lint,
 )
 
 from ..configuration import PATH_TEST_PROJECT
-
-
-def test_collect_py_files():
-    """Test collect_py_files."""
-    result = _collect_py_files(add_paths=(), sub_directories=None)
-
-    assert len(result) == 7
-    paths = sorted(Path(pth).relative_to(PATH_TEST_PROJECT) for pth in result)
-    assert paths == [
-        Path('dodo.py'),
-        Path('noxfile.py'),
-        Path('test_project/__init__.py'),
-        Path('tests/__init__.py'),
-        Path('tests/configuration.py'),
-        Path('tests/conftest.py'),
-        Path('tests/test_zz_test_project.py'),
-    ]
 
 
 def test_lint_project():
