@@ -73,6 +73,7 @@ better-exceptions = { version = "*", optional = true }
 commitizen = { version = "*", optional = true }
 markdown-include = { version = "*", optional = true }
 mkdocs-material = { version = "*", optional = true }
+pdbpp = { version = "*", optional = true }
 pdocs = { version = "*", optional = true }
 pre-commit = { version = "*", optional = true }
 pyupgrade = { version = "*", optional = true }
@@ -85,6 +86,7 @@ autopep8 = { version = "*", optional = true }
 cohesion = { version = "*", optional = true }
 darglint = { version = "*", optional = true }
 demjson = { version = "*", optional = true }
+diff-cover = { version = "*", optional = true }
 dlint = { version = "*", optional = true }
 flake8 = { version = "*", optional = true }
 flake8-2020 = { version = "*", optional = true }
@@ -228,3 +230,14 @@ test = [
 ]
 commitizen_legacy = ["cz_legacy"]
 serializers = ["preconvert", "preconvert_numpy"]
+
+[tool.poetry.dev-dependencies]
+
+pydiatra = "^0.12.5"
+autoflake = "^1.4"
+wily = "^1.19.0"
+mccabe = "^0.6.1"
+simplesecurity = "^2021.3.1"
+appmap = "^0.10.0"
+prospector = "^1.3.1"
+it = "^1.0.0"
