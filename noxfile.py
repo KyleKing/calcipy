@@ -14,6 +14,22 @@ poetry run nox --python 3.8
 poetry run nox -k "not tests and not check_safety"
 ```
 
+Useful nox snippets
+
+```py
+# Example conditionally skipping a session
+if not session.interactive:
+    session.skip('Cannot run detect-secrets audit in non-interactive shell')
+
+# Install pinned version
+session.install('detect-secrets==1.0.3')
+
+# Example capturing STDOUT into a file (could do the same for stderr)
+path_stdout = Path('.stdout.txt').resolve()
+with open(path_stdout, 'w') as out:
+    session.run(*shlex.split('echo Hello World!'), stdout=out)
+```
+
 """
 
 import shlex
@@ -83,7 +99,7 @@ def build_check(session: Session) -> None:
     session.run('pyroma', '--file', path_sdist.as_posix(), '--min=6', stdout=True)
 
 
-@session(python=[DG.test.pythons[-1]], reuse_venv=False)
+@session(python=[DG.test.pythons[-1]], reuse_venv=True)
 def check_safety(session: Session) -> None:
     """Check for known vulnerabilities with safety.
 
@@ -106,36 +122,3 @@ def check_safety(session: Session) -> None:
     if path_report.read_text().strip() != '[]':
         raise RuntimeError(f'Found safety warnings in {path_report}')
     path_report.unlink()
-
-
-# FIXME: Setup as pre-commit hook instead...
-
-# @session(python=[DG.test.pythons[-1]], reuse_venv=True)
-# def check_secrets(session: Session) -> None:
-#     """Look for secret tokens.
-
-#     Args:
-#         session: nox_poetry Session
-
-#     """
-#     # if not session.interactive:
-#     #     session.skip('Cannot run detect-secrets audit in non-interactive shell')
-
-#     # PLANNED: pinned because of known conflict with MP in >3.7
-#     #   See: https://github.com/Yelp/detect-secrets/issues/452
-#     session.install('detect-secrets==1.0.3')  # , '--upgrade')
-
-#     path_baseline = Path('.secrets.baseline').resolve()
-#     logger.info(f'Creating detect-secrets baseline report: {path_baseline}')
-#     if not path_baseline.is_file():
-#         with open(path_baseline, 'w') as out:
-#             session.run(*shlex.split('detect-secrets scan calcipy .'), stdout=out)
-
-#     if session.interactive:
-#         session.run(*shlex.split(f'detect-secrets audit "{path_baseline}"'), stdout=True)
-
-#     # Review the baseline report
-#     report = json.loads(path_baseline.read_text())
-#     for filename in report.get('results', {}).keys():
-#         if filename != 'poetry.lock':
-#             raise RuntimeError(f'Found unexpected secret in {filename}')
