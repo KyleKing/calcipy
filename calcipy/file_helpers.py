@@ -3,6 +3,7 @@
 import os
 import shutil
 import string
+import time
 from pathlib import Path
 from typing import List
 
@@ -98,6 +99,20 @@ def if_found_unlink(path_file: Path) -> None:
     if path_file.is_file():
         logger.info(f'Deleting `{path_file}`', path_file=path_file)
         path_file.unlink()
+
+
+@beartype
+def delete_old_files(dir_path: Path, *, ttl_seconds: int) -> None:
+    """Delete old files within the specified directory.
+
+    Args:
+        dir_path: Path to directory to delete
+        ttl_seconds: if last modified within this number of seconds, will not be deleted
+
+    """
+    for pth in dir_path.rglob('*'):
+        if pth.is_file() and (time.time() - pth.stat().st_mtime) > ttl_seconds:
+            pth.unlink()
 
 
 @beartype

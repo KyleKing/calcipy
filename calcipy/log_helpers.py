@@ -14,7 +14,7 @@ from beartype import beartype
 from decorator import contextmanager, decorator
 from loguru import logger
 
-from .file_helpers import delete_dir
+from .file_helpers import delete_old_files
 
 try:
     from preconvert.output import simplejson as json
@@ -195,7 +195,7 @@ def activate_debug_logging(
     Args:
         pkg_names: list of string package names to activate. If empty, likely no log output.
         path_project: path to the project directory. Defaults to `CWD` if not specified
-        clear_log: if True, delete the logs directory
+        clear_log: if True, delete all log files that haven't been updated for at least an hour. Default is False
 
     """
     if not path_project:
@@ -206,7 +206,8 @@ def activate_debug_logging(
         logger.enable(pkg_name)
 
     if clear_log:
-        delete_dir(path_project / _LOG_SUB_DIR)
+        hour = 3600
+        delete_old_files(path_project / _LOG_SUB_DIR, ttl_seconds=hour)
 
     log_config = build_logger_config(path_project, production=False)
     logger.configure(**log_config)
