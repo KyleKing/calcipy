@@ -107,17 +107,9 @@ def task_check_types() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = []
-    try:
-        import pytype  # noqa: F401
-
-        # FIXME: pytype threw an error that Python >3.7 wasn't supported?
-        # actions.append(Interactive(f'poetry run pytype {DG.meta.pkg_name} --python-version 3.8'))
-    except ImportError:
-        pass
-
-    actions.append(Interactive(f'poetry run mypy {DG.meta.pkg_name} --show-error-codes'))
-    return debug_task(actions)
+    return debug_task([
+        Interactive(f'poetry run mypy {DG.meta.pkg_name} --show-error-codes'),
+    ])
 
 
 @beartype
