@@ -36,6 +36,21 @@ DoitTask = Union[Task, Dict[str, DoitAction]]
 
 
 @beartype
+def _make_full_path(raw: Union[Path, str], path_base: Path) -> Path:
+    """Return a full path by determining if the source path is an absolute path. If not combines with base path.
+
+    Args:
+        raw: (string or Path) relative or absolute path
+        path_base: base directory to use if the raw path is not absolute
+
+    Returns:
+        Path: absolute path
+
+    """
+    return Path(raw) if Path(raw).is_absolute() else path_base / raw
+
+
+@beartype
 def _member_filter(member: Any, instance_type: Any) -> bool:
     """Return True if the member matches the filters.
 
@@ -161,10 +176,10 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
 class LintConfig(_PathAttrBase):  # noqa: H601
     """Lint Config."""
 
-    path_flake8: Path = Path('.flake8')
+    path_flake8: Union[Path, str] = Path('.flake8')
     """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
 
-    path_isort: Path = Path('.isort.cfg')
+    path_isort: Union[Path, str] = Path('.isort.cfg')
     """Relative path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
 
     ignore_errors: List[str] = [
@@ -190,6 +205,8 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        self.path_flake8 = _make_full_path(self.path_flake8, self.path_project)
+        self.path_isort = _make_full_path(self.path_isort, self.path_project)
         self.paths_py = find_project_files_by_suffix(self.path_project, DG.meta.ignore_patterns).get('py', [])
 
     def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
@@ -211,10 +228,10 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
     pythons: List[str] = ['3.8', '3.9']
     """Python versions to test against. Default is `['3.8', '3.9']`."""
 
-    path_out: Path = Path('releases/tests')
+    path_out: Union[Path, str] = Path('releases/tests')
     """Relative path to the report output directory. Default is `releases/tests`."""
 
-    path_tests: Path = Path('tests')
+    path_tests: Union[Path, str] = Path('tests')
     """Relative path to the tests directory. Default is `tests`."""
 
     path_report_index: Path = attr.ib(init=False)
@@ -229,6 +246,8 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        self.path_out = _make_full_path(self.path_out, self.path_project)
+        self.path_tests = _make_full_path(self.path_tests, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         # Configure the paths to the report HTML and coverage HTML files
         self.path_report_index = self.path_out / 'test_report.html'
@@ -284,7 +303,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     doc_dir: Path = Path('docs')
     """Relative path to the source documentation directory."""
 
-    path_out: Path = Path('releases/site')
+    path_out: Union[Path, str] = Path('releases/site')
     """Relative path to the documentation output directory."""
 
     startswith_action_lookup: Dict[str, Callable[[str, Path], str]] = {}
@@ -296,6 +315,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         self.paths_md = find_project_files_by_suffix(self.path_project, DG.meta.ignore_patterns).get('md', [])
 
@@ -353,12 +373,11 @@ class DoitGlobals:
         toml_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
         self.meta.ignore_patterns = toml_config.get('ignore_patterns', [])
 
-        # FIXME: Make all options configurable with the toml file!!
-        # code_tags.tags/.filename | tests.path_out | doc.path_out | test.pythons | lint.path_flake8/.path_isort/.ignore_errors
-        self.lint = LintConfig(**meta_kwargs)  # type: ignore[arg-type]
-        self.test = TestingConfig(**meta_kwargs)  # type: ignore[arg-type]
-        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
-        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
+        lint_k, test_k, code_k, doc_k = [toml_config.get(key, {}) for key in ['lint', 'test', 'code_tag', 'doc']]
+        self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
+        self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
+        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir, **code_k)  # type: ignore[arg-type]
+        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir, **doc_k)  # type: ignore[arg-type]
 
 
 DG = DoitGlobals()

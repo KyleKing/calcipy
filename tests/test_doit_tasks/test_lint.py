@@ -83,12 +83,12 @@ def test_task_lint_critical_only():
 
     actions = result['actions']
     assert len(actions) == 3
-    assert 'DUO106' not in actions[1]
+    assert 'T100' not in actions[1]
     assert isinstance(actions[-1][0], type(_check_linting_errors))
     assert len(actions[-1][1]) == 2
     assert actions[-1][1][0].name == 'flake8.log'
-    assert len(actions[-1][1][1]) >= 15
-    assert 'DUO106' in actions[-1][1][1]
+    assert actions[-1][1][1] == ['T100', 'T101', 'T103']  # Read from toml
+    assert 'T100' in actions[-1][1][1]
 
 
 def test_task_radon_lint():

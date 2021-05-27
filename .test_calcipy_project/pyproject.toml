@@ -2,6 +2,22 @@
 requires = [ "poetry-core>=1.0.0",]
 build-backend = "poetry.core.masonry.api"
 
+[tool.calcipy.code_tags]
+tags = [ "FIXME", "TODO", "PLANNED",]
+filename = "CODE_TAG_SUMMARY.md"
+
+[tool.calcipy.tests]
+path_out = "releases/tests"
+pythons = [ "3.8", "3.9",]
+
+[tool.calcipy.doc]
+path_out = "releases/site"
+
+[tool.calcipy.lint]
+path_flake8 = ".flake8"
+path_isort = ".isort.cfg"
+ignore_errors = [ "T100", "T101", "T103",]
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.0.1"
