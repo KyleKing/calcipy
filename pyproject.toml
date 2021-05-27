@@ -55,6 +55,7 @@ attrs = "*"
 beartype = "*"
 decorator = "*"
 loguru = "*"
+python-box = "*"
 transitions = "*"  # Needed for document task
 
 # Development
