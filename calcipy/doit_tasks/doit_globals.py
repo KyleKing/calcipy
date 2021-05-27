@@ -359,19 +359,21 @@ class DoitGlobals:
         """
         logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
         path_project = path_project or Path.cwd()
-        self.meta = PackageMeta(path_project=path_project)
+
+        # Read the optional toml configuration
+        # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
+        path_toml = path_project / 'pyproject.toml'
+        toml_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
+        ignore_patterns = toml_config.get('ignore_patterns', [])
+
+        self.meta = PackageMeta(path_project=path_project, ignore_patterns=ignore_patterns)
         meta_kwargs = {'path_project': self.meta.path_project}
 
         # Parse the Copier file for configuration information
         doc_dir = get_doc_dir(self.meta.path_project)
         doc_dir.mkdir(exist_ok=True, parents=True)
 
-        # Read the optional toml configuration
-        # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
-        path_toml = self.meta.path_project / 'pyproject.toml'
-        toml_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
-        self.meta.ignore_patterns = toml_config.get('ignore_patterns', [])
-
+        # Configure global options
         lint_k, test_k, code_k, doc_k = [toml_config.get(key, {}) for key in ['lint', 'test', 'code_tag', 'doc']]
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
