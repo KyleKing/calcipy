@@ -2,6 +2,10 @@
 
 ### Feat
 
+- filter with glob-like ignore_patterns (2/2)
+- add security check task
+- add skip_phrase for code tag skipping
+- beartype - roar!
 - optionally clear log directory. Move file_helpers from base
 - new tail-like reverse read_lines
 - rename DIG to DG because doit is one word
@@ -18,6 +22,7 @@
 
 ### Fix
 
+- skip tags must be at bottom
 - reset Lint paths instead of extend
 - use find_files for code tag summary
 - don't manually add the package source dir
@@ -38,6 +43,7 @@
 
 ### Refactor
 
+- fix attribute names for path types (1/2)
 - use calcipy:skip-tags
 - fix minor code tags
 - move __temp_chdir and improve fix_dg
@@ -58,6 +64,11 @@
 - fix lock file and line length
 - run more pre-commit checks on commit
 - standardize on code tags and cleanup
+
+### Perf
+
+- combine autopep8 paths into single command
+- combine files for linting in one command
 
 ## 2021.0.2.0a0 (2021-02-11)
 
