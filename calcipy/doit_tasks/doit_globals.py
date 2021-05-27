@@ -8,12 +8,12 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
 
 import attr
-import yaml
 from beartype import beartype
 from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger
 
+from ..file_helpers import get_doc_dir
 from ..log_helpers import log_fun
 from .file_search import find_project_files, find_project_files_by_suffix
 
@@ -358,13 +358,7 @@ class DoitGlobals:
         meta_kwargs = {'path_project': self.meta.path_project}
 
         # Parse the Copier file for configuration information
-        path_copier = self.meta.path_project / '.copier-answers.yml'
-        try:
-            copier_ans = yaml.safe_load(path_copier.read_text())
-            doc_dir = self.meta.path_project / copier_ans['doc_dir']
-        except (FileNotFoundError, KeyError) as err:  # pragma: no cover
-            logger.warning(f'Unexpected error reading the copier file: {err}')
-            doc_dir = self.meta.path_project / 'docs'
+        doc_dir = get_doc_dir(self.meta.path_project)
         doc_dir.mkdir(exist_ok=True, parents=True)
 
         # Read the optional toml configuration

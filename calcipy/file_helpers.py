@@ -5,7 +5,7 @@ import shutil
 import string
 import time
 from pathlib import Path
-from typing import List
+from typing import Any, Dict, List, Optional
 
 from beartype import beartype
 from loguru import logger
@@ -33,16 +33,45 @@ def sanitize_filename(filename: str, repl_char: str = '_', allowed_chars: str = 
     return ''.join((char if char in allowed_chars else repl_char) for char in filename)
 
 
-# FIXME: Implement
-def read_copier_answers():
+@beartype
+def _read_copier_answers(path_copier: Optional[Path] = None) -> Dict[str, Any]:
+    """Read the copier answer file.
+
+    > WARN: requires `PyYAML` to be installed
+
+    Args:
+        path_copier: optional path to the copier answer file. Defaults to `CWD / .copier-answers.yml`
+
+    Returns:
+        dictionary representation of the source file
+
+    """
     import yaml
-    # Parse the Copier file for configuration information
-    path_copier = self.meta.path_project / '.copier-answers.yml'
+
+    path_copier = path_copier or Path.cwd() / '.copier-answers.yml'
     try:
         return yaml.safe_load(path_copier.read_text())
     except (FileNotFoundError, KeyError) as err:  # pragma: no cover
-        logger.warning(f'Unexpected error reading the copier file: {err}')
+        logger.warning(f'Unexpected error reading the copier file ({path_copier}): {err}')
         return {}
+
+
+@beartype
+def get_doc_dir(path_project: Path) -> Path:
+    """Retrieve the documentation directory from teh copier answer file.
+
+    > Default directory is "docs" if not found
+    > WARN: requires `PyYAML` to be installed
+
+    Args:
+        path_project: Path to the project directory with contains `.copier-answers.yml`
+
+    Returns:
+        Path: to the source documentation directory
+
+    """
+    path_copier = path_project / '.copier-answers.yml'
+    return path_project / _read_copier_answers(path_copier).get('doc_dir', 'docs')
 
 
 # ----------------------------------------------------------------------------------------------------------------------
