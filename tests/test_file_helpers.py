@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from calcipy.file_helpers import delete_dir, ensure_dir, read_lines, sanitize_filename, tail_lines
+from calcipy.file_helpers import delete_dir, ensure_dir, if_found_unlink, read_lines, sanitize_filename, tail_lines
 
 
 def test_sanitize_filename():
@@ -31,6 +31,17 @@ def test_tail_lines(fix_test_cache):
     assert result == ['']
     assert tail_lines(path_file, count=2) == ['line 2', '']
     assert tail_lines(path_file, count=10) == ['line 1', 'line 2', '']
+
+
+def test_if_found_unlink(fix_test_cache):
+    """Test if_found_unlink."""
+    path_file = fix_test_cache / 'if_found_unlink-test_file.txt'
+
+    path_file.write_text('')  # act
+
+    assert path_file.is_file()
+    if_found_unlink(path_file)
+    assert not path_file.is_file()
 
 
 def test_dir_tools(fix_test_cache):

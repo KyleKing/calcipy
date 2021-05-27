@@ -6,7 +6,8 @@ from typing import Iterable, List
 from beartype import beartype
 from doit.tools import Interactive
 
-from .base import debug_task, echo, if_found_unlink
+from ..file_helpers import if_found_unlink
+from .base import debug_task, echo
 from .doit_globals import DG, DoitAction, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------

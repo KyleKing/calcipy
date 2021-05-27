@@ -79,16 +79,3 @@ def open_in_browser(path_file: Path) -> None:
 
     """
     webbrowser.open(Path(path_file).as_uri())  # pragma: no cover
-
-
-@beartype
-def if_found_unlink(path_file: Path) -> None:
-    """Remove file if it exists. Function is intended to a doit action.
-
-    Args:
-        path_file: Path to file to remove
-
-    """
-    if path_file.is_file():
-        logger.info(f'Deleting `{path_file}`', path_file=path_file)
-        path_file.unlink()
