@@ -89,7 +89,7 @@ def task_lint_project() -> DoitTask:
     """
     return debug_task(
         _lint_project(
-            DG.lint.paths, path_flake8=DG.lint.path_flake8,
+            DG.lint.paths_py, path_flake8=DG.lint.path_flake8,
             ignore_errors=[],
         ),
     )
@@ -105,7 +105,7 @@ def task_lint_critical_only() -> DoitTask:
     """
     return debug_task(
         _lint_project(
-            DG.lint.paths, path_flake8=DG.lint.path_flake8,
+            DG.lint.paths_py, path_flake8=DG.lint.path_flake8,
             ignore_errors=DG.lint.ignore_errors,
         ),
     )
@@ -124,7 +124,7 @@ def task_radon_lint() -> DoitTask:
     actions: List[DoitAction] = []
     for args in ['mi', 'cc --total-average -nb', 'hal']:
         actions.append((echo, (f'# Radon with args: {args}',)))
-        actions.extend([f'poetry run radon {args} "{lint_path}"' for lint_path in DG.lint.paths])
+        actions.extend([f'poetry run radon {args} "{lint_path}"' for lint_path in DG.lint.paths_py])
     return debug_task(actions)
 
 
@@ -160,7 +160,7 @@ def task_auto_format() -> DoitTask:
 
     """
     run = 'poetry run python -m'
-    paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths)
+    paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths_py)
     return debug_task([
         f'{run} autopep8 {paths} --in-place --aggressive',
         f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',

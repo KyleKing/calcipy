@@ -95,7 +95,7 @@ def test_task_radon_lint():
     result = task_radon_lint()
 
     actions = result['actions']
-    count = len(DG.lint.paths)
+    count = len(DG.lint.paths_py)
     assert len(actions) == 3 * (1 + count)
     for action in actions:
         if isinstance(action, tuple):

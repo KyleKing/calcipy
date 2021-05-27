@@ -6,7 +6,7 @@ from calcipy.doit_tasks.file_search import find_project_files_by_suffix
 
 def test_find_project_files_by_suffix():
     """Test find_project_files_by_suffix."""
-    result = find_project_files_by_suffix(DG.meta.path_project)
+    result = find_project_files_by_suffix(DG.meta.path_project, DG.meta.ignore_patterns)
 
     assert len(result) != 0, f'Error: see {DG.meta.path_project}/README.md for configuring the directory'
     assert [*result.keys()] == ['yml', 'toml', '', 'md', 'cfg', 'yaml', 'py', 'ini']

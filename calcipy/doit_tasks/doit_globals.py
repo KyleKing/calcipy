@@ -122,6 +122,9 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
     path_toml: Path = Path('pyproject.toml')
     """Path to the poetry toml file."""
 
+    ignore_patterns: List[str] = []
+    """List of glob patterns to ignore from all analysis."""
+
     pkg_name: str = attr.ib(init=False)
     """Package string name."""
 
@@ -164,9 +167,6 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     path_isort: Path = Path('.isort.cfg')
     """Path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
 
-    paths: List[Path] = []
-    """List of file and directory Paths to lint."""
-
     ignore_errors: List[str] = [
         'AAA01',  # AAA01 / act block in pytest
         'C901',  # C901 / complexity from "max-complexity = 10"
@@ -187,7 +187,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
-        self.paths = find_project_files_by_suffix(self.path_project).get('py', [])
+        self.paths_py = find_project_files_by_suffix(self.path_project, DG.meta.ignore_patterns).get('py', [])
 
     def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
         """Shorten the list of `paths` using the project directory.
@@ -242,15 +242,12 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
     """string regular expression that contains `{tag}`."""
 
-    paths: List[Path] = []
-    """List of paths to all files that could contain a relevant tag."""
-
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
         self.path_code_tag_summary = self.doc_dir / self._code_tag_summary_filename
-        self.paths.extend(find_project_files(self.path_project))
+        self.paths = find_project_files(self.path_project, DG.meta.ignore_patterns)
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
@@ -272,9 +269,6 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     path_out: Path = Path('releases/site')
     """Path to the documentation output directory."""
 
-    paths_md: List[Path] = []
-    """List of Paths to the project markdown files."""
-
     startswith_action_lookup: Dict[str, Callable[[str, Path], str]] = {}
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
@@ -282,7 +276,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         self.path_out.mkdir(exist_ok=True, parents=True)
-        self.paths_md = find_project_files_by_suffix(self.path_project).get('md', [])
+        self.paths_md = find_project_files_by_suffix(self.path_project, DG.meta.ignore_patterns).get('md', [])
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -336,8 +330,6 @@ class DoitGlobals:
         self.test = TestingConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
         self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
-
-        logger.info(self)
 
 
 DG = DoitGlobals()
