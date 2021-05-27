@@ -8,7 +8,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.0.1
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -18,7 +18,7 @@ repos:
       - id: check-toml
       - id: check-vcs-permalinks
       - id: check-yaml
-        args: ['--unsafe']
+        args: ["--unsafe"]
       - id: debug-statements
       - id: destroyed-symlinks
       - id: detect-private-key
@@ -26,30 +26,39 @@ repos:
       - id: end-of-file-fixer
       - id: fix-byte-order-marker
       - id: fix-encoding-pragma
-        args: ['--remove']
+        args: ["--remove"]
       - id: forbid-new-submodules
       - id: mixed-line-ending
-        args: ['--fix=lf']
+        args: ["--fix=lf"]
       - id: pretty-format-json
-        args: ['--autofix']
+        args: ["--autofix"]
       - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.15.3
+    rev: v2.17.7
     hooks:
       - id: commitizen
-        additional_dependencies: ['git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08']
+        additional_dependencies:
+          [
+            "git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08",
+          ]
         stages: [commit-msg]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.10.0
+    rev: v2.18.3
     hooks:
       - id: pyupgrade
         stages: [push]
+        args: ["--keep-runtime-typing"]
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.1.0
     hooks:
       - id: add-trailing-comma
         stages: [push]
+  # - repo: https://github.com/sondrelg/pep585-upgrade
+  #   rev: "bcc3d077ee46c94bc1dac5f5274e2fb43de570e9"
+  #   hooks:
+  #     # FYI: Re-run when dropping Python 3.8
+  #     - id: upgrade-type-hints
   - repo: local
     hooks:
       - id: copier-forbidden-files

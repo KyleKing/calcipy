@@ -50,7 +50,7 @@ classifiers = [
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.10"
+python = "^3.8"
 attrs = "*"
 beartype = "*"
 decorator = "*"
