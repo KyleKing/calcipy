@@ -39,8 +39,12 @@ python = "^3.7.1"
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.dependencies.calcipy]
-version = "*"
+git = "https://github.com/kyleking/calcipy.git"
+branch = "dev/development"
+rev = "ad148bc"  # Always pin to a commit
+develop = true  # Optional: will reinstall each time
 
 [tool.poetry.dev-dependencies.calcipy]
-version = "*"
-extras = [ "dev", "lint", "test",]
+git = "https://github.com/kyleking/calcipy.git"
+branch = "dev/development"
+extras = [ "dev", "lint", "test"]

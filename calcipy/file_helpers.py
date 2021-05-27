@@ -33,6 +33,18 @@ def sanitize_filename(filename: str, repl_char: str = '_', allowed_chars: str = 
     return ''.join((char if char in allowed_chars else repl_char) for char in filename)
 
 
+# FIXME: Implement
+def read_copier_answers():
+    import yaml
+    # Parse the Copier file for configuration information
+    path_copier = self.meta.path_project / '.copier-answers.yml'
+    try:
+        return yaml.safe_load(path_copier.read_text())
+    except (FileNotFoundError, KeyError) as err:  # pragma: no cover
+        logger.warning(f'Unexpected error reading the copier file: {err}')
+        return {}
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Read Files
 

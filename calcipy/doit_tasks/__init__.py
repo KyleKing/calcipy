@@ -6,6 +6,7 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 """
 
+# FIXME: Make a task_nox / task_nox -k / task_nox -session?
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
     # from .code_tag_collector

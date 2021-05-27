@@ -9,12 +9,12 @@ FIXME: Replace with programmatic imports? Maybe explicit imports to check backwa
 
 """
 
-from calcipy.conftest import *
+from pprint import pprint
+
+from calcipy.conftest import *  # noqa: F401, F403
+from calcipy.doit_tasks import *
 from calcipy.file_helpers import *
 from calcipy.log_helpers import *
 from calcipy.wrappers import *
 
-from calcipy.doit_tasks import *
-
-from pprint import pprint
 pprint(locals())

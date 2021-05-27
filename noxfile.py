@@ -92,6 +92,9 @@ def check_safety(session: Session) -> None:
     Args:
         session: nox_poetry Session
 
+    Raises:
+        RuntimeError: if safety exited with errors, but not caught by session
+
     """
     # Note: safety requires a requirements.txt file and doesn't support pyproject.toml yet
     session.poetry.export_requirements()

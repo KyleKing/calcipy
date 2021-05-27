@@ -120,7 +120,7 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
     """Package Meta-Information."""
 
     path_toml: Path = Path('pyproject.toml')
-    """Path to the poetry toml file."""
+    """Relative path to the poetry toml file."""
 
     ignore_patterns: List[str] = []
     """List of glob patterns to ignore from all analysis."""
@@ -162,10 +162,10 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     """Lint Config."""
 
     path_flake8: Path = Path('.flake8')
-    """Path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
+    """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
 
     path_isort: Path = Path('.isort.cfg')
-    """Path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
+    """Relative path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
 
     ignore_errors: List[str] = [
         'AAA01',  # AAA01 / act block in pytest
@@ -183,6 +183,9 @@ class LintConfig(_PathAttrBase):  # noqa: H601
         'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
     ]
     """List of additional excluded flake8 rules for the pre-commit check."""
+
+    paths_py: List[Path] = attr.ib(init=False)
+    """Paths to the Python files used when linting. Created with `find_project_files_by_suffix`."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
@@ -209,10 +212,19 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
     """Python versions to test against. Default is `['3.8', '3.9']`."""
 
     path_out: Path = Path('releases/tests')
-    """Path to the report output directory. Default is `releases/tests`."""
+    """Relative path to the report output directory. Default is `releases/tests`."""
 
     path_tests: Path = Path('tests')
-    """Path to the tests directory. Default is `tests`."""
+    """Relative path to the tests directory. Default is `tests`."""
+
+    path_report_index: Path = attr.ib(init=False)
+    """Path to the test report HTML index file."""
+
+    path_coverage_index: Path = attr.ib(init=False)
+    """Path to the coverage HTML index file."""
+
+    path_mypy_index: Path = attr.ib(init=False)
+    """Path to the mypy HTML index file."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
@@ -229,9 +241,9 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     """Code Tag Config."""
 
     doc_dir: Path = Path('docs')
-    """Path to the source documentation directory."""
+    """Relative path to the source documentation directory."""
 
-    _code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
+    code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
     """Name of the code tag summary file."""
 
     tags: List[str] = [
@@ -242,11 +254,17 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
     """string regular expression that contains `{tag}`."""
 
+    path_code_tag_summary: Path = attr.ib(init=False)
+    """Path to the code tag summary file. Uses `code_tag_summary_filename`."""
+
+    paths: List[Path] = attr.ib(init=False)
+    """Paths to the Python files used when linting. Created with `find_project_files_by_suffix`."""
+
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
-        self.path_code_tag_summary = self.doc_dir / self._code_tag_summary_filename
+        self.path_code_tag_summary = self.doc_dir / self.code_tag_summary_filename
         self.paths = find_project_files(self.path_project, DG.meta.ignore_patterns)
 
     def compile_issue_regex(self) -> Pattern[str]:
@@ -264,13 +282,16 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
     doc_dir: Path = Path('docs')
-    """Path to the source documentation directory."""
+    """Relative path to the source documentation directory."""
 
     path_out: Path = Path('releases/site')
-    """Path to the documentation output directory."""
+    """Relative path to the documentation output directory."""
 
     startswith_action_lookup: Dict[str, Callable[[str, Path], str]] = {}
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
+
+    paths_md: List[Path] = attr.ib(init=False)
+    """Paths to Markdown files used when documenting. Created with `find_project_files_by_suffix`."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
@@ -283,7 +304,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 class DoitGlobals:
     """Global Variables for doit."""
 
-    calcipy_dir: Path = Path(__file__).resolve().parents[1]
+    calcipy_dir: Path = attr.ib(init=False, default=Path(__file__).resolve().parents[1])
     """The calcipy directory (likely within `.venv`)."""
 
     meta: PackageMeta = attr.ib(init=False)
@@ -312,7 +333,7 @@ class DoitGlobals:
 
         """
         logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
-        path_project = Path.cwd() if path_project is None else path_project
+        path_project = path_project or Path.cwd()
         self.meta = PackageMeta(path_project=path_project)
         meta_kwargs = {'path_project': self.meta.path_project}
 
