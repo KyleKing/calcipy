@@ -332,6 +332,8 @@ class DoitGlobals:
         toml_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
         self.meta.ignore_patterns = toml_config.get('ignore_patterns', [])
 
+        # FIXME: Make all options configurable with the toml file!!
+        # code_tags.tags/.filename | tests.path_out | doc.path_out | test.pythons | lint.path_flake8/.path_isort/.ignore_errors
         self.lint = LintConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]

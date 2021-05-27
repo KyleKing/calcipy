@@ -21,7 +21,7 @@ TEST_DATA_DIR = TEST_DIR / 'data'
 TEST_TMP_CACHE = TEST_DIR / '_tmp_cache'
 """Path to the temporary cache folder in the Test directory."""
 
-# PLANNED: Replace magic numbers in tests with meta-data about the test project
+# TODO: Replace magic numbers in tests with meta-data about the test project
 #   _COUNT_PY_FILES = 8
 #   _COUNT_MD_FILES = ?
 #   etc...

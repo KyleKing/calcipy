@@ -3,6 +3,8 @@ annoy = true
 assertive-snakecase = true
 cohesion-below = 50.0
 docstring-convention = all
+# May generate false positives. May need to revisit, but seems fine so far
+eradicate-aggressive = true
 # Explanation and Notes on Flake8 Ignore Rules. Also see: https://www.flake8rules.com/
 # ANN01,ANN002,ANN003,ANN101 / flake8-annotations: https://github.com/sco1/flake8-annotations
 # D203,D213,D214,D406,D407 / (conflicts with Google docstrings) http://www.pydocstyle.org/en/latest/error_codes.html
@@ -21,5 +23,6 @@ max-expression-complexity = 7
 max-function-length = 55
 max-line-length = 120
 max-parameters-amount = 6
+min-python-version = 3.8
 per-file-ignores=test_*.py:ANN001,ANN201,DAR101,DAR201,E800,S101
 select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z

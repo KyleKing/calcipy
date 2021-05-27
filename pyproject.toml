@@ -3,7 +3,7 @@ requires = [ "poetry-core>=1.0.0",]
 build-backend = "poetry.core.masonry.api"
 
 [tool.calcipy]
-ignore_patterns = [ ".test_calcipy_project/**/*.*",]
+ignore_patterns = [ ".test_calcipy_project/**/*.*", ".test_calcipy_project/*.*",]
 
 [tool.commitizen]
 name = "cz_legacy"
@@ -29,9 +29,9 @@ authors = [ "Kyle King <dev.act.kyle@gmail.com>",]
 maintainers = []
 repository = "https://github.com/kyleking/calcipy"
 documentation = "https://github.com/kyleking/calcipy/docs"
-readme = "README.md"
+readme = "docs/README.md"
 include = [ "LICENSE.md",]
-keywords = [ "python-poetry", "doit",]
+keywords = [ "python-poetry", "doit", "nox", "flake8",]
 classifiers = [
     # https://pypi.org/classifiers/
     "Development Status :: 3 - Alpha",
