@@ -167,7 +167,7 @@ name = "cloudpickle"
 version = "1.6.0"
 description = "Extended pickling support for Python objects"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.5"
 
 [[package]]
@@ -313,7 +313,7 @@ name = "doit"
 version = "0.33.1"
 description = "doit - Automation Tool"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -967,7 +967,7 @@ name = "macfsevents"
 version = "0.8.1"
 description = "Thread-based interface to file system observation primitives."
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -1360,7 +1360,7 @@ name = "pyinotify"
 version = "0.9.6"
 description = "Linux filesystem events monitoring"
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -1754,7 +1754,7 @@ dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-dev = ["better-exceptions", "commitizen", "doit", "markdown-include", "mkdocs-material", "pdocs", "pre-commit", "pyupgrade", "subprocess-tee", "toml"]
+dev = ["better-exceptions", "commitizen", "markdown-include", "mkdocs-material", "pdocs", "pre-commit", "pyupgrade", "subprocess-tee", "toml"]
 lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon"]
 serializers = ["preconvert", "preconvert_numpy"]
 test = ["lxml", "mypy", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-watch"]
@@ -1762,7 +1762,7 @@ test = ["lxml", "mypy", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "py
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ca49ee01374ede7b53ea614d18ca93a4fcc116fbc6a2bf2dcb6274f312e16a2a"
+content-hash = "7480054c42d7c34c26462252784ed32ea176226bc88eb515f4491b21ee9bcce4"
 
 [metadata.files]
 add-trailing-comma = [
