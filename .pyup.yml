@@ -1,5 +1,4 @@
 ---
-
 # see https://pyup.io/docs/configuration/ for all available options
 
 # configure updates globally
@@ -43,7 +42,7 @@ search: true
 # requires private repo permissions, even on public repos
 # default: empty
 assignees:
- - kyleking
+  - kyleking
 
 # configure the branch prefix the bot is using
 # default: pyup-

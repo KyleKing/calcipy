@@ -8,7 +8,7 @@
 
 - [tidypy](https://github.com/jayclassless/tidypy#features) offers similar functionality of bundling and running static checkers, but makes far fewer assumptions about the project itself (and has a really nice progress indicator!)
 - [black](https://black.readthedocs.io/en/stable/) is an opinionated, but really popular formatter
-- And many more such as [prospector](https://github.com/PyCQA/prospector), [cjolowicz/cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), etc.
+- And many more such as [prospector](https://github.com/PyCQA/prospector), [wemake-python-styleguide](https://github.com/wemake-services/wemake-python-styleguide) / [cjolowicz/cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), etc.
 
 ## Installation
 

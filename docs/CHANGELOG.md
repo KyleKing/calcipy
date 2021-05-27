@@ -2,6 +2,11 @@
 
 ### Feat
 
+- lint non-Python files
+- read doc_dir from copier file
+- make most settings configurable
+- added dotted-dict wrapper of Box
+- delete old files rather than full directory
 - filter with glob-like ignore_patterns (2/2)
 - add security check task
 - add skip_phrase for code tag skipping
@@ -22,6 +27,8 @@
 
 ### Fix
 
+- errors in ignore patterns
+- import doit and expand nox test file
 - skip tags must be at bottom
 - reset Lint paths instead of extend
 - use find_files for code tag summary
@@ -43,6 +50,10 @@
 
 ### Refactor
 
+- fix lint errors in YAML files
+- move find file paths to DG.meta
+- move if_found_unlink to file_helpers
+- fix formatting with pre-commit
 - fix attribute names for path types (1/2)
 - use calcipy:skip-tags
 - fix minor code tags

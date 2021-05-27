@@ -6,7 +6,7 @@ from calcipy.doit_tasks.base import echo
 from calcipy.doit_tasks.doit_globals import DG
 from calcipy.doit_tasks.lint import (
     _check_linting_errors, _lint_python, task_auto_format, task_lint_critical_only,
-    task_lint_python, task_pre_commit_hooks, task_radon_lint, task_lint_project,
+    task_lint_project, task_lint_python, task_pre_commit_hooks, task_radon_lint,
 )
 from calcipy.file_helpers import if_found_unlink
 
