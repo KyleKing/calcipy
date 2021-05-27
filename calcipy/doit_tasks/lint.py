@@ -55,7 +55,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
 
 # TODO: see if all return types could be removed from docstrings b/c technically optional and not linted
 @beartype
-def _lint_project(
+def _lint_python(
     lint_paths: List[Path], path_flake8: Path,
     ignore_errors: Iterable[str] = (),
 ) -> List[DoitAction]:  # FIXME: Docstrings should report an error here for mismatch in types?
@@ -81,35 +81,68 @@ def _lint_project(
 
 
 @beartype
-def task_lint_project() -> DoitTask:
-    """Lint files from DG creating summary log file of errors.
+def _lint_non_python(strict: bool = False) -> List[DoitAction]:
+    """Lint non-Python files such as JSON and YML/YAML.
+
+    Args:
+        strict: if True, will use the strictest configuration for the linter
 
     Returns:
         DoitTask: doit task
 
     """
-    return debug_task(
-        _lint_project(
-            DG.lint.paths_py, path_flake8=DG.lint.path_flake8,
-            ignore_errors=[],
-        ),
-    )
+    strict_flag = '--strict' if strict else ''
+
+    actions = []
+
+    paths_yaml = DG.meta.paths_by_suffix.get('yml', []) + DG.meta.paths_by_suffix.get('yaml', [])
+    if paths_yaml:
+        paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
+        actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
+
+    paths_json = DG.meta.paths_by_suffix.get('json', [])
+    if paths_json:
+        actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
+
+    return actions
+
+
+@beartype
+def task_lint_python() -> DoitTask:
+    """Lint all Python files and create summary of errors.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=[])
+    return debug_task(actions)
+
+
+@beartype
+def task_lint_project() -> DoitTask:
+    """Lint all project files that can be checked.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=[])
+    actions.extend(_lint_non_python(strict=True))
+    return debug_task(actions)
 
 
 @beartype
 def task_lint_critical_only() -> DoitTask:
-    """Lint files from DG creating summary log file of errors, but ignore non-critical errors.
+    """Lint all Python files and create summary of errors. Will only fail if non-ignored errors are found.
 
     Returns:
         DoitTask: doit task
 
     """
-    return debug_task(
-        _lint_project(
-            DG.lint.paths_py, path_flake8=DG.lint.path_flake8,
-            ignore_errors=DG.lint.ignore_errors,
-        ),
-    )
+    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=DG.lint.ignore_errors)
+    actions.extend(_lint_non_python())
+    return debug_task(actions)
 
 
 @beartype

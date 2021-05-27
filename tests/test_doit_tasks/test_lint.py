@@ -5,17 +5,17 @@ import pytest
 from calcipy.doit_tasks.base import echo
 from calcipy.doit_tasks.doit_globals import DG
 from calcipy.doit_tasks.lint import (
-    _check_linting_errors, _lint_project, task_auto_format, task_lint_critical_only,
-    task_lint_project, task_pre_commit_hooks, task_radon_lint,
+    _check_linting_errors, _lint_python, task_auto_format, task_lint_critical_only,
+    task_lint_python, task_pre_commit_hooks, task_radon_lint, task_lint_project,
 )
 from calcipy.file_helpers import if_found_unlink
 
 from ..configuration import PATH_TEST_PROJECT
 
 
-def test_lint_project():
-    """Test lint_project."""
-    result = _lint_project(
+def test_lint_python():
+    """Test _lint_python."""
+    result = _lint_python(
         lint_paths=[PATH_TEST_PROJECT / 'test_file.py', PATH_TEST_PROJECT / 'tests/test_file_2.py'],
         path_flake8=DG.lint.path_flake8,
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
@@ -58,9 +58,9 @@ def test_check_linting_errors_runtime_error(fix_test_cache):
     assert flake8_log_path.read_text() == FLAKE8_LOG
 
 
-def test_task_lint_project():
-    """Test task_lint_project."""
-    result = task_lint_project()
+def test_task_lint_python():
+    """Test task_lint_python."""
+    result = task_lint_python()
 
     actions = result['actions']
     assert len(actions) == 3
@@ -77,18 +77,30 @@ def test_task_lint_project():
     assert len(actions[-1][1][1]) == 0
 
 
+def test_task_lint_project():
+    """Test task_lint_project."""
+    result = task_lint_project()
+
+    actions = result['actions']
+    assert len(actions) == 5
+    assert 'poetry run yamllint --strict "' in str(actions[3])
+    assert 'poetry run jsonlint --strict "' in str(actions[4])
+
+
 def test_task_lint_critical_only():
     """Test task_lint_critical_only."""
     result = task_lint_critical_only()
 
     actions = result['actions']
-    assert len(actions) == 3
+    assert len(actions) == 5
     assert 'T100' not in actions[1]
-    assert isinstance(actions[-1][0], type(_check_linting_errors))
-    assert len(actions[-1][1]) == 2
-    assert actions[-1][1][0].name == 'flake8.log'
-    assert actions[-1][1][1] == ['T100', 'T101', 'T103']  # Read from toml
-    assert 'T100' in actions[-1][1][1]
+    assert isinstance(actions[2][0], type(_check_linting_errors))
+    assert len(actions[2][1]) == 2
+    assert actions[2][1][0].name == 'flake8.log'
+    assert actions[2][1][1] == ['T100', 'T101', 'T103']  # Read from toml
+    assert 'T100' in actions[2][1][1]
+    assert 'poetry run yamllint  "' in str(actions[3])
+    assert 'poetry run jsonlint  "' in str(actions[4])
 
 
 def test_task_radon_lint():

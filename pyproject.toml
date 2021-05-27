@@ -75,6 +75,7 @@ add-trailing-comma = {version = "*", optional = true}
 autopep8 = {version = "*", optional = true}
 cohesion = {version = "*", optional = true}
 darglint = {version = "*", optional = true}
+demjson = {version = "*", optional = true}
 dlint = {version = "*", optional = true}
 flake8 = {version = "*", optional = true}
 flake8-2020 = {version = "*", optional = true}
@@ -120,6 +121,7 @@ pep8-naming = {version = "*", optional = true}
 proselint = {version = "*", optional = true}
 radon = {version = "*", optional = true}
 vulture = {version = "*", optional = true}
+yamllint = {version = "*", optional = true}
 
 # Test
 lxml = {version = "*", optional = true}  # required for the HTML mypy report format
@@ -140,7 +142,7 @@ preconvert_numpy = {version = "*", optional = true}
 
 [tool.poetry.extras]
 dev = [ "better-exceptions", "commitizen", "markdown-include", "mkdocs-material", "pdocs", "pre-commit", "pyupgrade", "subprocess-tee", "toml",]
-lint = [ "add-trailing-comma", "autopep8", "cohesion", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture",]
+lint = [ "add-trailing-comma", "autopep8", "cohesion", "darglint", "yamllint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture", "demjson"]
 test = [ "lxml", "mypy", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-watch"]
 commitizen_legacy = [ "cz_legacy",]
 serializers = [ "preconvert", "preconvert_numpy",]

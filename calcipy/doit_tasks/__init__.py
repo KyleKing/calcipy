@@ -12,8 +12,8 @@ __all__ = [  # noqa: F405
     # from .code_tag_collector
     'task_collect_code_tags',
     # from .doc
-    'task_cl_bump',
     'task_cl_bump_pre',
+    'task_cl_bump',
     'task_cl_write',
     'task_deploy',
     'task_document',
@@ -23,9 +23,10 @@ __all__ = [  # noqa: F405
     'task_auto_format',
     'task_lint_critical_only',
     'task_lint_project',
-    'task_security_checks',
+    'task_lint_python',
     'task_pre_commit_hooks',
     'task_radon_lint',
+    'task_security_checks',
     # from .test
     'task_check_types',
     'task_coverage',

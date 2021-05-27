@@ -58,7 +58,7 @@ name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -272,6 +272,14 @@ description = "Decorators for Humans"
 category = "main"
 optional = false
 python-versions = ">=3.5"
+
+[[package]]
+name = "demjson"
+version = "2.2.4"
+description = "encoder, decoder, and lint/validator for JSON (JavaScript Object Notation) compliant with RFC 7159"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "distlib"
@@ -867,7 +875,7 @@ name = "importlib-metadata"
 version = "4.2.0"
 description = "Read metadata from Python packages"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -882,7 +890,7 @@ name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1192,7 +1200,7 @@ name = "packaging"
 version = "20.9"
 description = "Core utilities for Python packages"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.dependencies]
@@ -1209,6 +1217,14 @@ python-versions = "*"
 [package.dependencies]
 attrs = "*"
 flake8 = ">3.0.0"
+
+[[package]]
+name = "pathspec"
+version = "0.8.1"
+description = "Utility library for gitignore style pattern matching of file paths."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "pbr"
@@ -1248,7 +1264,7 @@ name = "pluggy"
 version = "0.13.1"
 description = "plugin and hook calling mechanisms for python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
@@ -1329,7 +1345,7 @@ name = "py"
 version = "1.10.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -1394,7 +1410,7 @@ name = "pyparsing"
 version = "2.4.7"
 description = "Python parsing module"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
@@ -1402,7 +1418,7 @@ name = "pytest"
 version = "6.2.4"
 description = "pytest: simple powerful testing with Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1461,7 +1477,7 @@ name = "pytest-randomly"
 version = "3.8.0"
 description = "Pytest plugin to randomly order tests and control random.seed."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1513,7 +1529,7 @@ name = "pyyaml"
 version = "5.4.1"
 description = "YAML parser and emitter for Python"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [[package]]
@@ -1655,7 +1671,7 @@ name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
@@ -1754,7 +1770,7 @@ name = "vulture"
 version = "2.3"
 description = "Find dead code"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1791,11 +1807,23 @@ python-versions = ">=3.5"
 dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
 [[package]]
+name = "yamllint"
+version = "1.26.1"
+description = "A linter for YAML files."
+category = "main"
+optional = false
+python-versions = ">=3.5.*"
+
+[package.dependencies]
+pathspec = ">=0.5.3"
+pyyaml = "*"
+
+[[package]]
 name = "zipp"
 version = "3.4.1"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.extras]
@@ -1805,14 +1833,14 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [extras]
 commitizen_legacy = ["cz_legacy"]
 dev = ["better-exceptions", "commitizen", "markdown-include", "mkdocs-material", "pdocs", "pre-commit", "pyupgrade", "subprocess-tee", "toml"]
-lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon"]
+lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture"]
 serializers = ["preconvert", "preconvert_numpy"]
-test = ["lxml", "mypy", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-watch"]
+test = ["lxml", "mypy", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-watch"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "e7cf0e9594e250450588e92fd64505ee45e0084024f736906c719e8720f548fb"
+content-hash = "98a018c5a8a04858f26c5e5c94b40178c1074f7a2b02c687eb6385bd0eb702ac"
 
 [metadata.files]
 add-trailing-comma = [
@@ -1967,6 +1995,9 @@ decli = [
 decorator = [
     {file = "decorator-5.0.9-py3-none-any.whl", hash = "sha256:6e5c199c16f7a9f0e3a61a4a54b3d27e7dad0dbdde92b944426cb20914376323"},
     {file = "decorator-5.0.9.tar.gz", hash = "sha256:72ecfba4320a893c53f9706bebb2d55c270c1e51a28789361aa93e4a21319ed5"},
+]
+demjson = [
+    {file = "demjson-2.2.4.tar.gz", hash = "sha256:31de2038a0fdd9c4c11f8bf3b13fe77bc2a128307f965c8d5fb4dc6d6f6beb79"},
 ]
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},
@@ -2399,6 +2430,10 @@ pandas-vet = [
     {file = "pandas-vet-0.2.2.tar.gz", hash = "sha256:0a316c3edaaa1bcd772bfaea0e8d2b2aa409b740198746a2b60f2007b313f42e"},
     {file = "pandas_vet-0.2.2-py3-none-any.whl", hash = "sha256:961235064ebe5b38ca9c3f45961fdce61796a01aea1f07b06b67f6b359aabea2"},
 ]
+pathspec = [
+    {file = "pathspec-0.8.1-py2.py3-none-any.whl", hash = "sha256:aa0cb481c4041bf52ffa7b0d8fa6cd3e88a2ca4879c533c9153882ee2556790d"},
+    {file = "pathspec-0.8.1.tar.gz", hash = "sha256:86379d6b86d75816baba717e64b1a3a3469deb93bb76d613c9ce79edc5cb68fd"},
+]
 pbr = [
     {file = "pbr-5.6.0-py2.py3-none-any.whl", hash = "sha256:c68c661ac5cc81058ac94247278eeda6d2e6aecb3e227b0387c30d277e7ef8d4"},
     {file = "pbr-5.6.0.tar.gz", hash = "sha256:42df03e7797b796625b1029c0400279c7c34fd7df24a7d7818a1abb5b38710dd"},
@@ -2752,6 +2787,9 @@ wcwidth = [
 win32-setctime = [
     {file = "win32_setctime-1.0.3-py3-none-any.whl", hash = "sha256:dc925662de0a6eb987f0b01f599c01a8236cb8c62831c22d9cada09ad958243e"},
     {file = "win32_setctime-1.0.3.tar.gz", hash = "sha256:4e88556c32fdf47f64165a2180ba4552f8bb32c1103a2fafd05723a0bd42bd4b"},
+]
+yamllint = [
+    {file = "yamllint-1.26.1.tar.gz", hash = "sha256:87d9462b3ed7e9dfa19caa177f7a77cd9888b3dc4044447d6ae0ab233bcd1324"},
 ]
 zipp = [
     {file = "zipp-3.4.1-py3-none-any.whl", hash = "sha256:51cb66cc54621609dd593d1787f286ee42a5c0adbb4b29abea5a63edc3e03098"},
