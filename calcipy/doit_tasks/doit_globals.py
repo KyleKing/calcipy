@@ -326,6 +326,12 @@ class DoitGlobals:
             doc_dir = self.meta.path_project / 'docs'
         doc_dir.mkdir(exist_ok=True, parents=True)
 
+        # Read the optional toml configuration
+        # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
+        path_toml = self.meta.path_project / 'pyproject.toml'
+        toml_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
+        self.meta.ignore_patterns = toml_config.get('ignore_patterns', [])
+
         self.lint = LintConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs)  # type: ignore[arg-type]
         self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir)  # type: ignore[arg-type]
