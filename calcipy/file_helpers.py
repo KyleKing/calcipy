@@ -45,8 +45,14 @@ def _read_copier_answers(path_copier: Optional[Path] = None) -> Dict[str, Any]:
     Returns:
         dictionary representation of the source file
 
+    Raises:
+        ImportError: if PyYAML is not installed
+
     """
-    import yaml
+    try:
+        import yaml
+    except ImportError:
+        raise ImportError('The optional package "PyYAML" is required for this feature')
 
     path_copier = path_copier or Path.cwd() / '.copier-answers.yml'
     try:

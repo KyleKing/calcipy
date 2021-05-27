@@ -14,6 +14,9 @@ from .doit_globals import DG, DoitTask
 def task_test() -> DoitTask:
     """Run tests with Pytest and stop on the first failure.
 
+    > Test are randomly ordered by default with pytest-randomly because that can help catch common errors
+    > Tests can be re-run in the last order with `poetry run pytest --randomly-seed=last`
+
     Returns:
         DoitTask: doit task
 
