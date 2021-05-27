@@ -35,8 +35,10 @@ class _Tags:  # noqa: H601
 
 
 @beartype
-def _search_lines(lines: List[str], regex_compiled: Pattern[str],
-                  skip_phrase: str = 'calcipy:skip_tags') -> List[_CodeTag]:
+def _search_lines(
+    lines: List[str], regex_compiled: Pattern[str],
+    skip_phrase: str = 'calcipy:skip_tags',
+) -> List[_CodeTag]:
     """Search lines of text for matches to the compiled regular expression.
 
     Args:
