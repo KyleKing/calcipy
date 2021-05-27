@@ -7,7 +7,49 @@ from .base import debug_task, open_in_browser
 from .doit_globals import DG, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Manage Testing
+# Manage Testing with Nox
+
+
+@beartype
+def task_nox() -> DoitTask:
+    """Run the full nox test suite.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        Interactive('poetry run nox'),
+    ])
+
+
+@beartype
+def task_nox_test() -> DoitTask:
+    """Run all nox tests.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        Interactive('poetry run nox -k "tests"'),
+    ])
+
+
+@beartype
+def task_nox_coverage() -> DoitTask:
+    """Run all nox tests.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        Interactive('poetry run nox -k "coverage"'),
+    ])
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Manage Testing with pytest (Should be run from Nox)
 
 
 @beartype
@@ -102,6 +144,10 @@ def task_coverage() -> DoitTask:
     ])
 
 
+# ----------------------------------------------------------------------------------------------------------------------
+# Other Test Tools (MyPy, etc.)
+
+
 @beartype
 def task_check_types() -> DoitTask:
     """Run type annotation checks.
@@ -113,6 +159,10 @@ def task_check_types() -> DoitTask:
     return debug_task([
         Interactive(f'poetry run mypy {DG.meta.pkg_name} --show-error-codes'),
     ])
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Test Output Interaction
 
 
 @beartype

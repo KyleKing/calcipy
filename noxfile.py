@@ -65,6 +65,18 @@ def tests(session: Session) -> None:
     session.run(*shlex.split('doit run test'), stdout=True)
 
 
+@session(python=[DG.test.pythons[-1]], reuse_venv=True)
+def coverage(session: Session) -> None:
+    """Run doit test task for specified python versions.
+
+    Args:
+        session: nox_poetry Session
+
+    """
+    session.install('.[dev]', '.[test]')
+    session.run(*shlex.split('doit run coverage'), stdout=True)
+
+
 @session(python=[DG.test.pythons[-1]], reuse_venv=False)
 def build_dist(session: Session) -> None:
     """Build the project files within a controlled environment for repeatability.

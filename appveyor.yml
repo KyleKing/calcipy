@@ -51,16 +51,16 @@ install:
   - poetry install -E dev -E lint -E test -E commitizen_legacy
 
 test_script:
-  - poetry run doit run coverage
+  - poetry run doit
+  # Install codecov and upload the coverage results
+  - python -m pipx install codecov
+  - codecov
 
 deploy_script:
   - echo "Deploying..."
 
 on_success:
   - echo "On Success..."
-  # Install codecov and upload the coverage results
-  - python -m pipx install codecov
-  - codecov
 
 on_failure:
   - echo "On Error..."

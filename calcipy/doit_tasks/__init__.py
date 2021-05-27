@@ -6,7 +6,6 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 """
 
-# FIXME: Make a task_nox / task_nox -k / task_nox -session?
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
     # from .code_tag_collector
@@ -30,6 +29,9 @@ __all__ = [  # noqa: F405
     # from .test
     'task_check_types',
     'task_coverage',
+    'task_nox_test',
+    'task_nox_coverage',
+    'task_nox',
     'task_open_test_docs',
     'task_ptw_current',
     'task_ptw_ff',
@@ -50,9 +52,9 @@ DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': [
         'collect_code_tags',
-        'coverage',
-        'auto_format',
         'cl_write',
+        'nox_coverage',
+        'auto_format',
         'document',
         'pre_commit_hooks',
         'lint_critical_only',
