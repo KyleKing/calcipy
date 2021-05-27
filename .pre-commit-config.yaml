@@ -56,6 +56,12 @@ repos:
     hooks:
       - id: add-trailing-comma
         stages: [push]
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.1.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+        exclude: poetry.lock
   # - repo: https://github.com/sondrelg/pep585-upgrade
   #   rev: "bcc3d077ee46c94bc1dac5f5274e2fb43de570e9"
   #   hooks:

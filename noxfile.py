@@ -101,8 +101,41 @@ def check_safety(session: Session) -> None:
     # Install and run
     session.install('safety', '--upgrade')
     path_report = Path('insecure_report.json').resolve()
-    logger.info(f'Creating safety report at: {path_report}')
+    logger.info(f'Creating safety report: {path_report}')
     session.run(*shlex.split(f'safety check --full-report --cache --output {path_report} --json'), stdout=True)
     if path_report.read_text().strip() != '[]':
         raise RuntimeError(f'Found safety warnings in {path_report}')
     path_report.unlink()
+
+
+# FIXME: Setup as pre-commit hook instead...
+
+# @session(python=[DG.test.pythons[-1]], reuse_venv=True)
+# def check_secrets(session: Session) -> None:
+#     """Look for secret tokens.
+
+#     Args:
+#         session: nox_poetry Session
+
+#     """
+#     # if not session.interactive:
+#     #     session.skip('Cannot run detect-secrets audit in non-interactive shell')
+
+#     # PLANNED: pinned because of known conflict with MP in >3.7
+#     #   See: https://github.com/Yelp/detect-secrets/issues/452
+#     session.install('detect-secrets==1.0.3')  # , '--upgrade')
+
+#     path_baseline = Path('.secrets.baseline').resolve()
+#     logger.info(f'Creating detect-secrets baseline report: {path_baseline}')
+#     if not path_baseline.is_file():
+#         with open(path_baseline, 'w') as out:
+#             session.run(*shlex.split('detect-secrets scan calcipy .'), stdout=out)
+
+#     if session.interactive:
+#         session.run(*shlex.split(f'detect-secrets audit "{path_baseline}"'), stdout=True)
+
+#     # Review the baseline report
+#     report = json.loads(path_baseline.read_text())
+#     for filename in report.get('results', {}).keys():
+#         if filename != 'poetry.lock':
+#             raise RuntimeError(f'Found unexpected secret in {filename}')
