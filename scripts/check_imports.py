@@ -11,10 +11,10 @@ FIXME: Replace with programmatic imports? Maybe explicit imports to check backwa
 
 from pprint import pprint
 
-from calcipy.conftest import *  # noqa: F401, F403
-from calcipy.doit_tasks import *
-from calcipy.file_helpers import *
-from calcipy.log_helpers import *
-from calcipy.wrappers import *
+from calcipy.conftest import *  # noqa: F401, F403, H303
+from calcipy.doit_tasks import *  # noqa: F401, F403, H303
+from calcipy.file_helpers import *  # noqa: F401, F403, H303
+from calcipy.log_helpers import *  # noqa: F401, F403, H303
+from calcipy.wrappers import *  # noqa: F401, F403, H303
 
-pprint(locals())
+pprint(locals())  # noqa: T003

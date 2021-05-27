@@ -1,3 +1,5 @@
+---
+
 # Common commands:
 # poetry run pre-commit install
 # poetry run pre-commit run --hook-stage commit --all-files
@@ -38,6 +40,7 @@ repos:
     rev: v2.17.7
     hooks:
       - id: commitizen
+        # yamllint disable-line rule:line-length
         additional_dependencies:
           [
             "git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08",
@@ -63,6 +66,7 @@ repos:
     hooks:
       - id: copier-forbidden-files
         name: copier_forbidden_files
+        # yamllint disable-line rule:line-length
         entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: "\\.rej$"

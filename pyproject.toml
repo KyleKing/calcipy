@@ -3,7 +3,7 @@ requires = [ "poetry-core>=1.0.0",]
 build-backend = "poetry.core.masonry.api"
 
 [tool.calcipy]
-ignore_patterns = [ ".test_calcipy_project/**/*.*", ".test_calcipy_project/*.*",]
+ignore_patterns = [ ".test_calcipy_project/**/*", ".test_calcipy_project/*",]
 
 [tool.commitizen]
 name = "cz_legacy"
@@ -13,7 +13,7 @@ change_type_order = [
 ]
 version = "0.2.0a0"
 tag_format = "2021.$version"
-version_files = [ "pyproject.toml", "calcipy/__init__.py",]
+version_files = [ "pyproject.toml", "calcipy/__init__.py", "appveyor.yml",]
 
 [tool.commitizen.cz_legacy_map]
 Chg = "Change (Old)"
