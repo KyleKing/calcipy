@@ -140,6 +140,12 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
     ignore_patterns: List[str] = []
     """List of glob patterns to ignore from all analysis."""
 
+    paths: List[Path] = attr.ib(init=False)
+    """Paths to all tracked files that were not ignored with specified patterns `find_project_files`."""
+
+    paths_by_suffix: Dict[str, List[Path]] = attr.ib(init=False)
+    """Paths to all tracked files that were not ignored with specified patterns `find_project_files_by_suffix`."""
+
     pkg_name: str = attr.ib(init=False)
     """Package string name."""
 
@@ -170,6 +176,20 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
 
         if '-' in self.pkg_name:  # pragma: no cover
             warnings.warn(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.path_toml}')
+
+        self.paths = find_project_files(self.path_project, self.ignore_patterns)
+        self.paths_by_suffix = find_project_files_by_suffix(self.path_project, self.ignore_patterns)
+
+    def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
+        """Shorten the list of directories common to the specified paths.
+
+        > Not currently needed, but could be useful
+
+        Returns:
+            Set[str]: set of most common top-level directories relative to the project dir
+
+        """
+        return {pth.parent.relative_to(self.project_dir).as_posix() for pth in self.paths}  # type: ignore[attr-defined]
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -207,18 +227,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
         super().__attrs_post_init__()
         self.path_flake8 = _make_full_path(self.path_flake8, self.path_project)
         self.path_isort = _make_full_path(self.path_isort, self.path_project)
-        self.paths_py = find_project_files_by_suffix(self.path_project, DG.meta.ignore_patterns).get('py', [])
-
-    def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
-        """Shorten the list of `paths` using the project directory.
-
-        > Not currently used, but could be useful
-
-        Returns:
-            Set[str]: set of most common top-level directories relative to the project dir
-
-        """
-        return {pth.parent.relative_to(self.project_dir).as_posix() for pth in self.paths}  # type: ignore[attr-defined]
+        self.paths_py = DG.meta.paths_by_suffix.get('py', [])
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -276,15 +285,11 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     path_code_tag_summary: Path = attr.ib(init=False)
     """Path to the code tag summary file. Uses `code_tag_summary_filename`."""
 
-    paths: List[Path] = attr.ib(init=False)
-    """Paths to the Python files used when linting. Created with `find_project_files_by_suffix`."""
-
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
         self.path_code_tag_summary = self.doc_dir / self.code_tag_summary_filename
-        self.paths = find_project_files(self.path_project, DG.meta.ignore_patterns)
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
@@ -317,7 +322,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         super().__attrs_post_init__()
         self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
-        self.paths_md = find_project_files_by_suffix(self.path_project, DG.meta.ignore_patterns).get('md', [])
+        self.paths_md = DG.meta.paths_by_suffix.get('md', [])
 
 
 @attr.s(auto_attribs=True, kw_only=True)
