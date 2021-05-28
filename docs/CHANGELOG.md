@@ -2,6 +2,8 @@
 
 ### Feat
 
+- add nox tasks
+- add detect-secrets as pre-commit
 - lint non-Python files
 - read doc_dir from copier file
 - make most settings configurable
@@ -27,6 +29,7 @@
 
 ### Fix
 
+- remove check-secrets but keep snippets
 - errors in ignore patterns
 - import doit and expand nox test file
 - skip tags must be at bottom
@@ -50,6 +53,7 @@
 
 ### Refactor
 
+- format with VSCode
 - fix lint errors in YAML files
 - move find file paths to DG.meta
 - move if_found_unlink to file_helpers
@@ -146,8 +150,6 @@
 
 - initialize new DIG for #7 (@WIP)
 - last version with dash_dev package name (#22)
-- use the climate strike license (#22)
-- ADR template and notes
 
 ### Change (Old)
 
@@ -167,8 +169,6 @@
 - rename folder to calcipy #22
 - rename source to calcipy for #22
 - remove pdoc3 & archive documentation tasks
-- remove sh for Windows support @WIP
-- try long running for pytest
 
 ### Fix (Old)
 
@@ -179,6 +179,21 @@
 - breaking changes from DIG changes (#7)
 - refactor the missing keyword argument logic
 - bury attr exceptions for coverage table
+
+## 0.0.3 (2020-12-10)
+
+### New (Old)
+
+- use the climate strike license (#22)
+- ADR template and notes
+
+### Change (Old)
+
+- remove sh for Windows support @WIP
+- try long running for pytest
+
+### Fix (Old)
+
 - make creating the log directory optional
 
 ## 0.0.2 (2020-11-14)
@@ -189,6 +204,19 @@
 - archive watchcode task
 - move DIG to separate file
 - move tasks to use a wildcard import
+
+### Change (Old)
+
+- add skipcq & update version
+- update documentation
+- improve how tags are located
+- update documentation @WIP
+- minor type annotation fixes
+
+## 0.0.1 (2020-11-14)
+
+### New (Old)
+
 - add logging. Fixes #5
 - intialized tag-finding logic @WIP
 - use a new DoItTask type for annotations
@@ -211,11 +239,6 @@
 
 ### Change (Old)
 
-- add skipcq & update version
-- update documentation
-- improve how tags are located
-- update documentation @WIP
-- minor type annotation fixes
 - improve logging. Addresses #5
 - improve logger context manager
 - add task to summarize tags. Fixes #2

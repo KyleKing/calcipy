@@ -232,7 +232,6 @@ commitizen_legacy = ["cz_legacy"]
 serializers = ["preconvert", "preconvert_numpy"]
 
 [tool.poetry.dev-dependencies]
-
 pydiatra = "^0.12.5"
 autoflake = "^1.4"
 wily = "^1.19.0"
