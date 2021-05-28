@@ -1,14 +1,14 @@
 [build-system]
-requires = [ "poetry-core>=1.0.0",]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.calcipy.code_tags]
-tags = [ "FIXME", "TODO", "PLANNED",]
+tags = ["FIXME", "TODO", "PLANNED"]
 filename = "CODE_TAG_SUMMARY.md"
 
 [tool.calcipy.tests]
 path_out = "releases/tests"
-pythons = [ "3.8", "3.9",]
+pythons = ["3.8", "3.9"]
 
 [tool.calcipy.doc]
 path_out = "releases/site"
@@ -16,35 +16,34 @@ path_out = "releases/site"
 [tool.calcipy.lint]
 path_flake8 = ".flake8"
 path_isort = ".isort.cfg"
-ignore_errors = [ "T100", "T101", "T103",]
+ignore_errors = ["T100", "T101", "T103"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.0.1"
 tag_format = "$version"
-version_files = [ "pyproject.toml", "test_project/__init__.py",]
+version_files = ["pyproject.toml", "test_project/__init__.py"]
 
 [tool.poetry]
 name = "test_project"
 version = "0.0.1"
 description = "This project is testing the functionality of copier_calcipy"
 license = "MIT"
-authors = [ "Kyle King <dev.act.kyle@gmail.com>",]
+authors = ["Kyle King <dev.act.kyle@gmail.com>"]
 maintainers = []
 repository = "https://github.com/kyleking/test_project"
 documentation = "https://github.com/kyleking/test_project/docs"
 readme = "README.md"
-include = [ "LICENSE.md",]
+include = ["LICENSE.md"]
 keywords = []
 classifiers = [
-    # https://pypi.org/classifiers/
     "Development Status :: 1 - Planning",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
-]
+] # https://pypi.org/classifiers/
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/test_project/issues"
@@ -52,15 +51,13 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.7.1"
 
-[tool.poetry.dev-dependencies]
-
 [tool.poetry.dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
 branch = "dev/development"
-rev = "ad148bc"  # Always pin to a commit
-develop = true  # Optional: will reinstall each time
+rev = "ad148bc" # Always pin to a commit
+develop = true # Optional: will reinstall each time
 
 [tool.poetry.dev-dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
 branch = "dev/development"
-extras = [ "dev", "lint", "test"]
+extras = ["dev", "lint", "test"]

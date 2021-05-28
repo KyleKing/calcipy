@@ -83,9 +83,9 @@ def task_test_all() -> DoitTask:
 
 @beartype
 def task_test_marker() -> DoitTask:
-    r"""Specify a marker to run a subset of tests.
+    """Specify a marker to run a subset of tests.
 
-    Example: `doit run test_marker -m \"not MARKER\"` or `doit run test_marker -m \"MARKER\"`
+    Example: `doit run test_marker -m "not MARKER"` or `doit run test_marker -m "MARKER"`
 
     Returns:
         DoitTask: doit task
@@ -104,9 +104,9 @@ def task_test_marker() -> DoitTask:
 
 @beartype
 def task_test_keyword() -> DoitTask:
-    r"""Specify a keyword to run a subset of tests.
+    """Specify a keyword to run a subset of tests.
 
-    Example: `doit run test_keyword -k \"KEYWORD\"`
+    Example: `doit run test_keyword -k "KEYWORD"`
 
     Returns:
         DoitTask: doit task
@@ -244,9 +244,9 @@ def task_ptw_current() -> DoitTask:
 
 @beartype
 def task_ptw_marker() -> DoitTask:
-    r"""Specify a marker to run a subset of tests in Interactive `ptw` task.
+    """Specify a marker to run a subset of tests in Interactive `ptw` task.
 
-    Example: `doit run ptw_marker -m \"not MARKER\"` or `doit run ptw_marker -m \"MARKER\"`
+    Example: `doit run ptw_marker -m "not MARKER"` or `doit run ptw_marker -m "MARKER"`
 
     Returns:
         DoitTask: doit task
