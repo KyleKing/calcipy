@@ -64,7 +64,7 @@ def task_test() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -vv'),
+        Interactive(f'poetry run pytest "{DG.test.path_tests}" {DG.test.args_pytest}'),
     ])
 
 
@@ -91,7 +91,7 @@ def task_test_marker() -> DoitTask:
         DoitTask: doit task
 
     """
-    task = debug_task([Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -m "%(marker)s"')])
+    task = debug_task([Interactive(f'poetry run pytest "{DG.test.path_tests}" {DG.test.args_pytest} -m "%(marker)s"')])
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
         'help': (
@@ -114,7 +114,7 @@ def task_test_keyword() -> DoitTask:
     """
     return {
         'actions': [
-            Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v -k "%(keyword)s"'),
+            Interactive(f'poetry run pytest "{DG.test.path_tests}" {DG.test.args_pytest} -k "%(keyword)s"'),
         ],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
@@ -135,12 +135,14 @@ def task_coverage() -> DoitTask:
         DoitTask: doit task
 
     """
-    kwargs = (
-        f'--cov-report=html:"{DG.test.path_coverage_index.parent}"  --html="{DG.test.path_report_index}"'
-        '  --self-contained-html'
-    )
+    path_tests = DG.test.path_tests
+    cov_dir = DG.test.path_coverage_index.parent
+    cov_html = f'--cov-report=html:"{cov_dir}"  --html="{DG.test.path_test_report}" --self-contained-html'
+    diff_html = f'--html-report {DG.test.path_diff_test_report}'
     return debug_task([
-        Interactive(f'poetry run pytest "{DG.test.path_tests}" -x -l --ff -v --cov={DG.meta.pkg_name} {kwargs}'),
+        Interactive(f'poetry run pytest "{path_tests}" {DG.test.args_pytest} --cov={DG.meta.pkg_name} {cov_html}'),
+        'poetry run coverage xml',
+        Interactive(f'poetry run diff-cover coverage.xml {DG.test.args_diff} {diff_html}'),
     ])
 
 
@@ -175,7 +177,7 @@ def task_open_test_docs() -> DoitTask:
     """
     actions = [
         (open_in_browser, (DG.test.path_coverage_index,)),
-        (open_in_browser, (DG.test.path_report_index,)),
+        (open_in_browser, (DG.test.path_test_report,)),
     ]
     if DG.test.path_mypy_index.is_file():
         actions.append((open_in_browser, (DG.test.path_mypy_index,)))

@@ -9,6 +9,8 @@ filename = "CODE_TAG_SUMMARY.md"
 [tool.calcipy.tests]
 path_out = "releases/tests"
 pythons = ["3.8", "3.9"]
+args_pytest = "-x -l --ff --nf -vv"
+args_diff = "--fail-under=95 --compare-branch=origin/release"
 
 [tool.calcipy.doc]
 path_out = "releases/site"

@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import List
 
-from calcipy.doit_tasks.doit_globals import DocConfig, DoitGlobals
+from calcipy.doit_tasks.doit_globals import DG, DocConfig, DoitGlobals
 
 from ..configuration import PATH_TEST_PROJECT
 
@@ -50,3 +50,19 @@ def test_path_attr_base_path_resolver():
     doc = DocConfig(path_project=base_path)  # act
 
     assert doc.path_out.is_absolute()
+
+
+def test_doit_configurable():
+    """Test configurable items from TOML file."""
+    dg = DG  # act
+
+    assert dg.ct.tags == ['FIXME', 'TODO', 'PLANNED']
+    assert dg.ct.filename == 'CODE_TAG_SUMMARY.md'
+    assert dg.test.path_out == PATH_TEST_PROJECT / 'releases/tests'
+    assert dg.test.pythons == ['3.8', '3.9']
+    assert dg.test.args_pytest == '-x -l --ff --nf -vv'
+    assert dg.test.args_diff == '--fail-under=95 --compare-branch=origin/release'
+    assert dg.doc.path_out == PATH_TEST_PROJECT / 'releases/site'
+    assert dg.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
+    assert dg.lint.path_isort == PATH_TEST_PROJECT / '.isort.cfg'
+    assert dg.lint.ignore_errors == ['T100', 'T101', 'T103']

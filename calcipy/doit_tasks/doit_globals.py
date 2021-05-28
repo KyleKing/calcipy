@@ -243,14 +243,26 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
     path_tests: Union[Path, str] = Path('tests')
     """Relative path to the tests directory. Default is `tests`."""
 
-    path_report_index: Path = attr.ib(init=False)
-    """Path to the test report HTML index file."""
+    args_pytest: str = '--exitfirst --showlocals --failed-first --new-first --verbose --doctest-modules'
+    """Default arguments to Pytest. In short form, the defaults are `-x -l --ff --nf -vv`."""
+
+    args_diff: str = '--fail-under=65 --compare-branch=origin/main'
+    """Default arguments to diff-cover."""
+
+    path_test_report: Path = attr.ib(init=False)
+    """Path to the self-contained test HTML report."""
+
+    path_diff_test_report: Path = attr.ib(init=False)
+    """Path to the self-contained diff-test HTML report."""
+
+    path_diff_lint_report: Path = attr.ib(init=False)
+    """Path to the self-contained diff-lint HTML report."""
 
     path_coverage_index: Path = attr.ib(init=False)
-    """Path to the coverage HTML index file."""
+    """Path to the coverage HTML index file within the report directory."""
 
     path_mypy_index: Path = attr.ib(init=False)
-    """Path to the mypy HTML index file."""
+    """Path to the mypy HTML index file within the report directory."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
@@ -259,7 +271,9 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
         self.path_tests = _make_full_path(self.path_tests, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         # Configure the paths to the report HTML and coverage HTML files
-        self.path_report_index = self.path_out / 'test_report.html'
+        self.path_test_report = self.path_out / 'test_report.html'
+        self.path_diff_test_report = self.path_out / 'diff_test_report.html'
+        self.path_diff_lint_report = self.path_out / 'diff_lint_report.html'
         self.path_coverage_index = self.path_out / 'cov_html/index.html'
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 

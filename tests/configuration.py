@@ -39,6 +39,7 @@ def clear_test_cache() -> None:
     ensure_dir(TEST_TMP_CACHE)
 
 
+# FIXME: Need to make the doit tasks delay execution so that the string formatting happens after DG is set...
 # Set the DoitGlobals instance to use the Test Project for all tests
 DG.set_paths(path_project=PATH_TEST_PROJECT)
 
