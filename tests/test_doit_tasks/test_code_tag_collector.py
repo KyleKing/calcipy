@@ -27,10 +27,10 @@ def test_search_lines():
 
     comments = _search_lines(lines, regex_compiled)  # act
 
-    assert len(comments) == 11
-    assert comments[1].lineno == 3
-    assert comments[1].tag == 'FIXME'  # noqa: T100
-    assert comments[1].text == 'Show README.md in the documentation (may need to update paths?)'
+    assert len(comments) == 5
+    assert comments[0].lineno == 3
+    assert comments[0].tag == 'FIXME'  # noqa: T100
+    assert comments[0].text == 'Show README.md in the documentation (may need to update paths?)'
     assert comments[-1].tag == 'FIXME'  # noqa: T100
     assert comments[-1].text == 'and TODO: in the same line, but only match the first'  # noqa: T101
 
@@ -43,11 +43,12 @@ def test_format_report():
 
     output = _format_report(PATH_TEST_PROJECT.parent, tagged_collection)  # act
 
+    # FIXME: DEBUG SHOULDN'T have been matched!
     expected = f"""- {PATH_TEST_PROJECT.name}
     - line   0   DEBUG: Example 1
     - line   1    TODO: Example 2
 
-Found code tags for TODO (1), DEBUG (1)
+Found code tags for TODO (1)
 """  # noqa: T100,T101
     assert output == expected, f'Received: `{output}`'
 

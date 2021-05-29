@@ -303,7 +303,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
-        self.path_code_tag_summary = self.doc_dir / self.code_tag_summary_filename
+        self.path_code_tag_summary = self.path_project / self.doc_dir / self.code_tag_summary_filename
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
@@ -368,7 +368,7 @@ class DoitGlobals:
         """Set data members based on working directory.
 
         Args:
-            path_project: optional source directory Path. Defaults to the `pkg_name`
+            path_project: optional project base directory Path. Defaults to the current working directory
 
         """
         logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
@@ -377,8 +377,8 @@ class DoitGlobals:
         # Read the optional toml configuration
         # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
         path_toml = path_project / 'pyproject.toml'
-        toml_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
-        ignore_patterns = toml_config.get('ignore_patterns', [])
+        calcipy_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
+        ignore_patterns = calcipy_config.get('ignore_patterns', [])
 
         self.meta = PackageMeta(path_project=path_project, ignore_patterns=ignore_patterns)
         meta_kwargs = {'path_project': self.meta.path_project}
@@ -388,7 +388,12 @@ class DoitGlobals:
         doc_dir.mkdir(exist_ok=True, parents=True)
 
         # Configure global options
-        lint_k, test_k, code_k, doc_k = [toml_config.get(key, {}) for key in ['lint', 'test', 'code_tag', 'doc']]
+        section_keys = ['lint', 'test', 'code_tag', 'doc']
+        supported_keys = section_keys + ['ignore_patterns']
+        unexpected_keys = [key for key in calcipy_config if key not in supported_keys]
+        if unexpected_keys:
+            raise RuntimeError(f'Found unexpected key(s) {unexpected_keys} (i.e. not in {supported_keys})')
+        lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
         self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir, **code_k)  # type: ignore[arg-type]

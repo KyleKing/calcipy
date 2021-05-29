@@ -146,5 +146,4 @@ def task_collect_code_tags() -> DoitTask:
         DoitTask: doit task
 
     """
-    path_tag_summary = DG.meta.path_project / DG.ct.path_code_tag_summary
-    return debug_task([(_write_code_tag_file, (path_tag_summary,))])
+    return debug_task([(_write_code_tag_file, (DG.ct.path_code_tag_summary,))])

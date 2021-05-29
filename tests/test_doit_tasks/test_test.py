@@ -12,7 +12,7 @@ def test_task_test():
 
     actions = result['actions']
     assert len(actions) == 1
-    assert str(actions[0]).endswith('" -x -l --ff -vv')
+    assert str(actions[0]).endswith('" -x -l --ff --nf -vv')
 
 
 def test_task_test_all():
@@ -30,7 +30,7 @@ def test_task_test_marker():
 
     actions = result['actions']
     assert len(actions) == 1
-    assert str(actions[0]).endswith('" -x -l --ff -v -m "%(marker)s"')
+    assert str(actions[0]).endswith('" -x -l --ff --nf -vv -m "%(marker)s"')
     params = result['params']
     assert len(params) == 1
     assert params[0]['name'] == 'marker'
@@ -43,7 +43,7 @@ def test_task_test_keyword():
 
     actions = result['actions']
     assert len(actions) == 1
-    assert str(actions[0]).endswith('" -x -l --ff -v -k "%(keyword)s"')
+    assert str(actions[0]).endswith('" -x -l --ff --nf -vv -k "%(keyword)s"')
     params = result['params']
     assert len(params) == 1
     assert params[0]['name'] == 'keyword'

@@ -56,8 +56,8 @@ def test_doit_configurable():
     """Test configurable items from TOML file."""
     dg = DG  # act
 
-    assert dg.ct.tags == ['FIXME', 'TODO', 'PLANNED']
-    assert dg.ct.filename == 'CODE_TAG_SUMMARY.md'
+    assert dg.ct.tags == ['FIXME', 'TODO', 'PLANNED']  # noqa: T101, T103
+    assert dg.ct.code_tag_summary_filename == 'CODE_TAG_SUMMARY.md'
     assert dg.test.path_out == PATH_TEST_PROJECT / 'releases/tests'
     assert dg.test.pythons == ['3.8', '3.9']
     assert dg.test.args_pytest == '-x -l --ff --nf -vv'

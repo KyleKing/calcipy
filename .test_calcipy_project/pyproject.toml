@@ -2,11 +2,11 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.calcipy.code_tags]
+[tool.calcipy.code_tag]
 tags = ["FIXME", "TODO", "PLANNED"]
-filename = "CODE_TAG_SUMMARY.md"
+code_tag_summary_filename = "CODE_TAG_SUMMARY.md"
 
-[tool.calcipy.tests]
+[tool.calcipy.test]
 path_out = "releases/tests"
 pythons = ["3.8", "3.9"]
 args_pytest = "-x -l --ff --nf -vv"
