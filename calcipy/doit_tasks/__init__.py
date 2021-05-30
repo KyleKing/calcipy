@@ -26,6 +26,8 @@ __all__ = [  # noqa: F405
     'task_pre_commit_hooks',
     'task_radon_lint',
     'task_security_checks',
+    # from .packaging
+    'task_publish',
     # from .test
     'task_check_types',
     'task_coverage',
@@ -46,6 +48,7 @@ __all__ = [  # noqa: F405
 from .code_tag_collector import task_collect_code_tags
 from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+from .packaging import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 
 DOIT_CONFIG_RECOMMENDED = {
