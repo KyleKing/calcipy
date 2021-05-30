@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
 
 import attr
+import doit
 from beartype import beartype
 from doit.action import BaseAction
 from doit.task import Task
@@ -403,4 +404,7 @@ class DoitGlobals:
 DG = DoitGlobals()
 """Global doit Globals class used to manage global variables."""
 
-DG.set_paths(path_project=Path.cwd().resolve())
+# TODO: https://pydoit.org/cmd_run.html#get-initial-workdir
+_WORK_DIR = doit.get_initial_workdir()
+
+DG.set_paths(path_project=(Path(_WORK_DIR) if _WORK_DIR else Path.cwd()).resolve())
