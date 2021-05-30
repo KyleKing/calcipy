@@ -48,6 +48,7 @@ def task_nox_coverage() -> DoitTask:
         Interactive('poetry run nox -k "coverage"'),
     ])
 
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Testing with pytest (Should be run from Nox)
 

@@ -215,3 +215,25 @@ def activate_debug_logging(
         'Started logging to {path_project}/.logs with {log_config}', path_project=path_project,
         log_config=log_config,
     )
+
+
+# # Note: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
+# def logger() -> loguru.Logger:
+#     """Return a dotted dictionary that can also be accessed normally.
+#
+#     Currently uses `loguru`, but could be any library where this middleware handles the minutia
+#
+#     Use with `from calcipy.log_helpers import logger` and `logger.info(logger)`
+#
+#     TODO: Actually wrap the logger in a class so that this is an actual middleware if the future logger can't accept kwargs?
+#     TODO: use this middleware throughout calcipy
+#
+#     # Args:
+#     #     args: positional arguments
+#     #     kwargs: keyword arguments
+#
+#     Returns:
+#         logger instance
+#
+#     """
+#     return loguru.logger

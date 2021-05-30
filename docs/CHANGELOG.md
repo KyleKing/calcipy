@@ -2,6 +2,7 @@
 
 ### Feat
 
+- add additional configuration options
 - add nox tasks
 - add detect-secrets as pre-commit
 - lint non-Python files
@@ -29,6 +30,7 @@
 
 ### Fix
 
+- catch most calcipy section typos in toml
 - remove check-secrets but keep snippets
 - errors in ignore patterns
 - import doit and expand nox test file

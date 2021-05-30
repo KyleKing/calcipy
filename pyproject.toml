@@ -63,10 +63,11 @@ python = "^3.8"
 attrs = "*"
 beartype = "*"
 decorator = "*"
-doit = "*"
+doit = "*" # Should be optional, but needed for doit_tasks
 loguru = "*"
+pendulum = "*" # Should be optional, but needed for package tasks
 python-box = "*"
-transitions = "*" # Needed for document task
+transitions = "*" # Should be optional, but needed for doc tasks
 
 # Development
 better-exceptions = { version = "*", optional = true }
@@ -232,6 +233,7 @@ commitizen_legacy = ["cz_legacy"]
 serializers = ["preconvert", "preconvert_numpy"]
 
 [tool.poetry.dev-dependencies]
+# FIXME: one of these may have cause issues with isort and not recognizing calcipy!
 pydiatra = "^0.12.5"
 autoflake = "^1.4"
 wily = "^1.19.0"
