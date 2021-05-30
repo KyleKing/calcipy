@@ -172,6 +172,7 @@ def task_security_checks() -> DoitTask:
     """
     return debug_task([
         Interactive(f'poetry run bandit -r {DG.meta.pkg_name}'),
+        Interactive('poetry run nox -k "check_safety"'),
     ])
 
 

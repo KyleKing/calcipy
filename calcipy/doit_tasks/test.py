@@ -14,6 +14,8 @@ from .doit_globals import DG, DoitTask
 def task_nox() -> DoitTask:
     """Run the full nox test suite.
 
+    > Note: some nox tasks are run in more-specific doit tasks, but this will run everything
+
     Returns:
         DoitTask: doit task
 
@@ -32,7 +34,7 @@ def task_nox_test() -> DoitTask:
 
     """
     return debug_task([
-        Interactive('poetry run nox -k "tests"'),
+        Interactive('poetry run nox -k "tests and build_check"'),
     ])
 
 
