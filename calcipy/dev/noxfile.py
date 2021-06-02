@@ -38,92 +38,94 @@ from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from loguru import logger
-from nox_poetry import session
-from nox_poetry.poetry import DistributionFormat
-from nox_poetry.sessions import Session
 
 from ..doit_tasks.doit_globals import DG
 from ..file_helpers import if_found_unlink
 
+has_test_imports = False
+try:
+    from nox_poetry import session
+    from nox_poetry.poetry import DistributionFormat
+    from nox_poetry.sessions import Session
+    has_test_imports = True
+except ImportError:  # pragma: no cover
+    pass
 
-@session(python=[DG.test.pythons], reuse_venv=True)
-def tests(session: Session) -> None:
-    """Run doit test task for specified python versions.
+if has_test_imports:
+    @session(python=[DG.test.pythons], reuse_venv=True)
+    def tests(session: Session) -> None:
+        """Run doit test task for specified python versions.
 
-    Args:
-        session: nox_poetry Session
+        Args:
+            session: nox_poetry Session
 
-    """
-    session.install('.[dev]', '.[test]')
-    session.run(*shlex.split('doit run test'), stdout=True)
+        """
+        session.install('.[dev]', '.[test]')
+        session.run(*shlex.split('doit run test'), stdout=True)
 
+    @session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    def coverage(session: Session) -> None:
+        """Run doit test task for specified python versions.
 
-@session(python=[DG.test.pythons[-1]], reuse_venv=True)
-def coverage(session: Session) -> None:
-    """Run doit test task for specified python versions.
+        Args:
+            session: nox_poetry Session
 
-    Args:
-        session: nox_poetry Session
+        """
+        session.install('.[dev]', '.[test]')
+        session.run(*shlex.split('doit run coverage'), stdout=True)
 
-    """
-    session.install('.[dev]', '.[test]')
-    session.run(*shlex.split('doit run coverage'), stdout=True)
+    @session(python=[DG.test.pythons[-1]], reuse_venv=False)
+    def build_dist(session: Session) -> None:
+        """Build the project files within a controlled environment for repeatability.
 
+        Args:
+            session: nox_poetry Session
 
-@session(python=[DG.test.pythons[-1]], reuse_venv=False)
-def build_dist(session: Session) -> None:
-    """Build the project files within a controlled environment for repeatability.
+        """
+        if_found_unlink(DG.meta.path_project / 'dist')
+        path_wheel = session.poetry.build_package()
+        logger.info(f'Created wheel: {path_wheel}')
+        # Install the wheel and check that imports without any of the optional dependencies
+        session.install(path_wheel)
+        session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
 
-    Args:
-        session: nox_poetry Session
+    @session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    def build_check(session: Session) -> None:
+        """Check that the built output meets all checks.
 
-    """
-    if_found_unlink(DG.meta.path_project / 'dist')
-    path_wheel = session.poetry.build_package()
-    logger.info(f'Created wheel: {path_wheel}')
-    # Install the wheel and check that imports without any of the optional dependencies
-    session.install(path_wheel)
-    session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
+        Args:
+            session: nox_poetry Session
 
+        """
+        # Build sdist and fix return URI, which will have file://...#egg=calcipy
+        sdist_uri = session.poetry.build_package(distribution_format=DistributionFormat.SDIST)
+        path_sdist = Path(url2pathname(urlparse(sdist_uri).path))
+        logger.debug(f'Fixed sdist URI ({sdist_uri}): {path_sdist}')
+        # Check with pyroma
+        session.install('pyroma', '--upgrade')
+        # PLANNED: Troubleshoot why pyroma score is so low (6/10)
+        session.run('pyroma', '--file', path_sdist.as_posix(), '--min=6', stdout=True)
 
-@session(python=[DG.test.pythons[-1]], reuse_venv=True)
-def build_check(session: Session) -> None:
-    """Check that the built output meets all checks.
+    @session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    def check_safety(session: Session) -> None:
+        """Check for known vulnerabilities with safety.
 
-    Args:
-        session: nox_poetry Session
+        Based on: https://github.com/pyupio/safety/issues/201#issuecomment-632627366
 
-    """
-    # Build sdist and fix return URI, which will have file://...#egg=calcipy
-    sdist_uri = session.poetry.build_package(distribution_format=DistributionFormat.SDIST)
-    path_sdist = Path(url2pathname(urlparse(sdist_uri).path))
-    logger.debug(f'Fixed sdist URI ({sdist_uri}): {path_sdist}')
-    # Check with pyroma
-    session.install('pyroma', '--upgrade')
-    # PLANNED: Troubleshoot why pyroma score is so low (6/10)
-    session.run('pyroma', '--file', path_sdist.as_posix(), '--min=6', stdout=True)
+        Args:
+            session: nox_poetry Session
 
+        Raises:
+            RuntimeError: if safety exited with errors, but not caught by session
 
-@session(python=[DG.test.pythons[-1]], reuse_venv=True)
-def check_safety(session: Session) -> None:
-    """Check for known vulnerabilities with safety.
-
-    Based on: https://github.com/pyupio/safety/issues/201#issuecomment-632627366
-
-    Args:
-        session: nox_poetry Session
-
-    Raises:
-        RuntimeError: if safety exited with errors, but not caught by session
-
-    """
-    # Note: safety requires a requirements.txt file and doesn't support pyproject.toml yet
-    session.poetry.export_requirements()
-    # Install and run
-    session.install('safety', '--upgrade')
-    path_report = Path('insecure_report.json').resolve()
-    logger.info(f'Creating safety report: {path_report}')
-    session.run(*shlex.split(f'safety check --full-report --cache --output {path_report} --json'), stdout=True)
-    if path_report.read_text().strip() != '[]':
-        raise RuntimeError(f'Found safety warnings in {path_report}')
-    path_report.unlink()
+        """
+        # Note: safety requires a requirements.txt file and doesn't support pyproject.toml yet
+        session.poetry.export_requirements()
+        # Install and run
+        session.install('safety', '--upgrade')
+        path_report = Path('insecure_report.json').resolve()
+        logger.info(f'Creating safety report: {path_report}')
+        session.run(*shlex.split(f'safety check --full-report --cache --output {path_report} --json'), stdout=True)
+        if path_report.read_text().strip() != '[]':
+            raise RuntimeError(f'Found safety warnings in {path_report}')
+        path_report.unlink()
