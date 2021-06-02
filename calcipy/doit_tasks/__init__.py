@@ -8,6 +8,8 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
+    'TASKS_CI',
+    'TASKS_LOCAL',
     # from .code_tag_collector
     'task_collect_code_tags',
     # from .doc
@@ -45,24 +47,37 @@ __all__ = [  # noqa: F405
     'task_test',
 ]
 
+from getpass import getuser
+
 from .code_tag_collector import task_collect_code_tags
 from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .packaging import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 
+TASKS_CI = [
+    'nox_test',
+    'nox_coverage',
+    'pre_commit_hooks',
+    'security_checks',
+]
+"""More forgiving tasks to be run in CI."""
+
+TASKS_LOCAL = [
+    'collect_code_tags',
+    'cl_write',
+    'nox_coverage',
+    'auto_format',
+    'document',
+    'pre_commit_hooks',
+    'lint_project',
+    'security_checks',
+    'check_types',
+]
+"""Full suite of tasks for local development."""
+
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
-    'default_tasks': [
-        'collect_code_tags',
-        'cl_write',
-        'nox_coverage',
-        'auto_format',
-        'document',
-        'pre_commit_hooks',
-        'lint_critical_only',
-        'security_checks',
-        'check_types',
-    ],
+    'default_tasks': TASKS_CI if getuser() == 'AppVeyor' else TASKS_LOCAL,
 }
 """doit Configuration Settings. Run with `poetry run doit`."""
