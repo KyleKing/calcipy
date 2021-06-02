@@ -3,7 +3,7 @@
 To use the custom markers, create a file `tests/conftest.py` and add this import:
 
 ```py
-from calcipy.conftest import pytest_configure  # noqa: F401
+from calcipy.dev.conftest import pytest_configure  # noqa: F401
 ```
 
 For HTML Reports, see: https://pypi.org/project/pytest-html/.
@@ -11,9 +11,9 @@ For HTML Reports, see: https://pypi.org/project/pytest-html/.
 ```py
 '''Custom PyTest-HTML Report Configuration.'''
 
-from calcipy.conftest import pytest_html_results_table_header  # noqa: F401
-from calcipy.conftest import pytest_html_results_table_row  # noqa: F401
-from calcipy.conftest import pytest_runtest_makereport  # noqa: F401
+from calcipy.dev.conftest import pytest_html_results_table_header  # noqa: F401
+from calcipy.dev.conftest import pytest_html_results_table_row  # noqa: F401
+from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 ```
 
 """

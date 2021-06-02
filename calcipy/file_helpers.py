@@ -34,7 +34,7 @@ def sanitize_filename(filename: str, repl_char: str = '_', allowed_chars: str = 
 
 
 @beartype
-def _read_copier_answers(path_copier: Optional[Path] = None) -> Dict[str, Any]:
+def _read_copier_answers(path_copier: Optional[Path] = None) -> Any:
     """Read the copier answer file.
 
     > WARN: requires `PyYAML` to be installed

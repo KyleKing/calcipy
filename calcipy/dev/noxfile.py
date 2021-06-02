@@ -51,8 +51,8 @@ try:
 except ImportError:  # pragma: no cover
     pass
 
-if has_test_imports:
-    @session(python=[DG.test.pythons], reuse_venv=True)
+if has_test_imports:  # pragma: no cover
+    @session(python=DG.test.pythons, reuse_venv=True)
     def tests(session: Session) -> None:
         """Run doit test task for specified python versions.
 

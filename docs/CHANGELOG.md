@@ -36,6 +36,7 @@
 
 ### Fix
 
+- suppress beartype warnings for now
 - drop logger middleware
 - catch most calcipy section typos in toml
 - remove check-secrets but keep snippets

@@ -65,7 +65,7 @@ repos:
   # - repo: https://github.com/sondrelg/pep585-upgrade
   #   rev: "bcc3d077ee46c94bc1dac5f5274e2fb43de570e9"
   #   hooks:
-  #     # FYI: Re-run when dropping Python 3.8
+  #     # PLANNED: Run when dropping Python 3.8 (& remove BeartypeDecorHint... ignore)
   #     - id: upgrade-type-hints
   - repo: local
     hooks:

@@ -405,7 +405,7 @@ class DoitGlobals:
 DG = DoitGlobals()
 """Global doit Globals class used to manage global variables."""
 
-# TODO: https://pydoit.org/cmd_run.html#get-initial-workdir
 _WORK_DIR = doit.get_initial_workdir()
+"""Work directory identified by doit."""
 
 DG.set_paths(path_project=(Path(_WORK_DIR) if _WORK_DIR else Path.cwd()).resolve())
