@@ -2,6 +2,12 @@
 
 ### Feat
 
+- smart default tasks for CI vs. local
+- make nox imports optional
+- try doit rather than CWD for initial path
+- move noxfile into calcipy
+- integrate nox to doit tasks
+- WIP check for stale dep & placeholder publish
 - add additional configuration options
 - add nox tasks
 - add detect-secrets as pre-commit
@@ -30,6 +36,7 @@
 
 ### Fix
 
+- drop logger middleware
 - catch most calcipy section typos in toml
 - remove check-secrets but keep snippets
 - errors in ignore patterns

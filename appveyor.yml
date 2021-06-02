@@ -51,7 +51,6 @@ install:
   - poetry install -E dev -E lint -E test -E commitizen_legacy
 
 test_script:
-  # PLANNED: https://pydoit.org/cmd_run.html#continue
   - poetry run doit --continue
   # Install codecov and upload the coverage results
   - python -m pipx install codecov
