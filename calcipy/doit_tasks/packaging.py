@@ -14,8 +14,56 @@ from loguru import logger
 from pendulum import DateTime
 from pyrate_limiter import Duration, Limiter, RequestRate
 
-from .base import debug_task, echo
+from .base import debug_task
 from .doit_globals import DG, DoitTask
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Publish releases
+
+
+@beartype
+def _publish_task(publish_args: str = '') -> DoitTask:
+    """Create the task with specified options for building and publishing.
+
+    Args:
+        publish_args: optional string arguments to pass to `poetry publish`
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    # See guide on publishing
+    #   https://github.com/KyleKing/calcipy/blob/dev/development/docs/DEVELOPER_GUIDE.md#publishing
+    return debug_task([
+        Interactive('poetry run nox --session build_dist build_check'),
+        f'poetry publish {publish_args}',
+    ])
+
+
+@beartype
+def task_publish() -> DoitTask:
+    """Build the distributable format(s) and publish.
+
+    > See the Developer Guide for configuring pypi token
+    > Use in conjunction with `task_cl_bump`
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return _publish_task()
+
+
+@beartype
+def task_publish_test_pypi() -> DoitTask:
+    """Build the distributable format(s) and publish to the TestPyPi repository.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return _publish_task('--repository testpypi')
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Check for stale packages
@@ -254,24 +302,4 @@ def task_check_for_stale_packages() -> DoitTask:
     return debug_task([
         (find_stale_packages, (DG.meta.path_project / 'poetry.lock',)),
         Interactive('poetry run pip list --outdated'),
-    ])
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-# Publish releases
-
-
-@beartype
-def task_publish() -> DoitTask:
-    """Build the distributable format(s) and publish.
-
-    > Note: use in conjunction with `task_cl_bump`
-
-    Returns:
-        DoitTask: doit task
-
-    """
-    return debug_task([
-        Interactive('poetry run nox -k "build_dist and build_check"'),
-        (echo, ('# FIXME: Add publish to pypi of nox-built wheel here...',)),
     ])

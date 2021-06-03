@@ -10,7 +10,7 @@ import pytest
 
 from calcipy.doit_tasks.packaging import (
     _PATH_PACK_LOCK, _get_release_date, _HostedPythonPackage, _read_packages,
-    find_stale_packages, task_check_for_stale_packages, task_publish,
+    find_stale_packages, task_check_for_stale_packages, task_publish, task_publish_test_pypi,
 )
 
 from ..configuration import PATH_TEST_PROJECT
@@ -30,8 +30,18 @@ def test_task_publish():
 
     actions = result['actions']
     assert len(actions) == 2
-    assert 'poetry run nox -k "build_dist and build_check"' in str(actions[0])
-    pytest.skip('Not yet implemented, this is a placeholder test')
+    assert 'poetry run nox --session build_dist build_check' in str(actions[0])
+    assert 'poetry publish' in str(actions[1])
+
+
+def test_task_publish_test_pypi():
+    """Test task_publish_test_pypi."""
+    result = task_publish_test_pypi()
+
+    actions = result['actions']
+    assert len(actions) == 2
+    assert 'poetry run nox --session build_dist build_check' in str(actions[0])
+    assert 'poetry publish --repository testpypi' in str(actions[1])
 
 
 def test_read_packages():
