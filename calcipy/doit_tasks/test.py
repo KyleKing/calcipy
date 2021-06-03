@@ -62,6 +62,8 @@ def task_test() -> DoitTask:
     > Test are randomly ordered by default with pytest-randomly because that can help catch common errors
     > Tests can be re-run in the last order with `poetry run pytest --randomly-seed=last`
 
+    > Tip: `--record-mode=rewrite` can be useful if working with `pytest-recording`
+
     Returns:
         DoitTask: doit task
 

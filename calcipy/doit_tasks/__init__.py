@@ -29,6 +29,7 @@ __all__ = [  # noqa: F405
     'task_radon_lint',
     'task_security_checks',
     # from .packaging
+    'task_check_for_stale_packages',
     'task_publish',
     # from .test
     'task_check_types',
@@ -69,6 +70,7 @@ TASKS_LOCAL = [
     'nox_coverage',
     'auto_format',
     'document',
+    'check_for_stale_packages',
     'pre_commit_hooks',
     'lint_project',
     'security_checks',

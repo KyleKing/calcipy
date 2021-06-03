@@ -16,6 +16,9 @@ from pyrate_limiter import Duration, Limiter, RequestRate
 from .base import debug_task, echo
 from .doit_globals import DG, DoitTask
 
+# ----------------------------------------------------------------------------------------------------------------------
+# Check for stale packages
+
 
 def _auto_convert(cls, fields):  # noqa: ANN001, ANN202, CCR001 # type: ignore
     """Auto convert datetime attributes from string.
@@ -68,6 +71,7 @@ limiter = Limiter(rate)
 item = 'pypi'
 
 
+@beartype
 @limiter.ratelimit(item, delay=True, max_delay=10)
 def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
@@ -97,49 +101,74 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     return package
 
 
-def cache_release_dates(packages: List[_HostedPythonPackage], *, stale_years: float) -> None:
-    """Store the most recent release dates per package.
+@beartype
+def _read_cache(path_pack_lock: Path = _PATH_PACK_LOCK) -> Dict[str, _HostedPythonPackage]:
+    """Read the cached packaging information.
+
+    Args:
+        path_pack_lock: Path to the lock file. Default is `_PATH_PACK_LOCK`
+
+    Returns:
+        Dict[str, _HostedPythonPackage]: the cached packages
+
+    """
+    if not path_pack_lock.is_file():
+        path_pack_lock.write_text('{}')  # noqa: P103
+    old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text())
+    return {
+        package_name: _HostedPythonPackage(**meta_data)
+        for package_name, meta_data in old_cache.items()
+    }
+
+
+@beartype
+def _collect_release_dates(packages: List[_HostedPythonPackage],
+                           old_cache: Optional[Dict[str, _HostedPythonPackage]] = None,
+                           ) -> List[_HostedPythonPackage]:
+    """Use the cache to retrieve only metadata that needs to be updated.
 
     Args:
         packages: list of `_HostedPythonPackage`
-        stale_years: float number of years to consider a package "stale"
+        old_cache: cache data to compare against to limit network requests
+
+    Returns:
+        List[_HostedPythonPackage]: packages with updated release dates
 
     """
-    # TODO: Refactor - pull out read/write
+    if old_cache is None:
+        old_cache = {}
 
-    # Read the cached packaging information
-    if not _PATH_PACK_LOCK.is_file():
-        _PATH_PACK_LOCK.write_text('{}')
-    old_cache: Dict[str, Dict[str, str]] = json.loads(_PATH_PACK_LOCK.read_text())
+    updated_packages = []
+    for package in packages:
+        cached_package = old_cache.get(package.name)
+        cached_version = '' if cached_package is None else cached_package.version
+        if package.version != cached_version:
+            package = _get_release_date(package)
+        else:
+            package = cached_package
+        updated_packages.append(package)
+    return updated_packages
 
-    def serialize(inst, field, value):
+
+@beartype
+def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: Path = _PATH_PACK_LOCK) -> None:
+    """Read the cached packaging information.
+
+    Args:
+        updated_packages: updated packages to store
+        path_pack_lock: Path to the lock file. Default is `_PATH_PACK_LOCK`
+
+    """
+    def serialize(inst, field, value):  # noqa: ANN001, ANN201
         if isinstance(value, DateTime):
             return value.to_iso8601_string()
         return value
 
-    # If new or stale, make request to retrieve the latest released version
-    stale_cutoff = pendulum.now().subtract(years=stale_years)
-    new_cache = {}
-    for package in packages:
-        meta_data = old_cache.get(package.name)
-        if meta_data:
-            cached_package = _HostedPythonPackage(**meta_data)
-            is_stale = cached_package.datetime and cached_package.datetime < stale_cutoff
-            if package.version != cached_package.version or is_stale:
-                package = _get_release_date(package)
-        else:
-            package = _get_release_date(package)
-        new_cache[package.name] = attr.asdict(package, value_serializer=serialize)
-        new_cache[package.name]['is_stale'] = package.datetime < stale_cutoff
-
-    _PATH_PACK_LOCK.write_text(json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True))
-
-    # TODO: Raise error if stale packages were found!
+    new_cache = {pack.name: attr.asdict(pack, value_serializer=serialize) for pack in updated_packages}
+    path_pack_lock.write_text(json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True))
 
 
-# def write_cache():
-
-
+@beartype
 def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     """Read packages from lock file. Currently only support `poetry.lock`, but could support more in the future.
 
@@ -149,16 +178,78 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     Returns:
         List[_HostedPythonPackage]: packages found in the lock file
 
+    Raises:
+        NotImplementedError: if a lock file other that the poetry lock file is used
+
     """
     if path_lock.name != 'poetry.lock':
         raise NotImplementedError(f'{path_lock.name} is not a currently supported lock type. Try "poetry.lock" instead')
 
     lock = toml.loads(path_lock.read_text())
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
-    #   domain=dependency['source']['url'] + '{name}/{version}/json'
+    # > domain=dependency['source']['url'] + '{name}/{version}/json'
     return [_HostedPythonPackage(
         name=dependency['name'], version=dependency['version'],
     ) for dependency in lock['package']]
+
+
+@beartype
+def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_months: int) -> None:
+    """Check for stale packages. Raise error and log all stale versions found.
+
+    Args:
+        packages: List of packages
+        stale_months: cutoff in months for when a package might be stale enough to be a risk
+
+    Raises:
+        RuntimeError: if stale packages were identified
+
+    """
+    now = pendulum.now()
+    stale_cutoff = now.subtract(months=stale_months)
+    stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
+    if stale_packages:
+        stale_list = '\n'.join(
+            (f'- {_p.name} {_p.version} released {now.diff(_p.datetime).in_months()} ago'
+             f' (Most recent is {_p.latest_version} on {_p.latest_datetime.to_rfc1036_string()})')
+            for _p in sorted(stale_packages, key=lambda x: x.datetime, reverse=True)
+        )
+        raise RuntimeError(f'Found stale packages that may be a dependency risk:\n\n{stale_list}')
+
+
+@beartype
+def find_stale_packages(path_lock: Path, path_pack_lock: Path = _PATH_PACK_LOCK,
+                        *, stale_months: int = 48) -> None:
+    """Read the cached packaging information.
+
+    Args:
+        path_lock: Path to the lock file to parse
+        path_pack_lock: Path to the lock file. Default is `_PATH_PACK_LOCK`
+        stale_months: cutoff in months for when a package might be stale enough to be a risk. Default is 48
+
+    """
+    packages = _read_packages(path_lock)
+    old_cache = _read_cache(path_pack_lock)
+    updated_packages = _collect_release_dates(packages, old_cache)
+    _write_cache(updated_packages, path_pack_lock)
+    _check_for_stale_packages(updated_packages, stale_months=stale_months)
+
+
+@beartype
+def task_check_for_stale_packages() -> DoitTask:
+    """Check for stale packages.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        (find_stale_packages, (DG.meta.path_project / 'poetry.lock', )),
+    ])
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Publish releases
 
 
 @beartype

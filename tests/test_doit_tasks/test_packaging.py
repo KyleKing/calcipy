@@ -1,8 +1,14 @@
 """Test doit_tasks/packaging.py."""
 
+import json
+
+import pendulum
 import pytest
 
-from calcipy.doit_tasks.packaging import _HostedPythonPackage, _read_packages, task_publish, _get_release_date, cache_release_dates
+from calcipy.doit_tasks.packaging import (
+    _PATH_PACK_LOCK, _get_release_date, _HostedPythonPackage, _read_packages,
+    find_stale_packages, task_check_for_stale_packages, task_publish,
+)
 
 from ..configuration import PATH_TEST_PROJECT
 
@@ -52,13 +58,42 @@ def test_get_release_date():
 
 
 @pytest.mark.vcr()
-def test_cache_release_dates():
-    """Test cache_release_dates."""
-    packages = [_HostedPythonPackage(name='twine', version='2.0.0')]
+def test_find_stale_packages(fix_test_cache):
+    """Test find_stale_packages."""
+    fake_lock = """
+[[package]]
+name = "twine"
+version = "2.0.0"
 
-    result = cache_release_dates(packages, stale_years=2)
+[package.dependencies]
+tokenize-rt = ">=3.0.1"
 
-    assert len(result) > 20
+[[package]]
+name = "z_package"
+version = "1.2.3"
+"""
+    fake_pack_lock = {
+        'z_package': {'name': 'z_package', 'version': '1.2.3',
+                      'datetime': pendulum.now().to_iso8601_string()},
+    }
+    path_lock = fix_test_cache / 'poetry.lock'
+    path_lock.write_text(fake_lock)
+    path_pack_lock = fix_test_cache / _PATH_PACK_LOCK.name
+    path_pack_lock.write_text(json.dumps(fake_pack_lock))
+    expected_err = r'Found stale packages that may be a dependency risk:\s+- twine 2.0.0[^\n]+\s+'
 
-# --record-mode=rewrite
-# TBD: Check for all stale packages and print summary! Maybe plot too?
+    with pytest.raises(RuntimeError, match=expected_err):
+        find_stale_packages(path_lock, path_pack_lock, stale_months=18)
+
+    assert [*json.loads(path_pack_lock.read_text()).keys()] == ['twine', 'z_package']
+
+
+def test_task_check_for_stale_packages():
+    """Test task_check_for_stale_packages."""
+    result = task_check_for_stale_packages()
+
+    actions = result['actions']
+    assert len(actions) == 1
+    assert isinstance(actions[0][0], type(find_stale_packages))
+    assert len(actions[0][1]) == 1
+    assert actions[0][1][0].name == 'poetry.lock'
