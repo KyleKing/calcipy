@@ -2,6 +2,8 @@
 
 ### Feat
 
+- implement check for stale packages
+- begin implementing stale package check
 - smart default tasks for CI vs. local
 - make nox imports optional
 - try doit rather than CWD for initial path
@@ -36,6 +38,7 @@
 
 ### Fix
 
+- errors caught in testing
 - suppress beartype warnings for now
 - drop logger middleware
 - catch most calcipy section typos in toml
@@ -63,6 +66,7 @@
 
 ### Refactor
 
+- auto-drop skipcq comment
 - format with VSCode
 - fix lint errors in YAML files
 - move find file paths to DG.meta

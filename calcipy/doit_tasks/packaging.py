@@ -35,7 +35,7 @@ def _auto_convert(cls, fields):  # noqa: ANN001, ANN202, CCR001 # type: ignore
     """
     results = []
     for field in fields:
-        if field.converter is not None:
+        if field.converter is not None:  # pragma: no cover
             results.append(field)
             continue
 
@@ -63,7 +63,7 @@ class _HostedPythonPackage():  # noqa: H601
 _PATH_PACK_LOCK = DG.meta.path_project / '.calcipy_packaging.lock'
 """Path to the packaging lock file."""
 
-# PLANNED: Prevent excess requests to PyPi
+# PLANNED: Check that this prevent excess requests to PyPi and refactor
 #   https://pypi.org/project/pyrate-limiter/
 #   https://learn.vonage.com/blog/2020/10/22/respect-api-rate-limits-with-a-backoff-dr/
 rate = RequestRate(3, 5 * Duration.SECOND)
@@ -165,7 +165,8 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
         return value
 
     new_cache = {pack.name: attr.asdict(pack, value_serializer=serialize) for pack in updated_packages}
-    path_pack_lock.write_text(json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True))
+    pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
+    path_pack_lock.write_text(pretty_json + '\n')
 
 
 @beartype
@@ -205,15 +206,16 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         RuntimeError: if stale packages were identified
 
     """
+    def format_package(pack: _HostedPythonPackage) -> str:
+        delta = f'{now.diff(pack.datetime).in_months()} months ago:'
+        latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
+        return f'- {delta} {pack.name} {pack.version}{latest}'
+
     now = pendulum.now()
     stale_cutoff = now.subtract(months=stale_months)
     stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
     if stale_packages:
-        stale_list = '\n'.join(
-            (f'- {_p.name} {_p.version} released {now.diff(_p.datetime).in_months()} ago'
-             f' (Most recent is {_p.latest_version} on {_p.latest_datetime.to_rfc1036_string()})')
-            for _p in sorted(stale_packages, key=lambda x: x.datetime, reverse=True)
-        )
+        stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
         raise RuntimeError(f'Found stale packages that may be a dependency risk:\n\n{stale_list}')
 
 
@@ -264,5 +266,5 @@ def task_publish() -> DoitTask:
     """
     return debug_task([
         Interactive('poetry run nox -k "build_dist and build_check"'),
-        (echo, ('WARNING: Not implemented yet!', )),  # FIXME: Add upload feature here
+        (echo, ('# FIXME: Add publish to pypi of nox-built wheel here...', )),
     ])
