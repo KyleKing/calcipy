@@ -204,16 +204,18 @@ def task_auto_format() -> DoitTask:
 
 @beartype
 def task_pre_commit_hooks() -> DoitTask:
-    """Run the pre-commit hooks on all files.
+    """Run the [pre-commit hooks](https://pre-commit.com/) on all files.
 
-    Note: use `git commit` or `git push` with `--no-verify` if needed
+    > Note: use `git commit` or `git push` with `--no-verify` if needed
 
     Returns:
         DoitTask: doit task
 
     """
+    # Only use these two stages for all pre-commit hooks
+    stages = ['commit-msg', 'pre-push']
     return debug_task([
         Interactive('poetry run pre-commit autoupdate'),
-        Interactive('poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push'),
-        Interactive('poetry run pre-commit run --all-files'),
+        Interactive('poetry run pre-commit install --install-hooks' + ' --hook-type '.join([''] + stages)),
+        Interactive('poetry run pre-commit run --all-files --hook-stage push'),
     ])
