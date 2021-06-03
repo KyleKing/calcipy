@@ -8,7 +8,7 @@ import pytest
 
 from calcipy.doit_tasks.doc import (
     _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write,
-    task_deploy, task_open_docs, task_serve_fast, write_autoformatted_md_sections,
+    task_deploy, task_open_docs, task_serve_docs, write_autoformatted_md_sections,
 )
 from calcipy.doit_tasks.doit_globals import DG
 
@@ -99,9 +99,9 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     DG.doc.handler_lookup = lookup_original
 
 
-def test_task_serve_fast():
-    """Test task_serve_fast."""
-    result = task_serve_fast()
+def test_task_serve_docs():
+    """Test task_serve_docs."""
+    result = task_serve_docs()
 
     actions = result['actions']
     assert len(actions) == 2

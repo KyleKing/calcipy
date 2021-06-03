@@ -251,37 +251,6 @@ def write_autoformatted_md_sections() -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# mkdocs
-
-
-@beartype
-def task_serve_fast() -> DoitTask:
-    """Serve the site with `--dirtyreload` and open in a web browser.
-
-    Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
-
-    Returns:
-        DoitTask: doit task
-
-    """
-    return debug_task([
-        (webbrowser.open, ('http://localhost:8000',)),
-        Interactive('poetry run mkdocs serve --dirtyreload'),
-    ])
-
-
-@beartype
-def task_deploy() -> DoitTask:
-    """Deploy to Github `gh-pages` branch.
-
-    Returns:
-        DoitTask: doit task
-
-    """
-    return debug_task([Interactive('poetry run mkdocs gh-deploy')])
-
-
-# ----------------------------------------------------------------------------------------------------------------------
 # Main Documentation Tasks
 
 
@@ -344,3 +313,30 @@ def task_open_docs() -> DoitTask:
     return debug_task([
         (open_in_browser, (path_doc_index,)),
     ])
+
+
+@beartype
+def task_serve_fast() -> DoitTask:
+    """Serve the site with `--dirtyreload` and open in a web browser.
+
+    Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        (webbrowser.open, ('http://localhost:8000',)),
+        Interactive('poetry run mkdocs serve --dirtyreload'),
+    ])
+
+
+@beartype
+def task_deploy() -> DoitTask:
+    """Deploy to Github `gh-pages` branch.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([Interactive('poetry run mkdocs gh-deploy')])
