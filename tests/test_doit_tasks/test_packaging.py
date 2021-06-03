@@ -73,14 +73,16 @@ name = "z_package"
 version = "1.2.3"
 """
     fake_pack_lock = {
-        'z_package': {'name': 'z_package', 'version': '1.2.3',
-                      'datetime': pendulum.now().to_iso8601_string()},
+        'z_package': {
+            'name': 'z_package', 'version': '1.2.3',
+            'datetime': pendulum.now().to_iso8601_string(),
+        },
     }
     path_lock = fix_test_cache / 'poetry.lock'
     path_lock.write_text(fake_lock)
     path_pack_lock = fix_test_cache / _PATH_PACK_LOCK.name
     path_pack_lock.write_text(json.dumps(fake_pack_lock))
-    expected_err = r'Found stale packages that may be a dependency risk:\s+- twine 2.0.0[^\n]+\s+'
+    expected_err = r'Found stale packages that may be a dependency risk:\s+- \d+ months ago: twine 2\.0\.0^\n]+\s+'
 
     with pytest.raises(RuntimeError, match=expected_err):
         find_stale_packages(path_lock, path_pack_lock, stale_months=18)

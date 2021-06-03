@@ -38,6 +38,7 @@
 
 ### Fix
 
+- improve output from check_stale
 - errors caught in testing
 - suppress beartype warnings for now
 - drop logger middleware

@@ -190,8 +190,10 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
             Set[str]: set of most common top-level directories relative to the project dir
 
         """
-        return {pth.parent.relative_to(self.path_project).as_posix()
-                for pth in self.paths}  # type: ignore[attr-defined]
+        return {
+            pth.parent.relative_to(self.path_project).as_posix()
+            for pth in self.paths
+        }  # type: ignore[attr-defined]
 
 
 @attr.s(auto_attribs=True, kw_only=True)

@@ -122,9 +122,10 @@ def _read_cache(path_pack_lock: Path = _PATH_PACK_LOCK) -> Dict[str, _HostedPyth
 
 
 @beartype
-def _collect_release_dates(packages: List[_HostedPythonPackage],
-                           old_cache: Optional[Dict[str, _HostedPythonPackage]] = None,
-                           ) -> List[_HostedPythonPackage]:
+def _collect_release_dates(
+    packages: List[_HostedPythonPackage],
+    old_cache: Optional[Dict[str, _HostedPythonPackage]] = None,
+) -> List[_HostedPythonPackage]:
     """Use the cache to retrieve only metadata that needs to be updated.
 
     Args:
@@ -189,9 +190,11 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     lock = toml.loads(path_lock.read_text())
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
     # > domain=dependency['source']['url'] + '{name}/{version}/json'
-    return [_HostedPythonPackage(
-        name=dependency['name'], version=dependency['version'],
-    ) for dependency in lock['package']]
+    return [
+        _HostedPythonPackage(
+            name=dependency['name'], version=dependency['version'],
+        ) for dependency in lock['package']
+    ]
 
 
 @beartype
@@ -220,8 +223,10 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 
 
 @beartype
-def find_stale_packages(path_lock: Path, path_pack_lock: Path = _PATH_PACK_LOCK,
-                        *, stale_months: int = 48) -> None:
+def find_stale_packages(
+    path_lock: Path, path_pack_lock: Path = _PATH_PACK_LOCK,
+    *, stale_months: int = 48
+) -> None:
     """Read the cached packaging information.
 
     Args:
@@ -246,7 +251,7 @@ def task_check_for_stale_packages() -> DoitTask:
 
     """
     return debug_task([
-        (find_stale_packages, (DG.meta.path_project / 'poetry.lock', )),
+        (find_stale_packages, (DG.meta.path_project / 'poetry.lock',)),
     ])
 
 
@@ -266,5 +271,5 @@ def task_publish() -> DoitTask:
     """
     return debug_task([
         Interactive('poetry run nox -k "build_dist and build_check"'),
-        (echo, ('# FIXME: Add publish to pypi of nox-built wheel here...', )),
+        (echo, ('# FIXME: Add publish to pypi of nox-built wheel here...',)),
     ])
