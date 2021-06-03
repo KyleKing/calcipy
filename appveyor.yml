@@ -48,9 +48,13 @@ install:
   - poetry config --list
   - poetry config virtualenvs.in-project true
   # Install project-specific dependencies and extras
+  # FIXME: .venv is not being created?
+  - poetry config --list
+  - poetry env list
+
   - poetry install -E dev -E lint -E test -E commitizen_legacy
-  # TODO: Debug getuser()
-  - python -c "from getpass import getuser; print(getuser())"
+
+  - poetry env list
 
 test_script:
   - poetry run doit --continue
