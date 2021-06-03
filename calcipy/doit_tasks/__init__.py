@@ -80,6 +80,6 @@ TASKS_LOCAL = [
 
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
-    'default_tasks': TASKS_CI if getuser() == 'AppVeyor' else TASKS_LOCAL,
+    'default_tasks': TASKS_CI if getuser().lower() == 'appveyor' else TASKS_LOCAL,
 }
 """doit Configuration Settings. Run with `poetry run doit`."""

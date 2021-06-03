@@ -49,6 +49,8 @@ install:
   - poetry config virtualenvs.in-project true
   # Install project-specific dependencies and extras
   - poetry install -E dev -E lint -E test -E commitizen_legacy
+  # TODO: Debug getuser()
+  - python -c "from getpass import getuser; print(getuser())"
 
 test_script:
   - poetry run doit --continue
