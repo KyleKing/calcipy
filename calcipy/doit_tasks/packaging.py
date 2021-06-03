@@ -10,6 +10,7 @@ import requests
 import toml
 from beartype import beartype
 from doit.tools import Interactive
+from loguru import logger
 from pendulum import DateTime
 from pyrate_limiter import Duration, Limiter, RequestRate
 
@@ -219,7 +220,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
     stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
     if stale_packages:
         stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
-        raise RuntimeError(f'Found stale packages that may be a dependency risk:\n\n{stale_list}')
+        logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}')
 
 
 @beartype

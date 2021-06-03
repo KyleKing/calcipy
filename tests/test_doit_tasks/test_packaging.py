@@ -1,7 +1,10 @@
 """Test doit_tasks/packaging.py."""
 
 import json
+import re
+from collections import defaultdict
 
+import loguru
 import pendulum
 import pytest
 
@@ -11,6 +14,14 @@ from calcipy.doit_tasks.packaging import (
 )
 
 from ..configuration import PATH_TEST_PROJECT
+
+
+class MockLogger:  # noqa: H601
+
+    logs = defaultdict(list)
+
+    def warning(self, message: str, **kwargs):
+        self.logs['warnings'].append({'message': message, 'kwargs': kwargs})
 
 
 def test_task_publish():
@@ -58,7 +69,7 @@ def test_get_release_date():
 
 
 @pytest.mark.vcr()
-def test_find_stale_packages(fix_test_cache):
+def test_find_stale_packages(fix_test_cache, monkeypatch):
     """Test find_stale_packages."""
     fake_lock = """
 [[package]]
@@ -82,11 +93,15 @@ version = "1.2.3"
     path_lock.write_text(fake_lock)
     path_pack_lock = fix_test_cache / _PATH_PACK_LOCK.name
     path_pack_lock.write_text(json.dumps(fake_pack_lock))
-    expected_err = r'Found stale packages that may be a dependency risk:\s+- \d+ months ago: twine 2\.0\.0^\n]+\s+'
+    expected_err = r'Found stale packages that may be a dependency risk:\s+- \d+ months ago: twine 2\.0\.0[^\n]+'
+    mock_logger = MockLogger()
+    monkeypatch.setattr(loguru.logger, 'warning', mock_logger.warning)
 
-    with pytest.raises(RuntimeError, match=expected_err):
-        find_stale_packages(path_lock, path_pack_lock, stale_months=18)
+    find_stale_packages(path_lock, path_pack_lock, stale_months=18)
 
+    assert len(mock_logger.logs['warnings']) == 1
+    assert re.match(expected_err, mock_logger.logs['warnings'][-1]['message'])
+    assert mock_logger.logs['warnings'][-1]['kwargs'] == {}
     assert [*json.loads(path_pack_lock.read_text()).keys()] == ['twine', 'z_package']
 
 
