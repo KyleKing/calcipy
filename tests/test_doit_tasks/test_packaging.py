@@ -110,7 +110,8 @@ def test_task_check_for_stale_packages():
     result = task_check_for_stale_packages()
 
     actions = result['actions']
-    assert len(actions) == 1
+    assert len(actions) == 2
     assert isinstance(actions[0][0], type(find_stale_packages))
     assert len(actions[0][1]) == 1
     assert actions[0][1][0].name == 'poetry.lock'
+    assert 'poetry run pip list --outdated' in str(actions[1])

@@ -253,6 +253,7 @@ def task_check_for_stale_packages() -> DoitTask:
     """
     return debug_task([
         (find_stale_packages, (DG.meta.path_project / 'poetry.lock',)),
+        Interactive('poetry run pip list --outdated'),
     ])
 
 
