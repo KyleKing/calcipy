@@ -9,6 +9,7 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, 
 
 import attr
 import doit
+import toml
 from beartype import beartype
 from doit.action import BaseAction
 from doit.task import Task
@@ -17,11 +18,6 @@ from loguru import logger
 from ..file_helpers import get_doc_dir
 from ..log_helpers import log_fun
 from .file_search import find_project_files, find_project_files_by_suffix
-
-try:
-    import toml
-except ImportError:  # pragma: no cover
-    toml = None  # type: ignore[assignment]
 
 _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""
@@ -329,7 +325,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     path_out: Union[Path, str] = Path('releases/site')
     """Relative path to the documentation output directory."""
 
-    startswith_action_lookup: Dict[str, Callable[[str, Path], str]] = {}
+    startswith_action_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     paths_md: List[Path] = attr.ib(init=False)

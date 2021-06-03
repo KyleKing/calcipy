@@ -34,7 +34,7 @@ def task_nox_test() -> DoitTask:
 
     """
     return debug_task([
-        Interactive('poetry run nox -k "tests and build_check"'),
+        Interactive('poetry run nox --session tests build_check'),
     ])
 
 
@@ -47,7 +47,7 @@ def task_nox_coverage() -> DoitTask:
 
     """
     return debug_task([
-        Interactive('poetry run nox -k "coverage"'),
+        Interactive('poetry run nox --session coverage'),
     ])
 
 

@@ -5,8 +5,9 @@ import shutil
 import string
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 
+import yaml
 from beartype import beartype
 from loguru import logger
 
@@ -49,11 +50,6 @@ def _read_copier_answers(path_copier: Optional[Path] = None) -> Any:
         ImportError: if PyYAML is not installed
 
     """
-    try:
-        import yaml
-    except ImportError:
-        raise ImportError('The optional package "PyYAML" is required for this feature')
-
     path_copier = path_copier or Path.cwd() / '.copier-answers.yml'
     try:
         return yaml.safe_load(path_copier.read_text())

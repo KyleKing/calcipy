@@ -60,15 +60,21 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
+# TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
 attrs = "*"
 beartype = "*"
 decorator = "*"
 doit = "*" # Should be optional, but needed for doit_tasks
 loguru = "*"
 pendulum = "*" # Should be optional, but needed for package tasks
-pyrate_limiter = "*" # Should be optional, but needed for stale packaging task
+pre-commit = "*" # Should be optional, but needed for doit_globals
+pyrate_limiter = "*" # Should be optional, but needed for packaging task
 python-box = "*"
+toml = "*" # Should be optional, but needed for doit_globals
 transitions = "*" # Should be optional, but needed for doc tasks
+# Indirect imports necessary only to comply with check_imports
+pyyaml = "*" # Should be optional, but needed for doit_globals
+requests = "*" # Should be optional, but needed for packaging tasks
 
 # Development
 better-exceptions = { version = "*", optional = true }
@@ -77,10 +83,8 @@ markdown-include = { version = "*", optional = true }
 mkdocs-material = { version = "*", optional = true }
 pdbpp = { version = "*", optional = true }
 pdocs = { version = "*", optional = true }
-pre-commit = { version = "*", optional = true }
 pyupgrade = { version = "*", optional = true }
 subprocess-tee = { version = "*", optional = true }
-toml = { version = "*", optional = true }
 
 # Lint
 add-trailing-comma = { version = "*", optional = true }
@@ -162,10 +166,8 @@ dev = [
     "markdown-include",
     "mkdocs-material",
     "pdocs",
-    "pre-commit",
     "pyupgrade",
     "subprocess-tee",
-    "toml",
 ]
 lint = [
     "add-trailing-comma",
