@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from typing import Generator
+from typing import Dict, Generator
 
 import pytest
 from decorator import contextmanager
@@ -14,6 +14,21 @@ from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 from calcipy.doit_tasks.doit_globals import DoitGlobals
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
+
+
+@pytest.fixture(scope='module')
+def vcr_config() -> Dict:
+    """Global configuration (https://github.com/kiwicom/pytest-recording) for `pytest-recording` (vcr).
+
+    Returns:
+        Dict: `pytest-recording` options
+
+    """
+    return {
+        'filter_headers': ['authorization'],
+        'ignore_localhost': True,
+        'record_mode': 'once',
+    }
 
 
 @contextmanager

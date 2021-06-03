@@ -144,6 +144,7 @@ pytest = { version = "*", optional = true }
 pytest-cov = { version = "*", optional = true }
 pytest-html = { version = "*", optional = true }
 pytest-randomly = { version = "*", optional = true }
+pytest-recording = { version = "*", optional = true }
 pytest-watch = { version = "*", optional = true }
 
 # commitizen_legacy
@@ -227,6 +228,7 @@ test = [
     "pytest-cov",
     "pytest-html",
     "pytest-randomly",
+    "pytest-recording",
     "pytest-watch",
     "pytest",
 ]

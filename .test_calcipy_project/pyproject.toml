@@ -42,7 +42,6 @@ classifiers = [
     "Development Status :: 1 - Planning",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
 ] # https://pypi.org/classifiers/
@@ -51,7 +50,7 @@ classifiers = [
 "Bug Tracker" = "https://github.com/kyleking/test_project/issues"
 
 [tool.poetry.dependencies]
-python = "^3.7.1"
+python = "^3.8"
 
 [tool.poetry.dependencies.calcipy]
 git = "https://github.com/kyleking/calcipy.git"
