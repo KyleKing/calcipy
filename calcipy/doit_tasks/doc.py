@@ -4,7 +4,7 @@ import json
 import re
 import webbrowser
 from pathlib import Path
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Optional, Pattern
 
 from beartype import beartype
 from doit.tools import Interactive
@@ -97,52 +97,98 @@ def task_cl_bump_pre() -> DoitTask:
 # Manage README Updates
 
 
-class _MarkdownMachine(Machine):  # type: ignore[misc] # noqa: H601
-    """State machine to replace auto-formatted comment sections of markdown files with handler callback."""
+class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
+    """State machine to replace content with user-specified handlers.
 
-    states: List[str] = ['user', 'autoformatted']
+    Uses `{cts}` and `{cte}` to demarcate sections (short for calcipy_template start|end)
 
-    transitions: List[Dict[str, str]] = [
-        {'trigger': 'start_auto', 'source': 'user', 'dest': 'autoformatted'},
-        {'trigger': 'end', 'source': 'autoformatted', 'dest': 'user'},
-    ]
+    """
 
     def __init__(self) -> None:
         """Initialize the state machine."""
-        super().__init__(states=self.states, initial=self.states[0], transitions=self.transitions)
+        self.state_user = 'user'
+        self.state_auto = 'autoformatted'
+        transitions = [
+            {
+                'trigger': 'start_auto',
+                'source': self.state_user,
+                'dest': self.state_auto,
+            }, {
+                'trigger': 'end',
+                'source': self.state_auto,
+                'dest': self.state_user,
+            },
+        ]
+        super().__init__(states=[self.state_user, self.state_auto],
+                         initial=self.state_user,
+                         transitions=transitions)
 
-    def parse(  # noqa: CCR001
-        self, lines: List[str], handlers: Dict[str, Callable[[str, Path], str]],
-    ) -> List[str]:
-        """Parse lines and insert new_text based on provided handlers.
+    def parse(self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], str]],  # noqa: CCR001
+              path_file: Optional[Path] = None) -> List[str]:
+        """Parse lines and insert new_text based on provided handler_lookup.
 
         Args:
             lines: list of string from source file
-            handlers: Lookup dictionary for autoformatted sections of the project's markdown files
+            handler_lookup: Lookup dictionary for autoformatted sections
+            path_file: optional path to the file. Only useful for debugging
 
         Returns:
             List[str]: modified list of strings
 
         """
-        lines_modified = []
+        lines_new = []
         for line in lines:
-            line_strip = line.strip()
-            if line_strip.endswith(' // -->'):
-                lines_modified.append(line)
+            if '{cte}' in line and self.state == self.state_auto:  # end
                 self.end()
-            elif line_strip.startswith('<--?'):
+            elif '{cts}' in line:  # start
                 self.start_auto()
-                for startswith, handler in handlers.items():
-                    if line_strip.startswith(startswith):
-                        path_md = Path.home()  # FIXME: Need to handle passing the path for debugging
-                        lines_modified.extend(handler(line, path_md))
+                for text_match, handler in handler_lookup.items():
+                    if text_match in line:
+                        lines_new.extend(handler(line, path_file))
                         break
                 else:
-                    logger.error(f'Could not parse comment: {line}', line=line)
-            elif self.state == 'user':
-                lines_modified.append(line)
+                    logger.error('Could not parse: {line}', line=line)
+                    lines_new.append(line)
+                    self.end()
+            elif self.state == self.state_user:
+                lines_new.append(line)
+            # else: discard the lines in the auto-section
 
-        return lines_modified
+        return lines_new
+
+
+_RE_VAR_COMMENT_HTML = re.compile(r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);')
+"""Regex for extracting the vairable from an HTML code comment."""
+
+
+@beartype
+def _parse_var_comment(section: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:
+    """Parse the variable from a matching comment.
+
+    Examples:
+    - `<!-- rating=1; (User can specify rating on scale of 1-5) -->`
+    - `<!-- path_image=./docs/imgs/image_filename.png; -->`
+    - `<!-- tricky_var_3=-11e-21; -->`
+
+    Args:
+        section: string from source file
+
+    Returns:
+        Dict[str, str]: single key and value pair based on the parsed comment
+
+    Raises:
+        AttributeError: if the section couldn't be parsed with the specified regular expression
+
+    """
+    try:
+        match = matcher.match(section.strip())
+        if match:
+            matches = match.groupdict()
+            return {matches['key']: matches['value']}
+        return {}
+    except AttributeError:
+        logger.exception('Error parsing `{section}` with `{matcher}`', section=section, matcher=matcher)
+        raise
 
 
 @beartype
@@ -195,9 +241,12 @@ def _write_coverage_to_readme() -> None:
 @beartype
 def write_autoformatted_md_sections() -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic."""
+    if DG.doc.handler_lookup is None:
+        raise RuntimeError('The "DG.doc.handler_lookup" dictionary has not been created')
+
     logger.info('> {paths_md}', paths_md=DG.doc.paths_md)
     for path_md in DG.doc.paths_md:
-        md_lines = _MarkdownMachine().parse(read_lines(path_md), DG.doc.startswith_action_lookup)
+        md_lines = _ReplacementMachine().parse(read_lines(path_md), DG.doc.handler_lookup, path_md)
         path_md.write_text('\n'.join(md_lines))
 
 
@@ -255,8 +304,8 @@ def _check_unknown(line: str, path_md: Path) -> str:
 @beartype
 def _configure_action_lookup() -> None:
     """Configure the action lookup for markdown file autoformatting if not already configured."""
-    if not [*DG.doc.startswith_action_lookup.keys()]:
-        DG.doc.startswith_action_lookup = {
+    if DG.doc.handler_lookup is None:
+        DG.doc.handler_lookup = {
             '<!-- Do not modify sections with ': _format_header,
             '<!-- ': _check_unknown,
         }

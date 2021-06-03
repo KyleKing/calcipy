@@ -325,7 +325,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     path_out: Union[Path, str] = Path('releases/site')
     """Relative path to the documentation output directory."""
 
-    startswith_action_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
+    handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     paths_md: List[Path] = attr.ib(init=False)
