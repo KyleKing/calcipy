@@ -46,26 +46,20 @@ install:
   # Debug the PATH (if needed)
   - cmd: echo %PATH%
   - sh: echo $PATH
+  # Install virtualenv for poetry to create .venv
+  - python -m pip install virtualenv
   # Install poetry and configure
   - pipx install poetry
-  - sh: which poetry
-  - poetry --version
-  - poetry config --list
   - poetry config virtualenvs.create true
   - poetry config virtualenvs.in-project true
-  # Install project-specific dependencies and extras
-  # FIXME: .venv is not being created?
   - poetry config --list
-  - poetry env list
-  - dir
+  # Install project-specific dependencies and extras
   - python -m pip freeze
 
   - poetry install -E dev -E lint -E test -E commitizen_legacy
 
-  - poetry run python -m pip freeze
-  - poetry config --list
   - poetry env list
-  - dir
+  - sh: ls -a
 
 test_script:
   - poetry run doit --continue

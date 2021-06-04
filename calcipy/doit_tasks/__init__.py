@@ -83,3 +83,6 @@ DOIT_CONFIG_RECOMMENDED = {
     'default_tasks': TASKS_CI if getuser().lower() == 'appveyor' else TASKS_LOCAL,
 }
 """doit Configuration Settings. Run with `poetry run doit`."""
+
+# HACK: for debugging on AppVeyor Windows
+print(DOIT_CONFIG_RECOMMENDED['default_tasks'])

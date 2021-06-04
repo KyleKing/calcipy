@@ -75,6 +75,7 @@
 
 ### Refactor
 
+- minor fixes from AppVeyor testing
 - **#38**: reduce complexity
 - minor cleanup to docs
 - apply pre-commit autoformat
