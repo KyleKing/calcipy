@@ -38,19 +38,25 @@ install:
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
-  - python -m pip install pipx
+  - cmd: python -m pip install pipx
   # Manually set the path because "pipx ensurepath" needs a reload to apply
-  - pipx ensurepath
+  - cmd: pipx ensurepath
   - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
-  - sh: PATH=~/.local/bin:$PATH
+  # - sh: PATH=~/.local/bin:$PATH
   # Debug the PATH (if needed)
   - cmd: echo %PATH%
   - sh: echo $PATH
-  # Install virtualenv for poetry to create .venv
-  - python -m pip install virtualenv
+  # # Install virtualenv for poetry to create .venv
+  # - python -m pip install virtualenv
   # Install poetry and configure
-  - pipx install poetry
-  - poetry config virtualenvs.create true
+  - cmd: pipx install poetry
+  # PLANNED: https://github.com/python-poetry/poetry/discussions/4141
+  # yamllint disable-line rule:line-length
+  # - sh: curl -sL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python - -y ${{ matrix.bootstrap-args }}
+  # yamllint disable-line rule:line-length
+  - sh: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+  - sh: PATH=$HOME/.local/bin:$PATH
+
   - poetry config virtualenvs.in-project true
   - poetry config --list
   # Install project-specific dependencies and extras
