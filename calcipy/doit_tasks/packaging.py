@@ -83,7 +83,7 @@ def task_publish_test_pypi() -> DoitTask:
 # Check for stale packages
 
 
-def _auto_convert(cls, fields):  # noqa: ANN001, ANN202, CCR001 # type: ignore
+def _auto_convert(cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
     """Auto convert datetime attributes from string.
 
     https://www.attrs.org/en/stable/extending.html#automatic-field-transformation-and-modification
@@ -102,10 +102,9 @@ def _auto_convert(cls, fields):  # noqa: ANN001, ANN202, CCR001 # type: ignore
             results.append(field)
             continue
 
+        converter: Optional[DateTime] = None
         if field.type in {Optional[DateTime], DateTime, 'datetime'}:
             converter = (lambda d: pendulum.parse(d) if isinstance(d, str) else d)
-        else:
-            converter = None
         results.append(field.evolve(converter=converter))
 
     return results

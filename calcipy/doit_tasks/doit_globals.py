@@ -322,7 +322,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     doc_dir: Path = Path('docs')
     """Relative path to the source documentation directory."""
 
-    path_out: Union[Path, str] = Path('releases/site')
+    path_out: Path = Path('releases/site')
     """Relative path to the documentation output directory."""
 
     handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None

@@ -140,7 +140,7 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
             List[str]: modified list of strings
 
         """
-        lines = []
+        lines: List[str] = []
         if '{cte}' in line and self.state == self.state_auto:  # end
             self.end()
         elif '{cts}' in line:  # start

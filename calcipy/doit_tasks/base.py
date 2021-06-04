@@ -39,7 +39,7 @@ def debug_task(actions: Iterable[DoitAction], verbosity: int = 2) -> DoitTask:
         DoitTask: doit task
 
     """
-    task = defaultdict(list)
+    task: DoitTask = defaultdict(list)
     task['actions'] = actions
     task['title'] = _show_cmd
     task['verbosity'] = verbosity
