@@ -648,12 +648,12 @@
         "version": "2.6.1"
     },
     "identify": {
-        "datetime": "2021-05-31T00:14:39.988973Z",
+        "datetime": "2021-06-03T15:30:59.242425Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2021-05-31T00:14:39.988973Z",
-        "latest_version": "2.2.7",
+        "latest_datetime": "2021-06-03T15:30:59.242425Z",
+        "latest_version": "2.2.8",
         "name": "identify",
-        "version": "2.2.7"
+        "version": "2.2.8"
     },
     "idna": {
         "datetime": "2020-06-27T23:45:03.457785Z",
@@ -664,12 +664,12 @@
         "version": "2.10"
     },
     "importlib-metadata": {
-        "datetime": "2021-05-31T15:00:12.562159Z",
+        "datetime": "2021-06-03T23:11:06.793328Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2021-05-31T15:00:12.562159Z",
-        "latest_version": "4.4.0",
+        "latest_datetime": "2021-06-03T23:11:06.793328Z",
+        "latest_version": "4.5.0",
         "name": "importlib-metadata",
-        "version": "4.4.0"
+        "version": "4.5.0"
     },
     "inflect": {
         "datetime": "2021-03-03T01:35:47.403670Z",
@@ -1262,14 +1262,6 @@
         "latest_version": "3.3.0",
         "name": "stevedore",
         "version": "3.3.0"
-    },
-    "subprocess-tee": {
-        "datetime": "2021-04-12T09:09:37.962789Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2021-04-12T09:09:37.962789Z",
-        "latest_version": "0.3.1",
-        "name": "subprocess-tee",
-        "version": "0.3.1"
     },
     "termcolor": {
         "datetime": "2011-01-13T18:45:33.979856Z",

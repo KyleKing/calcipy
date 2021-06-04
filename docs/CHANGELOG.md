@@ -2,6 +2,11 @@
 
 ### Feat
 
+- **#38**: re-implement coverage and write source
+- drop subprocess-tee
+- **#36**: WIP implementation of doc formatting
+- implement publish tasks
+- add pip outdated to stale check
 - implement check for stale packages
 - begin implementing stale package check
 - smart default tasks for CI vs. local
@@ -38,6 +43,9 @@
 
 ### Fix
 
+- import and nox syntax errors
+- run push pre-commit hooks with doit
+- show log warning instead of error for stale dep
 - improve output from check_stale
 - errors caught in testing
 - suppress beartype warnings for now
@@ -67,6 +75,8 @@
 
 ### Refactor
 
+- minor cleanup to docs
+- apply pre-commit autoformat
 - auto-drop skipcq comment
 - format with VSCode
 - fix lint errors in YAML files
