@@ -1,7 +1,7 @@
 """Test code_tag_collector.py."""
 
 from calcipy.doit_tasks import DG
-from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags
+from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags, _write_code_tag_file, task_collect_code_tags
 
 from ..configuration import PATH_TEST_PROJECT
 
@@ -51,5 +51,31 @@ def test_format_report():
 Found code tags for TODO (1)
 """  # noqa: T100,T101
     assert output == expected, f'Received: `{output}`'
+
+
+def test_write_code_tag_file(fix_test_cache):
+    """Test _write_code_tag_file for an empty file."""
+    path_tag_summary = fix_test_cache / 'code_tags.md'
+    tmp_code_file = fix_test_cache / 'tmp.code'
+    tmp_code_file.write_text('')
+    #
+    paths_original = DG.meta.paths
+    DG.meta.paths = [tmp_code_file]
+
+    _write_code_tag_file(path_tag_summary)  # act
+
+    assert not path_tag_summary.is_file()
+    #
+    DG.meta.paths = paths_original
+
+
+def test_task_collect_code_tags():
+    """Test task_collect_code_tags."""
+    result = task_collect_code_tags()
+
+    actions = result['actions']
+    assert len(actions) == 1
+    assert isinstance(actions[0][0], type(_write_code_tag_file))
+
 
 # calcipy:skip_tags
