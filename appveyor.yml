@@ -40,23 +40,32 @@ install:
   # Install pipx to manage CLI installations (poetry, codecov)
   - python -m pip install pipx
   # Manually set the path because "pipx ensurepath" needs a reload to apply
+  - pipx ensurepath
   - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
   - sh: PATH=~/.local/bin:$PATH
   # Debug the PATH (if needed)
   - cmd: echo %PATH%
   - sh: echo $PATH
   # Install poetry and configure
-  - python -m pipx install poetry
+  - pipx install poetry
+  - sh: which poetry
+  - poetry --version
   - poetry config --list
+  - poetry config virtualenvs.create true
   - poetry config virtualenvs.in-project true
   # Install project-specific dependencies and extras
   # FIXME: .venv is not being created?
   - poetry config --list
   - poetry env list
+  - dir
+  - python -m pip freeze
 
   - poetry install -E dev -E lint -E test -E commitizen_legacy
 
+  - poetry run python -m pip freeze
+  - poetry config --list
   - poetry env list
+  - dir
 
 test_script:
   - poetry run doit --continue
