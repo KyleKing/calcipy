@@ -4,6 +4,7 @@ import json
 import shutil
 import webbrowser
 from pathlib import Path
+from typing import List
 
 import pytest
 
@@ -155,7 +156,7 @@ def test_parse_var_comment(line, match):
     assert result == match
 
 
-def _star_parser(line: str, path_md: Path) -> str:
+def _star_parser(line: str, path_md: Path) -> List[str]:
     rating = int(_parse_var_comment(line)['rating'])
     return [f'RATING={rating}']
 

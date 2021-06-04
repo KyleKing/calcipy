@@ -32,6 +32,8 @@ build: false
 
 # Specify commands specific to platform (cmd-Windows/sh-Linux/None-Both)
 install:
+  # Force Python to use UTF-8 encoding instead of cp1252 on Windows
+  - cmd: SET PYTHONUTF8=1
   # Set Python paths based on environment variable from matrix
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
   - python --version

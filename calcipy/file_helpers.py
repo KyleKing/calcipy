@@ -124,7 +124,7 @@ def tail_lines(path_file: Path, *, count: int) -> List[str]:
 
         if rem_bytes < step_size:
             fh.seek(0, os.SEEK_SET)
-        return fh.read().decode().split('\n')
+        return [line.rstrip('\r') for line in fh.read().decode().split('\n')]
 
 
 # ----------------------------------------------------------------------------------------------------------------------
