@@ -12,8 +12,8 @@ Personal rating: *Not yet rated*
 <!-- Capture image -->
 <!-- {cte} -->
 
-<!-- {cts} COVERAGE -->
+<!-- {cts} COVERAGE_TEST -->
 <!-- {cte} -->
 
-<!-- {cts} SOURCE_FILE=/tests/conftest.py; -->
+<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->
 <!-- {cte} -->

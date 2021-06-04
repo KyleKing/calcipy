@@ -8,8 +8,9 @@ from pathlib import Path
 import pytest
 
 from calcipy.doit_tasks.doc import (
-    _ensure_handler_lookup, _format_cov_table, _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre,
-    task_cl_write, task_deploy, task_open_docs, task_serve_docs, write_autoformatted_md_sections,
+    _format_cov_table, _handle_coverage, _handle_source_file, _move_cl,
+    _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write, task_deploy,
+    task_document, task_open_docs, task_serve_docs, write_autoformatted_md_sections,
 )
 from calcipy.doit_tasks.doit_globals import DG
 
@@ -124,18 +125,34 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     lookup_original = DG.doc.handler_lookup
     #
     DG.doc.paths_md = [path_new_readme]
-    DG.doc.handler_lookup = None
-    _ensure_handler_lookup()
+    DG.doc.handler_lookup = {
+        'SOURCE_FILE_TEST': _handle_source_file,
+        'COVERAGE_TEST': _handle_coverage,
+    }
 
     write_autoformatted_md_sections()  # act
 
     text = path_new_readme.read_text()
-    assert '<!-- {cts} SOURCE_FILE=/tests/conftest.py; -->\n<!-- {cte} -->' not in text
-    assert '<!-- {cts} SOURCE_FILE=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
-    assert '<!-- {cts} COVERAGE -->\n| File | Statements | Missing |' in text
+    assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->' not in text
+    assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
+    assert '<!-- {cts} COVERAGE_TEST -->\n| File | Statements | Missing |' in text
     #
     DG.doc.paths_md = paths_original
     DG.doc.handler_lookup = lookup_original
+
+
+@pytest.mark.parametrize(
+    ('line', 'match'), [
+        ('<!-- {cts} rating=1; (User can specify rating on scale of 1-5) -->', {'rating': '1'}),
+        ('<!-- {cts} path_image=imgs/image_filename.png; -->', {'path_image': 'imgs/image_filename.png'}),
+        ('<!-- {cts} tricky_var_3=-11e-21; -->', {'tricky_var_3': '-11e-21'}),
+    ],
+)
+def test_parse_var_comment(line, match):
+    """Test _parse_var_comment."""
+    result = _parse_var_comment(line)
+
+    assert result == match
 
 
 def _star_parser(line: str, path_md: Path) -> str:
@@ -171,6 +188,27 @@ def test_write_autoformatted_md_sections_custom(fix_test_cache):
     DG.doc.handler_lookup = lookup_original
 
 
+def test_task_document():
+    """Test task_document."""
+    result = task_document()
+
+    actions = result['actions']
+    assert len(actions) == 2
+    assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
+    pytest.skip('TODO: Not yet implementing')
+
+
+def test_task_open_docs():
+    """Test task_open_docs."""
+    result = task_open_docs()
+
+    actions = result['actions']
+    assert len(actions) == 1
+    assert isinstance(actions[0][0], type(webbrowser.open))
+    assert len(actions[0][1]) == 1
+    assert actions[0][1][0].name == 'index.html'
+
+
 def test_task_serve_docs():
     """Test task_serve_docs."""
     result = task_serve_docs()
@@ -190,14 +228,3 @@ def test_task_deploy():
     actions = result['actions']
     assert len(actions) == 1
     assert str(actions[0]).endswith('mkdocs gh-deploy')
-
-
-def test_task_open_docs():
-    """Test task_open_docs."""
-    result = task_open_docs()
-
-    actions = result['actions']
-    assert len(actions) == 1
-    assert isinstance(actions[0][0], type(webbrowser.open))
-    assert len(actions[0][1]) == 1
-    assert actions[0][1][0].name == 'index.html'

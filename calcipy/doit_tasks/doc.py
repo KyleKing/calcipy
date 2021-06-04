@@ -183,34 +183,22 @@ _RE_VAR_COMMENT_HTML = re.compile(r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);'
 
 
 @beartype
-def _parse_var_comment(section: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:
+def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:
     """Parse the variable from a matching comment.
 
-    Examples:
-    - `<!-- rating=1; (User can specify rating on scale of 1-5) -->`
-    - `<!-- path_image=./docs/imgs/image_filename.png; -->`
-    - `<!-- tricky_var_3=-11e-21; -->`
-
     Args:
-        section: string from source file
+        line: string from source file
         matcher: regex pattern to match. Default is `_RE_VAR_COMMENT_HTML`
 
     Returns:
         Dict[str, str]: single key and value pair based on the parsed comment
 
-    Raises:
-        AttributeError: if the section couldn't be parsed with the specified regular expression
-
     """
-    try:
-        match = matcher.match(section.strip())
-        if match:
-            matches = match.groupdict()
-            return {matches['key']: matches['value']}
-        return {}
-    except AttributeError:
-        logger.exception('Error parsing `{section}` with `{matcher}`', section=section, matcher=matcher)
-        raise
+    match = matcher.match(line.strip())
+    if match:
+        matches = match.groupdict()
+        return {matches['key']: matches['value']}
+    return {}
 
 
 @beartype
@@ -225,7 +213,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
         List[str]: list of auto-formatted text
 
     """
-    path_rel = _parse_var_comment(line)['SOURCE_FILE']
+    key, path_rel = [*_parse_var_comment(line).items()][0]
     path_base = DG.meta.path_project if path_rel.startswith('/') else path_file.resolve().parent
     path_source = path_base / path_rel.lstrip('/')
     language = path_source.suffix.lstrip('.')
@@ -233,7 +221,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     if not path_source.is_file():
         logger.warning(f'Could not locate: {path_source}')
 
-    line_start = f'<!-- {{cts}} SOURCE_FILE={path_rel}; -->'
+    line_start = f'<!-- {{cts}} {key}={path_rel}; -->'
     line_end = '<!-- {cte} -->'
     return [line_start] + lines_source + [line_end]
 
@@ -285,9 +273,8 @@ def _handle_coverage(line: str, path_file: Path) -> List[str]:
     else:
         logger.warning(f'Could not locate: {path_coverage}')
 
-    line_start = '<!-- {cts} COVERAGE -->'
     line_end = '<!-- {cte} -->'
-    return [line_start] + lines_cov + [line_end]
+    return [line] + lines_cov + [line_end]
 
 
 @beartype
@@ -316,7 +303,7 @@ def _ensure_handler_lookup() -> None:
     """Configure the handler lookup if not already configured."""
     if DG.doc.handler_lookup is None:
         DG.doc.handler_lookup = {
-            'COVERAGE': _handle_coverage,
+            'COVERAGE ': _handle_coverage,
             'SOURCE_FILE=': _handle_source_file,
         }
 
