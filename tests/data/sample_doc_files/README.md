@@ -5,11 +5,15 @@
 > Test markdown formatting from [recipes](https://github.com/KyleKing/recipes)
 
 <!-- {cts} rating=4; (User can specify rating on scale of 1-5) -->
-<!-- AUTO-UserRating -->
 Personal rating: *Not yet rated*
-<!-- /AUTO-UserRating {cte} -->
+<!-- {cte} -->
 
-<!-- {cts} name_image=TBD.img; (User can specify image name) -->
-<!-- AUTO-Image -->
+<!-- {cts} name_image=NA.png; (User can specify image name) -->
 <!-- Capture image -->
-<!-- /AUTO-Image {cte} -->
+<!-- {cte} -->
+
+<!-- {cts} COVERAGE -->
+<!-- {cte} -->
+
+<!-- {cts} SOURCE_FILE=/tests/conftest.py; -->
+<!-- {cte} -->

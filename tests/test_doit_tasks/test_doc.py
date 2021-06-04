@@ -1,5 +1,6 @@
 """Test doit_tasks/doc.py."""
 
+import json
 import shutil
 import webbrowser
 from pathlib import Path
@@ -7,8 +8,8 @@ from pathlib import Path
 import pytest
 
 from calcipy.doit_tasks.doc import (
-    _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write,
-    task_deploy, task_open_docs, task_serve_docs, write_autoformatted_md_sections,
+    _ensure_handler_lookup, _format_cov_table, _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre,
+    task_cl_write, task_deploy, task_open_docs, task_serve_docs, write_autoformatted_md_sections,
 )
 from calcipy.doit_tasks.doit_globals import DG
 
@@ -64,15 +65,86 @@ def test_task_cl_bump_pre():
     assert params[0]['short'] == 'p'
 
 
-def _star_parser(section: str, path_md: Path) -> str:
-    rating = int(_parse_var_comment(section)['rating'])
-    return [f'RATING={rating}']
+_COVERAGE_SAMPLE_DATA = {
+    'meta': {'timestamp': '2021-06-03T19:37:11.980123'},
+    'files': {
+        'calcipy/doit_tasks/base.py': {
+            'summary': {
+                'covered_lines': 20,
+                'num_statements': 22,
+                'percent_covered': 90.9090909090909,
+                'missing_lines': 2,
+                'excluded_lines': 3,
+            },
+        },
+        'calcipy/doit_tasks/code_tag_collector.py': {
+            'summary': {
+                'covered_lines': 31,
+                'num_statements': 75,
+                'percent_covered': 41.333333333333336,
+                'missing_lines': 44,
+                'excluded_lines': 0,
+            },
+        },
+    },
+    'totals': {
+        'covered_lines': 393,
+        'num_statements': 829,
+        'percent_covered': 47.4065138721351,
+        'missing_lines': 436,
+        'excluded_lines': 87,
+    },
+}
+"""Sample coverage data generated with `python -m coverage json`."""
 
 
-# FIXME: Fails and doesn't modify the file...
+def test_format_cov_table():
+    """Test _format_cov_table."""
+    result = _format_cov_table(_COVERAGE_SAMPLE_DATA)
+
+    assert result == [
+        '| File | Statements | Missing | Excluded | Coverage |',
+        '| --: | --: | --: | --: | --: |',
+        '| `calcipy/doit_tasks/base.py` | 22 | 2 | 3 | 90.9% |',
+        '| `calcipy/doit_tasks/code_tag_collector.py` | 75 | 44 | 0 | 41.3% |',
+        '',
+        'Generated on: 2021-06-03T19:37:11.980123',
+    ]
+
+
 @pytest.mark.CURRENT()
 def test_write_autoformatted_md_sections(fix_test_cache):
     """Test write_autoformatted_md_sections."""
+    path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
+    path_new_readme = fix_test_cache / path_md_file.name
+    shutil.copyfile(path_md_file, path_new_readme)
+    (DG.meta.path_project / 'coverage.json').write_text(json.dumps(_COVERAGE_SAMPLE_DATA))
+    #
+    paths_original = DG.doc.paths_md
+    lookup_original = DG.doc.handler_lookup
+    #
+    DG.doc.paths_md = [path_new_readme]
+    DG.doc.handler_lookup = None
+    _ensure_handler_lookup()
+
+    write_autoformatted_md_sections()  # act
+
+    text = path_new_readme.read_text()
+    assert '<!-- {cts} SOURCE_FILE=/tests/conftest.py; -->\n<!-- {cte} -->' not in text
+    assert '<!-- {cts} SOURCE_FILE=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
+    assert '<!-- {cts} COVERAGE -->\n| File | Statements | Missing |' in text
+    #
+    DG.doc.paths_md = paths_original
+    DG.doc.handler_lookup = lookup_original
+
+
+def _star_parser(line: str, path_md: Path) -> str:
+    rating = int(_parse_var_comment(line)['rating'])
+    return [f'RATING={rating}']
+
+
+def test_write_autoformatted_md_sections_custom(fix_test_cache):
+    """Test write_autoformatted_md_sections with custom handlers."""
     path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
     path_new_readme = fix_test_cache / path_md_file.name
     shutil.copyfile(path_md_file, path_new_readme)
@@ -88,12 +160,12 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     write_autoformatted_md_sections()  # act
 
     text = path_new_readme.read_text()
-    assert '\n<!-- rating=' not in text
+    assert '\n<!-- {cts} rating=' in path_md_file.read_text()
+    assert '\n<!-- {cts} rating=' not in text
     assert '\n\nRATING=4\n\n' in text
-    assert """<!-- {cts} name_image=TBD.img; (User can specify image name) -->
-<!-- AUTO-Image -->
+    assert """<!-- {cts} name_image=NA.png; (User can specify image name) -->
 <!-- Capture image -->
-<!-- /AUTO-Image {cte} -->""" in text
+<!-- {cte} -->""" in text
     #
     DG.doc.paths_md = paths_original
     DG.doc.handler_lookup = lookup_original

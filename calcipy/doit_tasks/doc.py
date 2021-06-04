@@ -4,7 +4,7 @@ import json
 import re
 import webbrowser
 from pathlib import Path
-from typing import Callable, Dict, List, Optional, Pattern
+from typing import Any, Callable, Dict, List, Optional, Pattern
 
 from beartype import beartype
 from doit.tools import Interactive
@@ -172,6 +172,7 @@ def _parse_var_comment(section: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) ->
 
     Args:
         section: string from source file
+        matcher: regex pattern to match. Default is `_RE_VAR_COMMENT_HTML`
 
     Returns:
         Dict[str, str]: single key and value pair based on the parsed comment
@@ -192,49 +193,90 @@ def _parse_var_comment(section: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) ->
 
 
 @beartype
-def _write_code_to_readme() -> None:
-    """Replace commented sections in README with linked file contents."""
-    comment_pattern = re.compile(r'\s*<!-- /?(CODE:.*) -->')
-    fn = 'tests/examples/readme.py'
-    script_path = DG.meta.path_project / fn
-    if script_path.is_file():
-        source_code = ['```py', *read_lines(script_path), '```']
-        new_text = {f'CODE:{fn}': [f'{line}'.rstrip() for line in source_code]}
-        {comment_pattern: new_text}
-        # _write_to_readme(comment_pattern, new_text)
-        # FIXME: implement this according to #36 changes
-    else:
-        logger.warning(f'Could not locate: {script_path}')
+def _handle_source_file(line: str, path_file: Path) -> List[str]:
+    """Replace commented sections in README with linked file contents.
+
+    Args:
+        line: first line of the section
+        path_file: path to the file that contained the string
+
+    Returns:
+        List[str]: list of auto-formatted text
+
+    """
+    path_rel = _parse_var_comment(line)['SOURCE_FILE']
+    path_base = DG.meta.path_project if path_rel.startswith('/') else path_file.resolve().parent
+    path_source = path_base / path_rel.lstrip('/')
+    language = path_source.suffix.lstrip('.')
+    lines_source = [f'```{language}', *read_lines(path_source), '```']
+    if not path_source.is_file():
+        logger.warning(f'Could not locate: {path_source}')
+
+    line_start = f'<!-- {{cts}} SOURCE_FILE={path_rel}; -->'
+    line_end = '<!-- {cte} -->'
+    return [line_start] + lines_source + [line_end]
 
 
 @beartype
-def _write_coverage_to_readme() -> None:
-    """Read the coverage.json file and write a Markdown table to the README file."""
+def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
+    """Format code coverage data table as markdown.
 
-    coverage_path = (DG.meta.path_project / 'coverage.json')
-    if coverage_path.is_file():
-        # Read coverage information from json file
-        coverage = json.loads(coverage_path.read_text())
-        # Collect raw data
-        legend = ['File', 'Statements', 'Missing', 'Excluded', 'Coverage']
-        int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
-        rows = [legend, ['--:'] * len(legend)]
-        for path_file, file_obj in coverage['files'].items():
-            rel_path = Path(path_file).resolve().relative_to(DG.meta.path_project).as_posix()
-            per = round(file_obj['summary']['percent_covered'], 1)
-            rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
-        # Format table for Github Markdown
-        table_lines = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
-        table_lines.extend(['', f"Generated on: {coverage['meta']['timestamp']}"])
-        # Replace coverage section in README
-        # comment_pattern = re.compile(r'<!-- /?(COVERAGE) -->')
-        # _write_to_readme(comment_pattern, {'COVERAGE': table_lines})
-        # FIXME: implement this according to #36 changes
+    Args:
+        coverage_data: dictionary created by `python -m coverage json`
+
+    Returns:
+        List[str]: list of string lines to insert
+
+    """
+    legend = ['File', 'Statements', 'Missing', 'Excluded', 'Coverage']
+    int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
+    rows = [legend, ['--:'] * len(legend)]
+    for path_file, file_obj in coverage_data['files'].items():
+        rel_path = Path(path_file).as_posix()  # .resolve().relative_to(DG.meta.path_project)
+        per = round(file_obj['summary']['percent_covered'], 1)
+        rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
+    # Format table for Github Markdown
+    lines_table = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
+    lines_table.extend(['', f"Generated on: {coverage_data['meta']['timestamp']}"])
+    # TODO: Convert to Pandas for ".to_markdown"
+    #   https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_markdown.html
+    # TODO: Add summary line for total coverage statistics
+    return lines_table
+
+
+@beartype
+def _handle_coverage(line: str, path_file: Path) -> List[str]:
+    """Read the coverage.json file and write a Markdown table to the README file.
+
+    Args:
+        line: first line of the section
+        path_file: path to the file that contained the string
+
+    Returns:
+        List[str]: list of auto-formatted text
+
+    """
+    path_coverage = DG.meta.path_project / 'coverage.json'  # Created by "task_coverage"
+    lines_cov = []
+    if path_coverage.is_file():
+        coverage_data = json.loads(path_coverage.read_text())
+        lines_cov = _format_cov_table(coverage_data)
+    else:
+        logger.warning(f'Could not locate: {path_coverage}')
+
+    line_start = '<!-- {cts} COVERAGE -->'
+    line_end = '<!-- {cte} -->'
+    return [line_start] + lines_cov + [line_end]
 
 
 @beartype
 def write_autoformatted_md_sections() -> None:
-    """Populate the auto-formatted sections of markdown files with user-configured logic."""
+    """Populate the auto-formatted sections of markdown files with user-configured logic.
+
+    Raises:
+        RuntimeError: if `DG.doc.handler_lookup` hasn't ben configured. See `_ensure_handler_lookup`
+
+    """
     if DG.doc.handler_lookup is None:
         raise RuntimeError('The "DG.doc.handler_lookup" dictionary has not been created')
 
@@ -249,28 +291,12 @@ def write_autoformatted_md_sections() -> None:
 
 
 @beartype
-def _format_header(line: str, path_md: Path) -> str:
-    """Replace the do not modify header information."""  # noqa: DAR101,DAR201,DAR401
-    if '\n' in line:  # FIXME: Function signature has changed with the restored README Machine
-        logger.error('Found: "{line}"', line=line)
-        raise RuntimeError(f'Found unexpected newline in header comment of: {path_md}')
-    return '<!-- Do not modify sections with "AUTO-*". They are updated by with a doit task -->'
-
-
-@beartype
-def _check_unknown(line: str, path_md: Path) -> str:
-    """Pass-through to catch sections not parsed by the function logic."""  # noqa: DAR101,DAR201
-    logger.warning('Could not parse: {line} from: {path_md}', line=line, path_md=path_md)
-    return line
-
-
-@beartype
-def _configure_action_lookup() -> None:
-    """Configure the action lookup for markdown file autoformatting if not already configured."""
+def _ensure_handler_lookup() -> None:
+    """Configure the handler lookup if not already configured."""
     if DG.doc.handler_lookup is None:
         DG.doc.handler_lookup = {
-            '<!-- Do not modify sections with ': _format_header,
-            '<!-- ': _check_unknown,
+            'COVERAGE': _handle_coverage,
+            'SOURCE_FILE=': _handle_source_file,
         }
 
 
@@ -282,10 +308,12 @@ def task_document() -> DoitTask:
         DoitTask: doit task
 
     """
-    _configure_action_lookup()
+    _ensure_handler_lookup()
     return debug_task([
         (write_autoformatted_md_sections, ()),
-        # PLANNED: Delete /docs/ folder
+
+        # FIXME: Next steps to implement the code documentation. Try pdoc and compare against pdocs
+
         # 'poetry run pdocs as_markdown calcipy --overwrite --template-dir? /path/dir',  # PLANNED: DG.package_name?
         # Copy all *.md (and */*.md?) files into /docs!
         # TODO: Remove all extra None ("\nNone\n") and "Module "...
@@ -294,7 +322,7 @@ def task_document() -> DoitTask:
     ])
 
 
-# PLANNED: Only works for static documentation files (projects could use either mkdocs served or static...)
+# TODO: Only works for static documentation files (projects could use either mkdocs served or static...)
 @beartype
 def task_open_docs() -> DoitTask:
     """Open the documentation files in the default browser.
@@ -310,7 +338,7 @@ def task_open_docs() -> DoitTask:
 
 
 @beartype
-def task_serve_fast() -> DoitTask:
+def task_serve_docs() -> DoitTask:
     """Serve the site with `--dirtyreload` and open in a web browser.
 
     Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
