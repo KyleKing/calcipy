@@ -77,13 +77,6 @@ repos:
         entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: "\\.rej$"
-      - id: lock_deps
-        name: lock_dependencies
-        entry: poetry lock
-        language: system
-        files: pyproject.toml
-        stages: [push]
-        pass_filenames: false
       - id: doit
         name: doit
         entry: poetry run doit run test

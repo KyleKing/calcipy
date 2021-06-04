@@ -22,6 +22,20 @@ from .doit_globals import DG, DoitTask
 
 
 @beartype
+def task_lock() -> DoitTask:
+    """Lock dependencies.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    task = debug_task(['poetry lock'])
+    task['file_dep'].append(DG.meta.path_project / 'pyproject.toml')
+    task['targets'].append(DG.meta.path_project / 'poetry.lock')
+    return task
+
+
+@beartype
 def _publish_task(publish_args: str = '') -> DoitTask:
     """Create the task with specified options for building and publishing.
 
@@ -274,7 +288,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 @beartype
 def find_stale_packages(
     path_lock: Path, path_pack_lock: Path = _PATH_PACK_LOCK,
-    *, stale_months: int = 48
+    *, stale_months: int = 48,
 ) -> None:
     """Read the cached packaging information.
 
@@ -299,7 +313,12 @@ def task_check_for_stale_packages() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task([
-        (find_stale_packages, (DG.meta.path_project / 'poetry.lock',)),
+    path_lock = DG.meta.path_project / 'poetry.lock'
+    path_pack_lock = _PATH_PACK_LOCK
+    task = debug_task([
+        (find_stale_packages, (path_lock, path_pack_lock, 48)),
         Interactive('poetry run pip list --outdated'),
     ])
+    task['file_dep'].append(path_lock)
+    task['targets'].append(path_pack_lock)
+    return task

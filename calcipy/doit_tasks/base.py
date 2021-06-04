@@ -1,6 +1,7 @@
 """General doit Utilities."""
 
 import webbrowser
+from collections import defaultdict
 from pathlib import Path
 from typing import Iterable
 
@@ -38,11 +39,10 @@ def debug_task(actions: Iterable[DoitAction], verbosity: int = 2) -> DoitTask:
         DoitTask: doit task
 
     """
-    task = {
-        'actions': actions,
-        'title': _show_cmd,
-        'verbosity': verbosity,
-    }
+    task = defaultdict(list)
+    task['actions'] = actions
+    task['title'] = _show_cmd
+    task['verbosity'] = verbosity
     logger.debug('Created task. See extras', task=f'{task}')
     return task
 

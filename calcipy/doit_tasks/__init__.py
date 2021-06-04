@@ -30,6 +30,7 @@ __all__ = [  # noqa: F405
     'task_security_checks',
     # from .packaging
     'task_check_for_stale_packages',
+    'task_lock',
     'task_publish',
     # from .test
     'task_check_types',
@@ -67,6 +68,7 @@ TASKS_CI = [
 TASKS_LOCAL = [
     'collect_code_tags',
     'cl_write',
+    'lock',
     'nox_coverage',
     'auto_format',
     'document',
