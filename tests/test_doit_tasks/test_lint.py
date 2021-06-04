@@ -1,38 +1,32 @@
 """Test doit_tasks/lint.py."""
 
-from pathlib import Path
-from tempfile import TemporaryDirectory
-
 import pytest
 
-from calcipy.doit_tasks.doit_globals import DIG
-from calcipy.doit_tasks.lint import _check_linting_errors, _collect_py_files, _lint_project
+from calcipy.doit_tasks.base import echo
+from calcipy.doit_tasks.doit_globals import DG
+from calcipy.doit_tasks.lint import (
+    _check_linting_errors, _lint_python, task_auto_format, task_lint_critical_only,
+    task_lint_project, task_lint_python, task_pre_commit_hooks, task_radon_lint,
+)
+from calcipy.file_helpers import if_found_unlink
 
 from ..configuration import PATH_TEST_PROJECT
 
 
-def test_collect_py_files():
-    """Test collect_py_files."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
-
-    result = _collect_py_files(add_paths=(), sub_directories=None)
-
-    assert len(result) == 2
-    assert str(PATH_TEST_PROJECT / 'test_file.py') in result
-    assert str(PATH_TEST_PROJECT / 'tests/test_file_2.py') in result
-
-
-def test_lint_project():
-    """Test lint_project."""
-    DIG.set_paths(path_project=PATH_TEST_PROJECT)
-
-    result = _lint_project(
+def test_lint_python():
+    """Test _lint_python."""
+    result = _lint_python(
         lint_paths=[PATH_TEST_PROJECT / 'test_file.py', PATH_TEST_PROJECT / 'tests/test_file_2.py'],
-        path_flake8=DIG.lint.path_flake8,
+        path_flake8=DG.lint.path_flake8,
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
 
-    assert len(result) == 4  # There are two files that are parsed
+    assert len(result) == 3
+    assert isinstance(result[0][0], type(if_found_unlink))
+    assert result[0][1][0].name == 'flake8.log'
+    assert result[1].startswith('poetry run python -m flake8 --config')
+    assert 'test_file.py' in result[1]
+    assert isinstance(result[-1][0], type(_check_linting_errors))
 
 
 FLAKE8_LOG = """doit_project/test_file.py:3:1: F401 'doit' imported but unused
@@ -43,22 +37,103 @@ doit_project/test_file.py:6:2: E800: Found commented out code
 """
 
 
-def test_check_linting_errors():
+def test_check_linting_errors(fix_test_cache):
     """Test check_linting_errors."""
-    with TemporaryDirectory() as td:
-        flake8_log_path = Path(td) / 'flake8.log'
-        flake8_log_path.write_text(FLAKE8_LOG)
+    flake8_log_path = fix_test_cache / 'flake8.log'
+    flake8_log_path.write_text(FLAKE8_LOG)
 
-        _check_linting_errors(flake8_log_path, ignore_errors=['F401', 'I001', 'I003', 'E800'])  # act
+    _check_linting_errors(flake8_log_path, ignore_errors=['F401', 'I001', 'I003', 'E800'])  # act
 
-        assert not flake8_log_path.is_file()
+    assert not flake8_log_path.is_file()
 
 
-def test_check_linting_errors_runtime_error():
+def test_check_linting_errors_runtime_error(fix_test_cache):
     """Test check_linting_errors."""
-    with TemporaryDirectory() as td:
-        flake8_log_path = Path(td) / 'flake8.log'
-        flake8_log_path.write_text(FLAKE8_LOG)
+    flake8_log_path = fix_test_cache / 'flake8.log'
+    flake8_log_path.write_text(FLAKE8_LOG)
 
-        with pytest.raises(RuntimeError):
-            _check_linting_errors(flake8_log_path, ignore_errors=None)
+    with pytest.raises(RuntimeError):
+        _check_linting_errors(flake8_log_path, ignore_errors=[])
+
+    assert flake8_log_path.read_text() == FLAKE8_LOG
+
+
+def test_task_lint_python():
+    """Test task_lint_python."""
+    result = task_lint_python()
+
+    actions = result['actions']
+    assert len(actions) == 3
+    assert isinstance(actions[0][0], type(if_found_unlink))
+    assert len(actions[0][1]) == 1
+    assert actions[0][1][0].name == 'flake8.log'
+    assert actions[1].startswith('poetry run python -m flake8 --config')
+    assert 'dodo.py" ' in actions[1]
+    assert '.flake8 ' in actions[1]
+    assert 'flake8.log ' in actions[1]
+    assert isinstance(actions[-1][0], type(_check_linting_errors))
+    assert len(actions[-1][1]) == 2
+    assert actions[-1][1][0].name == 'flake8.log'
+    assert len(actions[-1][1][1]) == 0
+
+
+def test_task_lint_project():
+    """Test task_lint_project."""
+    result = task_lint_project()
+
+    actions = result['actions']
+    assert len(actions) == 5
+    assert 'poetry run yamllint --strict "' in str(actions[3])
+    assert 'poetry run jsonlint --strict "' in str(actions[4])
+
+
+def test_task_lint_critical_only():
+    """Test task_lint_critical_only."""
+    result = task_lint_critical_only()
+
+    actions = result['actions']
+    assert len(actions) == 5
+    assert 'T100' not in actions[1]
+    assert isinstance(actions[2][0], type(_check_linting_errors))
+    assert len(actions[2][1]) == 2
+    assert actions[2][1][0].name == 'flake8.log'
+    assert actions[2][1][1] == ['T100', 'T101', 'T103']  # Read from toml
+    assert 'T100' in actions[2][1][1]
+    assert 'poetry run yamllint  "' in str(actions[3])
+    assert 'poetry run jsonlint  "' in str(actions[4])
+
+
+def test_task_radon_lint():
+    """Test task_radon_lint."""
+    result = task_radon_lint()
+
+    actions = result['actions']
+    count = len(DG.lint.paths_py)
+    assert len(actions) == 3 * (1 + count)
+    for action in actions:
+        if isinstance(action, tuple):
+            assert isinstance(action[0], type(echo))
+        else:
+            assert action.startswith('poetry run radon ')
+
+
+def test_task_auto_format():
+    """Test task_auto_format."""
+    result = task_auto_format()
+
+    actions = result['actions']
+    assert len(actions) == 2
+    assert ' autopep8 ' in actions[0]
+    assert ' isort ' in actions[1]
+
+
+def test_task_pre_commit_hooks():
+    """Test task_pre_commit_hooks."""
+    result = task_pre_commit_hooks()
+
+    actions = result['actions']
+    assert len(actions) == 3
+    assert 'poetry run pre-commit autoupdate' in str(actions[0])
+    install_cmd = 'poetry run pre-commit install --install-hooks --hook-type commit-msg --hook-type pre-push'
+    assert install_cmd in str(actions[1])
+    assert 'poetry run pre-commit run --all-files' in str(actions[2])

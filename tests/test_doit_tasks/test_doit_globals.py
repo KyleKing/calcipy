@@ -1,47 +1,46 @@
 """Test doit_tasks/doit_globals.py."""
 
 from pathlib import Path
-from typing import Any, List
+from typing import List
 
-from calcipy.doit_tasks.doit_globals import DocConfig, DoItGlobals
+from calcipy.doit_tasks.doit_globals import DG, DocConfig, DoitGlobals
 
 from ..configuration import PATH_TEST_PROJECT
 
 
-def _get_public_props(obj: Any) -> List[str]:
+def _get_public_props(obj) -> List[str]:
     """Return the list of public props from an object."""
     return [prop for prop in dir(obj) if not prop.startswith('_')]
 
 
-def test_dig_props():
-    """Test the DIG global variable from DoItGlobals."""
+def test_dg_props():
+    """Test the DG global variable from DoitGlobals."""
     public_props = ['calcipy_dir', 'set_paths']
-    settable_props = public_props + ['meta', 'lint', 'test', 'doc']
+    settable_props = public_props + ['meta', 'ct', 'lint', 'test', 'doc']
 
-    dig = DoItGlobals()  # act
+    dg = DoitGlobals()  # act
 
-    assert _get_public_props(dig) == sorted(public_props)
-    dig.set_paths(path_project=PATH_TEST_PROJECT)
-    assert _get_public_props(dig) == sorted(settable_props)
+    assert _get_public_props(dg) == sorted(public_props)
+    dg.set_paths(path_project=PATH_TEST_PROJECT)
+    assert _get_public_props(dg) == sorted(settable_props)
 
 
-def test_dig_paths():
-    """Test the DIG global variable from DoItGlobals."""
-    dig = DoItGlobals()
-    pkg_name = PATH_TEST_PROJECT.name
-    path_out_base = PATH_TEST_PROJECT / 'releases'
+def test_dg_paths():
+    """Test the DG global variable from DoitGlobals."""
+    dg = DoitGlobals()
 
-    dig.set_paths(path_project=PATH_TEST_PROJECT)  # act
+    dg.set_paths(path_project=PATH_TEST_PROJECT)  # act
 
     # Test the properties set by default
-    assert dig.calcipy_dir.name == 'calcipy'
-    assert dig.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
+    assert dg.calcipy_dir.name == 'calcipy'
+    assert dg.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
     # Test the properties set by set_paths
-    assert dig.meta.path_project == PATH_TEST_PROJECT
-    assert dig.meta.path_toml == PATH_TEST_PROJECT / 'pyproject.toml'
-    assert dig.meta.pkg_name == pkg_name
-    assert dig.doc.path_out == path_out_base / 'site'
-    assert dig.test.path_out == path_out_base / 'tests'
+    assert dg.meta.path_project == PATH_TEST_PROJECT
+    assert dg.meta.path_toml == PATH_TEST_PROJECT / 'pyproject.toml'
+    assert dg.meta.pkg_name == 'test_project'
+    path_out_base = PATH_TEST_PROJECT / 'releases'
+    assert dg.doc.path_out == path_out_base / 'site'
+    assert dg.test.path_out == path_out_base / 'tests'
 
 
 def test_path_attr_base_path_resolver():
@@ -53,11 +52,17 @@ def test_path_attr_base_path_resolver():
     assert doc.path_out.is_absolute()
 
 
-# import pytest
-# from calcipy.doit_tasks.doit_globals import TestingConfig
-# Parametrize for path_project to be none or a path and show that both raise an error for different missing paths...
-# >> RuntimeError: Missing keyword arguments for: path_out
-# >> RuntimeError: Missing keyword arguments for: path_out, path_project
-# def test_path_attr_base_path_verifier():
-#     with pytest.raises(RuntimeError, tbd=''):
-#         TestingConfig(path_project=None)
+def test_doit_configurable():
+    """Test configurable items from TOML file."""
+    dg = DG  # act
+
+    assert dg.ct.tags == ['FIXME', 'TODO', 'PLANNED']  # noqa: T101, T103
+    assert dg.ct.code_tag_summary_filename == 'CODE_TAG_SUMMARY.md'
+    assert dg.test.path_out == PATH_TEST_PROJECT / 'releases/tests'
+    assert dg.test.pythons == ['3.8', '3.9']
+    assert dg.test.args_pytest == '-x -l --ff --nf -vv'
+    assert dg.test.args_diff == '--fail-under=95 --compare-branch=origin/release'
+    assert dg.doc.path_out == PATH_TEST_PROJECT / 'releases/site'
+    assert dg.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
+    assert dg.lint.path_isort == PATH_TEST_PROJECT / '.isort.cfg'
+    assert dg.lint.ignore_errors == ['T100', 'T101', 'T103']

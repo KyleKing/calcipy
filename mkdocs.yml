@@ -1,8 +1,9 @@
+---
 site_name: calcipy
 site_author: Kyle King
 site_description: calcipy project documentation
-repo_name: KyleKing/calcipy
-repo_url: https://github.com/KyleKing/calcipy
+repo_name: kyleking/calcipy
+repo_url: https://github.com/kyleking/calcipy
 edit_uri: edit/main/docs
 docs_dir: docs
 site_dir: releases/site
@@ -21,39 +22,29 @@ theme:
 
 plugins:
   - search
-  - mkdocstrings:
-      watch:
-        - calcipy
-      handlers:
-        python:
-          selection:
-            members: true
-            inherited_members: true
-            filters:
-              - "!^_"  # exclude all members starting with _
-              - "^__init__$"  # but always include __init__ and __attrs_post_init__
-          rendering:
-            show_root_heading: true
-            show_category_heading: false
-            show_if_no_docstring: true
 
 markdown_extensions:
+  - abbr
   - admonition
   - attr_list
+  - codehilite
   - def_list
+  - extra
+  - fenced_code
+  - footnotes
   - markdown_include.include
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.details
+  - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
       clickable_checkbox: false
+  - smarty
+  - tables
   - toc:
       permalink: ⚓︎
       toc_depth: 5
-
-extra_css:
-  - _stylesheets/mkdocstrings.css

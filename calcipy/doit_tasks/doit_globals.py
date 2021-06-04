@@ -1,31 +1,53 @@
 """Global Variables for doit."""
 
 import inspect
+import re
 import warnings
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, List, NewType, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
 
 import attr
+import doit
+import toml
+from beartype import beartype
+from doit.action import BaseAction
+from doit.task import Task
 from loguru import logger
 
+from ..file_helpers import get_doc_dir
 from ..log_helpers import log_fun
+from .file_search import find_project_files, find_project_files_by_suffix
 
-try:
-    import toml
-except ImportError:
-    toml = None
-
-_DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "development" to utilize "doit_tasks"'
+_DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""
 
-# ----------------------------------------------------------------------------------------------------------------------
-# Global Variables
+_DoitCallableArgs = Iterable[Union[str, float, int, Path, Dict[str, Any]]]
+"""Type: legal types that can be passed to a Python callable for doit actions."""
 
-DoItTask = NewType('DoItTask', Dict[str, Union[str, Tuple[Callable, Sequence]]])  # noqa: ECE001
-"""doit task type for annotations."""
+DoitAction = Union[str, BaseAction, Tuple[Callable, _DoitCallableArgs]]  # type: ignore[type-arg]
+"""Type: individual doit action."""
+
+DoitTask = Union[Task, Dict[str, DoitAction]]
+"""Type: full doit task."""
 
 
+@beartype
+def _make_full_path(raw: Union[Path, str], path_base: Path) -> Path:
+    """Return a full path by determining if the source path is an absolute path. If not combines with base path.
+
+    Args:
+        raw: (string or Path) relative or absolute path
+        path_base: base directory to use if the raw path is not absolute
+
+    Returns:
+        Path: absolute path
+
+    """
+    return Path(raw) if Path(raw).is_absolute() else path_base / raw
+
+
+@beartype
 def _member_filter(member: Any, instance_type: Any) -> bool:
     """Return True if the member matches the filters.
 
@@ -38,66 +60,6 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
 
     """
     return (instance_type is None or isinstance(member, instance_type))
-
-
-def _get_members(cls: object, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable]]:
-    """Return the members that match the parameters.
-
-    Example to return all methods that start with `do_`: `_get_members(cls, instance_type=Callable, prefix='do_')`
-
-    Args:
-        cls: class
-        prefix: optional string prefix to check starts with
-        **kwargs: keyword arguments passed to `_member_filter`
-
-    Returns:
-        List[Tuple[str, Callable]]: filtered members from the class
-
-    """
-    members = inspect.getmembers(cls, predicate=partial(_member_filter, **kwargs))
-    if prefix:
-        members = [(name, member) for (name, member) in members if name.startswith(prefix)]
-    return members  # noqa: R504
-
-
-def _verify_initialized_paths(cls: object) -> None:
-    """Verify that all paths are not None.
-
-    WARN: will not raise on error the class attribute
-
-    Args:
-        cls: class
-
-    Raises:
-        RuntimeError: if any paths are None
-
-    """
-    logger.info(f'Class: {cls}')
-    missing = [name for name, _m in _get_members(cls, instance_type=type(None), prefix='path_')]
-    if missing:
-        kwargs = ', '.join(missing)
-        raise RuntimeError(f'Missing keyword arguments for: {kwargs}')
-
-
-def _resolve_class_paths(cls: object, base_path: Path) -> None:
-    """Resolve all partial paths with the specified base path.
-
-    WARN: will mutate the class attribute
-
-    Args:
-        cls: class
-        base_path: base path to apply to all found relative paths
-
-    """
-    logger.info(f'Class: {cls}')
-    for name, path_raw in _get_members(cls, instance_type=type(Path()), prefix=None):
-        if not path_raw.is_absolute():
-            setattr(cls, name, base_path / path_raw)
-            logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(cls, name)})')
-
-
-_DEF_EXCLUDE = [*map(Path, ['__init__.py'])]
-"""Default list of excluded filenames."""
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -114,9 +76,55 @@ class _PathAttrBase:  # noqa: H601
 
         """
         if self.path_project is None:
-            raise RuntimeError('Missing keyword argument "path_project"')
-        _resolve_class_paths(self, self.path_project)
-        _verify_initialized_paths(self)
+            raise RuntimeError('Missing keyword argument "path_project"')  # pragma: no cover
+        self._resolve_class_paths(self.path_project)
+        self._verify_initialized_paths()
+
+    def _get_members(self, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable[[Any], Any]]]:
+        """Return the members that match the parameters.
+
+        Example to return all methods that start with `do_`: `self._get_members(instance_type=Callable, prefix='do_')`
+
+        Args:
+            prefix: optional string prefix to check starts with
+            kwargs: keyword arguments passed to `_member_filter`
+
+        Returns:
+            List[Tuple[str, Callable]]: filtered members from the class
+
+        """
+        members = inspect.getmembers(self, predicate=partial(_member_filter, **kwargs))
+        if prefix:
+            members = [(name, member) for (name, member) in members if name.startswith(prefix)]
+        return members  # noqa: R504
+
+    def _resolve_class_paths(self, base_path: Path) -> None:
+        """Resolve all partial paths with the specified base path.
+
+        WARN: will mutate the class attribute
+
+        Args:
+            base_path: base path to apply to all found relative paths
+
+        """
+        for name, path_raw in self._get_members(instance_type=type(Path()), prefix=None):
+            if not path_raw.is_absolute():  # type: ignore[attr-defined]
+                setattr(self, name, base_path / path_raw)  # type: ignore[operator]
+                logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(self, name)})')
+
+    def _verify_initialized_paths(self) -> None:
+        """Verify that all paths are not None.
+
+        WARN: will not raise on error the class attribute
+
+        Raises:
+            RuntimeError: if any paths are None
+
+        """
+        missing = [name for name, _m in self._get_members(instance_type=type(None), prefix='path_')]
+        if missing:
+            kwargs = ', '.join(missing)
+            raise RuntimeError(f'Missing keyword arguments for: {kwargs}')
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -124,7 +132,16 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
     """Package Meta-Information."""
 
     path_toml: Path = Path('pyproject.toml')
-    """Path to the poetry toml file."""
+    """Relative path to the poetry toml file."""
+
+    ignore_patterns: List[str] = []
+    """List of glob patterns to ignore from all analysis."""
+
+    paths: List[Path] = attr.ib(init=False)
+    """Paths to all tracked files that were not ignored with specified patterns `find_project_files`."""
+
+    paths_by_suffix: Dict[str, List[Path]] = attr.ib(init=False)
+    """Paths to all tracked files that were not ignored with specified patterns `find_project_files_by_suffix`."""
 
     pkg_name: str = attr.ib(init=False)
     """Package string name."""
@@ -143,83 +160,193 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         super().__attrs_post_init__()
 
         # Note: toml is an optional dependency required only when using the `doit_tasks` in development
-        if toml is None:
+        if toml is None:  # pragma: no cover
             raise RuntimeError(_DOIT_TASK_IMPORT_ERROR)
 
         try:
             poetry_config = toml.load(self.path_toml)['tool']['poetry']
-        except FileNotFoundError:
+        except FileNotFoundError:  # pragma: no cover
             raise FileNotFoundError(f'Check that "{self.path_project}" is correct. Could not find: {self.path_toml}')
 
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
 
-        if '-' in self.pkg_name:
+        if '-' in self.pkg_name:  # pragma: no cover
             warnings.warn(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.path_toml}')
+
+        self.paths = find_project_files(self.path_project, self.ignore_patterns)
+        self.paths_by_suffix = find_project_files_by_suffix(self.path_project, self.ignore_patterns)
+
+    def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
+        """Shorten the list of directories common to the specified paths.
+
+        > Not currently needed, but could be useful
+
+        Returns:
+            Set[str]: set of most common top-level directories relative to the project dir
+
+        """
+        return {
+            pth.parent.relative_to(self.path_project).as_posix()
+            for pth in self.paths
+        }  # type: ignore[attr-defined]
 
 
 @attr.s(auto_attribs=True, kw_only=True)
 class LintConfig(_PathAttrBase):  # noqa: H601
     """Lint Config."""
 
-    path_flake8: Path = Path('.flake8')
-    """Path to the flake8 configuration file."""
+    path_flake8: Union[Path, str] = Path('.flake8')
+    """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
 
-    paths: List[Path] = []
-    """List of file and directory Paths to lint."""
+    path_isort: Union[Path, str] = Path('.isort.cfg')
+    """Relative path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
 
-    paths_excluded: List[Path] = _DEF_EXCLUDE
-    """List of excluded relative Paths."""
+    ignore_errors: List[str] = [
+        'AAA01',  # AAA01 / act block in pytest
+        'C901',  # C901 / complexity from "max-complexity = 10"
+        'D417',  # D417 / missing arg descriptors
+        'DAR101', 'DAR201', 'DAR401',  # https://pypi.org/project/darglint/ (Scroll to error codes)
+        'DUO106',  # DUO106 / insecure use of os
+        'E800',  # E800 / Commented out code
+        'G001',  # G001 / logging format for un-indexed parameters
+        'H601',  # H601 / class with low cohesion
+        'P101', 'P103',  # P101,P103 / format string
+        'PD013',
+        'S101',  # S101 / assert
+        'S605', 'S607',  # S605,S607 / os.popen(...)
+        'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
+    ]
+    """List of additional excluded flake8 rules for the pre-commit check."""
+
+    paths_py: List[Path] = attr.ib(init=False)
+    """Paths to the Python files used when linting. Created with `find_project_files_by_suffix`."""
+
+    def __attrs_post_init__(self) -> None:
+        """Finish initializing class attributes."""
+        super().__attrs_post_init__()
+        self.path_flake8 = _make_full_path(self.path_flake8, self.path_project)
+        self.path_isort = _make_full_path(self.path_isort, self.path_project)
+        self.paths_py = DG.meta.paths_by_suffix.get('py', [])
 
 
 @attr.s(auto_attribs=True, kw_only=True)
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-    path_out: Path = Path('releases/tests')
-    """Path to the report output directory."""
+    pythons: List[str] = ['3.8', '3.9']
+    """Python versions to test against. Default is `['3.8', '3.9']`."""
 
-    path_tests: Path = Path('tests')
-    """Path to the tests directory."""
+    path_out: Union[Path, str] = Path('releases/tests')
+    """Relative path to the report output directory. Default is `releases/tests`."""
 
-    path_report_index: Path = attr.ib(init=False)
-    """Path to the report HTML file."""
+    path_tests: Union[Path, str] = Path('tests')
+    """Relative path to the tests directory. Default is `tests`."""
+
+    args_pytest: str = '--exitfirst --showlocals --failed-first --new-first --verbose --doctest-modules'
+    """Default arguments to Pytest. In short form, the defaults are `-x -l --ff --nf -vv`."""
+
+    args_diff: str = '--fail-under=65 --compare-branch=origin/main'
+    """Default arguments to diff-cover."""
+
+    path_test_report: Path = attr.ib(init=False)
+    """Path to the self-contained test HTML report."""
+
+    path_diff_test_report: Path = attr.ib(init=False)
+    """Path to the self-contained diff-test HTML report."""
+
+    path_diff_lint_report: Path = attr.ib(init=False)
+    """Path to the self-contained diff-lint HTML report."""
 
     path_coverage_index: Path = attr.ib(init=False)
-    """Path to the coverage HTML file."""
+    """Path to the coverage HTML index file within the report directory."""
+
+    path_mypy_index: Path = attr.ib(init=False)
+    """Path to the mypy HTML index file within the report directory."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        self.path_out = _make_full_path(self.path_out, self.path_project)
+        self.path_tests = _make_full_path(self.path_tests, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
-        self.path_report_index = self.path_out / 'test_report.html'
+        # Configure the paths to the report HTML and coverage HTML files
+        self.path_test_report = self.path_out / 'test_report.html'
+        self.path_diff_test_report = self.path_out / 'diff_test_report.html'
+        self.path_diff_lint_report = self.path_out / 'diff_lint_report.html'
         self.path_coverage_index = self.path_out / 'cov_html/index.html'
+        self.path_mypy_index = self.path_out / 'mypy_html/index.html'
+
+
+@attr.s(auto_attribs=True, kw_only=True)
+class CodeTagConfig(_PathAttrBase):  # noqa: H601
+    """Code Tag Config."""
+
+    doc_dir: Path = Path('docs')
+    """Relative path to the source documentation directory."""
+
+    code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
+    """Name of the code tag summary file."""
+
+    tags: List[str] = [
+        'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
+    ]
+    """List of ordered tag names to match."""
+
+    re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
+    """string regular expression that contains `{tag}`."""
+
+    path_code_tag_summary: Path = attr.ib(init=False)
+    """Path to the code tag summary file. Uses `code_tag_summary_filename`."""
+
+    def __attrs_post_init__(self) -> None:
+        """Finish initializing class attributes."""
+        super().__attrs_post_init__()
+        # Configure full path to the code tag summary file
+        self.path_code_tag_summary = self.path_project / self.doc_dir / self.code_tag_summary_filename
+
+    def compile_issue_regex(self) -> Pattern[str]:
+        """Compile the regex for the specified raw regular expression string and tags.
+
+        Returns:
+            Pattern[str]: compiled regular expression to match all of the specified tags
+
+        """
+        return re.compile(self.re_raw.format(tag='|'.join(self.tags)))
 
 
 @attr.s(auto_attribs=True, kw_only=True)
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    path_out: Path = Path('releases/site')
-    """Path to the documentation output directory."""
+    doc_dir: Path = Path('docs')
+    """Relative path to the source documentation directory."""
 
-    paths_excluded: List[Path] = _DEF_EXCLUDE
-    """List of excluded relative Paths."""
+    path_out: Union[Path, str] = Path('releases/site')
+    """Relative path to the documentation output directory."""
+
+    handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
+    """Lookup dictionary for autoformatted sections of the project's markdown files."""
+
+    paths_md: List[Path] = attr.ib(init=False)
+    """Paths to Markdown files used when documenting. Created with `find_project_files_by_suffix`."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
+        self.paths_md = DG.meta.paths_by_suffix.get('md', [])
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class DoItGlobals:
+class DoitGlobals:
     """Global Variables for doit."""
 
-    calcipy_dir: Path = Path(__file__).parents[1]
+    calcipy_dir: Path = attr.ib(init=False, default=Path(__file__).resolve().parents[1])
     """The calcipy directory (likely within `.venv`)."""
 
-    meta: PackageMeta = attr.ib(init=False)  # PLANNED: Check if Optional[PackageMeta] is necessary
+    meta: PackageMeta = attr.ib(init=False)
     """Package Meta-Information."""
 
     lint: LintConfig = attr.ib(init=False)
@@ -228,34 +355,55 @@ class DoItGlobals:
     test: TestingConfig = attr.ib(init=False)
     """Test Config."""
 
+    ct: CodeTagConfig = attr.ib(init=False)
+    """Documentation Config."""
+
     doc: DocConfig = attr.ib(init=False)
     """Documentation Config."""
 
     @log_fun
     def set_paths(
         self, *, path_project: Optional[Path] = None,
-        doc_dir: Optional[Path] = None,
     ) -> None:
         """Set data members based on working directory.
 
         Args:
-            path_project: optional source directory Path. Defaults to the `pkg_name`
-            doc_dir: optional destination directory for project documentation. Defaults to './output'
+            path_project: optional project base directory Path. Defaults to the current working directory
 
         """
-        logger.info(f'Setting DIG paths for {path_project}', path_project=path_project, cwd=Path.cwd(), doc_dir=doc_dir)
-        path_project = Path.cwd() if path_project is None else path_project
-        self.meta = PackageMeta(path_project=path_project)
+        logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
+        path_project = path_project or Path.cwd()
+
+        # Read the optional toml configuration
+        # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
+        path_toml = path_project / 'pyproject.toml'
+        calcipy_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
+        ignore_patterns = calcipy_config.get('ignore_patterns', [])
+
+        self.meta = PackageMeta(path_project=path_project, ignore_patterns=ignore_patterns)
         meta_kwargs = {'path_project': self.meta.path_project}
 
-        self.lint = LintConfig(**meta_kwargs)
-        self.lint.paths.append(self.meta.path_project / self.meta.pkg_name)
+        # Parse the Copier file for configuration information
+        doc_dir = get_doc_dir(self.meta.path_project)
+        doc_dir.mkdir(exist_ok=True, parents=True)
 
-        self.test = TestingConfig(**meta_kwargs)
-        self.doc = DocConfig(**meta_kwargs)
+        # Configure global options
+        section_keys = ['lint', 'test', 'code_tag', 'doc']
+        supported_keys = section_keys + ['ignore_patterns']
+        unexpected_keys = [key for key in calcipy_config if key not in supported_keys]
+        if unexpected_keys:
+            raise RuntimeError(f'Found unexpected key(s) {unexpected_keys} (i.e. not in {supported_keys})')
+        lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
+        self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
+        self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
+        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir, **code_k)  # type: ignore[arg-type]
+        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir, **doc_k)  # type: ignore[arg-type]
 
-        logger.info(self)
 
-
-DIG = DoItGlobals()
+DG = DoitGlobals()
 """Global doit Globals class used to manage global variables."""
+
+_WORK_DIR = doit.get_initial_workdir()
+"""Work directory identified by doit."""
+
+DG.set_paths(path_project=(Path(_WORK_DIR) if _WORK_DIR else Path.cwd()).resolve())

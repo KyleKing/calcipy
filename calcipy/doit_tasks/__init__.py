@@ -6,30 +6,37 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 """
 
-# TODO: Until https://github.com/python-poetry/poetry/issues/2270 is implemented, create a placeholder
-#   import for optional packages that will allow no-dev use of calcipy
-#   Maybe revisit: https://github.com/KyleKing/calcipy/issues/19 (See Pandas/SO)
-
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
+    'TASKS_CI',
+    'TASKS_LOCAL',
+    # from .code_tag_collector
+    'task_collect_code_tags',
     # from .doc
-    'task_cl_bump',
     'task_cl_bump_pre',
+    'task_cl_bump',
     'task_cl_write',
     'task_deploy',
     'task_document',
     'task_open_docs',
-    'task_serve_fast',
+    'task_serve_docs',
     # from .lint
     'task_auto_format',
     'task_lint_critical_only',
     'task_lint_project',
+    'task_lint_python',
     'task_pre_commit_hooks',
     'task_radon_lint',
-    # from ..tag_collector
-    'task_create_tag_file',
+    'task_security_checks',
+    # from .packaging
+    'task_check_for_stale_packages',
+    'task_publish',
     # from .test
+    'task_check_types',
     'task_coverage',
+    'task_nox_test',
+    'task_nox_coverage',
+    'task_nox',
     'task_open_test_docs',
     'task_ptw_current',
     'task_ptw_ff',
@@ -41,21 +48,38 @@ __all__ = [  # noqa: F405
     'task_test',
 ]
 
+from getpass import getuser
+
+from .code_tag_collector import task_collect_code_tags
 from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
-from .tag_collector import task_create_tag_file
+from .packaging import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+
+TASKS_CI = [
+    'nox_test',
+    'nox_coverage',
+    'pre_commit_hooks',
+    'security_checks',
+]
+"""More forgiving tasks to be run in CI."""
+
+TASKS_LOCAL = [
+    'collect_code_tags',
+    'cl_write',
+    'nox_coverage',
+    'auto_format',
+    'document',
+    'check_for_stale_packages',
+    'pre_commit_hooks',
+    'lint_project',
+    'security_checks',
+    'check_types',
+]
+"""Full suite of tasks for local development."""
 
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
-    'default_tasks': [
-        'create_tag_file',
-        'coverage',
-        'auto_format',
-        'document',
-        'pre_commit_hooks',
-        'lint_critical_only',
-        # 'type_checking',  # Not yet implemented
-    ],
+    'default_tasks': TASKS_CI if getuser().lower() == 'appveyor' else TASKS_LOCAL,
 }
 """doit Configuration Settings. Run with `poetry run doit`."""

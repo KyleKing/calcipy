@@ -1,8 +1,11 @@
+---
 # GH Action https://github.com/crazy-max/ghaction-github-labeler
+# yamllint disable-line rule:line-length
 # Based on: https://github.com/crazy-max/ghaction-github-labeler/blob/master/.github/labels.yml
+# yamllint disable-line rule:line-length
 # Other Where Used: https://github.com/search?q=name+path%3A%2F.github+filename%3Alabels.yml&type=Code&ref=advsearch&l=&l=
 #
-# Style Guide: https://gist.github.com/KyleKing/729914c4c88c8de8bcb11f7e978d24cc
+# Style Guide: ../docs/STYLE_GUIDE.md
 #
 - name: "Needs Discussion"
   color: "ff5722"

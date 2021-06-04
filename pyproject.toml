@@ -1,144 +1,247 @@
 [build-system]
-requires = [ "poetry-core>=1.0.0",]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.calcipy]
+ignore_patterns = [
+    ".test_calcipy_project/*/*/*",
+    ".test_calcipy_project/*/*",
+    ".test_calcipy_project/*",
+]
 
 [tool.commitizen]
 name = "cz_legacy"
 change_type_order = [
-    "BREAKING CHANGE", "Feat", "Fix", "Refactor", "Perf",
-    "New (Old)", "Change (Old)", "Fix (Old)",
+    "BREAKING CHANGE",
+    "Feat",
+    "Fix",
+    "Refactor",
+    "Perf",
+    "New (Old)",
+    "Change (Old)",
+    "Fix (Old)",
 ]
 version = "0.2.0a0"
 tag_format = "2021.$version"
-version_files = [ "pyproject.toml", "calcipy/__init__.py",]
+version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 
 [tool.commitizen.cz_legacy_map]
 Chg = "Change (Old)"
 Fix = "Fix (Old)"
 New = "New (Old)"
 
-[tool.isort]
-balanced_wrapping = true
-default_section = "THIRDPARTY"
-force_grid_wrap = 0
-length_sort = false
-line_length = 120
-
 [tool.poetry]
 name = "calcipy"
 version = "0.2.0a0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "Unlicense"
-authors = [ "Kyle King <dev.act.kyle@gmail.com>",]
+authors = ["Kyle King <dev.act.kyle@gmail.com>"]
 maintainers = []
 repository = "https://github.com/kyleking/calcipy"
-documentation = "https://github.com/kyleking/calcipy"
-readme = "README.md"
-include = [ "LICENSE.md",]
-keywords = [ "python-poetry", "doit",]
+documentation = "https://github.com/kyleking/calcipy/docs"
+readme = "docs/README.md"
+include = ["LICENSE.md"]
+keywords = ["python-poetry", "doit", "nox", "flake8"]
 classifiers = [
-    # https://pypi.org/classifiers/
     "Development Status :: 3 - Alpha",
     "Framework :: Flake8",
     "Framework :: Pytest",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: The Unlicense (Unlicense)",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
-]
+] # https://pypi.org/classifiers/
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 
 [tool.poetry.dependencies]
-python = "^3.7.1"
+python = "^3.8"
+# TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
 attrs = "*"
+beartype = "*"
 decorator = "*"
+doit = "*" # Should be optional, but needed for doit_tasks
 loguru = "*"
-transitions = "*"
+pendulum = "*" # Should be optional, but needed for package tasks
+pre-commit = "*" # Should be optional, but needed for doit_globals
+pyrate_limiter = "*" # Should be optional, but needed for packaging task
+python-box = "*"
+toml = "*" # Should be optional, but needed for doit_globals
+transitions = "*" # Should be optional, but needed for doc tasks
+# Indirect imports necessary only to comply with check_imports
+pyyaml = "*" # Should be optional, but needed for doit_globals
+requests = "*" # Should be optional, but needed for packaging tasks
 
 # Development
-better-exceptions = {version = "*", optional = true}
-commitizen = {version = "*", optional = true}
-doit = {version = "*", optional = true}
-markdown-include = {version = "*", optional = true}
-mkdocs-material = {version = "*", optional = true}
-mkdocstrings = {version = "*", optional = true}
-pre-commit = {version = "*", optional = true}
-pyupgrade = {version = "*", optional = true}
-subprocess-tee = {version = "*", optional = true}
-toml = {version = "*", optional = true}
+better-exceptions = { version = "*", optional = true }
+commitizen = { version = "*", optional = true }
+markdown-include = { version = "*", optional = true }
+mkdocs-material = { version = "*", optional = true }
+pdbpp = { version = "*", optional = true }
+pdocs = { version = "*", optional = true }
+pyupgrade = { version = "*", optional = true }
 
 # Lint
-add-trailing-comma = {version = "*", optional = true}
-autopep8 = {version = "*", optional = true}
-cohesion = {version = "*", optional = true}
-darglint = {version = "*", optional = true}
-dlint = {version = "*", optional = true}
-flake8 = {version = "*", optional = true}
-flake8-2020 = {version = "*", optional = true}
-flake8-aaa = {version = "*", optional = true}
-flake8-annotations = {version = "*", optional = true}
-flake8-assertive = {version = "*", optional = true}
-flake8-bandit = {version = "*", optional = true}
-flake8-blind-except = {version = "*", optional = true}
-flake8-breakpoint = {version = "*", optional = true}
-flake8-broken-line = {version = "*", optional = true}
-flake8-bugbear = {version = "*", optional = true}
-flake8-builtins = {version = "*", optional = true}
-flake8-cognitive-complexity = {version = "*", optional = true}
-flake8-commas = {version = "*", optional = true}
-flake8-comprehensions = {version = "*", optional = true}
-flake8-debugger = {version = "*", optional = true}
-flake8-deprecated = {version = "*", optional = true}
-flake8-docstrings = {version = "*", optional = true}
-flake8-eradicate = {version = "*", optional = true}
-flake8-expression-complexity = {version = "*", optional = true}
-flake8-fixme = {version = "*", optional = true}
-flake8-functions = {version = "<0.0.4", optional = true}
-flake8-isort = {version = "*", optional = true}
-flake8-logging-format = {version = "*", optional = true}
-flake8-markdown = {version = "*", optional = true}
-flake8-mock = {version = "*", optional = true}
-flake8-mutable = {version = "*", optional = true}
-flake8-pep3101 = {version = "*", optional = true}
-flake8-plone-hasattr = {version = "*", optional = true}
-flake8-print = {version = "*", optional = true}
-flake8-printf-formatting = {version = "*", optional = true}
-flake8-pytest-style = {version = "*", optional = true}
-flake8-quotes = {version = "*", optional = true}
-flake8-return = {version = "*", optional = true}
-flake8-SQL = {version = "*", optional = true}
-flake8-string-format = {version = "*", optional = true}
-flake8-tuple = {version = "*", optional = true}
-flake8-variables-names = {version = "*", optional = true}
-hacking = {version = "*", optional = true}
-isort = {version = "*", optional = true}
-pandas-vet = {version = "*", optional = true}
-pep8-naming = {version = "*", optional = true}
-proselint = {version = "*", optional = true}
-radon = {version = "*", optional = true}
+add-trailing-comma = { version = "*", optional = true }
+autopep8 = { version = "*", optional = true }
+cohesion = { version = "*", optional = true }
+darglint = { version = "*", optional = true }
+demjson = { version = "*", optional = true }
+diff-cover = { version = "*", optional = true }
+dlint = { version = "*", optional = true }
+flake8 = { version = "*", optional = true }
+flake8-2020 = { version = "*", optional = true }
+flake8-aaa = { version = "*", optional = true }
+flake8-annotations = { version = "*", optional = true }
+flake8-assertive = { version = "*", optional = true }
+flake8-bandit = { version = "*", optional = true }
+flake8-blind-except = { version = "*", optional = true }
+flake8-breakpoint = { version = "*", optional = true }
+flake8-broken-line = { version = "*", optional = true }
+flake8-bugbear = { version = "*", optional = true }
+flake8-builtins = { version = "*", optional = true }
+flake8-cognitive-complexity = { version = "*", optional = true }
+flake8-commas = { version = "*", optional = true }
+flake8-comprehensions = { version = "*", optional = true }
+flake8-debugger = { version = "*", optional = true }
+flake8-deprecated = { version = "*", optional = true }
+flake8-docstrings = { version = "*", optional = true }
+flake8-eradicate = { version = "*", optional = true }
+flake8-expression-complexity = { version = "*", optional = true }
+flake8-fixme = { version = "*", optional = true }
+flake8-functions = { version = "<0.0.4", optional = true }
+flake8-isort = { version = "*", optional = true }
+flake8-logging-format = { version = "*", optional = true }
+flake8-markdown = { version = "*", optional = true }
+flake8-mock = { version = "*", optional = true }
+flake8-mutable = { version = "*", optional = true }
+flake8-pep3101 = { version = "*", optional = true }
+flake8-plone-hasattr = { version = "*", optional = true }
+flake8-print = { version = "*", optional = true }
+flake8-printf-formatting = { version = "*", optional = true }
+flake8-pytest-style = { version = "*", optional = true }
+flake8-quotes = { version = "*", optional = true }
+flake8-return = { version = "*", optional = true }
+flake8-SQL = { version = "*", optional = true }
+flake8-string-format = { version = "*", optional = true }
+flake8-tuple = { version = "*", optional = true }
+flake8-variables-names = { version = "*", optional = true }
+hacking = { version = "^4", optional = true } # Version set to prevent oscillation back to 3
+isort = { version = "*", optional = true }
+pandas-vet = { version = "*", optional = true }
+pep8-naming = { version = "*", optional = true }
+proselint = { version = "*", optional = true }
+radon = { version = "*", optional = true }
+vulture = { version = "*", optional = true }
+yamllint = { version = "*", optional = true }
 
 # Test
-pytest = {version = "*", optional = true}
-pytest-cov = {version = "*", optional = true}
-pytest-html = {version = "*", optional = true}
-pytest-watch = {version = "*", optional = true}
+lxml = { version = "*", optional = true } # required for the HTML mypy report format
+mypy = { version = "*", optional = true }
+nox-poetry = { version = "*", optional = true }
+pytest = { version = "*", optional = true }
+pytest-cov = { version = "*", optional = true }
+pytest-html = { version = "*", optional = true }
+pytest-randomly = { version = "*", optional = true }
+pytest-recording = { version = "*", optional = true }
+pytest-watch = { version = "*", optional = true }
 
 # commitizen_legacy
-cz_legacy = {version = "*", optional = true}
+cz_legacy = { version = "*", optional = true }
 
 # Serializers
-preconvert = {version = "*", optional = true}
-preconvert_numpy = {version = "*", optional = true}
+preconvert = { version = "*", optional = true }
+preconvert_numpy = { version = "*", optional = true }
 
 [tool.poetry.extras]
-dev = [ "better-exceptions", "commitizen", "doit", "markdown-include", "mkdocs-material", "mkdocstrings", "pre-commit", "pyupgrade", "subprocess-tee", "toml",]
-lint = [ "add-trailing-comma", "autopep8", "cohesion", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon",]
-test = [ "pytest", "pytest-cov", "pytest-html", "pytest-watch",]
-commitizen_legacy = [ "cz_legacy",]
-serializers = [ "preconvert", "preconvert_numpy",]
+dev = [
+    "better-exceptions",
+    "commitizen",
+    "pdbpp",
+    "markdown-include",
+    "mkdocs-material",
+    "pdocs",
+    "pyupgrade",
+]
+lint = [
+    "add-trailing-comma",
+    "autopep8",
+    "cohesion",
+    "darglint",
+    "demjson",
+    "diff-cover",
+    "dlint",
+    "flake8-2020",
+    "flake8-aaa",
+    "flake8-annotations",
+    "flake8-assertive",
+    "flake8-bandit",
+    "flake8-blind-except",
+    "flake8-breakpoint",
+    "flake8-broken-line",
+    "flake8-bugbear",
+    "flake8-builtins",
+    "flake8-cognitive-complexity",
+    "flake8-commas",
+    "flake8-comprehensions",
+    "flake8-debugger",
+    "flake8-deprecated",
+    "flake8-docstrings",
+    "flake8-eradicate",
+    "flake8-expression-complexity",
+    "flake8-fixme",
+    "flake8-functions",
+    "flake8-isort",
+    "flake8-logging-format",
+    "flake8-markdown",
+    "flake8-mock",
+    "flake8-mutable",
+    "flake8-pep3101",
+    "flake8-plone-hasattr",
+    "flake8-print",
+    "flake8-printf-formatting",
+    "flake8-pytest-style",
+    "flake8-quotes",
+    "flake8-return",
+    "flake8-SQL",
+    "flake8-string-format",
+    "flake8-tuple",
+    "flake8-variables-names",
+    "flake8",
+    "hacking",
+    "isort",
+    "pandas-vet",
+    "pep8-naming",
+    "proselint",
+    "radon",
+    "vulture",
+    "yamllint",
+]
+test = [
+    "lxml",
+    "mypy",
+    "nox-poetry",
+    "pytest-cov",
+    "pytest-html",
+    "pytest-randomly",
+    "pytest-recording",
+    "pytest-watch",
+    "pytest",
+]
+commitizen_legacy = ["cz_legacy"]
+serializers = ["preconvert", "preconvert_numpy"]
+
+[tool.poetry.dev-dependencies]
+# PLANNED: One of these might be causing long flake8 warning messages...
+# pydiatra = "^0.12.5"
+# autoflake = "^1.4"
+# wily = "^1.19.0"
+# mccabe = "^0.6.1"
+# simplesecurity = "^2021.3.1"
+# appmap = "^0.10.0"
+# prospector = "^1.3.1"
+# it = "^1.0.0"
