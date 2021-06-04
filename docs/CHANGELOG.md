@@ -2,6 +2,7 @@
 
 ### Feat
 
+- move lock into doit tasks with file-dependency
 - **#38**: re-implement coverage and write source
 - drop subprocess-tee
 - **#36**: WIP implementation of doc formatting

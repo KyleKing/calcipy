@@ -122,8 +122,8 @@ def test_task_check_for_stale_packages():
     actions = result['actions']
     assert len(actions) == 2
     assert isinstance(actions[0][0], type(find_stale_packages))
-    assert len(actions[0][1]) == 3
+    assert len(actions[0][1]) == 2
     assert actions[0][1][0].name == 'poetry.lock'
     assert actions[0][1][1].name == _PATH_PACK_LOCK.name
-    assert actions[0][1][2] == 48
+    assert actions[0][2] == {'stale_months': 48}
     assert 'poetry run pip list --outdated' in str(actions[1])
