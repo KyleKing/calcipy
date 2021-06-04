@@ -75,6 +75,7 @@
 
 ### Refactor
 
+- **#38**: reduce complexity
 - minor cleanup to docs
 - apply pre-commit autoformat
 - auto-drop skipcq comment

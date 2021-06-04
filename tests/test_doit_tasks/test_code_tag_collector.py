@@ -1,7 +1,9 @@
 """Test code_tag_collector.py."""
 
 from calcipy.doit_tasks import DG
-from calcipy.doit_tasks.code_tag_collector import _CodeTag, _format_report, _search_lines, _Tags, _write_code_tag_file, task_collect_code_tags
+from calcipy.doit_tasks.code_tag_collector import (
+    _CodeTag, _format_report, _search_lines, _Tags, _write_code_tag_file, task_collect_code_tags,
+)
 
 from ..configuration import PATH_TEST_PROJECT
 

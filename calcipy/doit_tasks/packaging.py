@@ -268,7 +268,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
     stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
     if stale_packages:
         stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
-        logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}')
+        logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}\n\n')
 
 
 @beartype
