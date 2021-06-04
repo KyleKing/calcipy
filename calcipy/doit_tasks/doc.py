@@ -119,12 +119,48 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
                 'dest': self.state_user,
             },
         ]
-        super().__init__(states=[self.state_user, self.state_auto],
-                         initial=self.state_user,
-                         transitions=transitions)
+        super().__init__(
+            states=[self.state_user, self.state_auto],
+            initial=self.state_user,
+            transitions=transitions,
+        )
 
-    def parse(self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], str]],  # noqa: CCR001
-              path_file: Optional[Path] = None) -> List[str]:
+    def _parse_line(
+        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], str]],
+        path_file: Optional[Path] = None,
+    ) -> List[str]:
+        """Parse lines and insert new_text based on provided handler_lookup.
+
+        Args:
+            line: single line
+            handler_lookup: Lookup dictionary for autoformatted sections
+            path_file: optional path to the file. Only useful for debugging
+
+        Returns:
+            List[str]: modified list of strings
+
+        """
+        lines = []
+        if '{cte}' in line and self.state == self.state_auto:  # end
+            self.end()
+        elif '{cts}' in line:  # start
+            self.start_auto()
+            matches = [text_match for text_match in handler_lookup if text_match in line]
+            if len(matches) == 1:
+                lines.extend(handler_lookup[matches[0]](line, path_file))
+            else:
+                logger.error('Could not parse: {line}', line=line)
+                lines.append(line)
+                self.end()
+        elif self.state == self.state_user:
+            lines.append(line)
+        # else: discard the lines in the auto-section
+        return lines
+
+    def parse(
+        self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], str]],
+        path_file: Optional[Path] = None,
+    ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
 
         Args:
@@ -136,25 +172,10 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
             List[str]: modified list of strings
 
         """
-        lines_new = []
+        updated_lines = []
         for line in lines:
-            if '{cte}' in line and self.state == self.state_auto:  # end
-                self.end()
-            elif '{cts}' in line:  # start
-                self.start_auto()
-                for text_match, handler in handler_lookup.items():
-                    if text_match in line:
-                        lines_new.extend(handler(line, path_file))
-                        break
-                else:
-                    logger.error('Could not parse: {line}', line=line)
-                    lines_new.append(line)
-                    self.end()
-            elif self.state == self.state_user:
-                lines_new.append(line)
-            # else: discard the lines in the auto-section
-
-        return lines_new
+            updated_lines.extend(self._parse_line(line, handler_lookup, path_file))
+        return updated_lines
 
 
 _RE_VAR_COMMENT_HTML = re.compile(r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);')
