@@ -55,10 +55,11 @@ def test_task_coverage():
     result = task_coverage()
 
     actions = result['actions']
-    assert len(actions) == 3
+    assert len(actions) == 4
     assert '--cov-report=html' in str(actions[0])
     assert 'coverage xml' in str(actions[1])
     assert 'diff-cover' in str(actions[2])
+    assert 'python -m coverage json' in str(actions[3])
 
 
 def task_task_check_types():
