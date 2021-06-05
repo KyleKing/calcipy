@@ -320,17 +320,25 @@ def task_document() -> DoitTask:
     return debug_task([
         (write_autoformatted_md_sections, ()),
 
-        # FIXME: Next steps to implement the code documentation. Try pdoc and compare against pdocs
-
-        # 'poetry run pdocs as_markdown calcipy --overwrite --template-dir? /path/dir',  # PLANNED: DG.package_name?
-        # Copy all *.md (and */*.md?) files into /docs!
+        # FYI: Tried pdocs
         # TODO: Remove all extra None ("\nNone\n") and "Module "...
+        #   https://github.com/timothycrosley/pdocs/issues/22
         #   PLANNED: Consider a different template with different formatting for code and arguments?
-        'poetry run mkdocs build',  # --site-dir DG.doc.path_out
+        'poetry run pdocs as_markdown calcipy --overwrite --template_dir ./calcipy/doit_tasks/templates --output_dir ./docs/modules',
+
+        # # Tried pdoc, but didn't like the default layout/UI when compared to pdocs
+        # https://github.com/mitmproxy/pdoc/issues/15#issuecomment-762951529
+        # https://github.com/mitmproxy/pdoc/blob/main/examples/mkdocs/make.py
+        # 'poetry run pdoc calcipy --docformat google --output-dir ./docs-pdoc',
+
+        # TODO: Once stable, refactor to use DG (i.e. DG.package_name, etc.)
+
+        'poetry run mkdocs build',  # FYI: --site-dir DG.doc.path_out
     ])
 
 
 # TODO: Only works for static documentation files (projects could use either mkdocs served or static...)
+#       TODO: Make output configurable - HTML files locally and served for hosted on Github pages?
 @beartype
 def task_open_docs() -> DoitTask:
     """Open the documentation files in the default browser.
