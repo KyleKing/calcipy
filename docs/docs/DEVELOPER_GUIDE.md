@@ -5,13 +5,13 @@
 ```sh
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
-poetry install -E dev -E lint -E test -E commitizen_legacy -E serializers
+poetry install -E dev -E lint -E test -E commitizen_legacy
 
 # See the available tasks
 poetry run doit list
 
 # Run the default task list (lint, auto-format, test coverage, etc.)
-poetry run doit
+poetry run doit --continue
 
 # Make code changes and run specific tasks as needed:
 poetry run doit run test
