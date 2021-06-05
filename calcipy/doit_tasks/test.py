@@ -213,7 +213,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 
 @beartype
 def task_ptw_not_chrome() -> DoitTask:
-    """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
+    """Run pytest watch for failed first and skip the CHROME marker.
 
     kwargs: `-m 'not CHROME' -vvv`
 
@@ -226,7 +226,7 @@ def task_ptw_not_chrome() -> DoitTask:
 
 @beartype
 def task_ptw_ff() -> DoitTask:
-    """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
+    """Run pytest watch for failed first and skip the CHROME marker.
 
     kwargs: `--last-failed --new-first -m 'not CHROME' -vv`
 
@@ -239,7 +239,7 @@ def task_ptw_ff() -> DoitTask:
 
 @beartype
 def task_ptw_current() -> DoitTask:
-    """Return doit Interactive `ptw` task to run only tests tagged with the CURRENT marker.
+    """Run pytest watch for only tests with the CURRENT marker.
 
     kwargs: `-m 'CURRENT' -vv`
 
