@@ -70,6 +70,7 @@ install:
 test_script:
   - poetry run doit --continue
   # On Windows only, install codecov and upload the coverage results
+  - cmd: poetry run doit run nox_coverage
   - cmd: python -m pipx install codecov
   - cmd: codecov --file coverage.json
 

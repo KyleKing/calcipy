@@ -59,8 +59,6 @@ from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 
 TASKS_CI = [
     'nox_test',
-    'nox_coverage',
-    'pre_commit_hooks',
     'security_checks',
 ]
 """More forgiving tasks to be run in CI."""
