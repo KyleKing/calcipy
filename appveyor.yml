@@ -13,7 +13,7 @@ environment:
     # Use a single global Python version for pipx/poetry/etc.
     #   Nox will handle specific python version testing
     - PYTHON_WIN: C:/Python39
-      PYTHON_NIX: $HOME/venv3.9
+      PYTHON_NIX: ~/venv3.9
       PYTHON_STACK: 3.9
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
@@ -47,7 +47,7 @@ install:
   - python -m pip install pipx
   # Manually set the path because "pipx ensurepath" needs a reload to apply
   - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
-  - sh: PATH=$HOME/.local/bin:$PATH
+  - sh: PATH=~/.local/bin:$PATH
   # Check the PATH
   - cmd: echo %PATH%
   - sh: echo $PATH
