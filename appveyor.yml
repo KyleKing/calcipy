@@ -46,10 +46,10 @@ install:
   - sh: export PATH="$PYENV_ROOT/bin:$PATH"
   - sh: eval "$(pyenv init --path)"
   # Configure Python versions with pyenv
-  - sh: pyenv install PYENV_38 --skip-existing
-  - sh: pyenv install PYENV_39 --skip-existing
-  - sh: pyenv global PYENV_39
-  - sh: pyenv local PYENV_39 PYENV_38
+  - sh: pyenv install $PYENV_38 --skip-existing
+  - sh: pyenv install $PYENV_39 --skip-existing
+  - sh: pyenv global $PYENV_39
+  - sh: pyenv local $PYENV_39 $PYENV_38
   # Check global Python version
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
