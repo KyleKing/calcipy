@@ -554,17 +554,6 @@ pycodestyle = "*"
 six = "*"
 
 [[package]]
-name = "flake8-deprecated"
-version = "1.3"
-description = "Warns about deprecated method calls."
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-flake8 = ">=3.0.0"
-
-[[package]]
 name = "flake8-docstrings"
 version = "1.6.0"
 description = "Extension for flake8 which uses pydocstyle to check docstrings"
@@ -662,17 +651,6 @@ description = "Provides checking for non-existent mock methods"
 category = "main"
 optional = true
 python-versions = "*"
-
-[[package]]
-name = "flake8-mutable"
-version = "1.2.0"
-description = "mutable defaults flake8 extension"
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-flake8 = "*"
 
 [[package]]
 name = "flake8-pep3101"
@@ -975,6 +953,22 @@ description = "Lightweight pipelining with Python functions"
 category = "main"
 optional = true
 python-versions = ">=3.6"
+
+[[package]]
+name = "licensecheck"
+version = "2021.1.1"
+description = "Output the licenses used by dependencies and check if these are compatible with the project license"
+category = "main"
+optional = true
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+requests = ">=2.24.0,<4"
+requirements-parser = ">=0.2.0,<2"
+tomlkit = ">=0.7.0,<2"
+
+[package.extras]
+full = ["metprint (>=2020.7,<2022)"]
 
 [[package]]
 name = "livereload"
@@ -1729,6 +1723,14 @@ security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
 socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
+name = "requirements-parser"
+version = "0.2.0"
+description = "Parses Pip requirement files"
+category = "main"
+optional = true
+python-versions = "*"
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -2009,14 +2011,14 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [extras]
 commitizen_legacy = ["cz_legacy"]
 dev = ["better-exceptions", "commitizen", "pdbpp", "markdown-include", "mkdocs-material", "pdocs", "pyupgrade"]
-lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "demjson", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture", "yamllint"]
+lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "demjson", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "licensecheck", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture", "yamllint"]
 serializers = ["preconvert", "preconvert_numpy"]
 test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watch", "pytest"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "479d0650293cf2bde70e08e3632df3061eaaceac33b22855c98228d7dc47623d"
+content-hash = "c62bae379fc642fff1686a42353f443f8850a9e92c1abb1474ff3174d9a472a4"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2280,10 +2282,6 @@ flake8-debugger = [
     {file = "flake8-debugger-4.0.0.tar.gz", hash = "sha256:e43dc777f7db1481db473210101ec2df2bd39a45b149d7218a618e954177eda6"},
     {file = "flake8_debugger-4.0.0-py3-none-any.whl", hash = "sha256:82e64faa72e18d1bdd0000407502ebb8ecffa7bc027c62b9d4110ce27c091032"},
 ]
-flake8-deprecated = [
-    {file = "flake8-deprecated-1.3.tar.gz", hash = "sha256:9fa5a0c5c81fb3b34c53a0e4f16cd3f0a3395078cfd4988011cbab5fb0afa7f7"},
-    {file = "flake8_deprecated-1.3-py2.py3-none-any.whl", hash = "sha256:211951854837ced9ec997a75c6e5b957f3536a735538ee0620b76539fd3706cd"},
-]
 flake8-docstrings = [
     {file = "flake8-docstrings-1.6.0.tar.gz", hash = "sha256:9fe7c6a306064af8e62a055c2f61e9eb1da55f84bb39caef2b84ce53708ac34b"},
     {file = "flake8_docstrings-1.6.0-py2.py3-none-any.whl", hash = "sha256:99cac583d6c7e32dd28bbfbef120a7c0d1b6dde4adb5a9fd441c4227a6534bde"},
@@ -2315,10 +2313,6 @@ flake8-markdown = [
 ]
 flake8-mock = [
     {file = "flake8-mock-0.3.tar.gz", hash = "sha256:2fa775e7589f4e1ad74f35d60953eb20937f5d7355235e54bf852c6837f2bede"},
-]
-flake8-mutable = [
-    {file = "flake8-mutable-1.2.0.tar.gz", hash = "sha256:ee9b77111b867d845177bbc289d87d541445ffcc6029a0c5c65865b42b18c6a6"},
-    {file = "flake8_mutable-1.2.0-py2-none-any.whl", hash = "sha256:38fd9dadcbcda6550a916197bc40ed76908119dabb37fbcca30873666c31d2d5"},
 ]
 flake8-pep3101 = [
     {file = "flake8-pep3101-1.3.0.tar.gz", hash = "sha256:86e3eb4e42de8326dcd98ebdeaf9a3c6854203a48f34aeb3e7e8ed948107f512"},
@@ -2424,6 +2418,10 @@ jinja2-pluralize = [
 joblib = [
     {file = "joblib-1.0.1-py3-none-any.whl", hash = "sha256:feeb1ec69c4d45129954f1b7034954241eedfd6ba39b5e9e4b6883be3332d5e5"},
     {file = "joblib-1.0.1.tar.gz", hash = "sha256:9c17567692206d2f3fb9ecf5e991084254fe631665c450b443761c4186a613f7"},
+]
+licensecheck = [
+    {file = "licensecheck-2021.1.1-py3-none-any.whl", hash = "sha256:95688b02fce91935941a3545709cc79d0d42d7791491509693a82c2ba29d9190"},
+    {file = "licensecheck-2021.1.1.tar.gz", hash = "sha256:f6f687c9b4e0d7d290a0781cab65b728b5ccf4574b1c400cc2fee7203509bd7b"},
 ]
 livereload = [
     {file = "livereload-2.6.3.tar.gz", hash = "sha256:776f2f865e59fde56490a56bcc6773b6917366bce0c267c60ee8aaf1a0959869"},
@@ -2897,6 +2895,10 @@ regex = [
 requests = [
     {file = "requests-2.25.1-py2.py3-none-any.whl", hash = "sha256:c210084e36a42ae6b9219e00e48287def368a26d03a048ddad7bfee44f75871e"},
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
+]
+requirements-parser = [
+    {file = "requirements-parser-0.2.0.tar.gz", hash = "sha256:5963ee895c2d05ae9f58d3fc641082fb38021618979d6a152b6b1398bd7d4ed4"},
+    {file = "requirements_parser-0.2.0-py2-none-any.whl", hash = "sha256:76650b4a9d98fc65edf008a7920c076bb2a76c08eaae230ce4cfc6f51ea6a773"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},

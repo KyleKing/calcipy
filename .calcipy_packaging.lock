@@ -415,14 +415,6 @@
         "name": "flake8-debugger",
         "version": "4.0.0"
     },
-    "flake8-deprecated": {
-        "datetime": "2017-10-31T16:36:42.802595Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2017-10-31T16:36:42.802595Z",
-        "latest_version": "1.3",
-        "name": "flake8-deprecated",
-        "version": "1.3"
-    },
     "flake8-docstrings": {
         "datetime": "2021-03-19T00:57:12.120470Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -718,6 +710,14 @@
         "latest_version": "1.0.1",
         "name": "joblib",
         "version": "1.0.1"
+    },
+    "licensecheck": {
+        "datetime": "2021-03-01T15:53:50.083336Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2021-03-01T15:53:50.083336Z",
+        "latest_version": "2021.1.1",
+        "name": "licensecheck",
+        "version": "2021.1.1"
     },
     "livereload": {
         "datetime": "2020-08-22T15:31:53.202849Z",
@@ -1222,6 +1222,14 @@
         "latest_version": "2.25.1",
         "name": "requests",
         "version": "2.25.1"
+    },
+    "requirements-parser": {
+        "datetime": "2018-01-12T04:46:05.698051Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2018-01-12T04:46:05.698051Z",
+        "latest_version": "0.2.0",
+        "name": "requirements-parser",
+        "version": "0.2.0"
     },
     "six": {
         "datetime": "2021-05-05T14:18:17.237677Z",

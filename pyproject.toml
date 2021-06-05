@@ -109,7 +109,6 @@ flake8-cognitive-complexity = { version = "*", optional = true }
 flake8-commas = { version = "*", optional = true }
 flake8-comprehensions = { version = "*", optional = true }
 flake8-debugger = { version = "*", optional = true }
-flake8-deprecated = { version = "*", optional = true }
 flake8-docstrings = { version = "*", optional = true }
 flake8-eradicate = { version = "*", optional = true }
 flake8-expression-complexity = { version = "*", optional = true }
@@ -119,7 +118,6 @@ flake8-isort = { version = "*", optional = true }
 flake8-logging-format = { version = "*", optional = true }
 flake8-markdown = { version = "*", optional = true }
 flake8-mock = { version = "*", optional = true }
-flake8-mutable = { version = "*", optional = true }
 flake8-pep3101 = { version = "*", optional = true }
 flake8-plone-hasattr = { version = "*", optional = true }
 flake8-print = { version = "*", optional = true }
@@ -132,7 +130,7 @@ flake8-string-format = { version = "*", optional = true }
 flake8-tuple = { version = "*", optional = true }
 flake8-variables-names = { version = "*", optional = true }
 hacking = { version = "^4", optional = true } # Version set to prevent oscillation back to 3
-isort = { version = "*", optional = true }
+isort = { version = "^5", optional = true } # Use latest isort
 licensecheck = { version = "*", optional = true }
 pandas-vet = { version = "*", optional = true }
 pep8-naming = { version = "*", optional = true }
@@ -190,7 +188,6 @@ lint = [
     "flake8-commas",
     "flake8-comprehensions",
     "flake8-debugger",
-    "flake8-deprecated",
     "flake8-docstrings",
     "flake8-eradicate",
     "flake8-expression-complexity",
@@ -200,7 +197,6 @@ lint = [
     "flake8-logging-format",
     "flake8-markdown",
     "flake8-mock",
-    "flake8-mutable",
     "flake8-pep3101",
     "flake8-plone-hasattr",
     "flake8-print",
