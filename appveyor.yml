@@ -38,6 +38,10 @@ install:
   # Set Python paths based on environment variable from matrix
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
   - sh: PATH=$PYTHON_NIX/Scripts:$PYTHON_NIX:$PATH
+  - sh: echo $PYTHON_NIX/Scripts
+  - sh: ls $PYTHON_NIX/Scripts
+  - sh: which python
+  - echo $PATH
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
   - python -m pip install pipx

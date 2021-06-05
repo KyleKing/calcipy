@@ -146,7 +146,7 @@ def task_coverage() -> DoitTask:
     diff_html = f'--html-report {DG.test.path_diff_test_report}'
     return debug_task([
         Interactive(f'poetry run pytest "{path_tests}" {DG.test.args_pytest} --cov={DG.meta.pkg_name} {cov_html}'),
-        'poetry run python -m coverage xml json',
+        'poetry run python -m coverage xml',
         Interactive(f'poetry run diff-cover coverage.xml {DG.test.args_diff} {diff_html}'),
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
     ])
