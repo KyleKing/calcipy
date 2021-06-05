@@ -44,6 +44,7 @@
 
 ### Fix
 
+- packaging needed keyword argument
 - import and nox syntax errors
 - run push pre-commit hooks with doit
 - show log warning instead of error for stale dep
@@ -76,6 +77,7 @@
 
 ### Refactor
 
+- fix some type issues
 - minor fixes from AppVeyor testing
 - **#38**: reduce complexity
 - minor cleanup to docs
