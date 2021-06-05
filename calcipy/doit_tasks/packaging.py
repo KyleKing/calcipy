@@ -42,15 +42,14 @@ def task_lock() -> DoitTask:
     """
     path_req = DG.meta.path_project / 'requirements.txt'
     # Ensure that extras are exported as well
-    path_toml = DG.meta.path_project / 'pyproject.toml'
-    toml_data = toml.loads(path_toml.read_text())
+    toml_data = toml.loads(DG.meta.path_toml.read_text())
     extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
     extras_arg = ' -E '.join([''] + extras) if extras else ''
     task = debug_task([
         'poetry lock',
         f'poetry export -f {path_req.name} -o {path_req.name}{extras_arg} --dev',
     ])
-    task['file_dep'].append(path_toml)
+    task['file_dep'].append(DG.meta.path_toml)
     task['targets'].extend([DG.meta.path_project / 'poetry.lock', path_req])
     return task
 

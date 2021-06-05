@@ -11,7 +11,7 @@ from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
 
-from ..file_helpers import read_lines
+from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, read_lines
 from .base import debug_task, open_in_browser
 from .doit_globals import DG, DoitTask
 
@@ -317,28 +317,30 @@ def task_document() -> DoitTask:
 
     """
     _ensure_handler_lookup()
+    pdoc_out = f'--output_dir {DG.doc.doc_dir}/modules --overwrite'
+    pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
-
-        # FYI: Tried pdocs
-        # TODO: Remove all extra None ("\nNone\n") and "Module "...
-        #   https://github.com/timothycrosley/pdocs/issues/22
-        #   PLANNED: Consider a different template with different formatting for code and arguments?
-        'poetry run pdocs as_markdown calcipy --overwrite --template_dir ./calcipy/doit_tasks/templates --output_dir ./docs/modules',
-
-        # # Tried pdoc, but didn't like the default layout/UI when compared to pdocs
-        # https://github.com/mitmproxy/pdoc/issues/15#issuecomment-762951529
-        # https://github.com/mitmproxy/pdoc/blob/main/examples/mkdocs/make.py
-        # 'poetry run pdoc calcipy --docformat google --output-dir ./docs-pdoc',
-
-        # TODO: Once stable, refactor to use DG (i.e. DG.package_name, etc.)
-
-        'poetry run mkdocs build',  # FYI: --site-dir DG.doc.path_out
+        f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}',
+        f'poetry run mkdocs build --site-dir {DG.doc.path_out}',
     ])
 
 
-# TODO: Only works for static documentation files (projects could use either mkdocs served or static...)
-#       TODO: Make output configurable - HTML files locally and served for hosted on Github pages?
+def _is_mkdocs_local() -> bool:
+    """Check if mkdocs is configured for local output.
+
+    See notes on local-link configuration here: https://github.com/timothycrosley/portray/issues/65
+
+    Additional information on using local search here: https://github.com/wilhelmer/mkdocs-localsearch
+
+    Returns:
+        bool: True if configured for local file output rather than hosted
+
+    """
+    mkdocs_config = _read_yaml_file(DG.meta.path_project / _MKDOCS_CONFIG_NAME)
+    return mkdocs_config.get('use_directory_urls') is False
+
+
 @beartype
 def task_open_docs() -> DoitTask:
     """Open the documentation files in the default browser.
@@ -347,22 +349,11 @@ def task_open_docs() -> DoitTask:
         DoitTask: doit task
 
     """
-    path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
-    return debug_task([
-        (open_in_browser, (path_doc_index,)),
-    ])
-
-
-@beartype
-def task_serve_docs() -> DoitTask:
-    """Serve the site with `--dirtyreload` and open in a web browser.
-
-    Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
-
-    Returns:
-        DoitTask: doit task
-
-    """
+    if _is_mkdocs_local():
+        path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
+        return debug_task([
+            (open_in_browser, (path_doc_index,)),
+        ])
     return debug_task([
         (webbrowser.open, ('http://localhost:8000',)),
         Interactive('poetry run mkdocs serve --dirtyreload'),
@@ -377,4 +368,8 @@ def task_deploy() -> DoitTask:
         DoitTask: doit task
 
     """
+    if _is_mkdocs_local():
+        return debug_task([
+            (NotImplementedError, ('Deploy cannot be used with mkdocs built with local-links',)),
+        ])
     return debug_task([Interactive('poetry run mkdocs gh-deploy')])
