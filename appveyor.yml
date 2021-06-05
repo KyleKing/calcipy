@@ -38,19 +38,23 @@ install:
   # For Windows, set Python paths based on environment variable from matrix
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
   # Use pyenv instead of the venv-based Python from AppVeyor Ubuntu
-  - sh: echo "$SHELL"
   - sh: curl https://pyenv.run | $SHELL
-  - sh: exec "$SHELL"
+  # exec "$SHELL" causes AppVeyor to stop, so manually configure paths
+  - sh: export PYENV_ROOT="$HOME/.pyenv"
+  - sh: export PATH="$PYENV_ROOT/bin:$PATH"
+  - sh: eval "$(pyenv init --path)"
+  # Configure Python versions with pyenv
   - sh: pyenv install 3.8-dev
   - sh: pyenv install 3.9-dev
-  - sh: pyenv locals 3.9-dev 3.8-dev
+  - sh: pyenv global 3.9-dev
+  - sh: pyenv local 3.9-dev 3.8-dev
   # Check global Python version
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
   - python -m pip install pipx
   # Manually set the path because "pipx ensurepath" needs a reload to apply
   - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
-  - sh: PATH=~/.local/bin:$PATH
+  - sh: export PATH=$HOME/.local/bin:$PATH
   # Check the PATH
   - cmd: echo %PATH%
   - sh: echo $PATH
@@ -63,9 +67,9 @@ install:
 
 test_script:
   - poetry run doit --continue
-  # Install codecov and upload the coverage results
-  - pipx install codecov
-  - codecov --file coverage.json
+  # On Windows only, install codecov and upload the coverage results
+  - cmd: pipx install codecov
+  - cmd: codecov --file coverage.json
 
 deploy_script:
   - echo "Deploying..."
