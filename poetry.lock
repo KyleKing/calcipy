@@ -2018,7 +2018,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-dev = ["better-exceptions", "commitizen", "pdbpp", "markdown-include", "mkdocs-material", "pdocs", "pyupgrade"]
+dev = ["better-exceptions", "commitizen", "markdown-include", "mkdocs-material", "pdbpp", "pdocs", "pyupgrade"]
 lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "demjson", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "licensecheck", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture", "yamllint"]
 serializers = ["preconvert", "preconvert_numpy"]
 test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watch", "pytest"]
@@ -2026,7 +2026,7 @@ test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d182ec094761fac4bf18773f5125744579f237757bba7c2f88d34df295342dc8"
+content-hash = "9dfca4158370d11299e929440d4f10554f79c817989a41be323e4027b41c4217"
 
 [metadata.files]
 add-trailing-comma = [

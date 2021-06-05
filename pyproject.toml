@@ -83,7 +83,7 @@ better-exceptions = { version = "*", optional = true }
 commitizen = { version = "*", optional = true }
 markdown-include = { version = "*", optional = true }
 mkdocs-material = { version = "*", optional = true }
-pdbpp = { version = "*", optional = true }
+pdbpp = { version = "*", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pdocs = { version = "*", optional = true }
 pyupgrade = { version = "*", optional = true }
 
@@ -162,9 +162,9 @@ preconvert_numpy = { version = "*", optional = true }
 dev = [
     "better-exceptions",
     "commitizen",
-    "pdbpp",
     "markdown-include",
     "mkdocs-material",
+    "pdbpp",
     "pdocs",
     "pyupgrade",
 ]
