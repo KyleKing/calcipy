@@ -32,14 +32,16 @@ with open(path_stdout, 'w') as out:
 
 """
 
+import re
 import shlex
 from pathlib import Path
+from typing import Callable
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from loguru import logger
 
-from ..doit_tasks.doit_globals import DG
+from ..doit_tasks.doit_globals import DG, DoitAction, DoitTask
 from ..doit_tasks.test import task_coverage, task_test
 from ..file_helpers import if_found_unlink
 
@@ -52,7 +54,56 @@ try:
 except ImportError:  # pragma: no cover
     pass
 
-if has_test_imports:  # pragma: no cover
+if has_test_imports:  # pragma: no cover  # noqa: C901
+    def _run_str_cmd(session: Session, cmd_str: str) -> None:
+        """Run a command string. Ensure that poetry is left-stripped.
+
+        Args:
+            session: nox_poetry Session
+            cmd_str: string command to run
+
+        """
+        cmd_str = re.sub(r'^poetry run ', '', cmd_str)
+        session.run(*shlex.split(cmd_str), stdout=True)
+
+    def _run_func_cmd(action: DoitAction) -> None:
+        """Run a python action.
+
+        Args:
+            action: doit python action
+
+        Raises:
+            RuntimeError: if a function action fails
+
+        """
+        # https://pydoit.org/tasks.html#python-action
+        func, args, kwargs = [*list(action), {}][:3]
+        result = func(args, **kwargs)
+        if result not in [True, None] or not isinstance(result, (str, dict)):
+            raise RuntimeError(f'Returned {result}. Failed to run task: {action}')
+
+    def _run_doit_task(session: Session, task_fun: Callable[[], DoitTask]) -> None:
+        """Run a DoitTask actions without using doit.
+
+        Args:
+            session: nox_poetry Session
+            task_fun: function that returns a DoitTask
+
+        Raises:
+            NotImplementedError: if the action is of an unknown type
+
+        """
+        task = task_fun()
+        for action in task['actions']:
+            if isinstance(action, str):
+                _run_str_cmd(session, action)
+            elif getattr(action, 'action', None):
+                _run_str_cmd(session, action.action)
+            elif isinstance(action, (list, tuple)):
+                _run_func_cmd(action)
+            else:
+                raise NotImplementedError(f'Unable to run {action} ({type(action)})')
+
     @session(python=DG.test.pythons, reuse_venv=True)
     def tests(session: Session) -> None:
         """Run doit test task for specified python versions.
@@ -62,9 +113,7 @@ if has_test_imports:  # pragma: no cover
 
         """
         session.install('.[dev]', '.[test]')
-        # session.run(*shlex.split('doit run test'), stdout=True)
-        for action in task_test()['actions']:  # FIXME: Turn this into a function for test suite!
-            session.run(*shlex.split(action.action), stdout=True)
+        _run_doit_task(session, task_test)
 
     @session(python=[DG.test.pythons[-1]], reuse_venv=True)
     def coverage(session: Session) -> None:
@@ -75,9 +124,7 @@ if has_test_imports:  # pragma: no cover
 
         """
         session.install('.[dev]', '.[test]')
-        # session.run(*shlex.split('doit run coverage'), stdout=True)
-        for action in task_coverage()['actions']:
-            session.run(*shlex.split(action.action), stdout=True)
+        _run_doit_task(session, task_coverage)
 
     @session(python=[DG.test.pythons[-1]], reuse_venv=False)
     def build_dist(session: Session) -> None:

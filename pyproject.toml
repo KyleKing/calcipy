@@ -174,7 +174,6 @@ lint = [
     "cohesion",
     "darglint",
     "demjson",
-    "diff-cover",
     "dlint",
     "flake8-2020",
     "flake8-aaa",
@@ -223,6 +222,7 @@ lint = [
     "yamllint",
 ]
 test = [
+    "diff-cover",
     "lxml",
     "mypy",
     "nox-poetry",
