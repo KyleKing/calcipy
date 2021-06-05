@@ -15,7 +15,7 @@ from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger
 
-from ..file_helpers import get_doc_dir
+from ..file_helpers import get_doc_dir, _MKDOCS_CONFIG_NAME, _read_yaml_file
 from ..log_helpers import log_fun
 from .file_search import find_project_files, find_project_files_by_suffix
 
@@ -322,11 +322,11 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     doc_dir: Path = Path('docs')
     """Relative path to the source documentation directory."""
 
-    path_out: Path = Path('releases/site')
-    """Relative path to the documentation output directory."""
-
     handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
+
+    path_out: Path = attr.ib(init=False)
+    """The documentation output directory. Specified in `mkdocs.yml`."""
 
     paths_md: List[Path] = attr.ib(init=False)
     """Paths to Markdown files used when documenting. Created with `find_project_files_by_suffix`."""
@@ -334,6 +334,8 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        mkdocs_config = _read_yaml_file(self.path_project / _MKDOCS_CONFIG_NAME)
+        self.path_out = mkdocs_config.get('site_dir', 'releases/site')
         self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         self.paths_md = DG.meta.paths_by_suffix.get('md', [])
