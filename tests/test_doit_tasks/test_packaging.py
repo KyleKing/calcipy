@@ -17,7 +17,7 @@ from ..configuration import PATH_TEST_PROJECT
 
 
 class MockLogger:  # noqa: H601, D101, D102
-    # FIXME: Replace with more robust alternative. See:
+    # FIXME: Replace MockLogger with a more generic alternative. See:
     #   https://pawamoy.github.io/posts/unify-logging-for-a-gunicorn-uvicorn-app/
 
     logs = defaultdict(list)

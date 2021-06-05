@@ -1,7 +1,10 @@
-## Unreleased
+## 2021.0.2.0 (2021-06-05)
 
 ### Feat
 
+- **#58**: implement doc task and merge serve_docs
+- make loading YAML files more generic
+- create doit summary report
 - add task to check license compliance
 - move lock into doit tasks with file-dependency
 - **#38**: re-implement coverage and write source
@@ -45,6 +48,8 @@
 
 ### Fix
 
+- resolve doc_dir and style errors
+- **#58**: remove None from pdocs output
 - deconflict doit/nox
 - repair failing test
 - packaging needed keyword argument
@@ -80,6 +85,9 @@
 
 ### Refactor
 
+- move markdown to subdirectory for mkdocs
+- move isort back to toml
+- fix edge case in diff-cov failing and lint errors
 - relicense with MIT for better compliance
 - create generic doit-runner for noxfile
 - fix some type issues

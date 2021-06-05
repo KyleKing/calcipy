@@ -53,12 +53,11 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
     if_found_unlink(flake8_log_path)
 
 
-# TODO: see if all return types could be removed from docstrings b/c technically optional and not linted
 @beartype
 def _lint_python(
     lint_paths: List[Path], path_flake8: Path,
     ignore_errors: Iterable[str] = (),
-) -> List[DoitAction]:  # FIXME: Docstrings should report an error here for mismatch in types?
+) -> List[DoitAction]:  # FIXME: Docstrings should be reporting an error here for mismatch in types
     """Lint specified files creating summary log file of errors.
 
     Args:
@@ -88,7 +87,7 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
         strict: if True, will use the strictest configuration for the linter
 
     Returns:
-        DoitTask: doit task
+        List[DoitAction]: doit task
 
     """
     strict_flag = '--strict' if strict else ''

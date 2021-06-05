@@ -58,7 +58,7 @@ def task_cl_write() -> DoitTask:
 
 @beartype
 def task_cl_bump() -> DoitTask:
-    """Bumps project version based on project history and settings in pyproject.toml.
+    """Bumps project version based on commits & settings in pyproject.toml.
 
     Returns:
         DoitTask: doit task
@@ -73,7 +73,7 @@ def task_cl_bump() -> DoitTask:
 
 @beartype
 def task_cl_bump_pre() -> DoitTask:
-    """Bump with specified pre-release tag. Creates Changelog.
+    """Bump with specified pre-release tag.
 
     Example: `doit run cl_bump_pre -p alpha` or `doit run cl_bump_pre -p rc`
 
@@ -361,8 +361,8 @@ def task_open_docs() -> DoitTask:
 
 
 @beartype
-def task_deploy() -> DoitTask:
-    """Deploy to Github `gh-pages` branch.
+def task_deploy_docs() -> DoitTask:
+    """Deploy docs to the Github `gh-pages` branch.
 
     Returns:
         DoitTask: doit task

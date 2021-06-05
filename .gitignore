@@ -182,5 +182,9 @@ coverage.json
 # Other Calcipy Ignores
 /tests/_tmp_cache
 
+# Ignore auto-created files by documentation tasks
+/docs/docs/modules/*.md
+/docs/docs/modules/**/*.md
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Custom Rules

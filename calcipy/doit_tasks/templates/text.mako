@@ -77,7 +77,7 @@ ${par(long_desc)}
 
 | Type | Description |
 |---|---|
-## TODO: handle multiline descriptions
+## PLANNED: handle multiline descriptions
 | ${ret.type_name} | ${ret.description} |
     % endif
     % if raises:
@@ -87,7 +87,7 @@ ${par(long_desc)}
 | Type | Description |
 |---|---|
         % for r in raises:
-## TODO: handle multiline descriptions
+## PLANNED: handle multiline descriptions
 | ${r.type_name} | ${r.description} |
         % endfor
     % endif
@@ -212,7 +212,7 @@ ${h1(heading + " " + module.name)}
 % if parsed_ds:
 ${par(parsed_ds.short_description)}
 ${par(parsed_ds.long_description)}
-## TODO: add meta (example and notes)
+## PLANNED: add meta (example and notes)
 % else:
 ${module.docstring}
 % endif

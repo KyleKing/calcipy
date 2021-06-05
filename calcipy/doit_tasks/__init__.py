@@ -16,7 +16,7 @@ __all__ = [  # noqa: F405
     'task_cl_bump_pre',
     'task_cl_bump',
     'task_cl_write',
-    'task_deploy',
+    'task_deploy_docs',
     'task_document',
     'task_open_docs',
     # from .lint
