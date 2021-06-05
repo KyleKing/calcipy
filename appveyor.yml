@@ -23,7 +23,7 @@ environment:
 # Must be after the declaration of "PYTHON_STACK" variable
 # yamllint disable-line rule:line-length
 # https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
-stack: python %PYTHON_STACK%
+# stack: python %PYTHON_STACK%
 
 cache:
   # Only works on Windows despite my best efforts
@@ -35,8 +35,16 @@ build: false
 install:
   # Force Python to use UTF-8 encoding instead of cp1252 on Windows
   - cmd: SET PYTHONUTF8=1
-  # Set Python paths based on environment variable from matrix
+  # For Windows, set Python paths based on environment variable from matrix
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
+  # Use pyenv instead of the venv-based Python from AppVeyor Ubuntu
+  - sh: echo "$SHELL"
+  - sh: curl https://pyenv.run | $SHELL
+  - sh: exec "$SHELL"
+  - sh: pyenv install 3.8-dev
+  - sh: pyenv install 3.9-dev
+  - sh: pyenv locals 3.9-dev 3.8-dev
+  # Check global Python version
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
   - python -m pip install pipx
@@ -55,7 +63,6 @@ install:
 
 test_script:
   - poetry run doit --continue
-  - poetry run doit run nox_coverage
   # Install codecov and upload the coverage results
   - pipx install codecov
   - codecov --file coverage.json
