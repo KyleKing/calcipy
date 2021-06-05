@@ -1,5 +1,5 @@
 ---
-version: 0.2.0a0.{build}
+version: 0.2.0.{build}
 
 image:
   - Ubuntu
@@ -16,7 +16,7 @@ environment:
       PYENV_38: 3.8.3
       PYENV_39: 3.9.5
 
-  APPVEYOR_SAVE_CACHE_ON_ERROR: true
+  APPVEYOR_SAVE_CACHE_ON_ERROR: false
   CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d
 
   # To encrypt passwords, go to Account -> "Settings" -> "Encrypt YAML"
