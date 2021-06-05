@@ -13,7 +13,6 @@ environment:
     # Use a single global Python version for pipx/poetry/etc.
     #   Nox will handle specific python version testing
     - PYTHON_WIN: C:/Python39
-      PYTHON_NIX: ~/venv3.9
       PYTHON_STACK: 3.9
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
@@ -24,9 +23,10 @@ environment:
 # Must be after the declaration of "PYTHON_STACK" variable
 # yamllint disable-line rule:line-length
 # https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
-# stack: python %PYTHON_STACK%
+stack: python %PYTHON_STACK%
 
 cache:
+  # Only works on Windows despite my best efforts
   - .venv -> poetry.lock
 
 build: false
@@ -37,11 +37,6 @@ install:
   - cmd: SET PYTHONUTF8=1
   # Set Python paths based on environment variable from matrix
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
-  - sh: PATH=$PYTHON_NIX/Scripts:$PYTHON_NIX:$PATH
-  - sh: echo $PYTHON_NIX/Scripts
-  - sh: ls $PYTHON_NIX/Scripts
-  - sh: which python
-  - echo $PATH
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
   - python -m pip install pipx
@@ -56,8 +51,7 @@ install:
   - poetry config virtualenvs.in-project true
   - poetry config --list
   # Install project-specific dependencies and extras
-  - sh: deactivate
-  - poetry install -E dev -E lint -E test -E commitizen_legacy -vvv
+  - poetry install -E dev -E lint -E test -E commitizen_legacy
 
 test_script:
   - poetry run doit --continue
