@@ -40,7 +40,7 @@ install:
   # For Windows, set Python paths based on environment variable from matrix
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
   # Use pyenv instead of the venv-based Python from AppVeyor Ubuntu
-  - sh: "[[ ! -f $HOME/.pyenv ]] && curl https://pyenv.run | $SHELL"
+  - sh: "[[ ! -d $HOME/.pyenv ]] && curl https://pyenv.run | $SHELL"
   # exec "$SHELL" causes AppVeyor to stop, so manually configure paths
   - sh: export PYENV_ROOT="$HOME/.pyenv"
   - sh: export PATH="$PYENV_ROOT/bin:$PATH"
