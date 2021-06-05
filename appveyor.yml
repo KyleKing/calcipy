@@ -38,34 +38,33 @@ install:
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
-  - cmd: python -m pip install pipx
+  - python -m pip install pipx
   # Manually set the path because "pipx ensurepath" needs a reload to apply
-  - cmd: pipx ensurepath
+  - pipx ensurepath
   - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
-  # - sh: PATH=~/.local/bin:$PATH
-  # Debug the PATH (if needed)
+  - sh: PATH=~/.local/bin:$PATH
+  # Check the PATH
   - cmd: echo %PATH%
   - sh: echo $PATH
-  # # Install virtualenv for poetry to create .venv
-  # - python -m pip install virtualenv
   # Install poetry and configure
-  - cmd: pipx install poetry
-  # PLANNED: https://github.com/python-poetry/poetry/discussions/4141
-  # yamllint disable-line rule:line-length
-  # - sh: curl -sL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python - -y ${{ matrix.bootstrap-args }}
-  # yamllint disable-line rule:line-length
-  - sh: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
-  - sh: PATH=$HOME/.local/bin:$PATH
-
+  - pipx install poetry
   - poetry config virtualenvs.in-project true
   - poetry config --list
+  # Figure out what is wrong with the missing .venv
+  # https://github.com/python-poetry/poetry/discussions/4141
+  - sh: export POETRY_VIRTUALENVS_CREATE=1
+  - cmd: echo.%VIRTUAL_ENV%
+  - sh: echo $VIRTUAL_ENV
+  - sh: deactivate
+  - sh: echo $VIRTUAL_ENV
+  - sh: unset VIRTUAL_ENV
+  - sh: echo $VIRTUAL_ENV
   # Install project-specific dependencies and extras
-  - python -m pip freeze
-
-  - poetry install -E dev -E lint -E test -E commitizen_legacy
+  - poetry install -E dev -E lint -E test -E commitizen_legacy -vvv
 
   - poetry env list
   - sh: ls -a
+  - sh: poetry show -v
 
 test_script:
   - poetry run doit --continue
