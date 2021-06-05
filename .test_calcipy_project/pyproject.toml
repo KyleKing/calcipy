@@ -2,6 +2,16 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.isort]
+balanced_wrapping = true
+default_section = "THIRDPARTY"
+force_grid_wrap = 0
+include_trailing_comma = true
+known_first_party = "test_project"
+length_sort = false
+line_length = 120
+multi_line_output = 5
+
 [tool.calcipy.code_tag]
 tags = ["FIXME", "TODO", "PLANNED"]
 code_tag_summary_filename = "CODE_TAG_SUMMARY.md"
