@@ -35,7 +35,7 @@ New = "New (Old)"
 name = "calcipy"
 version = "0.2.0a0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
-license = "Unlicense"
+license = "MIT"
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
 maintainers = []
 repository = "https://github.com/kyleking/calcipy"
@@ -48,7 +48,7 @@ classifiers = [
     "Framework :: Flake8",
     "Framework :: Pytest",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: The Unlicense (Unlicense)",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
