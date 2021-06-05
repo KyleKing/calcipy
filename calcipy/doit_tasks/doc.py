@@ -321,8 +321,8 @@ def task_document() -> DoitTask:
     pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
-        f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}',
-        f'poetry run mkdocs build --site-dir {DG.doc.path_out}',
+        Interactive(f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}'),
+        Interactive(f'poetry run mkdocs build --site-dir {DG.doc.path_out}'),
     ])
 
 
@@ -349,7 +349,7 @@ def task_open_docs() -> DoitTask:
         DoitTask: doit task
 
     """
-    if _is_mkdocs_local():
+    if _is_mkdocs_local():  # pragma: no cover
         path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
         return debug_task([
             (open_in_browser, (path_doc_index,)),
@@ -368,7 +368,7 @@ def task_deploy() -> DoitTask:
         DoitTask: doit task
 
     """
-    if _is_mkdocs_local():
+    if _is_mkdocs_local():  # pragma: no cover
         return debug_task([
             (NotImplementedError, ('Deploy cannot be used with mkdocs built with local-links',)),
         ])

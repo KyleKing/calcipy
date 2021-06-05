@@ -9,9 +9,9 @@ from typing import List
 import pytest
 
 from calcipy.doit_tasks.doc import (
-    _format_cov_table, _handle_coverage, _handle_source_file, _move_cl,
-    _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write, task_deploy,
-    task_document, task_open_docs, task_serve_docs, write_autoformatted_md_sections,
+    _format_cov_table, _handle_coverage, _handle_source_file, _is_mkdocs_local,
+    _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write,
+    task_deploy, task_document, task_open_docs, write_autoformatted_md_sections,
 )
 from calcipy.doit_tasks.doit_globals import DG
 
@@ -193,27 +193,20 @@ def test_task_document():
     """Test task_document."""
     result = task_document()
 
+    assert _is_mkdocs_local() is False
     actions = result['actions']
-    assert len(actions) == 2
+    assert len(actions) == 3
     assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
-    pytest.skip('TODO: Not yet implementing')
+    assert str(actions[1]).startswith('Cmd: poetry run pdocs as_markdown')
+    assert str(actions[2]).startswith('Cmd: poetry run mkdocs build --site-dir')
+
 
 
 def test_task_open_docs():
     """Test task_open_docs."""
     result = task_open_docs()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert isinstance(actions[0][0], type(webbrowser.open))
-    assert len(actions[0][1]) == 1
-    assert actions[0][1][0].name == 'index.html'
-
-
-def test_task_serve_docs():
-    """Test task_serve_docs."""
-    result = task_serve_docs()
-
+    assert _is_mkdocs_local() is False
     actions = result['actions']
     assert len(actions) == 2
     assert isinstance(actions[0][0], type(webbrowser.open))

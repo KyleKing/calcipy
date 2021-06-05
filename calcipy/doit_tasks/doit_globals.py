@@ -15,7 +15,7 @@ from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger
 
-from ..file_helpers import get_doc_dir, _MKDOCS_CONFIG_NAME, _read_yaml_file
+from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, get_doc_dir
 from ..log_helpers import log_fun
 from .file_search import find_project_files, find_project_files_by_suffix
 
@@ -282,7 +282,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 class CodeTagConfig(_PathAttrBase):  # noqa: H601
     """Code Tag Config."""
 
-    doc_dir: Path = Path('docs')
+    doc_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
 
     code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
@@ -319,7 +319,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    doc_dir: Path = Path('docs')
+    doc_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
 
     handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
@@ -389,7 +389,7 @@ class DoitGlobals:
         meta_kwargs = {'path_project': self.meta.path_project}
 
         # Parse the Copier file for configuration information
-        doc_dir = get_doc_dir(self.meta.path_project)
+        doc_dir = get_doc_dir(self.meta.path_project) / 'docs'  # Note: subdirectory is important
         doc_dir.mkdir(exist_ok=True, parents=True)
 
         # Configure global options
