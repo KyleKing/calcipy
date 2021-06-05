@@ -1,8 +1,8 @@
 ---
 # Common commands:
 # poetry run pre-commit install
-# poetry run pre-commit run --hook-stage commit --all-files
-# poetry run pre-commit run --hook-stage push --all-files
+# poetry run pre-commit run --all-files --hook-stage commit
+# poetry run pre-commit run --all-files --hook-stage push
 # poetry run doit run pre_commit_hooks
 #
 # See https://pre-commit.com for more information
@@ -64,6 +64,7 @@ repos:
       - id: detect-secrets
         # args: ["--baseline", ".secrets.baseline"]
         exclude: "poetry.lock|cassettes/.*\\.yaml"
+        stages: [push]
   # - repo: https://github.com/sondrelg/pep585-upgrade
   #   rev: "bcc3d077ee46c94bc1dac5f5274e2fb43de570e9"
   #   hooks:
@@ -77,10 +78,11 @@ repos:
         entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: "\\.rej$"
-      - id: doit
-        name: doit
-        entry: poetry run doit run test
-        language: system
-        files: "\\.py"
-        stages: [push]
-        pass_filenames: false
+      # This is handled by CI, so better to have pre-commit run faster
+      # - id: doit
+      #   name: doit
+      #   entry: poetry run doit run test
+      #   language: system
+      #   files: "\\.py"
+      #   stages: [push]
+      #   pass_filenames: false

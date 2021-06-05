@@ -44,6 +44,7 @@
 
 ### Fix
 
+- repair failing test
 - packaging needed keyword argument
 - import and nox syntax errors
 - run push pre-commit hooks with doit
