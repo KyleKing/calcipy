@@ -199,8 +199,8 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     path_flake8: Union[Path, str] = Path('.flake8')
     """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
 
-    path_isort: Union[Path, str] = Path('.isort.cfg')
-    """Relative path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
+    path_isort: Union[Path, str] = Path('pyproject.toml')
+    """Relative path to the isort configuration file. Default is "pyproject.toml" created by calcipy_template."""
 
     ignore_errors: List[str] = [
         'AAA01',  # AAA01 / act block in pytest

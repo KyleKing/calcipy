@@ -64,5 +64,5 @@ def test_doit_configurable():
     assert dg.test.args_diff == '--fail-under=95 --compare-branch=origin/release'
     assert dg.doc.path_out == PATH_TEST_PROJECT / 'releases/site'
     assert dg.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
-    assert dg.lint.path_isort == PATH_TEST_PROJECT / '.isort.cfg'
+    assert dg.lint.path_isort == PATH_TEST_PROJECT / '.isort.cfg'  # user-configured
     assert dg.lint.ignore_errors == ['T100', 'T101', 'T103']
