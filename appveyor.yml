@@ -13,7 +13,7 @@ environment:
     # Use a single global Python version for pipx/poetry/etc.
     #   Nox will handle specific python version testing
     - PYTHON_WIN: C:/Python39
-      PYTHON_STACK: 3.9
+      # PYTHON_STACK: 3.9
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d
@@ -23,7 +23,7 @@ environment:
 # Must be after the declaration of "PYTHON_STACK" variable
 # yamllint disable-line rule:line-length
 # https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
-stack: python %PYTHON_STACK%
+# stack: python %PYTHON_STACK%
 
 cache:
   - .venv -> poetry.lock
@@ -36,13 +36,14 @@ install:
   - cmd: SET PYTHONUTF8=1
   # Set Python paths based on environment variable from matrix
   - cmd: set PATH=%PYTHON_WIN%/Scripts;%PYTHON_WIN%;%PATH%
-  - python --version
+  - sh: python3 --version
   # Install pipx to manage CLI installations (poetry, codecov)
-  - python -m pip install pipx
+  - cmd: python -m pip install pipx
+  - sh: python3 -m pip install pipx
   # Manually set the path because "pipx ensurepath" needs a reload to apply
   - pipx ensurepath
   - cmd: set PATH=%USERPROFILE%\.local\bin;%PATH%
-  - sh: PATH=~/.local/bin:$PATH
+  - sh: PATH=$HOME/.local/bin:$PATH
   # Check the PATH
   - cmd: echo %PATH%
   - sh: echo $PATH
@@ -53,15 +54,10 @@ install:
   # Figure out what is wrong with the missing .venv
   # https://github.com/python-poetry/poetry/discussions/4141
   - sh: export POETRY_VIRTUALENVS_CREATE=1
-  - cmd: echo.%VIRTUAL_ENV%
-  - sh: echo $VIRTUAL_ENV
-  - sh: deactivate
-  - sh: echo $VIRTUAL_ENV
-  - sh: unset VIRTUAL_ENV
-  - sh: echo $VIRTUAL_ENV
   # Install project-specific dependencies and extras
-  - poetry install -E dev -E lint -E test -E commitizen_legacy -vvv
-
+  - sh: poetry env use python3
+  - poetry install -E dev -E lint -E test -E commitizen_legacy
+  # HACK: Remove
   - poetry env list
   - sh: ls -a
   - sh: poetry show -v
@@ -69,7 +65,7 @@ install:
 test_script:
   - poetry run doit --continue
   # Install codecov and upload the coverage results
-  - python -m pipx install codecov
+  - pipx install codecov
   - codecov
 
 deploy_script:
