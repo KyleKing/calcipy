@@ -54,12 +54,19 @@ def _read_yaml_file(path_yaml: Path) -> Any:
         dictionary representation of the source file
 
     """
+    # TODO: modify so that mkdocs.yml can be read, but Python won't be executed...
+
     # Based on: https://github.com/yaml/pyyaml/issues/86#issuecomment-380252434
     yaml.add_multi_constructor('', lambda loader, suffix, node: None)
+    yaml.add_multi_constructor('!', lambda loader, suffix, node: None)
+    yaml.add_multi_constructor('!!', lambda loader, suffix, node: None)
     try:
         return yaml.unsafe_load(path_yaml.read_text())
     except (FileNotFoundError, KeyError) as err:  # pragma: no cover
         logger.warning(f'Unexpected error reading the {path_yaml.name} file ({path_yaml}): {err}')
+        return {}
+    except yaml.constructor.ConstructorError:
+        logger.exception('Warning: burying poorly handled yaml error')
         return {}
 
 
