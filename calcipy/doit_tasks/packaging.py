@@ -29,9 +29,13 @@ def task_lock() -> DoitTask:
         DoitTask: doit task
 
     """
-    task = debug_task(['poetry lock'])
+    path_req = DG.meta.path_project / 'requirements.txt'
+    task = debug_task([
+        'poetry lock',
+        f'poetry export -f {path_req.name} -o {path_req.name}',
+    ])
     task['file_dep'].append(DG.meta.path_project / 'pyproject.toml')
-    task['targets'].append(DG.meta.path_project / 'poetry.lock')
+    task['targets'].extend([DG.meta.path_project / 'poetry.lock', path_req])
     return task
 
 
