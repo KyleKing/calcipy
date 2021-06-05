@@ -134,7 +134,7 @@ def task_lint_project() -> DoitTask:
 
 @beartype
 def task_lint_critical_only() -> DoitTask:
-    """Lint all Python files and create summary of errors. Will only fail if non-ignored errors are found.
+    """Suppress non-critical linting errors. Great for gating PRs/commits.
 
     Returns:
         DoitTask: doit task
@@ -200,6 +200,10 @@ def task_auto_format() -> DoitTask:
         f'{run} autopep8 {paths} --in-place --aggressive',
         f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',
     ])
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# General Static Analysis
 
 
 @beartype

@@ -30,6 +30,7 @@ __all__ = [  # noqa: F405
     'task_security_checks',
     # from .packaging
     'task_check_for_stale_packages',
+    'task_check_license',
     'task_lock',
     'task_publish',
     # from .test

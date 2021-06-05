@@ -133,6 +133,7 @@ flake8-tuple = { version = "*", optional = true }
 flake8-variables-names = { version = "*", optional = true }
 hacking = { version = "^4", optional = true } # Version set to prevent oscillation back to 3
 isort = { version = "*", optional = true }
+licensecheck = { version = "*", optional = true }
 pandas-vet = { version = "*", optional = true }
 pep8-naming = { version = "*", optional = true }
 proselint = { version = "*", optional = true }
@@ -214,6 +215,7 @@ lint = [
     "flake8",
     "hacking",
     "isort",
+    "licensecheck",
     "pandas-vet",
     "pep8-naming",
     "proselint",

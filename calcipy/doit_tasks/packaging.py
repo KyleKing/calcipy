@@ -22,6 +22,17 @@ from .doit_globals import DG, DoitTask
 
 
 @beartype
+def task_check_license() -> DoitTask:
+    """Check licenses for compatibility.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task(['poetry run licensecheck --zero'])
+
+
+@beartype
 def task_lock() -> DoitTask:
     """Lock dependencies.
 
