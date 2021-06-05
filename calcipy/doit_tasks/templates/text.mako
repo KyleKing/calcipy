@@ -16,6 +16,16 @@ ${s}
 
 % endif
 </%def>
+<%def name="folded_code(source)">
+% if show_source_code and source:
+
+??? example "View Source"
+    ```python3
+    ${"    ".join(source)}
+    ```
+
+% endif
+</%def>
 
 <%def name="function(func, class_level=False)" buffered="True">
     <%
@@ -31,9 +41,13 @@ ${h3(func.name)}
 % endif
 
 ```python3
+%if func.params():
 def ${func.name}(
     ${",\n    ".join(func.params())}
 )${returns}
+% else:
+def ${func.name}()${returns}
+% endif
 ```
 
 % if parsed_ds:
@@ -81,12 +95,7 @@ ${par(long_desc)}
 ${func.docstring}
 % endif
 
-% if show_source_code and func.source:
-
-??? example "View Source"
-        ${"\n        ".join(func.source)}
-
-% endif
+${folded_code(func.source)}
 </%def>
 
 <%def name="variable(var)" buffered="True">
@@ -131,14 +140,7 @@ ${h4("Attributes")}
 ${cls.docstring}
 % endif
 
-% if show_source_code and cls.source:
-
-??? example "View Source"
-        ${"\n        ".join(cls.source)}
-
-------
-
-% endif
+${folded_code(cls.source)}
 
 <%
   class_vars = cls.class_variables()
@@ -202,7 +204,7 @@ ${function(m, True)}
   classes = module.classes()
   functions = module.functions()
   submodules = module.submodules
-  heading = 'Namespace' if module.is_namespace else 'Module'
+  heading = 'Namespace' if module.is_namespace else ''
   parsed_ds = module.parsed_docstring
 %>
 
@@ -215,12 +217,7 @@ ${par(parsed_ds.long_description)}
 ${module.docstring}
 % endif
 
-% if show_source_code and module.source:
-
-??? example "View Source"
-        ${"\n        ".join(module.source)}
-
-% endif
+${folded_code(module.source)}
 
 % if submodules:
 ${h2("Sub-modules")}

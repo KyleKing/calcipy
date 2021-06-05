@@ -27,7 +27,8 @@ markdown_extensions:
   - abbr
   - admonition
   - attr_list
-  - codehilite
+  - codehilite:
+      linenums: true
   - def_list
   - extra
   - fenced_code
@@ -37,12 +38,14 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.details
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      linenums: true
+      linenums_style: pymdownx-inline
   - pymdownx.superfences
   - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
-      clickable_checkbox: false
+      clickable_checkbox: true
   - smarty
   - tables
   - toc:
