@@ -44,6 +44,7 @@
 
 ### Fix
 
+- deconflict doit/nox
 - repair failing test
 - packaging needed keyword argument
 - import and nox syntax errors
@@ -78,6 +79,7 @@
 
 ### Refactor
 
+- create generic doit-runner for noxfile
 - fix some type issues
 - minor fixes from AppVeyor testing
 - **#38**: reduce complexity
