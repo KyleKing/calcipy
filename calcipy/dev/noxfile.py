@@ -40,6 +40,7 @@ from urllib.request import url2pathname
 from loguru import logger
 
 from ..doit_tasks.doit_globals import DG
+from ..doit_tasks.test import task_coverage, task_test
 from ..file_helpers import if_found_unlink
 
 has_test_imports = False
@@ -61,7 +62,9 @@ if has_test_imports:  # pragma: no cover
 
         """
         session.install('.[dev]', '.[test]')
-        session.run(*shlex.split('doit run test'), stdout=True)
+        # session.run(*shlex.split('doit run test'), stdout=True)
+        for action in task_test()['actions']:  # FIXME: Turn this into a function for test suite!
+            session.run(*shlex.split(action.action), stdout=True)
 
     @session(python=[DG.test.pythons[-1]], reuse_venv=True)
     def coverage(session: Session) -> None:
@@ -72,7 +75,9 @@ if has_test_imports:  # pragma: no cover
 
         """
         session.install('.[dev]', '.[test]')
-        session.run(*shlex.split('doit run coverage'), stdout=True)
+        # session.run(*shlex.split('doit run coverage'), stdout=True)
+        for action in task_coverage()['actions']:
+            session.run(*shlex.split(action.action), stdout=True)
 
     @session(python=[DG.test.pythons[-1]], reuse_venv=False)
     def build_dist(session: Session) -> None:
