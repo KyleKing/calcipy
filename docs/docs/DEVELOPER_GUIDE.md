@@ -25,8 +25,7 @@ For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/)
 poetry config repositories.testpypi https://test.pypi.org/legacy/
 poetry config pypi-token.testpypi ...
 
-poetry build
-poetry publish --repository testpypi
+poetry run doit run publish_test_pypi
 # If you didn't configure a token, you will need to provide your username and password to publish
 ```
 
@@ -34,11 +33,12 @@ To publish to the real PyPi
 
 ```sh
 poetry config pypi-token.pypi ...
-poetry build
-poetry publish
+poetry run doit run publish
 
-# Combine build and publish
-poetry publish --build
+# For a full release, increment the version, the documentation, and publish
+poetry run doit run --continue
+poetry run doit run cl_bump document deploy_docs publish
+# Note: cl_bump_pre is helpful for pre-releases rather than full increments
 ```
 
 > Replace "..." with the API token generated on TestPyPi/PyPi respectively

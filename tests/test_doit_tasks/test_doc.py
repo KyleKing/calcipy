@@ -11,7 +11,7 @@ import pytest
 from calcipy.doit_tasks.doc import (
     _format_cov_table, _handle_coverage, _handle_source_file, _is_mkdocs_local,
     _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write,
-    task_deploy, task_document, task_open_docs, write_autoformatted_md_sections,
+    task_deploy_docs, task_document, task_open_docs, write_autoformatted_md_sections,
 )
 from calcipy.doit_tasks.doit_globals import DG
 
@@ -201,7 +201,6 @@ def test_task_document():
     assert str(actions[2]).startswith('Cmd: poetry run mkdocs build --site-dir')
 
 
-
 def test_task_open_docs():
     """Test task_open_docs."""
     result = task_open_docs()
@@ -215,9 +214,9 @@ def test_task_open_docs():
     assert str(actions[1]).endswith('mkdocs serve --dirtyreload')
 
 
-def test_task_deploy():
-    """Test task_deploy."""
-    result = task_deploy()
+def test_task_deploy_docs():
+    """Test task_deploy_docs."""
+    result = task_deploy_docs()
 
     actions = result['actions']
     assert len(actions) == 1
