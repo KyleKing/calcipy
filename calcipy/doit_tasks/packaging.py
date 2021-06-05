@@ -287,9 +287,6 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         packages: List of packages
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
-    Raises:
-        RuntimeError: if stale packages were identified
-
     """
     def format_package(pack: _HostedPythonPackage) -> str:
         delta = f'{now.diff(pack.datetime).in_months()} months ago:'

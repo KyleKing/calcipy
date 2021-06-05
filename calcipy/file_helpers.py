@@ -46,9 +46,6 @@ def _read_copier_answers(path_copier: Optional[Path] = None) -> Any:
     Returns:
         dictionary representation of the source file
 
-    Raises:
-        ImportError: if PyYAML is not installed
-
     """
     path_copier = path_copier or Path.cwd() / '.copier-answers.yml'
     try:

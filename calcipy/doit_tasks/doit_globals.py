@@ -370,6 +370,9 @@ class DoitGlobals:
         Args:
             path_project: optional project base directory Path. Defaults to the current working directory
 
+        Raises:
+            RuntimeError: if problems in formatting of the toml file
+
         """
         logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
         path_project = path_project or Path.cwd()

@@ -17,6 +17,8 @@ from ..configuration import PATH_TEST_PROJECT
 
 
 class MockLogger:  # noqa: H601
+    # FIXME: Replace with more robust alternative. See:
+    #   https://pawamoy.github.io/posts/unify-logging-for-a-gunicorn-uvicorn-app/
 
     logs = defaultdict(list)
 
@@ -107,7 +109,7 @@ version = "1.2.3"
     mock_logger = MockLogger()
     monkeypatch.setattr(loguru.logger, 'warning', mock_logger.warning)
 
-    find_stale_packages(path_lock, path_pack_lock, stale_months=18)
+    find_stale_packages(path_lock, path_pack_lock, stale_months=18)  # act
 
     assert len(mock_logger.logs['warnings']) == 1
     assert re.match(expected_err, mock_logger.logs['warnings'][-1]['message'])
