@@ -29,6 +29,7 @@ environment:
 
 cache:
   - .venv -> poetry.lock
+  - .nox -> poetry.lock
   - $HOME/.pyenv -> appveyor.yml
 
 build: false
