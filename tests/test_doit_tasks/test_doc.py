@@ -22,7 +22,7 @@ def test_move_cl():
     """Test _move_cl."""
     path_cl = DG.meta.path_project / 'CHANGELOG.md'
     path_cl.write_text('# CHANGELOG')
-    path_cl_dest = DG.doc.doc_dir / path_cl.name
+    path_cl_dest = DG.doc.doc_sub_dir / path_cl.name
 
     _move_cl()  # act
 

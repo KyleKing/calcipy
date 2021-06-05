@@ -282,7 +282,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 class CodeTagConfig(_PathAttrBase):  # noqa: H601
     """Code Tag Config."""
 
-    doc_dir: Path = Path('docs/docs')
+    doc_sub_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
 
     code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
@@ -303,7 +303,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
-        self.path_code_tag_summary = self.path_project / self.doc_dir / self.code_tag_summary_filename
+        self.path_code_tag_summary = self.path_project / self.doc_sub_dir / self.code_tag_summary_filename
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
@@ -319,7 +319,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    doc_dir: Path = Path('docs/docs')
+    doc_sub_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
 
     handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
@@ -389,8 +389,8 @@ class DoitGlobals:
         meta_kwargs = {'path_project': self.meta.path_project}
 
         # Parse the Copier file for configuration information
-        doc_dir = get_doc_dir(self.meta.path_project) / 'docs'  # Note: subdirectory is important
-        doc_dir.mkdir(exist_ok=True, parents=True)
+        doc_sub_dir = get_doc_dir(self.meta.path_project) / 'docs'  # Note: subdirectory is important
+        doc_sub_dir.mkdir(exist_ok=True, parents=True)
 
         # Configure global options
         section_keys = ['lint', 'test', 'code_tag', 'doc']
@@ -401,8 +401,8 @@ class DoitGlobals:
         lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
-        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir, **code_k)  # type: ignore[arg-type]
-        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir, **doc_k)  # type: ignore[arg-type]
+        self.ct = CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k)  # type: ignore[arg-type]
+        self.doc = DocConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **doc_k)  # type: ignore[arg-type]
 
 
 DG = DoitGlobals()

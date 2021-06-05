@@ -74,7 +74,7 @@ def _read_yaml_file(path_yaml: Path) -> Any:
 def get_doc_dir(path_project: Path) -> Path:
     """Retrieve the documentation directory from teh copier answer file.
 
-    > Default directory is "docs" if not found
+    > Default directory is "docs" if not found. This is the main parent directory (not doc_sub_dir)
 
     Args:
         path_project: Path to the project directory with contains `.copier-answers.yml`

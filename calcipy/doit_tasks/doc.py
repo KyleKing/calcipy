@@ -30,7 +30,7 @@ def _move_cl() -> None:
     path_cl = DG.meta.path_project / 'CHANGELOG.md'
     if not path_cl.is_file():
         raise FileNotFoundError(f'Could not locate the changelog at: {path_cl}')
-    path_cl.replace(DG.doc.doc_dir / path_cl.name)
+    path_cl.replace(DG.doc.doc_sub_dir / path_cl.name)
 
 
 @beartype
@@ -317,7 +317,7 @@ def task_document() -> DoitTask:
 
     """
     _ensure_handler_lookup()
-    pdoc_out = f'--output_dir {DG.doc.doc_dir}/modules --overwrite'
+    pdoc_out = f'--output_dir {DG.doc.doc_sub_dir.parent}/modules --overwrite'
     pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
