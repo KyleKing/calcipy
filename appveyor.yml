@@ -58,9 +58,7 @@ test_script:
   - poetry run doit run nox_coverage
   # Install codecov and upload the coverage results
   - pipx install codecov
-  - codecov
-  - poetry run doit run coverage
-  - codecov
+  - codecov --file coverage.json
 
 deploy_script:
   - echo "Deploying..."
