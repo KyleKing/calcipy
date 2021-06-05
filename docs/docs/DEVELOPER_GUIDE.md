@@ -19,7 +19,7 @@ poetry run doit run test
 
 ## Publishing
 
-For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/)
+For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Replace `...` with the API token generated on TestPyPi|PyPi respectively
 
 ```sh
 poetry config repositories.testpypi https://test.pypi.org/legacy/
@@ -41,12 +41,29 @@ poetry run doit run cl_bump document deploy_docs publish
 # Note: cl_bump_pre is helpful for pre-releases rather than full increments
 ```
 
-> Replace "..." with the API token generated on TestPyPi/PyPi respectively
+## Current Status
 
-### Checklist
+<!-- {cts} COVERAGE -->
+| File                                       |   Statements |   Missing |   Excluded | Coverage   |
+|:-------------------------------------------|-------------:|----------:|-----------:|:-----------|
+| `calcipy/__init__.py`                      |            7 |         0 |          0 | 100.0%     |
+| `calcipy/dev/__init__.py`                  |            0 |         0 |          0 | 100.0%     |
+| `calcipy/dev/conftest.py`                  |           15 |         0 |         22 | 100.0%     |
+| `calcipy/dev/noxfile.py`                   |           16 |         0 |         62 | 100.0%     |
+| `calcipy/doit_tasks/__init__.py`           |           12 |         0 |          0 | 100.0%     |
+| `calcipy/doit_tasks/base.py`               |           26 |         0 |          3 | 100.0%     |
+| `calcipy/doit_tasks/code_tag_collector.py` |           75 |         6 |          0 | 92.0%      |
+| `calcipy/doit_tasks/doc.py`                |          123 |         5 |          5 | 95.9%      |
+| `calcipy/doit_tasks/doit_globals.py`       |          154 |         3 |         10 | 98.1%      |
+| `calcipy/doit_tasks/file_search.py`        |           34 |         0 |          2 | 100.0%     |
+| `calcipy/doit_tasks/lint.py`               |           77 |         1 |          0 | 98.7%      |
+| `calcipy/doit_tasks/packaging.py`          |          128 |        12 |          3 | 90.6%      |
+| `calcipy/doit_tasks/summary_reporter.py`   |           22 |         0 |         36 | 100.0%     |
+| `calcipy/doit_tasks/test.py`               |           60 |        11 |          0 | 81.7%      |
+| `calcipy/file_helpers.py`                  |           67 |         3 |          3 | 95.5%      |
+| `calcipy/log_helpers.py`                   |           60 |         6 |          2 | 90.0%      |
+| `calcipy/wrappers.py`                      |            6 |         0 |          0 | 100.0%     |
+| **Totals**                                 |          882 |        47 |        148 | 94.7%      |
 
-- [ ] Run doit tasks (test) `poetry run doit`
-- [ ] Commit and push all local changes
-- [ ] Increment version: `poetry run doit run cl_bump`
-- [ ] Check that the README and other Markdown files are up-to-date
-- [ ] Publish (see above)
+Generated on: 2021-06-05T19:35:30.499329
+<!-- {cte} -->

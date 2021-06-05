@@ -90,11 +90,11 @@ _COVERAGE_SAMPLE_DATA = {
         },
     },
     'totals': {
-        'covered_lines': 393,
-        'num_statements': 829,
-        'percent_covered': 47.4065138721351,
-        'missing_lines': 436,
-        'excluded_lines': 87,
+        'covered_lines': 51,
+        'num_statements': 97,
+        'percent_covered': 52.57732,
+        'missing_lines': 46,
+        'excluded_lines': 3,
     },
 }
 """Sample coverage data generated with `python -m coverage json`."""
@@ -105,10 +105,11 @@ def test_format_cov_table():
     result = _format_cov_table(_COVERAGE_SAMPLE_DATA)
 
     assert result == [
-        '| File | Statements | Missing | Excluded | Coverage |',
-        '| --: | --: | --: | --: | --: |',
-        '| `calcipy/doit_tasks/base.py` | 22 | 2 | 3 | 90.9% |',
-        '| `calcipy/doit_tasks/code_tag_collector.py` | 75 | 44 | 0 | 41.3% |',
+        '| File                                       |   Statements |   Missing |   Excluded | Coverage   |',
+        '|:-------------------------------------------|-------------:|----------:|-----------:|:-----------|',
+        '| `calcipy/doit_tasks/base.py`               |           22 |         2 |          3 | 90.9%      |',
+        '| `calcipy/doit_tasks/code_tag_collector.py` |           75 |        44 |          0 | 41.3%      |',
+        '| **Totals**                                 |           97 |        46 |          3 | 52.6%      |',
         '',
         'Generated on: 2021-06-03T19:37:11.980123',
     ]
@@ -136,7 +137,7 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     text = path_new_readme.read_text()
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->' not in text
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
-    assert '<!-- {cts} COVERAGE_TEST -->\n| File | Statements | Missing |' in text
+    assert '<!-- {cts} COVERAGE_TEST -->\n| File                                       |' in text
     #
     DG.doc.paths_md = paths_original
     DG.doc.handler_lookup = lookup_original

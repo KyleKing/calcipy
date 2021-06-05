@@ -6,6 +6,7 @@ import webbrowser
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Pattern
 
+import pandas as pd
 from beartype import beartype
 from doit.tools import Interactive
 from loguru import logger
@@ -237,19 +238,27 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
         List[str]: list of string lines to insert
 
     """
-    legend = ['File', 'Statements', 'Missing', 'Excluded', 'Coverage']
-    int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
-    rows = [legend, ['--:'] * len(legend)]
-    for path_file, file_obj in coverage_data['files'].items():
-        rel_path = Path(path_file).as_posix()  # .resolve().relative_to(DG.meta.path_project)
-        per = round(file_obj['summary']['percent_covered'], 1)
-        rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
+    col_key_map = {
+        'Statements': 'num_statements',
+        'Missing': 'missing_lines',
+        'Excluded': 'excluded_lines',
+        'Coverage': 'percent_covered',
+    }
+    records = [  # noqa: ECE001
+        {
+            **{'File': f'`{Path(path_file).as_posix()}`'},
+            **{col: file_obj['summary'][key] for col, key in col_key_map.items()},
+        } for path_file, file_obj in coverage_data['files'].items()
+    ]
+    records.append({
+        **{'File': '**Totals**'},
+        **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
+    })
     # Format table for Github Markdown
-    lines_table = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
+    df_cov = pd.DataFrame(records)
+    df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
+    lines_table = df_cov.to_markdown(index=False).split('\n')  # Note: requires optional "tabulate"
     lines_table.extend(['', f"Generated on: {coverage_data['meta']['timestamp']}"])
-    # TODO: Convert to Pandas for ".to_markdown"
-    #   https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_markdown.html
-    # TODO: Add summary line for total coverage statistics
     return lines_table
 
 
