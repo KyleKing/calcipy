@@ -56,6 +56,7 @@ from .code_tag_collector import task_collect_code_tags
 from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .packaging import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+from .summary_reporter import SummaryReporter
 from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 
 TASKS_CI = [
@@ -82,5 +83,6 @@ TASKS_LOCAL = [
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'default_tasks': TASKS_CI if getuser().lower() == 'appveyor' else TASKS_LOCAL,
+    'reporter': SummaryReporter,
 }
 """doit Configuration Settings. Run with `poetry run doit`."""

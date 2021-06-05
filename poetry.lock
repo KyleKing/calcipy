@@ -1774,6 +1774,14 @@ python-versions = ">=3.6"
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
+name = "sty"
+version = "1.0.0rc1"
+description = "String styling for your terminal"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "termcolor"
 version = "1.1.0"
 description = "ANSII Color formatting for output in terminal."
@@ -2018,7 +2026,7 @@ test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "c62bae379fc642fff1686a42353f443f8850a9e92c1abb1474ff3174d9a472a4"
+content-hash = "d182ec094761fac4bf18773f5125744579f237757bba7c2f88d34df295342dc8"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2919,6 +2927,9 @@ sqlparse = [
 stevedore = [
     {file = "stevedore-3.3.0-py3-none-any.whl", hash = "sha256:50d7b78fbaf0d04cd62411188fa7eedcb03eb7f4c4b37005615ceebe582aa82a"},
     {file = "stevedore-3.3.0.tar.gz", hash = "sha256:3a5bbd0652bf552748871eaa73a4a8dc2899786bc497a2aa1fcb4dcdb0debeee"},
+]
+sty = [
+    {file = "sty-1.0.0rc1-py3-none-any.whl", hash = "sha256:52bc299ba08a7e2683ed4500a13222d62811ad616e621c9d3e3da2d8175ae46c"},
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},

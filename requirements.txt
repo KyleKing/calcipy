@@ -739,6 +739,8 @@ sqlparse==0.4.1; python_version >= "3.5" \
 stevedore==3.3.0; python_version >= "3.6" \
     --hash=sha256:50d7b78fbaf0d04cd62411188fa7eedcb03eb7f4c4b37005615ceebe582aa82a \
     --hash=sha256:3a5bbd0652bf552748871eaa73a4a8dc2899786bc497a2aa1fcb4dcdb0debeee
+sty==1.0.0rc1 \
+    --hash=sha256:52bc299ba08a7e2683ed4500a13222d62811ad616e621c9d3e3da2d8175ae46c
 termcolor==1.1.0; python_full_version >= "3.6.1" and python_full_version < "4.0.0" \
     --hash=sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b
 testfixtures==6.17.1 \
