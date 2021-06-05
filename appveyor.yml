@@ -13,23 +13,23 @@ environment:
     # Use a single global Python version for pipx/poetry/etc.
     #   Nox will handle specific python version testing
     - PYTHON_WIN: C:/Python39
-      PYTHON_STACK: 3.9
+      PYENV_38: 3.8.3
+      PYENV_39: 3.9.5
 
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
   CODECOV_TOKEN: d414dacb-5b8d-4c0b-94e1-42fe8393187d
 
   # To encrypt passwords, go to Account -> "Settings" -> "Encrypt YAML"
 
-# Must be after the declaration of "PYTHON_STACK" variable
-# yamllint disable-line rule:line-length
-# https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
-# stack: python %PYTHON_STACK%
+# Python is now managed with pyenv instead of stack so that .venv is created
+# > Must be after the declaration of "PYTHON_STACK" variable
+# > yamllint disable-line rule:line-length
+# > https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
+# > stack: python %PYTHON_STACK%
 
 cache:
-  # FYI: .venv caching only works on Windows despite my best efforts...
   - .venv -> poetry.lock
-  - $HOME/.pyenv
-  #  -> appveyor.yml
+  - $HOME/.pyenv -> appveyor.yml
 
 build: false
 
@@ -46,10 +46,10 @@ install:
   - sh: export PATH="$PYENV_ROOT/bin:$PATH"
   - sh: eval "$(pyenv init --path)"
   # Configure Python versions with pyenv
-  - sh: pyenv install 3.8-dev --skip-existing
-  - sh: pyenv install 3.9-dev --skip-existing
-  - sh: pyenv global 3.9-dev
-  - sh: pyenv local 3.9-dev 3.8-dev
+  - sh: pyenv install PYENV_38 --skip-existing
+  - sh: pyenv install PYENV_39 --skip-existing
+  - sh: pyenv global PYENV_39
+  - sh: pyenv local PYENV_39 PYENV_38
   # Check global Python version
   - python --version
   # Install pipx to manage CLI installations (poetry, codecov)
@@ -65,7 +65,7 @@ install:
   - poetry config virtualenvs.in-project true
   - poetry config --list
   # Install project-specific dependencies and extras
-  - poetry install -E dev -E lint -E test -E commitizen_legacy -vvv
+  - poetry install -E dev -E lint -E test -E commitizen_legacy
 
 test_script:
   - poetry run doit --continue
