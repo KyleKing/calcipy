@@ -2,6 +2,7 @@
 
 ### Feat
 
+- add task to check license compliance
 - move lock into doit tasks with file-dependency
 - **#38**: re-implement coverage and write source
 - drop subprocess-tee
@@ -79,6 +80,7 @@
 
 ### Refactor
 
+- relicense with MIT for better compliance
 - create generic doit-runner for noxfile
 - fix some type issues
 - minor fixes from AppVeyor testing
