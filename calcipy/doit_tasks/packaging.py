@@ -100,13 +100,13 @@ def task_publish_test_pypi() -> DoitTask:
 # Check for stale packages
 
 
-def _auto_convert(cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
+def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
     """Auto convert datetime attributes from string.
 
-    https://www.attrs.org/en/stable/extending.html#automatic-field-transformation-and-modification
+    Based on: https://www.attrs.org/en/stable/extending.html#automatic-field-transformation-and-modification
 
     Args:
-        cls: type?
+        _cls: unused class argument
         fields: `_HostedPythonPackageAttribtues`
 
     Returns:
