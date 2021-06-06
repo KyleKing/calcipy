@@ -2,6 +2,32 @@
 
 ### Feat
 
+- add task to zip artifacts from testing
+- implement pandas.to_markdown for cov table
+
+### Fix
+
+- remove type_name from docstring for Google-style
+- run pytest as a module for nox
+
+### Refactor
+
+- try to suppress deepsource errors
+- address DeepSource issues
+- split up set_paths from DG
+- fix formatting error from pre-push
+- rename doc_dir to doc_sub_dir for clarity
+- apply 0.0.10 template
+
+## 2021.0.2.0 (2021-06-05)
+
+### Feat
+
+- **#58**: implement doc task and merge serve_docs
+- make loading YAML files more generic
+- create doit summary report
+- add task to check license compliance
+- move lock into doit tasks with file-dependency
 - **#38**: re-implement coverage and write source
 - drop subprocess-tee
 - **#36**: WIP implementation of doc formatting
@@ -43,6 +69,11 @@
 
 ### Fix
 
+- resolve doc_dir and style errors
+- **#58**: remove None from pdocs output
+- deconflict doit/nox
+- repair failing test
+- packaging needed keyword argument
 - import and nox syntax errors
 - run push pre-commit hooks with doit
 - show log warning instead of error for stale dep
@@ -75,6 +106,13 @@
 
 ### Refactor
 
+- move markdown to subdirectory for mkdocs
+- move isort back to toml
+- fix edge case in diff-cov failing and lint errors
+- relicense with MIT for better compliance
+- create generic doit-runner for noxfile
+- fix some type issues
+- minor fixes from AppVeyor testing
 - **#38**: reduce complexity
 - minor cleanup to docs
 - apply pre-commit autoformat

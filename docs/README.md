@@ -53,11 +53,11 @@ For more examples, see other projects that use `calcipy`:
 - [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
 - See other [projects tagged with the topic "calcipy"](https://github.com/topics/calcipy)
-- Also see: [Scripts](https://github.com/kyleking/calcipy/scripts) or [Tests](https://github.com/kyleking/calcipy/tests)
+- Also see: [Scripts](https://github.com/KyleKing/calcipy/tree/main/scripts) or [Tests](https://github.com/KyleKing/calcipy/tree/main/tests)
 
 ## Upgrades
 
-Review the [./CHANGELOG.md](./CHANGELOG.md) before updating. Calcipy uses semantic versioning so once `^1.0.0`, breaking changes will only occur during major releases; however, while an alpha-release (`0.#.#`), the project may have breaking changes on minor increments until stable.
+Review the [./docs/CHANGELOG.md](./docs/CHANGELOG.md) before updating. Calcipy uses semantic versioning so once `^1.0.0`, breaking changes will only occur during major releases; however, while an alpha-release (`0.#.#`), the project may have breaking changes on minor increments until stable.
 
 ```sh
 # Update dependencies
@@ -69,20 +69,20 @@ copier update
 
 ## Roadmap
 
-See the `Open Issues` and `Milestones` for current status and [./CODE_TAG_SUMMARY.md](./CODE_TAG_SUMMARY.md) for annotations in the source code.
+See the `Open Issues` and `Milestones` for current status and [./docs/CODE_TAG_SUMMARY.md](./docs/CODE_TAG_SUMMARY.md) for annotations in the source code.
 
-For release history, see the [./CHANGELOG.md](./CHANGELOG.md)
+For release history, see the [./docs/CHANGELOG.md](./docs/CHANGELOG.md)
 
 ## Contributing
 
 See the Developer Guide, Contribution Guidelines, etc
 
-- [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
-- [./STYLE_GUIDE.md](./STYLE_GUIDE.md)
-- [./CONTRIBUTING.md](./CONTRIBUTING.md)
-- [./CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
-- [./SECURITY.md](./SECURITY.md)
+- [./docs/DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md)
+- [./docs/STYLE_GUIDE.md](./docs/STYLE_GUIDE.md)
+- [./docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)
+- [./docs/CODE_OF_CONDUCT.md](./docs/CODE_OF_CONDUCT.md)
+- [./docs/SECURITY.md](./docs/SECURITY.md)
 
 ## License
 
-[LICENSE](https://github.com/kyleking/calcipy/LICENSE)
+[LICENSE](https://github.com/KyleKing/calcipy/tree/main/LICENSE)

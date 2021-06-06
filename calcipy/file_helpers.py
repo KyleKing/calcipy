@@ -5,7 +5,7 @@ import shutil
 import string
 import time
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List
 
 import yaml
 from beartype import beartype
@@ -34,27 +34,39 @@ def sanitize_filename(filename: str, repl_char: str = '_', allowed_chars: str = 
     return ''.join((char if char in allowed_chars else repl_char) for char in filename)
 
 
-@beartype
-def _read_copier_answers(path_copier: Optional[Path] = None) -> Any:
-    """Read the copier answer file.
+_COPIER_ANSWERS_NAME = '.copier-answers.yml'
+"""Copier Answer file name."""
 
-    > WARN: requires `PyYAML` to be installed
+_MKDOCS_CONFIG_NAME = 'mkdocs.yml'
+"""Copier Answer file name."""
+
+
+@beartype
+def _read_yaml_file(path_yaml: Path) -> Any:
+    """Attempt to read the specified yaml file. Returns an empty dictionary if not found or a parser error occurs.
+
+    > Note: suppresses all tags in the YAML file
 
     Args:
-        path_copier: optional path to the copier answer file. Defaults to `CWD / .copier-answers.yml`
+        path_yaml: path to the yaml file
 
     Returns:
         dictionary representation of the source file
 
-    Raises:
-        ImportError: if PyYAML is not installed
-
     """
-    path_copier = path_copier or Path.cwd() / '.copier-answers.yml'
+    # TODO: modify so that mkdocs.yml can be read, but Python won't be executed...
+
+    # Based on: https://github.com/yaml/pyyaml/issues/86#issuecomment-380252434
+    yaml.add_multi_constructor('', lambda loader, suffix, node: None)
+    yaml.add_multi_constructor('!', lambda loader, suffix, node: None)
+    yaml.add_multi_constructor('!!', lambda loader, suffix, node: None)
     try:
-        return yaml.safe_load(path_copier.read_text())
+        return yaml.unsafe_load(path_yaml.read_text())
     except (FileNotFoundError, KeyError) as err:  # pragma: no cover
-        logger.warning(f'Unexpected error reading the copier file ({path_copier}): {err}')
+        logger.warning(f'Unexpected error reading the {path_yaml.name} file ({path_yaml}): {err}')
+        return {}
+    except yaml.constructor.ConstructorError:
+        logger.exception('Warning: burying poorly handled yaml error')
         return {}
 
 
@@ -62,8 +74,7 @@ def _read_copier_answers(path_copier: Optional[Path] = None) -> Any:
 def get_doc_dir(path_project: Path) -> Path:
     """Retrieve the documentation directory from teh copier answer file.
 
-    > Default directory is "docs" if not found
-    > WARN: requires `PyYAML` to be installed
+    > Default directory is "docs" if not found. This is the main parent directory (not doc_sub_dir)
 
     Args:
         path_project: Path to the project directory with contains `.copier-answers.yml`
@@ -72,8 +83,8 @@ def get_doc_dir(path_project: Path) -> Path:
         Path: to the source documentation directory
 
     """
-    path_copier = path_project / '.copier-answers.yml'
-    return path_project / _read_copier_answers(path_copier).get('doc_dir', 'docs')
+    path_copier = path_project / _COPIER_ANSWERS_NAME
+    return path_project / _read_yaml_file(path_copier).get('doc_dir', 'docs')
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -124,7 +135,7 @@ def tail_lines(path_file: Path, *, count: int) -> List[str]:
 
         if rem_bytes < step_size:
             fh.seek(0, os.SEEK_SET)
-        return fh.read().decode().split('\n')
+        return [line.rstrip('\r') for line in fh.read().decode().split('\n')]
 
 
 # ----------------------------------------------------------------------------------------------------------------------

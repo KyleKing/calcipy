@@ -69,7 +69,7 @@ def task_test() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run pytest "{DG.test.path_tests}" {DG.test.args_pytest}'),
+        Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" {DG.test.args_pytest}'),
     ])
 
 
@@ -82,7 +82,7 @@ def task_test_all() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run pytest "{DG.test.path_tests}" --ff -vv'),
+        Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" --ff -vv'),
     ])
 
 
@@ -96,7 +96,9 @@ def task_test_marker() -> DoitTask:
         DoitTask: doit task
 
     """
-    task = debug_task([Interactive(f'poetry run pytest "{DG.test.path_tests}" {DG.test.args_pytest} -m "%(marker)s"')])
+    task = debug_task(
+        [Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" {DG.test.args_pytest} -m "%(marker)s"')],
+    )
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
         'help': (
@@ -119,7 +121,7 @@ def task_test_keyword() -> DoitTask:
     """
     return {
         'actions': [
-            Interactive(f'poetry run pytest "{DG.test.path_tests}" {DG.test.args_pytest} -k "%(keyword)s"'),
+            Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" {DG.test.args_pytest} -k "%(keyword)s"'),
         ],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
@@ -145,10 +147,12 @@ def task_coverage() -> DoitTask:
     cov_html = f'--cov-report=html:"{cov_dir}"  --html="{DG.test.path_test_report}" --self-contained-html'
     diff_html = f'--html-report {DG.test.path_diff_test_report}'
     return debug_task([
-        Interactive(f'poetry run pytest "{path_tests}" {DG.test.args_pytest} --cov={DG.meta.pkg_name} {cov_html}'),
-        'poetry run coverage xml',
-        Interactive(f'poetry run diff-cover coverage.xml {DG.test.args_diff} {diff_html}'),
+        Interactive(
+            f'poetry run python -m pytest "{path_tests}" {DG.test.args_pytest} --cov={DG.meta.pkg_name} {cov_html}',
+        ),
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
+        'poetry run python -m coverage xml',
+        Interactive(f'poetry run diff-cover coverage.xml {DG.test.args_diff} {diff_html}'),
     ])
 
 
@@ -213,7 +217,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 
 @beartype
 def task_ptw_not_chrome() -> DoitTask:
-    """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
+    """Run pytest watch for failed first and skip the CHROME marker.
 
     kwargs: `-m 'not CHROME' -vvv`
 
@@ -226,7 +230,7 @@ def task_ptw_not_chrome() -> DoitTask:
 
 @beartype
 def task_ptw_ff() -> DoitTask:
-    """Return doit Interactive `ptw` task to run failed first and skip the CHROME marker.
+    """Run pytest watch for failed first and skip the CHROME marker.
 
     kwargs: `--last-failed --new-first -m 'not CHROME' -vv`
 
@@ -239,7 +243,7 @@ def task_ptw_ff() -> DoitTask:
 
 @beartype
 def task_ptw_current() -> DoitTask:
-    """Return doit Interactive `ptw` task to run only tests tagged with the CURRENT marker.
+    """Run pytest watch for only tests with the CURRENT marker.
 
     kwargs: `-m 'CURRENT' -vv`
 

@@ -554,17 +554,6 @@ pycodestyle = "*"
 six = "*"
 
 [[package]]
-name = "flake8-deprecated"
-version = "1.3"
-description = "Warns about deprecated method calls."
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-flake8 = ">=3.0.0"
-
-[[package]]
 name = "flake8-docstrings"
 version = "1.6.0"
 description = "Extension for flake8 which uses pydocstyle to check docstrings"
@@ -662,17 +651,6 @@ description = "Provides checking for non-existent mock methods"
 category = "main"
 optional = true
 python-versions = "*"
-
-[[package]]
-name = "flake8-mutable"
-version = "1.2.0"
-description = "mutable defaults flake8 extension"
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-flake8 = "*"
 
 [[package]]
 name = "flake8-pep3101"
@@ -877,7 +855,7 @@ requests = "*"
 
 [[package]]
 name = "identify"
-version = "2.2.8"
+version = "2.2.9"
 description = "File identification library for Python"
 category = "main"
 optional = false
@@ -975,6 +953,22 @@ description = "Lightweight pipelining with Python functions"
 category = "main"
 optional = true
 python-versions = ">=3.6"
+
+[[package]]
+name = "licensecheck"
+version = "2021.1.1"
+description = "Output the licenses used by dependencies and check if these are compatible with the project license"
+category = "main"
+optional = true
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+requests = ">=2.24.0,<4"
+requirements-parser = ">=0.2.0,<2"
+tomlkit = ">=0.7.0,<2"
+
+[package.extras]
+full = ["metprint (>=2020.7,<2022)"]
 
 [[package]]
 name = "livereload"
@@ -1126,6 +1120,19 @@ PyYAML = ">=3.10"
 tornado = ">=5.0"
 
 [[package]]
+name = "mkdocs-git-revision-date-plugin"
+version = "0.3.1"
+description = "MkDocs plugin for setting revision date from git per markdown file."
+category = "main"
+optional = true
+python-versions = ">=3.4"
+
+[package.dependencies]
+GitPython = "*"
+jinja2 = "*"
+mkdocs = ">=0.17"
+
+[[package]]
 name = "mkdocs-material"
 version = "7.1.6"
 description = "A Material Design theme for MkDocs"
@@ -1248,7 +1255,7 @@ name = "numpy"
 version = "1.20.3"
 description = "NumPy is the fundamental package for array computing with Python."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [[package]]
@@ -1261,6 +1268,22 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.dependencies]
 pyparsing = ">=2.0.2"
+
+[[package]]
+name = "pandas"
+version = "1.2.4"
+description = "Powerful data structures for data analysis, time series, and statistics"
+category = "main"
+optional = false
+python-versions = ">=3.7.1"
+
+[package.dependencies]
+numpy = ">=1.16.5"
+python-dateutil = ">=2.7.3"
+pytz = ">=2017.3"
+
+[package.extras]
+test = ["pytest (>=5.0.1)", "pytest-xdist", "hypothesis (>=3.58)"]
 
 [[package]]
 name = "pandas-vet"
@@ -1648,6 +1671,14 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 six = ">=1.5"
 
 [[package]]
+name = "pytz"
+version = "2021.1"
+description = "World timezone definitions, modern and historical"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pytzdata"
 version = "2020.1"
 description = "The Olson timezone database for Python."
@@ -1729,6 +1760,14 @@ security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
 socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
+name = "requirements-parser"
+version = "0.2.0"
+description = "Parses Pip requirement files"
+category = "main"
+optional = true
+python-versions = "*"
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -1770,6 +1809,25 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
+
+[[package]]
+name = "sty"
+version = "1.0.0rc1"
+description = "String styling for your terminal"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "tabulate"
+version = "0.8.9"
+description = "Pretty-print tabular data"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+widechars = ["wcwidth"]
 
 [[package]]
 name = "termcolor"
@@ -2008,15 +2066,15 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-dev = ["better-exceptions", "commitizen", "pdbpp", "markdown-include", "mkdocs-material", "pdocs", "pyupgrade"]
-lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "demjson", "diff-cover", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-deprecated", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-mutable", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture", "yamllint"]
+dev = ["better-exceptions", "commitizen", "markdown-include", "mkdocs-git-revision-date-plugin", "mkdocs-material", "pdbpp", "pdocs", "pyupgrade"]
+lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "demjson", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "licensecheck", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture", "yamllint"]
 serializers = ["preconvert", "preconvert_numpy"]
-test = ["lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watch", "pytest"]
+test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watch", "pytest"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "14d5b871e65e3b9f76cb9e6a2c85a15748aff585988c7acd62ed390a86ff2e62"
+content-hash = "05794c2e8d6e0fb3f8bfa070dddcd6ae86e93d4b30ef7cf4340bbcb07aa379f6"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2280,10 +2338,6 @@ flake8-debugger = [
     {file = "flake8-debugger-4.0.0.tar.gz", hash = "sha256:e43dc777f7db1481db473210101ec2df2bd39a45b149d7218a618e954177eda6"},
     {file = "flake8_debugger-4.0.0-py3-none-any.whl", hash = "sha256:82e64faa72e18d1bdd0000407502ebb8ecffa7bc027c62b9d4110ce27c091032"},
 ]
-flake8-deprecated = [
-    {file = "flake8-deprecated-1.3.tar.gz", hash = "sha256:9fa5a0c5c81fb3b34c53a0e4f16cd3f0a3395078cfd4988011cbab5fb0afa7f7"},
-    {file = "flake8_deprecated-1.3-py2.py3-none-any.whl", hash = "sha256:211951854837ced9ec997a75c6e5b957f3536a735538ee0620b76539fd3706cd"},
-]
 flake8-docstrings = [
     {file = "flake8-docstrings-1.6.0.tar.gz", hash = "sha256:9fe7c6a306064af8e62a055c2f61e9eb1da55f84bb39caef2b84ce53708ac34b"},
     {file = "flake8_docstrings-1.6.0-py2.py3-none-any.whl", hash = "sha256:99cac583d6c7e32dd28bbfbef120a7c0d1b6dde4adb5a9fd441c4227a6534bde"},
@@ -2315,10 +2369,6 @@ flake8-markdown = [
 ]
 flake8-mock = [
     {file = "flake8-mock-0.3.tar.gz", hash = "sha256:2fa775e7589f4e1ad74f35d60953eb20937f5d7355235e54bf852c6837f2bede"},
-]
-flake8-mutable = [
-    {file = "flake8-mutable-1.2.0.tar.gz", hash = "sha256:ee9b77111b867d845177bbc289d87d541445ffcc6029a0c5c65865b42b18c6a6"},
-    {file = "flake8_mutable-1.2.0-py2-none-any.whl", hash = "sha256:38fd9dadcbcda6550a916197bc40ed76908119dabb37fbcca30873666c31d2d5"},
 ]
 flake8-pep3101 = [
     {file = "flake8-pep3101-1.3.0.tar.gz", hash = "sha256:86e3eb4e42de8326dcd98ebdeaf9a3c6854203a48f34aeb3e7e8ed948107f512"},
@@ -2390,8 +2440,8 @@ hug = [
     {file = "hug-2.6.1.tar.gz", hash = "sha256:b0edace2acb618873779c9ce6ecf9165db54fef95c22262f5700fcdd9febaec9"},
 ]
 identify = [
-    {file = "identify-2.2.8-py2.py3-none-any.whl", hash = "sha256:3a74cf41f1a0bde21e2f196a1727a608629339d9897226bad07b22e0bbde6faa"},
-    {file = "identify-2.2.8.tar.gz", hash = "sha256:7d4a73d58869a484d4ba8892793c80e30aa699e77707f26c1049486ef9be415f"},
+    {file = "identify-2.2.9-py2.py3-none-any.whl", hash = "sha256:96c57d493184daecc7299acdeef0ad7771c18a59931ea927942df393688fe849"},
+    {file = "identify-2.2.9.tar.gz", hash = "sha256:3a8493cf49cfe4b28d50865e38f942c11be07a7b0aab8e715073e17f145caacc"},
 ]
 idna = [
     {file = "idna-2.10-py2.py3-none-any.whl", hash = "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"},
@@ -2424,6 +2474,10 @@ jinja2-pluralize = [
 joblib = [
     {file = "joblib-1.0.1-py3-none-any.whl", hash = "sha256:feeb1ec69c4d45129954f1b7034954241eedfd6ba39b5e9e4b6883be3332d5e5"},
     {file = "joblib-1.0.1.tar.gz", hash = "sha256:9c17567692206d2f3fb9ecf5e991084254fe631665c450b443761c4186a613f7"},
+]
+licensecheck = [
+    {file = "licensecheck-2021.1.1-py3-none-any.whl", hash = "sha256:95688b02fce91935941a3545709cc79d0d42d7791491509693a82c2ba29d9190"},
+    {file = "licensecheck-2021.1.1.tar.gz", hash = "sha256:f6f687c9b4e0d7d290a0781cab65b728b5ccf4574b1c400cc2fee7203509bd7b"},
 ]
 livereload = [
     {file = "livereload-2.6.3.tar.gz", hash = "sha256:776f2f865e59fde56490a56bcc6773b6917366bce0c267c60ee8aaf1a0959869"},
@@ -2535,6 +2589,10 @@ mccabe = [
 mkdocs = [
     {file = "mkdocs-1.1.2-py3-none-any.whl", hash = "sha256:096f52ff52c02c7e90332d2e53da862fde5c062086e1b5356a6e392d5d60f5e9"},
     {file = "mkdocs-1.1.2.tar.gz", hash = "sha256:f0b61e5402b99d7789efa032c7a74c90a20220a9c81749da06dbfbcbd52ffb39"},
+]
+mkdocs-git-revision-date-plugin = [
+    {file = "mkdocs-git-revision-date-plugin-0.3.1.tar.gz", hash = "sha256:4abaef720763a64c952bed6829dcc180f67c97c60dd73914e90715e05d1cfb23"},
+    {file = "mkdocs_git_revision_date_plugin-0.3.1-py3-none-any.whl", hash = "sha256:8ae50b45eb75d07b150a69726041860801615aae5f4adbd6b1cf4d51abaa03d5"},
 ]
 mkdocs-material = [
     {file = "mkdocs-material-7.1.6.tar.gz", hash = "sha256:b3f1aaea3e79e3c3b30babe0238915cf4ad4c4560d404bb0ac3298ee2ce004a3"},
@@ -2656,6 +2714,24 @@ numpy = [
 packaging = [
     {file = "packaging-20.9-py2.py3-none-any.whl", hash = "sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a"},
     {file = "packaging-20.9.tar.gz", hash = "sha256:5b327ac1320dc863dca72f4514ecc086f31186744b84a230374cc1fd776feae5"},
+]
+pandas = [
+    {file = "pandas-1.2.4-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:c601c6fdebc729df4438ec1f62275d6136a0dd14d332fc0e8ce3f7d2aadb4dd6"},
+    {file = "pandas-1.2.4-cp37-cp37m-manylinux1_i686.whl", hash = "sha256:8d4c74177c26aadcfb4fd1de6c1c43c2bf822b3e0fc7a9b409eeaf84b3e92aaa"},
+    {file = "pandas-1.2.4-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:b730add5267f873b3383c18cac4df2527ac4f0f0eed1c6cf37fcb437e25cf558"},
+    {file = "pandas-1.2.4-cp37-cp37m-win32.whl", hash = "sha256:2cb7e8f4f152f27dc93f30b5c7a98f6c748601ea65da359af734dd0cf3fa733f"},
+    {file = "pandas-1.2.4-cp37-cp37m-win_amd64.whl", hash = "sha256:2111c25e69fa9365ba80bbf4f959400054b2771ac5d041ed19415a8b488dc70a"},
+    {file = "pandas-1.2.4-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:167693a80abc8eb28051fbd184c1b7afd13ce2c727a5af47b048f1ea3afefff4"},
+    {file = "pandas-1.2.4-cp38-cp38-manylinux1_i686.whl", hash = "sha256:612add929bf3ba9d27b436cc8853f5acc337242d6b584203f207e364bb46cb12"},
+    {file = "pandas-1.2.4-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:971e2a414fce20cc5331fe791153513d076814d30a60cd7348466943e6e909e4"},
+    {file = "pandas-1.2.4-cp38-cp38-win32.whl", hash = "sha256:68d7baa80c74aaacbed597265ca2308f017859123231542ff8a5266d489e1858"},
+    {file = "pandas-1.2.4-cp38-cp38-win_amd64.whl", hash = "sha256:bd659c11a4578af740782288cac141a322057a2e36920016e0fc7b25c5a4b686"},
+    {file = "pandas-1.2.4-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:9db70ffa8b280bb4de83f9739d514cd0735825e79eef3a61d312420b9f16b758"},
+    {file = "pandas-1.2.4-cp39-cp39-manylinux1_i686.whl", hash = "sha256:298f0553fd3ba8e002c4070a723a59cdb28eda579f3e243bc2ee397773f5398b"},
+    {file = "pandas-1.2.4-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:52d2472acbb8a56819a87aafdb8b5b6d2b3386e15c95bde56b281882529a7ded"},
+    {file = "pandas-1.2.4-cp39-cp39-win32.whl", hash = "sha256:d0877407359811f7b853b548a614aacd7dea83b0c0c84620a9a643f180060950"},
+    {file = "pandas-1.2.4-cp39-cp39-win_amd64.whl", hash = "sha256:2b063d41803b6a19703b845609c0b700913593de067b552a8b24dd8eeb8c9895"},
+    {file = "pandas-1.2.4.tar.gz", hash = "sha256:649ecab692fade3cbfcf967ff936496b0cfba0af00a55dfaacd82bdda5cb2279"},
 ]
 pandas-vet = [
     {file = "pandas-vet-0.2.2.tar.gz", hash = "sha256:0a316c3edaaa1bcd772bfaea0e8d2b2aa409b740198746a2b60f2007b313f42e"},
@@ -2804,6 +2880,10 @@ python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},
     {file = "python_dateutil-2.8.1-py2.py3-none-any.whl", hash = "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"},
 ]
+pytz = [
+    {file = "pytz-2021.1-py2.py3-none-any.whl", hash = "sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798"},
+    {file = "pytz-2021.1.tar.gz", hash = "sha256:83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da"},
+]
 pytzdata = [
     {file = "pytzdata-2020.1-py2.py3-none-any.whl", hash = "sha256:e1e14750bcf95016381e4d472bad004eef710f2d6417240904070b3d6654485f"},
     {file = "pytzdata-2020.1.tar.gz", hash = "sha256:3efa13b335a00a8de1d345ae41ec78dd11c9f8807f522d39850f2dd828681540"},
@@ -2898,6 +2978,10 @@ requests = [
     {file = "requests-2.25.1-py2.py3-none-any.whl", hash = "sha256:c210084e36a42ae6b9219e00e48287def368a26d03a048ddad7bfee44f75871e"},
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
 ]
+requirements-parser = [
+    {file = "requirements-parser-0.2.0.tar.gz", hash = "sha256:5963ee895c2d05ae9f58d3fc641082fb38021618979d6a152b6b1398bd7d4ed4"},
+    {file = "requirements_parser-0.2.0-py2-none-any.whl", hash = "sha256:76650b4a9d98fc65edf008a7920c076bb2a76c08eaae230ce4cfc6f51ea6a773"},
+]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
@@ -2917,6 +3001,13 @@ sqlparse = [
 stevedore = [
     {file = "stevedore-3.3.0-py3-none-any.whl", hash = "sha256:50d7b78fbaf0d04cd62411188fa7eedcb03eb7f4c4b37005615ceebe582aa82a"},
     {file = "stevedore-3.3.0.tar.gz", hash = "sha256:3a5bbd0652bf552748871eaa73a4a8dc2899786bc497a2aa1fcb4dcdb0debeee"},
+]
+sty = [
+    {file = "sty-1.0.0rc1-py3-none-any.whl", hash = "sha256:52bc299ba08a7e2683ed4500a13222d62811ad616e621c9d3e3da2d8175ae46c"},
+]
+tabulate = [
+    {file = "tabulate-0.8.9-py3-none-any.whl", hash = "sha256:d7c013fe7abbc5e491394e10fa845f8f32fe54f8dc60c6622c6cf482d25d47e4"},
+    {file = "tabulate-0.8.9.tar.gz", hash = "sha256:eb1d13f25760052e8931f2ef80aaf6045a6cceb47514db8beab24cded16f13a7"},
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},

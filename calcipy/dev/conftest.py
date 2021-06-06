@@ -2,13 +2,13 @@
 
 To use the custom markers, create a file `tests/conftest.py` and add this import:
 
-```py
+```python3
 from calcipy.dev.conftest import pytest_configure  # noqa: F401
 ```
 
 For HTML Reports, see: https://pypi.org/project/pytest-html/.
 
-```py
+```python3
 '''Custom PyTest-HTML Report Configuration.'''
 
 from calcipy.dev.conftest import pytest_html_results_table_header  # noqa: F401

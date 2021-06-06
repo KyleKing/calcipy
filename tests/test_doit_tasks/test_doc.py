@@ -4,13 +4,14 @@ import json
 import shutil
 import webbrowser
 from pathlib import Path
+from typing import List
 
 import pytest
 
 from calcipy.doit_tasks.doc import (
-    _format_cov_table, _handle_coverage, _handle_source_file, _move_cl,
-    _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write, task_deploy,
-    task_document, task_open_docs, task_serve_docs, write_autoformatted_md_sections,
+    _format_cov_table, _handle_coverage, _handle_source_file, _is_mkdocs_local,
+    _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write,
+    task_deploy_docs, task_document, task_open_docs, write_autoformatted_md_sections,
 )
 from calcipy.doit_tasks.doit_globals import DG
 
@@ -21,7 +22,7 @@ def test_move_cl():
     """Test _move_cl."""
     path_cl = DG.meta.path_project / 'CHANGELOG.md'
     path_cl.write_text('# CHANGELOG')
-    path_cl_dest = DG.doc.doc_dir / path_cl.name
+    path_cl_dest = DG.doc.doc_sub_dir / path_cl.name
 
     _move_cl()  # act
 
@@ -89,11 +90,11 @@ _COVERAGE_SAMPLE_DATA = {
         },
     },
     'totals': {
-        'covered_lines': 393,
-        'num_statements': 829,
-        'percent_covered': 47.4065138721351,
-        'missing_lines': 436,
-        'excluded_lines': 87,
+        'covered_lines': 51,
+        'num_statements': 97,
+        'percent_covered': 52.57732,
+        'missing_lines': 46,
+        'excluded_lines': 3,
     },
 }
 """Sample coverage data generated with `python -m coverage json`."""
@@ -104,16 +105,16 @@ def test_format_cov_table():
     result = _format_cov_table(_COVERAGE_SAMPLE_DATA)
 
     assert result == [
-        '| File | Statements | Missing | Excluded | Coverage |',
-        '| --: | --: | --: | --: | --: |',
-        '| `calcipy/doit_tasks/base.py` | 22 | 2 | 3 | 90.9% |',
-        '| `calcipy/doit_tasks/code_tag_collector.py` | 75 | 44 | 0 | 41.3% |',
+        '| File                                       |   Statements |   Missing |   Excluded | Coverage   |',
+        '|:-------------------------------------------|-------------:|----------:|-----------:|:-----------|',
+        '| `calcipy/doit_tasks/base.py`               |           22 |         2 |          3 | 90.9%      |',
+        '| `calcipy/doit_tasks/code_tag_collector.py` |           75 |        44 |          0 | 41.3%      |',
+        '| **Totals**                                 |           97 |        46 |          3 | 52.6%      |',
         '',
         'Generated on: 2021-06-03T19:37:11.980123',
     ]
 
 
-@pytest.mark.CURRENT()
 def test_write_autoformatted_md_sections(fix_test_cache):
     """Test write_autoformatted_md_sections."""
     path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
@@ -135,7 +136,7 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     text = path_new_readme.read_text()
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->' not in text
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
-    assert '<!-- {cts} COVERAGE_TEST -->\n| File | Statements | Missing |' in text
+    assert '<!-- {cts} COVERAGE_TEST -->\n| File                                       |' in text
     #
     DG.doc.paths_md = paths_original
     DG.doc.handler_lookup = lookup_original
@@ -155,7 +156,7 @@ def test_parse_var_comment(line, match):
     assert result == match
 
 
-def _star_parser(line: str, path_md: Path) -> str:
+def _star_parser(line: str, path_md: Path) -> List[str]:
     rating = int(_parse_var_comment(line)['rating'])
     return [f'RATING={rating}']
 
@@ -192,27 +193,19 @@ def test_task_document():
     """Test task_document."""
     result = task_document()
 
+    assert _is_mkdocs_local() is False
     actions = result['actions']
-    assert len(actions) == 2
+    assert len(actions) == 3
     assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
-    pytest.skip('TODO: Not yet implementing')
+    assert str(actions[1]).startswith('Cmd: poetry run pdocs as_markdown')
+    assert str(actions[2]).startswith('Cmd: poetry run mkdocs build --site-dir')
 
 
 def test_task_open_docs():
     """Test task_open_docs."""
     result = task_open_docs()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert isinstance(actions[0][0], type(webbrowser.open))
-    assert len(actions[0][1]) == 1
-    assert actions[0][1][0].name == 'index.html'
-
-
-def test_task_serve_docs():
-    """Test task_serve_docs."""
-    result = task_serve_docs()
-
+    assert _is_mkdocs_local() is False
     actions = result['actions']
     assert len(actions) == 2
     assert isinstance(actions[0][0], type(webbrowser.open))
@@ -221,9 +214,9 @@ def test_task_serve_docs():
     assert str(actions[1]).endswith('mkdocs serve --dirtyreload')
 
 
-def test_task_deploy():
-    """Test task_deploy."""
-    result = task_deploy()
+def test_task_deploy_docs():
+    """Test task_deploy_docs."""
+    result = task_deploy_docs()
 
     actions = result['actions']
     assert len(actions) == 1

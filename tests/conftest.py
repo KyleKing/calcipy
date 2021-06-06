@@ -36,7 +36,7 @@ def __temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
 
     > Not currently used because setting `cwd` for a modified version of `_get_all_files` is more robust
 
-    ```py
+    ```python3
     with _temp_chdir(DG.meta.path_project):
         print(f'Current in: {Path.cwd()}')
     ```

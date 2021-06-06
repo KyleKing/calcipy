@@ -31,7 +31,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     Based on the `_serialize_record` method:
     https://github.com/Delgan/loguru/blob/44f6771/loguru/_handler.py#L222
 
-    ```py
+    ```python3
     from calcipy.log_helpers import serializable_compact
 
     logger.add(LOG_DIR / 'pkg-compact-{time}.jsonl', mode='w', level=logging.INFO,
@@ -122,43 +122,17 @@ _LOG_SUB_DIR = '.logs'
 
 
 @beartype
-def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:
-    """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
-
-    ```py
-    # Typical example enabling loguru for a package
-
-    from pathlib import Path
-
-    from loguru import logger
-
-    from calcipy import __pkg_name__
-    from calcipy.log_helpers import build_logger_config
-
-    logger.enable(__pkg_name__)  # This will enable output from calcipy, which is off by default
-    # See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
-
-    path_parent = Path(__file__).resolve().parent
-    log_config = build_logger_config(path_parent, production=False)
-    logger.configure(**log_config)
-    logger.info('Started logging to {path_parent}/.logs with {log_config}', path_parent=path_parent,
-                log_config=log_config)
-    ```
+def _format_jsonl_handler(log_dir: Path, production: bool = True) -> Dict[str, Any]:
+    """Return the JSONL Handler dictionary for loguru.
 
     Args:
-        path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package
+        log_dir: Path to the log directory
         production: if True, will tweak logging configuration for production code. Default is True
 
     Returns:
         Dict[str, Any]: the logger configuration as a dictionary
 
     """
-    if path_parent is None:
-        path_parent = Path(__file__).resolve().parent
-
-    log_dir = path_parent / _LOG_SUB_DIR
-    log_dir.mkdir(exist_ok=True, parents=True)
-    logger.info(f'Started logging to {log_dir} (production={production})')
     log_level = logging.INFO if production else logging.DEBUG
 
     jsonl_handler = {
@@ -183,6 +157,34 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
             },
         ],
     }
+
+
+@beartype
+def build_logger_config(
+    path_parent: Optional[Path] = None,
+    *, format_handler: Callable[[Path, bool], Dict[str, Any]] = _format_jsonl_handler,
+    production: bool = True
+) -> Dict[str, Any]:
+    """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
+
+    > See example use in `activate_debug_logging`
+
+    Args:
+        path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package
+        production: if True, will tweak logging configuration for production code. Default is True
+
+    Returns:
+        Dict[str, Any]: the logger configuration as a dictionary
+
+    """
+    if path_parent is None:
+        path_parent = Path(__file__).resolve().parent
+
+    log_dir = path_parent / _LOG_SUB_DIR
+    log_dir.mkdir(exist_ok=True, parents=True)
+    logger.info(f'Started logging to {log_dir} (production={production})')
+
+    return format_handler(log_dir=log_dir, production=production)
 
 
 @beartype

@@ -6,12 +6,13 @@ import webbrowser
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Pattern
 
+import pandas as pd
 from beartype import beartype
 from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
 
-from ..file_helpers import read_lines
+from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, read_lines
 from .base import debug_task, open_in_browser
 from .doit_globals import DG, DoitTask
 
@@ -30,7 +31,7 @@ def _move_cl() -> None:
     path_cl = DG.meta.path_project / 'CHANGELOG.md'
     if not path_cl.is_file():
         raise FileNotFoundError(f'Could not locate the changelog at: {path_cl}')
-    path_cl.replace(DG.doc.doc_dir / path_cl.name)
+    path_cl.replace(DG.doc.doc_sub_dir / path_cl.name)
 
 
 @beartype
@@ -58,7 +59,7 @@ def task_cl_write() -> DoitTask:
 
 @beartype
 def task_cl_bump() -> DoitTask:
-    """Bumps project version based on project history and settings in pyproject.toml.
+    """Bumps project version based on commits & settings in pyproject.toml.
 
     Returns:
         DoitTask: doit task
@@ -73,7 +74,7 @@ def task_cl_bump() -> DoitTask:
 
 @beartype
 def task_cl_bump_pre() -> DoitTask:
-    """Bump with specified pre-release tag. Creates Changelog.
+    """Bump with specified pre-release tag.
 
     Example: `doit run cl_bump_pre -p alpha` or `doit run cl_bump_pre -p rc`
 
@@ -140,7 +141,7 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
             List[str]: modified list of strings
 
         """
-        lines = []
+        lines: List[str] = []
         if '{cte}' in line and self.state == self.state_auto:  # end
             self.end()
         elif '{cts}' in line:  # start
@@ -237,19 +238,27 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
         List[str]: list of string lines to insert
 
     """
-    legend = ['File', 'Statements', 'Missing', 'Excluded', 'Coverage']
-    int_keys = ['num_statements', 'missing_lines', 'excluded_lines']
-    rows = [legend, ['--:'] * len(legend)]
-    for path_file, file_obj in coverage_data['files'].items():
-        rel_path = Path(path_file).as_posix()  # .resolve().relative_to(DG.meta.path_project)
-        per = round(file_obj['summary']['percent_covered'], 1)
-        rows.append([f'`{rel_path}`'] + [file_obj['summary'][key] for key in int_keys] + [f'{per}%'])
+    col_key_map = {
+        'Statements': 'num_statements',
+        'Missing': 'missing_lines',
+        'Excluded': 'excluded_lines',
+        'Coverage': 'percent_covered',
+    }
+    records = [  # noqa: ECE001
+        {
+            **{'File': f'`{Path(path_file).as_posix()}`'},
+            **{col: file_obj['summary'][key] for col, key in col_key_map.items()},
+        } for path_file, file_obj in coverage_data['files'].items()
+    ]
+    records.append({
+        **{'File': '**Totals**'},
+        **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
+    })
     # Format table for Github Markdown
-    lines_table = [f"| {' | '.join([str(value) for value in row])} |" for row in rows]
+    df_cov = pd.DataFrame(records)
+    df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
+    lines_table = df_cov.to_markdown(index=False).split('\n')  # Note: requires optional "tabulate"
     lines_table.extend(['', f"Generated on: {coverage_data['meta']['timestamp']}"])
-    # TODO: Convert to Pandas for ".to_markdown"
-    #   https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_markdown.html
-    # TODO: Add summary line for total coverage statistics
     return lines_table
 
 
@@ -317,20 +326,30 @@ def task_document() -> DoitTask:
 
     """
     _ensure_handler_lookup()
+    pdoc_out = f'--output_dir {DG.doc.doc_sub_dir.parent}/modules --overwrite'
+    pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
-
-        # FIXME: Next steps to implement the code documentation. Try pdoc and compare against pdocs
-
-        # 'poetry run pdocs as_markdown calcipy --overwrite --template-dir? /path/dir',  # PLANNED: DG.package_name?
-        # Copy all *.md (and */*.md?) files into /docs!
-        # TODO: Remove all extra None ("\nNone\n") and "Module "...
-        #   PLANNED: Consider a different template with different formatting for code and arguments?
-        'poetry run mkdocs build',  # --site-dir DG.doc.path_out
+        Interactive(f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}'),
+        Interactive(f'poetry run mkdocs build --site-dir {DG.doc.path_out}'),
     ])
 
 
-# TODO: Only works for static documentation files (projects could use either mkdocs served or static...)
+def _is_mkdocs_local() -> bool:
+    """Check if mkdocs is configured for local output.
+
+    See notes on local-link configuration here: https://github.com/timothycrosley/portray/issues/65
+
+    Additional information on using local search here: https://github.com/wilhelmer/mkdocs-localsearch
+
+    Returns:
+        bool: True if configured for local file output rather than hosted
+
+    """
+    mkdocs_config = _read_yaml_file(DG.meta.path_project / _MKDOCS_CONFIG_NAME)
+    return mkdocs_config.get('use_directory_urls') is False
+
+
 @beartype
 def task_open_docs() -> DoitTask:
     """Open the documentation files in the default browser.
@@ -339,22 +358,11 @@ def task_open_docs() -> DoitTask:
         DoitTask: doit task
 
     """
-    path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
-    return debug_task([
-        (open_in_browser, (path_doc_index,)),
-    ])
-
-
-@beartype
-def task_serve_docs() -> DoitTask:
-    """Serve the site with `--dirtyreload` and open in a web browser.
-
-    Note: use only for large projects. `poetry run mkdocs serve` is preferred for smaller projects
-
-    Returns:
-        DoitTask: doit task
-
-    """
+    if _is_mkdocs_local():  # pragma: no cover
+        path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
+        return debug_task([
+            (open_in_browser, (path_doc_index,)),
+        ])
     return debug_task([
         (webbrowser.open, ('http://localhost:8000',)),
         Interactive('poetry run mkdocs serve --dirtyreload'),
@@ -362,11 +370,15 @@ def task_serve_docs() -> DoitTask:
 
 
 @beartype
-def task_deploy() -> DoitTask:
-    """Deploy to Github `gh-pages` branch.
+def task_deploy_docs() -> DoitTask:
+    """Deploy docs to the Github `gh-pages` branch.
 
     Returns:
         DoitTask: doit task
 
     """
+    if _is_mkdocs_local():  # pragma: no cover
+        return debug_task([
+            (NotImplementedError, ('Deploy cannot be used with mkdocs built with local-links',)),
+        ])
     return debug_task([Interactive('poetry run mkdocs gh-deploy')])

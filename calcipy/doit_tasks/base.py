@@ -1,6 +1,8 @@
 """General doit Utilities."""
 
+import shutil
 import webbrowser
+from collections import defaultdict
 from pathlib import Path
 from typing import Iterable
 
@@ -8,7 +10,9 @@ from beartype import beartype
 from doit.task import Task
 from loguru import logger
 
-from .doit_globals import DoitAction, DoitTask
+from calcipy.file_helpers import if_found_unlink
+
+from .doit_globals import DG, DoitAction, DoitTask
 
 
 @beartype
@@ -38,11 +42,10 @@ def debug_task(actions: Iterable[DoitAction], verbosity: int = 2) -> DoitTask:
         DoitTask: doit task
 
     """
-    task = {
-        'actions': actions,
-        'title': _show_cmd,
-        'verbosity': verbosity,
-    }
+    task: DoitTask = defaultdict(list)
+    task['actions'] = actions
+    task['title'] = _show_cmd
+    task['verbosity'] = verbosity
     logger.debug('Created task. See extras', task=f'{task}')
     return task
 
@@ -79,3 +82,37 @@ def open_in_browser(path_file: Path) -> None:
 
     """
     webbrowser.open(Path(path_file).as_uri())  # pragma: no cover
+
+
+@beartype
+def _make_archive(path_dir: Path, archive_format: str = 'zip') -> None:
+    """Make archive.
+
+    Args:
+        path_dir: directory to zip
+        archive_format: default is `zip`. See `shutil.make_archive` for supported types
+
+    """
+    shutil.make_archive(path_dir, archive_format, path_dir)
+
+
+@beartype
+def task_zip_release() -> DoitTask:
+    """Zip up important information in the releases directory.
+
+    > WARN: paths must be reflected in AppVeyor.yml to be collected
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    actions = []
+    for path_dir in [DG.test.path_out, DG.doc.path_out]:
+        if path_dir.is_dir():
+            path_zip = path_dir.with_suffix('.zip')
+            actions.extend([
+                (if_found_unlink, (path_zip,)),
+                (_make_archive, (path_dir,)),
+                (echo, (f'Created: {path_zip}',)),
+            ])
+    return debug_task(actions)

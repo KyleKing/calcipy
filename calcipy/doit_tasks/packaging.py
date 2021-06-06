@@ -22,6 +22,39 @@ from .doit_globals import DG, DoitTask
 
 
 @beartype
+def task_check_license() -> DoitTask:
+    """Check licenses for compatibility.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task(['poetry run licensecheck --zero'])
+
+
+@beartype
+def task_lock() -> DoitTask:
+    """Lock dependencies.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    path_req = DG.meta.path_project / 'requirements.txt'
+    # Ensure that extras are exported as well
+    toml_data = toml.loads(DG.meta.path_toml.read_text())
+    extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
+    extras_arg = ' -E '.join([''] + extras) if extras else ''
+    task = debug_task([
+        'poetry lock',
+        f'poetry export -f {path_req.name} -o {path_req.name}{extras_arg} --dev',
+    ])
+    task['file_dep'].append(DG.meta.path_toml)
+    task['targets'].extend([DG.meta.path_project / 'poetry.lock', path_req])
+    return task
+
+
+@beartype
 def _publish_task(publish_args: str = '') -> DoitTask:
     """Create the task with specified options for building and publishing.
 
@@ -32,8 +65,6 @@ def _publish_task(publish_args: str = '') -> DoitTask:
         DoitTask: doit task
 
     """
-    # See guide on publishing
-    #   https://github.com/KyleKing/calcipy/blob/dev/development/docs/DEVELOPER_GUIDE.md#publishing
     return debug_task([
         Interactive('poetry run nox --session build_dist build_check'),
         f'poetry publish {publish_args}',
@@ -69,13 +100,13 @@ def task_publish_test_pypi() -> DoitTask:
 # Check for stale packages
 
 
-def _auto_convert(cls, fields):  # noqa: ANN001, ANN202, CCR001 # type: ignore
+def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
     """Auto convert datetime attributes from string.
 
-    https://www.attrs.org/en/stable/extending.html#automatic-field-transformation-and-modification
+    Based on: https://www.attrs.org/en/stable/extending.html#automatic-field-transformation-and-modification
 
     Args:
-        cls: type?
+        _cls: unused class argument
         fields: `_HostedPythonPackageAttribtues`
 
     Returns:
@@ -88,10 +119,9 @@ def _auto_convert(cls, fields):  # noqa: ANN001, ANN202, CCR001 # type: ignore
             results.append(field)
             continue
 
+        converter: Optional[DateTime] = None
         if field.type in {Optional[DateTime], DateTime, 'datetime'}:
             converter = (lambda d: pendulum.parse(d) if isinstance(d, str) else d)
-        else:
-            converter = None
         results.append(field.evolve(converter=converter))
 
     return results
@@ -254,9 +284,6 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         packages: List of packages
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
-    Raises:
-        RuntimeError: if stale packages were identified
-
     """
     def format_package(pack: _HostedPythonPackage) -> str:
         delta = f'{now.diff(pack.datetime).in_months()} months ago:'
@@ -274,7 +301,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 @beartype
 def find_stale_packages(
     path_lock: Path, path_pack_lock: Path = _PATH_PACK_LOCK,
-    *, stale_months: int = 48
+    *, stale_months: int = 48,
 ) -> None:
     """Read the cached packaging information.
 
@@ -299,7 +326,12 @@ def task_check_for_stale_packages() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task([
-        (find_stale_packages, (DG.meta.path_project / 'poetry.lock',)),
+    path_lock = DG.meta.path_project / 'poetry.lock'
+    path_pack_lock = _PATH_PACK_LOCK
+    task = debug_task([
+        (find_stale_packages, (path_lock, path_pack_lock), {'stale_months': 48}),
         Interactive('poetry run pip list --outdated'),
     ])
+    task['file_dep'].append(path_lock)
+    task['targets'].append(path_pack_lock)
+    return task

@@ -1,5 +1,5 @@
-# Test Project
+# Test Project (test_project)
 
-Test files created with `calcipy_template` for use in testing `calcipy`
+This project is testing the functionality of copier_calcipy
 
 Full documentation, here: [./docs](./docs)

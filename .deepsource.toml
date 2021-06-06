@@ -2,7 +2,7 @@ version = 1
 
 test_patterns = ["tests/**"]
 
-exclude_patterns = ["docs/**"]
+exclude_patterns = ["docs/**", ".test_calcipy_project/**"]
 
 [[analyzers]]
 name = "python"

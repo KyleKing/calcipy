@@ -16,7 +16,9 @@ from calcipy.doit_tasks.packaging import (
 from ..configuration import PATH_TEST_PROJECT
 
 
-class MockLogger:  # noqa: H601
+class MockLogger:  # noqa: H601, D101, D102
+    # FIXME: Replace MockLogger with a more generic alternative. See:
+    #   https://pawamoy.github.io/posts/unify-logging-for-a-gunicorn-uvicorn-app/
 
     logs = defaultdict(list)
 
@@ -107,7 +109,7 @@ version = "1.2.3"
     mock_logger = MockLogger()
     monkeypatch.setattr(loguru.logger, 'warning', mock_logger.warning)
 
-    find_stale_packages(path_lock, path_pack_lock, stale_months=18)
+    find_stale_packages(path_lock, path_pack_lock, stale_months=18)  # act
 
     assert len(mock_logger.logs['warnings']) == 1
     assert re.match(expected_err, mock_logger.logs['warnings'][-1]['message'])
@@ -122,6 +124,8 @@ def test_task_check_for_stale_packages():
     actions = result['actions']
     assert len(actions) == 2
     assert isinstance(actions[0][0], type(find_stale_packages))
-    assert len(actions[0][1]) == 1
+    assert len(actions[0][1]) == 2
     assert actions[0][1][0].name == 'poetry.lock'
+    assert actions[0][1][1].name == _PATH_PACK_LOCK.name
+    assert actions[0][2] == {'stale_months': 48}
     assert 'poetry run pip list --outdated' in str(actions[1])

@@ -15,7 +15,7 @@ from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger
 
-from ..file_helpers import get_doc_dir
+from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, get_doc_dir
 from ..log_helpers import log_fun
 from .file_search import find_project_files, find_project_files_by_suffix
 
@@ -199,8 +199,8 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     path_flake8: Union[Path, str] = Path('.flake8')
     """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
 
-    path_isort: Union[Path, str] = Path('.isort.cfg')
-    """Relative path to the isort configuration file. Default is ".isort.cfg" created by calcipy_template."""
+    path_isort: Union[Path, str] = Path('pyproject.toml')
+    """Relative path to the isort configuration file. Default is "pyproject.toml" created by calcipy_template."""
 
     ignore_errors: List[str] = [
         'AAA01',  # AAA01 / act block in pytest
@@ -282,7 +282,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601
 class CodeTagConfig(_PathAttrBase):  # noqa: H601
     """Code Tag Config."""
 
-    doc_dir: Path = Path('docs')
+    doc_sub_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
 
     code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
@@ -303,7 +303,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         # Configure full path to the code tag summary file
-        self.path_code_tag_summary = self.path_project / self.doc_dir / self.code_tag_summary_filename
+        self.path_code_tag_summary = self.path_project / self.doc_sub_dir / self.code_tag_summary_filename
 
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
@@ -319,14 +319,14 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    doc_dir: Path = Path('docs')
+    doc_sub_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
-
-    path_out: Union[Path, str] = Path('releases/site')
-    """Relative path to the documentation output directory."""
 
     handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
+
+    path_out: Path = attr.ib(init=False)
+    """The documentation output directory. Specified in `mkdocs.yml`."""
 
     paths_md: List[Path] = attr.ib(init=False)
     """Paths to Markdown files used when documenting. Created with `find_project_files_by_suffix`."""
@@ -334,13 +334,15 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
+        mkdocs_config = _read_yaml_file(self.path_project / _MKDOCS_CONFIG_NAME)
+        self.path_out = mkdocs_config.get('site_dir', 'releases/site')
         self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         self.paths_md = DG.meta.paths_by_suffix.get('md', [])
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class DoitGlobals:
+class DoitGlobals:  # noqa: H601
     """Global Variables for doit."""
 
     calcipy_dir: Path = attr.ib(init=False, default=Path(__file__).resolve().parents[1])
@@ -365,7 +367,7 @@ class DoitGlobals:
     def set_paths(
         self, *, path_project: Optional[Path] = None,
     ) -> None:
-        """Set data members based on working directory.
+        """Configure `DoitGlobals` based on project directory.
 
         Args:
             path_project: optional project base directory Path. Defaults to the current working directory
@@ -378,26 +380,49 @@ class DoitGlobals:
         # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
         path_toml = path_project / 'pyproject.toml'
         calcipy_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
+
+        self._set_meta(path_project, calcipy_config)
+        self._set_submodules(calcipy_config)
+
+    def _set_meta(self, path_project: Path, calcipy_config: Dict[str, Any]) -> None:
+        """Initialize the meta submodules.
+
+        Args:
+            path_project: project base directory Path
+            calcipy_config: custom calcipy configuration from toml file
+
+        """
         ignore_patterns = calcipy_config.get('ignore_patterns', [])
-
         self.meta = PackageMeta(path_project=path_project, ignore_patterns=ignore_patterns)
-        meta_kwargs = {'path_project': self.meta.path_project}
 
-        # Parse the Copier file for configuration information
-        doc_dir = get_doc_dir(self.meta.path_project)
-        doc_dir.mkdir(exist_ok=True, parents=True)
+    def _set_submodules(self, calcipy_config: Dict[str, Any]) -> None:
+        """Initialize the rest of the submodules.
 
+        Args:
+            calcipy_config: custom calcipy configuration from toml file
+
+        Raises:
+            RuntimeError: if problems in formatting of the toml file
+
+        """
         # Configure global options
         section_keys = ['lint', 'test', 'code_tag', 'doc']
         supported_keys = section_keys + ['ignore_patterns']
         unexpected_keys = [key for key in calcipy_config if key not in supported_keys]
         if unexpected_keys:
             raise RuntimeError(f'Found unexpected key(s) {unexpected_keys} (i.e. not in {supported_keys})')
+
+        # Parse the Copier file for configuration information
+        doc_sub_dir = get_doc_dir(self.meta.path_project) / 'docs'  # Note: subdirectory is important
+        doc_sub_dir.mkdir(exist_ok=True, parents=True)
+
+        # Configure submodules
+        meta_kwargs = {'path_project': self.meta.path_project}
         lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
-        self.ct = CodeTagConfig(**meta_kwargs, doc_dir=doc_dir, **code_k)  # type: ignore[arg-type]
-        self.doc = DocConfig(**meta_kwargs, doc_dir=doc_dir, **doc_k)  # type: ignore[arg-type]
+        self.ct = CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k)  # type: ignore[arg-type]
+        self.doc = DocConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **doc_k)  # type: ignore[arg-type]
 
 
 DG = DoitGlobals()

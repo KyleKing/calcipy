@@ -10,6 +10,24 @@
 </%def>
 <%def name="h4(s)">#### ${s}
 </%def>
+<%def name="par(s)">
+% if s:
+${s}
+
+% endif
+</%def>
+<%def name="folded_code(source)">
+% if show_source_code and source:
+
+??? example "View Source"
+    ```python3
+    ${"    ".join(source)}
+    ```
+
+% endif
+</%def>
+
+## Define Larger templates
 
 <%def name="function(func, class_level=False)" buffered="True">
     <%
@@ -25,9 +43,13 @@ ${h3(func.name)}
 % endif
 
 ```python3
+%if func.params():
 def ${func.name}(
     ${",\n    ".join(func.params())}
 )${returns}
+% else:
+def ${func.name}()${returns}
+% endif
 ```
 
 % if parsed_ds:
@@ -38,21 +60,16 @@ def ${func.name}(
         ret = parsed_ds.returns
         raises = parsed_ds.raises
     %>
-    % if short_desc:
-${short_desc}
+${par(short_desc)}
+${par(long_desc)}
 
-    % endif
-    % if long_desc:
-${long_desc}
-
-    % endif
     % if params:
 **Parameters:**
 
-| Name | Type | Description | Default |
-|---|---|---|---|
+| Name | Description |
+|---|---|
         % for p in params:
-| ${p.arg_name} | ${p.type_name} | ${p.description} | ${p.default} |
+| ${p.arg_name} | ${p.description} |
         % endfor
     % endif
 
@@ -62,7 +79,7 @@ ${long_desc}
 
 | Type | Description |
 |---|---|
-## TODO: handle multiline descriptions
+## PLANNED: handle multiline descriptions
 | ${ret.type_name} | ${ret.description} |
     % endif
     % if raises:
@@ -72,7 +89,7 @@ ${long_desc}
 | Type | Description |
 |---|---|
         % for r in raises:
-## TODO: handle multiline descriptions
+## PLANNED: handle multiline descriptions
 | ${r.type_name} | ${r.description} |
         % endfor
     % endif
@@ -80,12 +97,7 @@ ${long_desc}
 ${func.docstring}
 % endif
 
-% if show_source_code and func.source:
-
-??? example "View Source"
-        ${"\n        ".join(func.source)}
-
-% endif
+${folded_code(func.source)}
 </%def>
 
 <%def name="variable(var)" buffered="True">
@@ -99,13 +111,8 @@ ${var.name}
         long_desc = var_pd.long_description
 %>
 % if var_pd:
-    % if short_desc:
-${short_desc}
-
-    % endif
-    %if long_desc:
-${long_desc}
-    % endif
+${par(short_desc)}
+${par(long_desc)}
 % else:
 ${var.docstring}
 % endif
@@ -125,24 +132,17 @@ class ${cls.name}(
     % if cls.parsed_docstring.params:
 ${h4("Attributes")}
 
-| Name | Type | Description | Default |
-|---|---|---|---|
+| Name | Description |
+|---|---|
         % for p in cls.parsed_docstring.params:
-| ${p.arg_name} | ${p.type_name} | ${p.description} | ${p.default} |
+| ${p.arg_name} | ${p.description} |
         % endfor
     % endif
 % else:
 ${cls.docstring}
 % endif
 
-% if show_source_code and cls.source:
-
-??? example "View Source"
-        ${"\n        ".join(cls.source)}
-
-------
-
-% endif
+${folded_code(cls.source)}
 
 <%
   class_vars = cls.class_variables()
@@ -206,26 +206,20 @@ ${function(m, True)}
   classes = module.classes()
   functions = module.functions()
   submodules = module.submodules
-  heading = 'Namespace' if module.is_namespace else 'Module'
+  heading = 'Namespace' if module.is_namespace else ''
   parsed_ds = module.parsed_docstring
 %>
 
 ${h1(heading + " " + module.name)}
 % if parsed_ds:
-${parsed_ds.short_description}
-
-${parsed_ds.long_description}
-## TODO: add meta (example and notes)
+${par(parsed_ds.short_description)}
+${par(parsed_ds.long_description)}
+## PLANNED: add meta (example and notes)
 % else:
 ${module.docstring}
 % endif
 
-% if show_source_code and module.source:
-
-??? example "View Source"
-        ${"\n        ".join(module.source)}
-
-% endif
+${folded_code(module.source)}
 
 % if submodules:
 ${h2("Sub-modules")}
