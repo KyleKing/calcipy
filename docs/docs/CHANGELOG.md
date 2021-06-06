@@ -1,5 +1,24 @@
 ## Unreleased
 
+### Fix
+
+- error in noxfile with poetry install
+
+### Refactor
+
+- prevent mutation in DG.set_paths
+
+## 2021.0.3.1 (2021-06-06)
+
+## 2021.0.3.1rc0 (2021-06-06)
+
+### Fix
+
+- install full dev-dep as temporary nox workaround
+- prevent committing changelog at base dir
+
+## 2021.0.3.0 (2021-06-06)
+
 ### Feat
 
 - add task to zip artifacts from testing
@@ -12,6 +31,9 @@
 
 ### Refactor
 
+- see if only one space is okay for skipcq
+- fix anti-pattern with nox session decorator and arg
+- improve code quality
 - try to suppress deepsource errors
 - address DeepSource issues
 - split up set_paths from DG

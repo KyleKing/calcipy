@@ -22,7 +22,8 @@ change_type_order = [
     "Change (Old)",
     "Fix (Old)",
 ]
-version = "0.2.0"
+version = "0.3.2"
+# PLANNED: Pending calver support: https://github.com/commitizen-tools/commitizen/pull/385
 tag_format = "2021.$version"
 version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 
@@ -43,7 +44,7 @@ multi_line_output = 5
 
 [tool.poetry]
 name = "calcipy"
-version = "0.2.0"
+version = "2021.0.3.2"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]

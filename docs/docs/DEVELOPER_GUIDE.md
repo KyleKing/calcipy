@@ -35,10 +35,13 @@ To publish to the real PyPi
 poetry config pypi-token.pypi ...
 poetry run doit run publish
 
-# For a full release, increment the version, the documentation, and publish
+# For a full release, triple check the default tasks, increment the version, rebuild documentation, and publish!
 poetry run doit run --continue
 poetry run doit run cl_bump document deploy_docs publish
-# Note: cl_bump_pre is helpful for pre-releases rather than full increments
+
+# For pre-releases use cl_bump_pre
+poetry run doit run cl_bump_pre -p rc
+poetry run doit run publish
 ```
 
 ## Current Status
@@ -49,12 +52,12 @@ poetry run doit run cl_bump document deploy_docs publish
 | `calcipy/__init__.py`                      |            7 |         0 |          0 | 100.0%     |
 | `calcipy/dev/__init__.py`                  |            0 |         0 |          0 | 100.0%     |
 | `calcipy/dev/conftest.py`                  |           15 |         0 |         22 | 100.0%     |
-| `calcipy/dev/noxfile.py`                   |           16 |         0 |         62 | 100.0%     |
+| `calcipy/dev/noxfile.py`                   |           16 |         0 |         68 | 100.0%     |
 | `calcipy/doit_tasks/__init__.py`           |           13 |         0 |          0 | 100.0%     |
 | `calcipy/doit_tasks/base.py`               |           39 |         7 |          3 | 82.1%      |
 | `calcipy/doit_tasks/code_tag_collector.py` |           75 |         6 |          0 | 92.0%      |
-| `calcipy/doit_tasks/doc.py`                |          123 |         5 |          5 | 95.9%      |
-| `calcipy/doit_tasks/doit_globals.py`       |          158 |         3 |         10 | 98.1%      |
+| `calcipy/doit_tasks/doc.py`                |          126 |         5 |          5 | 96.0%      |
+| `calcipy/doit_tasks/doit_globals.py`       |          162 |         4 |         10 | 97.5%      |
 | `calcipy/doit_tasks/file_search.py`        |           34 |         0 |          2 | 100.0%     |
 | `calcipy/doit_tasks/lint.py`               |           77 |         1 |          0 | 98.7%      |
 | `calcipy/doit_tasks/packaging.py`          |          128 |        12 |          3 | 90.6%      |
@@ -63,7 +66,7 @@ poetry run doit run cl_bump document deploy_docs publish
 | `calcipy/file_helpers.py`                  |           67 |         4 |          3 | 94.0%      |
 | `calcipy/log_helpers.py`                   |           63 |         6 |          2 | 90.5%      |
 | `calcipy/wrappers.py`                      |            6 |         0 |          0 | 100.0%     |
-| **Totals**                                 |          903 |        55 |        152 | 93.9%      |
+| **Totals**                                 |          910 |        56 |        158 | 93.8%      |
 
-Generated on: 2021-06-06T10:32:41.923959
+Generated on: 2021-06-06T16:30:09.233946
 <!-- {cte} -->

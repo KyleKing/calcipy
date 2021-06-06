@@ -92,7 +92,7 @@ class SummaryReporter(ConsoleReporter):  # pragma: no cover # noqa: H601
 
         # Inspired by "nox"
         prefix = 'doit> '
-        self.write(f'{prefix}Summary:\n')
+        self.write(f'\n{prefix}Summary:\n')
         not_run_kwargs = {'exit_code': _TaskExitCode.NOT_RUN}
         for task_name in self._all_tasks:
             task_summary = self._task_summaries.get(task_name, _TaskSummary(name=task_name, **not_run_kwargs))

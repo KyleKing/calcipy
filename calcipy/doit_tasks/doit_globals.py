@@ -363,6 +363,9 @@ class DoitGlobals:  # noqa: H601
     doc: DocConfig = attr.ib(init=False)
     """Documentation Config."""
 
+    _is_set: bool = False
+    """Internal flag to check if already set."""
+
     @log_fun
     def set_paths(
         self, *, path_project: Optional[Path] = None,
@@ -372,7 +375,14 @@ class DoitGlobals:  # noqa: H601
         Args:
             path_project: optional project base directory Path. Defaults to the current working directory
 
+        Raises:
+            RuntimeError: if `set_paths` is called twice. This can cause unexpected behavior, so if
+                absolutely necessary, set `DG._is_set = False`, then try `DG.set_paths()`
+
         """
+        if self._is_set:
+            raise RuntimeError('DoitGlobals has already been configured and cannot be reconfigured')
+
         logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
         path_project = path_project or Path.cwd()
 
@@ -383,6 +393,8 @@ class DoitGlobals:  # noqa: H601
 
         self._set_meta(path_project, calcipy_config)
         self._set_submodules(calcipy_config)
+
+        self._is_set = True
 
     def _set_meta(self, path_project: Path, calcipy_config: Dict[str, Any]) -> None:
         """Initialize the meta submodules.

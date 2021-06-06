@@ -35,7 +35,7 @@ with open(path_stdout, 'w') as out:
 import re
 import shlex
 from pathlib import Path
-from typing import Callable
+from typing import Callable, List
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
@@ -65,6 +65,19 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         """
         cmd_str = re.sub(r'^poetry run ', '', cmd_str)
         session.run(*shlex.split(cmd_str), stdout=True)
+
+    def _install_extras(session: Session, extras: List[str]) -> None:
+        """Install extras.
+
+        Args:
+            session: nox_poetry Session
+            extras: list of extras to install
+
+        """
+        if DG.meta.pkg_name == 'calcipy':
+            session.poetry.installroot(extras=extras)
+        else:  # pragma: no cover
+            session.install('.', f'calcipy[{",".join(extras)}]')
 
     def _run_func_cmd(action: DoitAction) -> None:
         """Run a python action.
@@ -112,7 +125,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        session.install('.[dev]', '.[test]')
+        _install_extras(session, ['dev', 'test'])
         _run_doit_task(session, task_test)
 
     @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
@@ -123,7 +136,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        session.install('.[dev]', '.[test]')
+        _install_extras(session, ['dev', 'test'])
         _run_doit_task(session, task_coverage)
 
     @nox_session(python=[DG.test.pythons[-1]], reuse_venv=False)

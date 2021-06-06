@@ -3,6 +3,7 @@
 import json
 import shutil
 import webbrowser
+from copy import deepcopy
 from pathlib import Path
 from typing import List
 
@@ -46,10 +47,10 @@ def test_task_cl_bump():
     result = task_cl_bump()
 
     actions = result['actions']
-    assert len(actions) == 3
-    assert 'poetry run cz bump --changelog --annotated-tag' in str(actions[0])
+    assert len(actions) == 4
     assert isinstance(actions[1][0], type(_move_cl))
-    assert actions[2] == 'git push origin --tags --no-verify'
+    assert 'poetry run cz bump --annotated-tag' in str(actions[2])
+    assert actions[3] == 'git push origin --tags --no-verify'
 
 
 def test_task_cl_bump_pre():
@@ -57,10 +58,10 @@ def test_task_cl_bump_pre():
     result = task_cl_bump_pre()
 
     actions = result['actions']
-    assert len(actions) == 3
-    assert 'poetry run cz bump --changelog --prerelease' in str(actions[0])
+    assert len(actions) == 4
     assert isinstance(actions[1][0], type(_move_cl))
-    assert actions[2] == 'git push origin --tags --no-verify'
+    assert 'poetry run cz bump --prerelease' in str(actions[2])
+    assert actions[3] == 'git push origin --tags --no-verify'
     params = result['params']
     assert len(params) == 1
     assert params[0]['name'] == 'prerelease'
@@ -123,7 +124,7 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     (DG.meta.path_project / 'coverage.json').write_text(json.dumps(_COVERAGE_SAMPLE_DATA))
     #
     paths_original = DG.doc.paths_md
-    lookup_original = DG.doc.handler_lookup
+    lookup_original = deepcopy(DG.doc.handler_lookup)
     #
     DG.doc.paths_md = [path_new_readme]
     DG.doc.handler_lookup = {
@@ -168,7 +169,7 @@ def test_write_autoformatted_md_sections_custom(fix_test_cache):
     shutil.copyfile(path_md_file, path_new_readme)
     #
     paths_original = DG.doc.paths_md
-    lookup_original = DG.doc.handler_lookup
+    lookup_original = deepcopy(DG.doc.handler_lookup)
     #
     DG.doc.paths_md = [path_new_readme]
     DG.doc.handler_lookup = {
