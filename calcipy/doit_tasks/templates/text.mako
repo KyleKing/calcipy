@@ -27,6 +27,8 @@ ${s}
 % endif
 </%def>
 
+## Define Larger templates
+
 <%def name="function(func, class_level=False)" buffered="True">
     <%
         returns = func.return_annotation()
@@ -64,10 +66,10 @@ ${par(long_desc)}
     % if params:
 **Parameters:**
 
-| Name | Description | Default |
-|---|---|---|
+| Name | Description |
+|---|---|
         % for p in params:
-| ${p.arg_name} | ${p.description} | ${p.default} |
+| ${p.arg_name} | ${p.description} |
         % endfor
     % endif
 
@@ -130,10 +132,10 @@ class ${cls.name}(
     % if cls.parsed_docstring.params:
 ${h4("Attributes")}
 
-| Name | Description | Default |
-|---|---|---|
+| Name | Description |
+|---|---|
         % for p in cls.parsed_docstring.params:
-| ${p.arg_name} | ${p.description} | ${p.default} |
+| ${p.arg_name} | ${p.description} |
         % endfor
     % endif
 % else:

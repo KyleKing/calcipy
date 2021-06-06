@@ -1,9 +1,7 @@
 # TODO
 
-1. Fix pdocs output for type
-2. Fix podcs 4-indented code block errors
-3. Fix deepsource issues
-4. Replace MockLogger
+1. Fix deepsource issues from PR
+1. Replace MockLogger
 
 ## Replace MockLogger with more Generic Intercept Logger
 
