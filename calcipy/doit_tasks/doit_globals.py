@@ -342,7 +342,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class DoitGlobals:
+class DoitGlobals:  # noqa: H601
     """Global Variables for doit."""
 
     calcipy_dir: Path = attr.ib(init=False, default=Path(__file__).resolve().parents[1])
@@ -367,13 +367,10 @@ class DoitGlobals:
     def set_paths(
         self, *, path_project: Optional[Path] = None,
     ) -> None:
-        """Set data members based on working directory.
+        """Configure `DoitGlobals` based on project directory.
 
         Args:
             path_project: optional project base directory Path. Defaults to the current working directory
-
-        Raises:
-            RuntimeError: if problems in formatting of the toml file
 
         """
         logger.info(f'Setting DG path: {path_project}', path_project=path_project, cwd=Path.cwd())
@@ -383,21 +380,44 @@ class DoitGlobals:
         # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
         path_toml = path_project / 'pyproject.toml'
         calcipy_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
+
+        self._set_meta(path_project, calcipy_config)
+        self._set_submodules(calcipy_config)
+
+    def _set_meta(self, path_project: Path, calcipy_config: Dict[str, Any]) -> None:
+        """Initialize the meta submodules.
+
+        Args:
+            path_project: project base directory Path
+            calcipy_config: custom calcipy configuration from toml file
+
+        """
         ignore_patterns = calcipy_config.get('ignore_patterns', [])
-
         self.meta = PackageMeta(path_project=path_project, ignore_patterns=ignore_patterns)
-        meta_kwargs = {'path_project': self.meta.path_project}
 
-        # Parse the Copier file for configuration information
-        doc_sub_dir = get_doc_dir(self.meta.path_project) / 'docs'  # Note: subdirectory is important
-        doc_sub_dir.mkdir(exist_ok=True, parents=True)
+    def _set_submodules(self, calcipy_config: Dict[str, Any]) -> None:
+        """Initialize the rest of the submodules.
 
+        Args:
+            calcipy_config: custom calcipy configuration from toml file
+
+        Raises:
+            RuntimeError: if problems in formatting of the toml file
+
+        """
         # Configure global options
         section_keys = ['lint', 'test', 'code_tag', 'doc']
         supported_keys = section_keys + ['ignore_patterns']
         unexpected_keys = [key for key in calcipy_config if key not in supported_keys]
         if unexpected_keys:
             raise RuntimeError(f'Found unexpected key(s) {unexpected_keys} (i.e. not in {supported_keys})')
+
+        # Parse the Copier file for configuration information
+        doc_sub_dir = get_doc_dir(self.meta.path_project) / 'docs'  # Note: subdirectory is important
+        doc_sub_dir.mkdir(exist_ok=True, parents=True)
+
+        # Configure submodules
+        meta_kwargs = {'path_project': self.meta.path_project}
         lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
