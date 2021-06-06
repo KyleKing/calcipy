@@ -35,10 +35,13 @@ To publish to the real PyPi
 poetry config pypi-token.pypi ...
 poetry run doit run publish
 
-# For a full release, increment the version, the documentation, and publish
+# For a full release, triple check the default tasks, increment the version, rebuild documentation, and publish!
 poetry run doit run --continue
 poetry run doit run cl_bump document deploy_docs publish
-# Note: cl_bump_pre is helpful for pre-releases rather than full increments
+
+# For pre-releases use cl_bump_pre
+poetry run doit run cl_bump_pre -p rc
+poetry run doit run publish
 ```
 
 ## Current Status
