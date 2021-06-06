@@ -47,7 +47,7 @@ from ..file_helpers import if_found_unlink
 
 has_test_imports = False
 try:
-    from nox_poetry import session
+    from nox_poetry import session as nox_session
     from nox_poetry.poetry import DistributionFormat
     from nox_poetry.sessions import Session
     has_test_imports = True
@@ -104,7 +104,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
             else:
                 raise NotImplementedError(f'Unable to run {action} ({type(action)})')
 
-    @session(python=DG.test.pythons, reuse_venv=True)
+    @nox_session(python=DG.test.pythons, reuse_venv=True)
     def tests(session: Session) -> None:
         """Run doit test task for specified python versions.
 
@@ -115,7 +115,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         session.install('.[dev]', '.[test]')
         _run_doit_task(session, task_test)
 
-    @session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
     def coverage(session: Session) -> None:
         """Run doit test task for specified python versions.
 
@@ -126,7 +126,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         session.install('.[dev]', '.[test]')
         _run_doit_task(session, task_coverage)
 
-    @session(python=[DG.test.pythons[-1]], reuse_venv=False)
+    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=False)
     def build_dist(session: Session) -> None:
         """Build the project files within a controlled environment for repeatability.
 
@@ -141,7 +141,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         session.install(path_wheel)
         session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
 
-    @session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
     def build_check(session: Session) -> None:
         """Check that the built output meets all checks.
 
@@ -158,7 +158,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         # PLANNED: Troubleshoot why pyroma score is so low (6/10)
         session.run('pyroma', '--file', path_sdist.as_posix(), '--min=6', stdout=True)
 
-    @session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
     def check_safety(session: Session) -> None:
         """Check for known vulnerabilities with safety.
 
