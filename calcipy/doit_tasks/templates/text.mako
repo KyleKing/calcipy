@@ -64,10 +64,10 @@ ${par(long_desc)}
     % if params:
 **Parameters:**
 
-| Name | Type | Description | Default |
-|---|---|---|---|
+| Name | Description | Default |
+|---|---|---|
         % for p in params:
-| ${p.arg_name} | ${p.type_name} | ${p.description} | ${p.default} |
+| ${p.arg_name} | ${p.description} | ${p.default} |
         % endfor
     % endif
 
@@ -130,10 +130,10 @@ class ${cls.name}(
     % if cls.parsed_docstring.params:
 ${h4("Attributes")}
 
-| Name | Type | Description | Default |
-|---|---|---|---|
+| Name | Description | Default |
+|---|---|---|
         % for p in cls.parsed_docstring.params:
-| ${p.arg_name} | ${p.type_name} | ${p.description} | ${p.default} |
+| ${p.arg_name} | ${p.description} | ${p.default} |
         % endfor
     % endif
 % else:
