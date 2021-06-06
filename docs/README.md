@@ -1,70 +1,58 @@
 # calcipy
 
-![./calcipy.svg](./calcipy.svg)
+![./calcipy.svg](https://raw.githubusercontent.com/KyleKing/calcipy/main/docs/calcipy.svg)
 
 `calcipy` is a Python package that implements best practices such as code style (linting, auto-fixes), documentation, CI/CD, and logging. Like the calcium carbonate in hard coral, packages can be built on the `calcipy` foundation.
 
-`calcipy` has some configurability, but is still very opinionated for my particular use cases. There are a number of alternatives to consider:
+`calcipy` has some configurability, but is tailored for my particular use cases. If you want the same sort of functionality, there are a number of alternatives to consider:
 
 - [tidypy](https://github.com/jayclassless/tidypy#features) offers similar functionality of bundling and running static checkers, but makes far fewer assumptions about the project itself (and has a really nice progress indicator!)
-- [black](https://black.readthedocs.io/en/stable/) is an opinionated, but really popular formatter
 - And many more such as [prospector](https://github.com/PyCQA/prospector), [wemake-python-styleguide](https://github.com/wemake-services/wemake-python-styleguide) / [cjolowicz/cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), etc.
 
-## Installation
+## Calcipy Installation
 
-Create a new project with [kyleking/calcipy_template](https://github.com/KyleKing/calcipy_template/)
+Calcipy needs a few static files managed using copier and a template project: [kyleking/calcipy_template](https://github.com/KyleKing/calcipy_template/)
+
+You can quickly use the template to create a new project or add calcipy to an existing one:
 
 ```sh
-# See above link for latest documentation, but this snippet should work
+# Install copier. Pipx is recommended
 pipx install copier
+
+# To create a new project
 copier copy gh:KyleKing/calcipy_template new_project
 cd new_project
-# Static files can then be kept in sync with "copier update"!
+
+# Or update an existing one
+cd my_project
+copier copy gh:KyleKing/calcipy_template .
 ```
-
-!!! tip
-    Note: If needed, the latest version of calcipy can be installed from git by modifying the `pyproject.toml`:
-
-    ```toml
-    [tool.poetry.dependencies.calcipy]
-    git = "https://github.com/kyleking/calcipy.git"
-    branch = "dev/development"
-    rev = "56802cf"  # Always pin to a commit
-    develop = true  # Optional: will reinstall each time
-
-    [tool.poetry.dev-dependencies.calcipy]
-    git = "https://github.com/kyleking/calcipy.git"
-    branch = "dev/development"
-    extras = [ "dev", "lint", "test",]
-    ```
 
 ## Usage
 
 1. Run `poetry install`
-2. Check that `poetry run doit` works
-3. Run `poetry run doit list` to see available tasks
+2. Run `poetry run doit list` to see available tasks
+3. And try `poetry run doit --continue` to see if the default tasks work
 
-If you have any questions, please [start a Discussion on Github](https://github.com/KyleKing/calcipy/discussions/)
+If you have any questions, please [start a Discussion on Github](https://github.com/KyleKing/calcipy/discussions/) or [open an issue for feature requests or bug reports](https://github.com/KyleKing/calcipy/issues/)
 
 For more examples, see other projects that use `calcipy`:
 
-- [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
 - [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *WIP*
-- [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
+- [KyleKing/recipes](https://github.com/KyleKing/recipes) - *Actively Developer*
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
+- [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
 - See other [projects tagged with the topic "calcipy"](https://github.com/topics/calcipy)
-- Also see: [Scripts](https://github.com/KyleKing/calcipy/tree/main/scripts) or [Tests](https://github.com/KyleKing/calcipy/tree/main/tests)
 
-## Upgrades
+## Updating Calcipy
 
-Review the [./docs/CHANGELOG.md](./docs/CHANGELOG.md) before updating. Calcipy uses semantic versioning so once `^1.0.0`, breaking changes will only occur during major releases; however, while an alpha-release (`0.#.#`), the project may have breaking changes on minor increments until stable.
+Review the [./docs/CHANGELOG.md](./docs/CHANGELOG.md) before updating. Calcipy uses the year followed by standard semantic versioning to indicate major and minor changes. Note that this is a personal project and may change dramatically, but for the most part, the project should be relatively stable
 
 ```sh
-# Update dependencies
-poetry update
-
 # Update files
 copier update
+# and update dependencies
+poetry update
 ```
 
 ## Roadmap
