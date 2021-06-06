@@ -10,6 +10,8 @@ __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
     'TASKS_CI',
     'TASKS_LOCAL',
+    # from .base
+    'task_zip_release',
     # from .code_tag_collector
     'task_collect_code_tags',
     # from .doc
@@ -51,7 +53,8 @@ __all__ = [  # noqa: F405
 
 from getpass import getuser
 
-from .code_tag_collector import task_collect_code_tags
+from .base import task_zip_release  # noqa: F401
+from .code_tag_collector import task_collect_code_tags  # noqa: F401
 from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
 from .packaging import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
