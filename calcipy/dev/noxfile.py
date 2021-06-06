@@ -112,7 +112,9 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        session.install('.[dev]', '.[test]')
+        # PLANNED: See https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855430306
+        # session.poetry.installroot(extras=('dev', 'test'))
+        session.run('poetry', 'install', '--dev', external=True)
         _run_doit_task(session, task_test)
 
     @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
@@ -123,7 +125,9 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        session.install('.[dev]', '.[test]')
+        # PLANNED: See https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855430306
+        # session.poetry.installroot(extras=('dev', 'test'))
+        session.run('poetry', 'install', '--dev', external=True)
         _run_doit_task(session, task_coverage)
 
     @nox_session(python=[DG.test.pythons[-1]], reuse_venv=False)
