@@ -53,7 +53,7 @@ For more examples, see other projects that use `calcipy`:
 - [KyleKing/PiAlarm](https://github.com/KyleKing/PiAlarm) - *On Hold*
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
 - See other [projects tagged with the topic "calcipy"](https://github.com/topics/calcipy)
-- Also see: [Scripts](https://github.com/kyleking/calcipy/scripts) or [Tests](https://github.com/kyleking/calcipy/tests)
+- Also see: [Scripts](https://github.com/KyleKing/calcipy/tree/main/scripts) or [Tests](https://github.com/KyleKing/calcipy/tree/main/tests)
 
 ## Upgrades
 
@@ -85,4 +85,4 @@ See the Developer Guide, Contribution Guidelines, etc
 
 ## License
 
-[LICENSE](https://github.com/kyleking/calcipy/LICENSE)
+[LICENSE](https://github.com/KyleKing/calcipy/tree/main/LICENSE)

@@ -125,25 +125,7 @@ _LOG_SUB_DIR = '.logs'
 def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:
     """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
 
-    ```py
-    # Typical example enabling loguru for a package
-
-    from pathlib import Path
-
-    from loguru import logger
-
-    from calcipy import __pkg_name__
-    from calcipy.log_helpers import build_logger_config
-
-    logger.enable(__pkg_name__)  # This will enable output from calcipy, which is off by default
-    # See an example of toggling loguru at: https://github.com/KyleKing/calcipy/tree/examples/loguru-toggle
-
-    path_parent = Path(__file__).resolve().parent
-    log_config = build_logger_config(path_parent, production=False)
-    logger.configure(**log_config)
-    logger.info('Started logging to {path_parent}/.logs with {log_config}', path_parent=path_parent,
-                log_config=log_config)
-    ```
+    > See example use in `activate_debug_logging`
 
     Args:
         path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package

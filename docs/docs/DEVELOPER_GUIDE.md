@@ -50,8 +50,8 @@ poetry run doit run cl_bump document deploy_docs publish
 | `calcipy/dev/__init__.py`                  |            0 |         0 |          0 | 100.0%     |
 | `calcipy/dev/conftest.py`                  |           15 |         0 |         22 | 100.0%     |
 | `calcipy/dev/noxfile.py`                   |           16 |         0 |         62 | 100.0%     |
-| `calcipy/doit_tasks/__init__.py`           |           12 |         0 |          0 | 100.0%     |
-| `calcipy/doit_tasks/base.py`               |           26 |         0 |          3 | 100.0%     |
+| `calcipy/doit_tasks/__init__.py`           |           13 |         0 |          0 | 100.0%     |
+| `calcipy/doit_tasks/base.py`               |           39 |         7 |          3 | 82.1%      |
 | `calcipy/doit_tasks/code_tag_collector.py` |           75 |         6 |          0 | 92.0%      |
 | `calcipy/doit_tasks/doc.py`                |          123 |         5 |          5 | 95.9%      |
 | `calcipy/doit_tasks/doit_globals.py`       |          154 |         3 |         10 | 98.1%      |
@@ -63,7 +63,7 @@ poetry run doit run cl_bump document deploy_docs publish
 | `calcipy/file_helpers.py`                  |           67 |         3 |          3 | 95.5%      |
 | `calcipy/log_helpers.py`                   |           60 |         6 |          2 | 90.0%      |
 | `calcipy/wrappers.py`                      |            6 |         0 |          0 | 100.0%     |
-| **Totals**                                 |          882 |        47 |        148 | 94.7%      |
+| **Totals**                                 |          896 |        54 |        148 | 94.0%      |
 
-Generated on: 2021-06-05T19:35:30.499329
+Generated on: 2021-06-06T09:02:09.249889
 <!-- {cte} -->

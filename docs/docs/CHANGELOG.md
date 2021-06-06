@@ -1,7 +1,13 @@
 ## Unreleased
 
+### Feat
+
+- add task to zip artifacts from testing
+- implement pandas.to_markdown for cov table
+
 ### Refactor
 
+- fix formatting error from pre-push
 - rename doc_dir to doc_sub_dir for clarity
 - apply 0.0.10 template
 

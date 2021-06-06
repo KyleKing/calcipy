@@ -65,8 +65,6 @@ def _publish_task(publish_args: str = '') -> DoitTask:
         DoitTask: doit task
 
     """
-    # See guide on publishing
-    #   https://github.com/KyleKing/calcipy/blob/dev/development/docs/DEVELOPER_GUIDE.md#publishing
     return debug_task([
         Interactive('poetry run nox --session build_dist build_check'),
         f'poetry publish {publish_args}',
