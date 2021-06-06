@@ -122,25 +122,17 @@ _LOG_SUB_DIR = '.logs'
 
 
 @beartype
-def build_logger_config(path_parent: Optional[Path] = None, *, production: bool = True) -> Dict[str, Any]:
-    """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
-
-    > See example use in `activate_debug_logging`
+def _format_jsonl_handler(log_dir: Path, production: bool = True) -> Dict[str, Any]:
+    """Return the JSONL Handler dictionary for loguru.
 
     Args:
-        path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package
+        log_dir: Path to the log directory
         production: if True, will tweak logging configuration for production code. Default is True
 
     Returns:
         Dict[str, Any]: the logger configuration as a dictionary
 
     """
-    if path_parent is None:
-        path_parent = Path(__file__).resolve().parent
-
-    log_dir = path_parent / _LOG_SUB_DIR
-    log_dir.mkdir(exist_ok=True, parents=True)
-    logger.info(f'Started logging to {log_dir} (production={production})')
     log_level = logging.INFO if production else logging.DEBUG
 
     jsonl_handler = {
@@ -165,6 +157,34 @@ def build_logger_config(path_parent: Optional[Path] = None, *, production: bool 
             },
         ],
     }
+
+
+@beartype
+def build_logger_config(
+    path_parent: Optional[Path] = None,
+    *, format_handler: Callable[[Path, bool], Dict[str, Any]] = _format_jsonl_handler,
+    production: bool = True
+) -> Dict[str, Any]:
+    """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
+
+    > See example use in `activate_debug_logging`
+
+    Args:
+        path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package
+        production: if True, will tweak logging configuration for production code. Default is True
+
+    Returns:
+        Dict[str, Any]: the logger configuration as a dictionary
+
+    """
+    if path_parent is None:
+        path_parent = Path(__file__).resolve().parent
+
+    log_dir = path_parent / _LOG_SUB_DIR
+    log_dir.mkdir(exist_ok=True, parents=True)
+    logger.info(f'Started logging to {log_dir} (production={production})')
+
+    return format_handler(log_dir=log_dir, production=production)
 
 
 @beartype

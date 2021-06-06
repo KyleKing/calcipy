@@ -12,6 +12,7 @@
 
 ### Refactor
 
+- try to suppress deepsource errors
 - address DeepSource issues
 - split up set_paths from DG
 - fix formatting error from pre-push

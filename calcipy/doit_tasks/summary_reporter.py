@@ -50,11 +50,16 @@ def _format_task_summary(task_summary: _TaskSummary) -> str:
 class SummaryReporter(ConsoleReporter):  # pragma: no cover # noqa: H601
     """Summarize results of doit tasks."""
 
+    def __init__(self, *args, **kwargs) -> None:
+        """Initialize data members."""  # noqa: DAR101
+        super().__init__(*args, **kwargs)
+        self._all_tasks = []
+        self._task_summaries = {}
+
     def initialize(self, tasks: OrderedDict[str, Task], selected_tasks: List[str]) -> None:
         """Initialize the data members for tracking task run status."""  # noqa: DAR101
         super().initialize(tasks, selected_tasks)
         self._all_tasks = selected_tasks
-        self._task_summaries = {}
 
     def _add_summary(self, task: Task, exit_code: _TaskExitCode) -> None:
         """Store summary for later reference."""  # noqa: DAR101

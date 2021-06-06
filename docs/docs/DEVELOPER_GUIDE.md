@@ -58,12 +58,12 @@ poetry run doit run cl_bump document deploy_docs publish
 | `calcipy/doit_tasks/file_search.py`        |           34 |         0 |          2 | 100.0%     |
 | `calcipy/doit_tasks/lint.py`               |           77 |         1 |          0 | 98.7%      |
 | `calcipy/doit_tasks/packaging.py`          |          128 |        12 |          3 | 90.6%      |
-| `calcipy/doit_tasks/summary_reporter.py`   |           22 |         0 |         36 | 100.0%     |
+| `calcipy/doit_tasks/summary_reporter.py`   |           22 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`               |           60 |        11 |          0 | 81.7%      |
 | `calcipy/file_helpers.py`                  |           67 |         4 |          3 | 94.0%      |
-| `calcipy/log_helpers.py`                   |           60 |         6 |          2 | 90.0%      |
+| `calcipy/log_helpers.py`                   |           63 |         6 |          2 | 90.5%      |
 | `calcipy/wrappers.py`                      |            6 |         0 |          0 | 100.0%     |
-| **Totals**                                 |          900 |        55 |        148 | 93.9%      |
+| **Totals**                                 |          903 |        55 |        152 | 93.9%      |
 
-Generated on: 2021-06-06T10:11:20.026006
+Generated on: 2021-06-06T10:32:41.923959
 <!-- {cte} -->
