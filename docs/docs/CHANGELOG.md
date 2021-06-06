@@ -1,4 +1,4 @@
-## Unreleased
+## 2021.0.3.0 (2021-06-06)
 
 ### Feat
 
@@ -12,6 +12,9 @@
 
 ### Refactor
 
+- see if only one space is okay for skipcq
+- fix anti-pattern with nox session decorator and arg
+- improve code quality
 - try to suppress deepsource errors
 - address DeepSource issues
 - split up set_paths from DG

@@ -14,7 +14,7 @@ from transitions import Machine
 
 from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, read_lines
 from .base import debug_task, open_in_browser
-from .doit_globals import DG, DoitTask
+from .doit_globals import DG, DoitAction, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -35,7 +35,7 @@ def _move_cl() -> None:
 
 
 @beartype
-def task_cl_write() -> DoitTask:
+def _write_changelog() -> List[DoitAction]:
     """Write a Changelog file with the raw Git history.
 
     Resources:
@@ -48,13 +48,24 @@ def task_cl_write() -> DoitTask:
     - https://calver.org/
 
     Returns:
+        List[DoitAction]: doit actions
+
+    """
+    return [
+        'poetry run cz changelog',
+        (_move_cl, ()),
+    ]
+
+
+@beartype
+def task_cl_write() -> DoitTask:
+    """Task wrapper of `_write_changelog`.
+
+    Returns:
         DoitTask: doit task
 
     """
-    return debug_task([
-        'poetry run cz changelog',
-        (_move_cl, ()),
-    ])
+    return debug_task(_write_changelog())
 
 
 @beartype
@@ -66,8 +77,8 @@ def task_cl_bump() -> DoitTask:
 
     """
     return debug_task([
-        Interactive('poetry run cz bump --changelog --annotated-tag'),
-        (_move_cl, ()),
+        *_write_changelog(),
+        Interactive('poetry run cz bump --annotated-tag'),
         'git push origin --tags --no-verify',
     ])
 
@@ -83,8 +94,8 @@ def task_cl_bump_pre() -> DoitTask:
 
     """
     task = debug_task([
-        Interactive('poetry run cz bump --changelog --prerelease %(prerelease)s'),
-        (_move_cl, ()),
+        *_write_changelog(),
+        Interactive('poetry run cz bump --prerelease %(prerelease)s'),
         'git push origin --tags --no-verify',
     ])
     task['params'] = [{
