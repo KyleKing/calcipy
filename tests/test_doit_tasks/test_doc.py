@@ -3,6 +3,7 @@
 import json
 import shutil
 import webbrowser
+from copy import deepcopy
 from pathlib import Path
 from typing import List
 
@@ -123,7 +124,7 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     (DG.meta.path_project / 'coverage.json').write_text(json.dumps(_COVERAGE_SAMPLE_DATA))
     #
     paths_original = DG.doc.paths_md
-    lookup_original = DG.doc.handler_lookup
+    lookup_original = deepcopy(DG.doc.handler_lookup)
     #
     DG.doc.paths_md = [path_new_readme]
     DG.doc.handler_lookup = {
@@ -168,7 +169,7 @@ def test_write_autoformatted_md_sections_custom(fix_test_cache):
     shutil.copyfile(path_md_file, path_new_readme)
     #
     paths_original = DG.doc.paths_md
-    lookup_original = DG.doc.handler_lookup
+    lookup_original = deepcopy(DG.doc.handler_lookup)
     #
     DG.doc.paths_md = [path_new_readme]
     DG.doc.handler_lookup = {

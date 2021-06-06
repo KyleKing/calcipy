@@ -40,6 +40,7 @@ def clear_test_cache() -> None:
 
 
 # Set the DoitGlobals instance to use the Test Project for all tests
+DG._is_set = False
 DG.set_paths(path_project=PATH_TEST_PROJECT)
 
 
@@ -56,6 +57,8 @@ def _temp_dg(path_project: Path = PATH_TEST_PROJECT) -> Generator[None, None, No
     """
     path_original = DG.meta.path_project
     if path_original != path_project:
+        DG._is_set = False
         DG.set_paths(path_project=path_project)
         yield
+        DG._is_set = False
         DG.set_paths(path_project=path_original)
