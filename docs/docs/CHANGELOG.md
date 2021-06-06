@@ -1,3 +1,15 @@
+## Unreleased
+
+### Fix
+
+- error in noxfile with poetry install
+
+### Refactor
+
+- prevent mutation in DG.set_paths
+
+## 2021.0.3.1 (2021-06-06)
+
 ## 2021.0.3.1rc0 (2021-06-06)
 
 ### Fix
