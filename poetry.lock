@@ -1120,6 +1120,19 @@ PyYAML = ">=3.10"
 tornado = ">=5.0"
 
 [[package]]
+name = "mkdocs-git-revision-date-plugin"
+version = "0.3.1"
+description = "MkDocs plugin for setting revision date from git per markdown file."
+category = "main"
+optional = true
+python-versions = ">=3.4"
+
+[package.dependencies]
+GitPython = "*"
+jinja2 = "*"
+mkdocs = ">=0.17"
+
+[[package]]
 name = "mkdocs-material"
 version = "7.1.6"
 description = "A Material Design theme for MkDocs"
@@ -2053,7 +2066,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-dev = ["better-exceptions", "commitizen", "markdown-include", "mkdocs-material", "pdbpp", "pdocs", "pyupgrade"]
+dev = ["better-exceptions", "commitizen", "markdown-include", "mkdocs-git-revision-date-plugin", "mkdocs-material", "pdbpp", "pdocs", "pyupgrade"]
 lint = ["add-trailing-comma", "autopep8", "cohesion", "darglint", "demjson", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-mock", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "licensecheck", "pandas-vet", "pep8-naming", "proselint", "radon", "vulture", "yamllint"]
 serializers = ["preconvert", "preconvert_numpy"]
 test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watch", "pytest"]
@@ -2061,7 +2074,7 @@ test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cov", "pytest-html",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "c65688e53ca9143a70203ec4d46caaa8b79afb937c284daff3f990c398f15464"
+content-hash = "05794c2e8d6e0fb3f8bfa070dddcd6ae86e93d4b30ef7cf4340bbcb07aa379f6"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2576,6 +2589,10 @@ mccabe = [
 mkdocs = [
     {file = "mkdocs-1.1.2-py3-none-any.whl", hash = "sha256:096f52ff52c02c7e90332d2e53da862fde5c062086e1b5356a6e392d5d60f5e9"},
     {file = "mkdocs-1.1.2.tar.gz", hash = "sha256:f0b61e5402b99d7789efa032c7a74c90a20220a9c81749da06dbfbcbd52ffb39"},
+]
+mkdocs-git-revision-date-plugin = [
+    {file = "mkdocs-git-revision-date-plugin-0.3.1.tar.gz", hash = "sha256:4abaef720763a64c952bed6829dcc180f67c97c60dd73914e90715e05d1cfb23"},
+    {file = "mkdocs_git_revision_date_plugin-0.3.1-py3-none-any.whl", hash = "sha256:8ae50b45eb75d07b150a69726041860801615aae5f4adbd6b1cf4d51abaa03d5"},
 ]
 mkdocs-material = [
     {file = "mkdocs-material-7.1.6.tar.gz", hash = "sha256:b3f1aaea3e79e3c3b30babe0238915cf4ad4c4560d404bb0ac3298ee2ce004a3"},

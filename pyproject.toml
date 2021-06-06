@@ -2,16 +2,6 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.isort]
-balanced_wrapping = true
-default_section = "THIRDPARTY"
-force_grid_wrap = 0
-include_trailing_comma = true
-known_first_party = "calcipy"
-length_sort = false
-line_length = 120
-multi_line_output = 5
-
 [tool.calcipy]
 ignore_patterns = [
     ".test_calcipy_project/*/*/*",
@@ -40,6 +30,16 @@ version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 Chg = "Change (Old)"
 Fix = "Fix (Old)"
 New = "New (Old)"
+
+[tool.isort]
+balanced_wrapping = true
+default_section = "THIRDPARTY"
+force_grid_wrap = 0
+include_trailing_comma = true
+known_first_party = "calcipy"
+length_sort = false
+line_length = 120
+multi_line_output = 5
 
 [tool.poetry]
 name = "calcipy"
@@ -92,8 +92,9 @@ requests = "*" # Should be optional, but needed for packaging tasks
 
 # Development
 better-exceptions = { version = "*", optional = true }
-commitizen = { version = "*", optional = true }
+commitizen = { version = "^2", optional = true }  # Prevent install of 1.X
 markdown-include = { version = "*", optional = true }
+mkdocs-git-revision-date-plugin = { version = "*", optional = true }
 mkdocs-material = { version = "*", optional = true }
 pdbpp = { version = "*", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pdocs = { version = "*", optional = true }
@@ -175,6 +176,7 @@ dev = [
     "better-exceptions",
     "commitizen",
     "markdown-include",
+    "mkdocs-git-revision-date-plugin",
     "mkdocs-material",
     "pdbpp",
     "pdocs",
