@@ -111,8 +111,8 @@ def task_zip_release() -> DoitTask:
         if path_dir.is_dir():
             path_zip = path_dir.with_suffix('.zip')
             actions.extend([
-                (if_found_unlink, (path_zip, )),
-                (_make_archive, (path_dir, )),
-                (echo, (f'Created: {path_zip}', )),
+                (if_found_unlink, (path_zip,)),
+                (_make_archive, (path_dir,)),
+                (echo, (f'Created: {path_zip}',)),
             ])
     return debug_task(actions)
