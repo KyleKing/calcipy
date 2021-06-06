@@ -19,7 +19,7 @@ poetry run doit
 """
 
 from calcipy import __pkg_name__
-from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks). skipcq: PYL-W0614
+from calcipy.doit_tasks import *  # noqa: F401,F403,H303 (Run 'doit list' to see tasks).  # skipcq: PYL-W0614
 from calcipy.doit_tasks import DOIT_CONFIG_RECOMMENDED
 from calcipy.log_helpers import activate_debug_logging
 
