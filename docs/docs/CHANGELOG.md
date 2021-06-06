@@ -5,8 +5,15 @@
 - add task to zip artifacts from testing
 - implement pandas.to_markdown for cov table
 
+### Fix
+
+- remove type_name from docstring for Google-style
+- run pytest as a module for nox
+
 ### Refactor
 
+- address DeepSource issues
+- split up set_paths from DG
 - fix formatting error from pre-push
 - rename doc_dir to doc_sub_dir for clarity
 - apply 0.0.10 template

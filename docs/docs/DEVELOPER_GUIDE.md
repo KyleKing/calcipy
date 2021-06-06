@@ -54,16 +54,16 @@ poetry run doit run cl_bump document deploy_docs publish
 | `calcipy/doit_tasks/base.py`               |           39 |         7 |          3 | 82.1%      |
 | `calcipy/doit_tasks/code_tag_collector.py` |           75 |         6 |          0 | 92.0%      |
 | `calcipy/doit_tasks/doc.py`                |          123 |         5 |          5 | 95.9%      |
-| `calcipy/doit_tasks/doit_globals.py`       |          154 |         3 |         10 | 98.1%      |
+| `calcipy/doit_tasks/doit_globals.py`       |          158 |         3 |         10 | 98.1%      |
 | `calcipy/doit_tasks/file_search.py`        |           34 |         0 |          2 | 100.0%     |
 | `calcipy/doit_tasks/lint.py`               |           77 |         1 |          0 | 98.7%      |
 | `calcipy/doit_tasks/packaging.py`          |          128 |        12 |          3 | 90.6%      |
 | `calcipy/doit_tasks/summary_reporter.py`   |           22 |         0 |         36 | 100.0%     |
 | `calcipy/doit_tasks/test.py`               |           60 |        11 |          0 | 81.7%      |
-| `calcipy/file_helpers.py`                  |           67 |         3 |          3 | 95.5%      |
+| `calcipy/file_helpers.py`                  |           67 |         4 |          3 | 94.0%      |
 | `calcipy/log_helpers.py`                   |           60 |         6 |          2 | 90.0%      |
 | `calcipy/wrappers.py`                      |            6 |         0 |          0 | 100.0%     |
-| **Totals**                                 |          896 |        54 |        148 | 94.0%      |
+| **Totals**                                 |          900 |        55 |        148 | 93.9%      |
 
-Generated on: 2021-06-06T09:02:09.249889
+Generated on: 2021-06-06T10:11:20.026006
 <!-- {cte} -->

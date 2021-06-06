@@ -1,6 +1,5 @@
 # TODO
 
-1. Fix deepsource issues from PR
 1. Replace MockLogger
 
 ## Replace MockLogger with more Generic Intercept Logger
