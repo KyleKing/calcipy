@@ -31,7 +31,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     Based on the `_serialize_record` method:
     https://github.com/Delgan/loguru/blob/44f6771/loguru/_handler.py#L222
 
-    ```py
+    ```python3
     from calcipy.log_helpers import serializable_compact
 
     logger.add(LOG_DIR / 'pkg-compact-{time}.jsonl', mode='w', level=logging.INFO,

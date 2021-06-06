@@ -16,7 +16,7 @@ poetry run nox -k "not tests and not check_safety"
 
 Useful nox snippets
 
-```py
+```python3
 # Example conditionally skipping a session
 if not session.interactive:
     session.skip('Cannot run detect-secrets audit in non-interactive shell')

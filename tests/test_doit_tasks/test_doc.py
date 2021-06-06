@@ -136,7 +136,7 @@ def test_write_autoformatted_md_sections(fix_test_cache):
 
     text = path_new_readme.read_text()
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->' not in text
-    assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
+    assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```python3\n"""PyTest configuration."""\n' in text
     assert '<!-- {cts} COVERAGE_TEST -->\n| File                                       |' in text
     #
     DG.doc.paths_md = paths_original

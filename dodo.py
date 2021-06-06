@@ -1,6 +1,6 @@
 """doit Script.
 
-```sh
+```python3
 # Ensure that packages are installed
 poetry install
 # List Tasks
