@@ -2,6 +2,8 @@
 
 ### Feat
 
+- condense doit output in show_cmd
+- initial semgrep implementation
 - add code diagrams to doc-site
 - add notes on wily and pylint
 - add vulture
@@ -12,6 +14,7 @@
 
 ### Refactor
 
+- apply fixes found from semgrep
 - rename "wrappers" to "dot_dict"
 
 ## 2021.0.3.2 (2021-06-06)

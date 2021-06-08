@@ -54,7 +54,7 @@ poetry run doit run publish
 | `calcipy/dev/conftest.py`                  |           16 |         0 |         23 | 100.0%     |
 | `calcipy/dev/noxfile.py`                   |           16 |         0 |         74 | 100.0%     |
 | `calcipy/doit_tasks/__init__.py`           |           13 |         0 |          0 | 100.0%     |
-| `calcipy/doit_tasks/base.py`               |           39 |         7 |          3 | 82.1%      |
+| `calcipy/doit_tasks/base.py`               |           43 |         7 |          3 | 83.7%      |
 | `calcipy/doit_tasks/code_tag_collector.py` |           75 |         6 |          0 | 92.0%      |
 | `calcipy/doit_tasks/doc.py`                |          132 |         5 |          5 | 96.2%      |
 | `calcipy/doit_tasks/doit_globals.py`       |          163 |         4 |         10 | 97.5%      |
@@ -66,7 +66,7 @@ poetry run doit run publish
 | `calcipy/dot_dict.py`                      |            6 |         0 |          0 | 100.0%     |
 | `calcipy/file_helpers.py`                  |           67 |         3 |          3 | 95.5%      |
 | `calcipy/log_helpers.py`                   |           63 |         6 |          2 | 90.5%      |
-| **Totals**                                 |          928 |        55 |        165 | 94.1%      |
+| **Totals**                                 |          932 |        55 |        165 | 94.1%      |
 
-Generated on: 2021-06-08T09:12:47.465834
+Generated on: 2021-06-08T09:30:05.343684
 <!-- {cte} -->
