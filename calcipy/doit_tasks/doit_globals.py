@@ -134,7 +134,7 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
     path_toml: Path = Path('pyproject.toml')
     """Relative path to the poetry toml file."""
 
-    ignore_patterns: List[str] = []
+    ignore_patterns: List[str] = attr.ib(factory=list)
     """List of glob patterns to ignore from all analysis."""
 
     paths: List[Path] = attr.ib(init=False)
@@ -192,6 +192,24 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         }  # type: ignore[attr-defined]
 
 
+_DEF_IGNORE_LIST = [
+    'AAA01',  # AAA01 / act block in pytest
+    'C901',  # C901 / complexity from "max-complexity = 10"
+    'D417',  # D417 / missing arg descriptors
+    'DAR101', 'DAR201', 'DAR401',  # https://pypi.org/project/darglint/ (Scroll to error codes)
+    'DUO106',  # DUO106 / insecure use of os
+    'E800',  # E800 / Commented out code
+    'G001',  # G001 / logging format for un-indexed parameters
+    'H601',  # H601 / class with low cohesion
+    'P101', 'P103',  # P101,P103 / format string
+    'PD013',
+    'S101',  # S101 / assert
+    'S605', 'S607',  # S605,S607 / os.popen(...)
+    'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
+]
+"""Default list of excluded flake8 rules for the pre-commit check (additional to .flake8)."""
+
+
 @attr.s(auto_attribs=True, kw_only=True)
 class LintConfig(_PathAttrBase):  # noqa: H601
     """Lint Config."""
@@ -202,21 +220,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
     path_isort: Union[Path, str] = Path('pyproject.toml')
     """Relative path to the isort configuration file. Default is "pyproject.toml" created by calcipy_template."""
 
-    ignore_errors: List[str] = [
-        'AAA01',  # AAA01 / act block in pytest
-        'C901',  # C901 / complexity from "max-complexity = 10"
-        'D417',  # D417 / missing arg descriptors
-        'DAR101', 'DAR201', 'DAR401',  # https://pypi.org/project/darglint/ (Scroll to error codes)
-        'DUO106',  # DUO106 / insecure use of os
-        'E800',  # E800 / Commented out code
-        'G001',  # G001 / logging format for un-indexed parameters
-        'H601',  # H601 / class with low cohesion
-        'P101', 'P103',  # P101,P103 / format string
-        'PD013',
-        'S101',  # S101 / assert
-        'S605', 'S607',  # S605,S607 / os.popen(...)
-        'T100', 'T101', 'T103',  # T100,T101,T103 / fixme and todo comments
-    ]
+    ignore_errors: List[str] = attr.ib(factory=lambda: _DEF_IGNORE_LIST)
     """List of additional excluded flake8 rules for the pre-commit check."""
 
     paths_py: List[Path] = attr.ib(init=False)
@@ -234,7 +238,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 class TestingConfig(_PathAttrBase):  # noqa: H601
     """Test Config."""
 
-    pythons: List[str] = ['3.8', '3.9']
+    pythons: List[str] = attr.ib(factory=lambda: ['3.8', '3.9'])
     """Python versions to test against. Default is `['3.8', '3.9']`."""
 
     path_out: Union[Path, str] = Path('releases/tests')
@@ -288,9 +292,11 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
     """Name of the code tag summary file."""
 
-    tags: List[str] = [
-        'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
-    ]
+    tags: List[str] = attr.ib(
+        factory=lambda: [
+            'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
+        ],
+    )
     """List of ordered tag names to match."""
 
     re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'

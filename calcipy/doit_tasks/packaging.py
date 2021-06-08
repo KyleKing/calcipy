@@ -165,7 +165,8 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """
     # Retrieve the JSON summary for the specified package
     json_url = package.domain.format(name=package.name, version=package.version)
-    res = requests.get(json_url)
+    res = requests.get(json_url, timeout=30)
+    res.raise_for_status()
     releases = res.json()['releases']
     package.datetime = pendulum.parse(releases[package.version][0]['upload_time_iso_8601'])
 
