@@ -351,7 +351,7 @@ def _diagram_tasks(pdoc_out_path: Path) -> List[DoitAction]:
 """
     path_diagram = pdoc_out_path / DG.meta.pkg_name / '_code_diagrams.md'
     return [
-        (write_text, (path_diagram, diagram_md, )),
+        (write_text, (path_diagram, diagram_md)),
         Interactive(f'poetry run pyreverse {DG.meta.pkg_name} --output svg --output-directory {path_diagram.parent}'),
     ]
 

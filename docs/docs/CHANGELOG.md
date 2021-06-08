@@ -2,6 +2,7 @@
 
 ### Feat
 
+- add code diagrams to doc-site
 - add notes on wily and pylint
 - add vulture
 - diff-quality (lint)

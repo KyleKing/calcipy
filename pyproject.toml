@@ -7,7 +7,7 @@ ignore_patterns = [
     ".test_calcipy_project/*",
     ".test_calcipy_project/*/*",
     ".test_calcipy_project/*/*/*",
-    "tests/**/cassettes/*.yaml",
+    "tests/**/cassettes/**/*.yaml",
     "tests/data/sample_doc_files/*",
 ]
 
@@ -98,7 +98,7 @@ commitizen = { version = "^2", optional = true }  # Prevent install of 1.X
 markdown-include = { version = "*", optional = true }
 mkdocs-git-revision-date-plugin = { version = "*", optional = true }
 mkdocs-material = { version = "*", optional = true }
-tornado = { version = "*", optional = true }  # PLANNED: Temporary - a plugin expected tornado to be installed...
+livereload = { version = "*", optional = true }  # PLANNED: Temporary - a plugin expected livereload to be installed...
 pdbpp = { version = "*", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pdocs = { version = "*", optional = true }
 pyupgrade = { version = "*", optional = true }
@@ -154,8 +154,10 @@ licensecheck = { version = "*", optional = true }
 pandas-vet = { version = "*", optional = true }
 pep8-naming = { version = "*", optional = true }
 proselint = { version = "*", optional = true }
+pylint = { version = "*", optional = true }
 radon = { version = "*", optional = true }
 vulture = { version = "*", optional = true }
+wily = { version = "*", optional = true }
 yamllint = { version = "*", optional = true }
 
 # Test
@@ -173,22 +175,7 @@ pytest-watch = { version = "*", optional = true }
 cz_legacy = { version = "*", optional = true }
 
 # Serializers
-preconvert = { version = "*", optional = true }
 preconvert_numpy = { version = "*", optional = true }
-
-pylint = "^2.8.3"
-# https://github.com/PyCQA/pylint/issues/4498
-# poetry run pyreverse calcipy --output svg --output_directory=./diagrams?
-# Might be useful?
-# poetry run symilar --ignore-comments --ignore-docstrings --ignore-imports ...files..
-# https://pylint.pycqa.org/en/latest/
-# poetry run pylint calcipt (lots of false positives for line length, but some useful capitalization checks)
-
-wily = "^1.19.0"
-# poetry run wily --help
-# poetry run wily build calcipy
-# poetry run wily report calcipy
-# poetry run wily graph calcipy
 
 [tool.poetry.extras]
 dev = [
@@ -197,7 +184,7 @@ dev = [
     "markdown-include",
     "mkdocs-git-revision-date-plugin",
     "mkdocs-material",
-    "tornado",
+    "livereload",
     "pdbpp",
     "pdocs",
     "pyupgrade",
@@ -252,8 +239,10 @@ lint = [
     "pandas-vet",
     "pep8-naming",
     "proselint",
+    "pylint",
     "radon",
     "vulture",
+    "wily",
     "yamllint",
 ]
 test = [
@@ -269,9 +258,4 @@ test = [
     "pytest",
 ]
 commitizen_legacy = ["cz_legacy"]
-serializers = ["preconvert", "preconvert_numpy"]
-
-[tool.poetry.dev-dependencies]
-# wily = "^1.19.0"
-# mccabe = "^0.6.1"
-# simplesecurity = "^2021.3.1"
+serializers = ["preconvert_numpy"]
