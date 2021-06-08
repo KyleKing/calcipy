@@ -150,15 +150,36 @@ def task_radon_lint() -> DoitTask:
 
     See documentation: https://radon.readthedocs.io/en/latest/intro.html
 
+    PLANNED: Simplify and choose one way of using Radon
+
     Returns:
         DoitTask: doit task
 
     """
     actions: List[DoitAction] = []
-    for args in ['mi', 'cc --total-average -nb', 'hal']:
-        actions.append((echo, (f'# Radon with args: {args}',)))
-        actions.extend([f'poetry run radon {args} "{lint_path}"' for lint_path in DG.lint.paths_py])
+    paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
+    for args in ['mi --show --min B', 'cc --total-average --min B', 'hal', 'raw --summary']:
+        actions.extend([
+            (echo, (f'# Radon with args: {args}',)),
+            # Could also create a file "--json --output-file .radon-{arg}.json" ("arg = args.split(' ')[0]")
+            Interactive(f'poetry run radon {args} {paths}'),
+        ])
     return debug_task(actions)
+
+
+@beartype
+def task_static_checks() -> DoitTask:
+    """General static checkers (Inspection Tiger, etc.).
+
+    FYI: `IT` could be useful to handle deprecation. For now, only run the default checkers: https://pypi.org/project/it
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        Interactive(f'poetry run it {DG.meta.pkg_name} --show-plugins'),
+    ])
 
 
 @beartype

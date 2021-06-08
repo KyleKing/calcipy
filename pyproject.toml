@@ -97,6 +97,7 @@ commitizen = { version = "^2", optional = true }  # Prevent install of 1.X
 markdown-include = { version = "*", optional = true }
 mkdocs-git-revision-date-plugin = { version = "*", optional = true }
 mkdocs-material = { version = "*", optional = true }
+tornado = { version = "*", optional = true }  # PLANNED: Temporary - a plugin expected tornado to be installed...
 pdbpp = { version = "*", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pdocs = { version = "*", optional = true }
 pyupgrade = { version = "*", optional = true }
@@ -180,6 +181,7 @@ dev = [
     "markdown-include",
     "mkdocs-git-revision-date-plugin",
     "mkdocs-material",
+    "tornado",
     "pdbpp",
     "pdocs",
     "pyupgrade",
@@ -256,4 +258,4 @@ serializers = ["preconvert", "preconvert_numpy"]
 # wily = "^1.19.0"
 # mccabe = "^0.6.1"
 # simplesecurity = "^2021.3.1"
-# it = "^1.0.0"
+it = "^1.0.0"

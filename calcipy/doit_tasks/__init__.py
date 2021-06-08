@@ -29,6 +29,7 @@ __all__ = [  # noqa: F405
     'task_pre_commit_hooks',
     'task_radon_lint',
     'task_security_checks',
+    'task_static_checks',
     # from .packaging
     'task_check_for_stale_packages',
     'task_check_license',
