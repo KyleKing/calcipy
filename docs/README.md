@@ -1,6 +1,6 @@
 # calcipy
 
-![./calcipy-banner.svg](https://raw.githubusercontent.com/KyleKing/calcipy/main/docs/calcipy-banner.svg)
+![./calcipy-banner-wide.svg](https://raw.githubusercontent.com/KyleKing/calcipy/main/docs/calcipy-banner-wide.svg)
 
 `calcipy` is a Python package that implements best practices such as code style (linting, auto-fixes), documentation, CI/CD, and logging. Like the calcium carbonate in hard coral, packages can be built on the `calcipy` foundation.
 
@@ -24,7 +24,9 @@
             - Multi-step process that:
                 - Auto-formats custom markdown sections with `cts` and `cte` ("calcipy template start|end") according to the registered handlers (`DG.doc.handler_lookup`). See more in [./Advanced_Configuration.md](./Advanced_Configuration.md)
                 - Generates API documentation based on the docstrings using an improved/customized template (`pdocs`)
+                - Add code diagrams, such as class and package relationship
                 - Creates HTML output (`mkdocs`)
+                - (Use the separate `deploy_)_docs` and `open_docs` tasks accordingly. `mkdocs.yml` is created and maintained by `calcipy_template`, but can be modified as needed)
         - **check_for_stale_packages**: Check for stale packages.
         - **pre_commit_hooks**: Run the pre-commit hooks  on all files.
         - **lint_project**: Lint all project files that can be checked. (py, yaml, json, etc.)
@@ -92,10 +94,12 @@ copier copy gh:KyleKing/calcipy_template .
 
 If you have any questions, please [start a Discussion on Github](https://github.com/KyleKing/calcipy/discussions/) or [open an issue for feature requests or bug reports](https://github.com/KyleKing/calcipy/issues/)
 
-For more examples, see other projects that use `calcipy`:
+See [./Advanced_Configuration.md](./Advanced_Configuration.md) for documentation on the configurable aspects of `calcipy`
 
-- [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *WIP*
-- [KyleKing/recipes](https://github.com/KyleKing/recipes) - *Actively Developer*
+Additionally, for more examples, see other projects that use `calcipy`:
+
+- [KyleKing/dash_charts](https://github.com/KyleKing/dash_charts) - *Active*
+- [KyleKing/recipes](https://github.com/KyleKing/recipes) - *Active*
 - [KyleKing/Goodreads_Library_Availability](https://github.com/KyleKing/Goodreads_Library_Availability) - *On Hold*
 - [KyleKing/cz_legacy](https://github.com/KyleKing/cz_legacy) - *Published*
 - See other [projects tagged with the topic "calcipy"](https://github.com/topics/calcipy)

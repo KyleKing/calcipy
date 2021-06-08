@@ -1,5 +1,14 @@
 """Loguru Helpers."""
 
+# PLANNED: consider a STDOUT format like https://pypi.org/project/readable-log-formatter
+#   COlorful Debug Level / Parent/FileName / Line NUmber
+#       Indented and wrapped summary string
+#       Indented, optional variables (would otherwise not be shown) (i.e. **{name}**: {value})
+#   Note: need to ensure that exception tracebacks are properly handled with a custom format
+#       See: https://github.com/Delgan/loguru/issues/156
+#           And: https://loguru.readthedocs.io/en/stable/api/logger.html#message
+#       Or: https://github.com/Delgan/loguru/issues/133
+
 from __future__ import annotations
 
 import logging

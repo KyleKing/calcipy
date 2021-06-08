@@ -51,22 +51,22 @@ poetry run doit run publish
 |:-------------------------------------------|-------------:|----------:|-----------:|:-----------|
 | `calcipy/__init__.py`                      |            7 |         0 |          0 | 100.0%     |
 | `calcipy/dev/__init__.py`                  |            0 |         0 |          0 | 100.0%     |
-| `calcipy/dev/conftest.py`                  |           15 |         0 |         22 | 100.0%     |
-| `calcipy/dev/noxfile.py`                   |           16 |         0 |         68 | 100.0%     |
+| `calcipy/dev/conftest.py`                  |           16 |         0 |         23 | 100.0%     |
+| `calcipy/dev/noxfile.py`                   |           16 |         0 |         72 | 100.0%     |
 | `calcipy/doit_tasks/__init__.py`           |           13 |         0 |          0 | 100.0%     |
 | `calcipy/doit_tasks/base.py`               |           39 |         7 |          3 | 82.1%      |
 | `calcipy/doit_tasks/code_tag_collector.py` |           75 |         6 |          0 | 92.0%      |
-| `calcipy/doit_tasks/doc.py`                |          126 |         5 |          5 | 96.0%      |
+| `calcipy/doit_tasks/doc.py`                |          131 |         8 |          5 | 93.9%      |
 | `calcipy/doit_tasks/doit_globals.py`       |          162 |         4 |         10 | 97.5%      |
 | `calcipy/doit_tasks/file_search.py`        |           34 |         0 |          2 | 100.0%     |
-| `calcipy/doit_tasks/lint.py`               |           84 |         2 |          0 | 97.6%      |
+| `calcipy/doit_tasks/lint.py`               |           85 |         3 |          0 | 96.5%      |
 | `calcipy/doit_tasks/packaging.py`          |          131 |        12 |          3 | 90.8%      |
 | `calcipy/doit_tasks/summary_reporter.py`   |           22 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`               |           58 |         9 |          0 | 84.5%      |
+| `calcipy/dot_dict.py`                      |            6 |         0 |          0 | 100.0%     |
 | `calcipy/file_helpers.py`                  |           67 |         4 |          3 | 94.0%      |
 | `calcipy/log_helpers.py`                   |           63 |         6 |          2 | 90.5%      |
-| `calcipy/wrappers.py`                      |            6 |         0 |          0 | 100.0%     |
-| **Totals**                                 |          918 |        55 |        158 | 94.0%      |
+| **Totals**                                 |          925 |        59 |        163 | 93.6%      |
 
-Generated on: 2021-06-07T22:23:05.795646
+Generated on: 2021-06-08T07:48:29.583580
 <!-- {cte} -->
