@@ -14,8 +14,8 @@ from pprint import pprint
 from calcipy.dev.conftest import *  # noqa: F401, F403, H303 # skipcq: PYL-W0614
 from calcipy.dev.noxfile import *  # noqa: F401, F403, H303 # skipcq: PYL-W0614
 from calcipy.doit_tasks import *  # noqa: F401, F403, H303 # skipcq: PYL-W0614
+from calcipy.dot_dict import *  # noqa: F401, F403, H303 # skipcq: PYL-W0614
 from calcipy.file_helpers import *  # noqa: F401, F403, H303 # skipcq: PYL-W0614
 from calcipy.log_helpers import *  # noqa: F401, F403, H303 # skipcq: PYL-W0614
-from calcipy.wrappers import *  # noqa: F401, F403, H303 # skipcq: PYL-W0614
 
 pprint(locals())  # noqa: T003

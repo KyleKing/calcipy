@@ -1,8 +1,8 @@
-"""Test wrapper."""
+"""Test dot_dict."""
 
 from datetime import datetime
 
-from calcipy.wrappers import ddict
+from calcipy.dot_dict import ddict
 
 
 def test_ddict():
