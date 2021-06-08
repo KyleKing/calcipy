@@ -185,13 +185,14 @@ def task_open_test_docs() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = [
-        (open_in_browser, (DG.test.path_coverage_index,)),
-        (open_in_browser, (DG.test.path_test_report,)),
+    paths = [
+        DG.test.path_test_report,
+        DG.test.path_diff_test_report,
+        DG.test.path_diff_lint_report,
+        DG.test.path_coverage_index,
+        DG.test.path_mypy_index,
     ]
-    if DG.test.path_mypy_index.is_file():
-        actions.append((open_in_browser, (DG.test.path_mypy_index,)))
-    return debug_task(actions)
+    return debug_task([(open_in_browser, (pth,)) for pth in paths if pth.is_file()])
 
 
 # ----------------------------------------------------------------------------------------------------------------------

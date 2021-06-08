@@ -148,6 +148,7 @@ flake8-tuple = { version = "*", optional = true }
 flake8-variables-names = { version = "*", optional = true }
 hacking = { version = "^4", optional = true } # Version set to prevent oscillation back to 3
 isort = { version = "^5", optional = true } # Use latest isort
+it = { version = "*", optional = true }
 licensecheck = { version = "*", optional = true }
 pandas-vet = { version = "*", optional = true }
 pep8-naming = { version = "*", optional = true }
@@ -231,6 +232,7 @@ lint = [
     "flake8",
     "hacking",
     "isort",
+    "it",
     "licensecheck",
     "pandas-vet",
     "pep8-naming",
@@ -258,4 +260,3 @@ serializers = ["preconvert", "preconvert_numpy"]
 # wily = "^1.19.0"
 # mccabe = "^0.6.1"
 # simplesecurity = "^2021.3.1"
-it = "^1.0.0"

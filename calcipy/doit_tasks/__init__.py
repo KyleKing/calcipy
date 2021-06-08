@@ -78,6 +78,7 @@ TASKS_LOCAL = [
     'check_for_stale_packages',
     'pre_commit_hooks',
     'lint_project',
+    'static_checks',
     'security_checks',
     'check_types',
 ]

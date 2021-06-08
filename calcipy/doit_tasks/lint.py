@@ -76,6 +76,9 @@ def _lint_python(
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
     actions.append(f'{run} flake8 {flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths))
     actions.append((_check_linting_errors, (flake8_log_path, ignore_errors)))
+    diff_compare = '--compare-branch=origin/main'
+    diff_report = f'--html-report {DG.test.path_diff_lint_report}'
+    actions.append(f'poetry run diff-quality --violations=flake8 --fail-under=80 {diff_compare} {diff_report}')
     return actions
 
 
