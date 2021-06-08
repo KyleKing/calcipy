@@ -22,7 +22,7 @@
         - **auto_format**: Format code with isort, autopep8, and others.
         - **document**: Build the HTML documentation.
             - Multi-step process that:
-                - Auto-formats custom markdown sections with `{cts}` / `{cte}` (calcipy template start/end) according to the registered handlers
+                - Auto-formats custom markdown sections with `cts` and `cte` ("calcipy template start|end") according to the registered handlers (`DG.doc.handler_lookup`). See more in [./Advanced_Configuration.md](./Advanced_Configuration.md)
                 - Generates API documentation based on the docstrings using an improved/customized template (`pdocs`)
                 - Creates HTML output (`mkdocs`)
         - **check_for_stale_packages**: Check for stale packages.

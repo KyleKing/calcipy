@@ -74,7 +74,7 @@ def test_task_lint_python():
     assert isinstance(actions[2][0], type(_check_linting_errors))
     assert len(actions[2][1]) == 2
     assert actions[2][1][0].name == 'flake8.log'
-    assert len(actions[2][1][1]) == 0
+    assert actions[2][1][1] == ('T100', 'T101')
 
 
 def test_task_lint_project():

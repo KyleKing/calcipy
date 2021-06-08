@@ -7,6 +7,7 @@ ignore_patterns = [
     ".test_calcipy_project/*",
     ".test_calcipy_project/*/*",
     ".test_calcipy_project/*/*/*",
+    "tests/**/cassettes/*.yaml",
     "tests/data/sample_doc_files/*",
 ]
 

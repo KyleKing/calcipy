@@ -45,16 +45,16 @@ from ..doit_tasks.doit_globals import DG, DoitAction, DoitTask
 from ..doit_tasks.test import task_coverage, task_test
 from ..file_helpers import if_found_unlink
 
-has_test_imports = False
+_HAS_TEST_IMPORTS = False
 try:
     from nox_poetry import session as nox_session
     from nox_poetry.poetry import DistributionFormat
     from nox_poetry.sessions import Session
-    has_test_imports = True
+    _HAS_TEST_IMPORTS = True
 except ImportError:  # pragma: no cover
     pass
 
-if has_test_imports:  # pragma: no cover  # noqa: C901
+if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
     def _run_str_cmd(session: Session, cmd_str: str) -> None:
         """Run a command string. Ensure that poetry is left-stripped.
 
