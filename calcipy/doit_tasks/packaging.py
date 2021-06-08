@@ -240,7 +240,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
         path_pack_lock: Path to the lock file. Default is `_PATH_PACK_LOCK`
 
     """
-    def serialize(inst, field, value):  # noqa: ANN001, ANN201
+    def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
         if isinstance(value, DateTime):
             return value.to_iso8601_string()
         return value

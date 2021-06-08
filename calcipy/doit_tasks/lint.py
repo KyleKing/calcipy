@@ -180,8 +180,10 @@ def task_static_checks() -> DoitTask:
         DoitTask: doit task
 
     """
+    paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
     return debug_task([
         Interactive(f'poetry run it {DG.meta.pkg_name} --show-plugins'),
+        Interactive(f'poetry run vulture {paths} --min-confidence 70 --sort-by-size'),
     ])
 
 
