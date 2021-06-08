@@ -35,7 +35,7 @@ def task_check_license() -> DoitTask:
 
 @beartype
 def task_lock() -> DoitTask:
-    """Lock dependencies.
+    """Ensure poetry.lock and requirements.txt are up-to-date.
 
     Returns:
         DoitTask: doit task

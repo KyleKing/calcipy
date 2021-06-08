@@ -59,7 +59,7 @@ def _write_changelog() -> List[DoitAction]:
 
 @beartype
 def task_cl_write() -> DoitTask:
-    """Task wrapper of `_write_changelog`.
+    """Auto-generate the changelog based on commit history and tags.
 
     Returns:
         DoitTask: doit task

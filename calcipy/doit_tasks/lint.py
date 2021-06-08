@@ -56,14 +56,14 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
 @beartype
 def _lint_python(
     lint_paths: List[Path], path_flake8: Path,
-    ignore_errors: Iterable[str] = (),
+    ignore_errors: Iterable[str] = ('T100', 'T101'),
 ) -> List[DoitAction]:  # FIXME: Docstrings should be reporting an error here for mismatch in types
     """Lint specified files creating summary log file of errors.
 
     Args:
         lint_paths: list of file and directory paths to lint
         path_flake8: path to flake8 configuration file
-        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
+        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is to ignore Code Tags
 
     Returns:
         DoitTask: doit task
@@ -117,7 +117,7 @@ def task_lint_python() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=[])
+    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
     return debug_task(actions)
 
 
@@ -129,7 +129,7 @@ def task_lint_project() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=[])
+    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
     actions.extend(_lint_non_python(strict=True))
     return debug_task(actions)
 
@@ -207,7 +207,7 @@ def task_security_checks() -> DoitTask:
 
 @beartype
 def task_auto_format() -> DoitTask:
-    """Format code with isort and autopep8.
+    """Format code with isort, autopep8, and others.
 
     Other Useful Format Snippets:
 
@@ -238,7 +238,7 @@ def task_auto_format() -> DoitTask:
 
 @beartype
 def task_pre_commit_hooks() -> DoitTask:
-    """Run the [pre-commit hooks](https://pre-commit.com/) on all files.
+    """Run the pre-commit hooks  on all files.
 
     > Note: use `git commit` or `git push` with `--no-verify` if needed
 

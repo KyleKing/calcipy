@@ -15,21 +15,25 @@
     - `poetry run doit --continue`: runs all default tasks. On CI (AppVeyor), this is a shorter list that should PASS, while locally the list is longer that are much more strict for linting and quality analysis
     - (Note that this list may be prone to change - for the latest, run `poetry run doit list`)
     - The local default tasks include:
-        - **collect_code_tags**: Create a summary file with all of the found code tags.
-        - **cl_write**: Task wrapper of `_write_changelog`.
-        - **lock**: Lock dependencies.
-        - **nox_coverage**: Run all nox tests.
-        - **auto_format**: Format code with isort and autopep8.
+        - **collect_code_tags**: Create a summary file with all of the found code tags. (i.e. TODO/FIXME, default output is [./docs/CODE_TAG_SUMMARY.md](./docs/CODE_TAG_SUMMARY.md))
+        - **cl_write**: Auto-generate the changelog based on commit history and tags.
+        - **lock**: Ensure poetry.lock and requirements.txt are up-to-date.
+        - **nox_coverage**: Run the coverage session in nox.
+        - **auto_format**: Format code with isort, autopep8, and others.
         - **document**: Build the HTML documentation.
+            - Multi-step process that:
+                - Auto-formats custom markdown sections with `{cts}` / `{cte}` (calcipy template start/end) according to the registered handlers
+                - Generates API documentation based on the docstrings using an improved/customized template (`pdocs`)
+                - Creates HTML output (`mkdocs`)
         - **check_for_stale_packages**: Check for stale packages.
-        - **pre_commit_hooks**: Run the [pre-commit hooks](https://pre-commit.com/) on all files.
-        - **lint_project**: Lint all project files that can be checked.
+        - **pre_commit_hooks**: Run the pre-commit hooks  on all files.
+        - **lint_project**: Lint all project files that can be checked. (py, yaml, json, etc.)
         - **static_checks**: General static checkers (Inspection Tiger, etc.).
         - **security_checks**: Use linting tools to identify possible security vulnerabilities.
         - **check_types**: Run type annotation checks.
     - Additional tasks that assist with testing:
         - **nox**: Run the full nox test suite.
-        - **nox_test**: Run all nox tests.
+            - **nox_test**: Run the nox tests sessions.
         - **ptw_current**: Run pytest watch for only tests with the CURRENT marker.
             - **ptw_ff**: Run pytest watch for failed first and skip the CHROME marker.
             - **ptw_marker**: Specify a marker to run a subset of tests in Interactive `ptw` task.
@@ -57,7 +61,9 @@
     - `dev/noxfile.py`: nox functions that can be imported and run with or without the associated doit tasks. Also automatically configured when using `calcipy_template`
     - `file_helpers.py`: some nice utilities for working with files, such as `sanitize_filename`, `tail_lines`, `delete_old_files`, etc. See documentation for most up-to-date documentation
     - `log_heleprs.py`: where the most common use will be for `activate_debug_logging` or the more customizable `build_logger_config`
-    - `dot_dict.py`: has one function `ddict`, which is a light-weight wrapper around whatever is the most [maintained dotted-dictionary package in Python](https://pypi.org/search/?q=dot+accessible+dictionary&o=). Dotted dictionaries can sometimes improve code readability, but they aren't a one-size fits all solution. Sometimes `attr.s`, `dataclass`, or even the `namedtuple` are more appropriate. The benefit of this wrapper is that there is a stable interface and you don't need to rewrite code as packages are born and die (i.e. [Bunch](https://pypi.org/project/bunch/) > [Chunk](https://pypi.org/project/chunk/) > [Munch](https://pypi.org/project/munch/) > [flexible-dotdict](https://pypi.org/project/flexible-dotdict/) > ... > [Python-Box](https://pypi.org/project/python-box/) > [classy-json](https://pypi.org/project/classy-json/))
+    - `dot_dict.py`: has one function `ddict`, which is a light-weight wrapper around whatever is the most [maintained dotted-dictionary package in Python](https://pypi.org/search/?q=dot+accessible+dictionary&o=). Dotted dictionaries can sometimes improve code readability, but they aren't a one-size fits all solution. Sometimes `attr.s` or `dataclass` are more appropriate.
+        - The benefit of this wrapper is that there is a stable interface and you don't need to rewrite code as packages are born and die (i.e. [Bunch](https://pypi.org/project/bunch/) > [Chunk](https://pypi.org/project/chunk/) > [Munch](https://pypi.org/project/munch/) > [flexible-dotdict](https://pypi.org/project/flexible-dotdict/) > [Python-Box](https://pypi.org/project/python-box/) > ...)
+        - Note: if you need nested dotted dictionaries, check out [classy-json](https://pypi.org/project/classy-json/)
 
 ## Calcipy Installation
 

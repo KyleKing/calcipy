@@ -27,20 +27,20 @@ def task_nox() -> DoitTask:
 
 @beartype
 def task_nox_test() -> DoitTask:
-    """Run all nox tests.
+    """Run the nox tests sessions.
 
     Returns:
         DoitTask: doit task
 
     """
     return debug_task([
-        Interactive('poetry run nox --session tests build_check'),
+        Interactive('poetry run nox --session tests'),
     ])
 
 
 @beartype
 def task_nox_coverage() -> DoitTask:
-    """Run all nox tests.
+    """Run the coverage session in nox.
 
     Returns:
         DoitTask: doit task

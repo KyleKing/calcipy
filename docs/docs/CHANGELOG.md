@@ -2,8 +2,16 @@
 
 ### Feat
 
+- add notes on wily and pylint
+- add vulture
+- diff-quality (lint)
+- add it
 - add output if no stale packages found
 - add autoflake
+
+### Refactor
+
+- rename "wrappers" to "dot_dict"
 
 ## 2021.0.3.2 (2021-06-06)
 

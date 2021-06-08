@@ -163,7 +163,7 @@ def _format_jsonl_handler(log_dir: Path, production: bool = True) -> Dict[str, A
 def build_logger_config(
     path_parent: Optional[Path] = None,
     *, format_handler: Callable[[Path, bool], Dict[str, Any]] = _format_jsonl_handler,
-    production: bool = True
+    production: bool = True,
 ) -> Dict[str, Any]:
     """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
 
@@ -171,7 +171,8 @@ def build_logger_config(
 
     Args:
         path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package
-        production: if True, will tweak logging configuration for production code. Default is True
+        format_handler: function that will generate the loguru handler dictionary. Default is `_format_jsonl_handler`
+        production: if True, will tweak logging configuration for production code. Default is `True`
 
     Returns:
         Dict[str, Any]: the logger configuration as a dictionary
