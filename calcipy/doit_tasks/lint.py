@@ -194,8 +194,10 @@ def task_auto_format() -> DoitTask:
 
     """
     run = 'poetry run python -m'
-    autoflake_args = ('--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
-                      ' --remove-duplicate-keys')
+    autoflake_args = (
+        '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
+        ' --remove-duplicate-keys'
+    )
     paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths_py)
     return debug_task([
         f'{run} autoflake {paths} {autoflake_args}',

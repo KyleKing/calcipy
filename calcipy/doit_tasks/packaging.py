@@ -1,11 +1,11 @@
 """doit Packaging Utilities."""
 
-import numpy as np
 import json
 from pathlib import Path
 from typing import Dict, List, Optional
 
 import attr
+import numpy as np
 import pendulum
 import requests
 import toml

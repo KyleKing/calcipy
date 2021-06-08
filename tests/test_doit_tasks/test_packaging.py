@@ -9,7 +9,7 @@ import pendulum
 import pytest
 
 from calcipy.doit_tasks.packaging import (
-    _PATH_PACK_LOCK, _get_release_date, _HostedPythonPackage, _read_packages,
+    _PATH_PACK_LOCK, _check_for_stale_packages, _get_release_date, _HostedPythonPackage, _read_packages,
     find_stale_packages, task_check_for_stale_packages, task_publish, task_publish_test_pypi,
 )
 
@@ -115,6 +115,24 @@ version = "1.2.3"
     assert re.match(expected_err, mock_logger.logs['warnings'][-1]['message'])
     assert mock_logger.logs['warnings'][-1]['kwargs'] == {}
     assert [*json.loads(path_pack_lock.read_text()).keys()] == ['twine', 'z_package']
+
+
+def test_check_for_stale_packages():
+    """Test check_for_stale_packages."""
+    packages = [
+        _HostedPythonPackage(
+            name='twine',
+            datetime=pendulum.now(), version='1.11.0rc1',
+            latest_datetime=pendulum.now(), latest_version='1.11.0rc1',
+        ),
+    ]
+
+    result = _check_for_stale_packages(packages, stale_months=1)
+
+    # TODO: Capture logging output and check...
+    assert result is None
+    # Also check if not stale
+    assert _check_for_stale_packages(packages, stale_months=999) is None
 
 
 def test_task_check_for_stale_packages():

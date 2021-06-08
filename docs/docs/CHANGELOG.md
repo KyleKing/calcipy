@@ -1,5 +1,12 @@
 ## Unreleased
 
+### Feat
+
+- add output if no stale packages found
+- add autoflake
+
+## 2021.0.3.2 (2021-06-06)
+
 ### Fix
 
 - error in noxfile with poetry install
