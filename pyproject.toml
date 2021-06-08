@@ -175,6 +175,20 @@ cz_legacy = { version = "*", optional = true }
 preconvert = { version = "*", optional = true }
 preconvert_numpy = { version = "*", optional = true }
 
+pylint = "^2.8.3"
+# https://github.com/PyCQA/pylint/issues/4498
+# poetry run pyreverse calcipy --output svg --output_directory=./diagrams?
+# Might be useful?
+# poetry run symilar --ignore-comments --ignore-docstrings --ignore-imports ...files..
+# https://pylint.pycqa.org/en/latest/
+# poetry run pylint calcipt (lots of false positives for line length, but some useful capitalization checks)
+
+wily = "^1.19.0"
+# poetry run wily --help
+# poetry run wily build calcipy
+# poetry run wily report calcipy
+# poetry run wily graph calcipy
+
 [tool.poetry.extras]
 dev = [
     "better-exceptions",
