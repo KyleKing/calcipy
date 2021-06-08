@@ -21,12 +21,12 @@ def test_lint_python():
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
 
-    assert len(result) == 3
+    assert len(result) == 4
     assert isinstance(result[0][0], type(if_found_unlink))
     assert result[0][1][0].name == 'flake8.log'
     assert result[1].startswith('poetry run python -m flake8 --config')
     assert 'test_file.py' in result[1]
-    assert isinstance(result[-1][0], type(_check_linting_errors))
+    assert isinstance(result[2][0], type(_check_linting_errors))
 
 
 FLAKE8_LOG = """doit_project/test_file.py:3:1: F401 'doit' imported but unused
@@ -63,7 +63,7 @@ def test_task_lint_python():
     result = task_lint_python()
 
     actions = result['actions']
-    assert len(actions) == 3
+    assert len(actions) == 4
     assert isinstance(actions[0][0], type(if_found_unlink))
     assert len(actions[0][1]) == 1
     assert actions[0][1][0].name == 'flake8.log'
@@ -71,10 +71,10 @@ def test_task_lint_python():
     assert 'dodo.py" ' in actions[1]
     assert '.flake8 ' in actions[1]
     assert 'flake8.log ' in actions[1]
-    assert isinstance(actions[-1][0], type(_check_linting_errors))
-    assert len(actions[-1][1]) == 2
-    assert actions[-1][1][0].name == 'flake8.log'
-    assert len(actions[-1][1][1]) == 0
+    assert isinstance(actions[2][0], type(_check_linting_errors))
+    assert len(actions[2][1]) == 2
+    assert actions[2][1][0].name == 'flake8.log'
+    assert actions[2][1][1] == ('T100', 'T101')
 
 
 def test_task_lint_project():
@@ -82,9 +82,9 @@ def test_task_lint_project():
     result = task_lint_project()
 
     actions = result['actions']
-    assert len(actions) == 5
-    assert 'poetry run yamllint --strict "' in str(actions[3])
-    assert 'poetry run jsonlint --strict "' in str(actions[4])
+    assert len(actions) == 6
+    assert 'poetry run yamllint --strict "' in str(actions[4])
+    assert 'poetry run jsonlint --strict "' in str(actions[5])
 
 
 def test_task_lint_critical_only():
@@ -92,15 +92,15 @@ def test_task_lint_critical_only():
     result = task_lint_critical_only()
 
     actions = result['actions']
-    assert len(actions) == 5
+    assert len(actions) == 6
     assert 'T100' not in actions[1]
     assert isinstance(actions[2][0], type(_check_linting_errors))
     assert len(actions[2][1]) == 2
     assert actions[2][1][0].name == 'flake8.log'
     assert actions[2][1][1] == ['T100', 'T101', 'T103']  # Read from toml
     assert 'T100' in actions[2][1][1]
-    assert 'poetry run yamllint  "' in str(actions[3])
-    assert 'poetry run jsonlint  "' in str(actions[4])
+    assert 'poetry run yamllint  "' in str(actions[4])
+    assert 'poetry run jsonlint  "' in str(actions[5])
 
 
 def test_task_radon_lint():
@@ -108,13 +108,12 @@ def test_task_radon_lint():
     result = task_radon_lint()
 
     actions = result['actions']
-    count = len(DG.lint.paths_py)
-    assert len(actions) == 3 * (1 + count)
+    assert len(actions) == 8
     for action in actions:
         if isinstance(action, tuple):
             assert isinstance(action[0], type(echo))
         else:
-            assert action.startswith('poetry run radon ')
+            assert str(action).startswith('Cmd: poetry run radon ')
 
 
 def test_task_auto_format():
@@ -122,9 +121,10 @@ def test_task_auto_format():
     result = task_auto_format()
 
     actions = result['actions']
-    assert len(actions) == 2
-    assert ' autopep8 ' in actions[0]
-    assert ' isort ' in actions[1]
+    assert len(actions) == 3
+    assert '-m autoflake ' in actions[0]
+    assert '-m autopep8 ' in actions[1]
+    assert '-m isort ' in actions[2]
 
 
 def test_task_pre_commit_hooks():

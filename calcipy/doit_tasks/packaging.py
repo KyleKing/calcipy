@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import attr
+import numpy as np
 import pendulum
 import requests
 import toml
@@ -34,7 +35,7 @@ def task_check_license() -> DoitTask:
 
 @beartype
 def task_lock() -> DoitTask:
-    """Lock dependencies.
+    """Ensure poetry.lock and requirements.txt are up-to-date.
 
     Returns:
         DoitTask: doit task
@@ -164,7 +165,8 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """
     # Retrieve the JSON summary for the specified package
     json_url = package.domain.format(name=package.name, version=package.version)
-    res = requests.get(json_url)
+    res = requests.get(json_url, timeout=30)
+    res.raise_for_status()
     releases = res.json()['releases']
     package.datetime = pendulum.parse(releases[package.version][0]['upload_time_iso_8601'])
 
@@ -239,7 +241,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
         path_pack_lock: Path to the lock file. Default is `_PATH_PACK_LOCK`
 
     """
-    def serialize(inst, field, value):  # noqa: ANN001, ANN201
+    def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
         if isinstance(value, DateTime):
             return value.to_iso8601_string()
         return value
@@ -296,6 +298,9 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
     if stale_packages:
         stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
         logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}\n\n')
+    else:
+        max_months = np.amax([now.diff(pack.datetime).in_months() for pack in packages])
+        logger.warning(f'The oldest package was released {max_months} months ago (stale is >{stale_months} months)\n')
 
 
 @beartype

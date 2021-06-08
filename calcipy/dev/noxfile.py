@@ -45,16 +45,16 @@ from ..doit_tasks.doit_globals import DG, DoitAction, DoitTask
 from ..doit_tasks.test import task_coverage, task_test
 from ..file_helpers import if_found_unlink
 
-has_test_imports = False
+_HAS_TEST_IMPORTS = False
 try:
     from nox_poetry import session as nox_session
     from nox_poetry.poetry import DistributionFormat
     from nox_poetry.sessions import Session
-    has_test_imports = True
+    _HAS_TEST_IMPORTS = True
 except ImportError:  # pragma: no cover
     pass
 
-if has_test_imports:  # pragma: no cover  # noqa: C901
+if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
     def _run_str_cmd(session: Session, cmd_str: str) -> None:
         """Run a command string. Ensure that poetry is left-stripped.
 
@@ -128,7 +128,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         _install_extras(session, ['dev', 'test'])
         _run_doit_task(session, task_test)
 
-    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
     def coverage(session: Session) -> None:
         """Run doit test task for specified python versions.
 
@@ -139,7 +139,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         _install_extras(session, ['dev', 'test'])
         _run_doit_task(session, task_coverage)
 
-    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=False)
+    @nox_session(python=DG.test.pythons[-1:], reuse_venv=False)
     def build_dist(session: Session) -> None:
         """Build the project files within a controlled environment for repeatability.
 
@@ -154,7 +154,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         session.install(path_wheel)
         session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
 
-    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
     def build_check(session: Session) -> None:
         """Check that the built output meets all checks.
 
@@ -171,7 +171,7 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         # PLANNED: Troubleshoot why pyroma score is so low (6/10)
         session.run('pyroma', '--file', path_sdist.as_posix(), '--min=6', stdout=True)
 
-    @nox_session(python=[DG.test.pythons[-1]], reuse_venv=True)
+    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
     def check_safety(session: Session) -> None:
         """Check for known vulnerabilities with safety.
 
@@ -184,9 +184,6 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
             RuntimeError: if safety exited with errors, but not caught by session
 
         """
-        # Note: safety requires a requirements.txt file and doesn't support pyproject.toml yet
-        session.poetry.export_requirements()
-        # Install and run
         session.install('safety', '--upgrade')
         path_report = Path('insecure_report.json').resolve()
         logger.info(f'Creating safety report: {path_report}')
@@ -194,3 +191,42 @@ if has_test_imports:  # pragma: no cover  # noqa: C901
         if path_report.read_text().strip() != '[]':
             raise RuntimeError(f'Found safety warnings in {path_report}')
         path_report.unlink()
+
+    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
+    def check_security(session: Session) -> None:
+        """More general checks for common security issues.
+
+        Args:
+            session: nox_poetry Session
+
+        """
+        session.install('semgrep', '--upgrade')  # Runs "safety" and other tools
+        allow_py_rules = '--dangerously-allow-arbitrary-code-execution-from-rules'
+        # TODO: Implement semgrep - what are a good ruleset to start with? Currently only a nox-session (no doit task)
+        #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
+        #   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45
+        configs = ' '.join([
+            # See more at: https://semgrep.dev/explore
+            '--config=p/ci',
+            '--config=p/security-audit',
+            '--config=r/python.airflow',
+            '--config=r/python.attr',
+            '--config=r/python.click',
+            '--config=r/python.cryptography',
+            '--config=r/python.distributed',
+            '--config=r/python.docker',
+            '--config=r/python.flask',
+            '--config=r/python.jinja2',
+            '--config=r/python.jwt',
+            '--config=r/python.lang',
+            '--config=r/python.pycryptodome',
+            '--config=r/python.requests',
+            '--config=r/python.security',
+            '--config=r/python.sh',
+            '--config=r/python.sqlalchemy',
+            # dlukeomalley:unchecked-subprocess-call
+            # dlukeomalley:use-assertEqual-for-equality
+            # dlukeomalley:flask-set-cookie
+            # clintgibler:no-exec
+        ])
+        session.run(*shlex.split(f'semgrep {DG.meta.pkg_name} {allow_py_rules} {configs}'), stdout=True)

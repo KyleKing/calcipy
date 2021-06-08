@@ -56,14 +56,14 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
 @beartype
 def _lint_python(
     lint_paths: List[Path], path_flake8: Path,
-    ignore_errors: Iterable[str] = (),
+    ignore_errors: Iterable[str] = ('T100', 'T101'),
 ) -> List[DoitAction]:  # FIXME: Docstrings should be reporting an error here for mismatch in types
     """Lint specified files creating summary log file of errors.
 
     Args:
         lint_paths: list of file and directory paths to lint
         path_flake8: path to flake8 configuration file
-        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is None
+        ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is to ignore Code Tags
 
     Returns:
         DoitTask: doit task
@@ -76,6 +76,9 @@ def _lint_python(
     flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
     actions.append(f'{run} flake8 {flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths))
     actions.append((_check_linting_errors, (flake8_log_path, ignore_errors)))
+    diff_compare = '--compare-branch=origin/main'
+    diff_report = f'--html-report {DG.test.path_diff_lint_report}'
+    actions.append(f'poetry run diff-quality --violations=flake8 --fail-under=80 {diff_compare} {diff_report}')
     return actions
 
 
@@ -114,7 +117,7 @@ def task_lint_python() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=[])
+    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
     return debug_task(actions)
 
 
@@ -126,7 +129,7 @@ def task_lint_project() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=[])
+    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
     actions.extend(_lint_non_python(strict=True))
     return debug_task(actions)
 
@@ -150,15 +153,38 @@ def task_radon_lint() -> DoitTask:
 
     See documentation: https://radon.readthedocs.io/en/latest/intro.html
 
+    PLANNED: Simplify and choose one way of using Radon
+
     Returns:
         DoitTask: doit task
 
     """
     actions: List[DoitAction] = []
-    for args in ['mi', 'cc --total-average -nb', 'hal']:
-        actions.append((echo, (f'# Radon with args: {args}',)))
-        actions.extend([f'poetry run radon {args} "{lint_path}"' for lint_path in DG.lint.paths_py])
+    paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
+    for args in ['mi --show --min B', 'cc --total-average --min B', 'hal', 'raw --summary']:
+        actions.extend([
+            (echo, (f'# Radon with args: {args}',)),
+            # Could also create a file "--json --output-file .radon-{arg}.json" ("arg = args.split(' ')[0]")
+            Interactive(f'poetry run radon {args} {paths}'),
+        ])
     return debug_task(actions)
+
+
+@beartype
+def task_static_checks() -> DoitTask:
+    """General static checkers (Inspection Tiger, etc.).
+
+    FYI: `IT` could be useful to handle deprecation. For now, only run the default checkers: https://pypi.org/project/it
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
+    return debug_task([
+        Interactive(f'poetry run it {DG.meta.pkg_name} --show-plugins'),
+        Interactive(f'poetry run vulture {paths} --min-confidence 70 --sort-by-size'),
+    ])
 
 
 @beartype
@@ -181,7 +207,7 @@ def task_security_checks() -> DoitTask:
 
 @beartype
 def task_auto_format() -> DoitTask:
-    """Format code with isort and autopep8.
+    """Format code with isort, autopep8, and others.
 
     Other Useful Format Snippets:
 
@@ -194,8 +220,13 @@ def task_auto_format() -> DoitTask:
 
     """
     run = 'poetry run python -m'
+    autoflake_args = (
+        '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
+        ' --remove-duplicate-keys'
+    )
     paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths_py)
     return debug_task([
+        f'{run} autoflake {paths} {autoflake_args}',
         f'{run} autopep8 {paths} --in-place --aggressive',
         f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',
     ])
@@ -207,7 +238,7 @@ def task_auto_format() -> DoitTask:
 
 @beartype
 def task_pre_commit_hooks() -> DoitTask:
-    """Run the [pre-commit hooks](https://pre-commit.com/) on all files.
+    """Run the pre-commit hooks  on all files.
 
     > Note: use `git commit` or `git push` with `--no-verify` if needed
 

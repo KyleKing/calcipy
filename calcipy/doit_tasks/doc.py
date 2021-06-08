@@ -13,7 +13,7 @@ from loguru import logger
 from transitions import Machine
 
 from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, read_lines
-from .base import debug_task, open_in_browser
+from .base import debug_task, open_in_browser, write_text
 from .doit_globals import DG, DoitAction, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ def _write_changelog() -> List[DoitAction]:
 
 @beartype
 def task_cl_write() -> DoitTask:
-    """Task wrapper of `_write_changelog`.
+    """Auto-generate the changelog based on commit history and tags.
 
     Returns:
         DoitTask: doit task
@@ -315,6 +315,48 @@ def write_autoformatted_md_sections() -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+# Working with Diagram
+
+
+@beartype
+def _diagram_tasks(pdoc_out_path: Path) -> List[DoitAction]:
+    """Return actions to generate code diagrams in the module documentation directory.
+
+    Note: must be run after `document` because pdocs will delete these files
+
+    PUML support may be coming in a future release: https://github.com/PyCQA/pylint/issues/4498
+
+    Args:
+        pdoc_out_path: path to the top-level pdoc output. Expect subdir with module name
+
+    Returns:
+        List[DoitAction]: actions to generate the
+
+    """
+    diagram_md = """# Code Diagrams
+
+> Auto-generated with `pylint-pyreverse`
+
+## Packages
+
+![./packages.svg](./packages.svg)
+
+[Full Size](./packages.svg)
+
+## Classes
+
+![./classes.svg](./classes.svg)
+
+[Full Size](./classes.svg)
+"""
+    path_diagram = pdoc_out_path / DG.meta.pkg_name / '_code_diagrams.md'
+    return [
+        (write_text, (path_diagram, diagram_md)),
+        Interactive(f'poetry run pyreverse {DG.meta.pkg_name} --output svg --output-directory {path_diagram.parent}'),
+    ]
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Main Documentation Tasks
 
 
@@ -337,11 +379,13 @@ def task_document() -> DoitTask:
 
     """
     _ensure_handler_lookup()
-    pdoc_out = f'--output_dir {DG.doc.doc_sub_dir.parent}/modules --overwrite'
+    pdoc_out_path = DG.doc.doc_sub_dir.parent / 'modules'
+    pdoc_out = f'--output_dir {pdoc_out_path} --overwrite'
     pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
         Interactive(f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}'),
+        *_diagram_tasks(pdoc_out_path),
         Interactive(f'poetry run mkdocs build --site-dir {DG.doc.path_out}'),
     ])
 

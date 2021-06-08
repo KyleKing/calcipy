@@ -9,6 +9,7 @@ from typing import Iterable
 from beartype import beartype
 from doit.task import Task
 from loguru import logger
+from sty import fg
 
 from calcipy.file_helpers import if_found_unlink
 
@@ -26,8 +27,12 @@ def _show_cmd(task: Task) -> str:
         str: describing the sequence of actions
 
     """
-    actions = ''.join(f'\n\t{act}' for act in task.actions)
-    return f'{task.name} > [{actions}\n]\n'
+    def clean_action(action: str) -> str:
+        return action.replace(f'{DG.meta.path_project.as_posix()}/', '')
+
+    indent = '\n\t'
+    actions = indent.join(map(clean_action, map(str, task.actions)))
+    return f'{task.name} > [{indent}{fg.grey}{actions}{fg.rs}\n]\n'
 
 
 @beartype

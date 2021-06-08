@@ -21,15 +21,17 @@ from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 from datetime import datetime
 from typing import Any, Generator
 
-has_test_imports = False
+from loguru import logger
+
+_HAS_TEST_IMPORTS = False
 try:
     import pytest
     from py.xml import html
-    has_test_imports = True
+    _HAS_TEST_IMPORTS = True
 except ImportError:  # pragma: no cover
     pass
 
-if has_test_imports:
+if _HAS_TEST_IMPORTS:
     @pytest.mark.optionalhook()
     def pytest_html_results_table_header(cells: Any) -> None:  # pragma: no cover
         """Modify results table in the pytest-html output.
@@ -69,6 +71,7 @@ if has_test_imports:
 
         """
         try:
+            logger.debug('call excinfo={excinfo}', excinfo=call.excinfo)
             outcome = yield
             report = outcome.get_result()
             report.description = str(item.function.__doc__)

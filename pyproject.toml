@@ -4,9 +4,10 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.calcipy]
 ignore_patterns = [
-    ".test_calcipy_project/*/*/*",
-    ".test_calcipy_project/*/*",
     ".test_calcipy_project/*",
+    ".test_calcipy_project/*/*",
+    ".test_calcipy_project/*/*/*",
+    "tests/**/cassettes/**/*.yaml",
     "tests/data/sample_doc_files/*",
 ]
 
@@ -78,7 +79,7 @@ beartype = "*"
 decorator = "*"
 doit = "*" # Should be optional, but needed for doit_tasks
 loguru = "*"
-pandas = "*" # Should be optional, but needed for doc task
+pandas = "*" # Should be optional, but needed for doc task (and companion numpy)
 pendulum = "*" # Should be optional, but needed for package tasks
 pre-commit = "*" # Should be optional, but needed for doit_globals
 pyrate_limiter = "*" # Should be optional, but needed for packaging task
@@ -97,12 +98,14 @@ commitizen = { version = "^2", optional = true }  # Prevent install of 1.X
 markdown-include = { version = "*", optional = true }
 mkdocs-git-revision-date-plugin = { version = "*", optional = true }
 mkdocs-material = { version = "*", optional = true }
+livereload = { version = "*", optional = true }  # PLANNED: Temporary - a plugin expected livereload to be installed...
 pdbpp = { version = "*", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pdocs = { version = "*", optional = true }
 pyupgrade = { version = "*", optional = true }
 
 # Lint
 add-trailing-comma = { version = "*", optional = true }
+autoflake = { version = "*", optional = true }
 autopep8 = { version = "*", optional = true }
 cohesion = { version = "*", optional = true }
 darglint = { version = "*", optional = true }
@@ -146,12 +149,15 @@ flake8-tuple = { version = "*", optional = true }
 flake8-variables-names = { version = "*", optional = true }
 hacking = { version = "^4", optional = true } # Version set to prevent oscillation back to 3
 isort = { version = "^5", optional = true } # Use latest isort
+it = { version = "*", optional = true }
 licensecheck = { version = "*", optional = true }
 pandas-vet = { version = "*", optional = true }
 pep8-naming = { version = "*", optional = true }
 proselint = { version = "*", optional = true }
+pylint = { version = "*", optional = true }
 radon = { version = "*", optional = true }
 vulture = { version = "*", optional = true }
+wily = { version = "*", optional = true }
 yamllint = { version = "*", optional = true }
 
 # Test
@@ -169,7 +175,6 @@ pytest-watch = { version = "*", optional = true }
 cz_legacy = { version = "*", optional = true }
 
 # Serializers
-preconvert = { version = "*", optional = true }
 preconvert_numpy = { version = "*", optional = true }
 
 [tool.poetry.extras]
@@ -179,12 +184,14 @@ dev = [
     "markdown-include",
     "mkdocs-git-revision-date-plugin",
     "mkdocs-material",
+    "livereload",
     "pdbpp",
     "pdocs",
     "pyupgrade",
 ]
 lint = [
     "add-trailing-comma",
+    "autoflake",
     "autopep8",
     "cohesion",
     "darglint",
@@ -227,12 +234,15 @@ lint = [
     "flake8",
     "hacking",
     "isort",
+    "it",
     "licensecheck",
     "pandas-vet",
     "pep8-naming",
     "proselint",
+    "pylint",
     "radon",
     "vulture",
+    "wily",
     "yamllint",
 ]
 test = [
@@ -248,15 +258,4 @@ test = [
     "pytest",
 ]
 commitizen_legacy = ["cz_legacy"]
-serializers = ["preconvert", "preconvert_numpy"]
-
-[tool.poetry.dev-dependencies]
-
-# PLANNED: One of these might be causing long flake8 warning messages...
-# pydiatra = "^0.12.5"
-# autoflake = "^1.4"
-# wily = "^1.19.0"
-# mccabe = "^0.6.1"
-# simplesecurity = "^2021.3.1"
-# prospector = "^1.3.1"
-# it = "^1.0.0"
+serializers = ["preconvert_numpy"]
