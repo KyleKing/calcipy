@@ -1,5 +1,6 @@
 """doit Packaging Utilities."""
 
+import numpy as np
 import json
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -296,6 +297,9 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
     if stale_packages:
         stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
         logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}\n\n')
+    else:
+        max_months = np.amax([now.diff(pack.datetime).in_months() for pack in packages])
+        logger.warning(f'The oldest package was released {max_months} months ago (stale is >{stale_months} months)\n')
 
 
 @beartype
