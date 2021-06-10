@@ -155,6 +155,8 @@ def task_radon_lint() -> DoitTask:
 
     PLANNED: Simplify and choose one way of using Radon
 
+    > Try Radon/Xenon, see [metrics](http://www.mccabe.com/iq_research_metrics.htm)
+
     Returns:
         DoitTask: doit task
 
