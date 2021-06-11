@@ -4,7 +4,7 @@ import shutil
 import webbrowser
 from collections import defaultdict
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, List
 
 from beartype import beartype
 from doit.task import Task
@@ -105,10 +105,10 @@ def _make_archive(path_dir: Path, archive_format: str = 'zip') -> None:
 
 
 @beartype
-def task_zip_release() -> DoitTask:
+def _zip_release() -> List[DoitAction]:
     """Zip up important information in the releases directory.
 
-    > WARN: paths must be reflected in AppVeyor.yml to be collected
+    > WARN: zip paths must be in the AppVeyor.yml to be collected
 
     Returns:
         DoitTask: doit task
@@ -123,4 +123,15 @@ def task_zip_release() -> DoitTask:
                 (_make_archive, (path_dir,)),
                 (echo, (f'Created: {path_zip}',)),
             ])
-    return debug_task(actions)
+    return actions
+
+
+@beartype
+def task_zip_release() -> DoitTask:
+    """Zip up important information in the releases directory.
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task(_zip_release())
