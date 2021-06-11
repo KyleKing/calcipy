@@ -274,7 +274,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
 
 
 @beartype
-def _handle_coverage(line: str, path_file: Path) -> List[str]:
+def _handle_coverage(line: str, _path_file: Path) -> List[str]:
     """Read the coverage.json file and write a Markdown table to the README file.
 
     Args:

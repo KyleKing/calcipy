@@ -123,19 +123,19 @@ def tail_lines(path_file: Path, *, count: int) -> List[str]:
         List[str]: lines of text as list
 
     """
-    with open(path_file, 'rb') as fh:
-        rem_bytes = fh.seek(0, os.SEEK_END)
+    with open(path_file, 'rb') as f_h:
+        rem_bytes = f_h.seek(0, os.SEEK_END)
         step_size = 1  # Initially set to 1 so that the last byte is read
         found_lines = 0
         while found_lines < count and rem_bytes >= step_size:
-            rem_bytes = fh.seek(-1 * step_size, os.SEEK_CUR)
-            if fh.read(1) == b'\n':
+            rem_bytes = f_h.seek(-1 * step_size, os.SEEK_CUR)
+            if f_h.read(1) == b'\n':
                 found_lines += 1
             step_size = 2  # Increase so that repeats(read 1 / back 2)
 
         if rem_bytes < step_size:
-            fh.seek(0, os.SEEK_SET)
-        return [line.rstrip('\r') for line in fh.read().decode().split('\n')]
+            f_h.seek(0, os.SEEK_SET)
+        return [line.rstrip('\r') for line in f_h.read().decode().split('\n')]
 
 
 # ----------------------------------------------------------------------------------------------------------------------

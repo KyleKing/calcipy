@@ -16,7 +16,7 @@ def _get_public_props(obj) -> List[str]:
 def test_dg_props():
     """Test the DG global variable from DoitGlobals."""
     public_props = ['calcipy_dir', 'set_paths']
-    settable_props = public_props + ['meta', 'ct', 'lint', 'test', 'doc']
+    settable_props = public_props + ['meta', 'tags', 'lint', 'test', 'doc']
 
     dg = DoitGlobals()  # act
 
@@ -56,8 +56,8 @@ def test_doit_configurable():
     """Test configurable items from TOML file."""
     dg = DG  # act
 
-    assert dg.ct.tags == ['FIXME', 'TODO', 'PLANNED']  # noqa: T101, T103
-    assert dg.ct.code_tag_summary_filename == 'CODE_TAG_SUMMARY.md'
+    assert dg.tags.tags == ['FIXME', 'TODO', 'PLANNED']  # noqa: T101, T103
+    assert dg.tags.code_tag_summary_filename == 'CODE_TAG_SUMMARY.md'
     assert dg.test.path_out == PATH_TEST_PROJECT / 'releases/tests'
     assert dg.test.pythons == ['3.8', '3.9']
     assert dg.test.args_pytest == '-x -l --ff --nf -vv'
