@@ -80,7 +80,7 @@ if _HAS_TEST_IMPORTS:
             pass  # The test suite likely failed
 
     def pytest_configure(config: Any) -> None:
-        """Configure pytest with custom markers (SLOW, CHROME, and CURRENT).
+        """Configure pytest with custom markers (SLOW, INTERACTIVE, and CURRENT).
 
         Args:
             config: pytest configuration object
@@ -92,7 +92,7 @@ if _HAS_TEST_IMPORTS:
         )
         config.addinivalue_line(
             'markers',
-            'CHROME: tests that open a Chrome window and can be skipped with `-m "not CHROME"`',
+            'INTERACTIVE: tests that open a Chrome window and can be skipped with `-m "not INTERACTIVE"`',
         )
         config.addinivalue_line(
             'markers',

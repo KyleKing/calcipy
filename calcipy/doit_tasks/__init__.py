@@ -45,7 +45,7 @@ __all__ = [  # noqa: F405
     'task_ptw_current',
     'task_ptw_ff',
     'task_ptw_marker',
-    'task_ptw_not_chrome',
+    'task_ptw_not_interactive',
     'task_test_all',
     'task_test_keyword',
     'task_test_marker',
