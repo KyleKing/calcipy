@@ -28,7 +28,10 @@ def _show_cmd(task: Task) -> str:
 
     """
     def clean_action(action: str) -> str:
-        return action.replace(f'{DG.meta.path_project.as_posix()}/', '')
+        action = action.replace(f'{DG.meta.path_project.as_posix()}/', '')
+        if 'password' in action:
+            action = action.split('password')[0] + '...password-redacted...'
+        return action  # noqa: R504
 
     indent = '\n\t'
     actions = indent.join(map(clean_action, map(str, task.actions)))

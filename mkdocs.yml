@@ -23,6 +23,7 @@ theme:
 
 plugins:
   - search
+  - git-revision-date
 
 markdown_extensions:
   - abbr

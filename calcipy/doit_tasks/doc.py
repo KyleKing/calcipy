@@ -414,7 +414,7 @@ def task_open_docs() -> DoitTask:
 
     """
     if _is_mkdocs_local():  # pragma: no cover
-        path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
+        path_doc_index = DG.doc.path_out / 'index.html'
         return debug_task([
             (open_in_browser, (path_doc_index,)),
         ])
@@ -434,6 +434,6 @@ def task_deploy_docs() -> DoitTask:
     """
     if _is_mkdocs_local():  # pragma: no cover
         return debug_task([
-            (NotImplementedError, ('Deploy cannot be used with mkdocs built with local-links',)),
+            (NotImplementedError, ('Not yet configured to deploy documentation without "use_directory_urls"',)),
         ])
     return debug_task([Interactive('poetry run mkdocs gh-deploy')])
