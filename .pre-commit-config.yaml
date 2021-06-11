@@ -30,7 +30,7 @@ repos:
         args: ["--remove"]
       - id: forbid-new-submodules
       - id: mixed-line-ending
-        args: ["--fix=lf"]
+        args: ["--fix=auto"]
       - id: pretty-format-json
         args: ["--autofix"]
       # Conflicts with ordering by poetry
@@ -47,7 +47,7 @@ repos:
           ]
         stages: [commit-msg]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.19.1
+    rev: v2.19.3
     hooks:
       - id: pyupgrade
         stages: [push]

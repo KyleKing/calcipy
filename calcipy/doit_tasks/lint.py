@@ -57,6 +57,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
 def _lint_python(
     lint_paths: List[Path], path_flake8: Path,
     ignore_errors: Iterable[str] = ('T100', 'T101'),
+    xenon_args: str = '--max-absolute A --max-modules A --max-average A',
 ) -> List[DoitAction]:  # FIXME: Docstrings should be reporting an error here for mismatch in types
     """Lint specified files creating summary log file of errors.
 
@@ -64,6 +65,7 @@ def _lint_python(
         lint_paths: list of file and directory paths to lint
         path_flake8: path to flake8 configuration file
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is to ignore Code Tags
+        xenon_args: string arguments passed to xenon. Default is for most strict options available
 
     Returns:
         DoitTask: doit task
@@ -79,6 +81,7 @@ def _lint_python(
     diff_compare = '--compare-branch=origin/main'
     diff_report = f'--html-report {DG.test.path_diff_lint_report}'
     actions.append(f'poetry run diff-quality --violations=flake8 --fail-under=80 {diff_compare} {diff_report}')
+    actions.append(f'{run} xenon {DG.meta.pkg_name} {xenon_args}')
     return actions
 
 
@@ -142,7 +145,10 @@ def task_lint_critical_only() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=DG.lint.ignore_errors)
+    actions = _lint_python(
+        DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=DG.lint.ignore_errors,
+        xenon_args='--max-absolute B --max-modules A --max-average A',
+    )
     actions.extend(_lint_non_python())
     return debug_task(actions)
 

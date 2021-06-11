@@ -56,7 +56,7 @@ readme = "docs/README.md"
 include = ["LICENSE.md"]
 keywords = ["python-poetry", "doit", "nox", "flake8"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Framework :: Flake8",
     "Framework :: Pytest",
     "Intended Audience :: Developers",
@@ -84,10 +84,10 @@ pendulum = "*" # Should be optional, but needed for package tasks
 pre-commit = "*" # Should be optional, but needed for doit_globals
 pyrate_limiter = "*" # Should be optional, but needed for packaging task
 python-box = "*"
+sty = "*" # Should be optional, but needed for Custom Summary
 tabulate = "*" # Should be optional, but needed for doc task
 toml = "*" # Should be optional, but needed for doit_globals
 transitions = "*" # Should be optional, but needed for doc tasks
-sty = "^1.0.0rc1" # Should be optional, but needed for Custom Summary
 # Indirect imports necessary only to comply with check_imports
 pyyaml = "*" # Should be optional, but needed for doit_globals
 requests = "*" # Should be optional, but needed for packaging tasks
@@ -155,9 +155,9 @@ pandas-vet = { version = "*", optional = true }
 pep8-naming = { version = "*", optional = true }
 proselint = { version = "*", optional = true }
 pylint = { version = "*", optional = true }
-radon = { version = "*", optional = true }
 vulture = { version = "*", optional = true }
-wily = { version = "*", optional = true }
+wily = { version = "^1.19", optional = true }
+xenon = { version = "*", optional = true }
 yamllint = { version = "*", optional = true }
 
 # Test
@@ -240,9 +240,9 @@ lint = [
     "pep8-naming",
     "proselint",
     "pylint",
-    "radon",
     "vulture",
     "wily",
+    "xenon",
     "yamllint",
 ]
 test = [
