@@ -43,12 +43,12 @@ The core functionality of calcipy is the rich set of tasks run with `doit`
     - **open_test_docs**: Open the test and coverage files in default browser.
     - **zip_release**: Zip up important information in the releases directory.
 
-- `calcipy` also provides a few additional nice features
-    - `dev/conftest.py`: some additional pytest configuration logic that outputs better HTML reports. Automatically implemented (imported to `tests/conftest.py`) when using `calcipy_template`
-    - `dev/noxfile.py`: nox functions that can be imported and run with or without the associated doit tasks. Also automatically configured when using `calcipy_template`
-    - `file_helpers.py`: some nice utilities for working with files, such as `sanitize_filename`, `tail_lines`, `delete_old_files`, etc. See documentation for most up-to-date documentation
-    - `log_heleprs.py`: where the most common use will be for `activate_debug_logging` or the more customizable `build_logger_config`
-    - `dot_dict.py`: has one function `ddict`, which is a light-weight wrapper around whatever is the most [maintained dotted-dictionary package in Python](https://pypi.org/search/?q=dot+accessible+dictionary&o=). Dotted dictionaries can sometimes improve code readability, but they aren't a one-size fits all solution. Sometimes `attr.s` or `dataclass` are more appropriate.
+- **calcipy** also provides a few additional nice features
+    - **dev.conftest**: some additional pytest configuration logic that outputs better HTML reports. Automatically implemented (imported to `tests/conftest.py`) when using `calcipy_template`
+    - **dev.noxfile**: nox functions that can be imported and run with or without the associated doit tasks. Also automatically configured when using `calcipy_template`
+    - **file_helpers**: some nice utilities for working with files, such as `sanitize_filename`, `tail_lines`, `delete_old_files`, etc. See documentation for most up-to-date documentation
+    - **log_heleprs**: where the most common use will be for `activate_debug_logging` or the more customizable `build_logger_config`
+    - **dot_dict**: has one function `ddict`, which is a light-weight wrapper around whatever is the most [maintained dotted-dictionary package in Python](https://pypi.org/search/?q=dot+accessible+dictionary&o=). Dotted dictionaries can sometimes improve code readability, but they aren't a one-size fits all solution. Sometimes `attr.s` or `dataclass` are more appropriate.
         - The benefit of this wrapper is that there is a stable interface and you don't need to rewrite code as packages are born and die (i.e. [Bunch](https://pypi.org/project/bunch/) > [Chunk](https://pypi.org/project/chunk/) > [Munch](https://pypi.org/project/munch/) > [flexible-dotdict](https://pypi.org/project/flexible-dotdict/) > [Python-Box](https://pypi.org/project/python-box/) > ...)
         - Note: if you need nested dotted dictionaries, check out [classy-json](https://pypi.org/project/classy-json/)
 
