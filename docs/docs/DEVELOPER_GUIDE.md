@@ -54,19 +54,19 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/dev/conftest.py`                  |           16 |         0 |         23 | 100.0%     |
 | `calcipy/dev/noxfile.py`                   |           16 |         0 |         74 | 100.0%     |
 | `calcipy/doit_tasks/__init__.py`           |           13 |         0 |          0 | 100.0%     |
-| `calcipy/doit_tasks/base.py`               |           43 |         7 |          3 | 83.7%      |
+| `calcipy/doit_tasks/base.py`               |           49 |         9 |          3 | 81.6%      |
 | `calcipy/doit_tasks/code_tag_collector.py` |           75 |         6 |          0 | 92.0%      |
 | `calcipy/doit_tasks/doc.py`                |          132 |         5 |          5 | 96.2%      |
 | `calcipy/doit_tasks/doit_globals.py`       |          163 |         4 |         10 | 97.5%      |
 | `calcipy/doit_tasks/file_search.py`        |           34 |         0 |          2 | 100.0%     |
-| `calcipy/doit_tasks/lint.py`               |           85 |         3 |          0 | 96.5%      |
+| `calcipy/doit_tasks/lint.py`               |           86 |         3 |          0 | 96.5%      |
 | `calcipy/doit_tasks/packaging.py`          |          132 |        12 |          3 | 90.9%      |
 | `calcipy/doit_tasks/summary_reporter.py`   |           22 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`               |           58 |         9 |          0 | 84.5%      |
 | `calcipy/dot_dict.py`                      |            6 |         0 |          0 | 100.0%     |
-| `calcipy/file_helpers.py`                  |           67 |         3 |          3 | 95.5%      |
+| `calcipy/file_helpers.py`                  |           67 |         4 |          3 | 94.0%      |
 | `calcipy/log_helpers.py`                   |           63 |         6 |          2 | 90.5%      |
-| **Totals**                                 |          932 |        55 |        165 | 94.1%      |
+| **Totals**                                 |          939 |        58 |        165 | 93.8%      |
 
-Generated on: 2021-06-08T09:30:05.343684
+Generated on: 2021-06-10T21:00:23.327175
 <!-- {cte} -->

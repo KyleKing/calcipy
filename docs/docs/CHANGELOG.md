@@ -2,6 +2,20 @@
 
 ### Feat
 
+- implement pylint rules
+- add xenon (wraps radon)
+
+### Refactor
+
+- improve lint_py and the return type check is working
+- zip release task
+- cleanup a few minor errors
+- use Interactive instead of Chrome
+
+## 2021.0.4.0 (2021-06-08)
+
+### Feat
+
 - condense doit output in show_cmd
 - initial semgrep implementation
 - add code diagrams to doc-site
