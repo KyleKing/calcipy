@@ -47,7 +47,7 @@ def task_lock() -> DoitTask:
     extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
     extras_arg = ' -E '.join([''] + extras) if extras else ''
     task = debug_task([
-        'poetry lock',
+        'poetry lock --no-update',
         f'poetry export -f {path_req.name} -o {path_req.name}{extras_arg} --dev',
     ])
     task['file_dep'].append(DG.meta.path_toml)

@@ -24,8 +24,8 @@ def test_lint_python():
     assert len(result) == 5
     assert isinstance(result[0][0], type(if_found_unlink))
     assert result[0][1][0].name == 'flake8.log'
-    assert result[1].startswith('poetry run python -m flake8 --config')
-    assert 'test_file.py' in result[1]
+    assert str(result[1]).startswith('Cmd: poetry run python -m flake8 --config')
+    assert 'test_file.py' in str(result[1])
     assert isinstance(result[2][0], type(_check_linting_errors))
 
 
@@ -67,10 +67,10 @@ def test_task_lint_python():
     assert isinstance(actions[0][0], type(if_found_unlink))
     assert len(actions[0][1]) == 1
     assert actions[0][1][0].name == 'flake8.log'
-    assert actions[1].startswith('poetry run python -m flake8 --config')
-    assert 'dodo.py" ' in actions[1]
-    assert '.flake8 ' in actions[1]
-    assert 'flake8.log ' in actions[1]
+    assert str(actions[1]).startswith('Cmd: poetry run python -m flake8 --config')
+    assert 'dodo.py" ' in str(actions[1])
+    assert '.flake8 ' in str(actions[1])
+    assert 'flake8.log ' in str(actions[1])
     assert isinstance(actions[2][0], type(_check_linting_errors))
     assert len(actions[2][1]) == 2
     assert actions[2][1][0].name == 'flake8.log'
@@ -93,7 +93,7 @@ def test_task_lint_critical_only():
 
     actions = result['actions']
     assert len(actions) == 7
-    assert 'T100' not in actions[1]
+    assert 'T100' not in str(actions[1])
     assert isinstance(actions[2][0], type(_check_linting_errors))
     assert len(actions[2][1]) == 2
     assert actions[2][1][0].name == 'flake8.log'
