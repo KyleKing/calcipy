@@ -12,7 +12,7 @@ repos:
     rev: v4.0.1
     hooks:
       - id: check-added-large-files
-      - id: check-case-conflict
+      # - id: check-case-conflict  # Too Slow...
       - id: check-json
       - id: check-merge-conflict
       - id: check-symlinks
@@ -37,7 +37,7 @@ repos:
       # - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.18.0
+    rev: v2.18.1
     hooks:
       - id: commitizen
         # yamllint disable-line rule:line-length
@@ -47,7 +47,7 @@ repos:
           ]
         stages: [commit-msg]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.25.0
+    rev: v2.26.0
     hooks:
       - id: pyupgrade
         stages: [push]
