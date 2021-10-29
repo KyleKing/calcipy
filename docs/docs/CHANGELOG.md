@@ -5,6 +5,10 @@
 - implement pylint rules
 - add xenon (wraps radon)
 
+### Fix
+
+- drop unused Python2 demjson
+
 ### Refactor
 
 - improve lint_py and the return type check is working

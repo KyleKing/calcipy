@@ -59,14 +59,14 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/doit_tasks/doc.py`                |          132 |         5 |          5 | 96.2%      |
 | `calcipy/doit_tasks/doit_globals.py`       |          163 |         4 |         10 | 97.5%      |
 | `calcipy/doit_tasks/file_search.py`        |           34 |         0 |          2 | 100.0%     |
-| `calcipy/doit_tasks/lint.py`               |           86 |         3 |          0 | 96.5%      |
+| `calcipy/doit_tasks/lint.py`               |           81 |         3 |          0 | 96.3%      |
 | `calcipy/doit_tasks/packaging.py`          |          132 |        12 |          3 | 90.9%      |
 | `calcipy/doit_tasks/summary_reporter.py`   |           22 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`               |           58 |         9 |          0 | 84.5%      |
-| `calcipy/dot_dict.py`                      |            6 |         0 |          0 | 100.0%     |
+| `calcipy/dot_dict.py`                      |            7 |         0 |          0 | 100.0%     |
 | `calcipy/file_helpers.py`                  |           67 |         4 |          3 | 94.0%      |
-| `calcipy/log_helpers.py`                   |           63 |         6 |          2 | 90.5%      |
-| **Totals**                                 |          939 |        58 |        165 | 93.8%      |
+| `calcipy/log_helpers.py`                   |           62 |         6 |          2 | 90.3%      |
+| **Totals**                                 |          934 |        58 |        165 | 93.8%      |
 
-Generated on: 2021-06-10T21:00:23.327175
+Generated on: 2021-10-29T06:54:05.391636
 <!-- {cte} -->
