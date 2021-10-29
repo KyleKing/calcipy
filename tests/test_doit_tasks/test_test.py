@@ -1,8 +1,8 @@
 """Test doit_tasks/test.py."""
 
 from calcipy.doit_tasks.test import (
-    task_check_types, task_coverage, task_open_test_docs, task_ptw_current, task_ptw_ff,
-    task_ptw_marker, task_ptw_not_chrome, task_test, task_test_all, task_test_keyword, task_test_marker,
+    task_check_types, task_coverage, task_open_test_docs, task_ptw_current, task_ptw_ff, task_ptw_marker,
+    task_ptw_not_interactive, task_test, task_test_all, task_test_keyword, task_test_marker,
 )
 
 
@@ -79,14 +79,14 @@ def task_task_open_test_docs():
     assert 3 <= len(actions) > 2
 
 
-def task_task_ptw_not_chrome():
-    """Test task_ptw_not_chrome."""
-    result = task_ptw_not_chrome()
+def task_task_ptw_not_interactive():
+    """Test task_ptw_not_interactive."""
+    result = task_ptw_not_interactive()
 
     actions = result['actions']
     assert len(actions) == 1
     assert str(actions[0]).startswitch('poetry run ptw -- "')
-    assert str(actions[0]).endswitch('" -m "not CHROME" -vvv')
+    assert str(actions[0]).endswitch('" -m "not INTERACTIVE" -vvv')
 
 
 def task_task_ptw_ff():
@@ -96,7 +96,7 @@ def task_task_ptw_ff():
     actions = result['actions']
     assert len(actions) == 1
     assert str(actions[0]).startswitch('poetry run ptw -- "')
-    assert str(actions[0]).endswitch('" --last-failed --new-first -m "not CHROME" -vv')
+    assert str(actions[0]).endswitch('" --last-failed --new-first -m "not INTERACTIVE" -vv')
 
 
 def task_task_ptw_current():

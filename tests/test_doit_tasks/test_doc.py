@@ -138,7 +138,7 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     text = path_new_readme.read_text()
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->' not in text
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
-    assert '<!-- {cts} COVERAGE_TEST -->\n| File                                       |' in text
+    assert '<!-- {cts} COVERAGE_TEST -->\n| File                  ' in text
     #
     DG.doc.paths_md = paths_original
     DG.doc.handler_lookup = lookup_original
@@ -197,11 +197,11 @@ def test_task_document():
 
     assert _is_mkdocs_local() is False
     actions = result['actions']
-    assert len(actions) == 5
+    assert len(actions) == 6
     assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
-    assert str(actions[1]).startswith('Cmd: poetry run pdocs as_markdown')
-    assert isinstance(actions[2][0], type(write_text))
-    assert ' pyreverse ' in str(actions[3])
+    assert str(actions[2]).startswith('Cmd: poetry run pdocs as_markdown')
+    assert isinstance(actions[3][0], type(write_text))
+    assert ' pyreverse ' in str(actions[4])
     assert str(actions[-1]).startswith('Cmd: poetry run mkdocs build --site-dir')
 
 

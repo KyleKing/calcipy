@@ -12,8 +12,8 @@ from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
 
-from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, read_lines
-from .base import debug_task, open_in_browser, write_text
+from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, delete_dir, read_lines
+from .base import debug_task, echo, open_in_browser, write_text
 from .doit_globals import DG, DoitAction, DoitTask
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -274,7 +274,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
 
 
 @beartype
-def _handle_coverage(line: str, path_file: Path) -> List[str]:
+def _handle_coverage(line: str, _path_file: Path) -> List[str]:
     """Read the coverage.json file and write a Markdown table to the README file.
 
     Args:
@@ -384,6 +384,7 @@ def task_document() -> DoitTask:
     pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
+        (delete_dir, (pdoc_out_path,)),
         Interactive(f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}'),
         *_diagram_tasks(pdoc_out_path),
         Interactive(f'poetry run mkdocs build --site-dir {DG.doc.path_out}'),
@@ -414,7 +415,7 @@ def task_open_docs() -> DoitTask:
 
     """
     if _is_mkdocs_local():  # pragma: no cover
-        path_doc_index = DG.doc.path_out / DG.meta.pkg_name / 'index.html'
+        path_doc_index = DG.doc.path_out / 'index.html'
         return debug_task([
             (open_in_browser, (path_doc_index,)),
         ])
@@ -434,6 +435,6 @@ def task_deploy_docs() -> DoitTask:
     """
     if _is_mkdocs_local():  # pragma: no cover
         return debug_task([
-            (NotImplementedError, ('Deploy cannot be used with mkdocs built with local-links',)),
+            (echo, ('ERROR: Not yet configured to deploy documentation without "use_directory_urls"',)),
         ])
     return debug_task([Interactive('poetry run mkdocs gh-deploy')])

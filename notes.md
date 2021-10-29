@@ -6,13 +6,14 @@
 ## OTHER
 
 ```sh
-Might be useful?
+# Might be useful?
 poetry run symilar --ignore-comments --ignore-docstrings --ignore-imports ...files..
 ```
 
 ```sh
-https://pylint.pycqa.org/en/latest/
-poetry run pylint calcipy (lots of false positives for line length, but some useful capitalization checks)
+# https://pylint.pycqa.org/en/latest/
+poetry run pylint calcipy
+# See configured .pylintrc!
 ```
 
 ```sh
@@ -27,7 +28,7 @@ poetry run wily graph calcipy
 [textstat](https://pypi.org/project/textstat)
 
 ```py
-import texstat
+import textstat
 import pandas as pd
 
 records = []

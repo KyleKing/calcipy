@@ -59,7 +59,7 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
         bool: True if the member matches the applied filter
 
     """
-    return (instance_type is None or isinstance(member, instance_type))
+    return instance_type is None or isinstance(member, instance_type)
 
 
 @attr.s(auto_attribs=True, kw_only=True)
@@ -165,8 +165,8 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
 
         try:
             poetry_config = toml.load(self.path_toml)['tool']['poetry']
-        except FileNotFoundError:  # pragma: no cover
-            raise FileNotFoundError(f'Check that "{self.path_project}" is correct. Could not find: {self.path_toml}')
+        except FileNotFoundError as exc:  # pragma: no cover
+            raise RuntimeError(f'Check "{self.path_project}". Could not find: "{self.path_toml}"') from exc
 
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
@@ -235,7 +235,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class TestingConfig(_PathAttrBase):  # noqa: H601
+class TestingConfig(_PathAttrBase):  # noqa: H601  # pylint: disable=too-many-instance-attributes
     """Test Config."""
 
     pythons: List[str] = attr.ib(factory=lambda: ['3.8', '3.9'])
@@ -348,7 +348,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 
 
 @attr.s(auto_attribs=True, kw_only=True)
-class DoitGlobals:  # noqa: H601
+class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
     """Global Variables for doit."""
 
     calcipy_dir: Path = attr.ib(init=False, default=Path(__file__).resolve().parents[1])
@@ -363,7 +363,7 @@ class DoitGlobals:  # noqa: H601
     test: TestingConfig = attr.ib(init=False)
     """Test Config."""
 
-    ct: CodeTagConfig = attr.ib(init=False)
+    tags: CodeTagConfig = attr.ib(init=False)
     """Documentation Config."""
 
     doc: DocConfig = attr.ib(init=False)
@@ -439,7 +439,7 @@ class DoitGlobals:  # noqa: H601
         lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
-        self.ct = CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k)  # type: ignore[arg-type]
+        self.tags = CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k)  # type: ignore[arg-type]
         self.doc = DocConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **doc_k)  # type: ignore[arg-type]
 
 

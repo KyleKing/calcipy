@@ -69,7 +69,7 @@ ${par(long_desc)}
 | Name | Description |
 |---|---|
         % for p in params:
-| ${p.arg_name} | ${p.description} |
+| ${p.arg_name} | ${p.description.replace('\n', '<br>')} |
         % endfor
     % endif
 
@@ -135,7 +135,7 @@ ${h4("Attributes")}
 | Name | Description |
 |---|---|
         % for p in cls.parsed_docstring.params:
-| ${p.arg_name} | ${p.description} |
+| ${p.arg_name} | ${p.description.replace('\n', '<br>')} |
         % endfor
     % endif
 % else:

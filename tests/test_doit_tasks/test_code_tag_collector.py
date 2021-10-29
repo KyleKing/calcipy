@@ -25,7 +25,7 @@ def test_search_lines():
         '   //TODO: Not matched',  # noqa: T101
         '   pass  # Both FIXME: and TODO: in the same line, but only match the first',  # noqa: T100,T101
     ]
-    regex_compiled = DG.ct.compile_issue_regex()
+    regex_compiled = DG.tags.compile_issue_regex()
 
     comments = _search_lines(lines, regex_compiled)  # act
 

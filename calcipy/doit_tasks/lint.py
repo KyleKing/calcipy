@@ -57,29 +57,36 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
 def _lint_python(
     lint_paths: List[Path], path_flake8: Path,
     ignore_errors: Iterable[str] = ('T100', 'T101'),
-) -> List[DoitAction]:  # FIXME: Docstrings should be reporting an error here for mismatch in types
+    xenon_args: str = '--max-absolute B --max-modules A --max-average A',
+    diff_fail_under: int = 80, diff_branch: str = 'origin/main',
+) -> List[DoitAction]:
     """Lint specified files creating summary log file of errors.
 
     Args:
         lint_paths: list of file and directory paths to lint
         path_flake8: path to flake8 configuration file
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is to ignore Code Tags
+        xenon_args: string arguments passed to xenon. Default is for most strict options available
+        diff_fail_under: integer minimum test coverage. Default is 80
+        diff_branch: string branch to compare against. Default is `origin/main`
 
     Returns:
-        DoitTask: doit task
+        List[DoitAction]: doit task
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
+    run_m = 'poetry run python -m'
     flake8_log_path = DG.meta.path_project / 'flake8.log'
-    actions: List[DoitAction] = [(if_found_unlink, (flake8_log_path,))]
-    run = 'poetry run python -m'
-    flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
-    actions.append(f'{run} flake8 {flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths))
-    actions.append((_check_linting_errors, (flake8_log_path, ignore_errors)))
-    diff_compare = '--compare-branch=origin/main'
+    flake8_flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
+    diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
     diff_report = f'--html-report {DG.test.path_diff_lint_report}'
-    actions.append(f'poetry run diff-quality --violations=flake8 --fail-under=80 {diff_compare} {diff_report}')
-    return actions
+    return [
+        (if_found_unlink, (flake8_log_path,)),
+        Interactive(f'{run_m} flake8 {flake8_flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths)),
+        (_check_linting_errors, (flake8_log_path, ignore_errors)),
+        Interactive(f'poetry run diff-quality --violations=flake8 {diff_params} {diff_report}'),
+        Interactive(f'{run_m} xenon {DG.meta.pkg_name} {xenon_args}'),
+    ]
 
 
 @beartype
@@ -142,7 +149,10 @@ def task_lint_critical_only() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=DG.lint.ignore_errors)
+    actions = _lint_python(
+        DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=DG.lint.ignore_errors,
+        xenon_args='--max-absolute C --max-modules A --max-average A',
+    )
     actions.extend(_lint_non_python())
     return debug_task(actions)
 
@@ -154,6 +164,8 @@ def task_radon_lint() -> DoitTask:
     See documentation: https://radon.readthedocs.io/en/latest/intro.html
 
     PLANNED: Simplify and choose one way of using Radon
+
+    > Try Radon/Xenon, see [metrics](http://www.mccabe.com/iq_research_metrics.htm)
 
     Returns:
         DoitTask: doit task

@@ -1,7 +1,7 @@
 """Loguru Helpers."""
 
 # PLANNED: consider a STDOUT format like https://pypi.org/project/readable-log-formatter
-#   COlorful Debug Level / Parent/FileName / Line NUmber
+#   Colorful Debug Level / Parent/FileName / Line NUmber
 #       Indented and wrapped summary string
 #       Indented, optional variables (would otherwise not be shown) (i.e. **{name}**: {value})
 #   Note: need to ensure that exception tracebacks are properly handled with a custom format
@@ -18,7 +18,6 @@ from inspect import signature
 from pathlib import Path
 from typing import Any, Callable, Dict, Generator, Iterable, List, Optional
 
-import loguru
 from beartype import beartype
 from decorator import contextmanager, decorator
 from loguru import logger
@@ -80,10 +79,12 @@ def serializable_compact(record: Dict[str, Any]) -> str:
 
 
 # Note: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
+
 def _log_action(
-    message: str, level: str = 'INFO', _logger: loguru.Logger = logger,
+    message: str, level: str = 'INFO',
+    _logger: loguru.Logger = logger,  # pylint: disable=no-member
     **kwargs: Any,
-) -> Generator[loguru.Logger, None, None]:
+) -> Generator[loguru.Logger, None, None]:  # pylint: disable=no-member
     """Log the beggining and end of an action.
 
     Args:

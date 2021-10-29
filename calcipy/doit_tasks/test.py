@@ -217,29 +217,29 @@ def ptw_task(cli_args: str) -> DoitTask:
 
 
 @beartype
-def task_ptw_not_chrome() -> DoitTask:
-    """Run pytest watch for failed first and skip the CHROME marker.
+def task_ptw_not_interactive() -> DoitTask:
+    """Run pytest watch for failed first and skip the INTERACTIVE marker.
 
-    kwargs: `-m 'not CHROME' -vvv`
+    kwargs: `-m 'not INTERACTIVE' -vvv`
 
     Returns:
         DoitTask: doit task
 
     """
-    return ptw_task('-m "not CHROME" -vvv')
+    return ptw_task('-m "not INTERACTIVE" -vvv')
 
 
 @beartype
 def task_ptw_ff() -> DoitTask:
-    """Run pytest watch for failed first and skip the CHROME marker.
+    """Run pytest watch for failed first and skip the INTERACTIVE marker.
 
-    kwargs: `--last-failed --new-first -m 'not CHROME' -vv`
+    kwargs: `--last-failed --new-first -m 'not INTERACTIVE' -vv`
 
     Returns:
         DoitTask: doit task
 
     """
-    return ptw_task('--last-failed --new-first -m "not CHROME" -vv')
+    return ptw_task('--last-failed --new-first -m "not INTERACTIVE" -vv')
 
 
 @beartype

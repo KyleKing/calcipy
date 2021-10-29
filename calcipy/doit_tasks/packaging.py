@@ -47,7 +47,7 @@ def task_lock() -> DoitTask:
     extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
     extras_arg = ' -E '.join([''] + extras) if extras else ''
     task = debug_task([
-        'poetry lock',
+        'poetry lock --no-update',
         f'poetry export -f {path_req.name} -o {path_req.name}{extras_arg} --dev',
     ])
     task['file_dep'].append(DG.meta.path_toml)
@@ -143,16 +143,16 @@ class _HostedPythonPackage():  # noqa: H601
 _PATH_PACK_LOCK = DG.meta.path_project / '.calcipy_packaging.lock'
 """Path to the packaging lock file."""
 
-# PLANNED: Check that this prevent excess requests to PyPi and refactor
+# HACK: Check that this works then refactor (shouldn't be global)
 #   https://pypi.org/project/pyrate-limiter/
 #   https://learn.vonage.com/blog/2020/10/22/respect-api-rate-limits-with-a-backoff-dr/
-rate = RequestRate(3, 5 * Duration.SECOND)
-limiter = Limiter(rate)
-item = 'pypi'
+_RATE = RequestRate(3, 5 * Duration.SECOND)
+_LIMITER = Limiter(_RATE)
+_ITEM = 'pypi'
 
 
 @beartype
-@limiter.ratelimit(item, delay=True, max_delay=10)
+@_LIMITER.ratelimit(_ITEM, delay=True, max_delay=10)
 def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
 
