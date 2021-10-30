@@ -15,6 +15,7 @@ from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger
 
+from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS
 from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, get_doc_dir
 from ..log_helpers import log_fun
 from .file_search import find_project_files, find_project_files_by_suffix
@@ -292,14 +293,10 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
     """Name of the code tag summary file."""
 
-    tags: List[str] = attr.ib(
-        factory=lambda: [
-            'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
-        ],
-    )
+    tags: List[str] = attr.ib(factory=lambda: COMMON_CODE_TAGS)
     """List of ordered tag names to match."""
 
-    re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
+    re_raw: str = CODE_TAG_RE
     """string regular expression that contains `{tag}`."""
 
     path_code_tag_summary: Path = attr.ib(init=False)
