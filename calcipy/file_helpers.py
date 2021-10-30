@@ -5,7 +5,7 @@ import shutil
 import string
 import time
 from pathlib import Path
-from typing import Any, List
+from typing import Any, List, Optional
 
 import yaml
 from beartype import beartype
@@ -192,3 +192,21 @@ def ensure_dir(dir_path: Path) -> None:
     """
     logger.info(f'Creating `{dir_path}`', dir_path=dir_path)
     dir_path.mkdir(parents=True, exist_ok=True)
+
+
+@beartype
+def get_relative(full_path: Path, other_path: Path) -> Optional[Path]:
+    """Try to return the relative path between the two paths. None if no match.
+
+    Args:
+        full_path: the full path to use
+        other_path: the path that the full_path may be relative to
+
+    Returns:
+        relative path
+
+    """
+    try:
+        return full_path.relative_to(other_path)
+    except ValueError:
+        return

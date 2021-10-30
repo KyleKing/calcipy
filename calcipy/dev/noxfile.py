@@ -55,7 +55,10 @@ try:
 except ImportError:  # pragma: no cover
     pass
 
-_PINS: Dict[str, List[str]] = {'_dev': []}
+_DEV_KEY = '_dev'
+"""Key for list of development dependencies."""
+
+_PINS: Dict[str, List[str]] = {_DEV_KEY: []}
 """Hackish global to track dev-dependencies that are user-specified."""
 
 
@@ -69,7 +72,7 @@ def pin_dev_dependencies(pins: List[str]) -> None:
         pins: list of dependencies (i.e. `['Cerberus=>1.3.4', 'freezegun']`)
 
     """
-    _PINS['_dev'] = pins
+    _PINS[_DEV_KEY] = pins
 
 
 if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
@@ -156,7 +159,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
 
         """
         _install_calcipy_extras(session, ['dev', 'test'])
-        _install_pinned(session)
+        _install_pinned(session, key=_DEV_KEY)
         _run_doit_task(session, task_test)
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
@@ -168,7 +171,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
 
         """
         _install_calcipy_extras(session, ['dev', 'test'])
-        _install_pinned(session)
+        _install_pinned(session, key=_DEV_KEY)
         _run_doit_task(session, task_coverage)
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=False)
