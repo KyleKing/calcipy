@@ -18,6 +18,7 @@ def task_collect_code_tags() -> DoitTask:
     """
     # Filter out any files that are auto-generated and would have duplicate code tags, such as the documentation
     user_files = [pth for pth in DG.meta.paths if not get_relative(pth, DG.doc.doc_sub_dir)]
+    # FIXME: This isn't working for pytest_cache_assert
     kwargs = {
         'path_tag_summary': DG.tags.path_code_tag_summary,
         'paths_source': user_files,

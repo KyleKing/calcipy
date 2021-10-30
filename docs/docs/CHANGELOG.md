@@ -1,5 +1,16 @@
 ## Unreleased
 
+### Feat
+
+- drop pytest-cov and run coverage directly
+
+### Fix
+
+- swap pytest-watch(er) and other version bumps
+- pin min-version (xenon) & drop preconvert and flake8-mock
+
+## 2021.0.6.0rc1 (2021-10-30)
+
 ### Fix
 
 - bug in noxfile and code tags reading doc output files

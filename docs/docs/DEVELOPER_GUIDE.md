@@ -66,8 +66,8 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/doit_tasks/test.py`             |           58 |         9 |          0 | 84.5%      |
 | `calcipy/dot_dict.py`                    |            7 |         0 |          0 | 100.0%     |
 | `calcipy/file_helpers.py`                |           73 |         4 |          3 | 94.5%      |
-| `calcipy/log_helpers.py`                 |           62 |         6 |          2 | 90.3%      |
-| **Totals**                               |          957 |        60 |        171 | 93.7%      |
+| `calcipy/log_helpers.py`                 |           61 |         6 |          0 | 90.2%      |
+| **Totals**                               |          956 |        60 |        169 | 93.7%      |
 
-Generated on: 2021-10-30T15:08:53.356401
+Generated on: 2021-10-30T19:33:42.750229
 <!-- {cte} -->
