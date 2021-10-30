@@ -2,6 +2,12 @@
 
 ### Fix
 
+- bug in noxfile and code tags reading doc output files
+
+## 2021.0.6.0rc0 (2021-10-30)
+
+### Fix
+
 - try to fix issues found with pytest_cache_assert
 
 ### Refactor
