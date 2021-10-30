@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import json
 import logging
 import sys
 import time
@@ -23,11 +24,6 @@ from decorator import contextmanager, decorator
 from loguru import logger
 
 from .file_helpers import delete_old_files
-
-try:
-    from preconvert.output import simplejson as json
-except ImportError:  # pragma: no cover
-    import json  # type: ignore[no-redef]
 
 
 @beartype

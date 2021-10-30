@@ -472,12 +472,12 @@
         "version": "1.1.1"
     },
     "flake8-functions": {
-        "datetime": "2020-02-15T05:57:45.052546Z",
+        "datetime": "2021-04-23T09:26:09.094235Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
         "latest_datetime": "2021-04-23T09:26:09.094235Z",
         "latest_version": "0.0.6",
         "name": "flake8-functions",
-        "version": "0.0.3"
+        "version": "0.0.6"
     },
     "flake8-isort": {
         "datetime": "2021-10-14T11:43:49.840881Z",
@@ -895,6 +895,14 @@
         "name": "mkdocs-material-extensions",
         "version": "1.0.3"
     },
+    "mr-proper": {
+        "datetime": "2021-10-27T13:06:01.852589Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2021-10-27T13:06:01.852589Z",
+        "latest_version": "0.0.7",
+        "name": "mr-proper",
+        "version": "0.0.7"
+    },
     "multidict": {
         "datetime": "2021-10-03T20:27:04.183231Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -952,12 +960,12 @@
         "version": "0.8.6"
     },
     "numpy": {
-        "datetime": "2021-07-18T19:37:41.147001Z",
+        "datetime": "2021-10-20T20:17:59.602416Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2021-08-15T20:07:03.361113Z",
-        "latest_version": "1.21.2",
+        "latest_datetime": "2021-10-20T20:17:59.602416Z",
+        "latest_version": "1.21.3",
         "name": "numpy",
-        "version": "1.21.1"
+        "version": "1.21.3"
     },
     "packaging": {
         "datetime": "2021-10-29T11:25:26.201678Z",
@@ -1062,22 +1070,6 @@
         "latest_version": "2.15.0",
         "name": "pre-commit",
         "version": "2.15.0"
-    },
-    "preconvert": {
-        "datetime": "2019-08-19T01:18:21.861237Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2019-08-19T01:18:21.861237Z",
-        "latest_version": "0.0.6",
-        "name": "preconvert",
-        "version": "0.0.6"
-    },
-    "preconvert-numpy": {
-        "datetime": "2019-07-29T05:15:34.235491Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2019-07-29T05:15:34.235491Z",
-        "latest_version": "0.0.3",
-        "name": "preconvert-numpy",
-        "version": "0.0.3"
     },
     "progress": {
         "datetime": "2018-06-25T06:10:41.532696Z",
@@ -1390,6 +1382,14 @@
         "latest_version": "0.4.2",
         "name": "sqlparse",
         "version": "0.4.2"
+    },
+    "stdlib-list": {
+        "datetime": "2020-11-19T14:11:08.070691Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2020-11-19T14:11:08.070691Z",
+        "latest_version": "0.8.0",
+        "name": "stdlib-list",
+        "version": "0.8.0"
     },
     "stevedore": {
         "datetime": "2021-10-18T09:48:08.748152Z",

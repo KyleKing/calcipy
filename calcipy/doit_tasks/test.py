@@ -149,7 +149,7 @@ def task_coverage() -> DoitTask:
     return debug_task([
         Interactive(
             f'poetry run coverage run --source={DG.meta.pkg_name} --module'
-            f' pytest "{path_tests}" {DG.test.args_pytest} {test_html}'
+            f' pytest "{path_tests}" {DG.test.args_pytest} {test_html}',
         ),
         'poetry run python -m coverage report --show-missing',
         f'poetry run python -m coverage html --directory={cov_dir}',
