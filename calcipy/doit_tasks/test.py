@@ -144,12 +144,15 @@ def task_coverage() -> DoitTask:
     """
     path_tests = DG.test.path_tests
     cov_dir = DG.test.path_coverage_index.parent
-    cov_html = f'--cov-report=html:"{cov_dir}"  --html="{DG.test.path_test_report}" --self-contained-html'
+    test_html = f'--html="{DG.test.path_test_report}" --self-contained-html'
     diff_html = f'--html-report {DG.test.path_diff_test_report}'
     return debug_task([
         Interactive(
-            f'poetry run python -m pytest "{path_tests}" {DG.test.args_pytest} --cov={DG.meta.pkg_name} {cov_html}',
+            f'poetry run coverage run --source={DG.meta.pkg_name} --module'
+            f' pytest "{path_tests}" {DG.test.args_pytest} {test_html}'
         ),
+        'poetry run python -m coverage report --show-missing',
+        f'poetry run python -m coverage html --directory={cov_dir}',
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
         'poetry run python -m coverage xml',
         Interactive(f'poetry run diff-cover coverage.xml {DG.test.args_diff} {diff_html}'),

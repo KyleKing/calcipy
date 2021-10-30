@@ -109,7 +109,6 @@ autoflake = { version = "*", optional = true }
 autopep8 = { version = "*", optional = true }
 cohesion = { version = "*", optional = true }
 darglint = { version = "*", optional = true }
-diff-cover = { version = "*", optional = true }
 dlint = { version = "*", optional = true }
 flake8 = { version = "*", optional = true }
 flake8-2020 = { version = "*", optional = true }
@@ -160,11 +159,12 @@ xenon = { version = "*", optional = true }
 yamllint = { version = "*", optional = true }
 
 # Test
+coverage = { version = "*", optional = true }
+diff-cover = { version = "*", optional = true }
 lxml = { version = "*", optional = true } # required for the HTML mypy report format
 mypy = { version = "*", optional = true }
 nox-poetry = { version = "*", optional = true }
 pytest = { version = "*", optional = true }
-pytest-cov = { version = "*", optional = true }
 pytest-html = { version = "*", optional = true }
 pytest-randomly = { version = "*", optional = true }
 pytest-recording = { version = "*", optional = true }
@@ -245,11 +245,11 @@ lint = [
     "yamllint",
 ]
 test = [
+    "coverage",
     "diff-cover",
     "lxml",
     "mypy",
     "nox-poetry",
-    "pytest-cov",
     "pytest-html",
     "pytest-randomly",
     "pytest-recording",

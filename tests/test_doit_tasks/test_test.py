@@ -55,11 +55,11 @@ def test_task_coverage():
     result = task_coverage()
 
     actions = result['actions']
-    assert len(actions) == 4
-    assert '--cov-report=html' in str(actions[0])
-    assert 'python -m coverage json' in str(actions[1])
-    assert 'coverage xml' in str(actions[2])
-    assert 'diff-cover' in str(actions[3])
+    assert len(actions) == 6
+    assert 'pytest' in str(actions[0])
+    for index, report_format in enumerate(['report', 'html', 'json', 'xml']):
+        assert f'poetry run python -m coverage {report_format}' in str(actions[1 + index])
+    assert 'diff-cover' in str(actions[-1])
 
 
 def task_task_check_types():
