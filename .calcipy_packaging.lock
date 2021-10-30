@@ -255,14 +255,6 @@
         "name": "dlint",
         "version": "0.12.0"
     },
-    "docopt": {
-        "datetime": "2014-06-16T11:18:57.406351Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2014-06-16T11:18:57.406351Z",
-        "latest_version": "0.6.2",
-        "name": "docopt",
-        "version": "0.6.2"
-    },
     "docstring-parser": {
         "datetime": "2020-09-19T11:51:11.452731Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -502,14 +494,6 @@
         "latest_version": "0.3.0",
         "name": "flake8-markdown",
         "version": "0.3.0"
-    },
-    "flake8-mock": {
-        "datetime": "2016-09-10T15:49:57.418895Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2016-09-10T15:49:57.418895Z",
-        "latest_version": "0.3",
-        "name": "flake8-mock",
-        "version": "0.3"
     },
     "flake8-pep3101": {
         "datetime": "2019-12-14T23:32:14.814800Z",
@@ -1239,13 +1223,13 @@
         "name": "pytest-recording",
         "version": "0.12.0"
     },
-    "pytest-watch": {
-        "datetime": "2018-05-20T19:52:16.194039Z",
+    "pytest-watcher": {
+        "datetime": "2021-09-18T12:01:02.174199Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2018-05-20T19:52:16.194039Z",
-        "latest_version": "4.2.0",
-        "name": "pytest-watch",
-        "version": "4.2.0"
+        "latest_datetime": "2021-09-18T12:01:02.174199Z",
+        "latest_version": "0.2.1",
+        "name": "pytest-watcher",
+        "version": "0.2.1"
     },
     "python-box": {
         "datetime": "2021-08-22T15:08:47.815594Z",

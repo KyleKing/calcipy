@@ -153,13 +153,13 @@ pep8-naming = { version = ">=0.11", optional = true }
 proselint = { version = ">=0.10", optional = true }
 pylint = { version = ">=2.8", optional = true }
 vulture = { version = ">=2.3", optional = true }
-wily = { version = ">=1.19", optional = true }
+wily = { version = ">=1.19", optional = true }                                          # FYI: Warning, has pinned versions of plotly, radon, etc.
 xenon = { version = ">=0.8", optional = true }
 yamllint = { version = ">=1.26", optional = true }
 
 # Test
 coverage = { version = ">=6", optional = true }
-diff-cover = { version = ">=5.1", optional = true }
+diff-cover = { version = ">=6.4", optional = true }
 lxml = { version = "*", optional = true }                  # required for the HTML mypy report format
 mypy = { version = ">=0.812", optional = true }
 nox-poetry = { version = ">=0.8", optional = true }
@@ -167,7 +167,7 @@ pytest = { version = ">=6", optional = true }
 pytest-html = { version = ">=3.1", optional = true }
 pytest-randomly = { version = ">=3.8", optional = true }
 pytest-recording = { version = ">=0.11", optional = true }
-pytest-watch = { version = ">=4.2", optional = true }
+pytest-watcher = { version = ">=0.2", optional = true }    # https://github.com/joeyespo/pytest-watch/issues/121
 
 # commitizen_legacy
 cz_legacy = { version = ">=0.1.2", optional = true }
@@ -248,7 +248,7 @@ test = [
     "pytest-html",
     "pytest-randomly",
     "pytest-recording",
-    "pytest-watch",
+    "pytest-watcher",
     "pytest",
 ]
 commitizen_legacy = ["cz_legacy"]
