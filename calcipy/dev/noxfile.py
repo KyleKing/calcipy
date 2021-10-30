@@ -35,10 +35,11 @@ with open(path_stdout, 'w') as out:
 import re
 import shlex
 from pathlib import Path
-from typing import Callable, List
+from typing import Callable, Dict, List
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
+from beartype import beartype
 from loguru import logger
 
 from ..doit_tasks.doit_globals import DG, DoitAction, DoitTask
@@ -54,6 +55,23 @@ try:
 except ImportError:  # pragma: no cover
     pass
 
+_PINS: Dict[str, List[str]] = {'_dev': []}
+"""Hackish global to track dev-dependencies that are user-specified."""
+
+
+@beartype
+def pin_dev_dependencies(pins: List[str]) -> None:
+    """Manually specify dependencies for development.
+
+    TODO: Make this auto-resolve based on pyproject.toml
+
+    Args:
+        pins: list of dependencies (i.e. `['Cerberus=>1.3.4', 'freezegun']`)
+
+    """
+    _PINS['_dev'] = pins
+
+
 if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
     def _run_str_cmd(session: Session, cmd_str: str) -> None:
         """Run a command string. Ensure that poetry is left-stripped.
@@ -66,8 +84,8 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         cmd_str = re.sub(r'^poetry run ', '', cmd_str)
         session.run(*shlex.split(cmd_str), stdout=True)
 
-    def _install_extras(session: Session, extras: List[str]) -> None:
-        """Install extras.
+    def _install_calcipy_extras(session: Session, extras: List[str]) -> None:
+        """Ensure calcipy extras are installed.
 
         Args:
             session: nox_poetry Session
@@ -78,6 +96,18 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             session.poetry.installroot(extras=extras)
         else:  # pragma: no cover
             session.install('.', f'calcipy[{",".join(extras)}]')
+
+    def _install_pinned(session: Session, key: str) -> None:
+        """Ensure user-pinned dependencies are installed.
+
+        See [Issue #230](https://github.com/cjolowicz/nox-poetry/issues/230)
+
+        Args:
+            session: nox_poetry Session
+
+        """
+        for pin in _PINS.get(key, []):
+            session.install(pin)
 
     def _run_func_cmd(action: DoitAction) -> None:
         """Run a python action.
@@ -125,7 +155,8 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        _install_extras(session, ['dev', 'test'])
+        _install_calcipy_extras(session, ['dev', 'test'])
+        _install_pinned(session)
         _run_doit_task(session, task_test)
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
@@ -136,7 +167,8 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        _install_extras(session, ['dev', 'test'])
+        _install_calcipy_extras(session, ['dev', 'test'])
+        _install_pinned(session)
         _run_doit_task(session, task_coverage)
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=False)

@@ -78,6 +78,7 @@ def write_text(path_file: Path, text: str) -> None:
         text: string to write to file
 
     """
+    path_file.parent.mkdir(exist_ok=True, parents=True)
     path_file.write_text(text)  # pragma: no cover
 
 
