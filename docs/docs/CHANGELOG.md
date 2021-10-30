@@ -1,5 +1,13 @@
 ## Unreleased
 
+### Fix
+
+- try to fix issues found with pytest_cache_assert
+
+### Refactor
+
+- decouple code tag collector from DG
+
 ## 2021.0.5.0 (2021-10-29)
 
 ### Feat

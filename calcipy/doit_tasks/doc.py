@@ -85,7 +85,7 @@ def task_cl_bump() -> DoitTask:
 
 @beartype
 def task_cl_bump_pre() -> DoitTask:
-    """Bump with specified pre-release tag.
+    """Bump with specified pre-release tag. Requires a parameter (`-p alpha`, `-p beta`, `-p rc`, etc.).
 
     Example: `doit run cl_bump_pre -p alpha` or `doit run cl_bump_pre -p rc`
 
