@@ -12,7 +12,7 @@ from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
 
-from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, delete_dir, read_lines
+from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, delete_dir, read_lines, trim_trailing_whitespace
 from .base import debug_task, echo, open_in_browser, write_text
 from .doit_globals import DG, DoitAction, DoitTask
 
@@ -371,6 +371,13 @@ def _ensure_handler_lookup() -> None:
 
 
 @beartype
+def _find_and_trim_trailing_whitespace(doc_dir: Path) -> None:
+    """Find all markdown files and trim any trailing whitespace."""
+    for path_md in doc_dir.rglob('*/md'):
+        trim_trailing_whitespace(path_md)
+
+
+@beartype
 def task_document() -> DoitTask:
     """Build the HTML documentation.
 
@@ -386,6 +393,7 @@ def task_document() -> DoitTask:
         (write_autoformatted_md_sections, ()),
         (delete_dir, (pdoc_out_path,)),
         Interactive(f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}'),
+        (_find_and_trim_trailing_whitespace, (pdoc_out,)),
         *_diagram_tasks(pdoc_out_path),
         Interactive(f'poetry run mkdocs build --site-dir {DG.doc.path_out}'),
     ])

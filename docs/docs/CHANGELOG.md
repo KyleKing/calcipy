@@ -1,5 +1,12 @@
 ## Unreleased
 
+### Fix
+
+- run ptw on whole directory, not just test files
+- drop FYI and NOTE from Code Tags
+
+## 2021.0.6.0rc2 (2021-10-30)
+
 ### Feat
 
 - drop pytest-cov and run coverage directly

@@ -87,6 +87,18 @@ def get_doc_dir(path_project: Path) -> Path:
     return path_project / _read_yaml_file(path_copier).get('doc_dir', 'docs')
 
 
+@beartype
+def trim_trailing_whitespace(pth: Path) -> None:
+    """Trim trailing whitespace from the specified file.
+
+    PLANNED: handle carriage returns
+
+    """
+    line_break = '\n'
+    stripped = [line.rstrip(' ') for line in pth.read_text().split(line_break)]
+    pth.write_text(line_break.join(stripped))
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Read Files
 
