@@ -325,6 +325,9 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     doc_sub_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
 
+    auto_doc_path: Optional[Path] = None
+    """Auto-calculated based on `self.doc_sub_dir`."""
+
     handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
@@ -342,6 +345,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         self.paths_md = DG.meta.paths_by_suffix.get('md', [])
+        self.auto_doc_path = self.doc_sub_dir.parent / 'modules'
 
 
 @attr.s(auto_attribs=True, kw_only=True)

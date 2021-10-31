@@ -386,15 +386,15 @@ def task_document() -> DoitTask:
 
     """
     _ensure_handler_lookup()
-    pdoc_out_path = DG.doc.doc_sub_dir.parent / 'modules'
+    pdoc_out_path = DG.doc.auto_doc_path
     pdoc_out = f'--output_dir {pdoc_out_path} --overwrite'
     pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
         (delete_dir, (pdoc_out_path,)),
         Interactive(f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}'),
-        (_find_and_trim_trailing_whitespace, (pdoc_out,)),
         *_diagram_tasks(pdoc_out_path),
+        (_find_and_trim_trailing_whitespace, (pdoc_out_path,)),
         Interactive(f'poetry run mkdocs build --site-dir {DG.doc.path_out}'),
     ])
 

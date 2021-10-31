@@ -197,7 +197,7 @@ def test_task_document():
 
     assert _is_mkdocs_local() is False
     actions = result['actions']
-    assert len(actions) == 6
+    assert len(actions) == 7
     assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
     assert str(actions[2]).startswith('Cmd: poetry run pdocs as_markdown')
     assert isinstance(actions[3][0], type(write_text))
