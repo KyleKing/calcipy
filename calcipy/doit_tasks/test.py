@@ -214,7 +214,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 
     """
     return {
-        'actions': [Interactive(f'poetry run ptw -- "{DG.test.path_tests}" {cli_args}')],
+        'actions': [Interactive(f'poetry run ptw "{DG.meta.path_project}" {cli_args}')],
         'verbosity': 2,
     }
 
