@@ -2,6 +2,8 @@
 
 - [ ] [Create new `dev/log_intercept.py` file](https://pawamoy.github.io/posts/unify-logging-for-a-gunicorn-uvicorn-app/)
 - [ ] [See loguru-specific notes](https://github.com/Delgan/loguru/issues/59)
+- [ ] [See discussion on better testing approaches](https://stackoverflow.com/questions/64473157/python-logging-non-intrusive-approach-for-testing-alternative-loggers-like-twi) or consider pytest's `caplog`!
+    - `pytest` includes a couple of useful builtin fixtures like `tmp_path`, `caplog`, and `record_testsuite_property` ([See](https://docs.pytest.org/en/6.2.x/builtin.html))
 
 ## OTHER
 

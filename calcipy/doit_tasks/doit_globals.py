@@ -15,6 +15,7 @@ from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger
 
+from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS
 from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, get_doc_dir
 from ..log_helpers import log_fun
 from .file_search import find_project_files, find_project_files_by_suffix
@@ -292,14 +293,10 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
     code_tag_summary_filename: str = 'CODE_TAG_SUMMARY.md'
     """Name of the code tag summary file."""
 
-    tags: List[str] = attr.ib(
-        factory=lambda: [
-            'FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG', 'FYI', 'NOTE',  # noqa: T100,T101,T103
-        ],
-    )
+    tags: List[str] = attr.ib(factory=lambda: COMMON_CODE_TAGS)
     """List of ordered tag names to match."""
 
-    re_raw: str = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
+    re_raw: str = CODE_TAG_RE
     """string regular expression that contains `{tag}`."""
 
     path_code_tag_summary: Path = attr.ib(init=False)
@@ -328,6 +325,9 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     doc_sub_dir: Path = Path('docs/docs')
     """Relative path to the source documentation directory."""
 
+    auto_doc_path: Optional[Path] = None
+    """Auto-calculated based on `self.doc_sub_dir`."""
+
     handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = None
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
@@ -345,6 +345,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
         self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         self.paths_md = DG.meta.paths_by_suffix.get('md', [])
+        self.auto_doc_path = self.doc_sub_dir.parent / 'modules'
 
 
 @attr.s(auto_attribs=True, kw_only=True)

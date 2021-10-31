@@ -81,7 +81,7 @@ _COVERAGE_SAMPLE_DATA = {
                 'excluded_lines': 3,
             },
         },
-        'calcipy/doit_tasks/code_tag_collector.py': {
+        'calcipy/doit_tasks/code_tags.py': {
             'summary': {
                 'covered_lines': 31,
                 'num_statements': 75,
@@ -107,11 +107,11 @@ def test_format_cov_table():
     result = _format_cov_table(_COVERAGE_SAMPLE_DATA)
 
     assert result == [
-        '| File                                       |   Statements |   Missing |   Excluded | Coverage   |',
-        '|:-------------------------------------------|-------------:|----------:|-----------:|:-----------|',
-        '| `calcipy/doit_tasks/base.py`               |           22 |         2 |          3 | 90.9%      |',
-        '| `calcipy/doit_tasks/code_tag_collector.py` |           75 |        44 |          0 | 41.3%      |',
-        '| **Totals**                                 |           97 |        46 |          3 | 52.6%      |',
+        '| File                              |   Statements |   Missing |   Excluded | Coverage   |',
+        '|:----------------------------------|-------------:|----------:|-----------:|:-----------|',
+        '| `calcipy/doit_tasks/base.py`      |           22 |         2 |          3 | 90.9%      |',
+        '| `calcipy/doit_tasks/code_tags.py` |           75 |        44 |          0 | 41.3%      |',
+        '| **Totals**                        |           97 |        46 |          3 | 52.6%      |',
         '',
         'Generated on: 2021-06-03T19:37:11.980123',
     ]
@@ -197,7 +197,7 @@ def test_task_document():
 
     assert _is_mkdocs_local() is False
     actions = result['actions']
-    assert len(actions) == 6
+    assert len(actions) == 7
     assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
     assert str(actions[2]).startswith('Cmd: poetry run pdocs as_markdown')
     assert isinstance(actions[3][0], type(write_text))

@@ -5,7 +5,7 @@ import shutil
 import string
 import time
 from pathlib import Path
-from typing import Any, List
+from typing import Any, List, Optional
 
 import yaml
 from beartype import beartype
@@ -85,6 +85,18 @@ def get_doc_dir(path_project: Path) -> Path:
     """
     path_copier = path_project / _COPIER_ANSWERS_NAME
     return path_project / _read_yaml_file(path_copier).get('doc_dir', 'docs')
+
+
+@beartype
+def trim_trailing_whitespace(pth: Path) -> None:
+    """Trim trailing whitespace from the specified file.
+
+    PLANNED: handle carriage returns
+
+    """
+    line_break = '\n'
+    stripped = [line.rstrip(' ') for line in pth.read_text().split(line_break)]
+    pth.write_text(line_break.join(stripped))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -192,3 +204,21 @@ def ensure_dir(dir_path: Path) -> None:
     """
     logger.info(f'Creating `{dir_path}`', dir_path=dir_path)
     dir_path.mkdir(parents=True, exist_ok=True)
+
+
+@beartype
+def get_relative(full_path: Path, other_path: Path) -> Optional[Path]:
+    """Try to return the relative path between the two paths. None if no match.
+
+    Args:
+        full_path: the full path to use
+        other_path: the path that the full_path may be relative to
+
+    Returns:
+        relative path
+
+    """
+    try:
+        return full_path.relative_to(other_path)
+    except ValueError:
+        return

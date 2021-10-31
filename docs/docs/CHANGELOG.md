@@ -2,6 +2,45 @@
 
 ### Feat
 
+- trim trailing whitespace from doc output
+
+### Fix
+
+- properly exclude auto-generated doc files from code tag collector
+- run ptw on whole directory, not just test files
+- drop FYI and NOTE from Code Tags
+
+## 2021.0.6.0rc2 (2021-10-30)
+
+### Feat
+
+- drop pytest-cov and run coverage directly
+
+### Fix
+
+- swap pytest-watch(er) and other version bumps
+- pin min-version (xenon) & drop preconvert and flake8-mock
+
+## 2021.0.6.0rc1 (2021-10-30)
+
+### Fix
+
+- bug in noxfile and code tags reading doc output files
+
+## 2021.0.6.0rc0 (2021-10-30)
+
+### Fix
+
+- try to fix issues found with pytest_cache_assert
+
+### Refactor
+
+- decouple code tag collector from DG
+
+## 2021.0.5.0 (2021-10-29)
+
+### Feat
+
 - implement pylint rules
 - add xenon (wraps radon)
 

@@ -201,14 +201,14 @@ def task_static_checks() -> DoitTask:
 
 @beartype
 def task_security_checks() -> DoitTask:
-    """Use linting tools to identify possible security vulnerabilities.
+    """Use linting tools to identify possible security vulnerabilities. Use `# nosec` to selectively override checks.
 
     Returns:
         DoitTask: doit task
 
     """
     return debug_task([
-        Interactive(f'poetry run bandit -r {DG.meta.pkg_name}'),
+        Interactive(f'poetry run bandit --recursive {DG.meta.pkg_name}'),
         Interactive('poetry run nox --session check_safety'),
     ])
 
