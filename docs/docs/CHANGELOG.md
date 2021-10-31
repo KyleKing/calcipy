@@ -1,7 +1,12 @@
 ## Unreleased
 
+### Feat
+
+- trim trailing whitespace from doc output
+
 ### Fix
 
+- properly exclude auto-generated doc files from code tag collector
 - run ptw on whole directory, not just test files
 - drop FYI and NOTE from Code Tags
 
