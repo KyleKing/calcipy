@@ -73,17 +73,19 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-# TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
 attrs = ">=21"
-beartype = ">=0.9"
+attrs_strict = ">=0.2.2"
+beartype = ">=0.9"                                         # dyce has nice no-op decorator for beartype, but shouldn't be optional
 decorator = ">=5"
+python-box = ">=5.4"
+
+# TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
 doit = ">=0.33"                                            # Should be optional, but needed for doit_tasks
 loguru = ">=0.5"
 pandas = ">=1.1"                                           # Should be optional, but needed for doc task (and companion numpy)
 pendulum = ">=2"                                           # Should be optional, but needed for package tasks
 pre-commit = ">=2.15"                                      # Should be optional, but needed for doit_globals
 pyrate_limiter = ">=2.4"                                   # Should be optional, but needed for packaging task
-python-box = ">=5.4"
 sty = { version = ">=1.0.0rc2", allow-prereleases = true } # Should be optional, but needed for Custom Summary
 tabulate = ">=0.8"                                         # Should be optional, but needed for doc task
 toml = ">=0.10"                                            # Should be optional, but needed for doit_globals

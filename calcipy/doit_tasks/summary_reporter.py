@@ -9,6 +9,7 @@ from enum import IntEnum
 from typing import Any, List, OrderedDict
 
 import attr
+from attrs_strict import type_validator
 from beartype import beartype
 from doit.reporter import ConsoleReporter
 from doit.task import Task
@@ -29,8 +30,8 @@ class _TaskExitCode(IntEnum):  # noqa: H601
 class _TaskSummary:  # noqa: H601
     """Task Summary."""
 
-    name: str
-    exit_code: _TaskExitCode
+    name: str = attr.ib(validator=type_validator())
+    exit_code: _TaskExitCode = attr.ib(validator=type_validator())
 
 
 @beartype

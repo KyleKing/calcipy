@@ -81,6 +81,21 @@ tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)"
 tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins"]
 
 [[package]]
+name = "attrs-strict"
+version = "0.2.2"
+description = "Runtime validators for attrs"
+category = "main"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,<4,>=2.7"
+
+[package.dependencies]
+attrs = ">=19.1.0"
+
+[package.extras]
+docs = ["Sphinx (>=3)"]
+test = ["pytest (>=4)", "pytest-cov (>=2.6)", "mock", "enum34", "typing", "typing-extensions"]
+
+[[package]]
 name = "autoflake"
 version = "1.4"
 description = "Removes unused imports and unused variables"
@@ -2244,7 +2259,7 @@ test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest-html", "
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "751b2af1953bf1384e212e2306a1d6f7cc44f62cad06f5fabc2d786660216155"
+content-hash = "41e875b72bf0bae010451b7f27eceedc77dfcdcc80a3924de469c5dbf67211c0"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2274,6 +2289,10 @@ atomicwrites = [
 attrs = [
     {file = "attrs-21.2.0-py2.py3-none-any.whl", hash = "sha256:149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1"},
     {file = "attrs-21.2.0.tar.gz", hash = "sha256:ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"},
+]
+attrs-strict = [
+    {file = "attrs_strict-0.2.2-py2.py3-none-any.whl", hash = "sha256:341758519175a129c6b7fe99c17f03241a3aeb6c57423d2b607e52822fea55bb"},
+    {file = "attrs_strict-0.2.2.tar.gz", hash = "sha256:974f57389bcfafa4c5c9ded1850f28acfbbcb68812be09dbd1c30607289d1519"},
 ]
 autoflake = [
     {file = "autoflake-1.4.tar.gz", hash = "sha256:61a353012cff6ab94ca062823d1fb2f692c4acda51c76ff83a8d77915fba51ea"},
