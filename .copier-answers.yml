@@ -9,7 +9,7 @@ author_username: kyleking
 codecov_token: d414dacb-5b8d-4c0b-94e1-42fe8393187d
 copyright_date: '2021'
 doc_dir: docs
-install_extras: -E dev -E lint -E test -E commitizen_legacy
+install_extras: --with dev --with lint --with test --with commitizen_legacy
 package_name_py: calcipy
 project_description: Python package to simplify development. Includes functionality
   for task running, testing, linting, documenting, and more

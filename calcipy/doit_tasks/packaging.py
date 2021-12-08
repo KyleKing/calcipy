@@ -45,6 +45,7 @@ def task_lock() -> DoitTask:
     path_req = DG.meta.path_project / 'requirements.txt'
     # Ensure that extras are exported as well
     toml_data = toml.loads(DG.meta.path_toml.read_text())
+    # FYI: poetry 'groups' appear to be properly exported with "--dev"
     extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
     extras_arg = ' -E '.join([''] + extras) if extras else ''
     task = debug_task([

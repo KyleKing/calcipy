@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.0.2"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.calcipy]
@@ -24,7 +24,7 @@ change_type_order = [
     "Fix (Old)",
 ]
 version = "0.6.0"
-# PLANNED: Pending calver support: https://github.com/commitizen-tools/commitizen/pull/385
+# TODO: Pending calver support: https://github.com/commitizen-tools/commitizen/pull/385
 tag_format = "2021.$version"
 version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 
@@ -75,13 +75,13 @@ classifiers = [
 python = "^3.8"
 attrs = ">=21"
 attrs_strict = ">=0.2.2"
-beartype = ">=0.9"                                         # dyce has nice no-op decorator for beartype, but shouldn't be optional
+beartype = ">=0.9"       # dyce has nice no-op decorator for beartype, but shouldn't be optional
 decorator = ">=5"
+loguru = ">=0.5"
 python-box = ">=5.4"
 
 # TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
 doit = ">=0.33"                                            # Should be optional, but needed for doit_tasks
-loguru = ">=0.5"
 pandas = ">=1.1"                                           # Should be optional, but needed for doc task (and companion numpy)
 pendulum = ">=2"                                           # Should be optional, but needed for package tasks
 pre-commit = ">=2.15"                                      # Should be optional, but needed for doit_globals
@@ -94,163 +94,94 @@ transitions = ">=0.8"                                      # Should be optional,
 pyyaml = "*"   # Should be optional, but needed for doit_globals
 requests = "*" # Should be optional, but needed for packaging tasks
 
-# Development
-better-exceptions = { version = ">=0.3", optional = true }
-commitizen = { version = ">=2", optional = true }                                                              # Prevent install of 1.X
-markdown-include = { version = ">=0.6", optional = true }
-mkdocs-git-revision-date-plugin = { version = ">=0.3", optional = true }
-mkdocs-material = { version = ">=7.1", optional = true }
-livereload = { version = "*", optional = true }                                                                # PLANNED: Temporary - a plugin expected livereload to be installed...
-pdbpp = { version = ">=0.10", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
-pdocs = { version = ">=1.1", optional = true }
-pyupgrade = { version = ">=2.19.1", optional = true }
+[tool.poetry.group.dev]
+optional = true
 
-# Lint
-add-trailing-comma = { version = ">=2.1.0", optional = true }
-autoflake = { version = ">=1.4", optional = true }
-autopep8 = { version = ">=1.5", optional = true }
-cohesion = { version = ">=1", optional = true }
-darglint = { version = ">=1.8", optional = true }
-dlint = { version = ">=0.11", optional = true }
-flake8 = { version = ">=3.8", optional = true }
-flake8-2020 = { version = ">=1.6", optional = true }
-flake8-aaa = { version = ">=0.12", optional = true }
-flake8-annotations = { version = ">=2.6", optional = true }
-flake8-assertive = { version = ">=1.3", optional = true }
-flake8-bandit = { version = ">=2.1", optional = true }
-flake8-blind-except = { version = ">=0.2", optional = true }
-flake8-breakpoint = { version = ">=1.1", optional = true }
-flake8-broken-line = { version = ">=0.3", optional = true }
-flake8-bugbear = { version = ">=21.4", optional = true }
-flake8-builtins = { version = ">=1.5", optional = true }
-flake8-cognitive-complexity = { version = ">=0.1", optional = true }
-flake8-commas = { version = ">=2.0", optional = true }
-flake8-comprehensions = { version = ">=3.5", optional = true }
-flake8-debugger = { version = ">=4.0", optional = true }
-flake8-docstrings = { version = ">=1.6", optional = true }
-flake8-eradicate = { version = ">=1.0", optional = true }
-flake8-expression-complexity = { version = ">=0.0.9", optional = true }
-flake8-fixme = { version = ">=1.1", optional = true }
-flake8-functions = { version = ">=0.0.6", optional = true }                             # See: https://github.com/best-doctor/flake8-functions/issues/7
-flake8-isort = { version = ">=4.0", optional = true }
-flake8-logging-format = { version = ">=0.6", optional = true }
-flake8-markdown = { version = ">=0.2", optional = true }
-flake8-pep3101 = { version = ">=1.3", optional = true }
-flake8-plone-hasattr = { version = ">=0.2", optional = true, allow-prereleases = true }
-flake8-print = { version = ">=4.0", optional = true }
-flake8-printf-formatting = { version = ">=1.1", optional = true }
-flake8-pytest-style = { version = ">=1.4", optional = true }
-flake8-quotes = { version = ">=3.2", optional = true }
-flake8-return = { version = ">=1.1", optional = true }
-flake8-SQL = { version = ">=0.4", optional = true }
-flake8-string-format = { version = ">=0.3", optional = true }
-flake8-tuple = { version = ">=0.4", optional = true }
-flake8-variables-names = { version = ">=0.0.4", optional = true }
-hacking = { version = ">=4", optional = true }                                          # Version set to prevent oscillation back to 3
-isort = { version = ">=5", optional = true }                                            # Use latest isort
-it = { version = ">=1", optional = true }
-licensecheck = { version = ">=2021.1.2", optional = true }
-pandas-vet = { version = ">=0.2", optional = true }
-pep8-naming = { version = ">=0.11", optional = true }
-proselint = { version = ">=0.10", optional = true }
-pylint = { version = ">=2.8", optional = true }
-vulture = { version = ">=2.3", optional = true }
-wily = { version = ">=1.20", optional = true }                                          # FYI: Warning, has pinned versions of plotly, radon, etc. TODO: Run in nox-only?
-xenon = { version = ">=0.8", optional = true }
-yamllint = { version = ">=1.26", optional = true }
+[tool.poetry.group.dev.dependencies]
+better-exceptions = ">=0.3"
+commitizen = ">=2"                                                                            # Prevent install of 1.X
+markdown-include = ">=0.6"
+mkdocs-git-revision-date-plugin = ">=0.3"
+mkdocs-material = ">=7.1"
+livereload = "*"                                                                              # PLANNED: Temporary - a plugin expected livereload to be installed...
+pdbpp = { version = ">=0.10", markers = "sys_platform != 'win32' or python_version < '3.9'" }
+pdocs = ">=1.1"
+pyupgrade = ">=2.19.1"
 
-# Test
-coverage = { version = ">=6", optional = true }
-diff-cover = { version = ">=6.4", optional = true }
-lxml = { version = "*", optional = true }                  # required for the HTML mypy report format
-mypy = { version = ">=0.812", optional = true }
-nox-poetry = { version = ">=0.8", optional = true }
-pytest = { version = ">=6", optional = true }
-pytest-html = { version = ">=3.1", optional = true }
-pytest-randomly = { version = ">=3.8", optional = true }
-pytest-recording = { version = ">=0.11", optional = true }
-pytest-watcher = { version = ">=0.2", optional = true }    # https://github.com/joeyespo/pytest-watch/issues/121
+[tool.poetry.group.lint]
+optional = true
 
-# commitizen_legacy
-cz_legacy = { version = ">=0.1.2", optional = true }
+[tool.poetry.group.lint.dependencies]
+add-trailing-comma = ">=2.1.0"
+autoflake = ">=1.4"
+autopep8 = ">=1.5"
+cohesion = ">=1"
+darglint = ">=1.8"
+dlint = ">=0.11"
+flake8 = ">=3.8"
+flake8-2020 = ">=1.6"
+flake8-aaa = ">=0.12"
+flake8-annotations = ">=2.6"
+flake8-assertive = ">=1.3"
+flake8-bandit = ">=2.1"
+flake8-blind-except = ">=0.2"
+flake8-breakpoint = ">=1.1"
+flake8-broken-line = ">=0.3"
+flake8-bugbear = ">=21.4"
+flake8-builtins = ">=1.5"
+flake8-cognitive-complexity = ">=0.1"
+flake8-commas = ">=2.0"
+flake8-comprehensions = ">=3.5"
+flake8-debugger = ">=4.0"
+flake8-docstrings = ">=1.6"
+flake8-eradicate = ">=1.0"
+flake8-expression-complexity = ">=0.0.9"
+flake8-fixme = ">=1.1"
+flake8-functions = ">=0.0.6"                                           # See: https://github.com/best-doctor/flake8-functions/issues/7
+flake8-isort = ">=4.0"
+flake8-logging-format = ">=0.6"
+flake8-markdown = ">=0.2"
+flake8-pep3101 = ">=1.3"
+flake8-plone-hasattr = { version = ">=0.2", allow-prereleases = true }
+flake8-print = ">=4.0"
+flake8-printf-formatting = ">=1.1"
+flake8-pytest-style = ">=1.4"
+flake8-quotes = ">=3.2"
+flake8-return = ">=1.1"
+flake8-SQL = ">=0.4"
+flake8-string-format = ">=0.3"
+flake8-tuple = ">=0.4"
+flake8-variables-names = ">=0.0.4"
+hacking = ">=4"                                                        # Version set to prevent oscillation back to 3
+isort = ">=5"                                                          # Use latest isort
+it = ">=1"
+licensecheck = ">=2021.1.2"
+pandas-vet = ">=0.2"
+pep8-naming = ">=0.11"
+proselint = ">=0.10"
+pylint = ">=2.8"
+vulture = ">=2.3"
+wily = ">=1.20"                                                        # FYI: Warning, has pinned versions of plotly, radon, etc. TODO: Run in nox-only?
+xenon = ">=0.8"
+yamllint = ">=1.26"
 
-[tool.poetry.extras]
-dev = [
-    "better-exceptions",
-    "commitizen",
-    "markdown-include",
-    "mkdocs-git-revision-date-plugin",
-    "mkdocs-material",
-    "livereload",
-    "pdbpp",
-    "pdocs",
-    "pyupgrade",
-]
-lint = [
-    "add-trailing-comma",
-    "autoflake",
-    "autopep8",
-    "cohesion",
-    "darglint",
-    "demjson",
-    "dlint",
-    "flake8-2020",
-    "flake8-aaa",
-    "flake8-annotations",
-    "flake8-assertive",
-    "flake8-bandit",
-    "flake8-blind-except",
-    "flake8-breakpoint",
-    "flake8-broken-line",
-    "flake8-bugbear",
-    "flake8-builtins",
-    "flake8-cognitive-complexity",
-    "flake8-commas",
-    "flake8-comprehensions",
-    "flake8-debugger",
-    "flake8-docstrings",
-    "flake8-eradicate",
-    "flake8-expression-complexity",
-    "flake8-fixme",
-    "flake8-functions",
-    "flake8-isort",
-    "flake8-logging-format",
-    "flake8-markdown",
-    "flake8-pep3101",
-    "flake8-plone-hasattr",
-    "flake8-print",
-    "flake8-printf-formatting",
-    "flake8-pytest-style",
-    "flake8-quotes",
-    "flake8-return",
-    "flake8-SQL",
-    "flake8-string-format",
-    "flake8-tuple",
-    "flake8-variables-names",
-    "flake8",
-    "hacking",
-    "isort",
-    "it",
-    "licensecheck",
-    "pandas-vet",
-    "pep8-naming",
-    "proselint",
-    "pylint",
-    "vulture",
-    "wily",
-    "xenon",
-    "yamllint",
-]
-test = [
-    "coverage",
-    "diff-cover",
-    "lxml",
-    "mypy",
-    "nox-poetry",
-    "pytest-html",
-    "pytest-randomly",
-    "pytest-recording",
-    "pytest-watcher",
-    "pytest",
-]
-commitizen_legacy = ["cz_legacy"]
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+coverage = ">=6"
+diff-cover = ">=6.4"
+lxml = "*"                  # required for the HTML mypy report format
+mypy = ">=0.812"
+nox-poetry = ">=0.8"
+pytest = ">=6"
+pytest-html = ">=3.1"
+pytest-randomly = ">=3.8"
+pytest-recording = ">=0.11"
+pytest-watcher = ">=0.2"    # https://github.com/joeyespo/pytest-watch/issues/121
+
+[tool.poetry.group.commitizen_legacy]
+optional = true
+
+[tool.poetry.group.commitizen_legacy.dependencies]
+cz_legacy = ">=0.1.2"
