@@ -2,6 +2,12 @@
 
 ### Feat
 
+- add attrs_strict
+
+## 2021.0.6.0 (2021-10-31)
+
+### Feat
+
 - trim trailing whitespace from doc output
 
 ### Fix

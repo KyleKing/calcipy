@@ -249,8 +249,10 @@ class TestingConfig(_PathAttrBase):  # noqa: H601  # pylint: disable=too-many-in
     path_tests: Union[Path, str] = attr.ib(validator=type_validator(), default=Path('tests'))
     """Relative path to the tests directory. Default is `tests`."""
 
-    args_pytest: str = attr.ib(validator=type_validator(),
-                               default='--exitfirst --showlocals --failed-first --new-first --verbose --doctest-modules')
+    args_pytest: str = attr.ib(
+        validator=type_validator(),
+        default='--exitfirst --showlocals --failed-first --new-first --verbose --doctest-modules',
+    )
     """Default arguments to Pytest. In short form, the defaults are `-x -l --ff --nf -vv`."""
 
     args_diff: str = attr.ib(validator=type_validator(), default='--fail-under=65 --compare-branch=origin/main')
