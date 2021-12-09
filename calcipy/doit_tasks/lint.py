@@ -208,6 +208,7 @@ def task_security_checks() -> DoitTask:
 
     """
     return debug_task([
+        'poetry run pip-audit -f json',  # FIXME: Check for errors in output
         Interactive(f'poetry run bandit --recursive {DG.meta.pkg_name}'),
         Interactive('poetry run nox --session check_safety'),
     ])

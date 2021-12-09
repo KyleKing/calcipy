@@ -152,6 +152,7 @@ it = { version = ">=1", optional = true }
 licensecheck = { version = ">=2021.1.2", optional = true }
 pandas-vet = { version = ">=0.2", optional = true }
 pep8-naming = { version = ">=0.11", optional = true }
+pip-audit = { version = ">=1.1.1", optional = true }
 proselint = { version = ">=0.10", optional = true }
 pylint = { version = ">=2.8", optional = true }
 vulture = { version = ">=2.3", optional = true }
@@ -234,6 +235,7 @@ lint = [
     "licensecheck",
     "pandas-vet",
     "pep8-naming",
+    "pip-audit",
     "proselint",
     "pylint",
     "vulture",
