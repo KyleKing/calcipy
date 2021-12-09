@@ -22,7 +22,7 @@ def test_search_lines():
         '# TODO: Show table of contents in __init__.py file',  # noqa: T101
         'class Code: # TODO: Complete',  # noqa: T101
         '   //TODO: Not matched',  # noqa: T101
-        '   pass  # Both FIXME: and TODO: in the same line, but only match the first',  # noqa: T100,T101
+        '   ...  # Both FIXME: and TODO: in the same line, but only match the first',  # noqa: T100,T101
     ]
     tag_order = ['FIXME', 'FYI', 'HACK', 'REVIEW']  # noqa: T100
     regex_compiled = re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))

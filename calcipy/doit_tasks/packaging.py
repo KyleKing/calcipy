@@ -9,6 +9,7 @@ import numpy as np
 import pendulum
 import requests
 import toml
+from attrs_strict import type_validator
 from beartype import beartype
 from doit.tools import Interactive
 from loguru import logger
@@ -44,6 +45,7 @@ def task_lock() -> DoitTask:
     path_req = DG.meta.path_project / 'requirements.txt'
     # Ensure that extras are exported as well
     toml_data = toml.loads(DG.meta.path_toml.read_text())
+    # FYI: poetry 'groups' appear to be properly exported with "--dev"
     extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
     extras_arg = ' -E '.join([''] + extras) if extras else ''
     task = debug_task([
@@ -132,12 +134,12 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
 class _HostedPythonPackage():  # noqa: H601
     """Representative information for a python package hosted on some domain."""
 
-    domain: str = 'https://pypi.org/pypi/{name}/{version}/json'
-    name: str
-    version: str
-    datetime: Optional[DateTime] = None
-    latest_version: str = ''
-    latest_datetime: Optional[DateTime] = None
+    domain: str = attr.ib(validator=type_validator(), default='https://pypi.org/pypi/{name}/{version}/json')
+    name: str = attr.ib(validator=type_validator())
+    version: str = attr.ib(validator=type_validator())
+    datetime: Optional[DateTime] = attr.ib(validator=type_validator(), default=None)
+    latest_version: str = attr.ib(validator=type_validator(), default='')
+    latest_datetime: Optional[DateTime] = attr.ib(validator=type_validator(), default=None)
 
 
 _PATH_PACK_LOCK = DG.meta.path_project / '.calcipy_packaging.lock'

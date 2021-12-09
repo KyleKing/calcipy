@@ -53,7 +53,7 @@ try:
     from nox_poetry.sessions import Session
     _HAS_TEST_IMPORTS = True
 except ImportError:  # pragma: no cover
-    pass
+    ...
 
 _DEV_KEY = '_dev'
 """Key for list of development dependencies."""

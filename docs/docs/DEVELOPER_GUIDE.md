@@ -6,6 +6,7 @@
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
 poetry install -E dev -E lint -E test -E commitizen_legacy
+# Note that the new "poetry --sync" will remove optional groups
 
 # See the available tasks
 poetry run doit list
@@ -50,7 +51,7 @@ poetry run doit run lock document deploy_docs publish
 | File                                     |   Statements |   Missing |   Excluded | Coverage   |
 |:-----------------------------------------|-------------:|----------:|-----------:|:-----------|
 | `calcipy/__init__.py`                    |            7 |         0 |          0 | 100.0%     |
-| `calcipy/code_tag_collector.py`          |           74 |         6 |          0 | 91.9%      |
+| `calcipy/code_tag_collector.py`          |           75 |         6 |          0 | 92.0%      |
 | `calcipy/dev/__init__.py`                |            0 |         0 |          0 | 100.0%     |
 | `calcipy/dev/conftest.py`                |           16 |         0 |         23 | 100.0%     |
 | `calcipy/dev/noxfile.py`                 |           22 |         1 |         80 | 95.5%      |
@@ -58,16 +59,16 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/doit_tasks/base.py`             |           50 |        10 |          3 | 80.0%      |
 | `calcipy/doit_tasks/code_tags.py`        |           10 |         0 |          0 | 100.0%     |
 | `calcipy/doit_tasks/doc.py`              |          136 |         7 |          5 | 94.9%      |
-| `calcipy/doit_tasks/doit_globals.py`     |          166 |         4 |         10 | 97.6%      |
+| `calcipy/doit_tasks/doit_globals.py`     |          167 |         4 |         10 | 97.6%      |
 | `calcipy/doit_tasks/file_search.py`      |           34 |         0 |          2 | 100.0%     |
 | `calcipy/doit_tasks/lint.py`             |           81 |         3 |          0 | 96.3%      |
-| `calcipy/doit_tasks/packaging.py`        |          132 |        12 |          3 | 90.9%      |
-| `calcipy/doit_tasks/summary_reporter.py` |           22 |         0 |         40 | 100.0%     |
+| `calcipy/doit_tasks/packaging.py`        |          133 |        12 |          3 | 91.0%      |
+| `calcipy/doit_tasks/summary_reporter.py` |           23 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`             |           58 |         9 |          0 | 84.5%      |
 | `calcipy/dot_dict.py`                    |            7 |         0 |          0 | 100.0%     |
-| `calcipy/file_helpers.py`                |           78 |         7 |          3 | 91.0%      |
+| `calcipy/file_helpers.py`                |           78 |         6 |          3 | 92.3%      |
 | `calcipy/log_helpers.py`                 |           61 |         6 |          0 | 90.2%      |
-| **Totals**                               |          967 |        65 |        169 | 93.3%      |
+| **Totals**                               |          971 |        64 |        169 | 93.4%      |
 
-Generated on: 2021-10-31T11:46:54.320400
+Generated on: 2021-12-07T22:06:37.973708
 <!-- {cte} -->

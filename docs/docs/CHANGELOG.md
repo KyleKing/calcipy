@@ -2,6 +2,16 @@
 
 ### Feat
 
+- add attrs_strict
+
+### Refactor
+
+- replace pass with ... to keep it from being removed
+
+## 2021.0.6.0 (2021-10-31)
+
+### Feat
+
 - trim trailing whitespace from doc output
 
 ### Fix
