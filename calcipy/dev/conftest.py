@@ -29,7 +29,7 @@ try:
     from py.xml import html
     _HAS_TEST_IMPORTS = True
 except ImportError:  # pragma: no cover
-    pass
+    ...
 
 if _HAS_TEST_IMPORTS:
     @pytest.mark.optionalhook()
@@ -56,7 +56,7 @@ if _HAS_TEST_IMPORTS:
             cells.insert(1, html.td(report.description))
             cells.insert(1, html.td(str(datetime.utcnow()), class_='col-time'))
         except AttributeError:
-            pass  # The test suite likely failed
+            ...  # The test suite likely failed
 
     @pytest.hookimpl(hookwrapper=True)
     def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover
@@ -77,7 +77,7 @@ if _HAS_TEST_IMPORTS:
             report.description = str(item.function.__doc__)
             report.duration_formatter = '%H:%M:%S.%f'
         except AttributeError:
-            pass  # The test suite likely failed
+            ...  # The test suite likely failed
 
     def pytest_configure(config: Any) -> None:
         """Configure pytest with custom markers (SLOW, INTERACTIVE, and CURRENT).
