@@ -279,11 +279,11 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         session.install('wily', '--upgrade')
         logger.warning('FYI: Can only be run when all changes are checked in or stashed')
         # All possible metrics can be listed with: wily list-metrics
-        operators = ','.join([
-            'raw.loc', 'raw.lloc', 'raw.sloc', 'maintainability.rank', 'maintainability.mi', 'cyclomatic.complexity',
-            'halstead.h1', 'halstead.vocabulary', 'halstead.length', 'halstead.volume', 'halstead.difficulty', 'halstead.effort',
-        ])
-        build_args = f'--max-revisions 50 --operators {operators}'  # Shared arguments to wily
+        # operators = ','.join([
+        #     'raw.loc', 'raw.lloc', 'raw.sloc', 'maintainability.rank', 'maintainability.mi', 'cyclomatic.complexity',
+        #     'halstead.h1', 'halstead.vocabulary', 'halstead.length', 'halstead.volume', 'halstead.difficulty', 'halstead.effort',
+        # ])
+        build_args = '--max-revisions 50'
         report_args = f'--output {DG.meta.path_project}/report.txt --message --number 50'
         with suppress(Exception):
             session.run(*shlex.split(f'wily build {DG.meta.pkg_name} {build_args}'), stdout=True)
