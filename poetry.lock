@@ -175,6 +175,14 @@ filecache = ["lockfile (>=0.9)"]
 redis = ["redis (>=2.10.5)"]
 
 [[package]]
+name = "cement"
+version = "3.0.6"
+description = "Application Framework for Python"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
 name = "certifi"
 version = "2021.10.8"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -2267,7 +2275,7 @@ test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest-html", "
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "9b3cffc452163991acf934a1dcd84bcf4e27e1a1a9b4d7e904461cb2da96d981"
+content-hash = "f18025b18d344ee47e761921dd5a07bab6608df48e0ad9a42a53415c1212f995"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2325,6 +2333,10 @@ better-exceptions = [
 cachecontrol = [
     {file = "CacheControl-0.12.10-py2.py3-none-any.whl", hash = "sha256:b0d43d8f71948ef5ebdee5fe236b86c6ffc7799370453dccb0e894c20dfa487c"},
     {file = "CacheControl-0.12.10.tar.gz", hash = "sha256:d8aca75b82eec92d84b5d6eb8c8f66ea16f09d2adb09dbca27fe2d5fc8d3732d"},
+]
+cement = [
+    {file = "cement-3.0.6-py3-none-any.whl", hash = "sha256:79c9655e68e4393bf8898d28fc806cc5187c1fc493a75f1af396bd30c6170cc4"},
+    {file = "cement-3.0.6.tar.gz", hash = "sha256:fccec41eab3f15a03445b1ce24c8a7e106d4d5520f6507a7145698ce68923d31"},
 ]
 certifi = [
     {file = "certifi-2021.10.8-py2.py3-none-any.whl", hash = "sha256:d62a0163eb4c2344ac042ab2bdf75399a71a2d8c7d47eac2e2ee91b9d6339569"},

@@ -15,3 +15,6 @@ logger.disable(__pkg_name__)
 warnings.simplefilter(action='ignore', category=BeartypeDecorHintPepDeprecatedWarning)
 
 # ====== Above is the recommended code from calcipy_template and may be updated on new releases ======
+
+# Load entry point for CLI
+from .cli.main import run  # noqa: F401, E402

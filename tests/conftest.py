@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict, Generator
 
 import pytest
+from cement import fs
 from decorator import contextmanager
 
 from calcipy.dev.conftest import pytest_configure  # noqa: F401
@@ -13,6 +14,15 @@ from calcipy.dev.conftest import pytest_html_results_table_row  # noqa: F401
 from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
+
+
+# PLANNED: Not yet used. From cement boilerplate
+@pytest.fixture(scope='function')
+def cement_tmp(request):
+    """Create a `tmp` object that generates temporary files."""
+    t = fs.Tmp()
+    yield t
+    t.remove()
 
 
 @pytest.fixture(scope='module')
