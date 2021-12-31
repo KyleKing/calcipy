@@ -2,6 +2,7 @@
 
 ### Feat
 
+- initialize the cement CLI application
 - replace toml with tomli (#74)
 - move wily to nox to reduce version conflicts
 - add pip-audit
@@ -13,6 +14,7 @@
 
 ### Refactor
 
+- move file_search to top-level
 - just run pre-commit install
 - replace pass with ... to keep it from being removed
 

@@ -13,7 +13,7 @@ Calcipy CLI: {get_version()}
 """
 
 
-class Base(Controller):
+class BaseController(Controller):
     """Base CLI Controller."""
 
     class Meta:
@@ -40,7 +40,7 @@ class Base(Controller):
             (['-f', '--foo'], {'help': 'Placeholder foo option', 'action': 'store', 'dest': 'foo'}),
         ],
     )
-    def echo(self):
+    def echo(self) -> None:
         """Example sub-command."""
         data = {
             'foo': self.app.pargs.foo or self.app.config[__pkg_name__].get('foo', 'bar'),

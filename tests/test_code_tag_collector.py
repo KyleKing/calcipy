@@ -20,21 +20,23 @@ def test_search_lines():
         '# REVIEW: Show table of contents in __init__.py file',
         '# TBD: Show table of contents in __init__.py file',
         '# TODO: Show table of contents in __init__.py file',  # noqa: T101
+        '# HACK - Support unconventional dashed code tags',  # noqa: T101
         'class Code: # TODO: Complete',  # noqa: T101
         '   //TODO: Not matched',  # noqa: T101
-        '   ...  # Both FIXME: and TODO: in the same line, but only match the first',  # noqa: T100,T101
+        '   ...  # Both FIXME: and FYI: in the same line, but only match the first',  # noqa: T100,T101
     ]
     tag_order = ['FIXME', 'FYI', 'HACK', 'REVIEW']  # noqa: T100
     regex_compiled = re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))
 
     comments = _search_lines(lines, regex_compiled)  # act
 
-    assert len(comments) == 5
+    assert len(comments) == 6
     assert comments[0].lineno == 3
     assert comments[0].tag == 'FIXME'  # noqa: T100
     assert comments[0].text == 'Show README.md in the documentation (may need to update paths?)'
+    assert comments[-2].text == 'Support unconventional dashed code tags'
     assert comments[-1].tag == 'FIXME'  # noqa: T100
-    assert comments[-1].text == 'and TODO: in the same line, but only match the first'  # noqa: T101
+    assert comments[-1].text == 'and FYI: in the same line, but only match the first'
 
 
 def test_format_report():

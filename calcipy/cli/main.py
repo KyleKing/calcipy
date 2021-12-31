@@ -5,7 +5,8 @@ from cement.core.exc import CaughtSignal
 from loguru import logger
 
 from .. import __pkg_name__
-from .controllers.base import Base
+from .controllers.base_controller import BaseController
+from .controllers.code_tag_collector_controller import CodeTagCollectorController
 from .core.exceptions import CLIError
 
 # Initialize nested dictionary for storing application defaults
@@ -26,7 +27,10 @@ class CLIApp(App):
         exit_on_close = True
         """Call sys.exit() on close."""
 
-        handlers = [Base]
+        # PLANNED: Consider additional commands to add, such as `check_for_stale_packages` or to wrap copier
+        #   More ideas here: https://github.com/KyleKing/calcipy/issues/69
+
+        handlers = [BaseController, CodeTagCollectorController]
         """Register handlers."""
 
 
