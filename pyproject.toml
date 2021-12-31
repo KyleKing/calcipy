@@ -162,7 +162,7 @@ yamllint = { version = ">=1.26", optional = true }
 # Test
 coverage = { version = ">=6", optional = true }
 diff-cover = { version = ">=6.4", optional = true }
-lxml = { version = "*", optional = true }                  # required for the HTML mypy report format
+lxml = { version = ">=4.7.1", optional = true }            # required for the HTML mypy report format
 mypy = { version = ">=0.812", optional = true }
 nox-poetry = { version = ">=0.8", optional = true }
 pytest = { version = ">=6", optional = true }

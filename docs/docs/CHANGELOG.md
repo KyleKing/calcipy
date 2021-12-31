@@ -2,7 +2,13 @@
 
 ### Feat
 
+- move wily to nox to reduce version conflicts
+- add pip-audit
 - add attrs_strict
+
+### Fix
+
+- wily
 
 ### Refactor
 

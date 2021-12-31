@@ -34,7 +34,7 @@ dependenpy = ["dependenpy (>=3.3,<4.0)"]
 type = "git"
 url = "https://github.com/pawamoy/archan.git"
 reference = "master"
-resolved_reference = "caa86d2a610aae25e0b7f020615e6f90ad70ae1c"
+resolved_reference = "caa86d2a610aae25e0b7f020615e6f90ad70ae1c"  # pragma: allowlist secret
 
 ----------------
 doit> pre_commit_hooks failed
