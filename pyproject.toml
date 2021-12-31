@@ -88,7 +88,7 @@ pre-commit = ">=2.15"                                      # Should be optional,
 pyrate_limiter = ">=2.4"                                   # Should be optional, but needed for packaging task
 sty = { version = ">=1.0.0rc2", allow-prereleases = true } # Should be optional, but needed for Custom Summary
 tabulate = ">=0.8"                                         # Should be optional, but needed for doc task
-toml = ">=0.10"                                            # Should be optional, but needed for doit_globals
+tomli = ">=2.0.0"                                          # Should be optional, but needed for doit_globals
 transitions = ">=0.8"                                      # Should be optional, but needed for doc tasks
 # Indirect imports necessary only to comply with check_imports
 pyyaml = "*"   # Should be optional, but needed for doit_globals

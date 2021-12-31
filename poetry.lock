@@ -2041,7 +2041,7 @@ name = "tomli"
 version = "2.0.0"
 description = "A lil' TOML parser"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [[package]]
@@ -2267,7 +2267,7 @@ test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest-html", "
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "167d78b24f8f2e0b46e0fd13d9a39ec2dcad903e3acf37b46cf05313a7120ea7"
+content-hash = "9b3cffc452163991acf934a1dcd84bcf4e27e1a1a9b4d7e904461cb2da96d981"
 
 [metadata.files]
 add-trailing-comma = [
