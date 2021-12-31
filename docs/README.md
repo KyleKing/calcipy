@@ -10,7 +10,27 @@
 - [tidypy](https://github.com/jayclassless/tidypy#features) offers similar functionality of bundling and running static checkers, but makes far fewer assumptions about the project itself (and has a really nice progress indicator!)
 - And many more such as [prospector](https://github.com/PyCQA/prospector), [wemake-python-styleguide](https://github.com/wemake-services/wemake-python-styleguide) / [cjolowicz/cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), etc.
 
-## Features
+## Calcipy CLI
+
+`calcipy` can be run as a CLI application without adding the package as a dependency!
+
+Quick Start:
+
+```sh
+pipx install calcipy
+
+# Use the Collect Code Tags (cct) command
+calcipy cct -h
+calcipy cct -b=~/Some/Project
+
+
+# See additional documentation from the CLI help
+calcipy -h
+````
+
+To utilize all of the functionality from `calcipy`, see the following sections on adding `calcipy` as a dependency
+
+## Module Features
 
 The core functionality of calcipy is the rich set of tasks run with `doit`
 
