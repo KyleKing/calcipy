@@ -18,8 +18,8 @@ from loguru import logger
 
 from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS
 from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, get_doc_dir
+from ..file_search import find_project_files, find_project_files_by_suffix
 from ..log_helpers import log_fun
-from .file_search import find_project_files, find_project_files_by_suffix
 
 _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""

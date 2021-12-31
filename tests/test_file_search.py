@@ -1,7 +1,7 @@
-"""Test doit_tasks/file_search.py."""
+"""Test file_search.py."""
 
 from calcipy.doit_tasks.doit_globals import DG
-from calcipy.doit_tasks.file_search import find_project_files_by_suffix
+from calcipy.file_search import find_project_files_by_suffix
 
 
 def test_find_project_files_by_suffix():
