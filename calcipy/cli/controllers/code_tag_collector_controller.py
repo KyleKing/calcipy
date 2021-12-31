@@ -2,7 +2,7 @@
 
 import re
 from pathlib import Path
-
+from loguru import logger
 from cement import Controller, ex
 
 from ...code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
@@ -76,7 +76,7 @@ class CodeTagCollectorController(Controller):
             raise ValueError('tag_order must contain at least one tag (i.e. `TODO`)')
         regex_compiled = re.compile(pargs.regex.format(tag='|'.join(tag_order)))
 
-        write_code_tag_file(
+        path_tag_summary = write_code_tag_file(
             path_tag_summary=path_tag_summary,
             paths_source=paths_source,
             base_dir=base_dir,
@@ -84,7 +84,4 @@ class CodeTagCollectorController(Controller):
             tag_order=tag_order,
             header='# Collected Code Tags',
         )
-
-    def cct(self) -> None:
-        """Create an alias."""
-        self.collect_code_tags()
+        logger.info(f'Created: {path_tag_summary}')
