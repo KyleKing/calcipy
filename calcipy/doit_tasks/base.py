@@ -11,8 +11,7 @@ from doit.task import Task
 from loguru import logger
 from sty import fg
 
-from calcipy.file_helpers import if_found_unlink
-
+from ..file_helpers import if_found_unlink
 from .doit_globals import DG, DoitAction, DoitTask
 
 

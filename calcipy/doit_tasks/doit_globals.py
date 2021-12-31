@@ -440,7 +440,7 @@ class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
 
         # Configure submodules
         meta_kwargs = {'path_project': self.meta.path_project}
-        lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
+        lint_k, test_k, code_k, doc_k = (calcipy_config.get(key, {}) for key in section_keys)
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
         self.tags = CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k)  # type: ignore[arg-type]

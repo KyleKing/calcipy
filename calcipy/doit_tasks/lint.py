@@ -218,6 +218,7 @@ def task_security_checks() -> DoitTask:
 # Formatting
 
 
+# TODO: create task that accepts a single file from pre-commit
 @beartype
 def task_auto_format() -> DoitTask:
     """Format code with isort, autopep8, and others.
