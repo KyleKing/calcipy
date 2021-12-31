@@ -22,7 +22,7 @@ COMMON_CODE_TAGS = ['FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG'
 CODE_TAG_RE = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
 """Default code tag regex with `tag` and `text` matching groups.
 
-Requires foramtting with list of tags: `CODE_TAG_RE.format(tag='|'.join(tag_list))`
+Requires formatting with list of tags: `CODE_TAG_RE.format(tag='|'.join(tag_list))`
 
 Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 

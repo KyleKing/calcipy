@@ -9,7 +9,7 @@ from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, 
 
 import attr
 import doit
-import toml
+import tomli
 from attrs_strict import type_validator
 from beartype import beartype
 from doit.action import BaseAction
@@ -162,14 +162,13 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         super().__attrs_post_init__()
 
         # Note: toml is an optional dependency required only when using the `doit_tasks` in development
-        if toml is None:  # pragma: no cover
+        if tomli is None:  # pragma: no cover
             raise RuntimeError(_DOIT_TASK_IMPORT_ERROR)
 
-        try:
-            poetry_config = toml.load(self.path_toml)['tool']['poetry']
-        except FileNotFoundError as exc:  # pragma: no cover
-            raise RuntimeError(f'Check "{self.path_project}". Could not find: "{self.path_toml}"') from exc
+        if not self.path_toml.is_file():
+            raise RuntimeError(f'Check "{self.path_project}". Could not find: "{self.path_toml}"')
 
+        poetry_config = tomli.loads(self.path_toml.read_text())['tool']['poetry']
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
 
@@ -399,8 +398,8 @@ class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
 
         # Read the optional toml configuration
         # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
-        path_toml = path_project / 'pyproject.toml'
-        calcipy_config = toml.load(path_toml).get('tool', {}).get('calcipy', {})
+        data = (path_project / 'pyproject.toml').read_text()
+        calcipy_config = tomli.loads(data).get('tool', {}).get('calcipy', {})
 
         self._set_meta(path_project, calcipy_config)
         self._set_submodules(calcipy_config)
@@ -441,7 +440,7 @@ class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
 
         # Configure submodules
         meta_kwargs = {'path_project': self.meta.path_project}
-        lint_k, test_k, code_k, doc_k = [calcipy_config.get(key, {}) for key in section_keys]
+        lint_k, test_k, code_k, doc_k = (calcipy_config.get(key, {}) for key in section_keys)
         self.lint = LintConfig(**meta_kwargs, **lint_k)  # type: ignore[arg-type]
         self.test = TestingConfig(**meta_kwargs, **test_k)  # type: ignore[arg-type]
         self.tags = CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k)  # type: ignore[arg-type]

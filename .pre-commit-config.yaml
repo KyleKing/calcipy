@@ -9,7 +9,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
       - id: check-added-large-files
       # - id: check-case-conflict  # Too Slow...
@@ -37,7 +37,7 @@ repos:
       # - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.20.0
+    rev: v2.20.3
     hooks:
       - id: commitizen
         # yamllint disable-line rule:line-length
@@ -46,17 +46,24 @@ repos:
             "git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08",
           ]
         stages: [commit-msg]
+  - repo: https://github.com/MarcoGorelli/absolufy-imports
+    rev: v0.3.0
+    hooks:
+      - id: absolufy-imports
+        args: ["--never"]
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.29.1
+    rev: v2.30.1
     hooks:
       - id: pyupgrade
-        stages: [push]
-        args: ["--keep-runtime-typing"]
+        args: ["--py38-plus", "--keep-runtime-typing"]
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.2.1
     hooks:
       - id: add-trailing-comma
-        stages: [push]
+  - repo: https://github.com/hadialqattan/pycln
+    rev: v1.1.0
+    hooks:
+      - id: pycln
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.1.0
     hooks:

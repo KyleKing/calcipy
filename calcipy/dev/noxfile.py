@@ -34,6 +34,7 @@ with open(path_stdout, 'w') as out:
 
 import re
 import shlex
+from contextlib import suppress
 from pathlib import Path
 from typing import Callable, Dict, List
 from urllib.parse import urlparse
@@ -265,3 +266,32 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             # clintgibler:no-exec
         ])
         session.run(*shlex.split(f'semgrep {DG.meta.pkg_name} {allow_py_rules} {configs}'), stdout=True)
+
+    # TODO: https://github.com/tonybaloney/wily/blob/e72b7d95228bbe5538a072dc5d1186daa318bb03/src/wily/__main__.py#L261
+    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
+    def check_wily(session: Session) -> None:
+        """Run `wily` separately because of dependency constraints.
+
+        Args:
+            session: nox_poetry Session
+
+        """
+        session.install('wily', '--upgrade')
+        logger.warning('FYI: Can only be run when all changes are checked in or stashed')
+        # All possible metrics can be listed with: wily list-metrics
+        # TODO: How are the additional metrics configured?
+        # operators = ','.join([
+        #     'raw.loc', 'raw.lloc', 'raw.sloc', 'maintainability.rank', 'maintainability.mi', 'cyclomatic.complexity',
+        #     'halstead.h1', 'halstead.vocabulary', 'halstead.length', 'halstead.volume', 'halstead.difficulty', 'halstead.effort',
+        # ])
+        build_args = '--max-revisions 50'
+        report_args = f'--output {DG.meta.path_project}/report.txt --message --number 50'
+        with suppress(Exception):
+            session.run(*shlex.split(f'wily build {DG.meta.pkg_name} {build_args}'), stdout=True)
+            session.run(*shlex.split(f'wily report {DG.meta.pkg_name} {report_args}'), stdout=True)
+
+            # FYI: Opens plotly graph in web browser and not necessary to run "wily" again
+            # metric = 'raw.loc'  # 'cyclomatic.complexity' 'maintainability.mi' 'halstead.h1'
+            # session.run(*shlex.split(f'wily graph {DG.meta.pkg_name} {metric}'), stdout=True)
+
+        # TODO: Could use file archiver instead of git when the above fails?

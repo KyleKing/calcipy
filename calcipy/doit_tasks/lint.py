@@ -208,6 +208,7 @@ def task_security_checks() -> DoitTask:
 
     """
     return debug_task([
+        'poetry run pip-audit -f json',  # FIXME: Check for errors in output
         Interactive(f'poetry run bandit --recursive {DG.meta.pkg_name}'),
         Interactive('poetry run nox --session check_safety'),
     ])
@@ -217,6 +218,7 @@ def task_security_checks() -> DoitTask:
 # Formatting
 
 
+# TODO: create task that accepts a single file from pre-commit
 @beartype
 def task_auto_format() -> DoitTask:
     """Format code with isort, autopep8, and others.
@@ -261,6 +263,7 @@ def task_pre_commit_hooks() -> DoitTask:
     # Only use these two stages for all pre-commit hooks
     stages = ['commit-msg', 'pre-push']
     return debug_task([
+        Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),
         Interactive('poetry run pre-commit install --install-hooks' + ' --hook-type '.join([''] + stages)),
         Interactive('poetry run pre-commit run --all-files --hook-stage push'),

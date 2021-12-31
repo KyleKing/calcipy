@@ -2,10 +2,18 @@
 
 ### Feat
 
+- replace toml with tomli (#74)
+- move wily to nox to reduce version conflicts
+- add pip-audit
 - add attrs_strict
+
+### Fix
+
+- wily
 
 ### Refactor
 
+- just run pre-commit install
 - replace pass with ... to keep it from being removed
 
 ## 2021.0.6.0 (2021-10-31)

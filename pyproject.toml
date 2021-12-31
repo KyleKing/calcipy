@@ -88,7 +88,7 @@ pre-commit = ">=2.15"                                      # Should be optional,
 pyrate_limiter = ">=2.4"                                   # Should be optional, but needed for packaging task
 sty = { version = ">=1.0.0rc2", allow-prereleases = true } # Should be optional, but needed for Custom Summary
 tabulate = ">=0.8"                                         # Should be optional, but needed for doc task
-toml = ">=0.10"                                            # Should be optional, but needed for doit_globals
+tomli = ">=2.0.0"                                          # Should be optional, but needed for doit_globals
 transitions = ">=0.8"                                      # Should be optional, but needed for doc tasks
 # Indirect imports necessary only to comply with check_imports
 pyyaml = "*"   # Should be optional, but needed for doit_globals
@@ -152,17 +152,17 @@ it = { version = ">=1", optional = true }
 licensecheck = { version = ">=2021.1.2", optional = true }
 pandas-vet = { version = ">=0.2", optional = true }
 pep8-naming = { version = ">=0.11", optional = true }
+pip-audit = { version = ">=1.1.1", optional = true }
 proselint = { version = ">=0.10", optional = true }
 pylint = { version = ">=2.8", optional = true }
 vulture = { version = ">=2.3", optional = true }
-wily = { version = ">=1.20", optional = true }                                          # FYI: Warning, has pinned versions of plotly, radon, etc. TODO: Run in nox-only?
 xenon = { version = ">=0.8", optional = true }
 yamllint = { version = ">=1.26", optional = true }
 
 # Test
 coverage = { version = ">=6", optional = true }
 diff-cover = { version = ">=6.4", optional = true }
-lxml = { version = "*", optional = true }                  # required for the HTML mypy report format
+lxml = { version = ">=4.7.1", optional = true }            # required for the HTML mypy report format
 mypy = { version = ">=0.812", optional = true }
 nox-poetry = { version = ">=0.8", optional = true }
 pytest = { version = ">=6", optional = true }
@@ -234,10 +234,10 @@ lint = [
     "licensecheck",
     "pandas-vet",
     "pep8-naming",
+    "pip-audit",
     "proselint",
     "pylint",
     "vulture",
-    "wily",
     "xenon",
     "yamllint",
 ]

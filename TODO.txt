@@ -1,0 +1,40 @@
+doit> Summary:
+
+----------------
+doit> nox_coverage failed ("can't install from git")
+
+----------------
+doit> check_for_stale_packages failed
+{Why matplotlib?}
+❯ poetry run doit run check_for_stale_packages
+.  lock > [
+	Cmd: poetry lock --no-update
+	Cmd: poetry export -f requirements.txt -o requirements.txt -E matplotlib --dev
+]
+{Need to handle git dependencies, like Archan:  https://pypi.org/pypi/archan/2.0.2.dev53+gcaa86d2/json/}
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://pypi.org/pypi/archan/2.0.2.dev53+gcaa86d2/json/
+[[package]]
+name = "archan"
+version = "2.0.2.dev53+gcaa86d2"
+description = "Analysis of your architecture strength based on DSM data."
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
+develop = false
+
+[package.dependencies]
+colorama = ">=0.4,<1.0"
+pyyaml = ">=5.3,<6.0"
+"tap.py" = ">=3.0,<4.0"
+
+[package.extras]
+dependenpy = ["dependenpy (>=3.3,<4.0)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/pawamoy/archan.git"
+reference = "master"
+resolved_reference = "caa86d2a610aae25e0b7f020615e6f90ad70ae1c"  # pragma: allowlist secret
+
+----------------
+doit> pre_commit_hooks failed

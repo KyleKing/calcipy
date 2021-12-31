@@ -8,7 +8,7 @@ import attr
 import numpy as np
 import pendulum
 import requests
-import toml
+import tomli
 from attrs_strict import type_validator
 from beartype import beartype
 from doit.tools import Interactive
@@ -44,7 +44,7 @@ def task_lock() -> DoitTask:
     """
     path_req = DG.meta.path_project / 'requirements.txt'
     # Ensure that extras are exported as well
-    toml_data = toml.loads(DG.meta.path_toml.read_text())
+    toml_data = tomli.loads(DG.meta.path_toml.read_text())
     # FYI: poetry 'groups' appear to be properly exported with "--dev"
     extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
     extras_arg = ' -E '.join([''] + extras) if extras else ''
@@ -270,7 +270,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     if path_lock.name != 'poetry.lock':
         raise NotImplementedError(f'{path_lock.name} is not a currently supported lock type. Try "poetry.lock" instead')
 
-    lock = toml.loads(path_lock.read_text())
+    lock = tomli.loads(path_lock.read_text())
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
     # > domain=dependency['source']['url'] + '{name}/{version}/json'
     return [
