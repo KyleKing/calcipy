@@ -19,7 +19,7 @@ SKIP_PHRASE = 'calcipy:skip_tags'
 COMMON_CODE_TAGS = ['FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG']  # noqa: T100,T101,T103
 """Most common code tags. FYI and NOTE are excluded to not be tracked in the Code Summary."""
 
-CODE_TAG_RE = r'((\s|\()(?P<tag>{tag})(:[^\r\n]))(?P<text>.+)'
+CODE_TAG_RE = r'((\s|\()(?P<tag>{tag})(:| -)([^\r\n]))(?P<text>.+)'
 """Default code tag regex with `tag` and `text` matching groups.
 
 Requires formatting with list of tags: `CODE_TAG_RE.format(tag='|'.join(tag_list))`
@@ -92,7 +92,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         try:
             lines = read_lines(path_source)
         except UnicodeDecodeError as err:
-            logger.warning(f'Could not parse: {path_source}', err=err)
+            logger.debug(f'Could not parse: {path_source}', err=err)
 
         comments = _search_lines(lines, regex_compiled)
         if comments:
@@ -141,7 +141,7 @@ def write_code_tag_file(
     path_tag_summary: Path, paths_source: List[Path], base_dir: Path,
     regex_compiled: Optional[Pattern[str]] = None, tag_order: Optional[List[str]] = None,
     header: str = '# Task Summary',
-) -> None:  # noqa: CCR001
+) -> Optional[Path]:  # noqa: CCR001
     """Create the code tag summary file.
 
     Args:
@@ -153,6 +153,9 @@ def write_code_tag_file(
         tag_order: subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS
         header: optional header text. Default is '# Task Summary'
 
+    Returns:
+        Path if the code tag file was created
+
     """
     tag_order = tag_order or COMMON_CODE_TAGS
     regex_compiled = regex_compiled or re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))
@@ -162,5 +165,5 @@ def write_code_tag_file(
 
     if report:
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
-    elif path_tag_summary.is_file():
-        path_tag_summary.unlink()
+        return path_tag_summary
+    path_tag_summary.unlink()
