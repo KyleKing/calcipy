@@ -141,7 +141,7 @@ def write_code_tag_file(
     path_tag_summary: Path, paths_source: List[Path], base_dir: Path,
     regex_compiled: Optional[Pattern[str]] = None, tag_order: Optional[List[str]] = None,
     header: str = '# Task Summary',
-) -> Optional[Path]:  # noqa: CCR001
+) -> None:  # noqa: CCR001
     """Create the code tag summary file.
 
     Args:
@@ -153,9 +153,6 @@ def write_code_tag_file(
         tag_order: subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS
         header: optional header text. Default is '# Task Summary'
 
-    Returns:
-        Path if the code tag file was created
-
     """
     tag_order = tag_order or COMMON_CODE_TAGS
     regex_compiled = regex_compiled or re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))
@@ -165,5 +162,5 @@ def write_code_tag_file(
 
     if report:
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
-        return path_tag_summary
-    path_tag_summary.unlink()
+    else:
+        path_tag_summary.unlink(missing_ok=True)

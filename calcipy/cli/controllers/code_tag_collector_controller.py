@@ -2,8 +2,9 @@
 
 import re
 from pathlib import Path
-from loguru import logger
+
 from cement import Controller, ex
+from loguru import logger
 
 from ...code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
 from ...file_search import find_project_files
@@ -76,7 +77,7 @@ class CodeTagCollectorController(Controller):
             raise ValueError('tag_order must contain at least one tag (i.e. `TODO`)')
         regex_compiled = re.compile(pargs.regex.format(tag='|'.join(tag_order)))
 
-        path_tag_summary = write_code_tag_file(
+        write_code_tag_file(
             path_tag_summary=path_tag_summary,
             paths_source=paths_source,
             base_dir=base_dir,
