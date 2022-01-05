@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fix
+
+- Code Tag Collector cannot return a Path for DoIt tasks
+
 ## 2021.0.7.0 (2021-12-31)
 
 ### Feat
