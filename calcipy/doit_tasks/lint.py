@@ -218,16 +218,14 @@ def task_security_checks() -> DoitTask:
 # Formatting
 
 
-# TODO: create task that accepts a single file from pre-commit
 @beartype
-def task_auto_format() -> DoitTask:
-    """Format code with isort, autopep8, and others.
+def _gen_format_actions(paths: str) -> List[str]:
+    """Generate the list of format actions for Python files (isort, autopep8, etc.).
 
-    Other Useful Format Snippets:
+    # PLANNED: Considering splitting paths on commas if above some maximum character length?
 
-    ```sh
-    poetry run isort --recursive --check --diff calcipy/ tests/
-    ```
+    Args:
+        paths: string list of one or more paths to pass to the cli tools
 
     Returns:
         DoitTask: doit task
@@ -238,12 +236,84 @@ def task_auto_format() -> DoitTask:
         '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
         ' --remove-duplicate-keys'
     )
-    paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths_py)
-    return debug_task([
+    return [
         f'{run} autoflake {paths} {autoflake_args}',
         f'{run} autopep8 {paths} --in-place --aggressive',
         f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',
-    ])
+    ]
+
+
+@beartype
+def task_format_py() -> DoitTask:
+    """Format a space-separate list of Python file(s). Particularly useful for pre-commit.
+
+    ```sh
+    poetry run format_py -p dodo.py tests/conftest.py
+    ```
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return {
+        'actions': _gen_format_actions('%(py-paths)s'),
+        'params': [{
+            'name': 'py-paths', 'default': '',
+            'help': (
+                'Formats specified Python file'
+            ),
+        }],
+        'pos_arg': 'pos',
+        'verbosity': 2,
+    }
+
+
+# FIXME: Add bulk toml formatting to the auto_format task!
+@beartype
+def task_format_toml() -> DoitTask:
+    """Format a space-separate list of TOML file(s) with `taplo`. Particularly useful for pre-commit.
+
+    ```sh
+    poetry run format_toml -p pyproject.toml .deepsource.toml
+    ```
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return {
+        # PLANNED: Could provide more hooks for configuring taplo options. See:
+        #   https://taplo.tamasfe.dev/configuration/#formatting-options
+        'actions': [
+            'which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml-paths)s',
+        ],
+        'params': [{
+            'name': 'toml-paths', 'default': '',
+            'help': (
+                'Formats specified TOML file'
+            ),
+        }],
+        'pos_arg': 'pos',
+        'verbosity': 2,
+    }
+
+
+@beartype
+def task_auto_format() -> DoitTask:
+    """Format code with isort, autopep8, and others.
+
+    Additional snippets that may be useful, but aren't used by doit:
+
+    ```sh
+    poetry run isort --recursive --check --diff calcipy/ tests/
+    ```
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths_py)
+    return debug_task(_gen_format_actions(paths))
 
 
 # ----------------------------------------------------------------------------------------------------------------------

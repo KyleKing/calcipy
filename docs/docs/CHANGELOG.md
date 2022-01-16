@@ -2,12 +2,44 @@
 
 ### Feat
 
+- add support for TOML formatting with taplo
+
+### Fix
+
+- correct syntax error in pre-commit command
+
+## 0.8.2 (2022-01-16)
+
+### Fix
+
+- drop all references to CalVer
+
+## 0.8.1 (2022-01-16)
+
+### Refactor
+
+- drop tag_format and use semver-only
+
+## 0.8.0 (2022-01-16)
+
+### Fix
+
+- bump year to 2022
+
+## 2021.0.8.0 (2022-01-16)
+
+### Feat
+
 - add pip-check for prettier outdated
 
 ### Fix
 
 - code_tag_collector must return doit-compliant value (None)
 - only run pre-commit once
+
+### Refactor
+
+- fix PY-W2000 by using __all__
 
 ## 2021.0.7.1 (2022-01-04)
 

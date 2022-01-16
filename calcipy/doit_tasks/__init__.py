@@ -23,6 +23,8 @@ __all__ = [  # noqa: F405
     'task_open_docs',
     # from .lint
     'task_auto_format',
+    'task_format_py',
+    'task_format_toml',
     'task_lint_critical_only',
     'task_lint_project',
     'task_lint_python',

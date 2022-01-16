@@ -43,7 +43,7 @@ repos:
         # yamllint disable-line rule:line-length
         additional_dependencies:
           [
-            "git+https://github.com/KyleKing/cz_legacy.git@bfff2ab4134c26a31f1e7f9c3a8d4bedba824b08",
+            "git+https://github.com/KyleKing/cz_legacy.git@d2e273003ac302f6583f0c5d4c0f2a29aaeee73b",
           ]
         stages: [commit-msg]
   - repo: https://github.com/MarcoGorelli/absolufy-imports
@@ -86,3 +86,9 @@ repos:
         entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: "\\.rej$"
+      - id: toml-formatter
+        name: Optional TOML Auto-Formatter
+        description: "Install taplo with 'npm install -g @taplo/cli'"
+        language: system
+        entry: poetry run doit run format_toml
+        types: [toml]
