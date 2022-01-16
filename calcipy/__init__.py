@@ -5,7 +5,7 @@ import warnings
 from beartype.roar import BeartypeDecorHintPepDeprecatedWarning
 from loguru import logger
 
-__version__ = '2021.0.7.1'
+__version__ = '2021.0.8.0'
 __pkg_name__ = 'calcipy'
 
 logger.disable(__pkg_name__)

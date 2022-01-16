@@ -9,6 +9,10 @@
 - code_tag_collector must return doit-compliant value (None)
 - only run pre-commit once
 
+### Refactor
+
+- fix PY-W2000 by using __all__
+
 ## 2021.0.7.1 (2022-01-04)
 
 ### Fix
