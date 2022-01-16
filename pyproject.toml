@@ -25,7 +25,7 @@ change_type_order = [
 ]
 version = "0.8.0"
 # PLANNED: Pending calver support: https://github.com/commitizen-tools/commitizen/pull/385
-tag_format = "2021.$version"
+tag_format = "2022.$version"
 version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 
 [tool.commitizen.cz_legacy_map]
