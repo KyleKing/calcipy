@@ -1,5 +1,17 @@
 ## Unreleased
 
+### Refactor
+
+- drop tag_format and use semver-only
+
+## 0.8.0 (2022-01-16)
+
+### Fix
+
+- bump year to 2022
+
+## 2021.0.8.0 (2022-01-16)
+
 ### Feat
 
 - add pip-check for prettier outdated
