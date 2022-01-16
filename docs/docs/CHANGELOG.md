@@ -1,3 +1,9 @@
+## Unreleased
+
+### Fix
+
+- drop all references to CalVer
+
 ## 0.8.1 (2022-01-16)
 
 ### Refactor

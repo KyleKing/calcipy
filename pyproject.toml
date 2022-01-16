@@ -23,7 +23,7 @@ change_type_order = [
     "Change (Old)",
     "Fix (Old)",
 ]
-version = "0.8.1"
+version = "0.8.2"
 version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 
 [tool.commitizen.cz_legacy_map]
@@ -43,7 +43,7 @@ multi_line_output = 5
 
 [tool.poetry]
 name = "calcipy"
-version = "0.8.1"
+version = "0.8.2"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
