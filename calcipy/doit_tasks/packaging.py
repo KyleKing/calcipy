@@ -337,7 +337,7 @@ def task_check_for_stale_packages() -> DoitTask:
     path_pack_lock = _PATH_PACK_LOCK
     task = debug_task([
         (find_stale_packages, (path_lock, path_pack_lock), {'stale_months': 48}),
-        Interactive('poetry run pip list --outdated'),
+        Interactive('poetry run pip-check --cmd="poetry run pip" --hide-unchanged'),
     ])
     task['file_dep'].append(path_lock)
     task['targets'].append(path_pack_lock)

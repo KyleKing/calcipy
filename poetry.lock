@@ -1066,6 +1066,7 @@ python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
 fhconfparser = ">=2021.1.1,<2023"
+metprint = {version = ">=2020.7.1,<2022", optional = true, markers = "extra == \"full\""}
 requests = ">=2.24.0,<4"
 requirements-parser = ">=0.2.0,<2"
 tomlkit = ">=0.7.0,<2"
@@ -1207,6 +1208,14 @@ description = "A deep merge function for 🐍."
 category = "main"
 optional = true
 python-versions = ">=3.6"
+
+[[package]]
+name = "metprint"
+version = "2021"
+description = "Pretty print text in a range of builtin formats or make your own"
+category = "main"
+optional = true
+python-versions = ">=3.7,<4.0"
 
 [[package]]
 name = "mkdocs"
@@ -1520,6 +1529,17 @@ resolvelib = ">=0.8.0"
 
 [package.extras]
 dev = ["bump", "flake8", "black", "isort", "pytest", "pytest-cov", "pretend", "coverage", "interrogate", "mypy", "types-requests", "types-html5lib", "types-dataclasses", "pdoc3"]
+
+[[package]]
+name = "pip-check"
+version = "2.7"
+description = "Display installed pip packages and their update status.."
+category = "main"
+optional = true
+python-versions = ">=3.5"
+
+[package.dependencies]
+terminaltables = "*"
 
 [[package]]
 name = "platformdirs"
@@ -2015,6 +2035,14 @@ optional = true
 python-versions = "*"
 
 [[package]]
+name = "terminaltables"
+version = "3.1.10"
+description = "Generate simple tables in terminals from a nested list of strings."
+category = "main"
+optional = true
+python-versions = ">=2.6"
+
+[[package]]
 name = "testfixtures"
 version = "6.18.3"
 description = "A collection of helpers and mock objects for unit tests and doc tests."
@@ -2268,13 +2296,13 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [extras]
 commitizen_legacy = ["cz_legacy"]
 dev = ["better-exceptions", "commitizen", "markdown-include", "mkdocs-git-revision-date-plugin", "mkdocs-material", "livereload", "pdbpp", "pdocs", "pyupgrade"]
-lint = ["add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "it", "licensecheck", "pandas-vet", "pep8-naming", "pip-audit", "proselint", "pylint", "vulture", "xenon", "yamllint"]
+lint = ["add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "it", "licensecheck", "pandas-vet", "pep8-naming", "pip-audit", "pip-check", "proselint", "pylint", "vulture", "xenon", "yamllint"]
 test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watcher", "pytest"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f18025b18d344ee47e761921dd5a07bab6608df48e0ad9a42a53415c1212f995"
+content-hash = "fb976513d049ba03620f495b4f2b12545b6b10846664c2e38aaf81c4dc82429e"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2866,6 +2894,10 @@ mergedeep = [
     {file = "mergedeep-1.3.4-py3-none-any.whl", hash = "sha256:70775750742b25c0d8f36c55aed03d24c3384d17c951b3175d898bd778ef0307"},
     {file = "mergedeep-1.3.4.tar.gz", hash = "sha256:0096d52e9dad9939c3d975a774666af186eda617e6ca84df4c94dec30004f2a8"},
 ]
+metprint = [
+    {file = "metprint-2021-py3-none-any.whl", hash = "sha256:ab977c08c595493ce3b8a0af7f5b91de1e1561ce8f968be2341e1bacde92cb63"},
+    {file = "metprint-2021.tar.gz", hash = "sha256:d1c63b6e5607db5eb14eb6e3274383a6f3b2ed079c6382eb5c8555060e01050a"},
+]
 mkdocs = [
     {file = "mkdocs-1.2.3-py3-none-any.whl", hash = "sha256:a1fa8c2d0c1305d7fc2b9d9f607c71778572a8b110fb26642aa00296c9e6d072"},
     {file = "mkdocs-1.2.3.tar.gz", hash = "sha256:89f5a094764381cda656af4298727c9f53dc3e602983087e1fe96ea1df24f4c1"},
@@ -3148,6 +3180,10 @@ pip-audit = [
     {file = "pip-audit-1.1.2.tar.gz", hash = "sha256:374e8528a1376145cbe0f0ec4a7b6a5ebfd6152f665d274498ea49d8bffef24c"},
     {file = "pip_audit-1.1.2-py3-none-any.whl", hash = "sha256:48325027b803376bee22ca273f8a1b477324c10663c6218a5acebfdc4a107328"},
 ]
+pip-check = [
+    {file = "pip-check-2.7.tar.gz", hash = "sha256:17d1612af84fecfebdf8f8c60b9eaa9c389814a49affdcd88a1d4fd98fd17aee"},
+    {file = "pip_check-2.7-py2.py3-none-any.whl", hash = "sha256:f14ba13b0a66cd9d4732f958fa79d0b0ed2ef7833239927ef4336266265b72fa"},
+]
 platformdirs = [
     {file = "platformdirs-2.4.1-py3-none-any.whl", hash = "sha256:1d7385c7db91728b83efd0ca99a5afb296cab9d0ed8313a45ed8ba17967ecfca"},
     {file = "platformdirs-2.4.1.tar.gz", hash = "sha256:440633ddfebcc36264232365d7840a970e75e1018d15b4327d11f91909045fda"},
@@ -3349,6 +3385,10 @@ tabulate = [
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
+]
+terminaltables = [
+    {file = "terminaltables-3.1.10-py2.py3-none-any.whl", hash = "sha256:e4fdc4179c9e4aab5f674d80f09d76fa436b96fdc698a8505e0a36bf0804a874"},
+    {file = "terminaltables-3.1.10.tar.gz", hash = "sha256:ba6eca5cb5ba02bba4c9f4f985af80c54ec3dccf94cfcd190154386255e47543"},
 ]
 testfixtures = [
     {file = "testfixtures-6.18.3-py2.py3-none-any.whl", hash = "sha256:6ddb7f56a123e1a9339f130a200359092bd0a6455e31838d6c477e8729bb7763"},

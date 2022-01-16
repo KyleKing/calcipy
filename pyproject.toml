@@ -25,7 +25,7 @@ change_type_order = [
 ]
 version = "0.7.1"
 # PLANNED: Pending calver support: https://github.com/commitizen-tools/commitizen/pull/385
-tag_format = "2021.$version"
+tag_format = "2022.$version"
 version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 
 [tool.commitizen.cz_legacy_map]
@@ -116,7 +116,7 @@ autopep8 = { version = ">=1.5", optional = true }
 cohesion = { version = ">=1", optional = true }
 darglint = { version = ">=1.8", optional = true }
 dlint = { version = ">=0.11", optional = true }
-flake8 = { version = ">=3.8", optional = true }
+flake8 = { version = ">=3.8.4", optional = true }
 flake8-2020 = { version = ">=1.6", optional = true }
 flake8-aaa = { version = ">=0.12", optional = true }
 flake8-annotations = { version = ">=2.6", optional = true }
@@ -125,7 +125,7 @@ flake8-bandit = { version = ">=2.1", optional = true }
 flake8-blind-except = { version = ">=0.2", optional = true }
 flake8-breakpoint = { version = ">=1.1", optional = true }
 flake8-broken-line = { version = ">=0.3", optional = true }
-flake8-bugbear = { version = ">=21.4", optional = true }
+flake8-bugbear = { version = ">=22.1.11", optional = true }
 flake8-builtins = { version = ">=1.5", optional = true }
 flake8-cognitive-complexity = { version = ">=0.1", optional = true }
 flake8-commas = { version = ">=2.0", optional = true }
@@ -153,10 +153,11 @@ flake8-variables-names = { version = ">=0.0.4", optional = true }
 hacking = { version = ">=4", optional = true }                                          # Version set to prevent oscillation back to 3
 isort = { version = ">=5", optional = true }                                            # Use latest isort
 it = { version = ">=1", optional = true }
-licensecheck = { version = ">=2021.1.2", optional = true }
+licensecheck = { extras = ["full"], version = "^2022", optional = true }
 pandas-vet = { version = ">=0.2", optional = true }
 pep8-naming = { version = ">=0.11", optional = true }
 pip-audit = { version = ">=1.1.1", optional = true }
+pip-check = { version = ">=2.7", optional = true }
 proselint = { version = ">=0.10", optional = true }
 pylint = { version = ">=2.8", optional = true }
 vulture = { version = ">=2.3", optional = true }
@@ -239,6 +240,7 @@ lint = [
     "pandas-vet",
     "pep8-naming",
     "pip-audit",
+    "pip-check",
     "proselint",
     "pylint",
     "vulture",

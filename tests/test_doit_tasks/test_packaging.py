@@ -146,4 +146,4 @@ def test_task_check_for_stale_packages():
     assert actions[0][1][0].name == 'poetry.lock'
     assert actions[0][1][1].name == _PATH_PACK_LOCK.name
     assert actions[0][2] == {'stale_months': 48}
-    assert 'poetry run pip list --outdated' in str(actions[1])
+    assert 'poetry run pip-check' in str(actions[1])
