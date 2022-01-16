@@ -245,10 +245,10 @@ def _gen_format_actions(paths: str) -> List[str]:
 
 @beartype
 def task_format_py() -> DoitTask:
-    """Format a single Python file. Particularly useful for pre-commit.
+    """Format a space-separate list of Python file(s). Particularly useful for pre-commit.
 
     ```sh
-    poetry run format_py -p dodo.py
+    poetry run format_py -p dodo.py tests/conftest.py
     ```
 
     Returns:
@@ -256,13 +256,14 @@ def task_format_py() -> DoitTask:
 
     """
     return {
-        'actions': _gen_format_actions('%(py-path)s'),
+        'actions': _gen_format_actions('%(py-paths)s'),
         'params': [{
-            'name': 'py-path', 'short': 'p', 'long': 'py-path', 'default': '',
+            'name': 'py-paths', 'default': '',
             'help': (
                 'Formats specified Python file'
             ),
         }],
+        'pos_arg': 'pos',
         'verbosity': 2,
     }
 
@@ -270,10 +271,10 @@ def task_format_py() -> DoitTask:
 # FIXME: Add bulk toml formatting to the auto_format task!
 @beartype
 def task_format_toml() -> DoitTask:
-    """Format a TOML file with `taplo` (if installed).
+    """Format a space-separate list of TOML file(s) with `taplo`. Particularly useful for pre-commit.
 
     ```sh
-    poetry run format_toml -p pyproject.toml
+    poetry run format_toml -p pyproject.toml .deepsource.toml
     ```
 
     Returns:
@@ -284,14 +285,15 @@ def task_format_toml() -> DoitTask:
         # PLANNED: Could provide more hooks for configuring taplo options. See:
         #   https://taplo.tamasfe.dev/configuration/#formatting-options
         'actions': [
-            'which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml-path)s',
+            'which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml-paths)s',
         ],
         'params': [{
-            'name': 'toml-path', 'short': 'p', 'long': 'toml-path', 'default': '',
+            'name': 'toml-paths', 'default': '',
             'help': (
                 'Formats specified TOML file'
             ),
         }],
+        'pos_arg': 'pos',
         'verbosity': 2,
     }
 

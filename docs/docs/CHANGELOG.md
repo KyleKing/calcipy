@@ -4,6 +4,10 @@
 
 - add support for TOML formatting with taplo
 
+### Fix
+
+- correct syntax error in pre-commit command
+
 ## 0.8.2 (2022-01-16)
 
 ### Fix
