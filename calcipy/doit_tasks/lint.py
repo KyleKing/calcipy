@@ -260,11 +260,8 @@ def task_pre_commit_hooks() -> DoitTask:
         DoitTask: doit task
 
     """
-    # Only use these two stages for all pre-commit hooks
-    stages = ['commit-msg', 'pre-push']
     return debug_task([
         Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),
-        Interactive('poetry run pre-commit install --install-hooks' + ' --hook-type '.join([''] + stages)),
-        Interactive('poetry run pre-commit run --all-files --hook-stage push'),
+        Interactive('poetry run pre-commit run --all-files'),
     ])

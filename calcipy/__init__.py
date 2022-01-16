@@ -5,7 +5,7 @@ import warnings
 from beartype.roar import BeartypeDecorHintPepDeprecatedWarning
 from loguru import logger
 
-__version__ = '2021.0.7.0'
+__version__ = '2021.0.7.1'
 __pkg_name__ = 'calcipy'
 
 logger.disable(__pkg_name__)
@@ -17,4 +17,6 @@ warnings.simplefilter(action='ignore', category=BeartypeDecorHintPepDeprecatedWa
 # ====== Above is the recommended code from calcipy_template and may be updated on new releases ======
 
 # Load entry point for CLI
-from .cli.main import run  # noqa: F401, E402
+from .cli.main import run  # noqa: E402
+
+__all__ = ('run',)

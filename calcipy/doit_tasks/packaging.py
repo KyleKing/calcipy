@@ -244,9 +244,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
 
     """
     def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
-        if isinstance(value, DateTime):
-            return value.to_iso8601_string()
-        return value
+        return value.to_iso8601_string() if isinstance(value, DateTime) else value
 
     new_cache = {pack.name: attr.asdict(pack, value_serializer=serialize) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
@@ -337,7 +335,7 @@ def task_check_for_stale_packages() -> DoitTask:
     path_pack_lock = _PATH_PACK_LOCK
     task = debug_task([
         (find_stale_packages, (path_lock, path_pack_lock), {'stale_months': 48}),
-        Interactive('poetry run pip list --outdated'),
+        Interactive('poetry run pip-check --cmd="poetry run pip" --hide-unchanged'),
     ])
     task['file_dep'].append(path_lock)
     task['targets'].append(path_pack_lock)

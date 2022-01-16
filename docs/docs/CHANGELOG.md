@@ -1,5 +1,20 @@
 ## Unreleased
 
+### Feat
+
+- add pip-check for prettier outdated
+
+### Fix
+
+- code_tag_collector must return doit-compliant value (None)
+- only run pre-commit once
+
+## 2021.0.7.1 (2022-01-04)
+
+### Fix
+
+- Code Tag Collector cannot return a Path for DoIt tasks
+
 ## 2021.0.7.0 (2021-12-31)
 
 ### Feat

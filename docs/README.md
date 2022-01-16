@@ -26,7 +26,7 @@ calcipy collect_code_tags -b=~/Some/Project
 
 # See additional documentation from the CLI help
 calcipy -h
-````
+```
 
 To utilize all of the functionality from `calcipy`, see the following sections on adding `calcipy` as a dependency
 
