@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Feat
+
+- add support for TOML formatting with taplo
+
+## 0.8.2 (2022-01-16)
+
 ### Fix
 
 - drop all references to CalVer
