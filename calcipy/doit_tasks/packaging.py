@@ -244,9 +244,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
 
     """
     def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
-        if isinstance(value, DateTime):
-            return value.to_iso8601_string()
-        return value
+        return value.to_iso8601_string() if isinstance(value, DateTime) else value
 
     new_cache = {pack.name: attr.asdict(pack, value_serializer=serialize) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
