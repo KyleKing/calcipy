@@ -35,17 +35,18 @@ Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 
 
 @beartype
-def _run_cmd(cmd: str) -> str:
+def _run_cmd(cmd: str, **kwargs) -> str:
     """Run command with subprocess and return the output.
 
     Args:
         cmd: string command
+        kwargs: any additional keyword arguments to pass to `subprocess.Popen` (typically `cwd`)
 
     Returns:
         str: stripped output
 
     """
-    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, universal_newlines=True)
+    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, universal_newlines=True, **kwargs)
     stdout: BufferedReader = proc.stdout  # type: ignore
     return stdout.read().strip()
 
@@ -124,21 +125,21 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
 
 @lru_cache
 @beartype
-def _git_info() -> Tuple[Path, str]:
+def _git_info(cwd: Path) -> Tuple[Path, str]:
     """Collect information about the local git repository.
 
     Based on snippets from: https://gist.github.com/abackstrom/4034721#gistcomment-3982270
     and: https://github.com/rscherf/GitLink/blob/e2e7c412630246efc86de4fe71192f15bf11209e/GitLink.py
 
     Args:
-        None
+        cwd: Path to the current working directory (typically file_path.parent)
 
     Returns:
         Tuple[Path, str]: (git_dir, repo_url)
 
     """
-    git_dir = Path(_run_cmd('git rev-parse --show-toplevel'))
-    clone_uri = _run_cmd('git remote get-url origin')
+    git_dir = Path(_run_cmd('git rev-parse --show-toplevel', cwd=str(cwd)))
+    clone_uri = _run_cmd('git remote get-url origin', cwd=str(cwd))
     # Could be ssh or http (with or without .git)
     # git@github.com:KyleKing/calcipy.git
     # https://github.com/KyleKing/calcipy.git
@@ -160,7 +161,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         Dict[str, str]: formatted dictionary with file info
 
     """
-    git_dir, repo_url = _git_info()
+    git_dir, repo_url = _git_info(file_path.parent)
     blame = _run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain')
     # Set fallbacks if git logic doesn't work
     source_file = f'{file_path.relative_to(base_dir).as_posix()}:{comment.lineno}'
