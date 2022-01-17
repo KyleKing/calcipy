@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Pattern, Sequence, Tuple
 
 import attr
+import pendulum
 from attrs_strict import type_validator
 from beartype import beartype
 from loguru import logger
@@ -162,9 +163,17 @@ def _format_bullet(file_path: Path, comment: _CodeTag) -> str:
     # Note: line number may be different in older blame
     revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
     remote_file_path = file_path.relative_to(git_dir)
+    # Format a nice timestamp of the last edit to the line
+    blame_dict = {
+        line.split(' ')[0]: ' '.join(line.split(' ')[1:])
+        for line in blame.split('\n')
+    }
+    dt = pendulum.from_timestamp(int(blame_dict['committer-time']))
+    tz = blame_dict['committer-tz'][:3] + ':' + blame_dict['committer-tz'][-2:]
+    ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
     # PLANNED: Consider making "blame" configurable
     git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
-    return f'    - [line {comment.lineno:>3}]({git_url}) {comment.tag:>7}: {comment.text}\n'
+    return f'    - {ts} [line {comment.lineno:>3}]({git_url}) {comment.tag:>7}: {comment.text}\n'
 
 
 @beartype
