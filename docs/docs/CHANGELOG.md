@@ -2,6 +2,8 @@
 
 ### Feat
 
+- add date of last blame to code tag summary
+- only link code tag from line number
 - use revision-specific commit hashes
 - add git links to code tag summary
 - add python format pre-commit hook
@@ -9,11 +11,14 @@
 
 ### Fix
 
+- use correct line number for pinned hash
+- handle git dependencies when checking stale packages
 - use positional arguments for pre-commit commands
 - correct syntax error in pre-commit command
 
 ### Refactor
 
+- make slow python pre-commit push-only
 - apply auto-format tools to test project
 
 ## 0.8.2 (2022-01-16)

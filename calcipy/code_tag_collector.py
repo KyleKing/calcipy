@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Pattern, Sequence, Tuple
 
 import attr
+import pandas as pd
 import pendulum
 from attrs_strict import type_validator
 from beartype import beartype
@@ -44,9 +45,9 @@ def _run_cmd(cmd: str) -> str:
         str: stripped output
 
     """
-    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, universal_newlines=True)
     stdout: BufferedReader = proc.stdout  # type: ignore
-    return stdout.read().decode().strip()
+    return stdout.read().strip()
 
 
 @attr.s(auto_attribs=True)
@@ -147,15 +148,15 @@ def _git_info() -> Tuple[Path, str]:
 
 
 @beartype
-def _format_bullet(file_path: Path, comment: _CodeTag) -> str:
-    """Format each bullet point for the code tag summary file. Include git permalink.
+def _format_record(file_path: Path, comment: _CodeTag) -> Dict[str, str]:
+    """Format each table row for the code tag summary file. Include git permalink.
 
     Args:
         file_path: path to the file of interest
         comment: _CodeTag information for the matched tag
 
     Returns:
-        str: formatted markdown string
+        Dict[str, str]: formatted dictionary with file info
 
     """
     git_dir, repo_url = _git_info()
@@ -173,7 +174,13 @@ def _format_bullet(file_path: Path, comment: _CodeTag) -> str:
     ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
     # PLANNED: Consider making "blame" configurable
     git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
-    return f'    - {ts} [line {comment.lineno:>3}]({git_url}) {comment.tag:>7}: {comment.text}\n'
+
+    return {
+        'Type': f'{comment.tag:>7}',
+        'Comment': comment.text,
+        'Last Edit': ts,
+        'Source File': f'[{remote_file_path.as_posix()}:{comment.lineno:>3}]({git_url})',
+    }
 
 
 @beartype
@@ -192,21 +199,23 @@ def _format_report(
 
     """
     output = ''
+    records = []
     counter: Dict[str, int] = defaultdict(lambda: 0)
     for comments in sorted(code_tags, key=lambda tc: tc.path_source, reverse=False):
-        output += f'- {comments.path_source.relative_to(base_dir).as_posix()}\n'
         for comment in comments.code_tags:
             if comment.tag in tag_order:
-                output += _format_bullet(comments.path_source, comment)
+                records.append(_format_record(comments.path_source, comment))
                 counter[comment.tag] += 1
-        output += '\n'
+    if records:
+        df_tags = pd.DataFrame(records)
+        output += df_tags.to_markdown(index=False)
     logger.debug('counter={counter}', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}
     logger.debug('sorted_counter={sorted_counter}', sorted_counter=sorted_counter)
     formatted_summary = ', '.join(f'{tag} ({count})' for tag, count in sorted_counter.items())
     if formatted_summary:
-        output += f'Found code tags for {formatted_summary}\n'
+        output += f'\n\nFound code tags for {formatted_summary}\n'
     return output
 
 

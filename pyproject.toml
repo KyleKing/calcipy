@@ -80,16 +80,16 @@ beartype = ">=0.9"       # dyce has nice no-op decorator for beartype, but shoul
 cement = ">=3.0.6"
 decorator = ">=5"
 loguru = ">=0.5"
+pandas = ">=1.1"
 pendulum = ">=2"
 python-box = ">=5.4"
+tabulate = ">=0.8"       # Required for pandas.to_markdown
 
 # TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
 doit = ">=0.33"                                            # Should be optional, but needed for doit_tasks
-pandas = ">=1.1"                                           # Should be optional, but needed for doc task (and companion numpy)
 pre-commit = ">=2.15"                                      # Should be optional, but needed for doit_globals
 pyrate_limiter = ">=2.4"                                   # Should be optional, but needed for packaging task
 sty = { version = ">=1.0.0rc2", allow-prereleases = true } # Should be optional, but needed for Custom Summary
-tabulate = ">=0.8"                                         # Should be optional, but needed for doc task
 tomli = ">=2.0.0"                                          # Should be optional, but needed for doit_globals
 transitions = ">=0.8"                                      # Should be optional, but needed for doc tasks
 # Indirect imports necessary only to comply with check_imports
