@@ -1,12 +1,39 @@
 ## Unreleased
 
+### Fix
+
+- correct code-tag-collector for CLI use
+- use target file's directory for git info
+
+### Refactor
+
+- drop template echo command
+
+## 0.9.0 (2022-01-17)
+
 ### Feat
 
+- show code tag summary as a table
+- add date of last blame to code tag summary
+- only link code tag from line number
+- use revision-specific commit hashes
+- add git links to code tag summary
+- add python format pre-commit hook
 - add support for TOML formatting with taplo
 
 ### Fix
 
+- handle "0000.." hash by using branch name
+- handle non-git directories
+- use correct line number for pinned hash
+- handle git dependencies when checking stale packages
+- use positional arguments for pre-commit commands
 - correct syntax error in pre-commit command
+
+### Refactor
+
+- make slow python pre-commit push-only
+- apply auto-format tools to test project
 
 ## 0.8.2 (2022-01-16)
 

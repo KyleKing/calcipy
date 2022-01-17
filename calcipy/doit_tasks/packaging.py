@@ -224,13 +224,16 @@ def _collect_release_dates(
 
     updated_packages = []
     for package in packages:
-        cached_package = old_cache.get(package.name)
-        cached_version = '' if cached_package is None else cached_package.version
-        if package.version != cached_version:
-            package = _get_release_date(package)
-        else:
-            package = cached_package
-        updated_packages.append(package)
+        try:
+            cached_package = old_cache.get(package.name)
+            cached_version = '' if cached_package is None else cached_package.version
+            if package.version != cached_version:
+                package = _get_release_date(package)
+            else:
+                package = cached_package
+            updated_packages.append(package)
+        except requests.exceptions.HTTPError as err:
+            logger.warning(f'Could not resolve {package} with error {err}')
     return updated_packages
 
 

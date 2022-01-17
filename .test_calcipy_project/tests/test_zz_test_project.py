@@ -3,7 +3,6 @@
 from pathlib import Path
 
 import tomli
-
 from test_project import __version__
 
 

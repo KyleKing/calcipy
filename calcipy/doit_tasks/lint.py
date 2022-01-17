@@ -256,14 +256,8 @@ def task_format_py() -> DoitTask:
 
     """
     return {
-        'actions': _gen_format_actions('%(py-paths)s'),
-        'params': [{
-            'name': 'py-paths', 'default': '',
-            'help': (
-                'Formats specified Python file'
-            ),
-        }],
-        'pos_arg': 'pos',
+        'actions': _gen_format_actions('%(py_paths)s'),
+        'pos_arg': 'py_paths',
         'verbosity': 2,
     }
 
@@ -285,15 +279,9 @@ def task_format_toml() -> DoitTask:
         # PLANNED: Could provide more hooks for configuring taplo options. See:
         #   https://taplo.tamasfe.dev/configuration/#formatting-options
         'actions': [
-            'which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml-paths)s',
+            'which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml_paths)s',
         ],
-        'params': [{
-            'name': 'toml-paths', 'default': '',
-            'help': (
-                'Formats specified TOML file'
-            ),
-        }],
-        'pos_arg': 'pos',
+        'pos_arg': 'toml_paths',
         'verbosity': 2,
     }
 

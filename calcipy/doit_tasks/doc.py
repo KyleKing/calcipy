@@ -268,7 +268,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     # Format table for Github Markdown
     df_cov = pd.DataFrame(records)
     df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
-    lines_table = df_cov.to_markdown(index=False).split('\n')  # Note: requires optional "tabulate"
+    lines_table = df_cov.to_markdown(index=False).split('\n')
     lines_table.extend(['', f"Generated on: {coverage_data['meta']['timestamp']}"])
     return lines_table
 

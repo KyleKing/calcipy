@@ -37,7 +37,7 @@ repos:
       # - id: requirements-txt-fixer
       - id: trailing-whitespace
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.20.3
+    rev: v2.20.4
     hooks:
       - id: commitizen
         # yamllint disable-line rule:line-length
@@ -86,6 +86,13 @@ repos:
         entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: "\\.rej$"
+      - id: python-formatter
+        name: Python Auto-Formatter
+        description: "Apply calcipy formatting"
+        language: system
+        entry: poetry run doit run format_py
+        types: [python]
+        stages: [push]
       - id: toml-formatter
         name: Optional TOML Auto-Formatter
         description: "Install taplo with 'npm install -g @taplo/cli'"
