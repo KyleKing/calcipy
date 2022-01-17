@@ -122,7 +122,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
 
 @lru_cache
 @beartype
-def _git_info() -> Tuple[Path, str, str]:
+def _git_info() -> Tuple[Path, str]:
     """Collect information about the local git repository.
 
     Based on snippets from: https://gist.github.com/abackstrom/4034721#gistcomment-3982270
@@ -132,7 +132,7 @@ def _git_info() -> Tuple[Path, str, str]:
         None
 
     Returns:
-        Tuple[Path, str]: (git_dir, repo_url, revision)
+        Tuple[Path, str]: (git_dir, repo_url)
 
     """
     git_dir = Path(_run_cmd('git rev-parse --show-toplevel'))
@@ -142,8 +142,7 @@ def _git_info() -> Tuple[Path, str, str]:
     # https://github.com/KyleKing/calcipy.git
     sub_url = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)[0]
     repo_url = f'https://github.com/{sub_url}'
-    revision = _run_cmd('git rev-parse HEAD')
-    return (git_dir, repo_url, revision)
+    return (git_dir, repo_url)
 
 
 @beartype
@@ -158,7 +157,9 @@ def _format_bullet(file_path: Path, comment: _CodeTag) -> str:
         str: formatted markdown string
 
     """
-    git_dir, repo_url, revision = _git_info()
+    git_dir, repo_url = _git_info()
+    blame = _run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain')
+    revision = blame.split('\n')[0].split(' ')[0]
     remote_file_path = file_path.relative_to(git_dir)
     # PLANNED: Make blame or diff configurable
     git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{comment.lineno}'

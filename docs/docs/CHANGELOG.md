@@ -2,10 +2,13 @@
 
 ### Feat
 
+- add git links to code tag summary
+- add python format pre-commit hook
 - add support for TOML formatting with taplo
 
 ### Fix
 
+- use positional arguments for pre-commit commands
 - correct syntax error in pre-commit command
 
 ## 0.8.2 (2022-01-16)
