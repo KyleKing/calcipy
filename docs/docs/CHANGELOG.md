@@ -2,6 +2,7 @@
 
 ### Fix
 
+- correct code-tag-collector for CLI use
 - use target file's directory for git info
 
 ### Refactor
