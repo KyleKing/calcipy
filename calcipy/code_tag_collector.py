@@ -161,17 +161,18 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         Dict[str, str]: formatted dictionary with file info
 
     """
-    git_dir, repo_url = _git_info(file_path.parent)
-    blame = _run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain')
+    cwd = file_path.parent
+    git_dir, repo_url = _git_info(cwd=cwd)
+    blame = _run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)
     # Set fallbacks if git logic doesn't work
     source_file = f'{file_path.relative_to(base_dir).as_posix()}:{comment.lineno}'
     ts = 'N/A'
-    try:
-        # Note: line number may be different in older blame
+    if blame:
+        # Note: line number may be different in older blame (and relative path)
         revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
         # If the change has not yet been committed, use the branch name as best guess
         if all(_c == '0' for _c in revision):
-            revision = _run_cmd('git branch --show-current')
+            revision = _run_cmd('git branch --show-current', cwd=cwd)
         # Format a nice timestamp of the last edit to the line
         blame_dict = {
             line.split(' ')[0]: ' '.join(line.split(' ')[1:])
@@ -180,12 +181,10 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         dt = pendulum.from_timestamp(int(blame_dict['committer-time']))
         tz = blame_dict['committer-tz'][:3] + ':' + blame_dict['committer-tz'][-2:]
         ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
-        remote_file_path = file_path.relative_to(git_dir)
+        remote_file_path = blame_dict['filename']
         # PLANNED: Consider making "blame" configurable
         git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
-        source_file = f'[{remote_file_path.as_posix()}:{comment.lineno:>3}]({git_url})'
-    except ValueError:
-        pass  # Ignore errors if not tracked in git
+        source_file = f'[{source_file}]({git_url})'
 
     return {
         'Type': f'{comment.tag:>7}',

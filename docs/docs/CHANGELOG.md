@@ -1,5 +1,15 @@
 ## Unreleased
 
+### Fix
+
+- use target file's directory for git info
+
+### Refactor
+
+- drop template echo command
+
+## 0.9.0 (2022-01-17)
+
 ### Feat
 
 - show code tag summary as a table
