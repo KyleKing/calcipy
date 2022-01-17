@@ -168,7 +168,9 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
     try:
         # Note: line number may be different in older blame
         revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
-        remote_file_path = file_path.relative_to(git_dir)
+        # If the change has not yet been committed, use the branch name as best guess
+        if all(_c == '0' for _c in revision):
+            revision = _run_cmd('git branch --show-current')
         # Format a nice timestamp of the last edit to the line
         blame_dict = {
             line.split(' ')[0]: ' '.join(line.split(' ')[1:])
@@ -177,6 +179,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         dt = pendulum.from_timestamp(int(blame_dict['committer-time']))
         tz = blame_dict['committer-tz'][:3] + ':' + blame_dict['committer-tz'][-2:]
         ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
+        remote_file_path = file_path.relative_to(git_dir)
         # PLANNED: Consider making "blame" configurable
         git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
         source_file = f'[{remote_file_path.as_posix()}:{comment.lineno:>3}]({git_url})'
