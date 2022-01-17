@@ -159,10 +159,11 @@ def _format_bullet(file_path: Path, comment: _CodeTag) -> str:
     """
     git_dir, repo_url = _git_info()
     blame = _run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain')
-    revision = blame.split('\n')[0].split(' ')[0]
+    # Note: line number may be different in older blame
+    revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
     remote_file_path = file_path.relative_to(git_dir)
     # PLANNED: Consider making "blame" configurable
-    git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{comment.lineno}'
+    git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
     return f'    - [line {comment.lineno:>3}]({git_url}) {comment.tag:>7}: {comment.text}\n'
 
 
