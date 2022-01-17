@@ -12,6 +12,8 @@
 
 ### Fix
 
+- handle "0000.." hash by using branch name
+- handle non-git directories
 - use correct line number for pinned hash
 - handle git dependencies when checking stale packages
 - use positional arguments for pre-commit commands
