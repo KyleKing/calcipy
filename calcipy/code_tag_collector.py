@@ -1,9 +1,12 @@
 """Collect code tags and output for review in a single location."""
 
 import re
+import subprocess
 from collections import defaultdict
+from functools import lru_cache
+from io import BufferedReader
 from pathlib import Path
-from typing import Dict, List, Optional, Pattern, Sequence
+from typing import Dict, List, Optional, Pattern, Sequence, Tuple
 
 import attr
 from attrs_strict import type_validator
@@ -27,6 +30,22 @@ Requires formatting with list of tags: `CODE_TAG_RE.format(tag='|'.join(tag_list
 Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 
 """
+
+
+@beartype
+def _run_cmd(cmd: str) -> str:
+    """Run command with subprocess and return the output.
+
+    Args:
+        cmd: string command
+
+    Returns:
+        str: stripped output
+
+    """
+    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+    stdout: BufferedReader = proc.stdout  # type: ignore
+    return stdout.read().decode().strip()
 
 
 @attr.s(auto_attribs=True)
@@ -101,6 +120,51 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     return matches
 
 
+@lru_cache
+@beartype
+def _git_info() -> Tuple[Path, str, str]:
+    """Collect information about the local git repository.
+
+    Based on snippets from: https://gist.github.com/abackstrom/4034721#gistcomment-3982270
+    and: https://github.com/rscherf/GitLink/blob/e2e7c412630246efc86de4fe71192f15bf11209e/GitLink.py
+
+    Args:
+        None
+
+    Returns:
+        Tuple[Path, str]: (git_dir, repo_url, revision)
+
+    """
+    git_dir = Path(_run_cmd('git rev-parse --show-toplevel'))
+    clone_uri = _run_cmd('git remote get-url origin')
+    # Could be ssh or http (with or without .git)
+    # git@github.com:KyleKing/calcipy.git
+    # https://github.com/KyleKing/calcipy.git
+    sub_url = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)[0]
+    repo_url = f'https://github.com/{sub_url}'
+    revision = _run_cmd('git rev-parse HEAD')
+    return (git_dir, repo_url, revision)
+
+
+@beartype
+def _format_bullet(file_path: Path, comment: _CodeTag) -> str:
+    """Format each bullet point for the code tag summary file. Include git permalink.
+
+    Args:
+        file_path: path to the file of interest
+        comment: _CodeTag information for the matched tag
+
+    Returns:
+        str: formatted markdown string
+
+    """
+    git_dir, repo_url, revision = _git_info()
+    remote_file_path = file_path.relative_to(git_dir)
+    # PLANNED: Make blame or diff configurable
+    git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{comment.lineno}'
+    return f'    - [line {comment.lineno:>3} {comment.tag:>7}: {comment.text}]({git_url})\n'
+
+
 @beartype
 def _format_report(
     base_dir: Path, code_tags: List[_Tags], tag_order: List[str],
@@ -122,7 +186,7 @@ def _format_report(
         output += f'- {comments.path_source.relative_to(base_dir).as_posix()}\n'
         for comment in comments.code_tags:
             if comment.tag in tag_order:
-                output += f'    - line {comment.lineno:>3} {comment.tag:>7}: {comment.text}\n'
+                output += _format_bullet(comments.path_source, comment)
                 counter[comment.tag] += 1
         output += '\n'
     logger.debug('counter={counter}', counter=counter)
