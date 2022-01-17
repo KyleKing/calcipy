@@ -2,6 +2,7 @@
 
 ### Feat
 
+- use revision-specific commit hashes
 - add git links to code tag summary
 - add python format pre-commit hook
 - add support for TOML formatting with taplo
@@ -10,6 +11,10 @@
 
 - use positional arguments for pre-commit commands
 - correct syntax error in pre-commit command
+
+### Refactor
+
+- apply auto-format tools to test project
 
 ## 0.8.2 (2022-01-16)
 
