@@ -86,6 +86,12 @@ repos:
         entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: "\\.rej$"
+      - id: python-formatter
+        name: Python Auto-Formatter
+        description: "Apply calcipy formatting"
+        language: system
+        entry: poetry run doit run format_py
+        types: [python]
       - id: toml-formatter
         name: Optional TOML Auto-Formatter
         description: "Install taplo with 'npm install -g @taplo/cli'"
