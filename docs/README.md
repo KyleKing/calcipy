@@ -20,8 +20,8 @@ Quick Start:
 pipx install calcipy
 
 # Use the Collect Code Tags command to write all code tags to a single file
-calcipy collect_code_tags -h
-calcipy collect_code_tags -b=~/Some/Project
+calcipy collect-code-tags -h
+calcipy collect-code-tags -b=~/Some/Project
 
 
 # See additional documentation from the CLI help
