@@ -2,6 +2,7 @@
 
 ### Feat
 
+- show code tag summary as a table
 - add date of last blame to code tag summary
 - only link code tag from line number
 - use revision-specific commit hashes

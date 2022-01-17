@@ -148,10 +148,11 @@ def _git_info() -> Tuple[Path, str]:
 
 
 @beartype
-def _format_record(file_path: Path, comment: _CodeTag) -> Dict[str, str]:
+def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[str, str]:
     """Format each table row for the code tag summary file. Include git permalink.
 
     Args:
+        base_dir: base path of the project if git directory is not known
         file_path: path to the file of interest
         comment: _CodeTag information for the matched tag
 
@@ -161,25 +162,32 @@ def _format_record(file_path: Path, comment: _CodeTag) -> Dict[str, str]:
     """
     git_dir, repo_url = _git_info()
     blame = _run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain')
-    # Note: line number may be different in older blame
-    revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
-    remote_file_path = file_path.relative_to(git_dir)
-    # Format a nice timestamp of the last edit to the line
-    blame_dict = {
-        line.split(' ')[0]: ' '.join(line.split(' ')[1:])
-        for line in blame.split('\n')
-    }
-    dt = pendulum.from_timestamp(int(blame_dict['committer-time']))
-    tz = blame_dict['committer-tz'][:3] + ':' + blame_dict['committer-tz'][-2:]
-    ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
-    # PLANNED: Consider making "blame" configurable
-    git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
+    # Set fallbacks if git logic doesn't work
+    source_file = f'{file_path.relative_to(base_dir).as_posix()}:{comment.lineno}'
+    ts = 'N/A'
+    try:
+        # Note: line number may be different in older blame
+        revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
+        remote_file_path = file_path.relative_to(git_dir)
+        # Format a nice timestamp of the last edit to the line
+        blame_dict = {
+            line.split(' ')[0]: ' '.join(line.split(' ')[1:])
+            for line in blame.split('\n')
+        }
+        dt = pendulum.from_timestamp(int(blame_dict['committer-time']))
+        tz = blame_dict['committer-tz'][:3] + ':' + blame_dict['committer-tz'][-2:]
+        ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
+        # PLANNED: Consider making "blame" configurable
+        git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
+        source_file = f'[{remote_file_path.as_posix()}:{comment.lineno:>3}]({git_url})'
+    except ValueError:
+        pass  # Ignore errors if not tracked in git
 
     return {
         'Type': f'{comment.tag:>7}',
         'Comment': comment.text,
         'Last Edit': ts,
-        'Source File': f'[{remote_file_path.as_posix()}:{comment.lineno:>3}]({git_url})',
+        'Source File': source_file,
     }
 
 
@@ -204,7 +212,7 @@ def _format_report(
     for comments in sorted(code_tags, key=lambda tc: tc.path_source, reverse=False):
         for comment in comments.code_tags:
             if comment.tag in tag_order:
-                records.append(_format_record(comments.path_source, comment))
+                records.append(_format_record(base_dir, comments.path_source, comment))
                 counter[comment.tag] += 1
     if records:
         df_tags = pd.DataFrame(records)

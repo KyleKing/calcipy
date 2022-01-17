@@ -46,15 +46,17 @@ def test_format_report():
     tagged_collection = [_Tags(path_source=PATH_TEST_PROJECT, code_tags=comments)]
     tag_order = ['TODO']  # noqa: T101
     # Expected that DEBUG won't be matched
-    expected = f"""- {PATH_TEST_PROJECT.name}
-    - line   1    TODO: Example 2
-
-Found code tags for TODO (1)
-"""  # noqa: T100,T101
+    expected_content = [
+        'TODO',
+        'Example 2',
+        f'{PATH_TEST_PROJECT.name}:1',
+        'Found code tags for TODO (1)',
+    ]  # noqa: T100,T101
 
     output = _format_report(PATH_TEST_PROJECT.parent, tagged_collection, tag_order=tag_order)  # act
 
-    assert output == expected, f'Received: `{output}`'
+    for line in expected_content:
+        assert line in output, f'Received: `{output}` and expected: `{line}`'
 
 
 def test_write_code_tag_file(fix_test_cache):
