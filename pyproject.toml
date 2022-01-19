@@ -99,7 +99,6 @@ requests = "*" # Should be optional, but needed for packaging tasks
 # Development
 better-exceptions = { version = ">=0.3", optional = true }
 commitizen = { version = ">=2", optional = true }                                                              # Prevent install of 1.X
-markdown-include = { version = ">=0.6", optional = true }
 mkdocs-git-revision-date-plugin = { version = ">=0.3", optional = true }
 mkdocs-material = { version = ">=7.1", optional = true }
 livereload = { version = "*", optional = true }                                                                # PLANNED: Temporary - a plugin expected livereload to be installed...
@@ -150,7 +149,6 @@ flake8-tuple = { version = ">=0.4", optional = true }
 flake8-variables-names = { version = ">=0.0.4", optional = true }
 hacking = { version = ">=4", optional = true }                                          # Version set to prevent oscillation back to 3
 isort = { version = ">=5", optional = true }                                            # Use latest isort
-it = { version = ">=1", optional = true }
 licensecheck = { extras = ["full"], version = "^2022", optional = true }
 pandas-vet = { version = ">=0.2", optional = true }
 pep8-naming = { version = ">=0.11", optional = true }
@@ -181,7 +179,6 @@ cz_legacy = { version = ">=0.1.2", optional = true }
 dev = [
     "better-exceptions",
     "commitizen",
-    "markdown-include",
     "mkdocs-git-revision-date-plugin",
     "mkdocs-material",
     "livereload",
@@ -233,7 +230,6 @@ lint = [
     "flake8",
     "hacking",
     "isort",
-    "it",
     "licensecheck",
     "pandas-vet",
     "pep8-naming",

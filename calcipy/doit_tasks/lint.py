@@ -186,15 +186,12 @@ def task_radon_lint() -> DoitTask:
 def task_static_checks() -> DoitTask:
     """General static checkers (Inspection Tiger, etc.).
 
-    FYI: `IT` could be useful to handle deprecation. For now, only run the default checkers: https://pypi.org/project/it
-
     Returns:
         DoitTask: doit task
 
     """
     paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
     return debug_task([
-        Interactive(f'poetry run it {DG.meta.pkg_name} --show-plugins'),
         Interactive(f'poetry run vulture {paths} --min-confidence 70 --sort-by-size'),
     ])
 

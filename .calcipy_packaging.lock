@@ -719,14 +719,6 @@
         "name": "isort",
         "version": "5.10.1"
     },
-    "it": {
-        "datetime": "2020-05-09T18:52:24.721089Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2020-05-09T18:52:24.721089Z",
-        "latest_version": "1.0.0",
-        "name": "it",
-        "version": "1.0.0"
-    },
     "jinja2": {
         "datetime": "2021-11-09T20:27:27.116933Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -814,14 +806,6 @@
         "latest_version": "3.3.6",
         "name": "markdown",
         "version": "3.3.6"
-    },
-    "markdown-include": {
-        "datetime": "2020-08-20T23:10:25.382961Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2020-08-20T23:10:25.382961Z",
-        "latest_version": "0.6.0",
-        "name": "markdown-include",
-        "version": "0.6.0"
     },
     "markupsafe": {
         "datetime": "2021-05-18T17:17:34.628517Z",
@@ -1080,12 +1064,12 @@
         "version": "1.0.0"
     },
     "pre-commit": {
-        "datetime": "2021-11-30T23:17:09.378479Z",
+        "datetime": "2022-01-18T18:38:17.981498Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2021-11-30T23:17:09.378479Z",
-        "latest_version": "2.16.0",
+        "latest_datetime": "2022-01-18T18:38:17.981498Z",
+        "latest_version": "2.17.0",
         "name": "pre-commit",
-        "version": "2.16.0"
+        "version": "2.17.0"
     },
     "progress": {
         "datetime": "2021-07-28T06:52:43.671602Z",
@@ -1336,12 +1320,12 @@
         "version": "2.27.1"
     },
     "requirements-parser": {
-        "datetime": "2021-12-17T14:47:05.056186Z",
+        "datetime": "2022-01-18T09:46:09.147910Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2021-12-17T14:47:05.056186Z",
-        "latest_version": "0.3.1",
+        "latest_datetime": "2022-01-18T09:46:09.147910Z",
+        "latest_version": "0.4.0",
         "name": "requirements-parser",
-        "version": "0.3.1"
+        "version": "0.4.0"
     },
     "resolvelib": {
         "datetime": "2021-10-11T21:08:08.576880Z",
