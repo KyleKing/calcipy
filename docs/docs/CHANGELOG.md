@@ -1,3 +1,9 @@
+## Unreleased
+
+### Feat
+
+- create Github release if gh CLI is installed
+
 ## 0.9.1 (2022-01-17)
 
 ### Fix

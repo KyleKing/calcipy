@@ -76,6 +76,7 @@ def task_cl_bump() -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Refactor "cl_bump*" functions. Make "which $(..) >> /dev/null && " a function
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     return debug_task([
         *_write_changelog(),
@@ -95,6 +96,7 @@ def task_cl_bump_pre() -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Refactor "cl_bump*" functions. Make "which $(..) >> /dev/null && " a function
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     task = debug_task([
         *_write_changelog(),
