@@ -48,7 +48,7 @@ def test_task_cl_bump():
     result = task_cl_bump()
 
     actions = result['actions']
-    assert len(actions) == 4
+    assert len(actions) == 5
     assert isinstance(actions[1][0], type(_move_cl))
     assert 'poetry run cz bump --annotated-tag' in str(actions[2])
     assert actions[3] == 'git push origin --tags --no-verify'

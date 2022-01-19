@@ -234,6 +234,7 @@ def _gen_format_actions(paths: str) -> List[str]:
         ' --remove-duplicate-keys'
     )
     return [
+        f'poetry run add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
         f'{run} autoflake {paths} {autoflake_args}',
         f'{run} autopep8 {paths} --in-place --aggressive',
         f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',

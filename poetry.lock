@@ -610,17 +610,6 @@ python-versions = ">=3.6"
 cognitive_complexity = "*"
 
 [[package]]
-name = "flake8-commas"
-version = "2.1.0"
-description = "Flake8 lint for trailing commas."
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-flake8 = ">=2"
-
-[[package]]
 name = "flake8-comprehensions"
 version = "3.8.0"
 description = "A flake8 plugin to help you write better list/set/dict comprehensions."
@@ -2277,13 +2266,13 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [extras]
 commitizen_legacy = ["cz_legacy"]
 dev = ["better-exceptions", "commitizen", "mkdocs-git-revision-date-plugin", "mkdocs-material", "livereload", "pdbpp", "pdocs", "pyupgrade"]
-lint = ["add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-commas", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "licensecheck", "pandas-vet", "pep8-naming", "pip-audit", "pip-check", "proselint", "pylint", "vulture", "xenon", "yamllint"]
+lint = ["add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "flake8", "hacking", "isort", "licensecheck", "pandas-vet", "pep8-naming", "pip-audit", "pip-check", "proselint", "pylint", "vulture", "xenon", "yamllint"]
 test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watcher", "pytest"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f7b8c913ce1fb4c8d3a1ba994ee46f8aaaeb41f630d7237eba151d88c724ebc7"
+content-hash = "c8d3a91a870d86edf0ae9e6e58fa8c9046e98c4cea9c0a192b9df7bfba9bf83b"
 
 [metadata.files]
 add-trailing-comma = [
@@ -2550,10 +2539,6 @@ flake8-builtins = [
 ]
 flake8-cognitive-complexity = [
     {file = "flake8_cognitive_complexity-0.1.0.tar.gz", hash = "sha256:f202df054e4f6ff182b659c261922b9c684628a47beb19cb0973c50d6a7831c1"},
-]
-flake8-commas = [
-    {file = "flake8-commas-2.1.0.tar.gz", hash = "sha256:940441ab8ee544df564ae3b3f49f20462d75d5c7cac2463e0b27436e2050f263"},
-    {file = "flake8_commas-2.1.0-py2.py3-none-any.whl", hash = "sha256:ebb96c31e01d0ef1d0685a21f3f0e2f8153a0381430e748bf0bbbb5d5b453d54"},
 ]
 flake8-comprehensions = [
     {file = "flake8-comprehensions-3.8.0.tar.gz", hash = "sha256:8e108707637b1d13734f38e03435984f6b7854fa6b5a4e34f93e69534be8e521"},

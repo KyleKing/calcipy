@@ -206,9 +206,6 @@ flake8-builtins==1.5.3 \
     --hash=sha256:7706babee43879320376861897e5d1468e396a40b8918ed7bccf70e5f90b8687
 flake8-cognitive-complexity==0.1.0; python_version >= "3.6" \
     --hash=sha256:f202df054e4f6ff182b659c261922b9c684628a47beb19cb0973c50d6a7831c1
-flake8-commas==2.1.0 \
-    --hash=sha256:940441ab8ee544df564ae3b3f49f20462d75d5c7cac2463e0b27436e2050f263 \
-    --hash=sha256:ebb96c31e01d0ef1d0685a21f3f0e2f8153a0381430e748bf0bbbb5d5b453d54
 flake8-comprehensions==3.8.0; python_version >= "3.7" \
     --hash=sha256:8e108707637b1d13734f38e03435984f6b7854fa6b5a4e34f93e69534be8e521 \
     --hash=sha256:9406314803abe1193c064544ab14fdc43c58424c0882f6ff8a581eb73fc9bb58

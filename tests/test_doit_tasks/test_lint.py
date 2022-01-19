@@ -122,10 +122,11 @@ def test_task_auto_format():
     result = task_auto_format()
 
     actions = result['actions']
-    assert len(actions) == 3
-    assert '-m autoflake ' in actions[0]
-    assert '-m autopep8 ' in actions[1]
-    assert '-m isort ' in actions[2]
+    assert len(actions) == 4
+    assert ' add-trailing-comma ' in actions[0]
+    assert '-m autoflake ' in actions[1]
+    assert '-m autopep8 ' in actions[2]
+    assert '-m isort ' in actions[3]
 
 
 def test_task_pre_commit_hooks():
