@@ -104,13 +104,13 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
 
     actions = []
 
-    paths_yaml = DG.meta.paths_by_suffix.get('yml', []) + DG.meta.paths_by_suffix.get('yaml', [])
-    if paths_yaml:
+    if paths_yaml := DG.meta.paths_by_suffix.get(
+        'yml', []
+    ) + DG.meta.paths_by_suffix.get('yaml', []):
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
         actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
 
-    paths_json = DG.meta.paths_by_suffix.get('json', [])
-    if paths_json:
+    if paths_json := DG.meta.paths_by_suffix.get('json', []):
         actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
 
     return actions
