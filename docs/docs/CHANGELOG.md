@@ -1,7 +1,12 @@
 ## Unreleased
 
+### Feat
+
+- don't verify on cz_bump
+
 ### Refactor
 
+- format fixes
 - reduce noise on matched vulnerabilities
 - make run_cmd public
 - remove jsonlint action
