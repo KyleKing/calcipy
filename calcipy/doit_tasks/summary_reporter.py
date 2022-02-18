@@ -45,7 +45,7 @@ def _format_task_summary(task_summary: _TaskSummary) -> str:
         _TaskExitCode.SKIP_UP_TO_DATE: (fg.yellow, 'was skipped'),
     }
     foreground, exit_summary = lookup.get(task_summary.exit_code, ('', 'is UNKNOWN'))
-    return f'{foreground}{task_summary.name} {exit_summary}' + fg.rs
+    return f'{foreground}{task_summary.name} {exit_summary}{fg.rs}'
 
 
 class SummaryReporter(ConsoleReporter):  # pragma: no cover # noqa: H601
