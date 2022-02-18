@@ -244,7 +244,7 @@ def _gen_format_actions(paths: str) -> List[str]:
         f'{run} pycln {paths}',
         f'{run} absolufy-imports {paths} --never',
         f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
-        f'{run} add-trailing-comma {paths} --py36-plus',
+        f'{run} add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
     ]
 
 
