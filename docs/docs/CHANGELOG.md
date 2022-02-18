@@ -2,6 +2,7 @@
 
 ### Refactor
 
+- reduce noise on matched vulnerabilities
 - make run_cmd public
 - remove jsonlint action
 - use beartype typing

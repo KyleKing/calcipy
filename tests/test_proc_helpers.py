@@ -3,6 +3,7 @@
 from subprocess import CalledProcessError  # nosec
 
 import pytest
+
 from calcipy.proc_helpers import run_cmd
 
 

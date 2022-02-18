@@ -1,10 +1,10 @@
 """Collect code tags and output for review in a single location."""
 
 import re
-from subprocess import CalledProcessError  # nosec
 from collections import defaultdict
 from functools import lru_cache
 from pathlib import Path
+from subprocess import CalledProcessError  # nosec
 
 import attr
 import pandas as pd

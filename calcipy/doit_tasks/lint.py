@@ -103,9 +103,8 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
     strict_flag = '--strict' if strict else ''
 
     actions = []
-
-    paths_yaml = DG.meta.paths_by_suffix.get('yml', []) + DG.meta.paths_by_suffix.get('yaml', [])
-    if paths_yaml:
+    pbs = DG.meta.paths_by_suffix
+    if paths_yaml := pbs.get('yml', []) + pbs.get('yaml', []):
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
         actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
 
