@@ -1,8 +1,7 @@
 """Version Utility."""
 
-from typing import Iterable
-
 from beartype import beartype
+from beartype.typing import Iterable
 from cement.utils.version import get_version as cement_get_version
 
 from ... import __version__

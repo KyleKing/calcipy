@@ -4,10 +4,10 @@ import json
 import re
 import webbrowser
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Pattern
 
 import pandas as pd
 from beartype import beartype
+from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
 from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine

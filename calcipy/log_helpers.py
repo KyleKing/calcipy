@@ -17,9 +17,9 @@ import sys
 import time
 from inspect import signature
 from pathlib import Path
-from typing import Any, Callable, Dict, Generator, Iterable, List, Optional
 
 from beartype import beartype
+from beartype.typing import Any, Callable, Dict, Generator, Iterable, List, Optional
 from decorator import contextmanager, decorator
 from loguru import logger
 

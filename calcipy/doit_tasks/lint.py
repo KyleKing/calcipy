@@ -1,9 +1,9 @@
 """doit Linting Utilities."""
 
 from pathlib import Path
-from typing import Iterable, List
 
 from beartype import beartype
+from beartype.typing import Iterable, List
 from doit.tools import Interactive
 
 from ..file_helpers import if_found_unlink

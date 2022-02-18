@@ -5,10 +5,10 @@ import shutil
 import string
 import time
 from pathlib import Path
-from typing import Any, List, Optional
 
 import yaml
 from beartype import beartype
+from beartype.typing import Any, List, Optional
 from loguru import logger
 
 # ----------------------------------------------------------------------------------------------------------------------

@@ -36,11 +36,11 @@ import re
 import shlex
 from contextlib import suppress
 from pathlib import Path
-from typing import Callable, Dict, List
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from beartype import beartype
+from beartype.typing import Callable, Dict, List
 from loguru import logger
 
 from ..doit_tasks.doit_globals import DG, DoitAction, DoitTask

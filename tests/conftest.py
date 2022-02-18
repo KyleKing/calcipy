@@ -2,10 +2,10 @@
 
 import os
 from pathlib import Path
-from typing import Dict, Generator
 
 import pytest
 from cement import fs
+from beartype.typing import Dict, Generator
 from decorator import contextmanager
 
 from calcipy.dev.conftest import pytest_configure  # noqa: F401

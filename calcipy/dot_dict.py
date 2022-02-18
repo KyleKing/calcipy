@@ -1,8 +1,7 @@
 """Dotted dictionary for consistent interface."""
 
-from typing import Any, Dict, Union
-
 from beartype import beartype
+from beartype.typing import Any, Dict, Union
 from box import Box
 
 DDICT_TYPE = Union[Dict[str, Any], Box]

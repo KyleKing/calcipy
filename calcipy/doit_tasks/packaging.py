@@ -2,7 +2,6 @@
 
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
 
 import attr
 import numpy as np
@@ -11,6 +10,7 @@ import requests
 import tomli
 from attrs_strict import type_validator
 from beartype import beartype
+from beartype.typing import Dict, List, Optional
 from doit.tools import Interactive
 from loguru import logger
 from pendulum import DateTime

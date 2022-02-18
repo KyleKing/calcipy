@@ -1,8 +1,8 @@
 """Global variables for testing."""
 
 from pathlib import Path
-from typing import Generator
 
+from beartype.typing import Generator
 from decorator import contextmanager
 
 from calcipy import __pkg_name__

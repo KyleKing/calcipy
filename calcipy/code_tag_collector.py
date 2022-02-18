@@ -6,13 +6,13 @@ from collections import defaultdict
 from functools import lru_cache
 from io import BufferedReader
 from pathlib import Path
-from typing import Dict, List, Optional, Pattern, Sequence, Tuple
 
 import attr
 import pandas as pd
 import pendulum
 from attrs_strict import type_validator
 from beartype import beartype
+from beartype.typing import Callable, Dict, List, Optional, Pattern, Sequence, Tuple
 from loguru import logger
 
 from .file_helpers import read_lines

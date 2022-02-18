@@ -1,7 +1,8 @@
 """Test doit_tasks/doit_globals.py."""
 
 from pathlib import Path
-from typing import List
+
+from beartype.typing import List
 
 from calcipy.doit_tasks.doit_globals import DG, DocConfig, DoitGlobals
 

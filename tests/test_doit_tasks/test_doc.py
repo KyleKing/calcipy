@@ -5,9 +5,9 @@ import shutil
 import webbrowser
 from copy import deepcopy
 from pathlib import Path
-from typing import List
 
 import pytest
+from beartype.typing import List
 
 from calcipy.doit_tasks.base import write_text
 from calcipy.doit_tasks.doc import (

@@ -4,9 +4,9 @@ import shutil
 import webbrowser
 from collections import defaultdict
 from pathlib import Path
-from typing import Iterable, List
 
 from beartype import beartype
+from beartype.typing import Iterable, List
 from doit.task import Task
 from loguru import logger
 from sty import fg

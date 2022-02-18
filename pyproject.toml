@@ -76,7 +76,7 @@ calcipy = "calcipy:run"
 python = "^3.8"
 attrs = ">=21"
 attrs_strict = ">=0.2.2"
-beartype = ">=0.9"       # dyce has nice no-op decorator for beartype, but shouldn't be optional
+beartype = ">=0.10.0"       # dyce has nice no-op decorator for beartype, but shouldn't be optional
 cement = ">=3.0.6"
 decorator = ">=5"
 loguru = ">=0.5"
@@ -107,6 +107,7 @@ pdocs = { version = ">=1.1", optional = true }
 pyupgrade = { version = ">=2.19.1", optional = true }
 
 # Lint
+absolufy-imports = { version = ">=0.3.1", optional = true }
 add-trailing-comma = { version = ">=2.1.0", optional = true }
 autoflake = { version = ">=1.4", optional = true }
 autopep8 = { version = ">=1.5", optional = true }
@@ -154,6 +155,7 @@ pep8-naming = { version = ">=0.11", optional = true }
 pip-audit = { version = ">=1.1.1", optional = true }
 pip-check = { version = ">=2.7", optional = true }
 proselint = { version = ">=0.10", optional = true }
+pycln = { version = ">=1.2.0", optional = true }
 pylint = { version = ">=2.8", optional = true }
 vulture = { version = ">=2.3", optional = true }
 xenon = { version = ">=0.8", optional = true }
@@ -186,6 +188,7 @@ dev = [
     "pyupgrade",
 ]
 lint = [
+    "absolufy-imports",
     "add-trailing-comma",
     "autoflake",
     "autopep8",
@@ -193,6 +196,7 @@ lint = [
     "darglint",
     "demjson",
     "dlint",
+    "flake8",
     "flake8-2020",
     "flake8-aaa",
     "flake8-annotations",
@@ -225,7 +229,6 @@ lint = [
     "flake8-string-format",
     "flake8-tuple",
     "flake8-variables-names",
-    "flake8",
     "hacking",
     "isort",
     "licensecheck",
@@ -234,6 +237,7 @@ lint = [
     "pip-audit",
     "pip-check",
     "proselint",
+    "pycln",
     "pylint",
     "vulture",
     "xenon",
