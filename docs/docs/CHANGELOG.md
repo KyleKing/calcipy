@@ -1,3 +1,10 @@
+## Unreleased
+
+### Fix
+
+- always return 0 to complete format task
+- use short paths when formatting Python code if available
+
 ## 0.12.0 (2022-02-18)
 
 ### Feat
