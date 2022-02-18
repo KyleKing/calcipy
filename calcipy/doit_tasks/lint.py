@@ -5,6 +5,7 @@ from pathlib import Path
 from beartype import beartype
 from beartype.typing import Iterable, List
 from doit.tools import Interactive
+from loguru import logger
 
 from ..file_helpers import if_found_unlink
 from .base import debug_task, echo
@@ -243,7 +244,7 @@ def _gen_format_actions(paths: str) -> List[str]:
         f'{run} pycln {paths}',
         f'{run} absolufy-imports {paths} --never',
         f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
-        f'{run} add-trailing-comma {paths} --py36-plus',
+        f'{run} add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
     ]
 
 
@@ -304,7 +305,18 @@ def task_auto_format() -> DoitTask:
         DoitTask: doit task
 
     """
-    paths = ' '.join(f'"{pth}"' for pth in DG.lint.paths_py)
+    @beartype
+    def get_short_path(_pth: Path) -> Path:
+        try:
+            return _pth.relative_to(DG.meta.path_project)
+        except Exception as exc:
+            logger.warning(
+                '{pth} is not relative to {rel_path}. Error: {exc}',
+                pth=_pth, rel_path=DG.meta.path_project, exc=exc,
+            )
+            return _pth
+
+    paths = ' '.join(f'"{get_short_path(pth)}"' for pth in DG.lint.paths_py)
     return debug_task(_gen_format_actions(paths))
 
 

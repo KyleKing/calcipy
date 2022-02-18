@@ -32,7 +32,6 @@ with open(path_stdout, 'w') as out:
 
 """
 
-import json
 import re
 import shlex
 from contextlib import suppress
@@ -223,11 +222,10 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         """
         session.install('safety', '--upgrade')
         path_report = Path('insecure_report.json').resolve()
-        logger.info('Creating safety report: {path_report}', path_report=path_report)
-        session.run(*shlex.split(f'safety check --full-report --cache --output {path_report} --json'), stdout=False)
-        report_dict = json.loads(path_report.read_text())
-        if matched_vulns := [item for item in report_dict if (item.get('vulns', []) != [])]:
-            raise RuntimeError(f'Found safety warnings in {path_report} for {matched_vulns}')
+        logger.info(f'Creating safety report: {path_report}')
+        session.run(*shlex.split(f'safety check --full-report --cache --output {path_report} --json'), stdout=True)
+        if path_report.read_text().strip() != '[]':
+            raise RuntimeError(f'Found safety warnings in {path_report}')
         path_report.unlink()
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)

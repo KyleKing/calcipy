@@ -1,4 +1,17 @@
-## Unreleased
+## 0.12.1 (2022-02-18)
+
+### Fix
+
+- always return 0 to complete format task
+- use short paths when formatting Python code if available
+
+## 0.12.0 (2022-02-18)
+
+### Feat
+
+- initialize calcipy pre-commit hook
+
+## 0.11.0 (2022-02-18)
 
 ### Feat
 
