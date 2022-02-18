@@ -80,7 +80,7 @@ def task_cl_bump() -> DoitTask:
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     return debug_task([
         *_write_changelog(),
-        Interactive('poetry run cz bump --annotated-tag'),
+        Interactive('poetry run cz bump --annotated-tag --no-verify'),
         'git push origin --tags --no-verify',
         f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag})',
     ])
@@ -100,7 +100,7 @@ def task_cl_bump_pre() -> DoitTask:
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     task = debug_task([
         *_write_changelog(),
-        Interactive('poetry run cz bump --prerelease %(prerelease)s'),
+        Interactive('poetry run cz bump --prerelease %(prerelease)s --no-verify'),
         'git push origin --tags --no-verify',
         f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}) --prerelease',
     ])
