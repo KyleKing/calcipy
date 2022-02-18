@@ -6,11 +6,11 @@ https://groups.google.com/g/python-doit/c/SgoiGt_XYDU/m/PQ8JmlKFAgAJ
 """
 
 from enum import IntEnum
-from typing import Any, List, OrderedDict
 
 import attr
 from attrs_strict import type_validator
 from beartype import beartype
+from beartype.typing import Any, List, OrderedDict
 from doit.reporter import ConsoleReporter
 from doit.task import Task
 from sty import fg
@@ -45,7 +45,7 @@ def _format_task_summary(task_summary: _TaskSummary) -> str:
         _TaskExitCode.SKIP_UP_TO_DATE: (fg.yellow, 'was skipped'),
     }
     foreground, exit_summary = lookup.get(task_summary.exit_code, ('', 'is UNKNOWN'))
-    return f'{foreground}{task_summary.name} {exit_summary}' + fg.rs
+    return f'{foreground}{task_summary.name} {exit_summary}{fg.rs}'
 
 
 class SummaryReporter(ConsoleReporter):  # pragma: no cover # noqa: H601

@@ -2,9 +2,9 @@
 
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List
 
 from beartype import beartype
+from beartype.typing import Dict, List
 from loguru import logger
 from pre_commit.git import zsplit
 from pre_commit.util import cmd_output

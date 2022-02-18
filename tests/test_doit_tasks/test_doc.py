@@ -5,9 +5,9 @@ import shutil
 import webbrowser
 from copy import deepcopy
 from pathlib import Path
-from typing import List
 
 import pytest
+from beartype.typing import List
 
 from calcipy.doit_tasks.base import write_text
 from calcipy.doit_tasks.doc import (
@@ -48,7 +48,7 @@ def test_task_cl_bump():
     result = task_cl_bump()
 
     actions = result['actions']
-    assert len(actions) == 4
+    assert len(actions) == 5
     assert isinstance(actions[1][0], type(_move_cl))
     assert 'poetry run cz bump --annotated-tag' in str(actions[2])
     assert actions[3] == 'git push origin --tags --no-verify'
@@ -59,7 +59,7 @@ def test_task_cl_bump_pre():
     result = task_cl_bump_pre()
 
     actions = result['actions']
-    assert len(actions) == 4
+    assert len(actions) == 5
     assert isinstance(actions[1][0], type(_move_cl))
     assert 'poetry run cz bump --prerelease' in str(actions[2])
     assert actions[3] == 'git push origin --tags --no-verify'

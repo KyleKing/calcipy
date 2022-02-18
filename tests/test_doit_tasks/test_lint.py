@@ -1,5 +1,7 @@
 """Test doit_tasks/lint.py."""
 
+from itertools import zip_longest
+
 import pytest
 
 from calcipy.doit_tasks.base import echo
@@ -82,9 +84,8 @@ def test_task_lint_project():
     result = task_lint_project()
 
     actions = result['actions']
-    assert len(actions) == 7
+    assert len(actions) == 6
     assert 'poetry run yamllint --strict "' in str(actions[5])
-    assert 'poetry run jsonlint --strict "' in str(actions[6])
 
 
 def test_task_lint_critical_only():
@@ -92,7 +93,7 @@ def test_task_lint_critical_only():
     result = task_lint_critical_only()
 
     actions = result['actions']
-    assert len(actions) == 7
+    assert len(actions) == 6
     assert 'T100' not in str(actions[1])
     assert isinstance(actions[2][0], type(_check_linting_errors))
     assert len(actions[2][1]) == 2
@@ -101,7 +102,6 @@ def test_task_lint_critical_only():
     assert 'T100' in actions[2][1][1]
     assert '-m xenon ' in str(actions[4])
     assert 'poetry run yamllint  "' in str(actions[5])
-    assert 'poetry run jsonlint  "' in str(actions[6])
 
 
 def test_task_radon_lint():
@@ -122,10 +122,18 @@ def test_task_auto_format():
     result = task_auto_format()
 
     actions = result['actions']
-    assert len(actions) == 3
-    assert '-m autoflake ' in actions[0]
-    assert '-m autopep8 ' in actions[1]
-    assert '-m isort ' in actions[2]
+    assert len(actions) == 7
+    cmd_seq = [
+        'run pyupgrade',
+        '-m autoflake',
+        '-m autopep8',
+        'run pycln',
+        'run absolufy-imports',
+        '-m isort',
+        'run add-trailing-comma ',
+    ]
+    for cmd, action in zip_longest(cmd_seq, actions):
+        assert cmd in str(action)
 
 
 def test_task_pre_commit_hooks():

@@ -1,5 +1,26 @@
 ## Unreleased
 
+### Feat
+
+- don't verify on cz_bump
+
+### Refactor
+
+- format fixes
+- reduce noise on matched vulnerabilities
+- make run_cmd public
+- remove jsonlint action
+- use beartype typing
+- move pre-commit hooks into doit
+
+## 0.10.0 (2022-01-19)
+
+### Feat
+
+- create Github release if gh CLI is installed
+
+## 0.9.1 (2022-01-17)
+
 ### Fix
 
 - correct code-tag-collector for CLI use

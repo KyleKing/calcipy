@@ -23,7 +23,7 @@ change_type_order = [
     "Change (Old)",
     "Fix (Old)",
 ]
-version = "0.9.1"
+version = "0.11.0"
 version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
 
 [tool.commitizen.cz_legacy_map]
@@ -43,7 +43,7 @@ multi_line_output = 5
 
 [tool.poetry]
 name = "calcipy"
-version = "0.9.1"
+version = "0.11.0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
@@ -76,7 +76,7 @@ calcipy = "calcipy:run"
 python = "^3.8"
 attrs = ">=21"
 attrs_strict = ">=0.2.2"
-beartype = ">=0.9"       # dyce has nice no-op decorator for beartype, but shouldn't be optional
+beartype = ">=0.10.0"    # dyce has nice no-op decorator for beartype, but shouldn't be optional
 cement = ">=3.0.6"
 decorator = ">=5"
 loguru = ">=0.5"
@@ -86,12 +86,12 @@ python-box = ">=5.4"
 tabulate = ">=0.8"       # Required for pandas.to_markdown
 
 # TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
-doit = ">=0.33"                                            # Should be optional, but needed for doit_tasks
-pre-commit = ">=2.15"                                      # Should be optional, but needed for doit_globals
-pyrate_limiter = ">=2.4"                                   # Should be optional, but needed for packaging task
-sty = { version = ">=1.0.0rc2", allow-prereleases = true } # Should be optional, but needed for Custom Summary
-tomli = ">=2.0.0"                                          # Should be optional, but needed for doit_globals
-transitions = ">=0.8"                                      # Should be optional, but needed for doc tasks
+doit = ">=0.33"          # Should be optional, but needed for doit_tasks
+pre-commit = ">=2.15"    # Should be optional, but needed for doit_globals
+pyrate_limiter = ">=2.4" # Should be optional, but needed for packaging task
+sty = ">=1.0.4"          # Should be optional, but needed for Custom Summary
+tomli = ">=2.0.0"        # Should be optional, but needed for doit_globals
+transitions = ">=0.8"    # Should be optional, but needed for doc tasks
 # Indirect imports necessary only to comply with check_imports
 pyyaml = "*"   # Should be optional, but needed for doit_globals
 requests = "*" # Should be optional, but needed for packaging tasks
@@ -99,8 +99,7 @@ requests = "*" # Should be optional, but needed for packaging tasks
 # Development
 better-exceptions = { version = ">=0.3", optional = true }
 commitizen = { version = ">=2", optional = true }                                                              # Prevent install of 1.X
-markdown-include = { version = ">=0.6", optional = true }
-mkdocs-git-revision-date-plugin = { version = ">=0.3", optional = true }
+mkdocs-git-revision-date-localized-plugin = { version = ">=0.12", optional = true }
 mkdocs-material = { version = ">=7.1", optional = true }
 livereload = { version = "*", optional = true }                                                                # PLANNED: Temporary - a plugin expected livereload to be installed...
 pdbpp = { version = ">=0.10", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
@@ -108,6 +107,7 @@ pdocs = { version = ">=1.1", optional = true }
 pyupgrade = { version = ">=2.19.1", optional = true }
 
 # Lint
+absolufy-imports = { version = ">=0.3.1", optional = true }
 add-trailing-comma = { version = ">=2.1.0", optional = true }
 autoflake = { version = ">=1.4", optional = true }
 autopep8 = { version = ">=1.5", optional = true }
@@ -126,7 +126,6 @@ flake8-broken-line = { version = ">=0.3", optional = true }
 flake8-bugbear = { version = ">=22.1.11", optional = true }
 flake8-builtins = { version = ">=1.5", optional = true }
 flake8-cognitive-complexity = { version = ">=0.1", optional = true }
-flake8-commas = { version = ">=2.0", optional = true }
 flake8-comprehensions = { version = ">=3.5", optional = true }
 flake8-debugger = { version = ">=4.0", optional = true }
 flake8-docstrings = { version = ">=1.6", optional = true }
@@ -150,13 +149,13 @@ flake8-tuple = { version = ">=0.4", optional = true }
 flake8-variables-names = { version = ">=0.0.4", optional = true }
 hacking = { version = ">=4", optional = true }                                          # Version set to prevent oscillation back to 3
 isort = { version = ">=5", optional = true }                                            # Use latest isort
-it = { version = ">=1", optional = true }
 licensecheck = { extras = ["full"], version = "^2022", optional = true }
 pandas-vet = { version = ">=0.2", optional = true }
 pep8-naming = { version = ">=0.11", optional = true }
 pip-audit = { version = ">=1.1.1", optional = true }
 pip-check = { version = ">=2.7", optional = true }
 proselint = { version = ">=0.10", optional = true }
+pycln = { version = ">=1.2.0", optional = true }
 pylint = { version = ">=2.8", optional = true }
 vulture = { version = ">=2.3", optional = true }
 xenon = { version = ">=0.8", optional = true }
@@ -181,8 +180,7 @@ cz_legacy = { version = ">=0.1.2", optional = true }
 dev = [
     "better-exceptions",
     "commitizen",
-    "markdown-include",
-    "mkdocs-git-revision-date-plugin",
+    "mkdocs-git-revision-date-localized-plugin",
     "mkdocs-material",
     "livereload",
     "pdbpp",
@@ -190,6 +188,7 @@ dev = [
     "pyupgrade",
 ]
 lint = [
+    "absolufy-imports",
     "add-trailing-comma",
     "autoflake",
     "autopep8",
@@ -197,6 +196,7 @@ lint = [
     "darglint",
     "demjson",
     "dlint",
+    "flake8",
     "flake8-2020",
     "flake8-aaa",
     "flake8-annotations",
@@ -208,7 +208,6 @@ lint = [
     "flake8-bugbear",
     "flake8-builtins",
     "flake8-cognitive-complexity",
-    "flake8-commas",
     "flake8-comprehensions",
     "flake8-debugger",
     "flake8-docstrings",
@@ -230,16 +229,15 @@ lint = [
     "flake8-string-format",
     "flake8-tuple",
     "flake8-variables-names",
-    "flake8",
     "hacking",
     "isort",
-    "it",
     "licensecheck",
     "pandas-vet",
     "pep8-naming",
     "pip-audit",
     "pip-check",
     "proselint",
+    "pycln",
     "pylint",
     "vulture",
     "xenon",
@@ -258,3 +256,6 @@ test = [
     "pytest",
 ]
 commitizen_legacy = ["cz_legacy"]
+
+[tool.poetry.dev-dependencies]
+matplotlib = "^3.5.1"

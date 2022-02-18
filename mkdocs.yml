@@ -23,7 +23,10 @@ theme:
 
 plugins:
   - search
-  - git-revision-date
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true
+      enable_creation_date: true
 
 markdown_extensions:
   - abbr
@@ -35,7 +38,6 @@ markdown_extensions:
   - extra
   - fenced_code
   - footnotes
-  - markdown_include.include
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg

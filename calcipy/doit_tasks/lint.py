@@ -1,9 +1,9 @@
 """doit Linting Utilities."""
 
 from pathlib import Path
-from typing import Iterable, List
 
 from beartype import beartype
+from beartype.typing import Iterable, List
 from doit.tools import Interactive
 
 from ..file_helpers import if_found_unlink
@@ -32,7 +32,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
     if ignore_errors:
         # Backup the full list of errors
         flake8_full_path.write_text(log_contents)
-        # Exclude the errors specificed to be ignored by the user
+        # Exclude the errors specified to be ignored by the user
         lines = log_contents.split('\n')
         lines = [
             line for line in lines
@@ -103,15 +103,17 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
     strict_flag = '--strict' if strict else ''
 
     actions = []
-
-    paths_yaml = DG.meta.paths_by_suffix.get('yml', []) + DG.meta.paths_by_suffix.get('yaml', [])
-    if paths_yaml:
+    pbs = DG.meta.paths_by_suffix
+    if paths_yaml := pbs.get('yml', []) + pbs.get('yaml', []):
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
         actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
 
-    paths_json = DG.meta.paths_by_suffix.get('json', [])
-    if paths_json:
-        actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
+    # FYI: Use pre-commit instead
+    # From: https://github.com/pre-commit/pre-commit-hooks/blob/0d261aaf84419c0c8fe70ff4a23f6a99655868de/
+    #   lint: ./pre_commit_hooks/check_json.py
+    #   format: ./pre_commit_hooks/pretty_format_json.py
+    # > if paths_json := DG.meta.paths_by_suffix.get('json', []):
+    # >     actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
 
     return actions
 
@@ -186,15 +188,12 @@ def task_radon_lint() -> DoitTask:
 def task_static_checks() -> DoitTask:
     """General static checkers (Inspection Tiger, etc.).
 
-    FYI: `IT` could be useful to handle deprecation. For now, only run the default checkers: https://pypi.org/project/it
-
     Returns:
         DoitTask: doit task
 
     """
     paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
     return debug_task([
-        Interactive(f'poetry run it {DG.meta.pkg_name} --show-plugins'),
         Interactive(f'poetry run vulture {paths} --min-confidence 70 --sort-by-size'),
     ])
 
@@ -231,15 +230,20 @@ def _gen_format_actions(paths: str) -> List[str]:
         DoitTask: doit task
 
     """
-    run = 'poetry run python -m'
+    run = 'poetry run'
+    run_mod = f'{run} python -m'
     autoflake_args = (
         '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
         ' --remove-duplicate-keys'
     )
     return [
-        f'{run} autoflake {paths} {autoflake_args}',
-        f'{run} autopep8 {paths} --in-place --aggressive',
-        f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',
+        f'{run} pyupgrade {paths} --py38-plus --keep-runtime-typing',
+        f'{run_mod} autoflake {paths} {autoflake_args}',
+        f'{run_mod} autopep8 {paths} --in-place --aggressive',
+        f'{run} pycln {paths}',
+        f'{run} absolufy-imports {paths} --never',
+        f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
+        f'{run} add-trailing-comma {paths} --py36-plus',
     ]
 
 
@@ -318,6 +322,8 @@ def task_pre_commit_hooks() -> DoitTask:
         DoitTask: doit task
 
     """
+    # Hooks should be installed for all types
+    # https://github.com/pre-commit/pre-commit/blob/7858ad066f2dfd11453c2f7e25c8f055ba4de931/pre_commit/commands/install_uninstall.py#L103-L130
     return debug_task([
         Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),

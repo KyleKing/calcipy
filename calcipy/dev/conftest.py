@@ -19,8 +19,8 @@ from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 """
 
 from datetime import datetime
-from typing import Any, Generator
 
+from beartype.typing import Any, Generator
 from loguru import logger
 
 _HAS_TEST_IMPORTS = False

@@ -5,13 +5,13 @@ import re
 import warnings
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
 
 import attr
 import doit
 import tomli
 from attrs_strict import type_validator
 from beartype import beartype
+from beartype.typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
 from doit.action import BaseAction
 from doit.task import Task
 from loguru import logger

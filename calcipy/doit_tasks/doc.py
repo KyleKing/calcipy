@@ -4,10 +4,10 @@ import json
 import re
 import webbrowser
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Pattern
 
 import pandas as pd
 from beartype import beartype
+from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
 from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
@@ -76,10 +76,13 @@ def task_cl_bump() -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Refactor "cl_bump*" functions. Make "which $(..) >> /dev/null && " a function
+    get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     return debug_task([
         *_write_changelog(),
-        Interactive('poetry run cz bump --annotated-tag'),
+        Interactive('poetry run cz bump --annotated-tag --no-verify'),
         'git push origin --tags --no-verify',
+        f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag})',
     ])
 
 
@@ -93,10 +96,13 @@ def task_cl_bump_pre() -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Refactor "cl_bump*" functions. Make "which $(..) >> /dev/null && " a function
+    get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     task = debug_task([
         *_write_changelog(),
-        Interactive('poetry run cz bump --prerelease %(prerelease)s'),
+        Interactive('poetry run cz bump --prerelease %(prerelease)s --no-verify'),
         'git push origin --tags --no-verify',
+        f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}) --prerelease',
     ])
     task['params'] = [{
         'name': 'prerelease', 'short': 'p', 'long': 'prerelease', 'default': '',
