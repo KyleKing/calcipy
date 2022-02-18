@@ -1,10 +1,9 @@
 """Collect code tags and output for review in a single location."""
 
 import re
-import subprocess
+from subprocess import CalledProcessError  # nosec
 from collections import defaultdict
 from functools import lru_cache
-from io import BufferedReader
 from pathlib import Path
 
 import attr
@@ -12,11 +11,12 @@ import pandas as pd
 import pendulum
 from attrs_strict import type_validator
 from beartype import beartype
-from beartype.typing import Callable, Dict, List, Optional, Pattern, Sequence, Tuple
+from beartype.typing import Dict, List, Optional, Pattern, Sequence, Tuple
 from loguru import logger
 
 from .file_helpers import read_lines
 from .log_helpers import log_fun
+from .proc_helpers import run_cmd
 
 SKIP_PHRASE = 'calcipy:skip_tags'
 """String that indicates the file should be excluded from the tag search."""
@@ -32,23 +32,6 @@ Requires formatting with list of tags: `CODE_TAG_RE.format(tag='|'.join(tag_list
 Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 
 """
-
-
-@beartype
-def _run_cmd(cmd: str, **kwargs) -> str:
-    """Run command with subprocess and return the output.
-
-    Args:
-        cmd: string command
-        kwargs: any additional keyword arguments to pass to `subprocess.Popen` (typically `cwd`)
-
-    Returns:
-        str: stripped output
-
-    """
-    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, universal_newlines=True, **kwargs)
-    stdout: BufferedReader = proc.stdout  # type: ignore
-    return stdout.read().strip()
 
 
 @attr.s(auto_attribs=True)
@@ -114,10 +97,9 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         try:
             lines = read_lines(path_source)
         except UnicodeDecodeError as err:
-            logger.debug(f'Could not parse: {path_source}', err=err)
+            logger.debug('Could not parse: {path_source}', path_source=path_source, err=err)
 
-        comments = _search_lines(lines, regex_compiled)
-        if comments:
+        if comments := _search_lines(lines, regex_compiled):
             matches.append(_Tags(path_source, comments))
 
     return matches
@@ -138,8 +120,8 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
         Tuple[Path, str]: (git_dir, repo_url)
 
     """
-    git_dir = Path(_run_cmd('git rev-parse --show-toplevel', cwd=str(cwd)))
-    clone_uri = _run_cmd('git remote get-url origin', cwd=str(cwd))
+    git_dir = Path(run_cmd('git rev-parse --show-toplevel', cwd=str(cwd)))
+    clone_uri = run_cmd('git remote get-url origin', cwd=str(cwd))
     # Could be ssh or http (with or without .git)
     # git@github.com:KyleKing/calcipy.git
     # https://github.com/KyleKing/calcipy.git
@@ -163,25 +145,33 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
     """
     cwd = file_path.parent
     git_dir, repo_url = _git_info(cwd=cwd)
-    blame = _run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)
-    # Set fallbacks if git logic doesn't work
-    source_file = f'{file_path.relative_to(base_dir).as_posix()}:{comment.lineno}'
+    blame = None
+    try:
+        blame = run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)
+    except CalledProcessError:
+        logger.exception('Failed to locate {file_path}', file_path=file_path)
+    # Set fallback values if git logic doesn't work
+    rel_path = file_path.relative_to(base_dir)
+    source_file = f'{rel_path.as_posix()}:{comment.lineno}'
     ts = 'N/A'
     if blame:
         # Note: line number may be different in older blame (and relative path)
         revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
         # If the change has not yet been committed, use the branch name as best guess
         if all(_c == '0' for _c in revision):
-            revision = _run_cmd('git branch --show-current', cwd=cwd)
+            revision = run_cmd('git branch --show-current', cwd=cwd)
         # Format a nice timestamp of the last edit to the line
         blame_dict = {
             line.split(' ')[0]: ' '.join(line.split(' ')[1:])
             for line in blame.split('\n')
         }
-        dt = pendulum.from_timestamp(int(blame_dict['committer-time']))
-        tz = blame_dict['committer-tz'][:3] + ':' + blame_dict['committer-tz'][-2:]
+        # Handle uncommitted files that only have author-time and author-tz
+        user = 'committer' if 'committer-tz' in blame_dict else 'author'
+        dt = pendulum.from_timestamp(int(blame_dict[f'{user}-time']))
+        tz = blame_dict[f'{user}-tz'][:3] + ':' + blame_dict[f'{user}-tz'][-2:]
         ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
-        remote_file_path = blame_dict['filename']
+        # Filename may not be present if uncommitted. Use local path as fallback
+        remote_file_path = blame_dict.get('filename', rel_path.as_posix())
         # PLANNED: Consider making "blame" configurable
         git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
         source_file = f'[{source_file}]({git_url})'
