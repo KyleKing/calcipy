@@ -228,16 +228,19 @@ def _gen_format_actions(paths: str) -> List[str]:
         DoitTask: doit task
 
     """
-    run = 'poetry run python -m'
+    run_mod = 'poetry run python -m'
     autoflake_args = (
         '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
         ' --remove-duplicate-keys'
     )
     return [
+        f'poetry run pyupgrade {paths} --py38-plus --keep-runtime-typing',
+        f'{run_mod} autoflake {paths} {autoflake_args}',
+        f'{run_mod} autopep8 {paths} --in-place --aggressive',
+        f'poetry run pycln {paths}',
+        f'poetry run absolufy-imports {paths} --never',
+        f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
         f'poetry run add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
-        f'{run} autoflake {paths} {autoflake_args}',
-        f'{run} autopep8 {paths} --in-place --aggressive',
-        f'{run} isort {paths} --settings-path "{DG.lint.path_isort}"',
     ]
 
 
@@ -316,6 +319,7 @@ def task_pre_commit_hooks() -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Is pre-commit not running on push?
     return debug_task([
         Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),

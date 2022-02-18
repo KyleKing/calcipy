@@ -46,20 +46,6 @@ repos:
             "git+https://github.com/KyleKing/cz_legacy.git@d2e273003ac302f6583f0c5d4c0f2a29aaeee73b",
           ]
         stages: [commit-msg]
-  - repo: https://github.com/MarcoGorelli/absolufy-imports
-    rev: v0.3.0
-    hooks:
-      - id: absolufy-imports
-        args: ["--never"]
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.0
-    hooks:
-      - id: pyupgrade
-        args: ["--py38-plus", "--keep-runtime-typing"]
-  - repo: https://github.com/hadialqattan/pycln
-    rev: v1.1.0
-    hooks:
-      - id: pycln
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.1.0
     hooks:
