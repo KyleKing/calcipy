@@ -114,9 +114,7 @@ def read_lines(path_file: Path) -> List[str]:
         List[str]: lines of text as list
 
     """
-    if path_file.is_file():
-        return path_file.read_text().split('\n')
-    return []
+    return path_file.read_text().split('\n') if path_file.is_file() else []
 
 
 @beartype
