@@ -1,3 +1,9 @@
+## Unreleased
+
+### Refactor
+
+- move pre-commit hooks into doit
+
 ## 0.10.0 (2022-01-19)
 
 ### Feat
