@@ -32,7 +32,7 @@ def _check_linting_errors(flake8_log_path: Path, ignore_errors: Iterable[str] = 
     if ignore_errors:
         # Backup the full list of errors
         flake8_full_path.write_text(log_contents)
-        # Exclude the errors specificed to be ignored by the user
+        # Exclude the errors specified to be ignored by the user
         lines = log_contents.split('\n')
         lines = [
             line for line in lines
@@ -319,7 +319,8 @@ def task_pre_commit_hooks() -> DoitTask:
         DoitTask: doit task
 
     """
-    # FIXME: Is pre-commit not running on push?
+    # Hooks should be installed for all types
+    # https://github.com/pre-commit/pre-commit/blob/7858ad066f2dfd11453c2f7e25c8f055ba4de931/pre_commit/commands/install_uninstall.py#L103-L130
     return debug_task([
         Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),

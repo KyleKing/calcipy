@@ -6,7 +6,6 @@
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
 poetry install -E dev -E lint -E test -E commitizen_legacy
-# Note that the new "poetry --sync" will remove optional groups
 
 # See the available tasks
 poetry run doit list
