@@ -2,6 +2,12 @@
 
 ### Feat
 
+- initialize calcipy pre-commit hook
+
+## 0.11.0 (2022-02-18)
+
+### Feat
+
 - don't verify on cz_bump
 
 ### Refactor
