@@ -19,7 +19,7 @@ poetry run doit run test
 
 ## Publishing
 
-For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Replace `...` with the appropriate API token
+For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Replace `...` with the API token generated on TestPyPi|PyPi respectively
 
 ```sh
 poetry config repositories.testpypi https://test.pypi.org/legacy/
@@ -35,10 +35,13 @@ To publish to the real PyPi
 poetry config pypi-token.pypi ...
 poetry run doit run publish
 
-# For a full release, increment the version, the documentation, and publish
+# For a full release, triple check the default tasks, increment the version, rebuild documentation, and publish!
 poetry run doit run --continue
-poetry run doit run cl_bump document deploy_docs publish
-# Note: cl_bump_pre is helpful for pre-releases rather than full increments
+poetry run doit run cl_bump lock document deploy_docs publish
+
+# For pre-releases use cl_bump_pre
+poetry run doit run cl_bump_pre -p rc
+poetry run doit run lock document deploy_docs publish
 ```
 
 ## Current Status

@@ -19,7 +19,7 @@ repos:
       - id: check-toml
       - id: check-vcs-permalinks
       - id: check-yaml
-        args: ["--unsafe"]
+        args: [--unsafe]
       - id: debug-statements
       - id: destroyed-symlinks
       - id: detect-private-key
@@ -27,12 +27,12 @@ repos:
       - id: end-of-file-fixer
       - id: fix-byte-order-marker
       - id: fix-encoding-pragma
-        args: ["--remove"]
+        args: [--remove]
       - id: forbid-new-submodules
       - id: mixed-line-ending
-        args: ["--fix=auto"]
+        args: [--fix=auto]
       - id: pretty-format-json
-        args: ["--autofix"]
+        args: [--autofix]
       # Conflicts with ordering by poetry
       # - id: requirements-txt-fixer
       - id: trailing-whitespace
@@ -41,10 +41,9 @@ repos:
     hooks:
       - id: commitizen
         # yamllint disable-line rule:line-length
-        additional_dependencies:
-          [
-            "git+https://github.com/KyleKing/cz_legacy.git@d2e273003ac302f6583f0c5d4c0f2a29aaeee73b",
-          ]
+        additional_dependencies: [
+          "git+https://github.com/KyleKing/cz_legacy.git@d2e273003ac302f6583f0c5d4c0f2a29aaeee73b"
+        ]
         stages: [commit-msg]
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.2.0
@@ -53,13 +52,13 @@ repos:
       # See: https://github.com/Yelp/detect-secrets/issues/452
       - id: detect-secrets
         # args: ["--baseline", ".secrets.baseline"]
-        exclude: "poetry.lock|cassettes/.*\\.yaml"
+        exclude: poetry.lock|cassettes/.*\.yaml
         stages: [push]
-  # - repo: https://github.com/sondrelg/pep585-upgrade
-  #   rev: "bcc3d077ee46c94bc1dac5f5274e2fb43de570e9"
-  #   hooks:
-  #     # PLANNED: Run when dropping Python 3.8 (& remove BeartypeDecorHint...)
-  #     - id: upgrade-type-hints
+  - repo: https://github.com/lyz-code/yamlfix/
+    rev: master
+    hooks:
+      - id: yamlfix
+        exclude: .copier-answers.yml
   - repo: local
     hooks:
       - id: copier-forbidden-files
@@ -67,17 +66,18 @@ repos:
         # yamllint disable-line rule:line-length
         entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
-        files: "\\.rej$"
+        files: \.rej$
       - id: python-formatter
         name: Python Auto-Formatter
-        description: "Apply calcipy formatting"
+        description: Apply calcipy formatting
         language: system
         entry: poetry run doit run format_py
         types: [python]
         stages: [push]
       - id: toml-formatter
         name: Optional TOML Auto-Formatter
-        description: "Install taplo with 'npm install -g @taplo/cli'"
+        description: Install taplo with 'npm install -g @taplo/cli'
         language: system
         entry: poetry run doit run format_toml
         types: [toml]
+        exclude: poetry.lock
