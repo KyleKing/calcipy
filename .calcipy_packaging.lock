@@ -1,4 +1,12 @@
 {
+    "absolufy-imports": {
+        "datetime": "2022-01-20T14:48:51.718037Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2022-01-20T14:48:51.718037Z",
+        "latest_version": "0.3.1",
+        "name": "absolufy-imports",
+        "version": "0.3.1"
+    },
     "add-trailing-comma": {
         "datetime": "2021-11-20T18:06:22.145779Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -759,6 +767,14 @@
         "name": "lazy-object-proxy",
         "version": "1.7.1"
     },
+    "libcst": {
+        "datetime": "2021-11-23T13:05:48.558302Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2022-01-28T13:42:50.295385Z",
+        "latest_version": "0.4.1",
+        "name": "libcst",
+        "version": "0.3.23"
+    },
     "licensecheck": {
         "datetime": "2022-02-01T21:03:05.042190Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -1143,6 +1159,14 @@
         "name": "py",
         "version": "1.11.0"
     },
+    "pycln": {
+        "datetime": "2022-02-18T08:35:49.425762Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2022-02-18T08:35:49.425762Z",
+        "latest_version": "1.2.0",
+        "name": "pycln",
+        "version": "1.2.0"
+    },
     "pycodestyle": {
         "datetime": "2020-05-11T20:02:52.968686Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -1519,6 +1543,14 @@
         "name": "transitions",
         "version": "0.8.10"
     },
+    "typer": {
+        "datetime": "2021-08-30T08:58:56.888565Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2021-08-30T08:58:56.888565Z",
+        "latest_version": "0.4.0",
+        "name": "typer",
+        "version": "0.4.0"
+    },
     "types-setuptools": {
         "datetime": "2022-02-07T01:00:17.746531Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
@@ -1542,6 +1574,14 @@
         "latest_version": "4.1.1",
         "name": "typing-extensions",
         "version": "4.1.1"
+    },
+    "typing-inspect": {
+        "datetime": "2021-06-07T16:12:08.580739Z",
+        "domain": "https://pypi.org/pypi/{name}/{version}/json",
+        "latest_datetime": "2021-06-07T16:12:08.580739Z",
+        "latest_version": "0.7.1",
+        "name": "typing-inspect",
+        "version": "0.7.1"
     },
     "urllib3": {
         "datetime": "2022-01-07T15:56:31.276636Z",

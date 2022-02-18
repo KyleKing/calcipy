@@ -2,6 +2,9 @@
 
 ### Refactor
 
+- make run_cmd public
+- remove jsonlint action
+- use beartype typing
 - move pre-commit hooks into doit
 
 ## 0.10.0 (2022-01-19)
