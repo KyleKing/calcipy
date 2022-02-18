@@ -109,9 +109,12 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
         actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
 
-    paths_json = DG.meta.paths_by_suffix.get('json', [])
-    if paths_json:
-        actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
+    # FYI: Use pre-commit instead
+    # From: https://github.com/pre-commit/pre-commit-hooks/blob/0d261aaf84419c0c8fe70ff4a23f6a99655868de/
+    #   lint: ./pre_commit_hooks/check_json.py
+    #   format: ./pre_commit_hooks/pretty_format_json.py
+    # > if paths_json := DG.meta.paths_by_suffix.get('json', []):
+    # >     actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
 
     return actions
 
@@ -228,19 +231,20 @@ def _gen_format_actions(paths: str) -> List[str]:
         DoitTask: doit task
 
     """
-    run_mod = 'poetry run python -m'
+    run = 'poetry run'
+    run_mod = f'{run} python -m'
     autoflake_args = (
         '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
         ' --remove-duplicate-keys'
     )
     return [
-        f'poetry run pyupgrade {paths} --py38-plus --keep-runtime-typing',
+        f'{run} pyupgrade {paths} --py38-plus --keep-runtime-typing',
         f'{run_mod} autoflake {paths} {autoflake_args}',
         f'{run_mod} autopep8 {paths} --in-place --aggressive',
-        f'poetry run pycln {paths}',
-        f'poetry run absolufy-imports {paths} --never',
+        f'{run} pycln {paths}',
+        f'{run} absolufy-imports {paths} --never',
         f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
-        f'poetry run add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
+        f'{run} add-trailing-comma {paths} --py36-plus',
     ]
 
 
