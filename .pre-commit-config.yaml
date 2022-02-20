@@ -42,6 +42,19 @@ repos:
       - id: commitizen
         additional_dependencies: [cz_legacy]
         stages: [commit-msg]
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.13
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-beautysh
+          - mdformat-black
+          - mdformat-config
+          - mdformat-gfm
+          - mdformat-tables
+          - mdformat-toc
+          - mdformat-web
+        exclude: _.*\.md
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.2.0
     hooks:
