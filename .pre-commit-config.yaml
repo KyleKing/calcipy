@@ -36,6 +36,10 @@ repos:
       # Conflicts with ordering by poetry
       # - id: requirements-txt-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/lovesegfault/beautysh
+    rev: v6.2.1
+    hooks:
+      - id: beautysh
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v2.21.0
     hooks:

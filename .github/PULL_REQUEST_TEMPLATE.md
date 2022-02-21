@@ -19,10 +19,10 @@ Related to #TBD
 
 <!-- TODO: Check-off all items with an `x` (`[x]`) -->
 
-- [ ] I've read the: https://github.com/kyleking/calcipy/blob/main/docs/DEVELOPER_GUIDE.md
-- [ ] I've read the: https://github.com/kyleking/calcipy/blob/main/docs/STYLE_GUIDE.md
-- [ ] I'm familiar with: https://github.com/kyleking/calcipy/blob/main/docs/CONTRIBUTING.md
-- [ ] I'm aware of the Code of Conduct: https://github.com/kyleking/calcipy/blob/main/docs/CODE_OF_CONDUCT.md
+- [ ] I've read the: <https://github.com/kyleking/calcipy/blob/main/docs/DEVELOPER_GUIDE.md>
+- [ ] I've read the: <https://github.com/kyleking/calcipy/blob/main/docs/STYLE_GUIDE.md>
+- [ ] I'm familiar with: <https://github.com/kyleking/calcipy/blob/main/docs/CONTRIBUTING.md>
+- [ ] I'm aware of the Code of Conduct: <https://github.com/kyleking/calcipy/blob/main/docs/CODE_OF_CONDUCT.md>
 - [ ] If making code changes:
   - [ ] I've run `poetry run doit` and the `pre-commit` checks locally
   - [ ] I've added one or more tests for every changes
