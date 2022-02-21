@@ -5,7 +5,9 @@ First off, thanks for contributing!
 Make sure to review the documentation on the Style Guide, Developer Notes, and other information that can help a PR move smoothly. See the checklist at the bottom of this template for links
 
  -->
+
 <!-- TODO: Specify the issue number(s) associated with the changes here -->
+
 Fixes #TBD
 Related to #TBD
 
@@ -17,13 +19,13 @@ Related to #TBD
 
 <!-- TODO: Check-off all items with an `x` (`[x]`) -->
 
-- [ ] I've read the: {{ repository_provider }}/{{ repository_namespace }}/{{ package_name_py }}/blob/main/docs/DEVELOPER_GUIDE.md
-- [ ] I've read the: {{ repository_provider }}/{{ repository_namespace }}/{{ package_name_py }}/blob/main/docs/STYLE_GUIDE.md
-- [ ] I'm familiar with: {{ repository_provider }}/{{ repository_namespace }}/{{ package_name_py }}/blob/main/docs/CONTRIBUTING.md
-- [ ] I'm aware of the Code of Conduct: {{ repository_provider }}/{{ repository_namespace }}/{{ package_name_py }}/blob/main/docs/CODE_OF_CONDUCT.md
+- [ ] I've read the: https://github.com/kyleking/calcipy/blob/main/docs/DEVELOPER_GUIDE.md
+- [ ] I've read the: https://github.com/kyleking/calcipy/blob/main/docs/STYLE_GUIDE.md
+- [ ] I'm familiar with: https://github.com/kyleking/calcipy/blob/main/docs/CONTRIBUTING.md
+- [ ] I'm aware of the Code of Conduct: https://github.com/kyleking/calcipy/blob/main/docs/CODE_OF_CONDUCT.md
 - [ ] If making code changes:
-    - [ ] I've run `poetry run doit` and the `pre-commit` checks locally
-    - [ ] I've added one or more tests for every changes
-    - [ ] I've updated any relevant documentation
+  - [ ] I've run `poetry run doit` and the `pre-commit` checks locally
+  - [ ] I've added one or more tests for every changes
+  - [ ] I've updated any relevant documentation
 
 <!-- 'calcipy:skip_tags' -->

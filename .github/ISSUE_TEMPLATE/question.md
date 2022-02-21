@@ -3,17 +3,16 @@ name: Question
 about: Ask a question here (or use the "Github Discussion" instead)
 title: ''
 labels: 'Type: Documentation, Type: Idea'
-assignees: 'kyleking'
-
+assignees: kyleking
 ---
 
 ## Question
 
 <!-- TODO: What is your question -->
 
-How can I ...?
+*How can I ...?*
 
-Is it possible to ...?
+*Is it possible to ...?*
 
 ## Additional context
 
