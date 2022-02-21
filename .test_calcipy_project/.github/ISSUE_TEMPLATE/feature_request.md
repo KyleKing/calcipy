@@ -3,8 +3,7 @@ name: Feature request
 about: Let us know if  an idea for this project
 title: ''
 labels: 'Type: Feature, Needs Discussion, Type: Idea'
-assignees: KyleKing
-
+assignees: kyleking
 ---
 
 ## Is your feature request related to a problem? Please describe.
