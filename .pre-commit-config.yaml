@@ -73,7 +73,7 @@ repos:
     rev: 0.8.1
     hooks:
       - id: yamlfix
-        exclude: \.copier-answers\.yml
+        exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml
         types_or: []
         types: [file, yaml]
   - repo: local
