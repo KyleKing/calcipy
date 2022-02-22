@@ -341,4 +341,5 @@ def task_pre_commit_hooks() -> DoitTask:
         Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),
         Interactive('poetry run pre-commit run --all-files'),
+        Interactive('poetry run pre-commit run --all-files --hook-stage push'),
     ])
