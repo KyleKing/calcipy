@@ -285,7 +285,7 @@ def task_format_toml() -> DoitTask:
         # PLANNED: Could provide more hooks for configuring taplo options. See:
         #   https://taplo.tamasfe.dev/configuration/#formatting-options
         'actions': [
-            'which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml_paths)s',
+            Interactive('which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml_paths)s'),
         ],
         'pos_arg': 'toml_paths',
         'verbosity': 2,
