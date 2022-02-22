@@ -11,6 +11,9 @@ ignore_patterns = [
     "tests/data/sample_doc_files/*",
 ]
 
+[tool.calcipy.test]
+pythons = ["3.7.12", "3.9"]
+
 [tool.commitizen]
 name = "cz_legacy"
 change_type_order = [
@@ -74,7 +77,7 @@ calcipy = "calcipy:run"
 "Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7.12"
 attrs = ">=21"
 attrs_strict = ">=0.2.2"
 beartype = ">=0.10.0"    # dyce has nice no-op decorator for beartype, but shouldn't be optional
