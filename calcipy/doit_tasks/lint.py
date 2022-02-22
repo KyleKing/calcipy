@@ -105,7 +105,8 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
 
     actions = []
     pbs = DG.meta.paths_by_suffix
-    if paths_yaml := pbs.get('yml', []) + pbs.get('yaml', []):
+    paths_yaml = pbs.get('yml', []) + pbs.get('yaml', [])
+    if paths_yaml:
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
         actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
 

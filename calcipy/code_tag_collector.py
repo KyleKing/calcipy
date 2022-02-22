@@ -99,7 +99,8 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         except UnicodeDecodeError as err:
             logger.debug('Could not parse: {path_source}', path_source=path_source, err=err)
 
-        if comments := _search_lines(lines, regex_compiled):
+        comments = _search_lines(lines, regex_compiled)
+        if comments:
             matches.append(_Tags(path_source, comments))
 
     return matches
