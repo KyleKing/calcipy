@@ -11,6 +11,19 @@ from .doit_globals import DG, DoitTask
 
 
 @beartype
+def _run_nox(args: str) -> DoitTask:
+    """Run a nox command and fail if the interpreter is not found
+
+    Returns:
+        DoitTask: doit task
+
+    """
+    return debug_task([
+        Interactive(f'poetry run nox --error-on-missing-interpreters {args}'),
+    ])
+
+
+@beartype
 def task_nox() -> DoitTask:
     """Run the full nox test suite.
 
@@ -20,9 +33,7 @@ def task_nox() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task([
-        Interactive('poetry run nox'),
-    ])
+    return _run_nox('')
 
 
 @beartype
@@ -33,9 +44,7 @@ def task_nox_test() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task([
-        Interactive('poetry run nox --session tests'),
-    ])
+    return _run_nox('--session tests')
 
 
 @beartype
@@ -46,9 +55,7 @@ def task_nox_coverage() -> DoitTask:
         DoitTask: doit task
 
     """
-    return debug_task([
-        Interactive('poetry run nox --session coverage'),
-    ])
+    return _run_nox('--session coverage')
 
 
 # ----------------------------------------------------------------------------------------------------------------------
