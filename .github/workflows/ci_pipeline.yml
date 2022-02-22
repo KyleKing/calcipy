@@ -5,8 +5,6 @@
 # https://labs.quansight.org/blog/2021/10/re-engineering-cicd-pipelines-for-scipy/
 # https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/linux_meson.yml
 
-# PLANNED: Skip unsupported Windows and Mac images for Act. See scipy example
-
 # Act (Local GHA Runner) Docs: https://github.com/nektos/act
 name: CI Pipeline
 
@@ -56,7 +54,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         poetry-version: [1.1.13]
-        python-version: [3.8]
+        python-version: ['3.8']
     steps:
       # Docs: https://github.com/actions/checkout
       - uses: actions/checkout@v2
@@ -90,7 +88,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         poetry-version: [1.1.13]
-        python-version: [3.7, 3.8, 3.9, 3.10, 3.11-dev]
+        python-version: ['3.7', '3.8', '3.9', '3.10', 3.11-dev]
     continue-on-error: ${{ matrix.python-version == '3.11-dev' }}
     steps:
       - uses: actions/checkout@v2
