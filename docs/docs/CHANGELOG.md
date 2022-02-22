@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fix
+
+- skip cassette files
+
 ## 0.12.1 (2022-02-18)
 
 ### Fix
