@@ -187,7 +187,7 @@ def task_radon_lint() -> DoitTask:
 
 @beartype
 def task_static_checks() -> DoitTask:
-    """General static checkers (Inspection Tiger, etc.).
+    """General static checkers (vulture, etc.).
 
     Returns:
         DoitTask: doit task

@@ -1,0 +1,115 @@
+---
+# Based on these excellent examples
+# https://github.com/executablebooks/mdformat/blob/4752321bb444b51f120d8a6933583129a6ecaabb/.github/workflows/tests.yaml
+# https://github.com/codefellows/data-structures-and-algorithms/blob/7a1670b1475fc57a5f851c7685040c11bc41ec8d/.github/workflows/python-tests.yml
+# https://labs.quansight.org/blog/2021/10/re-engineering-cicd-pipelines-for-scipy/
+# https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/linux_meson.yml
+
+# PLANNED: Skip unsupported Windows and Mac images for Act. See scipy example
+
+# Act (Local GHA Runner) Docs: https://github.com/nektos/act
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+    tags: ['[0-9]+.[0-9]+.[0-9]+*']
+  pull_request:
+    branches: [main]
+    paths:
+      - calcipy/**
+      - tests/**
+      - pyproject.toml
+
+jobs:
+  # **Great article on AWS integration, screenshot artifacts, etc.
+  #   https://posthog.com/blog/automating-a-software-company-with-github-actions
+  # General Advice: https://www.datree.io/resources/github-actions-best-practices
+  #   https://docs.github.com/en/actions/security-guides/encrypted-secrets
+  #   https://docs.github.com/en/billing/managing-billing-for-github-actions/viewing-your-github-actions-usage
+  #   https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+  #   https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
+  # "docker" example building Docker image with layer caching
+  #   https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/docker.yml
+  #   https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/gitpod.yml
+  # "document" calcipy should be released locally, but useful for recipes and personal portfolio
+  #   https://github.com/aulasoftwarelibre/taller-de-docker/blob/ed73cf76a07e263becea573c66759478e49b063a/.github/workflows/build.yaml
+  #   https://github.com/opinionated-code/opinionated-fastapi/blob/9d237237a986604aacf296548619b126b848af0e/.github/workflows/publish-docs.yml
+  # "Awesome": https://github.com/sdras/awesome-actions
+  # "create-release"
+  #   Archived Guide, but there are forks:
+  #     https://trstringer.com/github-actions-create-release-upload-artifacts/
+  #     https://github.com/softprops/action-gh-release
+  #     https://github.com/elgohr/Github-Release-Action
+  #     https://github.com/marvinpinto/action-automatic-releases
+  #     https://github.com/ncipollo/release-action
+  # "services" Can create PG or other services in workflows!
+  #   https://github.com/Nike-Inc/knockoff-factory/blob/1567a46e5eaa3fe1bdf989ef5253f9ee0dbd69b3/.github/workflows/python-test.yaml
+  # "artifact" optionally upload the report.zip from successful builds
+  #   https://github.com/marketplace/actions/upload-a-build-artifact
+  # "pre-commit" would be nice, but calcipy has some local tasks that need calcipy
+  #   https://github.com/pre-commit/action
+
+  lint:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        poetry-version: [1.1.13]
+        python-version: [3.8]
+    steps:
+      # Docs: https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+      # Docs: https://github.com/actions/setup-python
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Docs: https://github.com/abatilo/actions-poetry
+      - uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      # Docs: https://github.com/marketplace/actions/cache
+      # - name: Caching Python dependencies
+      #   uses: actions/cache@v2
+      #   id: cache
+      #   with:
+      #     path: ~/.cache/pip
+      #     key: ${{ runner.os }}-pip
+      - name: Dependency and Package Installation
+        run: |
+          poetry config virtualenvs.create false
+          poetry install --no-interaction --no-ansi -E lint
+      - name: run linters
+        run: |
+          doit run --continue pre_commit_hooks lint_project static_checks security_checks
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        poetry-version: [1.1.13]
+        python-version: [3.7, 3.8, 3.9, 3.10, 3.11-dev]
+    continue-on-error: ${{ matrix.python-version == '3.11-dev' }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Docs: https://github.com/abatilo/actions-poetry
+      - uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Dependency and Package Installation
+        run: |
+          poetry config virtualenvs.create false
+          poetry install --no-interaction --no-ansi -E test
+        # pip install "poetry==${{ matrix.poetry-version }}"
+      - name: Test with pytest
+        run: |
+          doit run test_all
+        # TODO: doit run zip_release
+        # > releases/site.zip
+        # > releases/tests.zip
