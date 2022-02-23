@@ -271,7 +271,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     if path_lock.name != 'poetry.lock':
         raise NotImplementedError(f'{path_lock.name} is not a currently supported lock type. Try "poetry.lock" instead')
 
-    lock = tomli.loads(path_lock.read_text())
+    lock = tomli.loads(path_lock.read_text(errors='ignore'))
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
     # > domain=dependency['source']['url'] + '{name}/{version}/json'
     return [
