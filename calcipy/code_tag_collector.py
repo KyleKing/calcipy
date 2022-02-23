@@ -106,7 +106,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     return matches
 
 
-@lru_cache
+@lru_cache(maxsize=128)
 @beartype
 def _git_info(cwd: Path) -> Tuple[Path, str]:
     """Collect information about the local git repository.
