@@ -17,6 +17,7 @@
 
 ### Refactor
 
+- pre-commit can be run in one command
 - resolve LGTM error
 
 ## 0.12.2 (2022-02-21)
