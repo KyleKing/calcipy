@@ -1,7 +1,4 @@
 ---
-
-# For Act, a local GHA runner, see: https://github.com/nektos/act
-
 name: CI Pipeline
 
 on:  # yamllint disable-line rule:truthy
@@ -46,6 +43,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ['3.7', '3.8', '3.10']
+      continue-on-error: ${{ matrix.python-version == '3.10' }}
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup

@@ -92,11 +92,8 @@ def _lint_python(
 
 
 @beartype
-def _lint_non_python(strict: bool = False) -> List[DoitAction]:
+def _lint_non_python() -> List[DoitAction]:
     """Lint non-Python files such as JSON and YML/YAML.
-
-    Args:
-        strict: if True, will use the strictest configuration for the linter
 
     Returns:
         List[DoitAction]: doit task
@@ -114,9 +111,8 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
     # From: https://github.com/pre-commit/pre-commit-hooks/blob/0d261aaf84419c0c8fe70ff4a23f6a99655868de/
     #   lint: ./pre_commit_hooks/check_json.py
     #   format: ./pre_commit_hooks/pretty_format_json.py
-    # > strict_flag = '--strict' if strict else ''
     # > if paths_json := DG.meta.paths_by_suffix.get('json', []):
-    # >     actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
+    # >     actions.extend(Interactive(f'poetry run jsonlint "{pth}"') for pth in paths_json)
 
     return actions
 
@@ -142,7 +138,7 @@ def task_lint_project() -> DoitTask:
 
     """
     actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
-    actions.extend(_lint_non_python(strict=True))
+    actions.extend(_lint_non_python())
     return debug_task(actions)
 
 
