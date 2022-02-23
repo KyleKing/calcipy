@@ -1,0 +1,24 @@
+---
+name: Update Docs
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: [main]
+
+jobs:
+  docs:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ['3.8']
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup
+        with:
+          os: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
+
+      # PLANNED: Could output coverage file from the test suite
+      - name: Build and deploy documentation
+        run: poetry run doit run test cl_write document deploy_docs

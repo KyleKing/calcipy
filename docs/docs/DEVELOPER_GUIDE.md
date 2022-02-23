@@ -37,7 +37,7 @@ poetry run doit run publish
 
 # For a full release, triple check the default tasks, increment the version, rebuild documentation (twice), and publish!
 poetry run doit run --continue
-poetry run doit run cl_bump lock document deploy_docs publish cl_write document deploy_docs
+poetry run doit run cl_bump lock document deploy_docs publish
 
 # For pre-releases use cl_bump_pre
 poetry run doit run cl_bump_pre -p rc

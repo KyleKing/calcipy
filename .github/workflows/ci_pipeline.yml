@@ -12,11 +12,6 @@ on:  # yamllint disable-line rule:truthy
       - tests/**
       - pyproject.toml
 
-env:
-  POETRY_VIRTUALENVS_IN_PROJECT: true
-  POETRY_NO_INTERACTION: 1
-  POETRY_NO_ANSI: 1
-
 jobs:
   lint:
     runs-on: ${{ matrix.os }}
