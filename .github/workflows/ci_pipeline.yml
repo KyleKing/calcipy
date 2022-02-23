@@ -4,6 +4,7 @@
 # https://github.com/codefellows/data-structures-and-algorithms/blob/7a1670b1475fc57a5f851c7685040c11bc41ec8d/.github/workflows/python-tests.yml
 # https://labs.quansight.org/blog/2021/10/re-engineering-cicd-pipelines-for-scipy/
 # https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/linux_meson.yml
+# https://github.com/MrThearMan/savestate/blob/fb299e220ef366727857b1df0631300a027840fc/.github/workflows/main.yml
 
 # Act (Local GHA Runner) Docs: https://github.com/nektos/act
 name: CI Pipeline
@@ -18,6 +19,11 @@ on:
       - calcipy/**
       - tests/**
       - pyproject.toml
+
+env:
+  POETRY_VIRTUALENVS_IN_PROJECT: true
+  POETRY_NO_INTERACTION: 1
+  POETRY_NO_ANSI: 1
 
 jobs:
   # **Great article on AWS integration, screenshot artifacts, etc.
@@ -68,16 +74,22 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       # Docs: https://github.com/marketplace/actions/cache
-      # - name: Caching Python dependencies
-      #   uses: actions/cache@v2
-      #   id: cache
-      #   with:
-      #     path: ~/.cache/pip
-      #     key: ${{ runner.os }}-pip
-      - name: Dependency and Package Installation
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            .venv
+            .nox
+          key: ${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock')
+            }}
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          poetry config virtualenvs.create false
-          poetry install --no-interaction --no-ansi -E dev -E lint -E test
+          poetry install --no-root -E dev -E lint -E test
+      - name: Install Project
+        run: |
+          poetry install
+
       - name: run linters
         run: |
           doit run --continue pre_commit_hooks lint_project static_checks security_checks
@@ -88,10 +100,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         poetry-version: [1.1.13]
-        python-version: ['3.7.12', '3.8', 3.11-dev]
+        python-version: [3.7.12, '3.8', 3.11-dev]
     continue-on-error: ${{ matrix.python-version == '3.11-dev' }}
     steps:
+      # Docs: https://github.com/actions/checkout
       - uses: actions/checkout@v2
+      # Docs: https://github.com/actions/setup-python
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -100,14 +114,23 @@ jobs:
       - uses: abatilo/actions-poetry@v2.0.0
         with:
           poetry-version: ${{ matrix.poetry-version }}
-      - name: Dependency and Package Installation
+      # Docs: https://github.com/marketplace/actions/cache
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            .venv
+            .nox
+          key: ${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock')
+            }}
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          poetry config virtualenvs.create false
-          poetry install --no-interaction --no-ansi -E dev -E lint -E test
-        # pip install "poetry==${{ matrix.poetry-version }}"
+          poetry install --no-root -E dev -E lint -E test
+      - name: Install Project
+        run: |
+          poetry install
+
       - name: Test with pytest
-        run: |
+        run: |-
           doit run test_all
-        # TODO: doit run zip_release
-        # > releases/site.zip
-        # > releases/tests.zip
