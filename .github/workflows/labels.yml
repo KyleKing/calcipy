@@ -3,10 +3,9 @@
 
 name: github_labeler
 
-# Run on "push" for first initialization, then only on PR's thereafter
-# on: push
+# Will only be run each push or PR merge to the main branch
 on:  # yamllint disable-line rule:truthy
-  pull_request:
+  push:
     branches:
       - main
 
@@ -14,8 +13,7 @@ jobs:
   labeler:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Run Labeler
         if: success()
         uses: crazy-max/ghaction-github-labeler@v3

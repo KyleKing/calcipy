@@ -1,0 +1,48 @@
+---
+name: CI Pipeline
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - calcipy/**
+      - tests/**
+      - pyproject.toml
+
+jobs:
+  lint:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ['3.8']
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup
+        with:
+          os: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
+
+      - uses: pre-commit/action@v2.0.3
+      - name: Run linters
+        run: poetry run doit run --continue lint_project static_checks security_checks
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.7', '3.8', '3.10']
+    continue-on-error: ${{ matrix.python-version == '3.10' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup
+        with:
+          os: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
+
+      - name: Test with pytest
+        run: |-
+          poetry run doit run test_all

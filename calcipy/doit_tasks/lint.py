@@ -85,36 +85,34 @@ def _lint_python(
         (if_found_unlink, (flake8_log_path,)),
         Interactive(f'{run_m} flake8 {flake8_flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths)),
         (_check_linting_errors, (flake8_log_path, ignore_errors)),
-        Interactive(f'poetry run diff-quality --violations=flake8 {diff_params} {diff_report}'),
+        # FIXME" Need to check if the branch is available first! Will fail on GHA
+        Interactive(f'echo "poetry run diff-quality --violations=flake8 {diff_params} {diff_report}"'),
         Interactive(f'{run_m} xenon {DG.meta.pkg_name} {xenon_args}'),
     ]
 
 
 @beartype
-def _lint_non_python(strict: bool = False) -> List[DoitAction]:
+def _lint_non_python() -> List[DoitAction]:
     """Lint non-Python files such as JSON and YML/YAML.
-
-    Args:
-        strict: if True, will use the strictest configuration for the linter
 
     Returns:
         List[DoitAction]: doit task
 
     """
-    strict_flag = '--strict' if strict else ''
-
     actions = []
     pbs = DG.meta.paths_by_suffix
-    if paths_yaml := pbs.get('yml', []) + pbs.get('yaml', []):
+    paths_yaml = pbs.get('yml', []) + pbs.get('yaml', [])
+    if paths_yaml:
+        yamllint_args = '-d "{rules: {line-length: {max: 120}}}"'
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
-        actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
+        actions.append(Interactive(f'poetry run yamllint {yamllint_args} {paths}'))
 
     # FYI: Use pre-commit instead
     # From: https://github.com/pre-commit/pre-commit-hooks/blob/0d261aaf84419c0c8fe70ff4a23f6a99655868de/
     #   lint: ./pre_commit_hooks/check_json.py
     #   format: ./pre_commit_hooks/pretty_format_json.py
     # > if paths_json := DG.meta.paths_by_suffix.get('json', []):
-    # >     actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
+    # >     actions.extend(Interactive(f'poetry run jsonlint "{pth}"') for pth in paths_json)
 
     return actions
 
@@ -140,7 +138,7 @@ def task_lint_project() -> DoitTask:
 
     """
     actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
-    actions.extend(_lint_non_python(strict=True))
+    actions.extend(_lint_non_python())
     return debug_task(actions)
 
 
@@ -187,7 +185,7 @@ def task_radon_lint() -> DoitTask:
 
 @beartype
 def task_static_checks() -> DoitTask:
-    """General static checkers (Inspection Tiger, etc.).
+    """General static checkers (vulture, etc.).
 
     Returns:
         DoitTask: doit task
@@ -241,7 +239,7 @@ def _gen_format_actions(paths: str) -> List[str]:
         f'{run} pyupgrade {paths} --py38-plus --keep-runtime-typing',
         f'{run_mod} autoflake {paths} {autoflake_args}',
         f'{run_mod} autopep8 {paths} --in-place --aggressive',
-        f'{run} pycln {paths}',
+        f'{run} pycln --quiet {paths}',
         f'{run} absolufy-imports {paths} --never',
         f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
         f'{run} add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
@@ -284,7 +282,10 @@ def task_format_toml() -> DoitTask:
         # PLANNED: Could provide more hooks for configuring taplo options. See:
         #   https://taplo.tamasfe.dev/configuration/#formatting-options
         'actions': [
-            'which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml_paths)s',
+            # FIXME: capturing to /dev/null doesn't seem to work reliably
+            Interactive(
+                '(which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml_paths)s) || true',
+            ),
         ],
         'pos_arg': 'toml_paths',
         'verbosity': 2,
@@ -339,5 +340,5 @@ def task_pre_commit_hooks() -> DoitTask:
     return debug_task([
         Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),
-        Interactive('poetry run pre-commit run --all-files'),
+        Interactive('poetry run pre-commit run --all-files --hook-stage commit --hook-stage push'),
     ])

@@ -11,10 +11,10 @@ See [./DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md)
 ### PR Process
 
 1. Fork the Project and Clone
-2. Create a new branch (`git checkout -b feat/feature-name`)
-3. Edit code; update documentation and tests; commit and push
-4. Before submitting the review and pushing, make sure to run `poetry run doit`
-5. Open a new Pull Request
+1. Create a new branch (`git checkout -b feat/feature-name`)
+1. Edit code; update documentation and tests; commit and push
+1. Before submitting the review and pushing, make sure to run `poetry run doit`
+1. Open a new Pull Request
 
 > See the style guide for commit message format ([./STYLE_GUIDE](./STYLE_GUIDE))
 

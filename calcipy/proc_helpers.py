@@ -33,7 +33,8 @@ def run_cmd(cmd: str, printer: Optional[Callable[[str], None]] = None, **kwargs)
         lines = []
         return_code = None
         while return_code is None:
-            if line := stdout.readline():
+            line = stdout.readline()
+            if line:
                 lines.append(line)
                 if printer:
                     printer(line.rstrip())

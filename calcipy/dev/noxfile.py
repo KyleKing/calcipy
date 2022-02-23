@@ -223,8 +223,13 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         session.install('safety', '--upgrade')
         path_report = Path('insecure_report.json').resolve()
         logger.info(f'Creating safety report: {path_report}')
-        session.run(*shlex.split(f'safety check --full-report --cache --output {path_report} --json'), stdout=True)
+        safety_output = session.run(
+            *shlex.split(
+                f'safety check --full-report --cache --output {path_report} --json',
+            ), silent=True,
+        )
         if path_report.read_text().strip() != '[]':
+            logger.debug(safety_output)
             raise RuntimeError(f'Found safety warnings in {path_report}')
         path_report.unlink()
 

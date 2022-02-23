@@ -85,7 +85,7 @@ def test_task_lint_project():
 
     actions = result['actions']
     assert len(actions) == 6
-    assert 'poetry run yamllint --strict "' in str(actions[5])
+    assert 'poetry run yamllint -d "' in str(actions[5])
 
 
 def test_task_lint_critical_only():
@@ -101,7 +101,7 @@ def test_task_lint_critical_only():
     assert actions[2][1][1] == ['T100', 'T101', 'T103']  # Read from toml
     assert 'T100' in actions[2][1][1]
     assert '-m xenon ' in str(actions[4])
-    assert 'poetry run yamllint  "' in str(actions[5])
+    assert 'poetry run yamllint -d "' in str(actions[5])
 
 
 def test_task_radon_lint():
@@ -144,4 +144,4 @@ def test_task_pre_commit_hooks():
     assert len(actions) == 3
     assert 'pre-commit install' in str(actions[0])
     assert 'pre-commit autoupdate' in str(actions[1])
-    assert 'pre-commit run --all-files' in str(actions[2])
+    assert 'pre-commit run --all-files --hook-stage' in str(actions[2])

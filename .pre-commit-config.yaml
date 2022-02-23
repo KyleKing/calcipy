@@ -12,7 +12,6 @@ repos:
     rev: v4.1.0
     hooks:
       - id: check-added-large-files
-      # - id: check-case-conflict  # Too Slow...
       - id: check-json
       - id: check-merge-conflict
       - id: check-symlinks
@@ -33,15 +32,36 @@ repos:
         args: [--fix=auto]
       - id: pretty-format-json
         args: [--autofix]
-      # Conflicts with ordering by poetry
-      # - id: requirements-txt-fixer
       - id: trailing-whitespace
+  - repo: https://github.com/lovesegfault/beautysh
+    rev: v6.2.1
+    hooks:
+      - id: beautysh
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.21.0
+    rev: v2.21.2
     hooks:
       - id: commitizen
         additional_dependencies: [cz_legacy]
         stages: [commit-msg]
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.13
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-beautysh
+          - mdformat-black
+          - mdformat-config
+          - mdformat-frontmatter
+          - mdformat-gfm
+          - mdformat-tables
+          - mdformat-toc
+          - mdformat-web
+        exclude: _.*\.md|CHANGELOG\.md
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.8.0.4
+    hooks:
+      - id: shellcheck
+        args: [--severity=warning]
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.2.0
     hooks:
@@ -49,21 +69,22 @@ repos:
       # See: https://github.com/Yelp/detect-secrets/issues/452
       - id: detect-secrets
         # args: ["--baseline", ".secrets.baseline"]
-        exclude: poetry.lock|cassettes/.*\.yaml
+        exclude: poetry\.lock|.*/cassettes/.*\.yaml
         stages: [push]
   - repo: https://github.com/lyz-code/yamlfix/
-    rev: 0.8.0
+    rev: 0.8.1
     hooks:
       - id: yamlfix
-        exclude: .copier-answers.yml
+        exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml
         types_or: []
         types: [file, yaml]
   - repo: local
     hooks:
       - id: copier-forbidden-files
         name: copier_forbidden_files
-        # yamllint disable-line rule:line-length
-        entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
+        entry: |
+          Found copier update rejection files; review them and remove them
+          (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: \.rej$
       - id: python-formatter
@@ -79,4 +100,4 @@ repos:
         language: system
         entry: poetry run doit run format_toml
         types: [toml]
-        exclude: poetry.lock
+        exclude: poetry\.lock

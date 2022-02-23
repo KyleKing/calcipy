@@ -1,3 +1,31 @@
+## Unreleased
+
+### Feat
+
+- **#67**: initialize GH CI Action
+
+### Fix
+
+- address more minor CI errors
+- make yamllint more relaxed
+- attempt to resolve CI issues
+- remove diff-quality check until fixed for CI
+- always use Interactive when using /dev/null
+- run push hook stage and format subproject
+- support Python 3.7.12
+- don't suppress nox missing interpreter errors
+
+### Refactor
+
+- pre-commit can be run in one command
+- resolve LGTM error
+
+## 0.12.2 (2022-02-21)
+
+### Fix
+
+- skip cassette files
+
 ## 0.12.1 (2022-02-18)
 
 ### Fix
