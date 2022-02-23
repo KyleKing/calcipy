@@ -1,6 +1,4 @@
 ---
-# Syntax; https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
-
 name: Setup Action
 description: Run "poetry install"
 
@@ -16,22 +14,20 @@ inputs:
 runs:
   using: composite
   steps:
-      # Docs: https://github.com/actions/setup-python
     - name: Setup Python ${{ inputs.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ inputs.python-version }}
-      # Docs: https://github.com/abatilo/actions-poetry
     - uses: abatilo/actions-poetry@v2.0.0
       with:
         poetry-version: ${{ inputs.poetry-version }}
-      # Docs: https://github.com/marketplace/actions/cache
     - uses: actions/cache@v2
       id: cache
       with:
         path: |
           .venv
           .nox
+        # yamllint disable-line rule:line-length
         key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock')
           }}
     - name: Install Dependencies

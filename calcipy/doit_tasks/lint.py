@@ -243,7 +243,7 @@ def _gen_format_actions(paths: str) -> List[str]:
         f'{run} pyupgrade {paths} --py38-plus --keep-runtime-typing',
         f'{run_mod} autoflake {paths} {autoflake_args}',
         f'{run_mod} autopep8 {paths} --in-place --aggressive',
-        f'{run} pycln {paths}',
+        f'{run} pycln --quiet {paths}',
         f'{run} absolufy-imports {paths} --never',
         f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
         f'{run} add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
@@ -286,7 +286,10 @@ def task_format_toml() -> DoitTask:
         # PLANNED: Could provide more hooks for configuring taplo options. See:
         #   https://taplo.tamasfe.dev/configuration/#formatting-options
         'actions': [
-            Interactive('which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml_paths)s'),
+            # FIXME: capturing to /dev/null doesn't seem to work reliably
+            Interactive(
+                '(which taplo >> /dev/null && taplo format --options="indent_string=\'    \'" %(toml_paths)s) || true',
+            ),
         ],
         'pos_arg': 'toml_paths',
         'verbosity': 2,

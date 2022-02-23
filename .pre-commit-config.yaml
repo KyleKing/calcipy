@@ -75,6 +75,13 @@ repos:
         types: [file, yaml]
   - repo: local
     hooks:
+      - id: copier-forbidden-files
+        name: copier_forbidden_files
+        entry: |
+          Found copier update rejection files; review them and remove them
+          (https://copier.readthedocs.io/en/stable/updating/)
+        language: fail
+        files: \.rej$
       - id: python-formatter
         name: Python Auto-Formatter
         description: Apply calcipy formatting
@@ -89,8 +96,3 @@ repos:
         entry: poetry run doit run format_toml
         types: [toml]
         exclude: poetry\.lock
-      - id: copier-forbidden-files
-        name: copier_forbidden_files
-        entry: found copier update rejection files; review them and remove them (https://copier.readthedocs.io/en/stable/updating/)
-        language: fail
-        files: \.rej$
