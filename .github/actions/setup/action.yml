@@ -14,8 +14,8 @@ inputs:
 runs:
   using: composite
   steps:
-      # Docs: https://github.com/actions/checkout
-    - uses: actions/checkout@v2
+    #   # Docs: https://github.com/actions/checkout
+    # - uses: actions/checkout@v2
       # Docs: https://github.com/actions/setup-python
     - name: Setup Python ${{ inputs.python-version }}
       uses: actions/setup-python@v2
@@ -38,6 +38,8 @@ runs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
         poetry install --no-root -E dev -E lint -E test
+      shell: bash
     - name: Install Project
       run: |-
         poetry install
+      shell: bash
