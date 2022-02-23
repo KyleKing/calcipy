@@ -3,12 +3,12 @@ name: Setup Action
 description: Run "poetry install"
 
 inputs:
-  inputs.os:
+  os:
     required: true
-  inputs.poetry-version:
+  poetry-version:
     required: true
     default: 1.1.13
-  inputs.python-version:
+  python-version:
     required: true
 
 runs:
