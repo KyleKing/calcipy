@@ -79,14 +79,14 @@ def _lint_python(
     run_m = 'poetry run python -m'
     flake8_log_path = DG.meta.path_project / 'flake8.log'
     flake8_flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
-    diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
-    diff_report = f'--html-report {DG.test.path_diff_lint_report}'
+    # > diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
+    # > diff_report = f'--html-report {DG.test.path_diff_lint_report}'
     return [
         (if_found_unlink, (flake8_log_path,)),
         Interactive(f'{run_m} flake8 {flake8_flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths)),
         (_check_linting_errors, (flake8_log_path, ignore_errors)),
-        # FIXME" Need to check if the branch is available first! Will fail on GHA
-        # Interactive(f'poetry run diff-quality --violations=flake8 {diff_params} {diff_report}'),
+        # > FIXME" Need to check if the branch is available first! Will fail on GHA
+        # > Interactive(f'poetry run diff-quality --violations=flake8 {diff_params} {diff_report}'),
         Interactive(f'{run_m} xenon {DG.meta.pkg_name} {xenon_args}'),
     ]
 
