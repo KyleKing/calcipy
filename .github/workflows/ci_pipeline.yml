@@ -61,7 +61,7 @@ jobs:
         os: [ubuntu-latest]
         python-version: ['3.8']
     steps:
-      - uses: ./.github/actions/setup_action
+      - uses: ./.github/actions/setup_action.yml
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
@@ -78,7 +78,7 @@ jobs:
         python-version: [3.7.12, '3.8', 3.11-dev]
     continue-on-error: ${{ matrix.python-version == '3.11-dev' }}
     steps:
-      - uses: ./.github/actions/setup_action
+      - uses: ./.github/actions/setup_action.yml
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
