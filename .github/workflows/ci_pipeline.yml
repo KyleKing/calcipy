@@ -59,36 +59,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        poetry-version: [1.1.13]
         python-version: ['3.8']
     steps:
-      # Docs: https://github.com/actions/checkout
-      - uses: actions/checkout@v2
-      # Docs: https://github.com/actions/setup-python
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+      - uses: ./.github/actions/setup_action
         with:
+          os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-      # Docs: https://github.com/abatilo/actions-poetry
-      - uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      # Docs: https://github.com/marketplace/actions/cache
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: |
-            .venv
-            .nox
-          key: ${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock')
-            }}
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-root -E dev -E lint -E test
-      - name: Install Project
-        run: |
-          poetry install
 
       - name: run linters
         run: |
@@ -99,37 +75,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        poetry-version: [1.1.13]
         python-version: [3.7.12, '3.8', 3.11-dev]
     continue-on-error: ${{ matrix.python-version == '3.11-dev' }}
     steps:
-      # Docs: https://github.com/actions/checkout
-      - uses: actions/checkout@v2
-      # Docs: https://github.com/actions/setup-python
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+      - uses: ./.github/actions/setup_action
         with:
+          os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-      # Docs: https://github.com/abatilo/actions-poetry
-      - uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-      # Docs: https://github.com/marketplace/actions/cache
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: |
-            .venv
-            .nox
-          key: ${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock')
-            }}
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          poetry install --no-root -E dev -E lint -E test
-      - name: Install Project
-        run: |
-          poetry install
 
       - name: Test with pytest
         run: |-
