@@ -248,5 +248,5 @@ def write_code_tag_file(
 
     if report:
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
-    else:
-        path_tag_summary.unlink(missing_ok=True)
+    elif path_tag_summary.is_file():
+        path_tag_summary.unlink()

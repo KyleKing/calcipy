@@ -102,19 +102,19 @@ def _lint_non_python(strict: bool = False) -> List[DoitAction]:
         List[DoitAction]: doit task
 
     """
-    strict_flag = '--strict' if strict else ''
-
     actions = []
     pbs = DG.meta.paths_by_suffix
     paths_yaml = pbs.get('yml', []) + pbs.get('yaml', [])
     if paths_yaml:
+        yamllint_args = '-d "{rules: {line-length: {max: 120}}}"'
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
-        actions.append(Interactive(f'poetry run yamllint {strict_flag} {paths}'))
+        actions.append(Interactive(f'poetry run yamllint {yamllint_args} {paths}'))
 
     # FYI: Use pre-commit instead
     # From: https://github.com/pre-commit/pre-commit-hooks/blob/0d261aaf84419c0c8fe70ff4a23f6a99655868de/
     #   lint: ./pre_commit_hooks/check_json.py
     #   format: ./pre_commit_hooks/pretty_format_json.py
+    # > strict_flag = '--strict' if strict else ''
     # > if paths_json := DG.meta.paths_by_suffix.get('json', []):
     # >     actions.extend(Interactive(f'poetry run jsonlint {strict_flag} "{pth}"') for pth in paths_json)
 
