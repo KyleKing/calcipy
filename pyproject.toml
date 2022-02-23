@@ -27,7 +27,7 @@ change_type_order = [
     "Fix (Old)",
 ]
 version = "0.12.2"
-version_files = ["pyproject.toml", "calcipy/__init__.py", "appveyor.yml"]
+version_files = ["pyproject.toml", "calcipy/__init__.py"]
 
 [tool.commitizen.cz_legacy_map]
 Chg = "Change (Old)"

@@ -2,10 +2,12 @@
 
 ### Feat
 
+- drop AppVeyor and update with copier
 - **#67**: initialize GH CI Action
 
 ### Fix
 
+- attempt to resolve UnicodeError on Windows action
 - address more minor CI errors
 - make yamllint more relaxed
 - attempt to resolve CI issues
