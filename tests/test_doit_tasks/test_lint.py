@@ -141,8 +141,7 @@ def test_task_pre_commit_hooks():
     result = task_pre_commit_hooks()
 
     actions = result['actions']
-    assert len(actions) == 4
+    assert len(actions) == 3
     assert 'pre-commit install' in str(actions[0])
     assert 'pre-commit autoupdate' in str(actions[1])
-    assert 'pre-commit run --all-files' in str(actions[2])
-    assert 'pre-commit run --all-files --hook-stage push' in str(actions[3])
+    assert 'pre-commit run --all-files --hook-stage' in str(actions[2])

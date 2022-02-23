@@ -340,6 +340,5 @@ def task_pre_commit_hooks() -> DoitTask:
     return debug_task([
         Interactive('poetry run pre-commit install'),
         Interactive('poetry run pre-commit autoupdate'),
-        Interactive('poetry run pre-commit run --all-files'),
-        Interactive('poetry run pre-commit run --all-files --hook-stage push'),
+        Interactive('poetry run pre-commit run --all-files --hook-stage commit --hook-stage push'),
     ])

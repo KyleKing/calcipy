@@ -6,6 +6,8 @@
 
 ### Fix
 
+- address more minor CI errors
+- make yamllint more relaxed
 - attempt to resolve CI issues
 - remove diff-quality check until fixed for CI
 - always use Interactive when using /dev/null
