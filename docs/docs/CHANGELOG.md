@@ -7,6 +7,7 @@
 
 ### Fix
 
+- drop appveyor from cz version files
 - attempt to resolve UnicodeError on Windows action
 - address more minor CI errors
 - make yamllint more relaxed
