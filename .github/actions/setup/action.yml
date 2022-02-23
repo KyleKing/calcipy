@@ -38,7 +38,7 @@ runs:
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        poetry install --no-root -E dev -E lint -E test
+        poetry install --no-root -E dev -E lint -E test -E commitizen_legacy
       shell: bash
     - name: Install Project
       run: |-

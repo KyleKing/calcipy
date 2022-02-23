@@ -57,6 +57,11 @@ repos:
           - mdformat-toc
           - mdformat-web
         exclude: _.*\.md|CHANGELOG\.md
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.8.0.4
+    hooks:
+      - id: shellcheck
+        args: [--severity=warning]
   - repo: https://github.com/Yelp/detect-secrets
     rev: v1.2.0
     hooks:

@@ -4,8 +4,7 @@ The `ci_pipline.yml` Github Action is based on these excellent examples
 
 - <https://github.com/executablebooks/mdformat/blob/4752321bb444b51f120d8a6933583129a6ecaabb/.github/workflows/tests.yaml>
 - <https://github.com/codefellows/data-structures-and-algorithms/blob/7a1670b1475fc57a5f851c7685040c11bc41ec8d/.github/workflows/python-tests.yml>
-- <https://labs.quansight.org/blog/2021/10/re-engineering-cicd-pipelines-for-scipy/>
-- <https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/linux_meson.yml>
+- [Re-engineering the SciPy Pipelines](https://labs.quansight.org/blog/2021/10/re-engineering-cicd-pipelines-for-scipy/) and [Example](https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/linux_meson.yml)
 - <https://github.com/MrThearMan/savestate/blob/fb299e220ef366727857b1df0631300a027840fc/.github/workflows/main.yml>
 
 Additional Resources
@@ -31,16 +30,8 @@ Additional Resources
   - <https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/docker.yml>
   - <https://github.com/scipy/scipy/blob/c4829bddb859ffe5716a88f6abd5e0d2dc1d9045/.github/workflows/gitpod.yml>
 - "document" calcipy should be released locally, but useful for recipes and personal portfolio
-  - <https://github.com/aulasoftwarelibre/taller-de-docker/blob/ed73cf76a07e263becea573c66759478e49b063a/.github/workflows/build.yaml>
   - <https://github.com/opinionated-code/opinionated-fastapi/blob/9d237237a986604aacf296548619b126b848af0e/.github/workflows/publish-docs.yml>
 - "Awesome": <https://github.com/sdras/awesome-actions>
-- "create-release"
-  - Archived Guide, but there are forks:
-    - <https://trstringer.com/github-actions-create-release-upload-artifacts/>
-    - <https://github.com/softprops/action-gh-release>
-    - <https://github.com/elgohr/Github-Release-Action>
-    - <https://github.com/marvinpinto/action-automatic-releases>
-    - <https://github.com/ncipollo/release-action>
 - "services" Can create PG or other services in workflows!
   - <https://github.com/Nike-Inc/knockoff-factory/blob/1567a46e5eaa3fe1bdf989ef5253f9ee0dbd69b3/.github/workflows/python-test.yaml>
 - "artifact" optionally upload the report.zip from successful builds
