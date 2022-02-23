@@ -85,7 +85,8 @@ def _lint_python(
         (if_found_unlink, (flake8_log_path,)),
         Interactive(f'{run_m} flake8 {flake8_flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths)),
         (_check_linting_errors, (flake8_log_path, ignore_errors)),
-        Interactive(f'poetry run diff-quality --violations=flake8 {diff_params} {diff_report}'),
+        # FIXME" Need to check if the branch is available first! Will fail on GHA
+        # Interactive(f'poetry run diff-quality --violations=flake8 {diff_params} {diff_report}'),
         Interactive(f'{run_m} xenon {DG.meta.pkg_name} {xenon_args}'),
     ]
 
