@@ -11,10 +11,11 @@ The `ci_pipline.yml` Github Action is based on these excellent examples
 Additional Resources
 
 - `act`, a local GHA runner: <https://github.com/nektos/act>
-- [actions/checkout@v2](https://github.com/actions/checkout)
-- [actions/setup-python@v2](https://github.com/actions/setup-python)
-- [abatilo/actions-poetry@v2.0.0](https://github.com/abatilo/actions-poetry)
-- [actions/cache@v2](https://github.com/marketplace/actions/cache)
+- [actions/checkout](https://github.com/actions/checkout)
+- [actions/setup-python](https://github.com/actions/setup-python)
+- [abatilo/actions-poetry](https://github.com/abatilo/actions-poetry)
+- [actions/cache](https://github.com/marketplace/actions/cache)
+- [pre-commit/action](https://github.com/pre-commit/action)
 - [Github Action Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
 
 ## In Progress
@@ -44,5 +45,3 @@ Additional Resources
   - <https://github.com/Nike-Inc/knockoff-factory/blob/1567a46e5eaa3fe1bdf989ef5253f9ee0dbd69b3/.github/workflows/python-test.yaml>
 - "artifact" optionally upload the report.zip from successful builds
   - <https://github.com/marketplace/actions/upload-a-build-artifact>
-- "pre-commit" would be nice, but calcipy has some local tasks that need calcipy
-  - <https://github.com/pre-commit/action>
