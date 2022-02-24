@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- make coverage.json optional for task_doc
+
+## 0.13.0 (2022-02-23)
+
 ### Feat
 
 - drop AppVeyor and update with copier
