@@ -10,12 +10,24 @@ The `ci_pipline.yml` Github Action is based on these excellent examples
 Additional Resources
 
 - `act`, a local GHA runner: <https://github.com/nektos/act>
-- [actions/checkout](https://github.com/actions/checkout)
-- [actions/setup-python](https://github.com/actions/setup-python)
 - [abatilo/actions-poetry](https://github.com/abatilo/actions-poetry)
 - [actions/cache](https://github.com/marketplace/actions/cache)
-- [pre-commit/action](https://github.com/pre-commit/action)
+- [actions/checkout](https://github.com/actions/checkout)
+- [actions/setup-python](https://github.com/actions/setup-python)
 - [Github Action Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+- [pre-commit/action](https://github.com/pre-commit/action)
+- [ts-graphviz/setup-graphviz](https://github.com/ts-graphviz/setup-graphviz)
+
+## CLI Notes
+
+```bash
+# Inspect a workflow interactively
+gh workflow view
+# See recent history
+gh run list --workflow update_docs.yml
+gh run list --workflow ci_pipeline.yml
+# Additional arguments for triggering workflows: https://cli.github.com/manual/gh_workflow_run
+```
 
 ## In Progress
 

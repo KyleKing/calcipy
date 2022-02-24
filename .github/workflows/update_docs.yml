@@ -21,6 +21,7 @@ jobs:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
 
-      # PLANNED: Could output coverage file from the test suite
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v1
       - name: Build and deploy documentation
-        run: poetry run doit run test cl_write document deploy_docs
+        run: poetry run doit run cl_write document deploy_docs
