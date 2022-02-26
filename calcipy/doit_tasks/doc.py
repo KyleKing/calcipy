@@ -115,6 +115,12 @@ def task_cl_bump_pre() -> DoitTask:
 # Manage README Updates
 
 
+class _ParseSkipError(RuntimeError):
+    """Exception caught if the handler does not want to replace the text."""
+
+    ...
+
+
 class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
     """State machine to replace content with user-specified handlers.
 
@@ -165,7 +171,11 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
             self.start_auto()
             matches = [text_match for text_match in handler_lookup if text_match in line]
             if len(matches) == 1:
-                lines.extend(handler_lookup[matches[0]](line, path_file))
+                try:
+                    lines.extend(handler_lookup[matches[0]](line, path_file))
+                except _ParseSkipError:
+                    lines.append(line)
+                    self.end()
             else:
                 logger.error('Could not parse: {line}', line=line)
                 lines.append(line)
@@ -290,15 +300,15 @@ def _handle_coverage(line: str, _path_file: Path) -> List[str]:
     Returns:
         List[str]: list of auto-formatted text
 
+    Raises:
+        _ParseSkipError: if the "coverage.json" file is not available
+
     """
     path_coverage = DG.meta.path_project / 'coverage.json'  # Created by "task_coverage"
-    lines_cov = []
-    if path_coverage.is_file():
-        coverage_data = json.loads(path_coverage.read_text())
-        lines_cov = _format_cov_table(coverage_data)
-    else:
-        logger.warning(f'Could not locate: {path_coverage}')
-
+    if not path_coverage.is_file():
+        raise _ParseSkipError(f'Could not locate: {path_coverage}')
+    coverage_data = json.loads(path_coverage.read_text())
+    lines_cov = _format_cov_table(coverage_data)
     line_end = '<!-- {cte} -->'
     return [line] + lines_cov + [line_end]
 

@@ -1,11 +1,20 @@
 ## Unreleased
 
+### Fix
+
+- make coverage.json optional for task_doc
+
+## 0.13.0 (2022-02-23)
+
 ### Feat
 
+- drop AppVeyor and update with copier
 - **#67**: initialize GH CI Action
 
 ### Fix
 
+- drop appveyor from cz version files
+- attempt to resolve UnicodeError on Windows action
 - address more minor CI errors
 - make yamllint more relaxed
 - attempt to resolve CI issues
