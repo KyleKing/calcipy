@@ -37,5 +37,5 @@ runs:
           }}
     - name: Install Dependencies and Project
       run: |
-        poetry install --no-root -E dev -E lint -E test -E commitizen_legacy
+        poetry install -E dev -E lint -E test -E commitizen_legacy
       shell: bash
