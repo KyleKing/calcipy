@@ -3,11 +3,11 @@
 import json
 from pathlib import Path
 
-import attr
 import numpy as np
 import pendulum
 import requests
 import tomli
+from attrs import mutable, field
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional
@@ -130,16 +130,16 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
     return results
 
 
-@attr.s(auto_attribs=True, kw_only=True, field_transformer=_auto_convert)
+@mutable(kw_only=True, field_transformer=_auto_convert)
 class _HostedPythonPackage():  # noqa: H601
     """Representative information for a python package hosted on some domain."""
 
-    domain: str = attr.ib(validator=type_validator(), default='https://pypi.org/pypi/{name}/{version}/json')
-    name: str = attr.ib(validator=type_validator())
-    version: str = attr.ib(validator=type_validator())
-    datetime: Optional[DateTime] = attr.ib(validator=type_validator(), default=None)
-    latest_version: str = attr.ib(validator=type_validator(), default='')
-    latest_datetime: Optional[DateTime] = attr.ib(validator=type_validator(), default=None)
+    domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/{version}/json')
+    name: str = field(validator=type_validator())
+    version: str = field(validator=type_validator())
+    datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
+    latest_version: str = field(validator=type_validator(), default='')
+    latest_datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
 
 
 _PATH_PACK_LOCK = DG.meta.path_project / '.calcipy_packaging.lock'

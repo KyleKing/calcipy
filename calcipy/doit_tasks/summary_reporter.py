@@ -7,7 +7,7 @@ https://groups.google.com/g/python-doit/c/SgoiGt_XYDU/m/PQ8JmlKFAgAJ
 
 from enum import IntEnum
 
-import attr
+from attrs import mutable, field
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Any, List, OrderedDict
@@ -26,12 +26,12 @@ class _TaskExitCode(IntEnum):  # noqa: H601
     SKIP_UP_TO_DATE = 4
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class _TaskSummary:  # noqa: H601
     """Task Summary."""
 
-    name: str = attr.ib(validator=type_validator())
-    exit_code: _TaskExitCode = attr.ib(validator=type_validator())
+    name: str = field(validator=type_validator())
+    exit_code: _TaskExitCode = field(validator=type_validator())
 
 
 @beartype

@@ -149,8 +149,9 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
             transitions=transitions,
         )
 
+    @beartype
     def _parse_line(
-        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], str]],
+        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], List[str]]],
         path_file: Optional[Path] = None,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
@@ -185,8 +186,9 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
         # else: discard the lines in the auto-section
         return lines
 
+    @beartype
     def parse(
-        self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], str]],
+        self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], List[str]]],
         path_file: Optional[Path] = None,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.

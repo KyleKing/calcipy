@@ -6,9 +6,9 @@ from functools import lru_cache
 from pathlib import Path
 from subprocess import CalledProcessError  # nosec
 
-import attr
 import pandas as pd
 import pendulum
+from attrs import frozen, field
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Pattern, Sequence, Tuple
@@ -34,21 +34,21 @@ Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 """
 
 
-@attr.s(auto_attribs=True)
+@frozen
 class _CodeTag:  # noqa: H601
     """Code Tag (FIXME,TODO,etc) with contextual information."""  # noqa: T100,T101
 
-    lineno: int = attr.ib(validator=type_validator())
-    tag: str = attr.ib(validator=type_validator())
-    text: str = attr.ib(validator=type_validator())
+    lineno: int = field(validator=type_validator())
+    tag: str = field(validator=type_validator())
+    text: str = field(validator=type_validator())
 
 
-@attr.s(auto_attribs=True)
+@frozen
 class _Tags:  # noqa: H601
     """Collection of code tags with additional contextual information."""
 
-    path_source: Path = attr.ib(validator=type_validator())
-    code_tags: List[_CodeTag] = attr.ib(validator=type_validator())
+    path_source: Path = field(validator=type_validator())
+    code_tags: List[_CodeTag] = field(validator=type_validator())
 
 
 @beartype
