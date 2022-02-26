@@ -24,7 +24,7 @@ SKIP_PHRASE = 'calcipy:skip_tags'
 COMMON_CODE_TAGS = ['FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG']  # noqa: T100,T101,T103
 """Most common code tags. FYI and NOTE are excluded to not be tracked in the Code Summary."""
 
-CODE_TAG_RE = r'((\s|\()(?P<tag>{tag})(:| -)([^\r\n]))(?P<text>.+)'
+CODE_TAG_RE = r'((^|\s|\(|"|\')(?P<tag>{tag})(:| -)([^\r\n]))(?P<text>.+)'
 """Default code tag regex with `tag` and `text` matching groups.
 
 Requires formatting with list of tags: `CODE_TAG_RE.format(tag='|'.join(tag_list))`
