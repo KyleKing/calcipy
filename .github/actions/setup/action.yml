@@ -36,7 +36,6 @@ runs:
         key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock')
           }}
     - name: Install Project and Dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
       run: |
         poetry install -E dev -E lint -E test -E commitizen_legacy
       shell: bash

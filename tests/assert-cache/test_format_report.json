@@ -1,0 +1,19 @@
+{
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_code_tag_collector.py",
+      "test_name": "test_format_report"
+    }
+  ],
+  "_json": {
+    "output": [
+      "| Type   | Comment   | Last Edit   | Source File             |",
+      "|:-------|:----------|:------------|:------------------------|",
+      "| TODO   | Example 2 | N/A         | .test_calcipy_project:1 |",
+      "",
+      "Found code tags for TODO (1)",
+      ""
+    ]
+  }
+}

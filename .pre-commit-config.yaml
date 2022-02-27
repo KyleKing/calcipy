@@ -91,17 +91,22 @@ repos:
           (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: \.rej$
+        # Note: there are occasional errors when running doit in pre-commit
+        #   Moving the .doit.db outside of the git directory helps, but there
+        #   are obvious drawbacks
+        # "doit.dependency.DatabaseException: [Errno 35] Resource
+        #   temporarily unavailable: '.doit.db'"
       - id: python-formatter
         name: Python Auto-Formatter
         description: Apply calcipy formatting
         language: system
-        entry: poetry run doit run format_py
+        entry: poetry run doit run --db-file=../.pre-commit-doit.db format_py
         types: [python]
         stages: [push]
       - id: toml-formatter
         name: Optional TOML Auto-Formatter
         description: Install taplo with 'npm install -g @taplo/cli'
         language: system
-        entry: poetry run doit run format_toml
+        entry: poetry run doit run --db-file=../.pre-commit-doit.db format_toml
         types: [toml]
         exclude: poetry\.lock

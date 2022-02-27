@@ -169,14 +169,17 @@ yamllint = { version = ">=1.26", optional = true }
 # Test
 coverage = { version = ">=6", optional = true }
 diff-cover = { version = ">=6.4", optional = true }
+hypothesis = { version = ">=6.38.0", optional = true }
 lxml = { version = ">=4.7.1", optional = true }                # required for the HTML mypy report format
 mypy = { version = ">=0.812", optional = true }
 nox-poetry = { version = ">=0.8", optional = true }
 pytest = { version = ">=6", optional = true }
+pytest-benchmark = { version = ">=3.4.1", optional = true }
 pytest-cache-assert = { version = ">=1.1.1", optional = true }
 pytest-html = { version = ">=3.1", optional = true }
 pytest-randomly = { version = ">=3.8", optional = true }
 pytest-recording = { version = ">=0.11", optional = true }
+pytest-subprocess = { version = ">=1.4.1", optional = true }
 pytest-watcher = { version = ">=0.2", optional = true }        # https://github.com/joeyespo/pytest-watch/issues/121
 
 # commitizen_legacy
@@ -186,9 +189,9 @@ cz_legacy = { version = ">=0.1.2", optional = true }
 dev = [
     "better-exceptions",
     "commitizen",
+    "livereload",
     "mkdocs-git-revision-date-localized-plugin",
     "mkdocs-material",
-    "livereload",
     "pdbpp",
     "pdocs",
     "pyupgrade",
@@ -251,15 +254,18 @@ lint = [
 test = [
     "coverage",
     "diff-cover",
+    "hypothesis",
     "lxml",
     "mypy",
     "nox-poetry",
+    "pytest",
+    "pytest-benchmark",
     "pytest-cache-assert",
     "pytest-html",
     "pytest-randomly",
     "pytest-recording",
+    "pytest-subprocess",
     "pytest-watcher",
-    "pytest",
 ]
 commitizen_legacy = ["cz_legacy"]
 

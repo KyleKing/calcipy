@@ -18,6 +18,7 @@ import time
 from inspect import signature
 from pathlib import Path
 
+import loguru
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, Generator, Iterable, List, Optional
 from decorator import contextmanager, decorator
@@ -74,14 +75,13 @@ def serializable_compact(record: Dict[str, Any]) -> str:
     return str_json + '\n'
 
 
-# Note: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
-
+# FYI: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
 def _log_action(
     message: str, level: str = 'INFO',
     _logger: loguru.Logger = logger,  # pylint: disable=no-member
     **kwargs: Any,
 ) -> Generator[loguru.Logger, None, None]:  # pylint: disable=no-member
-    """Log the beggining and end of an action.
+    """Log the beginning and end of an action.
 
     Args:
         message: string message to describe the context

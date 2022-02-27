@@ -1,24 +1,24 @@
 """Test dot_dict."""
 
-from datetime import datetime
+import pendulum
+import pytest
 
 from calcipy.dot_dict import ddict
 
 
-def test_ddict():
+# TODO: Convert to hypothesis test!
+@pytest.mark.parametrize(['key', 'value'], [
+    ('int', 1),
+    ('number', -1.23),
+    ('unicode', '✓'),
+    ('is_bool', False),
+    ('datetime', pendulum.now()),
+])
+def test_ddict(key, value):
     """Test ddict."""
-    now = datetime.now()
+    result = ddict(**{key: value})
 
-    result = ddict(int=1, number=-1.23, date=now, unicode='✓', is_bool=False)
-
+    assert getattr(result, key) == value
+    assert result[key] == value
     assert isinstance(result, dict)
-    assert result.int == 1
-    assert result['int'] == 1
-    assert result.number == -1.23
-    assert result['number'] == -1.23
-    assert result.date == now
-    assert result['date'] == now
-    assert result.unicode == '✓'
-    assert result['unicode'] == '✓'
-    assert not result.is_bool
-    assert not result['is_bool']
+    assert result.get(f'--{key}--') is None
