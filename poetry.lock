@@ -1863,18 +1863,18 @@ histogram = ["pygal", "pygaljs"]
 
 [[package]]
 name = "pytest-cache-assert"
-version = "1.1.1"
+version = "1.2.0"
 description = "Cache assertion data to simplify regression testing of complex serializable data"
 category = "main"
 optional = true
-python-versions = ">=3.7,<4.0"
+python-versions = ">=3.7.6,<4.0.0"
 
 [package.dependencies]
 attrs-strict = ">=0.2"
 beartype = ">=0.10.0"
 dictdiffer = ">=0.9"
 pendulum = ">=2.1.2"
-pytest = ">=5"
+pytest = ">=5.0.0"
 
 [[package]]
 name = "pytest-html"
@@ -3572,8 +3572,8 @@ pytest-benchmark = [
     {file = "pytest_benchmark-3.4.1-py2.py3-none-any.whl", hash = "sha256:36d2b08c4882f6f997fd3126a3d6dfd70f3249cde178ed8bbc0b73db7c20f809"},
 ]
 pytest-cache-assert = [
-    {file = "pytest_cache_assert-1.1.1-py3-none-any.whl", hash = "sha256:6a04499af47f9433dee4bb0e9f40e33024b90854c4f235efeda82dfaf64b43aa"},
-    {file = "pytest_cache_assert-1.1.1.tar.gz", hash = "sha256:a7e1737525b0c83c655d627b83bd66daf5e1909411b898c077c4f266bb823d72"},
+    {file = "pytest_cache_assert-1.2.0-py3-none-any.whl", hash = "sha256:0d9a609df2d4a6a7f2d9b9e59e777d47360e6d17c90aad62a9244a78f05d221f"},
+    {file = "pytest_cache_assert-1.2.0.tar.gz", hash = "sha256:a52a1c3e0d2092ffecdd73a832f14482c3542c45ae4e584ec97048c2f4b77f1b"},
 ]
 pytest-html = [
     {file = "pytest-html-3.1.1.tar.gz", hash = "sha256:3ee1cf319c913d19fe53aeb0bc400e7b0bc2dbeb477553733db1dad12eb75ee3"},
