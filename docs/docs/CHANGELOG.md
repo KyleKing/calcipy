@@ -2,16 +2,13 @@
 
 ### Feat
 
+- use next-gen attrs syntax
 - improve code tag regex
 
 ### Fix
 
 - undo silent nox step
 - make coverage.json optional for task_doc
-
-### Refactor
-
-- use next-gen attrs syntax
 
 ## 0.13.0 (2022-02-23)
 

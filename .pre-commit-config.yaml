@@ -58,7 +58,7 @@ repos:
           - mdformat-web
         exclude: _.*\.md|CHANGELOG\.md
   - repo: https://github.com/gaborbernat/pyproject-fmt
-    rev: 0.1.0
+    rev: 0.2.0
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/shellcheck-py/shellcheck-py

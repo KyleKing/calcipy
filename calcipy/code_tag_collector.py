@@ -8,7 +8,7 @@ from subprocess import CalledProcessError  # nosec
 
 import pandas as pd
 import pendulum
-from attrs import frozen, field
+from attrs import field, frozen
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Pattern, Sequence, Tuple

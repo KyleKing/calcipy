@@ -3,11 +3,12 @@
 import json
 from pathlib import Path
 
+import attrs
 import numpy as np
 import pendulum
 import requests
 import tomli
-from attrs import mutable, field
+from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional
@@ -117,15 +118,15 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
 
     """
     results = []
-    for field in fields:
-        if field.converter is not None:  # pragma: no cover
-            results.append(field)
+    for fld in fields:
+        if fld.converter is not None:  # pragma: no cover
+            results.append(fld)
             continue
 
         converter: Optional[DateTime] = None
-        if field.type in {Optional[DateTime], DateTime, 'datetime'}:
+        if fld.type in {Optional[DateTime], DateTime, 'datetime'}:
             converter = (lambda d: pendulum.parse(d) if isinstance(d, str) else d)
-        results.append(field.evolve(converter=converter))
+        results.append(fld.evolve(converter=converter))
 
     return results
 
@@ -249,7 +250,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
     def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
         return value.to_iso8601_string() if isinstance(value, DateTime) else value
 
-    new_cache = {pack.name: attr.asdict(pack, value_serializer=serialize) for pack in updated_packages}
+    new_cache = {pack.name: attrs.asdict(pack, value_serializer=serialize) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
     path_pack_lock.write_text(pretty_json + '\n')
 

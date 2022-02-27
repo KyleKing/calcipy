@@ -7,7 +7,7 @@ https://groups.google.com/g/python-doit/c/SgoiGt_XYDU/m/PQ8JmlKFAgAJ
 
 from enum import IntEnum
 
-from attrs import mutable, field
+from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Any, List, OrderedDict

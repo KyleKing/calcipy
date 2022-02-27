@@ -8,7 +8,7 @@ from pathlib import Path
 
 import doit
 import tomli
-from attrs import mutable, field
+from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
@@ -82,7 +82,8 @@ class _PathAttrBase:  # noqa: H601
         self._resolve_class_paths(self.path_project)
         self._verify_initialized_paths()
 
-    def _get_members(self, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable[[Any], Any]]]:
+    @beartype
+    def _get_members(self, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Any]]:
         """Return the members that match the parameters.
 
         Example to return all methods that start with `do_`: `self._get_members(instance_type=Callable, prefix='do_')`
@@ -92,14 +93,16 @@ class _PathAttrBase:  # noqa: H601
             kwargs: keyword arguments passed to `_member_filter`
 
         Returns:
-            List[Tuple[str, Callable]]: filtered members from the class
+            List[Tuple[str, Any]]: filtered members from the class
 
         """
         members = inspect.getmembers(self, predicate=partial(_member_filter, **kwargs))
-        if prefix:
-            members = [(name, member) for (name, member) in members if name.startswith(prefix)]
-        return members  # noqa: R504
+        return [
+            (name, member) for (name, member) in members
+            if not prefix or name.startswith(prefix)
+        ]
 
+    @beartype
     def _resolve_class_paths(self, base_path: Path) -> None:
         """Resolve all partial paths with the specified base path.
 
@@ -114,6 +117,7 @@ class _PathAttrBase:  # noqa: H601
                 setattr(self, name, base_path / path_raw)  # type: ignore[operator]
                 logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(self, name)})')
 
+    @beartype
     def _verify_initialized_paths(self) -> None:
         """Verify that all paths are not None.
 
@@ -178,6 +182,7 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         self.paths = find_project_files(self.path_project, self.ignore_patterns)
         self.paths_by_suffix = find_project_files_by_suffix(self.path_project, self.ignore_patterns)
 
+    @beartype
     def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
         """Shorten the list of directories common to the specified paths.
 
@@ -311,6 +316,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
         # Configure full path to the code tag summary file
         self.path_code_tag_summary = self.path_project / self.doc_sub_dir / self.code_tag_summary_filename
 
+    @beartype
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
 
@@ -331,7 +337,9 @@ class DocConfig(_PathAttrBase):  # noqa: H601
     auto_doc_path: Optional[Path] = field(validator=type_validator(), default=None)
     """Auto-calculated based on `self.doc_sub_dir`."""
 
-    handler_lookup: Optional[Dict[str, Callable[[str, Path], List[str]]]] = field(validator=type_validator(), default=None)
+    handler_lookup: Optional[
+        Dict[str, Callable[[str, Path], List[str]]]
+    ] = field(validator=type_validator(), default=None)
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     path_out: Path = field(validator=type_validator(), init=False)
@@ -406,6 +414,7 @@ class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
 
         self._is_set = True
 
+    @beartype
     def _set_meta(self, path_project: Path, calcipy_config: Dict[str, Any]) -> None:
         """Initialize the meta submodules.
 
@@ -417,6 +426,7 @@ class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
         ignore_patterns = calcipy_config.get('ignore_patterns', [])
         self.meta = PackageMeta(path_project=path_project, ignore_patterns=ignore_patterns)
 
+    @beartype
     def _set_submodules(self, calcipy_config: Dict[str, Any]) -> None:
         """Initialize the rest of the submodules.
 
