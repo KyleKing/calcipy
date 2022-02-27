@@ -1,3 +1,10 @@
+## Unreleased
+
+### Fix
+
+- lower pandas constraint for better 3.7 support
+- drop generation of requirements.txt
+
 ## 0.14.0 (2022-02-27)
 
 ### Feat
