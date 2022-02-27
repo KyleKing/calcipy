@@ -2374,7 +2374,7 @@ test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cache-as
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.6"
-content-hash = "2b5b2eedcb68774394effe64eab20773195513af566cb799cb78f9898cb23d70"
+content-hash = "1ab5f8d27d9c8b5b8a468c78c6f14188a1b0fe50c8e5368e80517cec70e854a3"
 
 [metadata.files]
 absolufy-imports = [

@@ -7,6 +7,7 @@
 
 ### Fix
 
+- correct type annotations
 - undo silent nox step
 - make coverage.json optional for task_doc
 
