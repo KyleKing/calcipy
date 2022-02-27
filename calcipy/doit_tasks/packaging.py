@@ -39,22 +39,17 @@ def task_check_license() -> DoitTask:
 def task_lock() -> DoitTask:
     """Ensure poetry.lock and requirements.txt are up-to-date.
 
+    Previously also generated a requirements.txt file for PyUp, but that is no longer necessary
+
+    `poetry export -f requirements.txt -o requirements.txt -E dev ... --dev`
+
     Returns:
         DoitTask: doit task
 
     """
-    path_req = DG.meta.path_project / 'requirements.txt'
-    # Ensure that extras are exported as well
-    toml_data = tomli.loads(DG.meta.path_toml.read_text())
-    # FYI: poetry 'groups' appear to be properly exported with "--dev"
-    extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
-    extras_arg = ' -E '.join([''] + extras) if extras else ''
-    task = debug_task([
-        'poetry lock --no-update',
-        f'poetry export -f {path_req.name} -o {path_req.name}{extras_arg} --dev',
-    ])
+    task = debug_task(['poetry lock --no-update'])
     task['file_dep'].append(DG.meta.path_toml)
-    task['targets'].extend([DG.meta.path_project / 'poetry.lock', path_req])
+    task['targets'].extend([DG.meta.path_project / 'poetry.lock'])
     return task
 
 

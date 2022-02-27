@@ -75,7 +75,7 @@ name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -186,6 +186,29 @@ python-versions = "*"
 
 [package.dependencies]
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
+
+[[package]]
+name = "black"
+version = "22.1.0"
+description = "The uncompromising code formatter."
+category = "main"
+optional = true
+python-versions = ">=3.6.2"
+
+[package.dependencies]
+click = ">=8.0.0"
+mypy-extensions = ">=0.4.3"
+pathspec = ">=0.9.0"
+platformdirs = ">=2"
+tomli = ">=1.1.0"
+typed-ast = {version = ">=1.4.2", markers = "python_version < \"3.8\" and implementation_name == \"cpython\""}
+typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
+
+[package.extras]
+colorama = ["colorama (>=0.4.3)"]
+d = ["aiohttp (>=3.7.4)"]
+jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
+uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "cement"
@@ -307,6 +330,17 @@ questionary = ">=1.4.0,<2.0.0"
 termcolor = ">=1.1,<2.0"
 tomlkit = ">=0.5.3,<1.0.0"
 typing-extensions = ">=4.0.1,<5.0.0"
+
+[[package]]
+name = "commonmark"
+version = "0.9.1"
+description = "Python parser for the CommonMark Markdown spec"
+category = "main"
+optional = true
+python-versions = "*"
+
+[package.extras]
+test = ["flake8 (==3.7.8)", "hypothesis (==3.55.3)"]
 
 [[package]]
 name = "coverage"
@@ -992,11 +1026,14 @@ name = "hypothesis"
 version = "6.38.0"
 description = "A library for property-based testing"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.dependencies]
 attrs = ">=19.2.0"
+black = {version = ">=19.10b0", optional = true, markers = "extra == \"cli\""}
+click = {version = ">=7.0", optional = true, markers = "extra == \"cli\""}
+rich = {version = ">=9.0.0", optional = true, markers = "extra == \"cli\""}
 sortedcontainers = ">=2.1.0,<3.0.0"
 
 [package.extras]
@@ -1056,7 +1093,7 @@ name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1318,7 +1355,7 @@ mkdocs = ">=1.0"
 
 [[package]]
 name = "mkdocs-material"
-version = "8.2.2"
+version = "8.2.3"
 description = "A Material Design theme for MkDocs"
 category = "main"
 optional = true
@@ -1586,7 +1623,7 @@ name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1650,7 +1687,7 @@ name = "py"
 version = "1.11.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
@@ -1658,7 +1695,7 @@ name = "py-cpuinfo"
 version = "8.0.0"
 description = "Get CPU info with pure Python 2 & 3"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -1790,7 +1827,7 @@ name = "pytest"
 version = "7.0.1"
 description = "pytest: simple powerful testing with Python"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -1812,7 +1849,7 @@ name = "pytest-benchmark"
 version = "3.4.1"
 description = "A ``pytest`` fixture for benchmarking code. It will group the tests into rounds that are calibrated to the chosen timer."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
@@ -1892,7 +1929,7 @@ name = "pytest-subprocess"
 version = "1.4.1"
 description = "A plugin to fake subprocess for pytest"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -2055,6 +2092,23 @@ python-versions = ">=3.7,<4.0"
 typing-extensions = ">=4.0,<5.0"
 
 [[package]]
+name = "rich"
+version = "11.2.0"
+description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
+category = "main"
+optional = true
+python-versions = ">=3.6.2,<4.0.0"
+
+[package.dependencies]
+colorama = ">=0.4.0,<0.5.0"
+commonmark = ">=0.9.0,<0.10.0"
+pygments = ">=2.6.0,<3.0.0"
+typing-extensions = {version = ">=3.7.4,<5.0", markers = "python_version < \"3.8\""}
+
+[package.extras]
+jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
+
+[[package]]
 name = "setuptools-scm"
 version = "6.4.2"
 description = "the blessed package to manage your versions by scm tags"
@@ -2099,7 +2153,7 @@ name = "sortedcontainers"
 version = "2.4.0"
 description = "Sorted Containers -- Sorted List, Sorted Dict, Sorted Set"
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [[package]]
@@ -2444,14 +2498,14 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-dev = ["better-exceptions", "commitizen", "mkdocs-git-revision-date-localized-plugin", "mkdocs-material", "livereload", "pdbpp", "pdocs", "pyupgrade"]
+dev = ["better-exceptions", "commitizen", "livereload", "mkdocs-git-revision-date-localized-plugin", "mkdocs-material", "pdbpp", "pdocs", "pyupgrade"]
 lint = ["absolufy-imports", "add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "hacking", "isort", "licensecheck", "pandas-vet", "pep8-naming", "pip-check", "proselint", "pycln", "pylint", "vulture", "xenon", "yamllint"]
-test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest-cache-assert", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-watcher", "pytest"]
+test = ["coverage", "diff-cover", "hypothesis", "lxml", "mypy", "nox-poetry", "pytest", "pytest-benchmark", "pytest-cache-assert", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-subprocess", "pytest-watcher"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.6"
-content-hash = "1e8f4702224c5684a54dee4a33619f10a773b7f2008368c386c33a97e8bcfc76"
+content-hash = "ad6bf5bcf837cfee18f4ee6781a1e02c8a864e75271387cc2466097a2a7a6ef3"
 
 [metadata.files]
 absolufy-imports = [
@@ -2514,6 +2568,31 @@ better-exceptions = [
     {file = "better_exceptions-0.3.3-py3.8.egg", hash = "sha256:bf111d0c9994ac1123f29c24907362bed2320a86809c85f0d858396000667ce2"},
     {file = "better_exceptions-0.3.3.tar.gz", hash = "sha256:e4e6bc18444d5f04e6e894b10381e5e921d3d544240418162c7db57e9eb3453b"},
 ]
+black = [
+    {file = "black-22.1.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:1297c63b9e1b96a3d0da2d85d11cd9bf8664251fd69ddac068b98dc4f34f73b6"},
+    {file = "black-22.1.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2ff96450d3ad9ea499fc4c60e425a1439c2120cbbc1ab959ff20f7c76ec7e866"},
+    {file = "black-22.1.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0e21e1f1efa65a50e3960edd068b6ae6d64ad6235bd8bfea116a03b21836af71"},
+    {file = "black-22.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e2f69158a7d120fd641d1fa9a921d898e20d52e44a74a6fbbcc570a62a6bc8ab"},
+    {file = "black-22.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:228b5ae2c8e3d6227e4bde5920d2fc66cc3400fde7bcc74f480cb07ef0b570d5"},
+    {file = "black-22.1.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:b1a5ed73ab4c482208d20434f700d514f66ffe2840f63a6252ecc43a9bc77e8a"},
+    {file = "black-22.1.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:35944b7100af4a985abfcaa860b06af15590deb1f392f06c8683b4381e8eeaf0"},
+    {file = "black-22.1.0-cp36-cp36m-win_amd64.whl", hash = "sha256:7835fee5238fc0a0baf6c9268fb816b5f5cd9b8793423a75e8cd663c48d073ba"},
+    {file = "black-22.1.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:dae63f2dbf82882fa3b2a3c49c32bffe144970a573cd68d247af6560fc493ae1"},
+    {file = "black-22.1.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5fa1db02410b1924b6749c245ab38d30621564e658297484952f3d8a39fce7e8"},
+    {file = "black-22.1.0-cp37-cp37m-win_amd64.whl", hash = "sha256:c8226f50b8c34a14608b848dc23a46e5d08397d009446353dad45e04af0c8e28"},
+    {file = "black-22.1.0-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:2d6f331c02f0f40aa51a22e479c8209d37fcd520c77721c034517d44eecf5912"},
+    {file = "black-22.1.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:742ce9af3086e5bd07e58c8feb09dbb2b047b7f566eb5f5bc63fd455814979f3"},
+    {file = "black-22.1.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:fdb8754b453fb15fad3f72cd9cad3e16776f0964d67cf30ebcbf10327a3777a3"},
+    {file = "black-22.1.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f5660feab44c2e3cb24b2419b998846cbb01c23c7fe645fee45087efa3da2d61"},
+    {file = "black-22.1.0-cp38-cp38-win_amd64.whl", hash = "sha256:6f2f01381f91c1efb1451998bd65a129b3ed6f64f79663a55fe0e9b74a5f81fd"},
+    {file = "black-22.1.0-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:efbadd9b52c060a8fc3b9658744091cb33c31f830b3f074422ed27bad2b18e8f"},
+    {file = "black-22.1.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:8871fcb4b447206904932b54b567923e5be802b9b19b744fdff092bd2f3118d0"},
+    {file = "black-22.1.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:ccad888050f5393f0d6029deea2a33e5ae371fd182a697313bdbd835d3edaf9c"},
+    {file = "black-22.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:07e5c049442d7ca1a2fc273c79d1aecbbf1bc858f62e8184abe1ad175c4f7cc2"},
+    {file = "black-22.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:373922fc66676133ddc3e754e4509196a8c392fec3f5ca4486673e685a421321"},
+    {file = "black-22.1.0-py3-none-any.whl", hash = "sha256:3524739d76b6b3ed1132422bf9d82123cd1705086723bc3e235ca39fd21c667d"},
+    {file = "black-22.1.0.tar.gz", hash = "sha256:a7c0192d35635f6fc1174be575cb7915e92e5dd629ee79fdaf0dcfa41a80afb5"},
+]
 cement = [
     {file = "cement-3.0.6-py3-none-any.whl", hash = "sha256:79c9655e68e4393bf8898d28fc806cc5187c1fc493a75f1af396bd30c6170cc4"},
     {file = "cement-3.0.6.tar.gz", hash = "sha256:fccec41eab3f15a03445b1ce24c8a7e106d4d5520f6507a7145698ce68923d31"},
@@ -2559,6 +2638,10 @@ colorlog = [
 commitizen = [
     {file = "commitizen-2.21.2-py3-none-any.whl", hash = "sha256:22e7904880eb435d8ddc92bf481d1ae99ebac775222989bb48b15da03ceb6238"},
     {file = "commitizen-2.21.2.tar.gz", hash = "sha256:64fda8d9d679d2d3d2422c028cb641602fb672560a5485bee9773259f9c4f07c"},
+]
+commonmark = [
+    {file = "commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
+    {file = "commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
 ]
 coverage = [
     {file = "coverage-6.3.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:9b27d894748475fa858f9597c0ee1d4829f44683f3813633aaf94b19cb5453cf"},
@@ -3144,8 +3227,8 @@ mkdocs-git-revision-date-localized-plugin = [
     {file = "mkdocs_git_revision_date_localized_plugin-1.0.0-py3-none-any.whl", hash = "sha256:15086eb25129347e63da7c109c6f9834a2937a1e1c91fb850be13645e6a21dbe"},
 ]
 mkdocs-material = [
-    {file = "mkdocs-material-8.2.2.tar.gz", hash = "sha256:082de30839afca1f7be89a8bd90a11781d73b4ed928c45710fa9d3ca3dc9191a"},
-    {file = "mkdocs_material-8.2.2-py2.py3-none-any.whl", hash = "sha256:d06363dd488fdd2eed20145dd36be9b914c55694825ece2e1f692f4a23a2f541"},
+    {file = "mkdocs-material-8.2.3.tar.gz", hash = "sha256:aea074a5b368c8a27c8ae4fe72bd943176512b225541106797e367c62ce3f5a0"},
+    {file = "mkdocs_material-8.2.3-py2.py3-none-any.whl", hash = "sha256:34a3155fe30f3fd697acef230e459e0428acb0481bcbb968e4a94a3ac174af18"},
 ]
 mkdocs-material-extensions = [
     {file = "mkdocs-material-extensions-1.0.3.tar.gz", hash = "sha256:bfd24dfdef7b41c312ede42648f9eb83476ea168ec163b613f9abd12bbfddba2"},
@@ -3590,6 +3673,10 @@ requirements-parser = [
 returns = [
     {file = "returns-0.18.0-py3-none-any.whl", hash = "sha256:48b36f9ac4f78ae9c825234bf17e2cbb607f263c4149c524fae0f8f76b877ba3"},
     {file = "returns-0.18.0.tar.gz", hash = "sha256:b43b84fca6ed5b2fe7f776a53ef83778c138b8c99494ab283a7f125b00945421"},
+]
+rich = [
+    {file = "rich-11.2.0-py3-none-any.whl", hash = "sha256:d5f49ad91fb343efcae45a2b2df04a9755e863e50413623ab8c9e74f05aee52b"},
+    {file = "rich-11.2.0.tar.gz", hash = "sha256:1a6266a5738115017bb64a66c59c717e7aa047b3ae49a011ede4abdeffc6536e"},
 ]
 setuptools-scm = [
     {file = "setuptools_scm-6.4.2-py3-none-any.whl", hash = "sha256:acea13255093849de7ccb11af9e1fb8bde7067783450cee9ef7a93139bddf6d4"},
