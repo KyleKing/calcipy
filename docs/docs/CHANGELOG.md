@@ -2,6 +2,12 @@
 
 ### Fix
 
+- don't allow multi-line tables
+
+## 0.14.1 (2022-02-27)
+
+### Fix
+
 - lower pandas constraint for better 3.7 support
 - drop generation of requirements.txt
 
