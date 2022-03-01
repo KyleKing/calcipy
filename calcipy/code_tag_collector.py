@@ -150,7 +150,10 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
     try:
         blame = run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)
     except CalledProcessError as exc:
+        if exc.returncode != 128:
+            raise
         logger.debug('Skipping blame of: {exc}', file_path=file_path, exc=exc)
+
     # Set fallback values if git logic doesn't work
     rel_path = file_path.relative_to(base_dir)
     source_file = f'{rel_path.as_posix()}:{comment.lineno}'
