@@ -149,8 +149,8 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
     blame = None
     try:
         blame = run_cmd(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)
-    except CalledProcessError:
-        logger.exception('Failed to locate {file_path}', file_path=file_path)
+    except CalledProcessError as exc:
+        logger.debug('Skipping blame of: {exc}', file_path=file_path, exc=exc)
     # Set fallback values if git logic doesn't work
     rel_path = file_path.relative_to(base_dir)
     source_file = f'{rel_path.as_posix()}:{comment.lineno}'

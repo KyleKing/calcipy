@@ -2506,7 +2506,7 @@ test = ["coverage", "diff-cover", "hypothesis", "lxml", "mypy", "nox-poetry", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.6"
-content-hash = "c0c61b168ef9cc7ca92cb2da84274eaa93a2d35c7a20cdf31181bdeda1f1e028"
+content-hash = "4018b97c9a51ad7917a536e1820f90e0dc6ab36e3274625431caa4ebd7325fe5"
 
 [metadata.files]
 absolufy-imports = [

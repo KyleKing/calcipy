@@ -48,7 +48,7 @@ poetry run doit run lock document deploy_docs publish
 
 <!-- {cts} COVERAGE -->
 | File                                                       |   Statements |   Missing |   Excluded | Coverage   |
-|:-----------------------------------------------------------|-------------:|----------:|-----------:|:-----------|
+|------------------------------------------------------------|--------------|-----------|------------|------------|
 | `calcipy/__init__.py`                                      |            6 |         0 |          0 | 100.0%     |
 | `calcipy/cli/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
 | `calcipy/cli/controllers/__init__.py`                      |            0 |         0 |          0 | 100.0%     |
