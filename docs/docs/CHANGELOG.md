@@ -1,3 +1,10 @@
+## Unreleased
+
+### Fix
+
+- suppress only known git blame errors
+- use Github tables to prevent multi-line rows in Code Tag Summary
+
 ## 0.14.2 (2022-02-27)
 
 ### Fix
