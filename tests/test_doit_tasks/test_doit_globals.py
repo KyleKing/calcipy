@@ -16,14 +16,11 @@ def _get_public_props(obj) -> List[str]:
 
 def test_dg_props():
     """Test the DG global variable from DoitGlobals."""
-    public_props = ['calcipy_dir', 'set_paths']
-    settable_props = public_props + ['meta', 'tags', 'lint', 'test', 'doc']
+    public_props = ['calcipy_dir', 'set_paths', 'meta', 'tags', 'lint', 'test', 'doc']
 
     dg = DoitGlobals()  # act
 
     assert _get_public_props(dg) == sorted(public_props)
-    dg.set_paths(path_project=PATH_TEST_PROJECT)
-    assert _get_public_props(dg) == sorted(settable_props)
 
 
 def test_dg_paths():

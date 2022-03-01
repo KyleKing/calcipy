@@ -58,7 +58,7 @@ repos:
           - mdformat-web
         exclude: _.*\.md|CHANGELOG\.md
   - repo: https://github.com/gaborbernat/pyproject-fmt
-    rev: 0.1.0
+    rev: 0.2.0
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/shellcheck-py/shellcheck-py
@@ -91,17 +91,22 @@ repos:
           (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: \.rej$
+        # Note: there are occasional errors when running doit in pre-commit
+        #   Moving the .doit.db outside of the git directory helps, but there
+        #   are obvious drawbacks
+        # "doit.dependency.DatabaseException: [Errno 35] Resource
+        #   temporarily unavailable: '.doit.db'"
       - id: python-formatter
         name: Python Auto-Formatter
         description: Apply calcipy formatting
         language: system
-        entry: poetry run doit run format_py
+        entry: poetry run doit run --db-file=../.pre-commit-doit.db format_py
         types: [python]
         stages: [push]
       - id: toml-formatter
         name: Optional TOML Auto-Formatter
         description: Install taplo with 'npm install -g @taplo/cli'
         language: system
-        entry: poetry run doit run format_toml
+        entry: poetry run doit run --db-file=../.pre-commit-doit.db format_toml
         types: [toml]
         exclude: poetry\.lock

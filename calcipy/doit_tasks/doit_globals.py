@@ -6,9 +6,9 @@ import warnings
 from functools import partial
 from pathlib import Path
 
-import attr
 import doit
 import tomli
+from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
@@ -64,10 +64,10 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
     return instance_type is None or isinstance(member, instance_type)
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class _PathAttrBase:  # noqa: H601
 
-    path_project: Path = attr.ib(validator=type_validator())
+    path_project: Path = field(validator=type_validator())
     """Path to the package directory."""
 
     def __attrs_post_init__(self) -> None:
@@ -82,7 +82,8 @@ class _PathAttrBase:  # noqa: H601
         self._resolve_class_paths(self.path_project)
         self._verify_initialized_paths()
 
-    def _get_members(self, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Callable[[Any], Any]]]:
+    @beartype
+    def _get_members(self, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Any]]:
         """Return the members that match the parameters.
 
         Example to return all methods that start with `do_`: `self._get_members(instance_type=Callable, prefix='do_')`
@@ -92,14 +93,16 @@ class _PathAttrBase:  # noqa: H601
             kwargs: keyword arguments passed to `_member_filter`
 
         Returns:
-            List[Tuple[str, Callable]]: filtered members from the class
+            List[Tuple[str, Any]]: filtered members from the class
 
         """
         members = inspect.getmembers(self, predicate=partial(_member_filter, **kwargs))
-        if prefix:
-            members = [(name, member) for (name, member) in members if name.startswith(prefix)]
-        return members  # noqa: R504
+        return [
+            (name, member) for (name, member) in members
+            if not prefix or name.startswith(prefix)
+        ]
 
+    @beartype
     def _resolve_class_paths(self, base_path: Path) -> None:
         """Resolve all partial paths with the specified base path.
 
@@ -114,6 +117,7 @@ class _PathAttrBase:  # noqa: H601
                 setattr(self, name, base_path / path_raw)  # type: ignore[operator]
                 logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(self, name)})')
 
+    @beartype
     def _verify_initialized_paths(self) -> None:
         """Verify that all paths are not None.
 
@@ -129,26 +133,26 @@ class _PathAttrBase:  # noqa: H601
             raise RuntimeError(f'Missing keyword arguments for: {kwargs}')
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class PackageMeta(_PathAttrBase):  # noqa: H601
     """Package Meta-Information."""
 
-    path_toml: Path = attr.ib(validator=type_validator(), default=Path('pyproject.toml'))
+    path_toml: Path = field(validator=type_validator(), default=Path('pyproject.toml'))
     """Relative path to the poetry toml file."""
 
-    ignore_patterns: List[str] = attr.ib(validator=type_validator(), factory=list)
+    ignore_patterns: List[str] = field(validator=type_validator(), factory=list)
     """List of glob patterns to ignore from all analysis."""
 
-    paths: List[Path] = attr.ib(validator=type_validator(), init=False)
+    paths: List[Path] = field(validator=type_validator(), init=False)
     """Paths to all tracked files that were not ignored with specified patterns `find_project_files`."""
 
-    paths_by_suffix: Dict[str, List[Path]] = attr.ib(validator=type_validator(), init=False)
+    paths_by_suffix: Dict[str, List[Path]] = field(validator=type_validator(), init=False)
     """Paths to all tracked files that were not ignored with specified patterns `find_project_files_by_suffix`."""
 
-    pkg_name: str = attr.ib(validator=type_validator(), init=False)
+    pkg_name: str = field(validator=type_validator(), init=False)
     """Package string name."""
 
-    pkg_version: str = attr.ib(validator=type_validator(), init=False)
+    pkg_version: str = field(validator=type_validator(), init=False)
     """Package version."""
 
     def __attrs_post_init__(self) -> None:
@@ -178,6 +182,7 @@ class PackageMeta(_PathAttrBase):  # noqa: H601
         self.paths = find_project_files(self.path_project, self.ignore_patterns)
         self.paths_by_suffix = find_project_files_by_suffix(self.path_project, self.ignore_patterns)
 
+    @beartype
     def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
         """Shorten the list of directories common to the specified paths.
 
@@ -211,20 +216,20 @@ _DEF_IGNORE_LIST = [
 """Default list of excluded flake8 rules for the pre-commit check (additional to .flake8)."""
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class LintConfig(_PathAttrBase):  # noqa: H601
     """Lint Config."""
 
-    path_flake8: Union[Path, str] = attr.ib(validator=type_validator(), default=Path('.flake8'))
+    path_flake8: Union[Path, str] = field(validator=type_validator(), default=Path('.flake8'))
     """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
 
-    path_isort: Union[Path, str] = attr.ib(validator=type_validator(), default=Path('pyproject.toml'))
+    path_isort: Union[Path, str] = field(validator=type_validator(), default=Path('pyproject.toml'))
     """Relative path to the isort configuration file. Default is "pyproject.toml" created by calcipy_template."""
 
-    ignore_errors: List[str] = attr.ib(validator=type_validator(), factory=lambda: _DEF_IGNORE_LIST)
+    ignore_errors: List[str] = field(validator=type_validator(), factory=lambda: _DEF_IGNORE_LIST)
     """List of additional excluded flake8 rules for the pre-commit check."""
 
-    paths_py: List[Path] = attr.ib(validator=type_validator(), init=False)
+    paths_py: List[Path] = field(validator=type_validator(), init=False)
     """Paths to the Python files used when linting. Created with `find_project_files_by_suffix`."""
 
     def __attrs_post_init__(self) -> None:
@@ -235,41 +240,41 @@ class LintConfig(_PathAttrBase):  # noqa: H601
         self.paths_py = DG.meta.paths_by_suffix.get('py', [])
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class TestingConfig(_PathAttrBase):  # noqa: H601  # pylint: disable=too-many-instance-attributes
     """Test Config."""
 
-    pythons: List[str] = attr.ib(validator=type_validator(), factory=lambda: ['3.8', '3.9'])
+    pythons: List[str] = field(validator=type_validator(), factory=lambda: ['3.8', '3.9'])
     """Python versions to test against. Default is `['3.8', '3.9']`."""
 
-    path_out: Union[Path, str] = attr.ib(validator=type_validator(), default=Path('releases/tests'))
+    path_out: Union[Path, str] = field(validator=type_validator(), default=Path('releases/tests'))
     """Relative path to the report output directory. Default is `releases/tests`."""
 
-    path_tests: Union[Path, str] = attr.ib(validator=type_validator(), default=Path('tests'))
+    path_tests: Union[Path, str] = field(validator=type_validator(), default=Path('tests'))
     """Relative path to the tests directory. Default is `tests`."""
 
-    args_pytest: str = attr.ib(
+    args_pytest: str = field(
         validator=type_validator(),
         default='--exitfirst --showlocals --failed-first --new-first --verbose --doctest-modules',
     )
     """Default arguments to Pytest. In short form, the defaults are `-x -l --ff --nf -vv`."""
 
-    args_diff: str = attr.ib(validator=type_validator(), default='--fail-under=65 --compare-branch=origin/main')
+    args_diff: str = field(validator=type_validator(), default='--fail-under=65 --compare-branch=origin/main')
     """Default arguments to diff-cover."""
 
-    path_test_report: Path = attr.ib(validator=type_validator(), init=False)
+    path_test_report: Path = field(validator=type_validator(), init=False)
     """Path to the self-contained test HTML report."""
 
-    path_diff_test_report: Path = attr.ib(validator=type_validator(), init=False)
+    path_diff_test_report: Path = field(validator=type_validator(), init=False)
     """Path to the self-contained diff-test HTML report."""
 
-    path_diff_lint_report: Path = attr.ib(validator=type_validator(), init=False)
+    path_diff_lint_report: Path = field(validator=type_validator(), init=False)
     """Path to the self-contained diff-lint HTML report."""
 
-    path_coverage_index: Path = attr.ib(validator=type_validator(), init=False)
+    path_coverage_index: Path = field(validator=type_validator(), init=False)
     """Path to the coverage HTML index file within the report directory."""
 
-    path_mypy_index: Path = attr.ib(validator=type_validator(), init=False)
+    path_mypy_index: Path = field(validator=type_validator(), init=False)
     """Path to the mypy HTML index file within the report directory."""
 
     def __attrs_post_init__(self) -> None:
@@ -286,23 +291,23 @@ class TestingConfig(_PathAttrBase):  # noqa: H601  # pylint: disable=too-many-in
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class CodeTagConfig(_PathAttrBase):  # noqa: H601
     """Code Tag Config."""
 
-    doc_sub_dir: Path = attr.ib(validator=type_validator(), default=Path('docs/docs'))
+    doc_sub_dir: Path = field(validator=type_validator(), default=Path('docs/docs'))
     """Relative path to the source documentation directory."""
 
-    code_tag_summary_filename: str = attr.ib(validator=type_validator(), default='CODE_TAG_SUMMARY.md')
+    code_tag_summary_filename: str = field(validator=type_validator(), default='CODE_TAG_SUMMARY.md')
     """Name of the code tag summary file."""
 
-    tags: List[str] = attr.ib(validator=type_validator(), factory=lambda: COMMON_CODE_TAGS)
+    tags: List[str] = field(validator=type_validator(), factory=lambda: COMMON_CODE_TAGS)
     """List of ordered tag names to match."""
 
-    re_raw: str = attr.ib(validator=type_validator(), default=CODE_TAG_RE)
+    re_raw: str = field(validator=type_validator(), default=CODE_TAG_RE)
     """string regular expression that contains `{tag}`."""
 
-    path_code_tag_summary: Path = attr.ib(validator=type_validator(), init=False)
+    path_code_tag_summary: Path = field(validator=type_validator(), init=False)
     """Path to the code tag summary file. Uses `code_tag_summary_filename`."""
 
     def __attrs_post_init__(self) -> None:
@@ -311,6 +316,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
         # Configure full path to the code tag summary file
         self.path_code_tag_summary = self.path_project / self.doc_sub_dir / self.code_tag_summary_filename
 
+    @beartype
     def compile_issue_regex(self) -> Pattern[str]:
         """Compile the regex for the specified raw regular expression string and tags.
 
@@ -321,59 +327,61 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
         return re.compile(self.re_raw.format(tag='|'.join(self.tags)))
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class DocConfig(_PathAttrBase):  # noqa: H601
     """Documentation Config."""
 
-    doc_sub_dir: Path = attr.ib(validator=type_validator(), default=Path('docs/docs'))
+    doc_sub_dir: Path = field(validator=type_validator(), default=Path('docs/docs'))
     """Relative path to the source documentation directory."""
 
-    auto_doc_path: Optional[Path] = attr.ib(validator=type_validator(), default=None)
+    auto_doc_path: Optional[Path] = field(validator=type_validator(), default=None)
     """Auto-calculated based on `self.doc_sub_dir`."""
 
-    handler_lookup: Optional[Dict[str, Callable[[str, Path], str]]] = attr.ib(validator=type_validator(), default=None)
+    handler_lookup: Optional[
+        Dict[str, Callable[[str, Path], List[str]]]
+    ] = field(validator=type_validator(), default=None)
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
-    path_out: Path = attr.ib(validator=type_validator(), init=False)
+    path_out: Path = field(validator=type_validator(), init=False)
     """The documentation output directory. Specified in `mkdocs.yml`."""
 
-    paths_md: List[Path] = attr.ib(validator=type_validator(), init=False)
+    paths_md: List[Path] = field(validator=type_validator(), init=False)
     """Paths to Markdown files used when documenting. Created with `find_project_files_by_suffix`."""
 
     def __attrs_post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__attrs_post_init__()
         mkdocs_config = _read_yaml_file(self.path_project / _MKDOCS_CONFIG_NAME)
-        self.path_out = mkdocs_config.get('site_dir', 'releases/site')
+        self.path_out = Path(mkdocs_config.get('site_dir', 'releases/site'))
         self.path_out = _make_full_path(self.path_out, self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         self.paths_md = DG.meta.paths_by_suffix.get('md', [])
         self.auto_doc_path = self.doc_sub_dir.parent / 'modules'
 
 
-@attr.s(auto_attribs=True, kw_only=True)
+@mutable(kw_only=True)
 class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
     """Global Variables for doit."""
 
-    calcipy_dir: Path = attr.ib(validator=type_validator(), init=False, default=Path(__file__).resolve().parents[1])
+    calcipy_dir: Path = field(validator=type_validator(), init=False, default=Path(__file__).resolve().parents[1])
     """The calcipy directory (likely within `.venv`)."""
 
-    meta: PackageMeta = attr.ib(validator=type_validator(), init=False)
+    meta: PackageMeta = field(validator=type_validator(), init=False)
     """Package Meta-Information."""
 
-    lint: LintConfig = attr.ib(validator=type_validator(), init=False)
+    lint: LintConfig = field(validator=type_validator(), init=False)
     """Lint Config."""
 
-    test: TestingConfig = attr.ib(validator=type_validator(), init=False)
+    test: TestingConfig = field(validator=type_validator(), init=False)
     """Test Config."""
 
-    tags: CodeTagConfig = attr.ib(validator=type_validator(), init=False)
+    tags: CodeTagConfig = field(validator=type_validator(), init=False)
     """Documentation Config."""
 
-    doc: DocConfig = attr.ib(validator=type_validator(), init=False)
+    doc: DocConfig = field(validator=type_validator(), init=False)
     """Documentation Config."""
 
-    _is_set: bool = attr.ib(validator=type_validator(), default=False)
+    _is_set: bool = field(validator=type_validator(), default=False)
     """Internal flag to check if already set."""
 
     @log_fun
@@ -406,6 +414,7 @@ class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
 
         self._is_set = True
 
+    @beartype
     def _set_meta(self, path_project: Path, calcipy_config: Dict[str, Any]) -> None:
         """Initialize the meta submodules.
 
@@ -417,6 +426,7 @@ class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
         ignore_patterns = calcipy_config.get('ignore_patterns', [])
         self.meta = PackageMeta(path_project=path_project, ignore_patterns=ignore_patterns)
 
+    @beartype
     def _set_submodules(self, calcipy_config: Dict[str, Any]) -> None:
         """Initialize the rest of the submodules.
 

@@ -35,7 +35,7 @@ runs:
         # yamllint disable-line rule:line-length
         key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock')
           }}
-    - name: Install Dependencies and Project
+    - name: Install Project and Dependencies
       run: |
         poetry install -E dev -E lint -E test -E commitizen_legacy
       shell: bash

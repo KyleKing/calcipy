@@ -21,7 +21,7 @@ TEST_DATA_DIR = TEST_DIR / 'data'
 TEST_TMP_CACHE = TEST_DIR / '_tmp_cache'
 """Path to the temporary cache folder in the Test directory."""
 
-# TODO: Replace magic numbers in tests with meta-data about the test project
+# TODO: Replace magic numbers in tests with meta-data about the "test_calcipy_project"
 #   _COUNT_PY_FILES = 8
 #   _COUNT_MD_FILES = ?
 #   etc...
@@ -39,6 +39,8 @@ def clear_test_cache() -> None:
     ensure_dir(TEST_TMP_CACHE)
 
 
+# FIXME: Replace DG with a magic property that calls the punq-registered DG rather than this workaround
+#
 # Set the DoitGlobals instance to use the Test Project for all tests
 DG._is_set = False
 DG.set_paths(path_project=PATH_TEST_PROJECT)
@@ -57,6 +59,7 @@ def _temp_dg(path_project: Path = PATH_TEST_PROJECT) -> Generator[None, None, No
     """
     path_original = DG.meta.path_project
     if path_original != path_project:
+        # FIXME: would be something like: container.register(TBD, instance=DG.set_paths(path_project=path_project))
         DG._is_set = False
         DG.set_paths(path_project=path_project)
         yield

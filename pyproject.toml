@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core>=1.0.2"]
+requires = ["poetry-core>=1.0.7"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.calcipy]
@@ -26,7 +26,7 @@ change_type_order = [
     "Change (Old)",
     "Fix (Old)",
 ]
-version = "0.13.0"
+version = "0.14.3"
 version_files = ["pyproject.toml", "calcipy/__init__.py"]
 
 [tool.commitizen.cz_legacy_map]
@@ -46,7 +46,7 @@ multi_line_output = 5
 
 [tool.poetry]
 name = "calcipy"
-version = "0.13.0"
+version = "0.14.3"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
@@ -77,16 +77,18 @@ calcipy = "calcipy:run"
 "Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.7.6"
 attrs = ">=21"
 attrs_strict = ">=0.2.2"
 beartype = ">=0.10.0"    # dyce has nice no-op decorator for beartype, but shouldn't be optional
 cement = ">=3.0.6"
 decorator = ">=5"
 loguru = ">=0.5"
-pandas = ">=1.1"
+pandas = ">=1.0"         # Lowered to support Python 3.7
 pendulum = ">=2"
+punq = ">=0.6.2"
 python-box = ">=5.4"
+returns = ">=0.18.0"
 tabulate = ">=0.8"       # Required for pandas.to_markdown
 
 # TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
@@ -103,7 +105,7 @@ requests = "*" # Should be optional, but needed for packaging tasks
 # Development
 better-exceptions = { version = ">=0.3", optional = true }
 commitizen = { version = ">=2", optional = true }                                                              # Prevent install of 1.X
-mkdocs-git-revision-date-localized-plugin = { version = ">=0.12", optional = true }
+mkdocs-git-revision-date-localized-plugin = { version = ">=1.0", optional = true }
 mkdocs-material = { version = ">=7.1", optional = true }
 livereload = { version = "*", optional = true }                                                                # PLANNED: Temporary - a plugin expected livereload to be installed...
 pdbpp = { version = ">=0.10", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
@@ -156,7 +158,6 @@ isort = { version = ">=5", optional = true }                                    
 licensecheck = { extras = ["full"], version = "^2022", optional = true }
 pandas-vet = { version = ">=0.2", optional = true }
 pep8-naming = { version = ">=0.11", optional = true }
-pip-audit = { version = ">=1.1.1", optional = true }
 pip-check = { version = ">=2.7", optional = true }
 proselint = { version = ">=0.10", optional = true }
 pycln = { version = ">=1.2.0", optional = true }
@@ -168,14 +169,20 @@ yamllint = { version = ">=1.26", optional = true }
 # Test
 coverage = { version = ">=6", optional = true }
 diff-cover = { version = ">=6.4", optional = true }
-lxml = { version = ">=4.7.1", optional = true }            # required for the HTML mypy report format
+hypothesis = { extras = [
+    "cli",
+], version = ">=6.38.0", optional = true } # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
+lxml = { version = ">=4.7.1", optional = true } # required for the HTML mypy report format
 mypy = { version = ">=0.812", optional = true }
 nox-poetry = { version = ">=0.8", optional = true }
 pytest = { version = ">=6", optional = true }
+pytest-benchmark = { version = ">=3.4.1", optional = true }
+pytest-cache-assert = { version = ">=1.3.2", optional = true }
 pytest-html = { version = ">=3.1", optional = true }
 pytest-randomly = { version = ">=3.8", optional = true }
 pytest-recording = { version = ">=0.11", optional = true }
-pytest-watcher = { version = ">=0.2", optional = true }    # https://github.com/joeyespo/pytest-watch/issues/121
+pytest-subprocess = { version = ">=1.4.1", optional = true }
+pytest-watcher = { version = ">=0.2", optional = true } # https://github.com/joeyespo/pytest-watch/issues/121
 
 # commitizen_legacy
 cz_legacy = { version = ">=0.1.2", optional = true }
@@ -184,9 +191,9 @@ cz_legacy = { version = ">=0.1.2", optional = true }
 dev = [
     "better-exceptions",
     "commitizen",
+    "livereload",
     "mkdocs-git-revision-date-localized-plugin",
     "mkdocs-material",
-    "livereload",
     "pdbpp",
     "pdocs",
     "pyupgrade",
@@ -238,7 +245,6 @@ lint = [
     "licensecheck",
     "pandas-vet",
     "pep8-naming",
-    "pip-audit",
     "pip-check",
     "proselint",
     "pycln",
@@ -250,14 +256,18 @@ lint = [
 test = [
     "coverage",
     "diff-cover",
+    "hypothesis",
     "lxml",
     "mypy",
     "nox-poetry",
+    "pytest",
+    "pytest-benchmark",
+    "pytest-cache-assert",
     "pytest-html",
     "pytest-randomly",
     "pytest-recording",
+    "pytest-subprocess",
     "pytest-watcher",
-    "pytest",
 ]
 commitizen_legacy = ["cz_legacy"]
 

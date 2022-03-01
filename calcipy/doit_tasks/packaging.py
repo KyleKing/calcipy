@@ -3,11 +3,12 @@
 import json
 from pathlib import Path
 
-import attr
+import attrs
 import numpy as np
 import pendulum
 import requests
 import tomli
+from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional
@@ -38,22 +39,17 @@ def task_check_license() -> DoitTask:
 def task_lock() -> DoitTask:
     """Ensure poetry.lock and requirements.txt are up-to-date.
 
+    Previously also generated a requirements.txt file for PyUp, but that is no longer necessary
+
+    `poetry export -f requirements.txt -o requirements.txt -E dev ... --dev`
+
     Returns:
         DoitTask: doit task
 
     """
-    path_req = DG.meta.path_project / 'requirements.txt'
-    # Ensure that extras are exported as well
-    toml_data = tomli.loads(DG.meta.path_toml.read_text())
-    # FYI: poetry 'groups' appear to be properly exported with "--dev"
-    extras = [*toml_data['tool']['poetry'].get('extras', {}).keys()]
-    extras_arg = ' -E '.join([''] + extras) if extras else ''
-    task = debug_task([
-        'poetry lock --no-update',
-        f'poetry export -f {path_req.name} -o {path_req.name}{extras_arg} --dev',
-    ])
+    task = debug_task(['poetry lock --no-update'])
     task['file_dep'].append(DG.meta.path_toml)
-    task['targets'].extend([DG.meta.path_project / 'poetry.lock', path_req])
+    task['targets'].extend([DG.meta.path_project / 'poetry.lock'])
     return task
 
 
@@ -117,29 +113,29 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
 
     """
     results = []
-    for field in fields:
-        if field.converter is not None:  # pragma: no cover
-            results.append(field)
+    for fld in fields:
+        if fld.converter is not None:  # pragma: no cover
+            results.append(fld)
             continue
 
         converter: Optional[DateTime] = None
-        if field.type in {Optional[DateTime], DateTime, 'datetime'}:
+        if fld.type in {Optional[DateTime], DateTime, 'datetime'}:
             converter = (lambda d: pendulum.parse(d) if isinstance(d, str) else d)
-        results.append(field.evolve(converter=converter))
+        results.append(fld.evolve(converter=converter))
 
     return results
 
 
-@attr.s(auto_attribs=True, kw_only=True, field_transformer=_auto_convert)
+@mutable(kw_only=True, field_transformer=_auto_convert)
 class _HostedPythonPackage():  # noqa: H601
     """Representative information for a python package hosted on some domain."""
 
-    domain: str = attr.ib(validator=type_validator(), default='https://pypi.org/pypi/{name}/{version}/json')
-    name: str = attr.ib(validator=type_validator())
-    version: str = attr.ib(validator=type_validator())
-    datetime: Optional[DateTime] = attr.ib(validator=type_validator(), default=None)
-    latest_version: str = attr.ib(validator=type_validator(), default='')
-    latest_datetime: Optional[DateTime] = attr.ib(validator=type_validator(), default=None)
+    domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/{version}/json')
+    name: str = field(validator=type_validator())
+    version: str = field(validator=type_validator())
+    datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
+    latest_version: str = field(validator=type_validator(), default='')
+    latest_datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
 
 
 _PATH_PACK_LOCK = DG.meta.path_project / '.calcipy_packaging.lock'
@@ -249,7 +245,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
     def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
         return value.to_iso8601_string() if isinstance(value, DateTime) else value
 
-    new_cache = {pack.name: attr.asdict(pack, value_serializer=serialize) for pack in updated_packages}
+    new_cache = {pack.name: attrs.asdict(pack, value_serializer=serialize) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
     path_pack_lock.write_text(pretty_json + '\n')
 

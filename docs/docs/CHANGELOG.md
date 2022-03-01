@@ -1,7 +1,34 @@
-## Unreleased
+## 0.14.3 (2022-03-01)
 
 ### Fix
 
+- suppress only known git blame errors
+- use Github tables to prevent multi-line rows in Code Tag Summary
+
+## 0.14.2 (2022-02-27)
+
+### Fix
+
+- don't allow multi-line tables
+
+## 0.14.1 (2022-02-27)
+
+### Fix
+
+- lower pandas constraint for better 3.7 support
+- drop generation of requirements.txt
+
+## 0.14.0 (2022-02-27)
+
+### Feat
+
+- use next-gen attrs syntax
+- improve code tag regex
+
+### Fix
+
+- correct type annotations
+- undo silent nox step
 - make coverage.json optional for task_doc
 
 ## 0.13.0 (2022-02-23)
