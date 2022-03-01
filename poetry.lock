@@ -1023,7 +1023,7 @@ requests = "*"
 
 [[package]]
 name = "hypothesis"
-version = "6.38.0"
+version = "6.39.0"
 description = "A library for property-based testing"
 category = "main"
 optional = true
@@ -1863,7 +1863,7 @@ histogram = ["pygal", "pygaljs"]
 
 [[package]]
 name = "pytest-cache-assert"
-version = "1.3.1"
+version = "1.3.2"
 description = "Cache assertion data to simplify regression testing of complex serializable data"
 category = "main"
 optional = true
@@ -2225,7 +2225,7 @@ python-versions = ">=2.6"
 
 [[package]]
 name = "testfixtures"
-version = "6.18.4"
+version = "6.18.5"
 description = "A collection of helpers and mock objects for unit tests and doc tests."
 category = "main"
 optional = true
@@ -2506,7 +2506,7 @@ test = ["coverage", "diff-cover", "hypothesis", "lxml", "mypy", "nox-poetry", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.6"
-content-hash = "4018b97c9a51ad7917a536e1820f90e0dc6ab36e3274625431caa4ebd7325fe5"
+content-hash = "66cfaea25df51b739faf162bcf241d5eed706008249c303206f65246ac66f9b6"
 
 [metadata.files]
 absolufy-imports = [
@@ -2923,8 +2923,8 @@ hug = [
     {file = "hug-2.6.1.tar.gz", hash = "sha256:b0edace2acb618873779c9ce6ecf9165db54fef95c22262f5700fcdd9febaec9"},
 ]
 hypothesis = [
-    {file = "hypothesis-6.38.0-py3-none-any.whl", hash = "sha256:3cc2ea360d0c3fc6395f6ab224fd80bc73b5a552bc2acb6561a984ff92c46693"},
-    {file = "hypothesis-6.38.0.tar.gz", hash = "sha256:c61152db9e0b6e14276ff5e799a1bbdc5d3f3c3174be09e1260787fa59d4a162"},
+    {file = "hypothesis-6.39.0-py3-none-any.whl", hash = "sha256:6ccd13519f77f6903217a5cec6c9a6e8f3566f804616574a15c2a17fc0dcd160"},
+    {file = "hypothesis-6.39.0.tar.gz", hash = "sha256:1744b82251ce89173e9d5b3627c59723ec0b5130df1c1710e19b8e6f5f42399b"},
 ]
 identify = [
     {file = "identify-2.4.11-py2.py3-none-any.whl", hash = "sha256:fd906823ed1db23c7a48f9b176a1d71cb8abede1e21ebe614bac7bdd688d9213"},
@@ -3573,8 +3573,8 @@ pytest-benchmark = [
     {file = "pytest_benchmark-3.4.1-py2.py3-none-any.whl", hash = "sha256:36d2b08c4882f6f997fd3126a3d6dfd70f3249cde178ed8bbc0b73db7c20f809"},
 ]
 pytest-cache-assert = [
-    {file = "pytest_cache_assert-1.3.1-py3-none-any.whl", hash = "sha256:a95b2ee43462d0c4997948f8c22c8a7d37517aa3d525a6169549298ab65394bf"},
-    {file = "pytest_cache_assert-1.3.1.tar.gz", hash = "sha256:3c6cf51d5218f3fd57dd5c06ad9e2a24f15d5f191b48312475dbaaf0f6ac4088"},
+    {file = "pytest_cache_assert-1.3.2-py3-none-any.whl", hash = "sha256:245f1123cdd9546cf40a66c6104bf7b2ac80d52a5fd1730a742ae46a41f4289e"},
+    {file = "pytest_cache_assert-1.3.2.tar.gz", hash = "sha256:9e75d9d89da7839ad19fb4c6327fad76e5fc0019b4e071bb8f7cffaef180e965"},
 ]
 pytest-html = [
     {file = "pytest-html-3.1.1.tar.gz", hash = "sha256:3ee1cf319c913d19fe53aeb0bc400e7b0bc2dbeb477553733db1dad12eb75ee3"},
@@ -3726,8 +3726,8 @@ terminaltables = [
     {file = "terminaltables-3.1.10.tar.gz", hash = "sha256:ba6eca5cb5ba02bba4c9f4f985af80c54ec3dccf94cfcd190154386255e47543"},
 ]
 testfixtures = [
-    {file = "testfixtures-6.18.4-py2.py3-none-any.whl", hash = "sha256:27cfa35006407ef31a4e8752873ca2232fd5761e29047a86c919e363e0e17196"},
-    {file = "testfixtures-6.18.4.tar.gz", hash = "sha256:878f617c411793f155c26b39330a095a1cc58844d88bcdc767a65c7fc2096b54"},
+    {file = "testfixtures-6.18.5-py2.py3-none-any.whl", hash = "sha256:7de200e24f50a4a5d6da7019fb1197aaf5abd475efb2ec2422fdcf2f2eb98c1d"},
+    {file = "testfixtures-6.18.5.tar.gz", hash = "sha256:02dae883f567f5b70fd3ad3c9eefb95912e78ac90be6c7444b5e2f46bf572c84"},
 ]
 tokenize-rt = [
     {file = "tokenize_rt-4.2.1-py2.py3-none-any.whl", hash = "sha256:08a27fa032a81cf45e8858d0ac706004fcd523e8463415ddf1442be38e204ea8"},
