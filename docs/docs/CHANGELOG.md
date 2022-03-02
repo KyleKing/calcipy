@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fix
+
+- set upper limit to fix flake8-bandit compat
+
 ## 0.14.3 (2022-03-01)
 
 ### Fix
