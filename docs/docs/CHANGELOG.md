@@ -1,3 +1,9 @@
+## Unreleased
+
+### Fix
+
+- **#91**: prevent minified files from appearing in Code Tag Summary
+
 ## 0.14.4 (2022-03-01)
 
 ### Fix
