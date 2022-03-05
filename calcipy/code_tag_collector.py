@@ -74,8 +74,11 @@ def _search_lines(
     for lineno, line in enumerate(lines):
         match = regex_compiled.search(line)
         if match:
-            group = match.groupdict()
-            comments.append(_CodeTag(lineno + 1, tag=group['tag'], text=group['text']))
+            if len(line) <= 400:  # FYI: Suppress long lines
+                group = match.groupdict()
+                comments.append(_CodeTag(lineno + 1, tag=group['tag'], text=group['text']))
+            else:
+                logger.debug('Skipping long line {lineno}: `{line}`', lineno=lineno, line=line[:200])
     return comments
 
 

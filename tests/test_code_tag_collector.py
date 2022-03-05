@@ -25,6 +25,7 @@ def test_search_lines(assert_against_cache, benchmark):
         'class Code: # TODO: Complete',  # noqa: T101
         '   //TODO: Not matched',  # noqa: T101
         '   ...  # Both FIXME: and FYI: in the same line, but only match the first',  # noqa: T100,T101
+        '# FIXME: ' + 'For a long line is ignored ...' * 14,  # noqa: T100,T101
     ]
     tag_order = ['FIXME', 'FYI', 'HACK', 'REVIEW']  # noqa: T100
     regex_compiled = re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))
