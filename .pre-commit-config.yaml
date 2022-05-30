@@ -43,24 +43,26 @@ repos:
       - id: commitizen
         additional_dependencies: [cz_legacy]
         stages: [commit-msg]
-  - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.13
-    hooks:
-      - id: mdformat
-        additional_dependencies:
-          - mdformat-beautysh
-          - mdformat-black
-          - mdformat-config
-          - mdformat-frontmatter
-          - mdformat-gfm
-          - mdformat-tables
-          - mdformat-toc
-          - mdformat-web
-        exclude: _.*\.md|CHANGELOG\.md
+  # PLANNED: Needs to support mkdocs: https://github.com/executablebooks/mdformat/issues/317
+  # - repo: https://github.com/executablebooks/mdformat
+  #   rev: 0.7.14
+  #   hooks:
+  #     - id: mdformat
+  #       additional_dependencies:
+  #         - mdformat-beautysh
+  #         - mdformat-black
+  #         - mdformat-config
+  #         - mdformat-frontmatter
+  #         - mdformat-gfm
+  #         - mdformat-tables
+  #         - mdformat-toc
+  #         - mdformat-web
+  #       exclude: _.*\.md|CHANGELOG\.md
   - repo: https://github.com/gaborbernat/pyproject-fmt
     rev: 0.2.0
     hooks:
       - id: pyproject-fmt
+      # PLANNED: newest version fails on positional argument errors: https://github.com/tox-dev/pyproject-fmt
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.8.0.4
     hooks:
