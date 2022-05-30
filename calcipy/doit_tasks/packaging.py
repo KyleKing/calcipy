@@ -64,6 +64,7 @@ def _publish_task(publish_args: str = '') -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Pyroma doesn't have the poetry requirement it needs...
     return debug_task([
         Interactive('poetry run nox --session build_dist build_check'),
         f'poetry publish {publish_args}',
