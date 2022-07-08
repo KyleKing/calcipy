@@ -166,7 +166,10 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     json_url = package.domain.format(name=package.name, version=package.version)
     res = requests.get(json_url, timeout=30)
     res.raise_for_status()
-    releases = res.json()['releases']
+    try:
+        releases = res.json()['releases']
+    except KeyError as exc:
+        raise RuntimeError(f'Failed to locate "releases" from {json_url} in: {res.json()}') from exc
     package.datetime = pendulum.parse(releases[package.version][0]['upload_time_iso_8601'])
 
     # Also retrieve the latest release date of the package looking through all releases
