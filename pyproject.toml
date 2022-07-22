@@ -99,12 +99,16 @@ sty = ">=1.0.4"          # Should be optional, but needed for Custom Summary
 tomli = ">=2.0.1"        # Should be optional, but needed for doit_globals
 transitions = ">=0.8.11" # Should be optional, but needed for doc tasks
 # Indirect imports necessary only to comply with check_imports
-pyyaml = "*"   # Should be optional, but needed for doit_globals
-requests = "*" # Should be optional, but needed for packaging tasks
+pyyaml = ">=5.2"      # Should be optional, but needed for doit_globals
+requests = ">=2.28.1" # Should be optional, but needed for packaging tasks
+
+# Indirect dependencies
+# Fixes "RuntimeError: Polyfit sanity test emitted a warning, most likely due to using a buggy Accelerate backend"
+numpy = { version = ">=1.23.1", markers = "python_version > '3.7'" }
 
 # Development
 better-exceptions = { version = ">=0.3.3", optional = true }
-commitizen = { version = ">=2.27.1", optional = true }                                                           # Prevent install of 1.X
+commitizen = { version = ">=2.28.0", optional = true }                                                           # Prevent install of 1.X
 mkdocs-git-revision-date-localized-plugin = { version = ">=1.0.1", optional = true }
 mkdocs-material = { version = ">=8.2.16", optional = true }
 livereload = { version = "*", optional = true }                                                                  # PLANNED: Temporary - a plugin expected livereload to be installed...

@@ -56,12 +56,15 @@ for dep_key in ['dependencies', 'dev-dependencies']:
             # For shorthand `package = "*"`
             old_ver = dependencies.get(name)
 
-        if old_ver and old_ver != '*':
+        if old_ver:
             match = RE_TOML_VER.match(old_ver)
-            if not match:
+            if match:
+                prefix = match.groupdict()['prefix']
+            elif old_ver == '*':
+                prefix = '>='
+            else:
                 raise RuntimeError(f'Could not parse `{old_ver}` with `{RE_TOML_VER}`')
-            prefix = match.groupdict()['prefix']
-            prefix = '>=' if prefix == '*' else prefix
+
             new_ver = f'{prefix}{version}'
             if old_ver != new_ver:
                 logger.info(f"Upgrading '{name}' from '{old_ver}' to '{new_ver}'")
