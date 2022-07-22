@@ -111,7 +111,6 @@ better-exceptions = { version = ">=0.3.3", optional = true }
 commitizen = { version = ">=2.28.0", optional = true }                                                           # Prevent install of 1.X
 mkdocs-git-revision-date-localized-plugin = { version = ">=1.0.1", optional = true }
 mkdocs-material = { version = ">=8.2.16", optional = true }
-livereload = { version = "*", optional = true }                                                                  # PLANNED: Temporary - a plugin expected livereload to be installed...
 pdbpp = { version = ">=0.10.3", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pdocs = { version = ">=1.1.1", optional = true }
 pyupgrade = { version = ">=2.32.1", optional = true }
@@ -195,7 +194,6 @@ cz_legacy = { version = ">=0.1.2", optional = true }
 dev = [
     "better-exceptions",
     "commitizen",
-    "livereload",
     "mkdocs-git-revision-date-localized-plugin",
     "mkdocs-material",
     "pdbpp",
