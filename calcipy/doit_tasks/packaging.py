@@ -166,20 +166,28 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     json_url = package.domain.format(name=package.name, version=package.version)
     res = requests.get(json_url, timeout=30)
     res.raise_for_status()
-    try:
-        releases = res.json()['releases']
-    except KeyError as exc:
-        raise RuntimeError(f'Failed to locate "releases" from {json_url} in: {res.json()}') from exc
-    package.datetime = pendulum.parse(releases[package.version][0]['upload_time_iso_8601'])
+    # Sometimes releases isn't available, like for https://pypi.org/pypi/astroid/2.12.2/json
+    res_json = res.json()
+    releases = res_json.get('releases')
+    urls = res_json.get('urls')
+    if releases:
+        package.datetime = pendulum.parse(releases[package.version][0]['upload_time_iso_8601'])
+    elif urls:
+        package.datetime = pendulum.parse(urls[0]['upload_time_iso_8601'])
+    if not (releases or urls):
+        raise RuntimeError(f'Failed to locate "releases" or "urls" from {json_url}: {res_json}')
 
-    # Also retrieve the latest release date of the package looking through all releases
-    release_dates = {
-        pendulum.parse(release_data[0]['upload_time_iso_8601']): version
-        for version, release_data in releases.items()
-        if release_data and release_data[0].get('upload_time_iso_8601')
-    }
-    package.latest_datetime = max([*release_dates.keys()])
-    package.latest_version = release_dates[package.latest_datetime]
+    if releases:
+        # Also retrieve the latest release date of the package looking through all releases
+        release_dates = {
+            pendulum.parse(release_data[0]['upload_time_iso_8601']): version
+            for version, release_data in releases.items()
+            if release_data and release_data[0].get('upload_time_iso_8601')
+        }
+        package.latest_datetime = max([*release_dates.keys()])
+        package.latest_version = release_dates[package.latest_datetime]
+    else:
+        logger.warning(f'Could not resolve `release_dates` without releases from: {json_url}')
 
     return package
 
