@@ -1,3 +1,12 @@
+"""
+
+Don't set a CAP for Python dependencies for packages and avoid for projects when possible
+> https://iscinumpy.dev/post/bound-version-constraints/#tldr
+This script is useful for raising the floor, which helps reduce the load on a dependency
+resolver by reducing the possible number of combinations to consider
+
+"""
+
 import re
 from pathlib import Path
 
@@ -33,6 +42,9 @@ skipped_packages = set(['python'] + [])  # << TODO: Merge with user list
 # Generate freeze file
 # Use list instead of freeze. See: https://stackoverflow.com/a/62886215/3219667
 pip_freeze = run_cmd(f'{py_path} -m pip list --format=freeze', cwd=str(cwd))
+
+# TODO: Consider using pip-pi instead!
+# https://pypi.org/project/pip-api/
 
 # Parse each line from freeze pip_freeze into dictionary: {name: version}
 freeze_dict = {}
@@ -76,3 +88,6 @@ for dep_key in ['dependencies', 'dev-dependencies']:
 
 # Write the update Pyproject.toml file
 path_toml.write_text(tomlkit.dumps(toml_config))
+
+
+# TODO: Consider reverting to carets? Really slow dependency resolution with pip and poetry if not...
