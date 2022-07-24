@@ -89,6 +89,7 @@ repos:
     hooks:
       - id: pretty-format-toml
         args: [--autofix]
+        exclude: poetry\.lock
   - repo: local
     hooks:
       - id: copier-forbidden-files
@@ -110,10 +111,10 @@ repos:
         entry: poetry run doit run format_py
         types: [python]
         stages: [push]
-      - id: toml-formatter
-        name: Optional TOML Auto-Formatter
-        description: Install taplo with 'npm install -g @taplo/cli'
-        language: system
-        entry: poetry run doit run format_toml
-        types: [toml]
-        exclude: poetry\.lock
+      # - id: toml-formatter
+      #   name: Optional TOML Auto-Formatter
+      #   description: Install taplo with 'npm install -g @taplo/cli'
+      #   language: system
+      #   entry: poetry run doit run format_toml
+      #   types: [toml]
+      #   exclude: poetry\.lock

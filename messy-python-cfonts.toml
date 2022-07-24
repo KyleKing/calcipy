@@ -3,17 +3,11 @@ requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
 
 [project]
-# PEP 621 project metadata
-# See https://www.python.org/dev/peps/pep-0621/
-authors = [
-    {name = "Frost Ming", email = "mianghong@gmail.com"},
-]
+authors = [{ name = "Frost Ming", email = "mianghong@gmail.com" }]
 dynamic = ["version"]
 requires-python = ">=3.6"
-license = {text = "MIT"}
-dependencies = [
-    "colorama",
-]
+license = { text = "MIT" }
+dependencies = ["colorama"]
 name = "python-cfonts"
 description = "Sexy fonts for the console"
 readme = "README.md"
@@ -21,27 +15,15 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy"
+    "Programming Language :: Python :: Implementation :: PyPy",
 ]
-
-[project.urls]
-homepage = "https://github.com/frostming/python-cfonts"
-Documentation = "https://python-cfonts.readthedocs.io/"
 
 [project.scripts]
 cfonts = "cfonts.cli:main"
 
-[tool.pdm]
-version = {from = "cfonts/__version__.py"}
-
-[tool.pdm.dev-dependencies]
-# TODO: black is included to test wrapping dictionaries with comments
-black = { version = ">=21", allow-prereleases = true } # FYI: https://github.com/psf/black/issues/517#issuecomment-857129921
-dev = [
-    "pytest",
-    "flake8",
-    "sphinx",
-]
+[project.urls]
+homepage = "https://github.com/frostming/python-cfonts"
+Documentation = "https://python-cfonts.readthedocs.io/"
 
 [tool.isort]
 profile = "black"
@@ -59,12 +41,16 @@ known_third_party = [
     "packaging",
     "pip_shims",
     "pytest",
-    "pythonfinder"
+    "pythonfinder",
 ]
 
+[tool.pdm]
+version = { from = "cfonts/__version__.py" }
+
+[tool.pdm.dev-dependencies]
+black = { version = ">=21", allow-prereleases = true } # FYI: https://github.com/psf/black/issues/517#issuecomment-857129921
+dev = ["pytest", "flake8", "sphinx"]
 
 [zzz]
-# TODO: And below is for testing long strings
 long_string = "coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage coverage"
-
 after_line_break = "Does this get merged?"
