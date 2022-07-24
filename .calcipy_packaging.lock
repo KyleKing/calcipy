@@ -720,12 +720,12 @@
         "version": "2.6.1"
     },
     "hypothesis": {
-        "datetime": "2022-07-19T08:26:59.207457Z",
+        "datetime": "2022-07-22T21:57:06.022533Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
         "latest_datetime": null,
         "latest_version": "",
         "name": "hypothesis",
-        "version": "6.52.3"
+        "version": "6.52.4"
     },
     "identify": {
         "datetime": "2022-07-20T03:36:51.757067Z",
@@ -814,14 +814,6 @@
         "latest_version": "2022.0.1",
         "name": "licensecheck",
         "version": "2022"
-    },
-    "livereload": {
-        "datetime": "2020-08-22T15:31:53.202849Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2020-08-22T15:31:53.202849Z",
-        "latest_version": "2.6.3",
-        "name": "livereload",
-        "version": "2.6.3"
     },
     "loguru": {
         "datetime": "2022-01-29T13:47:29.921115Z",
@@ -1000,12 +992,12 @@
         "version": "1.0.1"
     },
     "numpy": {
-        "datetime": "2021-07-18T19:37:41.147001Z",
+        "datetime": "2022-07-09T01:07:24.593590Z",
         "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": "2022-02-04T00:30:48.962221Z",
-        "latest_version": "1.22.2",
+        "latest_datetime": null,
+        "latest_version": "",
         "name": "numpy",
-        "version": "1.21.1"
+        "version": "1.23.1"
     },
     "packaging": {
         "datetime": "2021-11-18T00:39:10.932370Z",
@@ -1558,14 +1550,6 @@
         "latest_version": "",
         "name": "tomlkit",
         "version": "0.11.1"
-    },
-    "tornado": {
-        "datetime": "2022-07-03T22:39:25.947613Z",
-        "domain": "https://pypi.org/pypi/{name}/{version}/json",
-        "latest_datetime": null,
-        "latest_version": "",
-        "name": "tornado",
-        "version": "6.2"
     },
     "transitions": {
         "datetime": "2022-02-24T09:28:15.477234Z",

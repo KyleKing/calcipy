@@ -131,7 +131,8 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
 class _HostedPythonPackage():  # noqa: H601
     """Representative information for a python package hosted on some domain."""
 
-    domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/{version}/json')
+    # Note: "releases" was removed from the versioned URL: https://warehouse.pypa.io/api-reference/json.html#release
+    domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/json')
     name: str = field(validator=type_validator())
     version: str = field(validator=type_validator())
     datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
@@ -163,32 +164,22 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
 
     """
     # Retrieve the JSON summary for the specified package
-    json_url = package.domain.format(name=package.name, version=package.version)
+    json_url = package.domain.format(name=package.name)
     res = requests.get(json_url, timeout=30)
     res.raise_for_status()
-    # Sometimes releases isn't available, like for https://pypi.org/pypi/astroid/2.12.2/json
     res_json = res.json()
-    releases = res_json.get('releases')
-    urls = res_json.get('urls')
-    if releases:
-        package.datetime = pendulum.parse(releases[package.version][0]['upload_time_iso_8601'])
-    elif urls:
-        package.datetime = pendulum.parse(urls[0]['upload_time_iso_8601'])
-    if not (releases or urls):
+    releases = res_json['releases']
+    if not releases:
         raise RuntimeError(f'Failed to locate "releases" or "urls" from {json_url}: {res_json}')
 
-    if releases:
-        # Also retrieve the latest release date of the package looking through all releases
-        release_dates = {
-            pendulum.parse(release_data[0]['upload_time_iso_8601']): version
-            for version, release_data in releases.items()
-            if release_data and release_data[0].get('upload_time_iso_8601')
-        }
-        package.latest_datetime = max([*release_dates.keys()])
-        package.latest_version = release_dates[package.latest_datetime]
-    else:
-        logger.warning(f'Could not resolve `release_dates` without releases from: {json_url}')
-
+    # Also retrieve the latest release date of the package looking through all releases
+    release_dates = {
+        pendulum.parse(release_data[0]['upload_time_iso_8601']): version
+        for version, release_data in releases.items()
+        if release_data and release_data[0].get('upload_time_iso_8601')
+    }
+    package.latest_datetime = max([*release_dates.keys()])
+    package.latest_version = release_dates[package.latest_datetime]
     return package
 
 
