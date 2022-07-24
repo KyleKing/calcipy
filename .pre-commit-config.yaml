@@ -84,12 +84,6 @@ repos:
         exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml
         types_or: []
         types: [file, yaml]
-  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-    rev: v2.4.0
-    hooks:
-      - id: pretty-format-toml
-        args: [--autofix]
-        exclude: poetry\.lock
   - repo: local
     hooks:
       - id: copier-forbidden-files
@@ -111,10 +105,10 @@ repos:
         entry: poetry run doit run format_py
         types: [python]
         stages: [push]
-      # - id: toml-formatter
-      #   name: Optional TOML Auto-Formatter
-      #   description: Install taplo with 'npm install -g @taplo/cli'
-      #   language: system
-      #   entry: poetry run doit run format_toml
-      #   types: [toml]
-      #   exclude: poetry\.lock
+      - id: toml-formatter
+        name: Optional TOML Auto-Formatter
+        description: Install taplo with 'npm install -g @taplo/cli'
+        language: system
+        entry: poetry run doit run format_toml
+        types: [toml]
+        exclude: poetry\.lock
