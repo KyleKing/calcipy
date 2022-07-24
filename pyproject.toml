@@ -78,7 +78,7 @@ calcipy = "calcipy:run"
 "Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
 
 [tool.poetry.dependencies]
-python = "^3.7.6"
+python = "^3.8.4"
 attrs = ">=21.4.0"
 attrs_strict = ">=1.0.0"
 beartype = ">=0.10.4"    # dyce has nice no-op decorator for beartype, but shouldn't be optional
