@@ -1,6 +1,6 @@
 ---
 # Based on: https://www.oddbird.net/2022/06/01/dependabot-single-pull-request/
-name: Upgrade dependencies
+name: Upgrade Dependencies
 
 on:
   workflow_dispatch:
@@ -9,7 +9,6 @@ on:
     - cron: 0 8 * * 1
 
 env:
-  PYTHON_VERSION: '3.10'
   POETRY_VIRTUALENVS_IN_PROJECT: true
   POETRY_NO_INTERACTION: 1
   POETRY_NO_ANSI: 1
@@ -28,7 +27,7 @@ jobs:
         run: pipx install poetry
       - uses: actions/setup-python@v4
         with:
-          python-version: $PYTHON_VERSION
+          python-version: '3.10'
           cache: poetry
       - name: Upgrade Python dependencies
         run: poetry update
