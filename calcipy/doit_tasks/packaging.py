@@ -12,6 +12,7 @@ from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional
+from bidict import bidict
 from doit.tools import Interactive
 from loguru import logger
 from pendulum import DateTime
@@ -173,12 +174,13 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
         raise RuntimeError(f'Failed to locate "releases" or "urls" from {json_url}: {res_json}')
 
     # Also retrieve the latest release date of the package looking through all releases
-    release_dates = {
+    release_dates = bidict({
         pendulum.parse(release_data[0]['upload_time_iso_8601']): version
         for version, release_data in releases.items()
         if release_data and release_data[0].get('upload_time_iso_8601')
-    }
-    package.latest_datetime = max([*release_dates.keys()])
+    })
+    package.datetime = release_dates.inverse[package.version]
+    package.latest_datetime = max([*release_dates])
     package.latest_version = release_dates[package.latest_datetime]
     return package
 
@@ -272,7 +274,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
 
     lock = tomli.loads(path_lock.read_text(errors='ignore'))
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
-    # > domain=dependency['source']['url'] + '{name}/{version}/json'
+    # > domain=dependency['source']['url'] + '{name}/json'
     return [
         _HostedPythonPackage(
             name=dependency['name'], version=dependency['version'],

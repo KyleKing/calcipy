@@ -180,6 +180,14 @@ python-versions = "*"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
 
 [[package]]
+name = "bidict"
+version = "0.22.0"
+description = "The bidirectional mapping library for Python."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "black"
 version = "22.6.0"
 description = "The uncompromising code formatter."
@@ -2469,7 +2477,7 @@ test = ["coverage", "diff-cover", "hypothesis", "lxml", "mypy", "nox-poetry", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "ec37405e73dce1adb9bb563e609debc567cb383f25bdf2258b8e78ba868c5d02"
+content-hash = "95d30f2817ed11401281fde67b025cfa18440d661f68f961686a2ac92221dbcd"
 
 [metadata.files]
 absolufy-imports = [
@@ -2530,6 +2538,10 @@ better-exceptions = [
     {file = "better_exceptions-0.3.3-py3-none-any.whl", hash = "sha256:9c70b1c61d5a179b84cd2c9d62c3324b667d74286207343645ed4306fdaad976"},
     {file = "better_exceptions-0.3.3-py3.8.egg", hash = "sha256:bf111d0c9994ac1123f29c24907362bed2320a86809c85f0d858396000667ce2"},
     {file = "better_exceptions-0.3.3.tar.gz", hash = "sha256:e4e6bc18444d5f04e6e894b10381e5e921d3d544240418162c7db57e9eb3453b"},
+]
+bidict = [
+    {file = "bidict-0.22.0-py3-none-any.whl", hash = "sha256:415126d23a0c81e1a8c584a8fb1f6905ea090c772571803aeee0a2242e8e7ba0"},
+    {file = "bidict-0.22.0.tar.gz", hash = "sha256:5c826b3e15e97cc6e615de295756847c282a79b79c5430d3bfc909b1ac9f5bd8"},
 ]
 black = [
     {file = "black-22.6.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:f586c26118bc6e714ec58c09df0157fe2d9ee195c764f630eb0d8e7ccce72e69"},
