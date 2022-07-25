@@ -12,7 +12,7 @@ ignore_patterns = [
 ]
 
 [tool.calcipy.test]
-pythons = ["3.7", "3.9"]
+pythons = ["3.8", "3.9"]
 
 [tool.commitizen]
 name = "cz_legacy"
