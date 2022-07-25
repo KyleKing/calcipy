@@ -12,6 +12,7 @@ from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional
+from bidict import bidict
 from doit.tools import Interactive
 from loguru import logger
 from pendulum import DateTime
@@ -64,6 +65,7 @@ def _publish_task(publish_args: str = '') -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Pyroma doesn't have the poetry requirement it needs...
     return debug_task([
         Interactive('poetry run nox --session build_dist build_check'),
         f'poetry publish {publish_args}',
@@ -130,7 +132,8 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
 class _HostedPythonPackage():  # noqa: H601
     """Representative information for a python package hosted on some domain."""
 
-    domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/{version}/json')
+    # Note: "releases" was removed from the versioned URL: https://warehouse.pypa.io/api-reference/json.html#release
+    domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/json')
     name: str = field(validator=type_validator())
     version: str = field(validator=type_validator())
     datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
@@ -162,21 +165,25 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
 
     """
     # Retrieve the JSON summary for the specified package
-    json_url = package.domain.format(name=package.name, version=package.version)
+    json_url = package.domain.format(name=package.name)
     res = requests.get(json_url, timeout=30)
     res.raise_for_status()
-    releases = res.json()['releases']
-    package.datetime = pendulum.parse(releases[package.version][0]['upload_time_iso_8601'])
+    res_json = res.json()
+    releases = res_json['releases']
+    if not releases:
+        raise RuntimeError(f'Failed to locate "releases" or "urls" from {json_url}: {res_json}')
 
     # Also retrieve the latest release date of the package looking through all releases
-    release_dates = {
+    release_dates = bidict({
         pendulum.parse(release_data[0]['upload_time_iso_8601']): version
         for version, release_data in releases.items()
-        if release_data and release_data[0].get('upload_time_iso_8601')
-    }
-    package.latest_datetime = max([*release_dates.keys()])
+        if release_data
+    })
+    package.datetime = release_dates.inverse[package.version]
+    if package.datetime is None:  # FYI: Explore alternatives to ensure datetime is set
+        logger.error(f'No datetime for {package} from: {res_json}')
+    package.latest_datetime = max([*release_dates])
     package.latest_version = release_dates[package.latest_datetime]
-
     return package
 
 
@@ -269,7 +276,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
 
     lock = tomli.loads(path_lock.read_text(errors='ignore'))
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
-    # > domain=dependency['source']['url'] + '{name}/{version}/json'
+    # > domain=dependency['source']['url'] + '{name}/json'
     return [
         _HostedPythonPackage(
             name=dependency['name'], version=dependency['version'],

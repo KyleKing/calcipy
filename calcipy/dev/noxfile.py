@@ -32,6 +32,7 @@ with open(path_stdout, 'w') as out:
 
 """
 
+import json
 import re
 import shlex
 from contextlib import suppress
@@ -203,9 +204,10 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         path_sdist = Path(url2pathname(urlparse(sdist_uri).path))
         logger.debug(f'Fixed sdist URI ({sdist_uri}): {path_sdist}')
         # Check with pyroma
-        session.install('pyroma', '--upgrade')
-        # PLANNED: Troubleshoot why pyroma score is so low (6/10)
-        session.run('pyroma', '--file', path_sdist.as_posix(), '--min=6', stdout=True)
+        session.install('pyroma>=4.0', '--upgrade')
+        # FYI: Using poetry beta because of conflict with package==20.1.3 and poetry>=1.1.12 at the time
+        session.install('poetry>=1.2.0b3')  # required for "poetry.core.masonry.api" build backend
+        session.run('pyroma', '--file', path_sdist.as_posix(), '--min=9', stdout=True)
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
     def check_safety(session: Session) -> None:
@@ -220,12 +222,14 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             RuntimeError: if safety exited with errors, but not caught by session
 
         """
-        session.install('safety', '--upgrade')
+        session.install('safety>=2.1.1', '--upgrade')
+        path_requirements = session.poetry.export_requirements().resolve()
         path_report = Path('insecure_report.json').resolve()
         logger.info(f'Creating safety report: {path_report}')
-        session.run(*shlex.split(f'safety check --full-report --cache --output {path_report} --json'), stdout=True)
-        if path_report.read_text().strip() != '[]':
-            raise RuntimeError(f'Found safety warnings in {path_report}')
+        session.run(*shlex.split(f'safety check --file {path_requirements} --save-json {path_report}'), stdout=True)
+        report_data = json.loads(path_report.read_text())
+        if report_data['vulnerabilities']:
+            raise RuntimeError(f'Found safety warnings in {path_report}: {report_data}')
         path_report.unlink()
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
@@ -236,7 +240,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        session.install('semgrep', '--upgrade')  # Runs "safety" and other tools
+        session.install('semgrep>=0.106.0', '--upgrade')  # Runs "safety" and other tools
         allow_py_rules = '--dangerously-allow-arbitrary-code-execution-from-rules'
         # TODO: Implement semgrep - what are a good ruleset to start with? Currently only a nox-session (no doit task)
         #   https://github.com/returntocorp/semgrep-rules/tree/develop/python

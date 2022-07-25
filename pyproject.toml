@@ -12,7 +12,7 @@ ignore_patterns = [
 ]
 
 [tool.calcipy.test]
-pythons = ["3.7", "3.9"]
+pythons = ["3.8", "3.9"]
 
 [tool.commitizen]
 name = "cz_legacy"
@@ -26,7 +26,7 @@ change_type_order = [
     "Change (Old)",
     "Fix (Old)",
 ]
-version = "0.14.4"
+version = "0.15.0rc0"
 version_files = ["pyproject.toml", "calcipy/__init__.py"]
 
 [tool.commitizen.cz_legacy_map]
@@ -46,7 +46,7 @@ multi_line_output = 5
 
 [tool.poetry]
 name = "calcipy"
-version = "0.14.4"
+version = "0.15.0rc0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
@@ -65,6 +65,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
 ] # https://pypi.org/classifiers/
@@ -77,113 +78,115 @@ calcipy = "calcipy:run"
 "Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
 
 [tool.poetry.dependencies]
-python = "^3.7.6"
-attrs = ">=21"
+python = "^3.8.4"
+attrs = ">=21.4.0"
 attrs_strict = ">=1.0.0"
-beartype = ">=0.10.2"    # dyce has nice no-op decorator for beartype, but shouldn't be optional
+beartype = ">=0.10.4"    # dyce has nice no-op decorator for beartype, but shouldn't be optional
+bidict = ">=0.22.0"
 cement = ">=3.0.6"
-decorator = ">=5"
-loguru = ">=0.5"
-pandas = ">=1.0.0"       # Lowered to support Python 3.7
-pendulum = ">=2.1.0"
+decorator = ">=5.1.1"
+loguru = ">=0.6.0"
+pandas = ">=1.3.5"
+pendulum = ">=2.1.2"
 punq = ">=0.6.2"
-python-box = ">=5.4"
-returns = ">=0.18.0"
-tabulate = ">=0.8"       # Required for pandas.to_markdown
+python-box = ">=6.0.2"
+tabulate = ">=0.8.10"    # Required for pandas.to_markdown
 
 # TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
-doit = ">=0.33"          # Should be optional, but needed for doit_tasks
-pre-commit = ">=2.15"    # Should be optional, but needed for doit_globals
+doit = ">=0.34.2"        # Should be optional, but needed for doit_tasks
+pre-commit = ">=2.20.0"  # Should be optional, but needed for doit_globals
 pyrate_limiter = ">=2.4" # Should be optional, but needed for packaging task
 sty = ">=1.0.4"          # Should be optional, but needed for Custom Summary
-tomli = ">=2.0.0"        # Should be optional, but needed for doit_globals
-transitions = ">=0.8"    # Should be optional, but needed for doc tasks
+tomli = ">=2.0.1"        # Should be optional, but needed for doit_globals
+transitions = ">=0.8.11" # Should be optional, but needed for doc tasks
 # Indirect imports necessary only to comply with check_imports
-pyyaml = "*"   # Should be optional, but needed for doit_globals
-requests = "*" # Should be optional, but needed for packaging tasks
+pyyaml = ">=5.2"      # Should be optional, but needed for doit_globals
+requests = ">=2.28.1" # Should be optional, but needed for packaging tasks
+
+# Indirect dependencies
+# FYI: Fixes "RuntimeError: Polyfit sanity test emitted a warning, most likely due to using a buggy Accelerate backend"
+numpy = { version = ">=1.23.1", markers = "python_version > '3.7'" }
 
 # Development
-better-exceptions = { version = ">=0.3", optional = true }
-commitizen = { version = ">=2", optional = true }                                                              # Prevent install of 1.X
-mkdocs-git-revision-date-localized-plugin = { version = ">=1.0", optional = true }
-mkdocs-material = { version = ">=7.1", optional = true }
-livereload = { version = "*", optional = true }                                                                # PLANNED: Temporary - a plugin expected livereload to be installed...
-pdbpp = { version = ">=0.10", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
-pdocs = { version = ">=1.1", optional = true }
-pyupgrade = { version = ">=2.19.1", optional = true }
+better-exceptions = { version = ">=0.3.3", optional = true }
+commitizen = { version = ">=2.28.0", optional = true }                                                           # Prevent install of 1.X
+mkdocs-git-revision-date-localized-plugin = { version = ">=1.0.1", optional = true }
+mkdocs-material = { version = ">=8.2.16", optional = true }
+pdbpp = { version = ">=0.10.3", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
+pdocs = { version = ">=1.1.1", optional = true }
+pyupgrade = { version = ">=2.32.1", optional = true }
 
 # Lint
 absolufy-imports = { version = ">=0.3.1", optional = true }
-add-trailing-comma = { version = ">=2.1.0", optional = true }
+add-trailing-comma = { version = ">=2.2.3", optional = true }
 autoflake = { version = ">=1.4", optional = true }
-autopep8 = { version = ">=1.5", optional = true }
-cohesion = { version = ">=1", optional = true }
-darglint = { version = ">=1.8", optional = true }
-dlint = { version = ">=0.11", optional = true }
+autopep8 = { version = ">=1.5.5", optional = true }
+cohesion = { version = ">=1.0.0", optional = true }
+darglint = { version = ">=1.8.1", optional = true }
+dlint = { version = ">=0.12.0", optional = true }
 flake8 = { version = ">=3.8.4", optional = true }
-flake8-2020 = { version = ">=1.6", optional = true }
-flake8-aaa = { version = ">=0.12", optional = true }
-flake8-annotations = { version = ">=2.6", optional = true }
-flake8-assertive = { version = ">=1.3", optional = true }
-bandit = { version = "<=1.7.2", optional = true }                                       # https://github.com/tylerwince/flake8-bandit/issues/21
-flake8-bandit = { version = ">=2.1", optional = true }
-flake8-blind-except = { version = ">=0.2", optional = true }
-flake8-breakpoint = { version = ">=1.1", optional = true }
-flake8-broken-line = { version = ">=0.3", optional = true }
-flake8-bugbear = { version = ">=22.1.11", optional = true }
-flake8-builtins = { version = ">=1.5", optional = true }
-flake8-cognitive-complexity = { version = ">=0.1", optional = true }
-flake8-comprehensions = { version = ">=3.5", optional = true }
-flake8-debugger = { version = ">=4.0", optional = true }
-flake8-docstrings = { version = ">=1.6", optional = true }
-flake8-eradicate = { version = ">=1.0", optional = true }
-flake8-expression-complexity = { version = ">=0.0.9", optional = true }
-flake8-fixme = { version = ">=1.1", optional = true }
-flake8-functions = { version = ">=0.0.6", optional = true }                             # See: https://github.com/best-doctor/flake8-functions/issues/7
-flake8-isort = { version = ">=4.0", optional = true }
-flake8-logging-format = { version = ">=0.6", optional = true }
-flake8-markdown = { version = ">=0.2", optional = true }
-flake8-pep3101 = { version = ">=1.3", optional = true }
-flake8-plone-hasattr = { version = ">=0.2", optional = true, allow-prereleases = true }
-flake8-print = { version = ">=4.0", optional = true }
-flake8-printf-formatting = { version = ">=1.1", optional = true }
-flake8-pytest-style = { version = ">=1.4", optional = true }
-flake8-quotes = { version = ">=3.2", optional = true }
-flake8-return = { version = ">=1.1", optional = true }
-flake8-SQL = { version = ">=0.4", optional = true }
-flake8-string-format = { version = ">=0.3", optional = true }
-flake8-tuple = { version = ">=0.4", optional = true }
-flake8-variables-names = { version = ">=0.0.4", optional = true }
-hacking = { version = ">=4", optional = true }                                          # Version set to prevent oscillation back to 3
-isort = { version = ">=5", optional = true }                                            # Use latest isort
-licensecheck = { extras = ["full"], version = "^2022", optional = true }
-pandas-vet = { version = ">=0.2", optional = true }
-pep8-naming = { version = ">=0.11", optional = true }
+flake8-2020 = { version = ">=1.6.1", optional = true }
+flake8-aaa = { version = ">=0.12.2", optional = true }
+flake8-annotations = { version = ">=2.9.0", optional = true }
+flake8-assertive = { version = ">=2.1.0", optional = true }
+flake8-bandit = { version = ">=3.0.0", optional = true }
+flake8-blind-except = { version = ">=0.2.1", optional = true }
+flake8-breakpoint = { version = ">=1.1.0", optional = true }
+flake8-broken-line = { version = ">=0.4.0", optional = true }
+flake8-bugbear = { version = ">=22.4.25", optional = true }
+flake8-builtins = { version = ">=1.5.3", optional = true }
+flake8-cognitive-complexity = { version = ">=0.1.0", optional = true }
+flake8-comprehensions = { version = ">=3.10.0", optional = true }
+flake8-debugger = { version = ">=4.1.2", optional = true }
+flake8-docstrings = { version = ">=1.6.0", optional = true }
+flake8-eradicate = { version = ">=1.2.1", optional = true }
+flake8-expression-complexity = { version = ">=0.0.11", optional = true }
+flake8-fixme = { version = ">=1.1.1", optional = true }
+flake8-functions = { version = ">=0.0.7", optional = true }
+flake8-isort = { version = ">=4.1.1", optional = true }
+flake8-logging-format = { version = ">=0.6.0", optional = true }
+flake8-markdown = { version = ">=0.3.0", optional = true }
+flake8-pep3101 = { version = ">=1.3.0", optional = true }
+flake8-plone-hasattr = { version = ">=0.2.post0", optional = true, allow-prereleases = true }
+flake8-print = { version = ">=5.0.0", optional = true }
+flake8-printf-formatting = { version = ">=1.1.2", optional = true }
+flake8-pytest-style = { version = ">=1.6.0", optional = true }
+flake8-quotes = { version = ">=3.3.1", optional = true }
+flake8-return = { version = ">=1.1.3", optional = true }
+flake8-SQL = { version = ">=0.4.1", optional = true }
+flake8-string-format = { version = ">=0.3.0", optional = true }
+flake8-tuple = { version = ">=0.4.1", optional = true }
+flake8-variables-names = { version = ">=0.0.5", optional = true }
+hacking = { version = ">=4.1.0", optional = true }                                            # Version set to prevent oscillation back to 3
+isort = { version = ">=5.10.1", optional = true }
+licensecheck = { extras = ["full"], version = ">=2022", optional = true }
+pandas-vet = { version = ">=0.2.3", optional = true }
+pep8-naming = { version = ">=0.11.1", optional = true }
 pip-check = { version = ">=2.7", optional = true }
-proselint = { version = ">=0.10", optional = true }
-pycln = { version = ">=1.2.0", optional = true }
-pylint = { version = ">=2.8", optional = true }
-vulture = { version = ">=2.3", optional = true }
-xenon = { version = ">=0.8", optional = true }
-yamllint = { version = ">=1.26", optional = true }
+proselint = { version = ">=0.13.0", optional = true }
+pycln = { version = ">=1.3.3", optional = true }
+pylint = { version = ">=2.13.9", optional = true }
+vulture = { version = ">=2.4", optional = true }
+xenon = { version = ">=0.9.0", optional = true }
+yamllint = { version = ">=1.26.3", optional = true }
 
 # Test
-coverage = { version = ">=6", optional = true }
-diff-cover = { version = ">=6.4", optional = true }
+coverage = { version = ">=6.4", optional = true }
+diff-cover = { version = ">=6.5.0", optional = true }
 hypothesis = { extras = [
     "cli",
-], version = ">=6.38.0", optional = true } # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
-lxml = { version = ">=4.7.1", optional = true } # required for the HTML mypy report format
-mypy = { version = ">=0.812", optional = true }
-nox-poetry = { version = ">=0.8", optional = true }
-pytest = { version = ">=6", optional = true }
+], version = ">=6.46.9", optional = true } # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
+lxml = { version = ">=4.8.0", optional = true } # required for the HTML mypy report format
+mypy = { version = ">=0.960", optional = true }
+nox-poetry = { version = ">=1.0.0", optional = true }
+pytest = { version = ">=7.1.2", optional = true }
 pytest-benchmark = { version = ">=3.4.1", optional = true }
-pytest-cache-assert = { version = ">=1.3.2", optional = true }
-pytest-html = { version = ">=3.1", optional = true }
-pytest-randomly = { version = ">=3.8", optional = true }
-pytest-recording = { version = ">=0.11", optional = true }
+pytest-cache-assert = { version = ">=2.0.0", optional = true }
+pytest-html = { version = ">=3.1.1", optional = true }
+pytest-randomly = { version = ">=3.12.0", optional = true }
+pytest-recording = { version = ">=0.12.0", optional = true }
 pytest-subprocess = { version = ">=1.4.1", optional = true }
-pytest-watcher = { version = ">=0.2", optional = true } # https://github.com/joeyespo/pytest-watch/issues/121
+pytest-watcher = { version = ">=0.2.3", optional = true }
 
 # commitizen_legacy
 cz_legacy = { version = ">=0.1.2", optional = true }
@@ -192,7 +195,6 @@ cz_legacy = { version = ">=0.1.2", optional = true }
 dev = [
     "better-exceptions",
     "commitizen",
-    "livereload",
     "mkdocs-git-revision-date-localized-plugin",
     "mkdocs-material",
     "pdbpp",
@@ -213,7 +215,6 @@ lint = [
     "flake8-aaa",
     "flake8-annotations",
     "flake8-assertive",
-    "bandit",
     "flake8-bandit",
     "flake8-blind-except",
     "flake8-breakpoint",
@@ -274,4 +275,4 @@ test = [
 commitizen_legacy = ["cz_legacy"]
 
 [tool.poetry.dev-dependencies]
-matplotlib = "^3.5.1"
+matplotlib = "^3.5.2"

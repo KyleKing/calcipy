@@ -65,7 +65,7 @@ def test_read_packages():
 def test_get_release_date():
     """Test _get_release_date."""
     package = _HostedPythonPackage(
-        domain='https://test.pypi.org/pypi/{name}/{version}/json',
+        domain='https://test.pypi.org/pypi/{name}/json',
         name='twine', version='1.11.0rc1',
     )
 

@@ -190,7 +190,7 @@ coverage.json
 /docs/modules/*.md
 /docs/modules/**/*.md
 
-# Allow List
+# Allow List, but note that .DS_Store may appear on Macs
 !/docs/*.*
 !supporting/**
 !tests/data/**

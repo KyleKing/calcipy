@@ -1,3 +1,27 @@
+## Unreleased
+
+### Feat
+
+- init update workflow and toml sorter
+- create script to bump toml minimum requirements
+
+### Fix
+
+- properly handle missing datetime
+- try to use separate sqlite files for pre-commit and doit
+- correct safety arguments
+- use the unversioned API for releases
+- try to handle pypi response when no "releases"
+- handle prefix of "*"
+- improve error message when "releases" not present
+- use sqlite3 for pre-commit concurrent doit access
+
+## 0.14.5 (2022-03-05)
+
+### Fix
+
+- **#91**: prevent minified files from appearing in Code Tag Summary
+
 ## 0.14.4 (2022-03-01)
 
 ### Fix
