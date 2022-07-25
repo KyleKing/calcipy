@@ -19,7 +19,7 @@ from calcipy.proc_helpers import run_cmd
 RE_FREEZE = re.compile(r'^(?P<name>[^=]+)==(?P<version>\d+\..+)$')
 RE_TOML_VER = re.compile(r'^(?P<prefix>[^\d+]+)\d+.*$')
 
-# TODO: Function arguments - see example from code_tag_collector
+# TODO: Convert to function arguments - see example from code_tag_collector
 cwd = Path(__file__).parent
 py_path = 'poetry run python'  # Or path to .venv python, etc.
 path_toml = cwd / 'pyproject.toml'
@@ -88,6 +88,3 @@ for dep_key in ['dependencies', 'dev-dependencies']:
 
 # Write the update Pyproject.toml file
 path_toml.write_text(tomlkit.dumps(toml_config))
-
-
-# TODO: Consider reverting to carets? Really slow dependency resolution with pip and poetry if not...

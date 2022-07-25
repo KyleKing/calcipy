@@ -88,7 +88,7 @@ TASKS_LOCAL = [
 
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
-    'backend': 'sqlite3',  # Allow concurrent access from pre-commit
+    'backend': 'sqlite3',  # Best support for concurrency
     'default_tasks': TASKS_CI if getuser().lower() == 'appveyor' else TASKS_LOCAL,
     'dep_file': '.doit-db.sqlite',
     'reporter': SummaryReporter,

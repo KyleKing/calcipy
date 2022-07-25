@@ -229,7 +229,6 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         report_data = json.loads(path_report.read_text())
         if report_data['vulnerabilities']:
             raise RuntimeError(f'Found safety warnings in {path_report}: {report_data}')
-        path_requirements.unlink()
         path_report.unlink()
 
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
