@@ -7,6 +7,7 @@
 
 ### Fix
 
+- properly handle missing datetime
 - try to use separate sqlite files for pre-commit and doit
 - correct safety arguments
 - use the unversioned API for releases
