@@ -177,9 +177,11 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     release_dates = bidict({
         pendulum.parse(release_data[0]['upload_time_iso_8601']): version
         for version, release_data in releases.items()
-        if release_data and release_data[0].get('upload_time_iso_8601')
+        if release_data
     })
     package.datetime = release_dates.inverse[package.version]
+    if package.datetime is None:  # FYI: Explore alternatives to ensure datetime is set
+        logger.error(f'No datetime for {package} from: {res_json}')
     package.latest_datetime = max([*release_dates])
     package.latest_version = release_dates[package.latest_datetime]
     return package
