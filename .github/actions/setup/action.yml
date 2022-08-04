@@ -20,6 +20,7 @@ runs:
   steps:
     - name: Install Poetry ${{ inputs.poetry-version }}
       run: pipx install poetry==${{ inputs.poetry-version }}
+      shell: bash
     - name: Setup Python ${{ inputs.python-version }}
       uses: actions/setup-python@v4
       with:
