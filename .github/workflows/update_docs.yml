@@ -29,7 +29,9 @@ jobs:
 
         # https://github.com/mkdocs/mkdocs/discussions/2369#discussioncomment-625475
         # yamllint disable-line rule:line-length
-      - run: git config user.name 'github-actions[bot]' && git config user.email 'github-actions[bot]@users.noreply.github.com'
-
+      - name: Configure git user
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Build and deploy documentation
         run: poetry run doit run cl_write document deploy_docs
