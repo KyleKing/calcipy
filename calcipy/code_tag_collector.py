@@ -35,7 +35,7 @@ Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 
 
 @frozen
-class _CodeTag:  # noqa: H601
+class _CodeTag:
     """Code Tag (FIXME,TODO,etc) with contextual information."""  # noqa: T100,T101
 
     lineno: int = field(validator=type_validator())
@@ -44,7 +44,7 @@ class _CodeTag:  # noqa: H601
 
 
 @frozen
-class _Tags:  # noqa: H601
+class _Tags:
     """Collection of code tags with additional contextual information."""
 
     path_source: Path = field(validator=type_validator())

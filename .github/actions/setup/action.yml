@@ -7,34 +7,31 @@ inputs:
     required: true
   poetry-version:
     required: true
-    default: 1.1.13
+    default: 1.1.14
   python-version:
     required: true
 
 env:
   POETRY_VIRTUALENVS_IN_PROJECT: true
   POETRY_NO_INTERACTION: 1
-  POETRY_NO_ANSI: 1
 
 runs:
   using: composite
   steps:
+    - name: Install Poetry ${{ inputs.poetry-version }}
+      run: pipx install poetry==${{ inputs.poetry-version }}
+      shell: bash
     - name: Setup Python ${{ inputs.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ inputs.python-version }}
-    - uses: abatilo/actions-poetry@v2.0.0
-      with:
-        poetry-version: ${{ inputs.poetry-version }}
+        cache: poetry
     - uses: actions/cache@v2
       id: cache
       with:
-        path: |
-          .venv
-          .nox
+        path: .nox
         # yamllint disable-line rule:line-length
-        key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock')
-          }}
+        key: ${{inputs.os}}-${{inputs.python-version}}-${{hashFiles('**/poetry.lock')}}
     - name: Install Project and Dependencies
       run: |
         poetry install -E dev -E lint -E test -E commitizen_legacy

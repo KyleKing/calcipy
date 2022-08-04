@@ -1,4 +1,10 @@
-## Unreleased
+## 0.15.0 (2022-08-03)
+
+### Fix
+
+- resolve pyroma errors by installing poetry as a module
+
+## 0.15.0rc0 (2022-07-24)
 
 ### Feat
 

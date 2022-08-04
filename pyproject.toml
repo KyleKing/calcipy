@@ -26,7 +26,7 @@ change_type_order = [
     "Change (Old)",
     "Fix (Old)",
 ]
-version = "0.15.0rc0"
+version = "0.15.0"
 version_files = ["pyproject.toml", "calcipy/__init__.py"]
 
 [tool.commitizen.cz_legacy_map]
@@ -46,7 +46,7 @@ multi_line_output = 5
 
 [tool.poetry]
 name = "calcipy"
-version = "0.15.0rc0"
+version = "0.15.0"
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 license = "MIT"
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
@@ -124,7 +124,7 @@ autopep8 = { version = ">=1.5.5", optional = true }
 cohesion = { version = ">=1.0.0", optional = true }
 darglint = { version = ">=1.8.1", optional = true }
 dlint = { version = ">=0.12.0", optional = true }
-flake8 = { version = ">=3.8.4", optional = true }
+flake8 = { version = ">=4.0.1", optional = true }
 flake8-2020 = { version = ">=1.6.1", optional = true }
 flake8-aaa = { version = ">=0.12.2", optional = true }
 flake8-annotations = { version = ">=2.9.0", optional = true }
@@ -157,7 +157,6 @@ flake8-SQL = { version = ">=0.4.1", optional = true }
 flake8-string-format = { version = ">=0.3.0", optional = true }
 flake8-tuple = { version = ">=0.4.1", optional = true }
 flake8-variables-names = { version = ">=0.0.5", optional = true }
-hacking = { version = ">=4.1.0", optional = true }                                            # Version set to prevent oscillation back to 3
 isort = { version = ">=5.10.1", optional = true }
 licensecheck = { extras = ["full"], version = ">=2022", optional = true }
 pandas-vet = { version = ">=0.2.3", optional = true }
@@ -243,7 +242,6 @@ lint = [
     "flake8-string-format",
     "flake8-tuple",
     "flake8-variables-names",
-    "hacking",
     "isort",
     "licensecheck",
     "pandas-vet",

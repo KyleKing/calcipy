@@ -16,7 +16,7 @@ from doit.task import Task
 from sty import fg
 
 
-class _TaskExitCode(IntEnum):  # noqa: H601
+class _TaskExitCode(IntEnum):
     """Enum for identifying the task exit code."""
 
     PASS = 0
@@ -27,7 +27,7 @@ class _TaskExitCode(IntEnum):  # noqa: H601
 
 
 @mutable(kw_only=True)
-class _TaskSummary:  # noqa: H601
+class _TaskSummary:
     """Task Summary."""
 
     name: str = field(validator=type_validator())

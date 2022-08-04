@@ -8,7 +8,7 @@
 - [actions/checkout](https://github.com/actions/checkout)
 - [actions/setup-python](https://github.com/actions/setup-python)
 - [Github Action Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
-- [pre-commit/action](https://github.com/pre-commit/action)
+- [pre-commit/action](https://github.com/pre-commit/action) (Now deprecated)
 - [ts-graphviz/setup-graphviz](https://github.com/ts-graphviz/setup-graphviz)
 
 The Github Workflows and Action were influenced by these excellent examples:

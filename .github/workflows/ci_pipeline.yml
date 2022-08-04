@@ -25,7 +25,6 @@ jobs:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
 
-      - uses: pre-commit/action@v2.0.3
       - name: Run linters
         run: poetry run doit run --continue lint_project static_checks security_checks
 

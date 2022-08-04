@@ -65,7 +65,7 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
 
 
 @mutable(kw_only=True)
-class _PathAttrBase:  # noqa: H601
+class _PathAttrBase:
 
     path_project: Path = field(validator=type_validator())
     """Path to the package directory."""
@@ -134,7 +134,7 @@ class _PathAttrBase:  # noqa: H601
 
 
 @mutable(kw_only=True)
-class PackageMeta(_PathAttrBase):  # noqa: H601
+class PackageMeta(_PathAttrBase):
     """Package Meta-Information."""
 
     path_toml: Path = field(validator=type_validator(), default=Path('pyproject.toml'))
@@ -217,7 +217,7 @@ _DEF_IGNORE_LIST = [
 
 
 @mutable(kw_only=True)
-class LintConfig(_PathAttrBase):  # noqa: H601
+class LintConfig(_PathAttrBase):
     """Lint Config."""
 
     path_flake8: Union[Path, str] = field(validator=type_validator(), default=Path('.flake8'))
@@ -241,7 +241,7 @@ class LintConfig(_PathAttrBase):  # noqa: H601
 
 
 @mutable(kw_only=True)
-class TestingConfig(_PathAttrBase):  # noqa: H601  # pylint: disable=too-many-instance-attributes
+class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attributes
     """Test Config."""
 
     pythons: List[str] = field(validator=type_validator(), factory=lambda: ['3.8', '3.9'])
@@ -292,7 +292,7 @@ class TestingConfig(_PathAttrBase):  # noqa: H601  # pylint: disable=too-many-in
 
 
 @mutable(kw_only=True)
-class CodeTagConfig(_PathAttrBase):  # noqa: H601
+class CodeTagConfig(_PathAttrBase):
     """Code Tag Config."""
 
     doc_sub_dir: Path = field(validator=type_validator(), default=Path('docs/docs'))
@@ -328,7 +328,7 @@ class CodeTagConfig(_PathAttrBase):  # noqa: H601
 
 
 @mutable(kw_only=True)
-class DocConfig(_PathAttrBase):  # noqa: H601
+class DocConfig(_PathAttrBase):
     """Documentation Config."""
 
     doc_sub_dir: Path = field(validator=type_validator(), default=Path('docs/docs'))
@@ -360,7 +360,7 @@ class DocConfig(_PathAttrBase):  # noqa: H601
 
 
 @mutable(kw_only=True)
-class DoitGlobals:  # noqa: H601  # pylint: disable=too-many-instance-attributes
+class DoitGlobals:  # pylint: disable=too-many-instance-attributes
     """Global Variables for doit."""
 
     calcipy_dir: Path = field(validator=type_validator(), init=False, default=Path(__file__).resolve().parents[1])
