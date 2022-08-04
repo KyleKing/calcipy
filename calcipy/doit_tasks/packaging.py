@@ -129,7 +129,7 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
 
 
 @mutable(kw_only=True, field_transformer=_auto_convert)
-class _HostedPythonPackage():  # noqa: H601
+class _HostedPythonPackage():
     """Representative information for a python package hosted on some domain."""
 
     # Note: "releases" was removed from the versioned URL: https://warehouse.pypa.io/api-reference/json.html#release

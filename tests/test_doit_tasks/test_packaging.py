@@ -16,7 +16,7 @@ from calcipy.doit_tasks.packaging import (
 from ..configuration import PATH_TEST_PROJECT
 
 
-class MockLogger:  # noqa: H601, D101, D102
+class MockLogger:  # noqa: D101, D102
     # FIXME: Replace MockLogger with a more generic alternative. See:
     #   https://pawamoy.github.io/posts/unify-logging-for-a-gunicorn-uvicorn-app/
 
