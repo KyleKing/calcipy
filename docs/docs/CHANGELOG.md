@@ -1,3 +1,5 @@
+## Unreleased
+
 ## 0.15.0 (2022-08-03)
 
 ### Fix
@@ -183,66 +185,37 @@
 
 ## 0.8.0 (2022-01-16)
 
-### Fix
-
-- bump year to 2022
-
-## 2021.0.8.0 (2022-01-16)
-
 ### Feat
 
 - add pip-check for prettier outdated
-
-### Fix
-
-- code_tag_collector must return doit-compliant value (None)
-- only run pre-commit once
-
-### Refactor
-
-- fix PY-W2000 by using __all__
-
-## 2021.0.7.1 (2022-01-04)
-
-### Fix
-
-- Code Tag Collector cannot return a Path for DoIt tasks
-
-## 2021.0.7.0 (2021-12-31)
-
-### Feat
-
 - add cct command
 - initialize the cement CLI application
 - replace toml with tomli (#74)
 - move wily to nox to reduce version conflicts
 - add pip-audit
 - add attrs_strict
-
-### Fix
-
-- cct was not being created as an alias. Use full command
-- wily
-
-### Refactor
-
-- move file_search to top-level
-- just run pre-commit install
-- replace pass with ... to keep it from being removed
-
-## 2021.0.6.0 (2021-10-31)
-
-### Feat
-
 - trim trailing whitespace from doc output
 
 ### Fix
 
+- bump year to 2022
+- code_tag_collector must return doit-compliant value (None)
+- only run pre-commit once
+- Code Tag Collector cannot return a Path for DoIt tasks
+- cct was not being created as an alias. Use full command
+- wily
 - properly exclude auto-generated doc files from code tag collector
 - run ptw on whole directory, not just test files
 - drop FYI and NOTE from Code Tags
 
-## 2021.0.6.0rc2 (2021-10-30)
+### Refactor
+
+- fix PY-W2000 by using __all__
+- move file_search to top-level
+- just run pre-commit install
+- replace pass with ... to keep it from being removed
+
+## 0.6.0rc2 (2022-08-04)
 
 ### Feat
 
@@ -253,44 +226,18 @@
 - swap pytest-watch(er) and other version bumps
 - pin min-version (xenon) & drop preconvert and flake8-mock
 
-## 2021.0.6.0rc1 (2021-10-30)
+## 0.6.0rc1 (2022-08-04)
 
 ### Fix
 
 - bug in noxfile and code tags reading doc output files
 
-## 2021.0.6.0rc0 (2021-10-30)
-
-### Fix
-
-- try to fix issues found with pytest_cache_assert
-
-### Refactor
-
-- decouple code tag collector from DG
-
-## 2021.0.5.0 (2021-10-29)
+## 0.6.0rc0 (2022-08-04)
 
 ### Feat
 
 - implement pylint rules
 - add xenon (wraps radon)
-
-### Fix
-
-- drop unused Python2 demjson
-
-### Refactor
-
-- improve lint_py and the return type check is working
-- zip release task
-- cleanup a few minor errors
-- use Interactive instead of Chrome
-
-## 2021.0.4.0 (2021-06-08)
-
-### Feat
-
 - condense doit output in show_cmd
 - initial semgrep implementation
 - add code diagrams to doc-site
@@ -301,58 +248,29 @@
 - add output if no stale packages found
 - add autoflake
 
-### Refactor
-
-- apply fixes found from semgrep
-- rename "wrappers" to "dot_dict"
-
-## 2021.0.3.2 (2021-06-06)
-
 ### Fix
 
+- try to fix issues found with pytest_cache_assert
+- drop unused Python2 demjson
 - error in noxfile with poetry install
 
 ### Refactor
 
+- decouple code tag collector from DG
+- improve lint_py and the return type check is working
+- zip release task
+- cleanup a few minor errors
+- use Interactive instead of Chrome
+- apply fixes found from semgrep
+- rename "wrappers" to "dot_dict"
 - prevent mutation in DG.set_paths
 
-## 2021.0.3.1 (2021-06-06)
-
-## 2021.0.3.1rc0 (2021-06-06)
-
-### Fix
-
-- install full dev-dep as temporary nox workaround
-- prevent committing changelog at base dir
-
-## 2021.0.3.0 (2021-06-06)
+## 0.3.1rc0 (2022-08-04)
 
 ### Feat
 
 - add task to zip artifacts from testing
 - implement pandas.to_markdown for cov table
-
-### Fix
-
-- remove type_name from docstring for Google-style
-- run pytest as a module for nox
-
-### Refactor
-
-- see if only one space is okay for skipcq
-- fix anti-pattern with nox session decorator and arg
-- improve code quality
-- try to suppress deepsource errors
-- address DeepSource issues
-- split up set_paths from DG
-- fix formatting error from pre-push
-- rename doc_dir to doc_sub_dir for clarity
-- apply 0.0.10 template
-
-## 2021.0.2.0 (2021-06-05)
-
-### Feat
-
 - **#58**: implement doc task and merge serve_docs
 - make loading YAML files more generic
 - create doit summary report
@@ -399,6 +317,10 @@
 
 ### Fix
 
+- install full dev-dep as temporary nox workaround
+- prevent committing changelog at base dir
+- remove type_name from docstring for Google-style
+- run pytest as a module for nox
 - resolve doc_dir and style errors
 - **#58**: remove None from pdocs output
 - deconflict doit/nox
@@ -436,6 +358,15 @@
 
 ### Refactor
 
+- see if only one space is okay for skipcq
+- fix anti-pattern with nox session decorator and arg
+- improve code quality
+- try to suppress deepsource errors
+- address DeepSource issues
+- split up set_paths from DG
+- fix formatting error from pre-push
+- rename doc_dir to doc_sub_dir for clarity
+- apply 0.0.10 template
 - move markdown to subdirectory for mkdocs
 - move isort back to toml
 - fix edge case in diff-cov failing and lint errors
@@ -479,7 +410,7 @@
 - combine autopep8 paths into single command
 - combine files for linting in one command
 
-## 2021.0.2.0a0 (2021-02-11)
+## 0.2.0a0 (2022-08-04)
 
 ### Feat
 

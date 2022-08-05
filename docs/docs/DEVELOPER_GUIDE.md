@@ -71,11 +71,11 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/doit_tasks/summary_reporter.py`                   |           23 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`                               |           61 |        10 |          0 | 83.6%      |
 | `calcipy/dot_dict.py`                                      |            7 |         0 |          0 | 100.0%     |
-| `calcipy/file_helpers.py`                                  |           76 |         6 |          3 | 92.1%      |
+| `calcipy/file_helpers.py`                                  |           76 |         7 |          3 | 90.8%      |
 | `calcipy/file_search.py`                                   |           34 |         0 |          2 | 100.0%     |
 | `calcipy/log_helpers.py`                                   |           62 |         6 |          0 | 90.3%      |
 | `calcipy/proc_helpers.py`                                  |           21 |         1 |          0 | 95.2%      |
-| **Totals**                                                 |         1147 |       131 |        180 | 88.6%      |
+| **Totals**                                                 |         1147 |       132 |        180 | 88.5%      |
 
-Generated on: 2022-08-03T23:06:46.290007
+Generated on: 2022-08-04
 <!-- {cte} -->

@@ -76,7 +76,6 @@ repos:
       - id: detect-secrets
         # args: ["--baseline", ".secrets.baseline"]
         exclude: poetry\.lock|.*/cassettes/.*\.yaml
-        stages: [push]
   - repo: https://github.com/lyz-code/yamlfix/
     rev: 1.0.1
     hooks:
@@ -104,7 +103,6 @@ repos:
         language: system
         entry: poetry run doit run --db-file='.doit.tmp-py' format_py
         types: [python]
-        stages: [push]
       - id: toml-formatter
         name: Optional TOML Auto-Formatter
         description: Install taplo with 'npm install -g @taplo/cli'
