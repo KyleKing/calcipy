@@ -113,7 +113,7 @@ def test_format_cov_table():
         '| `calcipy/doit_tasks/code_tags.py` |           75 |        44 |          0 | 41.3%      |',
         '| **Totals**                        |           97 |        46 |          3 | 52.6%      |',
         '',
-        'Generated on: 2021-06-03T19:37:11.980123',
+        'Generated on: 2021-06-03',
     ]
 
 

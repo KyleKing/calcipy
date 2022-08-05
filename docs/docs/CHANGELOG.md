@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.16.0 (2022-08-04)
+
 ### Feat
 
 - add flake8-simplify
