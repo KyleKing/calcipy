@@ -23,6 +23,14 @@
         "name": "argcomplete",
         "version": "1.12.3"
     },
+    "astor": {
+        "datetime": "2019-12-10T01:50:33.628982Z",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2019-12-10T01:50:33.628982Z",
+        "latest_version": "0.8.1",
+        "name": "astor",
+        "version": "0.8.1"
+    },
     "astpretty": {
         "datetime": "2022-05-16T23:41:23.422340Z",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -544,12 +552,12 @@
         "version": "0.0.7"
     },
     "flake8-isort": {
-        "datetime": "2022-07-25T13:26:12.101046Z",
+        "datetime": "2022-08-04T16:53:10.852639Z",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-07-25T13:26:12.101046Z",
-        "latest_version": "4.1.2.post0",
+        "latest_datetime": "2022-08-04T16:53:10.852639Z",
+        "latest_version": "4.2.0",
         "name": "flake8-isort",
-        "version": "4.1.2.post0"
+        "version": "4.2.0"
     },
     "flake8-logging-format": {
         "datetime": "2019-01-10T17:24:16.976076Z",
@@ -638,6 +646,14 @@
         "latest_version": "1.1.3",
         "name": "flake8-return",
         "version": "1.1.3"
+    },
+    "flake8-simplify": {
+        "datetime": "2022-07-28T16:32:34.948924Z",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2022-07-28T16:32:34.948924Z",
+        "latest_version": "0.19.3",
+        "name": "flake8-simplify",
+        "version": "0.19.3"
     },
     "flake8-sql": {
         "datetime": "2020-06-27T20:18:47.766579Z",
@@ -1536,12 +1552,12 @@
         "version": "0.6.1"
     },
     "types-setuptools": {
-        "datetime": "2022-08-03T12:38:55.356129Z",
+        "datetime": "2022-08-05T01:54:39.805071Z",
         "domain": "https://pypi.org/pypi/{name}/json",
         "latest_datetime": "2022-08-05T01:54:39.805071Z",
         "latest_version": "63.4.0",
         "name": "types-setuptools",
-        "version": "63.2.3"
+        "version": "63.4.0"
     },
     "typing-extensions": {
         "datetime": "2022-07-01T14:56:11.904033Z",
@@ -1584,12 +1600,12 @@
         "version": "4.2.0"
     },
     "virtualenv": {
-        "datetime": "2022-07-27T21:53:47.076116Z",
+        "datetime": "2022-08-04T16:18:03.678283Z",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-07-27T21:53:47.076116Z",
-        "latest_version": "20.16.2",
+        "latest_datetime": "2022-08-04T16:18:03.678283Z",
+        "latest_version": "20.16.3",
         "name": "virtualenv",
-        "version": "20.16.2"
+        "version": "20.16.3"
     },
     "vulture": {
         "datetime": "2022-07-03T20:36:20.968411Z",

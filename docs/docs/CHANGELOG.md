@@ -1,5 +1,13 @@
 ## Unreleased
 
+### Feat
+
+- add flake8-simplify
+
+### Fix
+
+- show only date in coverage table
+
 ## 0.15.0 (2022-08-03)
 
 ### Fix
