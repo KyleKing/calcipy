@@ -287,7 +287,8 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     df_cov = pd.DataFrame(records)
     df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
     lines_table = df_cov.to_markdown(index=False, tablefmt='github').split('\n')
-    lines_table.extend(['', f"Generated on: {coverage_data['meta']['timestamp']}"])
+    short_date = coverage_data['meta']['timestamp'].split('T')[0]
+    lines_table.extend(['', f'Generated on: {short_date}'])
     return lines_table
 
 
