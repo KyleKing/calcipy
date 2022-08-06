@@ -195,6 +195,9 @@ coverage.json
 !supporting/**
 !tests/data/**
 
+# Ensure that system files don't appear in the Allow List
+.DS_Store
+
 # Ensure *.pyc files are still ignored even if in tests/data directory
 *.pyc
 

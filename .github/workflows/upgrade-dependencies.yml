@@ -5,8 +5,8 @@ name: Upgrade Dependencies
 on:
   workflow_dispatch:
   schedule:
-    # Runs every Monday at 8:00 UTC (4:00 Eastern)
-    - cron: 0 8 * * 1
+    # First day of every month at 08:00 UTC
+    - cron: 0 8 1 * *
 
 jobs:
   upgrade:
