@@ -101,12 +101,12 @@ repos:
         name: Python Auto-Formatter
         description: Apply calcipy formatting
         language: system
-        entry: poetry run doit run --db-file='.doit.tmp-py' format_py
+        entry: poetry run doit run --db-file=./.doit.tmp-py format_py
         types: [python]
       - id: toml-formatter
         name: Optional TOML Auto-Formatter
         description: Install taplo with 'npm install -g @taplo/cli'
         language: system
-        entry: poetry run doit run --db-file='.doit.tmp-toml' format_toml
+        entry: poetry run doit run --db-file=./.doit.tmp-toml format_toml
         types: [toml]
         exclude: poetry\.lock

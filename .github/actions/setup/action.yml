@@ -17,18 +17,17 @@ env:
 
 runs:
   using: composite
-  defaults:
-    run:
-      shell: bash
   steps:
     - name: Install Poetry ${{ inputs.poetry-version }}
       run: pipx install poetry==${{ inputs.poetry-version }}
+      shell: bash
 
     - name: Setup Python ${{ inputs.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ inputs.python-version }}
         cache: poetry
+
     - uses: actions/cache@v3
       id: cache
       with:
@@ -36,6 +35,8 @@ runs:
         # yamllint disable-line rule:line-length
         key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock')
           }}
+
     - name: Install Project and Dependencies
       run: |-
         poetry install -E dev -E lint -E test -E commitizen_legacy
+      shell: bash

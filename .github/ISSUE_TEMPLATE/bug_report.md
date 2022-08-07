@@ -2,7 +2,7 @@
 name: Bug report
 about: Found a problem, us know!
 title: ''
-labels: 'Type: Bug, Needs Discussion'
+labels: 'Type: Bug'
 assignees: kyleking
 ---
 
