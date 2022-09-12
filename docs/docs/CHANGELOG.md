@@ -1,5 +1,13 @@
 ## Unreleased
 
+### Feat
+
+- update to latest copier
+
+### Refactor
+
+- upgrade copier with linting fixes
+
 ## 0.16.0 (2022-08-04)
 
 ### Feat
