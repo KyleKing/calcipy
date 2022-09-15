@@ -54,6 +54,8 @@ def test_doit_configurable():
     """Test configurable items from TOML file."""
     dg = get_dg()  # act
 
+    dg.meta._shorten_path_lists()
+
     assert dg.meta.path_project.name == PATH_TEST_PROJECT.name
     assert dg.tags.tags == ['FIXME', 'TODO', 'PLANNED']  # noqa: T101, T103
     assert dg.tags.code_tag_summary_filename == 'CODE_TAG_SUMMARY.md'

@@ -67,7 +67,7 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
     return instance_type is None or isinstance(member, instance_type)
 
 
-@dataclass
+@dataclass(kw_only=True)
 class _PathAttrBase:
 
     path_project: Path
@@ -80,10 +80,7 @@ class _PathAttrBase:
             RuntimeError: if any paths are None
 
         """
-        if self.path_project is None:
-            raise RuntimeError('Missing keyword argument "path_project"')  # pragma: no cover
         self._resolve_class_paths(self.path_project)
-        self._verify_initialized_paths()
 
     @beartype
     def _get_members(self, prefix: Optional[str], **kwargs: Any) -> List[Tuple[str, Any]]:
@@ -120,23 +117,8 @@ class _PathAttrBase:
                 setattr(self, name, base_path / path_raw)  # type: ignore[operator]
                 logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(self, name)})')
 
-    @beartype
-    def _verify_initialized_paths(self) -> None:
-        """Verify that all paths are not None.
 
-        WARN: will not raise on error the class attribute
-
-        Raises:
-            RuntimeError: if any paths are None
-
-        """
-        missing = [name for name, _m in self._get_members(instance_type=type(None), prefix='path_')]
-        if missing:
-            kwargs = ', '.join(missing)
-            raise RuntimeError(f'Missing keyword arguments for: {kwargs}')
-
-
-@dataclass
+@dataclass(kw_only=True)
 class PackageMeta(_PathAttrBase):
     """Package Meta-Information."""
 
@@ -186,17 +168,17 @@ class PackageMeta(_PathAttrBase):
         self.paths_by_suffix = find_project_files_by_suffix(self.path_project, self.ignore_patterns)
 
     @beartype
-    def __shorted_path_list(self) -> Set[str]:  # pragma: no cover
+    def _shorten_path_lists(self) -> Set[Path]:
         """Shorten the list of directories common to the specified paths.
 
-        > Not currently needed, but could be useful
+        > FYI: Not currently needed, but could be useful
 
         Returns:
-            Set[str]: set of most common top-level directories relative to the project dir
+            Set[Path]: set of unique paths relative to project
 
         """
         return {
-            pth.parent.relative_to(self.path_project).as_posix()
+            pth.parent.relative_to(self.path_project)
             for pth in self.paths
         }
 
@@ -219,7 +201,7 @@ _DEF_IGNORE_LIST = [
 """Default list of excluded flake8 rules for the pre-commit check (additional to .flake8)."""
 
 
-@dataclass
+@dataclass(kw_only=True)
 class LintConfig(_PathAttrBase):
     """Lint Config."""
 
@@ -242,7 +224,7 @@ class LintConfig(_PathAttrBase):
         self.path_isort = _make_full_path(self.path_isort, path_base=self.path_project)
 
 
-@dataclass
+@dataclass(kw_only=True)
 class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attributes
     """Test Config."""
 
@@ -292,7 +274,7 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 
 
-@dataclass
+@dataclass(kw_only=True)
 class CodeTagConfig(_PathAttrBase):
     """Code Tag Config."""
 
@@ -328,7 +310,7 @@ class CodeTagConfig(_PathAttrBase):
         return re.compile(self.re_raw.format(tag='|'.join(self.tags)))
 
 
-@dataclass
+@dataclass(kw_only=True)
 class DocConfig(_PathAttrBase):
     """Documentation Config."""
 
