@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+import pytest
 from beartype.typing import Generator
 from decorator import contextmanager
 
@@ -39,8 +40,10 @@ def clear_test_cache() -> None:
     ensure_dir(TEST_TMP_CACHE)
 
 
-# Set the DoitGlobals instance to use the Test Project for all tests
-set_dg(DoitGlobals.set_paths(path_project=PATH_TEST_PROJECT))
+@pytest.fixture(scope='module')
+def set_dg_to_test_dir():
+    """Set the DoitGlobals instance to use the Test Project for all tests."""
+    set_dg(DoitGlobals.set_paths(path_project=PATH_TEST_PROJECT))
 
 
 @contextmanager
@@ -57,5 +60,7 @@ def _temp_dg(path_project: Path = PATH_TEST_PROJECT) -> Generator[None, None, No
     path_original = get_dg().meta.path_project
     if path_original != path_project:
         set_dg(DoitGlobals.set_paths(path_project=path_project))
+        assert get_dg().meta.path_project == path_project
         yield
         set_dg(DoitGlobals.set_paths(path_project=path_original))
+        assert get_dg().meta.path_project == path_original

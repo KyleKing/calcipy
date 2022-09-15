@@ -137,7 +137,8 @@ def task_lint_project() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(get_dg().lint.paths_py, path_flake8=get_dg().lint.path_flake8)
+    dg = get_dg()
+    actions = _lint_python(dg.lint.paths_py, path_flake8=dg.lint.path_flake8)
     actions.extend(_lint_non_python())
     return debug_task(actions)
 
@@ -150,8 +151,9 @@ def task_lint_critical_only() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     actions = _lint_python(
-        get_dg().lint.paths_py, path_flake8=get_dg().lint.path_flake8, ignore_errors=get_dg().lint.ignore_errors,
+        dg.lint.paths_py, path_flake8=dg.lint.path_flake8, ignore_errors=dg.lint.ignore_errors,
         xenon_args='--max-absolute C --max-modules A --max-average A',
     )
     actions.extend(_lint_non_python())

@@ -3,6 +3,7 @@
 from pathlib import Path
 
 from beartype.typing import List
+from pydantic import BaseModel
 
 from calcipy.doit_tasks.doit_globals import DoitGlobals, TestingConfig, get_dg
 
@@ -16,7 +17,8 @@ def _get_public_props(obj) -> List[str]:
 
 def test_dg_props():
     """Test the DG global variable from DoitGlobals."""
-    public_props = ['calcipy_dir', 'set_paths', 'meta', 'tags', 'lint', 'test', 'doc']
+    pydantic_props = _get_public_props(BaseModel())
+    public_props = set(['calcipy_dir', 'set_paths', 'meta', 'tags', 'lint', 'test', 'doc'] + pydantic_props)
 
     dg = DoitGlobals.set_paths()  # act
 
@@ -52,6 +54,7 @@ def test_doit_configurable():
     """Test configurable items from TOML file."""
     dg = get_dg()  # act
 
+    assert dg.meta.path_project.name == PATH_TEST_PROJECT.name
     assert dg.tags.tags == ['FIXME', 'TODO', 'PLANNED']  # noqa: T101, T103
     assert dg.tags.code_tag_summary_filename == 'CODE_TAG_SUMMARY.md'
     assert dg.test.path_out == PATH_TEST_PROJECT / 'releases/tests'

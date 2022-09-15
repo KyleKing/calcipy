@@ -38,7 +38,7 @@ DoitTask = Union[Task, Dict[str, DoitAction]]
 
 
 @beartype
-def _make_full_path(raw: Union[Path, str], path_base: Path) -> Path:
+def _make_full_path(raw: Union[Path, str], *, path_base: Path) -> Path:
     """Return a full path by determining if the source path is an absolute path. If not combines with base path.
 
     Args:
@@ -226,10 +226,10 @@ class LintConfig(_PathAttrBase):
     paths_py: List[Path]
     """Paths to the Python files used when linting. Created with `find_project_files_by_suffix`."""
 
-    path_flake8: Union[Path, str] = Field(default=Path('.flake8'))
+    path_flake8: Path = Field(default=Path('.flake8'))
     """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
 
-    path_isort: Union[Path, str] = Field(default=Path('pyproject.toml'))
+    path_isort: Path = Field(default=Path('pyproject.toml'))
     """Relative path to the isort configuration file. Default is "pyproject.toml" created by calcipy_template."""
 
     ignore_errors: List[str] = Field(default_factory=lambda: _DEF_IGNORE_LIST)
@@ -238,8 +238,8 @@ class LintConfig(_PathAttrBase):
     def __post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__post_init__()
-        self.path_flake8 = _make_full_path(self.path_flake8, self.path_project)
-        self.path_isort = _make_full_path(self.path_isort, self.path_project)
+        self.path_flake8 = _make_full_path(self.path_flake8, path_base=self.path_project)
+        self.path_isort = _make_full_path(self.path_isort, path_base=self.path_project)
 
 
 @dataclass
@@ -249,10 +249,10 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
     pythons: List[str] = Field(default_factory=lambda: ['3.8', '3.9'])
     """Python versions to test against. Default is `['3.8', '3.9']`."""
 
-    path_out: Union[Path, str] = Field(default=Path('releases/tests'))
+    path_out: Path = Field(default=Path('releases/tests'))
     """Relative path to the report output directory. Default is `releases/tests`."""
 
-    path_tests: Union[Path, str] = Field(default=Path('tests'))
+    path_tests: Path = Field(default=Path('tests'))
     """Relative path to the tests directory. Default is `tests`."""
 
     args_pytest: str = Field(
@@ -281,8 +281,8 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
     def __post_init__(self) -> None:
         """Finish initializing class attributes."""
         super().__post_init__()
-        self.path_out = _make_full_path(self.path_out, self.path_project)
-        self.path_tests = _make_full_path(self.path_tests, self.path_project)
+        self.path_out = _make_full_path(self.path_out, path_base=self.path_project)
+        self.path_tests = _make_full_path(self.path_tests, path_base=self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         # Configure the paths to the report HTML and coverage HTML files
         self.path_test_report = self.path_out / 'test_report.html'
@@ -354,7 +354,7 @@ class DocConfig(_PathAttrBase):
         super().__post_init__()
         mkdocs_config = _read_yaml_file(self.path_project / _MKDOCS_CONFIG_NAME)
         self.path_out = Path(mkdocs_config.get('site_dir', 'releases/site'))
-        self.path_out = _make_full_path(self.path_out, self.path_project)
+        self.path_out = _make_full_path(self.path_out, path_base=self.path_project)
         self.path_out.mkdir(exist_ok=True, parents=True)
         self.auto_doc_path = self.doc_sub_dir.parent / 'modules'
 
@@ -484,5 +484,6 @@ try:
     get_dg()
 except punq.MissingDependencyError:
     work_dir = doit.get_initial_workdir()
-    dg = DoitGlobals.set_paths(path_project=(Path(work_dir) if work_dir else Path.cwd()).resolve())
+    path_project = (Path(work_dir) if work_dir else Path.cwd()).resolve()
+    dg = DoitGlobals.set_paths(path_project=path_project)
     set_dg(dg)
