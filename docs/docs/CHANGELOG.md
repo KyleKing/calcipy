@@ -4,6 +4,10 @@
 
 - update to latest copier
 
+### Fix
+
+- drop safety because of false positives on Calcipy CalVer
+
 ### Refactor
 
 - upgrade copier with linting fixes

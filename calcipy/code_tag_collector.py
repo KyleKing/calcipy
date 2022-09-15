@@ -6,8 +6,8 @@ from functools import lru_cache
 from pathlib import Path
 from subprocess import CalledProcessError  # nosec
 
+import arrow
 import pandas as pd
-import pendulum
 from attrs import field, frozen
 from attrs_strict import type_validator
 from beartype import beartype
@@ -174,9 +174,9 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         }
         # Handle uncommitted files that only have author-time and author-tz
         user = 'committer' if 'committer-tz' in blame_dict else 'author'
-        dt = pendulum.from_timestamp(int(blame_dict[f'{user}-time']))
+        dt = arrow.get(int(blame_dict[f'{user}-time']))
         tz = blame_dict[f'{user}-tz'][:3] + ':' + blame_dict[f'{user}-tz'][-2:]
-        ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
+        ts = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
         # Filename may not be present if uncommitted. Use local path as fallback
         remote_file_path = blame_dict.get('filename', rel_path.as_posix())
         # PLANNED: Consider making "blame" configurable
@@ -216,7 +216,7 @@ def _format_report(
                 counter[comment.tag] += 1
     if records:
         df_tags = pd.DataFrame(records)
-        output += df_tags.to_markdown(index=False, tablefmt='github')
+        output += df_tags.to_markdown(index=False, tablefmt='github') or ''
     logger.debug('counter={counter}', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}

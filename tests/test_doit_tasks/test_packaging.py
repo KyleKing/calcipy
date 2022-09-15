@@ -4,8 +4,8 @@ import json
 import re
 from collections import defaultdict
 
+import arrow
 import loguru
-import pendulum
 import pytest
 
 from calcipy.doit_tasks.packaging import (
@@ -98,14 +98,14 @@ version = "1.2.3"
     fake_pack_lock = {
         'z_package': {
             'name': 'z_package', 'version': '1.2.3',
-            'datetime': pendulum.now().to_iso8601_string(),
+            'datetime': str(arrow.now()),
         },
     }
     path_lock = fix_test_cache / 'poetry.lock'
     path_lock.write_text(fake_lock)
     path_pack_lock = fix_test_cache / _PATH_PACK_LOCK.name
     path_pack_lock.write_text(json.dumps(fake_pack_lock))
-    expected_err = r'Found stale packages that may be a dependency risk:\s+- \d+ months ago: twine 2\.0\.0[^\n]+'
+    expected_err = r'Found stale packages that may be a dependency risk:\s+- \d+ [^:]+ ago: twine 2\.0\.0[^\n]+'
     mock_logger = MockLogger()
     monkeypatch.setattr(loguru.logger, 'warning', mock_logger.warning)
 
@@ -122,8 +122,8 @@ def test_check_for_stale_packages():
     packages = [
         _HostedPythonPackage(
             name='twine',
-            datetime=pendulum.now(), version='1.11.0rc1',
-            latest_datetime=pendulum.now(), latest_version='1.11.0rc1',
+            datetime=arrow.now(), version='1.11.0rc1',
+            latest_datetime=arrow.now(), latest_version='1.11.0rc1',
         ),
     ]
 

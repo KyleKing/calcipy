@@ -38,7 +38,7 @@ repos:
     hooks:
       - id: beautysh
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.32.5
+    rev: v2.32.7
     hooks:
       - id: commitizen
         additional_dependencies: [cz_legacy]
@@ -77,7 +77,7 @@ repos:
         # args: ["--baseline", ".secrets.baseline"]
         exclude: poetry\.lock|.*/cassettes/.*\.yaml
   - repo: https://github.com/lyz-code/yamlfix/
-    rev: 1.0.1
+    rev: 1.1.0
     hooks:
       - id: yamlfix
         exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml

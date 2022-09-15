@@ -3,19 +3,19 @@
 import json
 from pathlib import Path
 
+import arrow
 import attrs
 import numpy as np
-import pendulum
 import requests
 import tomli
+from arrow import Arrow
 from attrs import field, mutable
 from attrs_strict import type_validator
 from beartype import beartype
-from beartype.typing import Dict, List, Optional
+from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
 from doit.tools import Interactive
 from loguru import logger
-from pendulum import DateTime
 from pyrate_limiter import Duration, Limiter, RequestRate
 
 from .base import debug_task
@@ -114,20 +114,25 @@ def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
         results
 
     """
+    @beartype
+    def arrow_converter(date: Optional[Union[str, Arrow]]) -> Optional[Arrow]:
+        return arrow.get(date) if date else date
+
     results = []
     for fld in fields:
         if fld.converter is not None:  # pragma: no cover
             results.append(fld)
             continue
 
-        converter: Optional[DateTime] = None
-        if fld.type in {Optional[DateTime], DateTime, 'datetime'}:
-            converter = (lambda d: pendulum.parse(d) if isinstance(d, str) else d)
+        converter: Optional[Arrow] = None
+        if fld.type in {Optional[Arrow], Arrow, 'datetime'}:
+            converter = arrow_converter
         results.append(fld.evolve(converter=converter))
 
     return results
 
 
+# TODO: Add sort and comparators based on datetime attribute?
 @mutable(kw_only=True, field_transformer=_auto_convert)
 class _HostedPythonPackage():
     """Representative information for a python package hosted on some domain."""
@@ -136,9 +141,9 @@ class _HostedPythonPackage():
     domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/json')
     name: str = field(validator=type_validator())
     version: str = field(validator=type_validator())
-    datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
+    datetime: Optional[Arrow] = field(validator=type_validator(), default=None)
     latest_version: str = field(validator=type_validator(), default='')
-    latest_datetime: Optional[DateTime] = field(validator=type_validator(), default=None)
+    latest_datetime: Optional[Arrow] = field(validator=type_validator(), default=None)
 
 
 _PATH_PACK_LOCK = DG.meta.path_project / '.calcipy_packaging.lock'
@@ -175,7 +180,7 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
 
     # Also retrieve the latest release date of the package looking through all releases
     release_dates = bidict({
-        pendulum.parse(release_data[0]['upload_time_iso_8601']): version
+        arrow.get(release_data[0]['upload_time_iso_8601']): version
         for version, release_data in releases.items()
         if release_data
     })
@@ -250,7 +255,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
 
     """
     def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
-        return value.to_iso8601_string() if isinstance(value, DateTime) else value
+        return str(value) if isinstance(value, Arrow) else value
 
     new_cache = {pack.name: attrs.asdict(pack, value_serializer=serialize) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
@@ -294,19 +299,19 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 
     """
     def format_package(pack: _HostedPythonPackage) -> str:
-        delta = f'{now.diff(pack.datetime).in_months()} months ago:'
+        delta = pack.datetime.humanize()
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
-        return f'- {delta} {pack.name} {pack.version}{latest}'
+        return f'- {delta}: {pack.name} {pack.version}{latest}'
 
-    now = pendulum.now()
-    stale_cutoff = now.subtract(months=stale_months)
+    now = arrow.now()
+    stale_cutoff = now.shift(months=-1 * stale_months)
     stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
     if stale_packages:
         stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
         logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}\n\n')
     else:
-        max_months = np.amax([now.diff(pack.datetime).in_months() for pack in packages])
-        logger.warning(f'The oldest package was released {max_months} months ago (stale is >{stale_months} months)\n')
+        oldest_date = np.amin([pack.datetime for pack in packages])
+        logger.warning(f'The oldest package was released {oldest_date.humanize()} (stale is >{stale_months} months)\n')
 
 
 @beartype
