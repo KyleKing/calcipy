@@ -216,8 +216,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        session.install('semgrep>=0.106.0', '--upgrade')  # Runs "safety" and other tools
-        allow_py_rules = '--dangerously-allow-arbitrary-code-execution-from-rules'
+        session.install('semgrep>=0.112.1', '--upgrade')  # Runs "safety" and other tools
         # TODO: Implement semgrep - what are a good ruleset to start with? Currently only a nox-session (no doit task)
         #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
         #   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45
@@ -245,7 +244,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             # dlukeomalley:flask-set-cookie
             # clintgibler:no-exec
         ])
-        session.run(*shlex.split(f'semgrep {DG.meta.pkg_name} {allow_py_rules} {configs}'), stdout=True)
+        session.run(*shlex.split(f'semgrep {DG.meta.pkg_name} {configs}'), stdout=True)
 
     # TODO: https://github.com/tonybaloney/wily/blob/e72b7d95228bbe5538a072dc5d1186daa318bb03/src/wily/__main__.py#L261
     @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
