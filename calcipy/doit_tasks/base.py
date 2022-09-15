@@ -12,7 +12,7 @@ from loguru import logger
 from sty import fg
 
 from ..file_helpers import if_found_unlink
-from .doit_globals import DG, DoitAction, DoitTask
+from .doit_globals import DoitAction, DoitTask, get_dg
 
 
 @beartype
@@ -27,7 +27,7 @@ def _show_cmd(task: Task) -> str:
 
     """
     def clean_action(action: str) -> str:
-        action = action.replace(f'{DG.meta.path_project.as_posix()}/', '')
+        action = action.replace(f'{get_dg().meta.path_project.as_posix()}/', '')
         if 'password' in action:
             action = action.split('password')[0] + '...password-redacted...'
         return action  # noqa: R504
@@ -115,7 +115,7 @@ def _zip_release() -> List[DoitAction]:
 
     """
     actions = []
-    for path_dir in [DG.test.path_out, DG.doc.path_out]:
+    for path_dir in [get_dg().test.path_out, get_dg().doc.path_out]:
         if path_dir.is_dir():
             path_zip = path_dir.with_suffix('.zip')
             actions.extend([

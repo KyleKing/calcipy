@@ -47,35 +47,11 @@ poetry run doit run lock document deploy_docs publish
 ## Current Status
 
 <!-- {cts} COVERAGE -->
-| File                                                       |   Statements |   Missing |   Excluded | Coverage   |
-|------------------------------------------------------------|--------------|-----------|------------|------------|
-| `calcipy/__init__.py`                                      |            6 |         0 |          0 | 100.0%     |
-| `calcipy/cli/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
-| `calcipy/cli/controllers/__init__.py`                      |            0 |         0 |          0 | 100.0%     |
-| `calcipy/cli/controllers/code_tag_collector_controller.py` |           26 |        12 |          0 | 53.8%      |
-| `calcipy/cli/core/__init__.py`                             |            0 |         0 |          0 | 100.0%     |
-| `calcipy/cli/core/exceptions.py`                           |            2 |         0 |          0 | 100.0%     |
-| `calcipy/cli/core/version.py`                              |            8 |         8 |          0 | 0.0%       |
-| `calcipy/cli/main.py`                                      |           38 |        19 |          0 | 50.0%      |
-| `calcipy/code_tag_collector.py`                            |          119 |        23 |          0 | 80.7%      |
-| `calcipy/dev/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
-| `calcipy/dev/conftest.py`                                  |           16 |         0 |         23 | 100.0%     |
-| `calcipy/dev/noxfile.py`                                   |           23 |         1 |         81 | 95.7%      |
-| `calcipy/doit_tasks/__init__.py`                           |           13 |         0 |          0 | 100.0%     |
-| `calcipy/doit_tasks/base.py`                               |           50 |        10 |          3 | 80.0%      |
-| `calcipy/doit_tasks/code_tags.py`                          |           10 |         0 |          0 | 100.0%     |
-| `calcipy/doit_tasks/doc.py`                                |          146 |        10 |          5 | 93.2%      |
-| `calcipy/doit_tasks/doit_globals.py`                       |          173 |         5 |          8 | 97.1%      |
-| `calcipy/doit_tasks/lint.py`                               |           96 |         8 |          0 | 91.7%      |
-| `calcipy/doit_tasks/packaging.py`                          |          140 |        12 |          3 | 91.4%      |
-| `calcipy/doit_tasks/summary_reporter.py`                   |           23 |         0 |         40 | 100.0%     |
-| `calcipy/doit_tasks/test.py`                               |           61 |        10 |          0 | 83.6%      |
-| `calcipy/dot_dict.py`                                      |            7 |         0 |          0 | 100.0%     |
-| `calcipy/file_helpers.py`                                  |           76 |         7 |          3 | 90.8%      |
-| `calcipy/file_search.py`                                   |           34 |         0 |          2 | 100.0%     |
-| `calcipy/log_helpers.py`                                   |           62 |         6 |          0 | 90.3%      |
-| `calcipy/proc_helpers.py`                                  |           21 |         1 |          0 | 95.2%      |
-| **Totals**                                                 |         1150 |       132 |        168 | 88.5%      |
+| File                              |   Statements |   Missing |   Excluded | Coverage   |
+|-----------------------------------|--------------|-----------|------------|------------|
+| `calcipy/doit_tasks/base.py`      |           22 |         2 |          3 | 90.9%      |
+| `calcipy/doit_tasks/code_tags.py` |           75 |        44 |          0 | 41.3%      |
+| **Totals**                        |           97 |        46 |          3 | 52.6%      |
 
-Generated on: 2022-09-15
+Generated on: 2021-06-03
 <!-- {cte} -->

@@ -2,6 +2,7 @@
 
 ### Feat
 
+- replace pendulum with arrow
 - update to latest copier
 
 ### Fix
@@ -10,6 +11,7 @@
 
 ### Refactor
 
+- update semgrep nox task
 - upgrade copier with linting fixes
 
 ## 0.16.0 (2022-08-04)

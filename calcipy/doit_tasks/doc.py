@@ -14,7 +14,7 @@ from transitions import Machine
 
 from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, delete_dir, read_lines, trim_trailing_whitespace
 from .base import debug_task, echo, open_in_browser, write_text
-from .doit_globals import DG, DoitAction, DoitTask
+from .doit_globals import DoitAction, DoitTask, get_dg
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Changelog
@@ -28,10 +28,10 @@ def _move_cl() -> None:
         FileNotFoundError: if the changelog was not found
 
     """
-    path_cl = DG.meta.path_project / 'CHANGELOG.md'
+    path_cl = get_dg().meta.path_project / 'CHANGELOG.md'
     if not path_cl.is_file():
         raise FileNotFoundError(f'Could not locate the changelog at: {path_cl}')
-    path_cl.replace(DG.doc.doc_sub_dir / path_cl.name)
+    path_cl.replace(get_dg().doc.doc_sub_dir / path_cl.name)
 
 
 @beartype
@@ -244,7 +244,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
 
     """
     key, path_rel = [*_parse_var_comment(line).items()][0]
-    path_base = DG.meta.path_project if path_rel.startswith('/') else path_file.resolve().parent
+    path_base = get_dg().meta.path_project if path_rel.startswith('/') else path_file.resolve().parent
     path_source = path_base / path_rel.lstrip('/')
     language = path_source.suffix.lstrip('.')
     lines_source = [f'```{language}', *read_lines(path_source), '```']
@@ -307,7 +307,7 @@ def _handle_coverage(line: str, _path_file: Path) -> List[str]:
         _ParseSkipError: if the "coverage.json" file is not available
 
     """
-    path_coverage = DG.meta.path_project / 'coverage.json'  # Created by "task_coverage"
+    path_coverage = get_dg().meta.path_project / 'coverage.json'  # Created by "task_coverage"
     if not path_coverage.is_file():
         raise _ParseSkipError(f'Could not locate: {path_coverage}')
     coverage_data = json.loads(path_coverage.read_text())
@@ -321,15 +321,15 @@ def write_autoformatted_md_sections() -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic.
 
     Raises:
-        RuntimeError: if `DG.doc.handler_lookup` hasn't ben configured. See `_ensure_handler_lookup`
+        RuntimeError: if `get_dg().doc.handler_lookup` hasn't ben configured. See `_ensure_handler_lookup`
 
     """
-    if DG.doc.handler_lookup is None:
-        raise RuntimeError('The "DG.doc.handler_lookup" dictionary has not been created')
+    if get_dg().doc.handler_lookup is None:
+        raise RuntimeError('The "get_dg().doc.handler_lookup" dictionary has not been created')
 
-    logger.info('> {paths_md}', paths_md=DG.doc.paths_md)
-    for path_md in DG.doc.paths_md:
-        md_lines = _ReplacementMachine().parse(read_lines(path_md), DG.doc.handler_lookup, path_md)
+    logger.info('> {paths_md}', paths_md=get_dg().doc.paths_md)
+    for path_md in get_dg().doc.paths_md:
+        md_lines = _ReplacementMachine().parse(read_lines(path_md), get_dg().doc.handler_lookup, path_md)
         path_md.write_text('\n'.join(md_lines))
 
 
@@ -368,10 +368,12 @@ def _diagram_tasks(pdoc_out_path: Path) -> List[DoitAction]:
 
 [Full Size](./classes.svg)
 """
-    path_diagram = pdoc_out_path / DG.meta.pkg_name / '_code_diagrams.md'
+    path_diagram = pdoc_out_path / get_dg().meta.pkg_name / '_code_diagrams.md'
     return [
         (write_text, (path_diagram, diagram_md)),
-        Interactive(f'poetry run pyreverse {DG.meta.pkg_name} --output svg --output-directory {path_diagram.parent}'),
+        Interactive(
+            f'poetry run pyreverse {get_dg().meta.pkg_name} --output svg --output-directory {path_diagram.parent}',
+        ),
     ]
 
 
@@ -382,8 +384,8 @@ def _diagram_tasks(pdoc_out_path: Path) -> List[DoitAction]:
 @beartype
 def _ensure_handler_lookup() -> None:
     """Configure the handler lookup if not already configured."""
-    if DG.doc.handler_lookup is None:
-        DG.doc.handler_lookup = {
+    if get_dg().doc.handler_lookup is None:
+        get_dg().doc.handler_lookup = {
             'COVERAGE ': _handle_coverage,
             'SOURCE_FILE=': _handle_source_file,
         }
@@ -405,16 +407,16 @@ def task_document() -> DoitTask:
 
     """
     _ensure_handler_lookup()
-    pdoc_out_path = DG.doc.auto_doc_path
+    pdoc_out_path = get_dg().doc.auto_doc_path
     pdoc_out = f'--output_dir {pdoc_out_path} --overwrite'
-    pdoc_template = f'--template_dir {DG.calcipy_dir}/doit_tasks/templates'
+    pdoc_template = f'--template_dir {get_dg().calcipy_dir}/doit_tasks/templates'
     return debug_task([
         (write_autoformatted_md_sections, ()),
         (delete_dir, (pdoc_out_path,)),
-        Interactive(f'poetry run pdocs as_markdown {DG.meta.pkg_name} {pdoc_out} {pdoc_template}'),
+        Interactive(f'poetry run pdocs as_markdown {get_dg().meta.pkg_name} {pdoc_out} {pdoc_template}'),
         *_diagram_tasks(pdoc_out_path),
         (_find_and_trim_trailing_whitespace, (pdoc_out_path,)),
-        Interactive(f'poetry run mkdocs build --site-dir {DG.doc.path_out}'),
+        Interactive(f'poetry run mkdocs build --site-dir {get_dg().doc.path_out}'),
     ])
 
 
@@ -429,7 +431,7 @@ def _is_mkdocs_local() -> bool:
         bool: True if configured for local file output rather than hosted
 
     """
-    mkdocs_config = _read_yaml_file(DG.meta.path_project / _MKDOCS_CONFIG_NAME)
+    mkdocs_config = _read_yaml_file(get_dg().meta.path_project / _MKDOCS_CONFIG_NAME)
     return mkdocs_config.get('use_directory_urls') is False
 
 
@@ -442,7 +444,7 @@ def task_open_docs() -> DoitTask:
 
     """
     if _is_mkdocs_local():  # pragma: no cover
-        path_doc_index = DG.doc.path_out / 'index.html'
+        path_doc_index = get_dg().doc.path_out / 'index.html'
         return debug_task([
             (open_in_browser, (path_doc_index,)),
         ])

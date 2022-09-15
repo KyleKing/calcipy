@@ -43,7 +43,7 @@ from beartype import beartype
 from beartype.typing import Callable, Dict, List
 from loguru import logger
 
-from ..doit_tasks.doit_globals import DG, DoitAction, DoitTask
+from ..doit_tasks.doit_globals import DoitAction, DoitTask, get_dg
 from ..doit_tasks.test import task_coverage, task_test
 from ..file_helpers import if_found_unlink
 
@@ -96,7 +96,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             extras: list of extras to install
 
         """
-        if DG.meta.pkg_name == 'calcipy':
+        if get_dg().meta.pkg_name == 'calcipy':
             session.poetry.installroot(extras=extras)
         else:  # pragma: no cover
             session.install('.', f'calcipy[{",".join(extras)}]')
@@ -151,7 +151,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             else:
                 raise NotImplementedError(f'Unable to run {action} ({type(action)})')
 
-    @nox_session(python=DG.test.pythons, reuse_venv=True)
+    @nox_session(python=get_dg().test.pythons, reuse_venv=True)
     def tests(session: Session) -> None:
         """Run doit test task for specified python versions.
 
@@ -163,7 +163,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         _install_pinned(session, key=_DEV_KEY)
         _run_doit_task(session, task_test)
 
-    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
+    @nox_session(python=get_dg().test.pythons[-1:], reuse_venv=True)
     def coverage(session: Session) -> None:
         """Run doit test task for specified python versions.
 
@@ -175,7 +175,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         _install_pinned(session, key=_DEV_KEY)
         _run_doit_task(session, task_coverage)
 
-    @nox_session(python=DG.test.pythons[-1:], reuse_venv=False)
+    @nox_session(python=get_dg().test.pythons[-1:], reuse_venv=False)
     def build_dist(session: Session) -> None:
         """Build the project files within a controlled environment for repeatability.
 
@@ -183,14 +183,14 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             session: nox_poetry Session
 
         """
-        if_found_unlink(DG.meta.path_project / 'dist')
+        if_found_unlink(get_dg().meta.path_project / 'dist')
         path_wheel = session.poetry.build_package()
         logger.info(f'Created wheel: {path_wheel}')
         # Install the wheel and check that imports without any of the optional dependencies
         session.install(path_wheel)
         session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
 
-    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
+    @nox_session(python=get_dg().test.pythons[-1:], reuse_venv=True)
     def build_check(session: Session) -> None:
         """Check that the built output meets all checks.
 
@@ -208,7 +208,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         session.install('poetry>=1.2.0b3')  # required for "poetry.core.masonry.api" build backend
         session.run('pyroma', '--file', path_sdist.as_posix(), '--min=9', stdout=True)
 
-    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
+    @nox_session(python=get_dg().test.pythons[-1:], reuse_venv=True)
     def check_security(session: Session) -> None:
         """More general checks for common security issues.
 
@@ -244,10 +244,10 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             # dlukeomalley:flask-set-cookie
             # clintgibler:no-exec
         ])
-        session.run(*shlex.split(f'semgrep {DG.meta.pkg_name} {configs}'), stdout=True)
+        session.run(*shlex.split(f'semgrep {get_dg().meta.pkg_name} {configs}'), stdout=True)
 
     # TODO: https://github.com/tonybaloney/wily/blob/e72b7d95228bbe5538a072dc5d1186daa318bb03/src/wily/__main__.py#L261
-    @nox_session(python=DG.test.pythons[-1:], reuse_venv=True)
+    @nox_session(python=get_dg().test.pythons[-1:], reuse_venv=True)
     def check_wily(session: Session) -> None:
         """Run `wily` separately because of dependency constraints.
 
@@ -264,13 +264,13 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         #     'halstead.h1', 'halstead.vocabulary', 'halstead.length', 'halstead.volume', 'halstead.difficulty', 'halstead.effort',
         # ])
         build_args = '--max-revisions 50'
-        report_args = f'--output {DG.meta.path_project}/report.txt --message --number 50'
+        report_args = f'--output {get_dg().meta.path_project}/report.txt --message --number 50'
         with suppress(Exception):
-            session.run(*shlex.split(f'wily build {DG.meta.pkg_name} {build_args}'), stdout=True)
-            session.run(*shlex.split(f'wily report {DG.meta.pkg_name} {report_args}'), stdout=True)
+            session.run(*shlex.split(f'wily build {get_dg().meta.pkg_name} {build_args}'), stdout=True)
+            session.run(*shlex.split(f'wily report {get_dg().meta.pkg_name} {report_args}'), stdout=True)
 
             # FYI: Opens plotly graph in web browser and not necessary to run "wily" again
             # metric = 'raw.loc'  # 'cyclomatic.complexity' 'maintainability.mi' 'halstead.h1'
-            # session.run(*shlex.split(f'wily graph {DG.meta.pkg_name} {metric}'), stdout=True)
+            # session.run(*shlex.split(f'wily graph {get_dg().meta.pkg_name} {metric}'), stdout=True)
 
         # TODO: Could use file archiver instead of git when the above fails?

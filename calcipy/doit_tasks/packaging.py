@@ -4,22 +4,20 @@ import json
 from pathlib import Path
 
 import arrow
-import attrs
 import numpy as np
 import requests
 import tomli
 from arrow import Arrow
-from attrs import field, mutable
-from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
 from doit.tools import Interactive
 from loguru import logger
+from pydantic import BaseModel, Field
 from pyrate_limiter import Duration, Limiter, RequestRate
 
 from .base import debug_task
-from .doit_globals import DG, DoitTask
+from .doit_globals import DoitTask, get_dg
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Publish releases
@@ -49,8 +47,8 @@ def task_lock() -> DoitTask:
 
     """
     task = debug_task(['poetry lock --no-update'])
-    task['file_dep'].append(DG.meta.path_toml)
-    task['targets'].extend([DG.meta.path_project / 'poetry.lock'])
+    task['file_dep'].append(get_dg().meta.path_toml)
+    task['targets'].extend([get_dg().meta.path_project / 'poetry.lock'])
     return task
 
 
@@ -65,7 +63,6 @@ def _publish_task(publish_args: str = '') -> DoitTask:
         DoitTask: doit task
 
     """
-    # FIXME: Pyroma doesn't have the poetry requirement it needs...
     return debug_task([
         Interactive('poetry run nox --session build_dist build_check'),
         f'poetry publish {publish_args}',
@@ -101,52 +98,48 @@ def task_publish_test_pypi() -> DoitTask:
 # Check for stale packages
 
 
-def _auto_convert(_cls, fields):  # type: ignore # noqa: ANN001, ANN202, CCR001
-    """Auto convert datetime attributes from string.
+class ArrowType(Arrow):
+    """Create a type for pydantic use of Arrow."""
 
-    Based on: https://www.attrs.org/en/stable/extending.html#automatic-field-transformation-and-modification
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
 
-    Args:
-        _cls: unused class argument
-        fields: `_HostedPythonPackageAttribtues`
+    @classmethod
+    def validate(cls, value):
+        @beartype
+        def arrow_converter(date: Optional[Union[str, Arrow]]) -> Optional[Arrow]:
+            return arrow.get(date) if date else date
 
-    Returns:
-        results
-
-    """
-    @beartype
-    def arrow_converter(date: Optional[Union[str, Arrow]]) -> Optional[Arrow]:
-        return arrow.get(date) if date else date
-
-    results = []
-    for fld in fields:
-        if fld.converter is not None:  # pragma: no cover
-            results.append(fld)
-            continue
-
-        converter: Optional[Arrow] = None
-        if fld.type in {Optional[Arrow], Arrow, 'datetime'}:
-            converter = arrow_converter
-        results.append(fld.evolve(converter=converter))
-
-    return results
+        return arrow_converter(value)
 
 
-# TODO: Add sort and comparators based on datetime attribute?
-@mutable(kw_only=True, field_transformer=_auto_convert)
-class _HostedPythonPackage():
+class _HostedPythonPackage(BaseModel):
     """Representative information for a python package hosted on some domain."""
 
     # Note: "releases" was removed from the versioned URL: https://warehouse.pypa.io/api-reference/json.html#release
-    domain: str = field(validator=type_validator(), default='https://pypi.org/pypi/{name}/json')
-    name: str = field(validator=type_validator())
-    version: str = field(validator=type_validator())
-    datetime: Optional[Arrow] = field(validator=type_validator(), default=None)
-    latest_version: str = field(validator=type_validator(), default='')
-    latest_datetime: Optional[Arrow] = field(validator=type_validator(), default=None)
+    domain: str = Field(default='https://pypi.org/pypi/{name}/json')
+    name: str
+    version: str
+    datetime: Optional[ArrowType] = Field(default=None)
+    latest_version: str = Field(default='')
+    latest_datetime: Optional[ArrowType] = Field(default=None)
+
+    # HACK: See pending pydantic changes: https://github.com/pydantic/pydantic/discussions/4456
+    def _iter(self, *args, **kwargs):
+        """Hack to serialize Arrow types.
+
+        Based on: https://github.com/pydantic/pydantic/issues/2277#issuecomment-764132528
+
+        """
+        for key, v in super()._iter(*args, **kwargs):
+            if 'datetime' in key:
+                yield key, str(v)
+            else:
+                yield key, v
 
 
-_PATH_PACK_LOCK = DG.meta.path_project / '.calcipy_packaging.lock'
+_PATH_PACK_LOCK = get_dg().meta.path_project / '.calcipy_packaging.lock'
 """Path to the packaging lock file."""
 
 # HACK: Check that this works then refactor (shouldn't be global)
@@ -254,10 +247,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
         path_pack_lock: Path to the lock file. Default is `_PATH_PACK_LOCK`
 
     """
-    def serialize(_inst, _field, value):  # noqa: ANN001, ANN201
-        return str(value) if isinstance(value, Arrow) else value
-
-    new_cache = {pack.name: attrs.asdict(pack, value_serializer=serialize) for pack in updated_packages}
+    new_cache = {pack.name: json.loads(pack.json()) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
     path_pack_lock.write_text(pretty_json + '\n')
 
@@ -314,17 +304,20 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         logger.warning(f'The oldest package was released {oldest_date.humanize()} (stale is >{stale_months} months)\n')
 
 
+_DEF_STALE_M = 48
+
+
 @beartype
 def find_stale_packages(
     path_lock: Path, path_pack_lock: Path = _PATH_PACK_LOCK,
-    *, stale_months: int = 48,
+    *, stale_months: int = _DEF_STALE_M,
 ) -> None:
     """Read the cached packaging information.
 
     Args:
         path_lock: Path to the lock file to parse
         path_pack_lock: Path to the lock file. Default is `_PATH_PACK_LOCK`
-        stale_months: cutoff in months for when a package might be stale enough to be a risk. Default is 48
+        stale_months: cutoff in months for when a package might be stale enough to be a risk. Default is _DEF_STALE_M
 
     """
     packages = _read_packages(path_lock)
@@ -342,10 +335,10 @@ def task_check_for_stale_packages() -> DoitTask:
         DoitTask: doit task
 
     """
-    path_lock = DG.meta.path_project / 'poetry.lock'
+    path_lock = get_dg().meta.path_project / 'poetry.lock'
     path_pack_lock = _PATH_PACK_LOCK
     task = debug_task([
-        (find_stale_packages, (path_lock, path_pack_lock), {'stale_months': 48}),
+        (find_stale_packages, (path_lock, path_pack_lock), {'stale_months': _DEF_STALE_M}),
         Interactive('poetry run pip-check --cmd="poetry run pip" --hide-unchanged'),
     ])
     task['file_dep'].append(path_lock)

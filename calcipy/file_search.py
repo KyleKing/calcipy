@@ -53,7 +53,7 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
     > Note: uses the relative project directory and verifies that each file exists
 
     Args:
-        path_project: Path to the project directory. Typically `DG.meta.path_project`
+        path_project: Path to the project directory. Typically `get_dg().meta.path_project`
         ignore_patterns: glob ignore patterns
 
     Returns:
@@ -79,7 +79,7 @@ def find_project_files_by_suffix(path_project: Path, ignore_patterns: List[str])
     > Note: uses the relative project directory and verifies that each file exists
 
     Args:
-        path_project: Path to the project directory. Typically `DG.meta.path_project`
+        path_project: Path to the project directory. Typically `get_dg().meta.path_project`
         ignore_patterns: glob ignore patterns
 
     Returns:

@@ -80,8 +80,6 @@ calcipy = "calcipy:run"
 [tool.poetry.dependencies]
 python = "^3.8.4"
 arrow = ">=1.2.3"
-attrs = ">=21.4.0"
-attrs_strict = ">=1.0.0"
 beartype = ">=0.10.4"    # dyce has nice no-op decorator for beartype, but shouldn't be optional
 bidict = ">=0.22.0"
 cement = ">=3.0.6"
@@ -89,6 +87,7 @@ decorator = ">=5.1.1"
 loguru = ">=0.6.0"
 pandas = ">=1.3.5"
 punq = ">=0.6.2"
+pydantic = ">=1.10.2"
 python-box = ">=6.0.2"
 tabulate = ">=0.8.10"    # Required for pandas.to_markdown
 
@@ -124,7 +123,7 @@ autopep8 = { version = ">=1.5.5", optional = true }
 cohesion = { version = ">=1.0.0", optional = true }
 darglint = { version = ">=1.8.1", optional = true }
 dlint = { version = ">=0.12.0", optional = true }
-flake8 = { version = ">=4.0.1", optional = true }
+flake8 = { version = ">=5.0.4", optional = true }
 flake8-2020 = { version = ">=1.6.1", optional = true }
 flake8-aaa = { version = ">=0.12.2", optional = true }
 flake8-annotations = { version = ">=2.9.0", optional = true }
