@@ -7,7 +7,7 @@ from beartype.typing import Generator
 from decorator import contextmanager
 
 from calcipy import __pkg_name__
-from calcipy.doit_tasks.doit_globals import DoitGlobals, get_dg, set_dg
+from calcipy.doit_tasks.doit_globals import create_dg, get_dg, set_dg
 from calcipy.file_helpers import delete_dir, ensure_dir
 from calcipy.log_helpers import activate_debug_logging
 
@@ -43,7 +43,7 @@ def clear_test_cache() -> None:
 @pytest.fixture(scope='module')
 def set_dg_to_test_dir():
     """Set the DoitGlobals instance to use the Test Project for all tests."""
-    set_dg(DoitGlobals.set_paths(path_project=PATH_TEST_PROJECT))
+    set_dg(create_dg(path_project=PATH_TEST_PROJECT))
 
 
 @contextmanager
@@ -59,8 +59,8 @@ def _temp_dg(path_project: Path = PATH_TEST_PROJECT) -> Generator[None, None, No
     """
     path_original = get_dg().meta.path_project
     if path_original != path_project:
-        set_dg(DoitGlobals.set_paths(path_project=path_project))
+        set_dg(create_dg(path_project=path_project))
         assert get_dg().meta.path_project == path_project
         yield
-        set_dg(DoitGlobals.set_paths(path_project=path_original))
+        set_dg(create_dg(path_project=path_original))
         assert get_dg().meta.path_project == path_original

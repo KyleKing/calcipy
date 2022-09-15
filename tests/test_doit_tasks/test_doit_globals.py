@@ -5,7 +5,7 @@ from pathlib import Path
 from beartype.typing import List
 from pydantic import BaseModel
 
-from calcipy.doit_tasks.doit_globals import DoitGlobals, TestingConfig, get_dg
+from calcipy.doit_tasks.doit_globals import TestingConfig, create_dg, get_dg
 
 from ..configuration import PATH_TEST_PROJECT
 
@@ -20,14 +20,14 @@ def test_dg_props():
     pydantic_props = _get_public_props(BaseModel())
     public_props = set(['calcipy_dir', 'set_paths', 'meta', 'tags', 'lint', 'test', 'doc'] + pydantic_props)
 
-    dg = DoitGlobals.set_paths()  # act
+    dg = create_dg()  # act
 
     assert _get_public_props(dg) == sorted(public_props)
 
 
 def test_dg_paths():
     """Test the DG global variable from DoitGlobals."""
-    dg = DoitGlobals.set_paths(path_project=PATH_TEST_PROJECT)  # act
+    dg = create_dg(path_project=PATH_TEST_PROJECT)  # act
 
     # Test the properties set by default
     assert dg.calcipy_dir.name == 'calcipy'
