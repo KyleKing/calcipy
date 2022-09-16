@@ -6,6 +6,7 @@ import warnings
 from functools import partial
 from pathlib import Path
 from typing import ClassVar
+from uuid import uuid4
 
 import doit
 import tomli
@@ -433,37 +434,40 @@ def create_dg(*, path_project: Path) -> DoitGlobals:
     return DoitGlobals(meta=meta, **kwargs)
 
 
-_DG_CONTAINER = {
-    'key': None,
-}
+class _DGContainer(BaseModel):
+    """Manage state of DoitGlobals. Only used for unit testing."""
+
+    key: str = Field(default='')
+    data: Dict[str, DoitGlobals] = Field(default_factory=dict)
+
+    @beartype
+    def set_dg(self, dg: DoitGlobals) -> None:
+        """Registers a DG instance.
+
+        Args:
+            dg: Global doit 'Globals' class for management of global variables
+
+        """
+        self.key = str(uuid4())
+        self.data[self.key] = dg
+
+    @beartype
+    def get_dg(self) -> DoitGlobals:
+        """Retrieves the registered DG instance.
+
+        Args:
+            dg: Global doit 'Globals' class for management of global variables
+
+        """
+        return self.data[self.key]
 
 
-# @beartype
-def set_dg(dg: DoitGlobals) -> None:
-    """Retrieves the registered DG instance.
+_DG_CONTAINER = _DGContainer()
+"""Single instance."""
 
-    Args:
-        dg: Global doit 'Globals' class for management of global variables
-
-    """
-    from uuid import uuid4
-    key = str(uuid4())
-    _DG_CONTAINER['key'] = key
-    _DG_CONTAINER[key] = dg
-    # _dg_old= get_dg()
-    # del _dg_old  # Force garbage collection...
-    # _DG_CONTAINER.register(_DG_KEY, instance=dg)
-
-
-# @beartype
-def get_dg() -> DoitGlobals:
-    """Retrieves the registered DG instance.
-
-    Returns:
-        DoitGlobals: Global doit 'Globals' class for management of global variables
-
-    """
-    return _DG_CONTAINER[_DG_CONTAINER['key']]
+set_dg = _DG_CONTAINER.set_dg
+get_dg = _DG_CONTAINER.get_dg
+"""Alias for exported function."""
 
 
 @beartype

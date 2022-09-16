@@ -7,6 +7,7 @@
 
 ### Fix
 
+- hack together a dictionary instead of punq
 - drop safety because of false positives on Calcipy CalVer
 
 ### Refactor
