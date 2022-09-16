@@ -1703,7 +1703,7 @@ name = "punq"
 version = "0.6.2"
 description = "An IOC Container for Python 3.6+"
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6.2,<4.0.0"
 
 [[package]]
@@ -2528,7 +2528,7 @@ test = ["coverage", "diff-cover", "hypothesis", "lxml", "mypy", "nox-poetry", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "15c8925aff8187bc0bf3527d354e1ef157e2dd7e5e8e4ae8d49497c1c03e8de2"
+content-hash = "8ef38c35d1995442164214f3ee88629bce499586fbdf1da189e523afd28697c5"
 
 [metadata.files]
 absolufy-imports = [

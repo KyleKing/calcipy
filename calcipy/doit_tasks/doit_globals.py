@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import ClassVar
 
 import doit
-import punq
 import tomli
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
@@ -122,14 +121,14 @@ class _PathAttrBase:
 class PackageMeta(_PathAttrBase):
     """Package Meta-Information."""
 
-    path_toml: Path = Field(default=Path('pyproject.toml'))
-    """Relative path to the poetry toml file."""
-
     ignore_patterns: List[str] = Field(default_factory=list)
     """List of glob patterns to ignore from all analysis."""
 
     paths: ClassVar[List[Path]]
     """Paths to all tracked files that were not ignored with specified patterns `find_project_files`."""
+
+    path_toml: ClassVar[Path]
+    """Path to the poetry toml file."""
 
     paths_by_suffix: ClassVar[Dict[str, List[Path]]]
     """Paths to all tracked files that were not ignored with specified patterns `find_project_files_by_suffix`."""
@@ -154,8 +153,9 @@ class PackageMeta(_PathAttrBase):
         if tomli is None:  # pragma: no cover
             raise RuntimeError(_DOIT_TASK_IMPORT_ERROR)
 
+        self.path_toml = self.path_project / 'pyproject.toml'
         if not self.path_toml.is_file():
-            raise RuntimeError(f'Check "{self.path_project}". Could not find: "{self.path_toml}"')
+            raise RuntimeError(f'Check "path_project". Could not find: "{self.path_toml}"')
 
         poetry_config = tomli.loads(self.path_toml.read_text())['tool']['poetry']
         self.pkg_name = poetry_config['name']
@@ -433,12 +433,12 @@ def create_dg(*, path_project: Path) -> DoitGlobals:
     return DoitGlobals(meta=meta, **kwargs)
 
 
-_DG_KEY = 'DG_DoitGlobals'
-_DG_CONTAINER = punq.Container()
-"""`punq` Container for managing instance of `DoitGlobals`."""
+_DG_CONTAINER = {
+    'key': None,
+}
 
 
-@beartype
+# @beartype
 def set_dg(dg: DoitGlobals) -> None:
     """Retrieves the registered DG instance.
 
@@ -446,10 +446,16 @@ def set_dg(dg: DoitGlobals) -> None:
         dg: Global doit 'Globals' class for management of global variables
 
     """
-    _DG_CONTAINER.register(_DG_KEY, instance=dg)
+    from uuid import uuid4
+    key = str(uuid4())
+    _DG_CONTAINER['key'] = key
+    _DG_CONTAINER[key] = dg
+    # _dg_old= get_dg()
+    # del _dg_old  # Force garbage collection...
+    # _DG_CONTAINER.register(_DG_KEY, instance=dg)
 
 
-@beartype
+# @beartype
 def get_dg() -> DoitGlobals:
     """Retrieves the registered DG instance.
 
@@ -457,7 +463,7 @@ def get_dg() -> DoitGlobals:
         DoitGlobals: Global doit 'Globals' class for management of global variables
 
     """
-    return _DG_CONTAINER.resolve(_DG_KEY)
+    return _DG_CONTAINER[_DG_CONTAINER['key']]
 
 
 @beartype

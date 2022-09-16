@@ -2,27 +2,9 @@
 
 from pathlib import Path
 
-from beartype.typing import List
-from pydantic import BaseModel
-
 from calcipy.doit_tasks.doit_globals import TestingConfig, create_dg, get_dg
 
 from ..configuration import PATH_TEST_PROJECT
-
-
-def _get_public_props(obj) -> List[str]:
-    """Return the list of public props from an object."""
-    return [prop for prop in dir(obj) if not prop.startswith('_')]
-
-
-def test_dg_props():
-    """Test the DG global variable from DoitGlobals."""
-    pydantic_props = _get_public_props(BaseModel())
-    public_props = set(['calcipy_dir', 'set_paths', 'meta', 'tags', 'lint', 'test', 'doc'] + pydantic_props)
-
-    dg = create_dg()  # act
-
-    assert _get_public_props(dg) == sorted(public_props)
 
 
 def test_dg_paths():

@@ -11,6 +11,9 @@
 
 ### Refactor
 
+- try to fix punq by switching to functions
+- fix one test, refactor a little, but punq is still not working
+- begin replacing attrs with pydantic
 - update semgrep nox task
 - upgrade copier with linting fixes
 
