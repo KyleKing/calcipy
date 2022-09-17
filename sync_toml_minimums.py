@@ -1,6 +1,5 @@
-"""
+"""Don't set a CAP for Python dependencies for packages and avoid for projects when possible.
 
-Don't set a CAP for Python dependencies for packages and avoid for projects when possible
 > https://iscinumpy.dev/post/bound-version-constraints/#tldr
 This script is useful for raising the floor, which helps reduce the load on a dependency
 resolver by reducing the possible number of combinations to consider

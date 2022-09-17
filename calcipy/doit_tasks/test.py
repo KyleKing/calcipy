@@ -12,7 +12,7 @@ from .doit_globals import DoitTask, get_dg
 
 @beartype
 def _run_nox(args: str) -> DoitTask:
-    """Run a nox command and fail if the interpreter is not found
+    """Run a nox command and fail if the interpreter is not found.
 
     Returns:
         DoitTask: doit task
