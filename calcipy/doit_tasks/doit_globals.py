@@ -256,7 +256,7 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
     )
     """Default arguments to Pytest. In short form, the defaults are `-x -l --ff --nf -vv`."""
 
-    args_diff: str = Field(default='--fail-under=65 --compare-branch=origin/main')
+    args_diff: str = Field(default='--fail-under=80 --compare-branch=origin/main')
     """Default arguments to diff-cover."""
 
     path_test_report: ClassVar[Path]

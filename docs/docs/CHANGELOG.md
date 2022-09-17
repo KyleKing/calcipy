@@ -2,16 +2,22 @@
 
 ### Feat
 
+- add docformat
+- make pyupgrade flag configurable based on minimum python version
 - replace pendulum with arrow
 - update to latest copier
 
 ### Fix
 
+- move yamllint configuration to project-specific config
+- naive datetimes can't be subtracted on Windows
 - hack together a dictionary instead of punq
 - drop safety because of false positives on Calcipy CalVer
 
 ### Refactor
 
+- experiment with custom semgrep rules
+- formalize solution from last commit
 - try to fix punq by switching to functions
 - fix one test, refactor a little, but punq is still not working
 - begin replacing attrs with pydantic
