@@ -131,14 +131,17 @@ class PackageMeta(_PathAttrBase):
     path_toml: ClassVar[Path]
     """Path to the poetry toml file."""
 
-    paths_by_suffix: ClassVar[Dict[str, List[Path]]]
-    """Paths to all tracked files that were not ignored with specified patterns `find_project_files_by_suffix`."""
-
     pkg_name: ClassVar[str]
     """Package string name."""
 
     pkg_version: ClassVar[str]
     """Package version."""
+
+    min_pyhon: ClassVar[Tuple[str]]
+    """Minimum Python version from pyproject.toml file."""
+
+    paths_by_suffix: ClassVar[Dict[str, List[Path]]]
+    """Paths to all tracked files that were not ignored with specified patterns `find_project_files_by_suffix`."""
 
     def __post_init__(self) -> None:
         """Finish initializing class attributes.
@@ -161,6 +164,10 @@ class PackageMeta(_PathAttrBase):
         poetry_config = tomli.loads(self.path_toml.read_text())['tool']['poetry']
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
+        py_constraint = poetry_config['dependencies']['python']
+        self.min_python = py_constraint.split(',')[0].lstrip('^>=').split('.')
+        if len(self.min_python) != 3 and self.min_python[0] != '3':
+            raise ValueError(f'Could not parse a valid minimum Python 3 version from {py_constraint}')
 
         if '-' in self.pkg_name:  # pragma: no cover
             warnings.warn(f'Replace dashes in name with underscores ({self.pkg_name}) in {self.path_toml}')

@@ -236,8 +236,13 @@ def _gen_format_actions(paths: str) -> List[str]:
         '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
         ' --remove-duplicate-keys'
     )
+    # pyupgrade only supports py36 to py311 at this time
+    pyup_ver = ''.join(get_dg().meta.min_python[:2])
+    pyup_flag = ''
+    if pyup_ver in [f'3{ix}' for ix in range(6, 12)]:
+        pyup_flag = f'--py{pyup_ver}-plus'
     return [
-        f'{run} pyupgrade {paths} --py38-plus --keep-runtime-typing',
+        f'{run} pyupgrade {paths} {pyup_flag} --keep-runtime-typing',
         f'{run_mod} autoflake {paths} {autoflake_args}',
         f'{run_mod} autopep8 {paths} --in-place --aggressive',
         f'{run} pycln --quiet {paths}',
