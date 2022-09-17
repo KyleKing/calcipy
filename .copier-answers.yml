@@ -1,13 +1,14 @@
 # yamllint disable-file
 # Answer file maintained by Copier for: https://github.com/KyleKing/calcipy_template
 # Check into version control. Edit by re-running copier and changing responses to the questions
-_commit: 0.9.1
+_commit: 0.9.2
 _src_path: gh:KyleKing/calcipy_template
 author_email: dev.act.kyle@gmail.com
 author_name: Kyle King
 author_username: kyleking
 cname: calcipy.kyleking.me
 copyright_date: '2021'
+development_branch: dev/development
 doc_dir: docs
 install_extras: -E dev -E lint -E test -E commitizen_legacy
 minimum_python: 3.8.4
