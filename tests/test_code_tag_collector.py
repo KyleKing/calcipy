@@ -2,8 +2,6 @@
 
 import re
 
-import attrs
-
 from calcipy.code_tag_collector import CODE_TAG_RE, _CodeTag, _format_report, _search_lines, _Tags, write_code_tag_file
 
 from .configuration import PATH_TEST_PROJECT
@@ -35,7 +33,7 @@ def test_search_lines(assert_against_cache, benchmark):
     assert comments[0].lineno == 2
     assert comments[0].tag == 'FIXME'  # noqa: T100
     assert comments[0].text == 'Show README.md in the documentation (may need to update paths?)")'
-    assert_against_cache([*map(attrs.asdict, comments)])
+    assert_against_cache([comment.dict() for comment in comments])
 
 
 def test_format_report(assert_against_cache, benchmark, fake_process):
@@ -43,7 +41,10 @@ def test_format_report(assert_against_cache, benchmark, fake_process):
     fake_process.pass_command([fake_process.any()])  # Allow "git blame" and other commands to run unregistered
     fake_process.keep_last_process(True)
     lines = ['# DEBUG: Example 1', '# TODO: Example 2']  # noqa: T101
-    comments = [_CodeTag(lineno, *line.split('# ')[1].split(': ')) for lineno, line in enumerate(lines)]
+    comments = [
+        _CodeTag(lineno=lineno, **dict(zip(('tag', 'text'), line.split('# ')[1].split(': '))))
+        for lineno, line in enumerate(lines)
+    ]
     tagged_collection = [_Tags(path_source=PATH_TEST_PROJECT, code_tags=comments)]
     tag_order = ['TODO']  # noqa: T101
 

@@ -2,7 +2,7 @@
 name: Feature request
 about: Let us know if  an idea for this project
 title: ''
-labels: 'Type: Feature, Needs Discussion, Type: Idea'
+labels: 'Type: Feature'
 assignees: kyleking
 ---
 

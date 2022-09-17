@@ -9,7 +9,7 @@ from loguru import logger
 
 from ..file_helpers import if_found_unlink
 from .base import debug_task, echo
-from .doit_globals import DG, DoitAction, DoitTask
+from .doit_globals import DoitAction, DoitTask, get_dg
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Linting
@@ -77,17 +77,17 @@ def _lint_python(
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
     run_m = 'poetry run python -m'
-    flake8_log_path = DG.meta.path_project / 'flake8.log'
+    flake8_log_path = get_dg().meta.path_project / 'flake8.log'
     flake8_flags = f'--config={path_flake8}  --output-file={flake8_log_path} --exit-zero'
     diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
-    diff_report = f'--html-report {DG.test.path_diff_lint_report}'
+    diff_report = f'--html-report {get_dg().test.path_diff_lint_report}'
     return [
         (if_found_unlink, (flake8_log_path,)),
         Interactive(f'{run_m} flake8 {flake8_flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths)),
         (_check_linting_errors, (flake8_log_path, ignore_errors)),
         # FIXME" Need to check if the branch is available first! Will fail on GHA
         Interactive(f'echo "poetry run diff-quality --violations=flake8 {diff_params} {diff_report}"'),
-        Interactive(f'{run_m} xenon {DG.meta.pkg_name} {xenon_args}'),
+        Interactive(f'{run_m} xenon {get_dg().meta.pkg_name} {xenon_args}'),
     ]
 
 
@@ -100,7 +100,7 @@ def _lint_non_python() -> List[DoitAction]:
 
     """
     actions = []
-    pbs = DG.meta.paths_by_suffix
+    pbs = get_dg().meta.paths_by_suffix
     paths_yaml = pbs.get('yml', []) + pbs.get('yaml', [])
     if paths_yaml:
         yamllint_args = '-d "{rules: {line-length: {max: 120}}}"'
@@ -111,7 +111,7 @@ def _lint_non_python() -> List[DoitAction]:
     # From: https://github.com/pre-commit/pre-commit-hooks/blob/0d261aaf84419c0c8fe70ff4a23f6a99655868de/
     #   lint: ./pre_commit_hooks/check_json.py
     #   format: ./pre_commit_hooks/pretty_format_json.py
-    # > if paths_json := DG.meta.paths_by_suffix.get('json', []):
+    # > if paths_json := get_dg().meta.paths_by_suffix.get('json', []):
     # >     actions.extend(Interactive(f'poetry run jsonlint "{pth}"') for pth in paths_json)
 
     return actions
@@ -125,7 +125,7 @@ def task_lint_python() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
+    actions = _lint_python(get_dg().lint.paths_py, path_flake8=get_dg().lint.path_flake8)
     return debug_task(actions)
 
 
@@ -137,7 +137,8 @@ def task_lint_project() -> DoitTask:
         DoitTask: doit task
 
     """
-    actions = _lint_python(DG.lint.paths_py, path_flake8=DG.lint.path_flake8)
+    dg = get_dg()
+    actions = _lint_python(dg.lint.paths_py, path_flake8=dg.lint.path_flake8)
     actions.extend(_lint_non_python())
     return debug_task(actions)
 
@@ -150,8 +151,9 @@ def task_lint_critical_only() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     actions = _lint_python(
-        DG.lint.paths_py, path_flake8=DG.lint.path_flake8, ignore_errors=DG.lint.ignore_errors,
+        dg.lint.paths_py, path_flake8=dg.lint.path_flake8, ignore_errors=dg.lint.ignore_errors,
         xenon_args='--max-absolute C --max-modules A --max-average A',
     )
     actions.extend(_lint_non_python())
@@ -173,7 +175,7 @@ def task_radon_lint() -> DoitTask:
 
     """
     actions: List[DoitAction] = []
-    paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
+    paths = ' '.join(map(Path.as_posix, get_dg().lint.paths_py))
     for args in ['mi --show --min B', 'cc --total-average --min B', 'hal', 'raw --summary']:
         actions.extend([
             (echo, (f'# Radon with args: {args}',)),
@@ -191,7 +193,7 @@ def task_static_checks() -> DoitTask:
         DoitTask: doit task
 
     """
-    paths = ' '.join(map(Path.as_posix, DG.lint.paths_py))
+    paths = ' '.join(map(Path.as_posix, get_dg().lint.paths_py))
     return debug_task([
         Interactive(f'poetry run vulture {paths} --min-confidence 70 --sort-by-size'),
     ])
@@ -206,8 +208,8 @@ def task_security_checks() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run bandit --recursive {DG.meta.pkg_name}'),
-        Interactive('poetry run nox --session check_safety'),
+        Interactive(f'poetry run bandit --recursive {get_dg().meta.pkg_name}'),
+        Interactive('poetry run nox --session check_security'),
     ])
 
 
@@ -234,13 +236,18 @@ def _gen_format_actions(paths: str) -> List[str]:
         '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
         ' --remove-duplicate-keys'
     )
+    # pyupgrade only supports py36 to py311 at this time
+    pyup_ver = ''.join(get_dg().meta.min_python[:2])
+    pyup_flag = ''
+    if pyup_ver in [f'3{ix}' for ix in range(6, 12)]:
+        pyup_flag = f'--py{pyup_ver}-plus'
     return [
-        f'{run} pyupgrade {paths} --py38-plus --keep-runtime-typing',
+        f'{run} pyupgrade {paths} {pyup_flag} --keep-runtime-typing',
         f'{run_mod} autoflake {paths} {autoflake_args}',
         f'{run_mod} autopep8 {paths} --in-place --aggressive',
         f'{run} pycln --quiet {paths}',
         f'{run} absolufy-imports {paths} --never',
-        f'{run_mod} isort {paths} --settings-path "{DG.lint.path_isort}"',
+        f'{run_mod} isort {paths} --settings-path "{get_dg().lint.path_isort}"',
         f'{run} add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
     ]
 
@@ -308,15 +315,15 @@ def task_auto_format() -> DoitTask:
     @beartype
     def get_short_path(_pth: Path) -> Path:
         try:
-            return _pth.relative_to(DG.meta.path_project)
+            return _pth.relative_to(get_dg().meta.path_project)
         except Exception as exc:
             logger.warning(
                 '{pth} is not relative to {rel_path}. Error: {exc}',
-                pth=_pth, rel_path=DG.meta.path_project, exc=exc,
+                pth=_pth, rel_path=get_dg().meta.path_project, exc=exc,
             )
             return _pth
 
-    paths = ' '.join(f'"{get_short_path(pth)}"' for pth in DG.lint.paths_py)
+    paths = ' '.join(f'"{get_short_path(pth)}"' for pth in get_dg().lint.paths_py)
     return debug_task(_gen_format_actions(paths))
 
 

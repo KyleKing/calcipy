@@ -4,7 +4,7 @@ from beartype import beartype
 from doit.tools import Interactive
 
 from .base import debug_task, open_in_browser
-from .doit_globals import DG, DoitTask
+from .doit_globals import DoitTask, get_dg
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Manage Testing with Nox
@@ -76,7 +76,7 @@ def task_test() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" {DG.test.args_pytest}'),
+        Interactive(f'poetry run python -m pytest "{get_dg().test.path_tests}" {get_dg().test.args_pytest}'),
     ])
 
 
@@ -89,7 +89,7 @@ def task_test_all() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" --ff -vv'),
+        Interactive(f'poetry run python -m pytest "{get_dg().test.path_tests}" --ff -vv'),
     ])
 
 
@@ -104,7 +104,11 @@ def task_test_marker() -> DoitTask:
 
     """
     task = debug_task(
-        [Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" {DG.test.args_pytest} -m "%(marker)s"')],
+        [
+            Interactive(
+                f'poetry run python -m pytest "{get_dg().test.path_tests}" {get_dg().test.args_pytest} -m "%(marker)s"',
+            ),
+        ],
     )
     task['params'] = [{
         'name': 'marker', 'short': 'm', 'long': 'marker', 'default': '',
@@ -128,7 +132,9 @@ def task_test_keyword() -> DoitTask:
     """
     return {
         'actions': [
-            Interactive(f'poetry run python -m pytest "{DG.test.path_tests}" {DG.test.args_pytest} -k "%(keyword)s"'),
+            Interactive(
+                f'poetry run python -m pytest "{get_dg().test.path_tests}" {get_dg().test.args_pytest} -k "%(keyword)s"',
+            ),
         ],
         'params': [{
             'name': 'keyword', 'short': 'k', 'long': 'keyword', 'default': '',
@@ -149,20 +155,20 @@ def task_coverage() -> DoitTask:
         DoitTask: doit task
 
     """
-    path_tests = DG.test.path_tests
-    cov_dir = DG.test.path_coverage_index.parent
-    test_html = f'--html="{DG.test.path_test_report}" --self-contained-html'
-    diff_html = f'--html-report {DG.test.path_diff_test_report}'
+    path_tests = get_dg().test.path_tests
+    cov_dir = get_dg().test.path_coverage_index.parent
+    test_html = f'--html="{get_dg().test.path_test_report}" --self-contained-html'
+    diff_html = f'--html-report {get_dg().test.path_diff_test_report}'
     return debug_task([
         Interactive(
-            f'poetry run coverage run --source={DG.meta.pkg_name} --module'
-            f' pytest "{path_tests}" {DG.test.args_pytest} {test_html}',
+            f'poetry run coverage run --source={get_dg().meta.pkg_name} --module'
+            + f' pytest "{path_tests}" {get_dg().test.args_pytest} {test_html}',
         ),
         'poetry run python -m coverage report --show-missing',
         f'poetry run python -m coverage html --directory={cov_dir}',
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
         'poetry run python -m coverage xml',
-        Interactive(f'poetry run diff-cover coverage.xml {DG.test.args_diff} {diff_html}'),
+        Interactive(f'poetry run diff-cover coverage.xml {get_dg().test.args_diff} {diff_html}'),
     ])
 
 
@@ -179,7 +185,7 @@ def task_check_types() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run mypy {DG.meta.pkg_name} --show-error-codes'),
+        Interactive(f'poetry run mypy {get_dg().meta.pkg_name} --show-error-codes'),
     ])
 
 
@@ -196,11 +202,11 @@ def task_open_test_docs() -> DoitTask:
 
     """
     paths = [
-        DG.test.path_test_report,
-        DG.test.path_diff_test_report,
-        DG.test.path_diff_lint_report,
-        DG.test.path_coverage_index,
-        DG.test.path_mypy_index,
+        get_dg().test.path_test_report,
+        get_dg().test.path_diff_test_report,
+        get_dg().test.path_diff_lint_report,
+        get_dg().test.path_coverage_index,
+        get_dg().test.path_mypy_index,
     ]
     return debug_task([(open_in_browser, (pth,)) for pth in paths if pth.is_file()])
 
@@ -221,7 +227,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 
     """
     return {
-        'actions': [Interactive(f'poetry run ptw "{DG.meta.path_project}" {cli_args}')],
+        'actions': [Interactive(f'poetry run ptw "{get_dg().meta.path_project}" {cli_args}')],
         'verbosity': 2,
     }
 

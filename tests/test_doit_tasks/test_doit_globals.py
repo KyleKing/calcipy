@@ -2,32 +2,14 @@
 
 from pathlib import Path
 
-from beartype.typing import List
-
-from calcipy.doit_tasks.doit_globals import DG, DocConfig, DoitGlobals
+from calcipy.doit_tasks.doit_globals import TestingConfig, create_dg, get_dg
 
 from ..configuration import PATH_TEST_PROJECT
 
 
-def _get_public_props(obj) -> List[str]:
-    """Return the list of public props from an object."""
-    return [prop for prop in dir(obj) if not prop.startswith('_')]
-
-
-def test_dg_props():
-    """Test the DG global variable from DoitGlobals."""
-    public_props = ['calcipy_dir', 'set_paths', 'meta', 'tags', 'lint', 'test', 'doc']
-
-    dg = DoitGlobals()  # act
-
-    assert _get_public_props(dg) == sorted(public_props)
-
-
 def test_dg_paths():
     """Test the DG global variable from DoitGlobals."""
-    dg = DoitGlobals()
-
-    dg.set_paths(path_project=PATH_TEST_PROJECT)  # act
+    dg = create_dg(path_project=PATH_TEST_PROJECT)  # act
 
     # Test the properties set by default
     assert dg.calcipy_dir.name == 'calcipy'
@@ -45,15 +27,18 @@ def test_path_attr_base_path_resolver():
     """Test the _PathAttrBase class."""
     base_path = Path().resolve()
 
-    doc = DocConfig(path_project=base_path)  # act
+    doc = TestingConfig(path_project=base_path)  # act
 
     assert doc.path_out.is_absolute()
 
 
 def test_doit_configurable():
     """Test configurable items from TOML file."""
-    dg = DG  # act
+    dg = get_dg()  # act
 
+    dg.meta._shorten_path_lists()
+
+    assert dg.meta.path_project.name == PATH_TEST_PROJECT.name
     assert dg.tags.tags == ['FIXME', 'TODO', 'PLANNED']  # noqa: T101, T103
     assert dg.tags.code_tag_summary_filename == 'CODE_TAG_SUMMARY.md'
     assert dg.test.path_out == PATH_TEST_PROJECT / 'releases/tests'

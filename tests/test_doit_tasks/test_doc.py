@@ -15,16 +15,16 @@ from calcipy.doit_tasks.doc import (
     _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write,
     task_deploy_docs, task_document, task_open_docs, write_autoformatted_md_sections,
 )
-from calcipy.doit_tasks.doit_globals import DG
+from calcipy.doit_tasks.doit_globals import get_dg
 
 from ..configuration import TEST_DATA_DIR
 
 
 def test_move_cl():
     """Test _move_cl."""
-    path_cl = DG.meta.path_project / 'CHANGELOG.md'
+    path_cl = get_dg().meta.path_project / 'CHANGELOG.md'
     path_cl.write_text('# CHANGELOG')
-    path_cl_dest = DG.doc.doc_sub_dir / path_cl.name
+    path_cl_dest = get_dg().doc.doc_sub_dir / path_cl.name
 
     _move_cl()  # act
 
@@ -113,7 +113,7 @@ def test_format_cov_table():
         '| `calcipy/doit_tasks/code_tags.py` |           75 |        44 |          0 | 41.3%      |',
         '| **Totals**                        |           97 |        46 |          3 | 52.6%      |',
         '',
-        'Generated on: 2021-06-03T19:37:11.980123',
+        'Generated on: 2021-06-03',
     ]
 
 
@@ -122,13 +122,13 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
     path_new_readme = fix_test_cache / path_md_file.name
     shutil.copyfile(path_md_file, path_new_readme)
-    (DG.meta.path_project / 'coverage.json').write_text(json.dumps(_COVERAGE_SAMPLE_DATA))
+    (get_dg().meta.path_project / 'coverage.json').write_text(json.dumps(_COVERAGE_SAMPLE_DATA))
     #
-    paths_original = DG.doc.paths_md
-    lookup_original = deepcopy(DG.doc.handler_lookup)
+    paths_original = get_dg().doc.paths_md
+    lookup_original = deepcopy(get_dg().doc.handler_lookup)
     #
-    DG.doc.paths_md = [path_new_readme]
-    DG.doc.handler_lookup = {
+    get_dg().doc.paths_md = [path_new_readme]
+    get_dg().doc.handler_lookup = {
         'SOURCE_FILE_TEST': _handle_source_file,
         'COVERAGE_TEST': _handle_coverage,
     }
@@ -140,8 +140,8 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```py\n"""PyTest configuration."""\n' in text
     assert '<!-- {cts} COVERAGE_TEST -->\n| File                  ' in text
     #
-    DG.doc.paths_md = paths_original
-    DG.doc.handler_lookup = lookup_original
+    get_dg().doc.paths_md = paths_original
+    get_dg().doc.handler_lookup = lookup_original
 
 
 @pytest.mark.parametrize(
@@ -169,11 +169,11 @@ def test_write_autoformatted_md_sections_custom(fix_test_cache):
     path_new_readme = fix_test_cache / path_md_file.name
     shutil.copyfile(path_md_file, path_new_readme)
     #
-    paths_original = DG.doc.paths_md
-    lookup_original = deepcopy(DG.doc.handler_lookup)
+    paths_original = get_dg().doc.paths_md
+    lookup_original = deepcopy(get_dg().doc.handler_lookup)
     #
-    DG.doc.paths_md = [path_new_readme]
-    DG.doc.handler_lookup = {
+    get_dg().doc.paths_md = [path_new_readme]
+    get_dg().doc.handler_lookup = {
         'rating': _star_parser,
     }
 
@@ -187,8 +187,8 @@ def test_write_autoformatted_md_sections_custom(fix_test_cache):
 <!-- Capture image -->
 <!-- {cte} -->""" in text
     #
-    DG.doc.paths_md = paths_original
-    DG.doc.handler_lookup = lookup_original
+    get_dg().doc.paths_md = paths_original
+    get_dg().doc.handler_lookup = lookup_original
 
 
 def test_task_document():

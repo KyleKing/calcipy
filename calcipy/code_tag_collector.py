@@ -6,13 +6,12 @@ from functools import lru_cache
 from pathlib import Path
 from subprocess import CalledProcessError  # nosec
 
+import arrow
 import pandas as pd
-import pendulum
-from attrs import field, frozen
-from attrs_strict import type_validator
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Pattern, Sequence, Tuple
 from loguru import logger
+from pydantic import BaseModel
 
 from .file_helpers import read_lines
 from .log_helpers import log_fun
@@ -34,21 +33,25 @@ Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 """
 
 
-@frozen
-class _CodeTag:
+class _CodeTag(BaseModel):
     """Code Tag (FIXME,TODO,etc) with contextual information."""  # noqa: T100,T101
 
-    lineno: int = field(validator=type_validator())
-    tag: str = field(validator=type_validator())
-    text: str = field(validator=type_validator())
+    lineno: int
+    tag: str
+    text: str
+
+    class Config:
+        frozen = True
 
 
-@frozen
-class _Tags:
+class _Tags(BaseModel):
     """Collection of code tags with additional contextual information."""
 
-    path_source: Path = field(validator=type_validator())
-    code_tags: List[_CodeTag] = field(validator=type_validator())
+    path_source: Path
+    code_tags: List[_CodeTag]
+
+    class Config:
+        frozen = True
 
 
 @beartype
@@ -76,7 +79,7 @@ def _search_lines(
         if match:
             if len(line) <= 400:  # FYI: Suppress long lines
                 group = match.groupdict()
-                comments.append(_CodeTag(lineno + 1, tag=group['tag'], text=group['text']))
+                comments.append(_CodeTag(lineno=lineno + 1, tag=group['tag'], text=group['text']))
             else:
                 logger.debug('Skipping long line {lineno}: `{line}`', lineno=lineno, line=line[:200])
     return comments
@@ -104,7 +107,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
 
         comments = _search_lines(lines, regex_compiled)
         if comments:
-            matches.append(_Tags(path_source, comments))
+            matches.append(_Tags(path_source=path_source, code_tags=comments))
 
     return matches
 
@@ -174,9 +177,9 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         }
         # Handle uncommitted files that only have author-time and author-tz
         user = 'committer' if 'committer-tz' in blame_dict else 'author'
-        dt = pendulum.from_timestamp(int(blame_dict[f'{user}-time']))
+        dt = arrow.get(int(blame_dict[f'{user}-time']))
         tz = blame_dict[f'{user}-tz'][:3] + ':' + blame_dict[f'{user}-tz'][-2:]
-        ts = pendulum.parse(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
+        ts = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
         # Filename may not be present if uncommitted. Use local path as fallback
         remote_file_path = blame_dict.get('filename', rel_path.as_posix())
         # PLANNED: Consider making "blame" configurable
@@ -216,7 +219,7 @@ def _format_report(
                 counter[comment.tag] += 1
     if records:
         df_tags = pd.DataFrame(records)
-        output += df_tags.to_markdown(index=False, tablefmt='github')
+        output += df_tags.to_markdown(index=False, tablefmt='github') or ''
     logger.debug('counter={counter}', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}

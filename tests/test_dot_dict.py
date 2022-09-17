@@ -1,6 +1,6 @@
 """Test dot_dict."""
 
-import pendulum
+import arrow
 import pytest
 
 from calcipy.dot_dict import ddict
@@ -13,7 +13,7 @@ from calcipy.dot_dict import ddict
         ('number', -1.23),
         ('unicode', '✓'),
         ('is_bool', False),
-        ('datetime', pendulum.now()),
+        ('datetime', arrow.now()),
     ],
 )
 def test_ddict(key, value):

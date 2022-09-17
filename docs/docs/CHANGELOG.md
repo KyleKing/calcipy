@@ -2,6 +2,26 @@
 
 ### Feat
 
+- replace pendulum with arrow
+- update to latest copier
+
+### Fix
+
+- hack together a dictionary instead of punq
+- drop safety because of false positives on Calcipy CalVer
+
+### Refactor
+
+- try to fix punq by switching to functions
+- fix one test, refactor a little, but punq is still not working
+- begin replacing attrs with pydantic
+- update semgrep nox task
+- upgrade copier with linting fixes
+
+## 0.16.0 (2022-08-04)
+
+### Feat
+
 - add flake8-simplify
 
 ### Fix
