@@ -293,7 +293,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
         return f'- {delta}: {pack.name} {pack.version}{latest}'
 
-    now = arrow.now()
+    now = arrow.utcnow()
     stale_cutoff = now.shift(months=-1 * stale_months)
     stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
     if stale_packages:
