@@ -103,17 +103,8 @@ def _lint_non_python() -> List[DoitAction]:
     pbs = get_dg().meta.paths_by_suffix
     paths_yaml = pbs.get('yml', []) + pbs.get('yaml', [])
     if paths_yaml:
-        yamllint_args = '-d "{rules: {line-length: {max: 120}}}"'
         paths = ' '.join(f'"{pth}"' for pth in paths_yaml)
-        actions.append(Interactive(f'poetry run yamllint {yamllint_args} {paths}'))
-
-    # FYI: Use pre-commit instead
-    # From: https://github.com/pre-commit/pre-commit-hooks/blob/0d261aaf84419c0c8fe70ff4a23f6a99655868de/
-    #   lint: ./pre_commit_hooks/check_json.py
-    #   format: ./pre_commit_hooks/pretty_format_json.py
-    # > if paths_json := get_dg().meta.paths_by_suffix.get('json', []):
-    # >     actions.extend(Interactive(f'poetry run jsonlint "{pth}"') for pth in paths_json)
-
+        actions.append(Interactive(f'poetry run yamllint {paths}'))
     return actions
 
 
@@ -232,23 +223,26 @@ def _gen_format_actions(paths: str) -> List[str]:
     """
     run = 'poetry run'
     run_mod = f'{run} python -m'
-    autoflake_args = (
-        '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
-        ' --remove-duplicate-keys'
-    )
     # pyupgrade only supports py36 to py311 at this time
     pyup_ver = ''.join(get_dg().meta.min_python[:2])
     pyup_flag = ''
     if pyup_ver in [f'3{ix}' for ix in range(6, 12)]:
         pyup_flag = f'--py{pyup_ver}-plus'
+    autoflake_args = (
+        '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
+        ' --remove-duplicate-keys'
+    )
+    docfmt_args = '--blank --close-quotes-on-newline --in-place --wrap-summaries=120 --wrap-descriptions=120'
     return [
         f'{run} pyupgrade {paths} {pyup_flag} --keep-runtime-typing',
+        # Note: autoflake and unimport basically do the same thing. Could select just one
         f'{run_mod} autoflake {paths} {autoflake_args}',
+        f'{run_mod} unimport {paths} --include-star-import --remove',
         f'{run_mod} autopep8 {paths} --in-place --aggressive',
-        f'{run} pycln --quiet {paths}',
         f'{run} absolufy-imports {paths} --never',
         f'{run_mod} isort {paths} --settings-path "{get_dg().lint.path_isort}"',
         f'{run} add-trailing-comma {paths} --py36-plus --exit-zero-even-if-changed',
+        f'{run_mod} docformatter {paths} {docfmt_args}',
     ]
 
 

@@ -12,7 +12,7 @@ from .doit_globals import DoitTask, get_dg
 
 @beartype
 def _run_nox(args: str) -> DoitTask:
-    """Run a nox command and fail if the interpreter is not found
+    """Run a nox command and fail if the interpreter is not found.
 
     Returns:
         DoitTask: doit task
@@ -75,8 +75,9 @@ def task_test() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     return debug_task([
-        Interactive(f'poetry run python -m pytest "{get_dg().test.path_tests}" {get_dg().test.args_pytest}'),
+        Interactive(f'poetry run python -m pytest "{dg.test.path_tests}" {dg.test.args_pytest}'),
     ])
 
 
@@ -103,10 +104,11 @@ def task_test_marker() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     task = debug_task(
         [
             Interactive(
-                f'poetry run python -m pytest "{get_dg().test.path_tests}" {get_dg().test.args_pytest} -m "%(marker)s"',
+                f'poetry run python -m pytest "{dg.test.path_tests}" {dg.test.args_pytest} -m "%(marker)s"',
             ),
         ],
     )
@@ -130,10 +132,11 @@ def task_test_keyword() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     return {
         'actions': [
             Interactive(
-                f'poetry run python -m pytest "{get_dg().test.path_tests}" {get_dg().test.args_pytest} -k "%(keyword)s"',
+                f'poetry run python -m pytest "{dg.test.path_tests}" {dg.test.args_pytest} -k "%(keyword)s"',
             ),
         ],
         'params': [{
@@ -155,20 +158,21 @@ def task_coverage() -> DoitTask:
         DoitTask: doit task
 
     """
-    path_tests = get_dg().test.path_tests
-    cov_dir = get_dg().test.path_coverage_index.parent
-    test_html = f'--html="{get_dg().test.path_test_report}" --self-contained-html'
-    diff_html = f'--html-report {get_dg().test.path_diff_test_report}'
+    dg = get_dg()
+    path_tests = dg.test.path_tests
+    cov_dir = dg.test.path_coverage_index.parent
+    test_html = f'--html="{dg.test.path_test_report}" --self-contained-html'
+    diff_html = f'--html-report {dg.test.path_diff_test_report}'
     return debug_task([
         Interactive(
-            f'poetry run coverage run --source={get_dg().meta.pkg_name} --module'
-            + f' pytest "{path_tests}" {get_dg().test.args_pytest} {test_html}',
+            f'poetry run coverage run --source={dg.meta.pkg_name} --module'
+            + f' pytest "{path_tests}" {dg.test.args_pytest} {test_html}',
         ),
         'poetry run python -m coverage report --show-missing',
         f'poetry run python -m coverage html --directory={cov_dir}',
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
         'poetry run python -m coverage xml',
-        Interactive(f'poetry run diff-cover coverage.xml {get_dg().test.args_diff} {diff_html}'),
+        Interactive(f'poetry run diff-cover coverage.xml {dg.test.args_diff} {diff_html}'),
     ])
 
 
@@ -201,12 +205,13 @@ def task_open_test_docs() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     paths = [
-        get_dg().test.path_test_report,
-        get_dg().test.path_diff_test_report,
-        get_dg().test.path_diff_lint_report,
-        get_dg().test.path_coverage_index,
-        get_dg().test.path_mypy_index,
+        dg.test.path_test_report,
+        dg.test.path_diff_test_report,
+        dg.test.path_diff_lint_report,
+        dg.test.path_coverage_index,
+        dg.test.path_mypy_index,
     ]
     return debug_task([(open_in_browser, (pth,)) for pth in paths if pth.is_file()])
 

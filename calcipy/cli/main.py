@@ -41,7 +41,7 @@ class CLIAppTest(TestApp, CLIApp):
 
 
 def run() -> None:
-    """Application Entry Point"""
+    """Application Entry Point."""
     with CLIApp() as app:
         logger.enable(__pkg_name__)
         try:

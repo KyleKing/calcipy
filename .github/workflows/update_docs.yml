@@ -28,7 +28,6 @@ jobs:
         uses: ts-graphviz/setup-graphviz@v1
 
         # https://github.com/mkdocs/mkdocs/discussions/2369#discussioncomment-625475
-        # yamllint disable-line rule:line-length
       - name: Configure git user
         run: |-
           git config user.name 'github-actions[bot]'

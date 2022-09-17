@@ -85,7 +85,7 @@ def test_task_lint_project():
 
     actions = result['actions']
     assert len(actions) == 6
-    assert 'poetry run yamllint -d "' in str(actions[5])
+    assert 'poetry run yamllint ' in str(actions[5])
 
 
 def test_task_lint_critical_only():
@@ -101,7 +101,7 @@ def test_task_lint_critical_only():
     assert actions[2][1][1] == ['T100', 'T101', 'T103']  # Read from toml
     assert 'T100' in actions[2][1][1]
     assert '-m xenon ' in str(actions[4])
-    assert 'poetry run yamllint -d "' in str(actions[5])
+    assert 'poetry run yamllint ' in str(actions[5])
 
 
 def test_task_radon_lint():
@@ -122,15 +122,16 @@ def test_task_auto_format():
     result = task_auto_format()
 
     actions = result['actions']
-    assert len(actions) == 7
+    assert len(actions) == 8
     cmd_seq = [
         'run pyupgrade',
         '-m autoflake',
+        '-m unimport',
         '-m autopep8',
-        'run pycln',
         'run absolufy-imports',
         '-m isort',
-        'run add-trailing-comma ',
+        'run add-trailing-comma',
+        '-m docformatter',
     ]
     for cmd, action in zip_longest(cmd_seq, actions):
         assert cmd in str(action)

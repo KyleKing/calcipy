@@ -46,9 +46,10 @@ def task_lock() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     task = debug_task(['poetry lock --no-update'])
-    task['file_dep'].append(get_dg().meta.path_toml)
-    task['targets'].extend([get_dg().meta.path_project / 'poetry.lock'])
+    task['file_dep'].append(dg.meta.path_toml)
+    task['targets'].extend([dg.meta.path_project / 'poetry.lock'])
     return task
 
 
@@ -293,7 +294,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
         return f'- {delta}: {pack.name} {pack.version}{latest}'
 
-    now = arrow.now()
+    now = arrow.utcnow()
     stale_cutoff = now.shift(months=-1 * stale_months)
     stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
     if stale_packages:

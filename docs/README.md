@@ -59,7 +59,7 @@ The core functionality of calcipy is the rich set of tasks run with `doit`
     - **auto_format**: Format code with isort, autopep8, and others.
     - **document**: Build the HTML documentation. (along with creating code diagrams!)
     - **check_for_stale_packages**: Check for stale packages.
-    - **pre_commit_hooks**: Run the pre-commit hooks  on all files.
+    - **pre_commit_hooks**: Run the pre-commit hooks on all files.
     - **lint_project**: Lint all project files that can be checked. (py, yaml, json, etc.)
     - **static_checks**: General static checkers (Inspection Tiger, etc.).
     - **security_checks**: Use linting tools to identify possible security vulnerabilities.
