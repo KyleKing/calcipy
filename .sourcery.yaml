@@ -1,7 +1,7 @@
 ---
 # See: https://docs.sourcery.ai/Configuration/
 refactor:
-  python_version: '3.7'
+  python_version: 3.8.4
 
 # Full Google Style Set from: https://sourcery.ai/blog/google-python-style-guide/
 rules:
@@ -22,19 +22,20 @@ rules:
       - match: from .something import *
       - no-match: from math import sin
 
-  - id: no-relative-imports
-    description: Always use absolute imports instead of relative imports
-    explanation: |
-      Do not use relative names in imports. Even if the module is in the same package, use the full package name. This helps prevent unintentionally importing a package twice.
-      From Google Style Guide [2.2.4](https://google.github.io/styleguide/pyguide.html#224-decision)
-    pattern: from ${module} import ...
-    condition: module.matches_regex(r"^\.")
-    tests:
-      - match: from . import important_function
-      - match: from .my_module import important_function
-      - match: from ..my_module import important_function, unimportant_function
-      - no-match: from my_company.my_module import important_function
-      - no-match: from pathlib import Path
+   #  # NOTE: relative imports are preferred. Google's justification doesn't apply when using automated tooling (isort, absolufy-imports, unimport, etc.)
+  # - id: no-relative-imports
+  #   description: Always use absolute imports instead of relative imports
+  #   explanation: |
+  #     Do not use relative names in imports. Even if the module is in the same package, use the full package name. This helps prevent unintentionally importing a package twice.
+  #     From Google Style Guide [2.2.4](https://google.github.io/styleguide/pyguide.html#224-decision)
+  #   pattern: from ${module} import ...
+  #   condition: module.matches_regex(r"^\.")
+  #   tests:
+  #     - match: from . import important_function
+  #     - match: from .my_module import important_function
+  #     - match: from ..my_module import important_function, unimportant_function
+  #     - no-match: from my_company.my_module import important_function
+  #     - no-match: from pathlib import Path
 
   - id: use-standard-name-for-aliases-pandas
     description: Import `pandas` as `pd`
