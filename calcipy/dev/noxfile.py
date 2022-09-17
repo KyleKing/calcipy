@@ -263,14 +263,15 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         #     'raw.loc', 'raw.lloc', 'raw.sloc', 'maintainability.rank', 'maintainability.mi', 'cyclomatic.complexity',
         #     'halstead.h1', 'halstead.vocabulary', 'halstead.length', 'halstead.volume', 'halstead.difficulty', 'halstead.effort',
         # ])
+        dg = get_dg()
         build_args = '--max-revisions 50'
-        report_args = f'--output {get_dg().meta.path_project}/report.txt --message --number 50'
+        report_args = f'--output {dg.meta.path_project}/report.txt --message --number 50'
         with suppress(Exception):
-            session.run(*shlex.split(f'wily build {get_dg().meta.pkg_name} {build_args}'), stdout=True)
-            session.run(*shlex.split(f'wily report {get_dg().meta.pkg_name} {report_args}'), stdout=True)
+            session.run(*shlex.split(f'wily build {dg.meta.pkg_name} {build_args}'), stdout=True)
+            session.run(*shlex.split(f'wily report {dg.meta.pkg_name} {report_args}'), stdout=True)
 
             # FYI: Opens plotly graph in web browser and not necessary to run "wily" again
             # metric = 'raw.loc'  # 'cyclomatic.complexity' 'maintainability.mi' 'halstead.h1'
-            # session.run(*shlex.split(f'wily graph {get_dg().meta.pkg_name} {metric}'), stdout=True)
+            # session.run(*shlex.split(f'wily graph {dg.meta.pkg_name} {metric}'), stdout=True)
 
         # TODO: Could use file archiver instead of git when the above fails?

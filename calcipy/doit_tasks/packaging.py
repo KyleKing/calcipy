@@ -46,9 +46,10 @@ def task_lock() -> DoitTask:
         DoitTask: doit task
 
     """
+    dg = get_dg()
     task = debug_task(['poetry lock --no-update'])
-    task['file_dep'].append(get_dg().meta.path_toml)
-    task['targets'].extend([get_dg().meta.path_project / 'poetry.lock'])
+    task['file_dep'].append(dg.meta.path_toml)
+    task['targets'].extend([dg.meta.path_project / 'poetry.lock'])
     return task
 
 

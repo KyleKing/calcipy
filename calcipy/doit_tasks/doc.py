@@ -28,10 +28,11 @@ def _move_cl() -> None:
         FileNotFoundError: if the changelog was not found
 
     """
-    path_cl = get_dg().meta.path_project / 'CHANGELOG.md'
+    dg = get_dg()
+    path_cl = dg.meta.path_project / 'CHANGELOG.md'
     if not path_cl.is_file():
         raise FileNotFoundError(f'Could not locate the changelog at: {path_cl}')
-    path_cl.replace(get_dg().doc.doc_sub_dir / path_cl.name)
+    path_cl.replace(dg.doc.doc_sub_dir / path_cl.name)
 
 
 @beartype
@@ -324,12 +325,13 @@ def write_autoformatted_md_sections() -> None:
         RuntimeError: if `get_dg().doc.handler_lookup` hasn't ben configured. See `_ensure_handler_lookup`
 
     """
-    if get_dg().doc.handler_lookup is None:
-        raise RuntimeError('The "get_dg().doc.handler_lookup" dictionary has not been created')
+    dg = get_dg()
+    if dg.doc.handler_lookup is None:
+        raise RuntimeError('The "dg.doc.handler_lookup" dictionary has not been created')
 
-    logger.info('> {paths_md}', paths_md=get_dg().doc.paths_md)
-    for path_md in get_dg().doc.paths_md:
-        md_lines = _ReplacementMachine().parse(read_lines(path_md), get_dg().doc.handler_lookup, path_md)
+    logger.info('> {paths_md}', paths_md=dg.doc.paths_md)
+    for path_md in dg.doc.paths_md:
+        md_lines = _ReplacementMachine().parse(read_lines(path_md), dg.doc.handler_lookup, path_md)
         path_md.write_text('\n'.join(md_lines))
 
 
@@ -384,8 +386,9 @@ def _diagram_tasks(pdoc_out_path: Path) -> List[DoitAction]:
 @beartype
 def _ensure_handler_lookup() -> None:
     """Configure the handler lookup if not already configured."""
-    if get_dg().doc.handler_lookup is None:
-        get_dg().doc.handler_lookup = {
+    dg = get_dg()
+    if dg.doc.handler_lookup is None:
+        dg.doc.handler_lookup = {
             'COVERAGE ': _handle_coverage,
             'SOURCE_FILE=': _handle_source_file,
         }
