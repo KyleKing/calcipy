@@ -198,9 +198,36 @@ def task_security_checks() -> DoitTask:
         DoitTask: doit task
 
     """
+    # TODO: Implement semgrep - what are a good ruleset to start with?
+    #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
+    #   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45
+    configs = ' '.join([
+        # See more at: https://semgrep.dev/explore
+        '--config=p/ci',
+        '--config=p/security-audit',
+        '--config=r/python.airflow',
+        '--config=r/python.attr',
+        '--config=r/python.click',
+        '--config=r/python.cryptography',
+        '--config=r/python.distributed',
+        '--config=r/python.docker',
+        '--config=r/python.flask',
+        '--config=r/python.jinja2',
+        '--config=r/python.jwt',
+        '--config=r/python.lang',
+        '--config=r/python.pycryptodome',
+        '--config=r/python.requests',
+        '--config=r/python.security',
+        '--config=r/python.sh',
+        '--config=r/python.sqlalchemy',
+        # dlukeomalley:unchecked-subprocess-call
+        # dlukeomalley:use-assertEqual-for-equality
+        # dlukeomalley:flask-set-cookie
+        # clintgibler:no-exec
+    ])
     return debug_task([
         Interactive(f'poetry run bandit --recursive {get_dg().meta.pkg_name}'),
-        Interactive('poetry run nox --session check_security'),
+        Interactive(f'semgrep {get_dg().meta.pkg_name} {configs}'),
     ])
 
 

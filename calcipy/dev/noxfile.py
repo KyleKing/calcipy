@@ -6,12 +6,12 @@
 poetry run nox -l
 poetry run nox --list-sessions
 
-poetry run nox -s build_check-3.9 build_dist-3.9 check_security-3.9
-poetry run nox --session check_security-3.9
+poetry run nox -s build_check-3.9 build_dist-3.9 coverage-3.9
+poetry run nox --session coverage-3.9
 
 poetry run nox --python 3.8
 
-poetry run nox -k "not tests and not check_security"
+poetry run nox -k "not tests and not coverage"
 ```
 
 Useful nox snippets
@@ -207,44 +207,6 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         # FYI: Using poetry beta because of conflict with package==20.1.3 and poetry>=1.1.12 at the time
         session.install('poetry>=1.2.0b3')  # required for "poetry.core.masonry.api" build backend
         session.run('pyroma', '--file', path_sdist.as_posix(), '--min=9', stdout=True)
-
-    @nox_session(python=get_dg().test.pythons[-1:], reuse_venv=True)
-    def check_security(session: Session) -> None:
-        """More general checks for common security issues.
-
-        Args:
-            session: nox_poetry Session
-
-        """
-        session.install('semgrep>=0.112.1', '--upgrade')  # Runs "safety" and other tools
-        # TODO: Implement semgrep - what are a good ruleset to start with? Currently only a nox-session (no doit task)
-        #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
-        #   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45
-        configs = ' '.join([
-            # See more at: https://semgrep.dev/explore
-            '--config=p/ci',
-            '--config=p/security-audit',
-            '--config=r/python.airflow',
-            '--config=r/python.attr',
-            '--config=r/python.click',
-            '--config=r/python.cryptography',
-            '--config=r/python.distributed',
-            '--config=r/python.docker',
-            '--config=r/python.flask',
-            '--config=r/python.jinja2',
-            '--config=r/python.jwt',
-            '--config=r/python.lang',
-            '--config=r/python.pycryptodome',
-            '--config=r/python.requests',
-            '--config=r/python.security',
-            '--config=r/python.sh',
-            '--config=r/python.sqlalchemy',
-            # dlukeomalley:unchecked-subprocess-call
-            # dlukeomalley:use-assertEqual-for-equality
-            # dlukeomalley:flask-set-cookie
-            # clintgibler:no-exec
-        ])
-        session.run(*shlex.split(f'semgrep {get_dg().meta.pkg_name} {configs}'), stdout=True)
 
     # TODO: https://github.com/tonybaloney/wily/blob/e72b7d95228bbe5538a072dc5d1186daa318bb03/src/wily/__main__.py#L261
     @nox_session(python=get_dg().test.pythons[-1:], reuse_venv=True)
