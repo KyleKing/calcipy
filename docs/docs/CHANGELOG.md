@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fix
+
+- pytest cache assert circular reference
+
 ### Refactor
 
 - move check_security from nox into doit
