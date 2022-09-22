@@ -90,7 +90,7 @@ name = "attrs"
 version = "21.4.0"
 description = "Classes Without Boilerplate"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.extras]
@@ -103,8 +103,8 @@ tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy"
 name = "attrs-strict"
 version = "1.0.0"
 description = "Runtime validators for attrs"
-category = "main"
-optional = true
+category = "dev"
+optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -116,7 +116,7 @@ test = ["covdefaults (>=2)", "pytest (>=6)", "pytest-cov (>=3)"]
 
 [[package]]
 name = "autoflake"
-version = "1.6.0"
+version = "1.6.1"
 description = "Removes unused imports and unused variables"
 category = "main"
 optional = true
@@ -485,8 +485,8 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "dictdiffer"
 version = "0.9.0"
 description = "Dictdiffer is a library that helps you to diff and patch dictionaries."
-category = "main"
-optional = true
+category = "dev"
+optional = false
 python-versions = "*"
 
 [package.extras]
@@ -497,11 +497,11 @@ tests = ["check-manifest (>=0.42)", "mock (>=1.3.0)", "pytest (==5.4.3)", "pytes
 
 [[package]]
 name = "diff-cover"
-version = "6.5.1"
+version = "7.0.1"
 description = "Run coverage and linting reports on diffs"
 category = "main"
 optional = true
-python-versions = ">=3.6.2,<4.0.0"
+python-versions = ">=3.7.2,<4.0.0"
 
 [package.dependencies]
 chardet = ">=3.0.0"
@@ -832,17 +832,16 @@ pydocstyle = ">=2.1"
 
 [[package]]
 name = "flake8-eradicate"
-version = "1.3.0"
+version = "1.4.0"
 description = "Flake8 plugin to find commented out code"
 category = "main"
 optional = true
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
 attrs = "*"
 eradicate = ">=2.0,<3.0"
 flake8 = ">=3.5,<6"
-setuptools = "*"
 
 [[package]]
 name = "flake8-expression-complexity"
@@ -1061,7 +1060,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "fonttools"
-version = "4.37.2"
+version = "4.37.3"
 description = "Tools to manipulate font files"
 category = "dev"
 optional = false
@@ -1208,8 +1207,8 @@ python-versions = ">=3.5"
 name = "implements"
 version = "0.3.0"
 description = "Pythonic interfaces using decorators"
-category = "main"
-optional = true
+category = "dev"
+optional = false
 python-versions = "*"
 
 [package.dependencies]
@@ -1251,7 +1250,7 @@ name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 
 [[package]]
@@ -1501,7 +1500,7 @@ mkdocs = ">=1.0"
 
 [[package]]
 name = "mkdocs-material"
-version = "8.5.2"
+version = "8.5.3"
 description = "Documentation that simply works"
 category = "main"
 optional = true
@@ -1712,7 +1711,7 @@ Markdown = ">=3.0.0,<4.0.0"
 
 [[package]]
 name = "peewee"
-version = "3.15.2"
+version = "3.15.3"
 description = "a little orm"
 category = "main"
 optional = true
@@ -1722,8 +1721,8 @@ python-versions = "*"
 name = "pendulum"
 version = "2.1.2"
 description = "Python datetimes made easy"
-category = "main"
-optional = true
+category = "dev"
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
@@ -1798,7 +1797,7 @@ name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [package.extras]
@@ -1849,8 +1848,8 @@ six = ">=1.15.0,<2.0.0"
 name = "punq"
 version = "0.6.2"
 description = "An IOC Container for Python 3.6+"
-category = "main"
-optional = true
+category = "dev"
+optional = false
 python-versions = ">=3.6.2,<4.0.0"
 
 [[package]]
@@ -1858,7 +1857,7 @@ name = "py"
 version = "1.11.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
@@ -2011,7 +2010,7 @@ name = "pytest"
 version = "7.1.3"
 description = "pytest: simple powerful testing with Python"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -2047,8 +2046,8 @@ histogram = ["pygal", "pygaljs"]
 name = "pytest-cache-assert"
 version = "2.0.0"
 description = "Cache assertion data to simplify regression testing of complex serializable data"
-category = "main"
-optional = true
+category = "dev"
+optional = false
 python-versions = ">=3.7.6,<4.0.0"
 
 [package.dependencies]
@@ -2189,8 +2188,8 @@ python-versions = "*"
 name = "pytzdata"
 version = "2020.1"
 description = "The Olson timezone database for Python."
-category = "main"
-optional = true
+category = "dev"
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
@@ -2366,7 +2365,7 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 name = "setuptools-scm"
 version = "7.0.5"
 description = "the blessed package to manage your versions by scm tags"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
@@ -2577,12 +2576,12 @@ name = "ujson"
 version = "5.5.0"
 description = "Ultra fast JSON encoder and decoder for Python"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [[package]]
 name = "unimport"
-version = "0.11.3"
+version = "0.12.1"
 description = "A linter, formatter for finding and removing unused import statements."
 category = "main"
 optional = true
@@ -2597,8 +2596,8 @@ pathspec = {version = ">=0.10.1,<1", markers = "python_version >= \"3.7\""}
 toml = ">=0.9.0,<1"
 
 [package.extras]
-dev = ["pytest (==6.2.4)", "pytest-cov (==2.12.1)", "semantic-version (==2.8.5)"]
 docs = ["mkdocs (==1.3.0)", "mkdocs-git-revision-date-localized-plugin (==1.0.1)", "mkdocs-markdownextradata-plugin (==0.2.5)", "mkdocs-material (==8.3.6)", "mkdocs-minify-plugin (==0.5.0)"]
+test = ["pytest (==6.2.4)", "pytest-cov (==2.12.1)", "semantic-version (==2.8.5)"]
 
 [[package]]
 name = "untokenize"
@@ -2774,12 +2773,12 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 commitizen_legacy = ["cz_legacy"]
 dev = ["better-exceptions", "commitizen", "mkdocs-git-revision-date-localized-plugin", "mkdocs-material", "pdbpp", "pdocs", "pyupgrade"]
 lint = ["absolufy-imports", "add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "docformatter", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-simplify", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-variables-names", "isort", "licensecheck", "pandas-vet", "pep8-naming", "pip-check", "proselint", "pylint", "semgrep", "unimport", "vulture", "xenon", "yamllint"]
-test = ["coverage", "diff-cover", "hypothesis", "lxml", "mypy", "nox-poetry", "pytest", "pytest-benchmark", "pytest-cache-assert", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-subprocess", "pytest-watcher"]
+test = ["coverage", "diff-cover", "hypothesis", "lxml", "mypy", "nox-poetry", "pytest", "pytest-benchmark", "pytest-html", "pytest-randomly", "pytest-recording", "pytest-subprocess", "pytest-watcher"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "1bab4559cc2453dd98b9b87fa21e7cbddda95e2274a173e937b46b9d2bd4e772"
+content-hash = "ac05facbf128d83b401c018849d2680551f47d8a36f585e26aff2ff3415173ab"
 
 [metadata.files]
 absolufy-imports = [
@@ -2823,8 +2822,8 @@ attrs-strict = [
     {file = "attrs_strict-1.0.0.tar.gz", hash = "sha256:6326c1e51c4fd2fffc9dd607dec06c31add64eedbd37a651ea88f663a37c3f18"},
 ]
 autoflake = [
-    {file = "autoflake-1.6.0-py2.py3-none-any.whl", hash = "sha256:d5de7da3786809bbdedbdbdeecbb410d55277b3492a4a3ede882998f1e87f156"},
-    {file = "autoflake-1.6.0.tar.gz", hash = "sha256:6d313038abf4ad829cb88c9b01cd16387369ac529842bcd7f25a967ab4e99b8f"},
+    {file = "autoflake-1.6.1-py2.py3-none-any.whl", hash = "sha256:dfef4c851fb07e6111f9115d3e7c8c52d8564cbf71c12ade2d8b8a2a7b8bd176"},
+    {file = "autoflake-1.6.1.tar.gz", hash = "sha256:72bce741144ef6db26005d47dba242c1fd6a91ea53f7f4c5a90ad4b051e394c2"},
 ]
 autopep8 = [
     {file = "autopep8-1.7.0-py2.py3-none-any.whl", hash = "sha256:6f09e90a2be784317e84dc1add17ebfc7abe3924239957a37e5040e27d812087"},
@@ -3090,8 +3089,8 @@ dictdiffer = [
     {file = "dictdiffer-0.9.0.tar.gz", hash = "sha256:17bacf5fbfe613ccf1b6d512bd766e6b21fb798822a133aa86098b8ac9997578"},
 ]
 diff-cover = [
-    {file = "diff_cover-6.5.1-py3-none-any.whl", hash = "sha256:ad602868ff14969563216866fc249f068df54892bd6c989201110bbb837dab06"},
-    {file = "diff_cover-6.5.1.tar.gz", hash = "sha256:8c3bb13812e9667bc83f8c7606402511e9c2fe79d6786f129522e79693ee096b"},
+    {file = "diff_cover-7.0.1-py3-none-any.whl", hash = "sha256:16f2fe42885fee23400b886675d813ce72b9ef382856049fc1cd1a3f5b07357a"},
+    {file = "diff_cover-7.0.1.tar.gz", hash = "sha256:69258355daf8276057a92e42cec52594ad8cfe7dd505d6f0e56fe440bc4418d0"},
 ]
 dill = [
     {file = "dill-0.3.5.1-py2.py3-none-any.whl", hash = "sha256:33501d03270bbe410c72639b350e941882a8b0fd55357580fbc873fba0c59302"},
@@ -3214,8 +3213,8 @@ flake8-docstrings = [
     {file = "flake8_docstrings-1.6.0-py2.py3-none-any.whl", hash = "sha256:99cac583d6c7e32dd28bbfbef120a7c0d1b6dde4adb5a9fd441c4227a6534bde"},
 ]
 flake8-eradicate = [
-    {file = "flake8-eradicate-1.3.0.tar.gz", hash = "sha256:e4c98f00d17dc8653e3388cac2624cd81e9735de2fd4a8dcf99029633ebd7a63"},
-    {file = "flake8_eradicate-1.3.0-py3-none-any.whl", hash = "sha256:85a71e0c5f4e07f7c6c5fec520483561fd6bd295417d622855bdeade99242e3d"},
+    {file = "flake8-eradicate-1.4.0.tar.gz", hash = "sha256:3088cfd6717d1c9c6c3ac45ef2e5f5b6c7267f7504d5a74b781500e95cb9c7e1"},
+    {file = "flake8_eradicate-1.4.0-py3-none-any.whl", hash = "sha256:e3bbd0871be358e908053c1ab728903c114f062ba596b4d40c852fd18f473d56"},
 ]
 flake8-expression-complexity = [
     {file = "flake8_expression_complexity-0.0.11-py3-none-any.whl", hash = "sha256:b56bac37f7dd5d3d102a7111c89f6579c2cbd897b868147794c9ed12aadc627c"},
@@ -3292,8 +3291,8 @@ flake8-variables-names = [
     {file = "flake8_variables_names-0.0.5.tar.gz", hash = "sha256:30133e14ee2300e13a60393a00f74d98110c76070ac67d1ab91606f02824a7e1"},
 ]
 fonttools = [
-    {file = "fonttools-4.37.2-py3-none-any.whl", hash = "sha256:88d48ef24486137c864dc56707b4b54ef8a97ab9162c2721ec61434baf1c4d13"},
-    {file = "fonttools-4.37.2.zip", hash = "sha256:b6d86ffd0a5f83d3da6a34d5f99a90398638e423cd6a8d93c5808af703432c7f"},
+    {file = "fonttools-4.37.3-py3-none-any.whl", hash = "sha256:a5bc5f5d48faa4085310b8ebd4c5d33bf27c6636c5f10a7de792510af2745a81"},
+    {file = "fonttools-4.37.3.zip", hash = "sha256:f32ef6ec966cf0e7d2aa88601fed2e3a8f2851c26b5db2c80ccc8f82bee4eedc"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
@@ -3687,8 +3686,8 @@ mkdocs-git-revision-date-localized-plugin = [
     {file = "mkdocs_git_revision_date_localized_plugin-1.1.0-py3-none-any.whl", hash = "sha256:4ba0e49abea3e9f6ee26e2623ff7283873da657471c61f1d0cfbb986f403316d"},
 ]
 mkdocs-material = [
-    {file = "mkdocs-material-8.5.2.tar.gz", hash = "sha256:16ca1304a93b085e5dfb0dbcc681b74dad1587d8ba727c89c8fd4259dd8fe004"},
-    {file = "mkdocs_material-8.5.2-py2.py3-none-any.whl", hash = "sha256:1962099d8c6eb7571896a0e7fdc52ff4fda1e906969d0e42ae3537418e807868"},
+    {file = "mkdocs_material-8.5.3-py3-none-any.whl", hash = "sha256:d194c38041d1e83560221022b3f85eec4604b35e44f5c3a488c24b88542074ed"},
+    {file = "mkdocs_material-8.5.3.tar.gz", hash = "sha256:43b0aa707d6f9acd836024cab2dce9330957c94a4e1e41c23ee6c8ce67b4d8c5"},
 ]
 mkdocs-material-extensions = [
     {file = "mkdocs-material-extensions-1.0.3.tar.gz", hash = "sha256:bfd24dfdef7b41c312ede42648f9eb83476ea168ec163b613f9abd12bbfddba2"},
@@ -3880,7 +3879,7 @@ pdocs = [
     {file = "pdocs-1.1.1.tar.gz", hash = "sha256:f148034970220c9e05d2e04d8eb3fcec3575cf480af0966123ef9d6621b46e4f"},
 ]
 peewee = [
-    {file = "peewee-3.15.2.tar.gz", hash = "sha256:94d8eb7fc2b8d97d6216382bf5961239645dc9e2473b0e732eb6c79c920c4768"},
+    {file = "peewee-3.15.3.tar.gz", hash = "sha256:cc934286d0c0842203abe66a3c6583d1463371e633b03d6da054d0f74e70706f"},
 ]
 pendulum = [
     {file = "pendulum-2.1.2-cp27-cp27m-macosx_10_15_x86_64.whl", hash = "sha256:b6c352f4bd32dff1ea7066bd31ad0f71f8d8100b9ff709fb343f3b86cee43efe"},
@@ -4441,7 +4440,8 @@ ujson = [
     {file = "ujson-5.5.0.tar.gz", hash = "sha256:b25077a971c7da47bd6846a912a747f6963776d90720c88603b1b55d81790780"},
 ]
 unimport = [
-    {file = "unimport-0.11.3.tar.gz", hash = "sha256:4182639dca2de4e9671f9bb3d1f5ee50d88047414ba5db007b53ef77bf321672"},
+    {file = "unimport-0.12.1-py3-none-any.whl", hash = "sha256:90c7eee542b3cef404ec9f39cc9bf5f14412b31b8d5654b38eba2ceb0ce47986"},
+    {file = "unimport-0.12.1.tar.gz", hash = "sha256:fb6238efdd9e1b1f2e433dfd9afe060ea4c7ce0056d530443abdd6b66a868e39"},
 ]
 untokenize = [
     {file = "untokenize-0.1.1.tar.gz", hash = "sha256:3865dbbbb8efb4bb5eaa72f1be7f3e0be00ea8b7f125c69cbd1f5fda926f37a2"},
