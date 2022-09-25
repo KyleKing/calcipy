@@ -67,7 +67,7 @@ class CodeTagCollectorController(Controller):
         """Main subcommand to collect code tags."""
         pargs = self.app.pargs
 
-        base_dir = Path(pargs.base_dir).resolve().absolute()
+        base_dir = Path(pargs.base_dir).resolve()
         path_tag_summary = base_dir / pargs.filename
         ignore_patterns = pargs.ignore_patterns.split(',') if pargs.ignore_patterns else []
         paths_source = find_project_files(base_dir, ignore_patterns=ignore_patterns)
