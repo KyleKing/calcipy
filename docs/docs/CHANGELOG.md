@@ -2,6 +2,12 @@
 
 ### Fix
 
+- Pathlib.absolute is not documented. Use .resolve
+
+## 0.17.1 (2022-09-22)
+
+### Fix
+
 - pytest cache assert circular reference
 
 ### Refactor

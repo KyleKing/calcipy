@@ -39,7 +39,7 @@ repos:
     hooks:
       - id: beautysh
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.34.0
+    rev: v2.35.0
     hooks:
       - id: commitizen
         additional_dependencies: [cz_legacy]
