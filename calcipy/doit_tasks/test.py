@@ -189,7 +189,7 @@ def task_check_types() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run mypy {get_dg().meta.pkg_name} --show-error-codes'),
+        Interactive(f'poetry run mypy {get_dg().meta.pkg_name} --install-types'),
     ])
 
 

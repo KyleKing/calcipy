@@ -186,7 +186,8 @@ def task_static_checks() -> DoitTask:
     """
     paths = ' '.join(map(Path.as_posix, get_dg().lint.paths_py))
     return debug_task([
-        Interactive(f'poetry run vulture {paths} --min-confidence 70 --sort-by-size'),
+        # Set to 61% because pydantic.Config and attributes are flagged with 60% confidence
+        Interactive(f'poetry run vulture {paths} --min-confidence 61 --sort-by-size'),
     ])
 
 
