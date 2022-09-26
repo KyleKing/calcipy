@@ -163,10 +163,11 @@ def task_coverage() -> DoitTask:
     cov_dir = dg.test.path_coverage_index.parent
     test_html = f'--html="{dg.test.path_test_report}" --self-contained-html'
     diff_html = f'--html-report {dg.test.path_diff_test_report}'
+    min_cov = f'--cov-fail-under={dg.test.min_cov}' if dg.test.min_cov else ''
     return debug_task([
         Interactive(
             f'poetry run coverage run --source={dg.meta.pkg_name} --module'
-            + f' pytest "{path_tests}" {dg.test.args_pytest} {test_html}',
+            + f' pytest "{path_tests}" {dg.test.args_pytest} {min_cov} {test_html}',
         ),
         'poetry run python -m coverage report --show-missing',
         f'poetry run python -m coverage html --directory={cov_dir}',

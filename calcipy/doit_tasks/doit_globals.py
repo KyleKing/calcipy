@@ -251,13 +251,20 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
     path_tests: Path = Field(default=Path('tests'))
     """Relative path to the tests directory. Default is `tests`."""
 
-    args_pytest: str = Field(
-        default='--exitfirst --showlocals --failed-first --new-first --verbose --doctest-modules',
-    )
-    """Default arguments to Pytest. In short form, the defaults are `-x -l --ff --nf -vv`."""
+    min_cov: int = Field(default=80)
+    """Configurable minimum percent coverage."""
 
-    args_diff: str = Field(default='--fail-under=80 --compare-branch=origin/main')
-    """Default arguments to diff-cover."""
+    args_pytest: str = Field(default='--exitfirst --showlocals --failed-first --new-first --verbose')
+    """Default arguments to Pytest"""
+
+    args_diff: str = Field(
+        default='--fail-under=50 --include-untracked --ignore-whitespace --show-uncovered --compare-branch=origin/main',
+    )
+    """Default arguments to diff-cover.
+
+    Note: this may need to overridden for projects that don't use a main branch or need a lower threshold
+
+    """
 
     path_test_report: ClassVar[Path]
     """Path to the self-contained test HTML report."""
