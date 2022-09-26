@@ -8,8 +8,7 @@ Register all defaults doit tasks in a dodo.py file with the below snippet:
 
 __all__ = [  # noqa: F405
     'DOIT_CONFIG_RECOMMENDED',
-    'TASKS_CI',
-    'TASKS_LOCAL',
+    'TASKS_FULL',
     # from .base
     'task_zip_release',
     # from .code_tags
@@ -54,23 +53,15 @@ __all__ = [  # noqa: F405
     'task_test',
 ]
 
-from getpass import getuser
-
 from .base import task_zip_release  # noqa: F401
 from .code_tags import task_collect_code_tags  # noqa: F401
-from .doc import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
-from .lint import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
-from .packaging import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+from .doc import *  # noqa: F401,F403,H303
+from .lint import *  # noqa: F401,F403,H303
+from .packaging import *  # noqa: F401,F403,H303
 from .summary_reporter import SummaryReporter
-from .test import *  # noqa: F401,F403,H303. lgtm [py/polluting-import]
+from .test import *  # noqa: F401,F403,H303
 
-TASKS_CI = [
-    'nox_test',
-    'security_checks',
-]
-"""More forgiving tasks to be run in CI."""
-
-TASKS_LOCAL = [
+TASKS_FULL = [
     'collect_code_tags',
     'cl_write',
     'lock',
@@ -89,7 +80,7 @@ TASKS_LOCAL = [
 DOIT_CONFIG_RECOMMENDED = {
     'action_string_formatting': 'old',  # Required for keyword-based tasks
     'backend': 'sqlite3',  # Best support for concurrency
-    'default_tasks': TASKS_CI if getuser().lower() == 'appveyor' else TASKS_LOCAL,
+    'default_tasks': TASKS_FULL,
     'dep_file': '.doit-db.sqlite',
     'reporter': SummaryReporter,
 }
