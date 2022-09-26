@@ -19,7 +19,7 @@ poetry run doit run test
 
 ## Publishing
 
-For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Replace `...` with the API token generated on TestPyPi|PyPi respectively
+For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Replace `...` with the API token generated on TestPyPi or PyPi respectively
 
 ```sh
 poetry config repositories.testpypi https://test.pypi.org/legacy/
