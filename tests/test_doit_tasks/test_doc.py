@@ -199,7 +199,7 @@ def test_task_document():
     actions = result['actions']
     assert len(actions) == 7
     assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
-    assert str(actions[2]).startswith('Cmd: poetry run pdocs as_markdown')
+    assert str(actions[2]).startswith('Cmd: poetry run pdoc')
     assert isinstance(actions[3][0], type(write_text))
     assert ' pyreverse ' in str(actions[4])
     assert str(actions[-1]).startswith('Cmd: poetry run mkdocs build --site-dir')

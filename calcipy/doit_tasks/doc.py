@@ -2,6 +2,7 @@
 
 import json
 import re
+import shutil
 import webbrowser
 from pathlib import Path
 
@@ -343,7 +344,7 @@ def write_autoformatted_md_sections() -> None:
 def _diagram_tasks(pdoc_out_path: Path) -> List[DoitAction]:
     """Return actions to generate code diagrams in the module documentation directory.
 
-    Note: must be run after `document` because pdocs will delete these files
+    Note: must be run after `document` because pdoc will delete these files
 
     PUML support may be coming in a future release: https://github.com/PyCQA/pylint/issues/4498
 
@@ -411,12 +412,13 @@ def task_document() -> DoitTask:
     """
     _ensure_handler_lookup()
     pdoc_out_path = get_dg().doc.auto_doc_path
-    pdoc_out = f'--output_dir {pdoc_out_path} --overwrite'
-    pdoc_template = f'--template_dir {get_dg().calcipy_dir}/doit_tasks/templates'
+    if pdoc_out_path.is_dir():
+        shutil.rmtree(pdoc_out_path)
+    pdoc_out = f'--output_dir {pdoc_out_path}'
     return debug_task([
         (write_autoformatted_md_sections, ()),
         (delete_dir, (pdoc_out_path,)),
-        Interactive(f'poetry run pdocs as_markdown {get_dg().meta.pkg_name} {pdoc_out} {pdoc_template}'),
+        Interactive(f'poetry run pdoc {get_dg().meta.pkg_name} {pdoc_out}'),
         *_diagram_tasks(pdoc_out_path),
         (_find_and_trim_trailing_whitespace, (pdoc_out_path,)),
         Interactive(f'poetry run mkdocs build --site-dir {get_dg().doc.path_out}'),
