@@ -1,0 +1,40 @@
+{
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_doit_tasks/test_doc.py",
+      "test_name": "test_task_document"
+    }
+  ],
+  "_json": {
+    "actions": [
+      [
+        "<function write_autoformatted_md_sections(..)>",
+        []
+      ],
+      [
+        "<function delete_dir(..)>",
+        [
+          "--/.test_calcipy_project/docs_custom/modules"
+        ]
+      ],
+      [
+        "<function write_text(..)>",
+        [
+          "--/.test_calcipy_project/docs_custom/modules/test_project/_code_diagrams.md",
+          "# Code Diagrams\n\n> Auto-generated with `pylint-pyreverse`\n\n## Packages\n\n![./packages.svg](./packages.svg)\n\n[Full Size](./packages.svg)\n\n## Classes\n\n![./classes.svg](./classes.svg)\n\n[Full Size](./classes.svg)\n"
+        ]
+      ],
+      "Cmd: poetry run pyreverse test_project --output svg --output-directory /Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/docs_custom/modules/test_project",
+      [
+        "<function _find_and_trim_trailing_whitespace(..)>",
+        [
+          "--/.test_calcipy_project/docs_custom/modules"
+        ]
+      ],
+      "Cmd: poetry run mkdocs build --site-dir /Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/releases/site"
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}

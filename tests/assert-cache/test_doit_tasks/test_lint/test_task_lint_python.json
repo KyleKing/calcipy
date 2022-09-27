@@ -1,0 +1,28 @@
+{
+  "_info": [],
+  "_json": {
+    "actions": [
+      [
+        "<function if_found_unlink(..)>",
+        [
+          "--/.test_calcipy_project/flake8.log"
+        ]
+      ],
+      "Cmd: poetry run python -m flake8 --config=/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.flake8  --output-file=/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/flake8.log --exit-zero \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/dodo.py\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/noxfile.py\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/scripts/check_imports.py\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/test_project/__init__.py\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/tests/__init__.py\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/tests/configuration.py\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/tests/conftest.py\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/tests/test_zz_test_project.py\"",
+      [
+        "<function _check_linting_errors(..)>",
+        [
+          "--/.test_calcipy_project/flake8.log",
+          [
+            "T100",
+            "T101"
+          ]
+        ]
+      ],
+      "Cmd: echo \"poetry run diff-quality --violations=flake8 --compare-branch=origin/main --fail-under=80 --html-report /Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/releases/tests/diff_lint_report.html\"",
+      "Cmd: poetry run python -m xenon test_project --max-absolute B --max-modules A --max-average A"
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}

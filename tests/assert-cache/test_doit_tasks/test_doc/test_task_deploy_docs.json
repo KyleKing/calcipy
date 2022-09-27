@@ -1,0 +1,16 @@
+{
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_doit_tasks/test_doc.py",
+      "test_name": "test_task_deploy_docs"
+    }
+  ],
+  "_json": {
+    "actions": [
+      "Cmd: poetry run mkdocs gh-deploy"
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}

@@ -26,27 +26,21 @@ class MockLogger:  # noqa: D101, D102
         self.logs['warnings'].append({'message': message, 'kwargs': kwargs})
 
 
-def test_task_publish():
+def test_task_publish(assert_against_cache):
     """Test task_publish."""
     result = task_publish()
 
-    actions = result['actions']
-    assert len(actions) == 2
-    assert 'poetry run nox --session build_dist build_check' in str(actions[0])
-    assert 'poetry publish' in str(actions[1])
+    assert_against_cache(result)
 
 
-def test_task_publish_test_pypi():
+def test_task_publish_test_pypi(assert_against_cache):
     """Test task_publish_test_pypi."""
     result = task_publish_test_pypi()
 
-    actions = result['actions']
-    assert len(actions) == 2
-    assert 'poetry run nox --session build_dist build_check' in str(actions[0])
-    assert 'poetry publish --repository testpypi' in str(actions[1])
+    assert_against_cache(result)
 
 
-def test_read_packages():
+def test_read_packages(assert_against_cache):
     """Test _read_packages."""
     path_lock = PATH_TEST_PROJECT / 'poetry.lock'
 
@@ -135,15 +129,8 @@ def test_check_for_stale_packages():
     assert _check_for_stale_packages(packages, stale_months=999) is None
 
 
-def test_task_check_for_stale_packages():
+def test_task_check_for_stale_packages(assert_against_cache):
     """Test task_check_for_stale_packages."""
     result = task_check_for_stale_packages()
 
-    actions = result['actions']
-    assert len(actions) == 2
-    assert isinstance(actions[0][0], type(find_stale_packages))
-    assert len(actions[0][1]) == 2
-    assert actions[0][1][0].name == 'poetry.lock'
-    assert actions[0][1][1].name == _PATH_PACK_LOCK.name
-    assert actions[0][2] == {'stale_months': 48}
-    assert 'poetry run pip-check' in str(actions[1])
+    assert_against_cache(result)

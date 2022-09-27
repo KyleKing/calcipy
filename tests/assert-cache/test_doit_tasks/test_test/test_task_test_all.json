@@ -1,0 +1,16 @@
+{
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_doit_tasks/test_test.py",
+      "test_name": "test_task_test_all"
+    }
+  ],
+  "_json": {
+    "actions": [
+      "Cmd: poetry run python -m pytest \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/tests\" --ff -vv"
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}

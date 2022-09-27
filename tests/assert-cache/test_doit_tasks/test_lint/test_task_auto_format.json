@@ -1,0 +1,17 @@
+{
+  "_info": [],
+  "_json": {
+    "actions": [
+      "poetry run pyupgrade \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --py38-plus --keep-runtime-typing",
+      "poetry run python -m autoflake \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports --remove-duplicate-keys",
+      "poetry run python -m unimport \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --include-star-import --remove",
+      "poetry run python -m autopep8 \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --in-place --aggressive",
+      "poetry run absolufy-imports \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --never",
+      "poetry run python -m isort \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --settings-path \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.isort.cfg\"",
+      "poetry run add-trailing-comma \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --py36-plus --exit-zero-even-if-changed",
+      "poetry run python -m docformatter \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --blank --close-quotes-on-newline --in-place --wrap-summaries=120 --wrap-descriptions=120"
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}

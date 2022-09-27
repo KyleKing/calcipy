@@ -11,6 +11,7 @@
 
 ### Fix
 
+- re-run prdc
 - lower fail-under for diff. Raise for regular test
 - standardize on a single doit task list
 - Pathlib.absolute is not documented. Use .resolve

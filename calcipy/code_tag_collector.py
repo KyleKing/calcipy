@@ -253,7 +253,7 @@ def write_code_tag_file(
 
     matches = _search_files(paths_source, regex_compiled)
     if report := _format_report(
-        base_dir, matches, tag_order=tag_order
+        base_dir, matches, tag_order=tag_order,
     ).strip():
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
     elif path_tag_summary.is_file():

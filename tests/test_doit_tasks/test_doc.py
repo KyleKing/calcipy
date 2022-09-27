@@ -2,14 +2,12 @@
 
 import json
 import shutil
-import webbrowser
 from copy import deepcopy
 from pathlib import Path
 
 import pytest
 from beartype.typing import List
 
-from calcipy.doit_tasks.base import write_text
 from calcipy.doit_tasks.doc import (
     _format_cov_table, _handle_coverage, _handle_source_file, _is_mkdocs_local,
     _move_cl, _parse_var_comment, task_cl_bump, task_cl_bump_pre, task_cl_write,
@@ -33,40 +31,25 @@ def test_move_cl():
     path_cl_dest.unlink()
 
 
-def test_task_cl_write():
+def test_task_cl_write(assert_against_cache):
     """Test task_cl_write."""
     result = task_cl_write()
 
-    actions = result['actions']
-    assert len(actions) == 2
-    assert actions[0] == 'poetry run cz changelog'
-    assert isinstance(actions[1][0], type(_move_cl))
+    assert_against_cache(result)
 
 
-def test_task_cl_bump():
+def test_task_cl_bump(assert_against_cache):
     """Test task_cl_bump."""
     result = task_cl_bump()
 
-    actions = result['actions']
-    assert len(actions) == 5
-    assert isinstance(actions[1][0], type(_move_cl))
-    assert 'poetry run cz bump --annotated-tag' in str(actions[2])
-    assert actions[3] == 'git push origin --tags --no-verify'
+    assert_against_cache(result)
 
 
-def test_task_cl_bump_pre():
+def test_task_cl_bump_pre(assert_against_cache):
     """Test task_cl_bump_pre."""
     result = task_cl_bump_pre()
 
-    actions = result['actions']
-    assert len(actions) == 5
-    assert isinstance(actions[1][0], type(_move_cl))
-    assert 'poetry run cz bump --prerelease' in str(actions[2])
-    assert actions[3] == 'git push origin --tags --no-verify'
-    params = result['params']
-    assert len(params) == 1
-    assert params[0]['name'] == 'prerelease'
-    assert params[0]['short'] == 'p'
+    assert_against_cache(result)
 
 
 _COVERAGE_SAMPLE_DATA = {
@@ -191,36 +174,24 @@ def test_write_autoformatted_md_sections_custom(fix_test_cache):
     get_dg().doc.handler_lookup = lookup_original
 
 
-def test_task_document():
+def test_task_document(assert_against_cache):
     """Test task_document."""
     result = task_document()
 
     assert _is_mkdocs_local() is False
-    actions = result['actions']
-    assert len(actions) == 6
-    assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
-    assert isinstance(actions[2][0], type(write_text))
-    assert ' pyreverse ' in str(actions[3])
-    assert str(actions[-1]).startswith('Cmd: poetry run mkdocs build --site-dir')
+    assert_against_cache(result)
 
 
-def test_task_open_docs():
+def test_task_open_docs(assert_against_cache):
     """Test task_open_docs."""
     result = task_open_docs()
 
     assert _is_mkdocs_local() is False
-    actions = result['actions']
-    assert len(actions) == 2
-    assert isinstance(actions[0][0], type(webbrowser.open))
-    assert len(actions[0][1]) == 1
-    assert actions[0][1][0].startswith('http://localhost')
-    assert str(actions[1]).endswith('mkdocs serve --dirtyreload')
+    assert_against_cache(result)
 
 
-def test_task_deploy_docs():
+def test_task_deploy_docs(assert_against_cache):
     """Test task_deploy_docs."""
     result = task_deploy_docs()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).endswith('mkdocs gh-deploy')
+    assert_against_cache(result)

@@ -1,0 +1,12 @@
+{
+  "_info": [],
+  "_json": {
+    "actions": [
+      "Cmd: poetry run pre-commit install",
+      "Cmd: poetry run pre-commit autoupdate",
+      "Cmd: poetry run pre-commit run --all-files --hook-stage commit --hook-stage push"
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}
