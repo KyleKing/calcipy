@@ -197,11 +197,10 @@ def test_task_document():
 
     assert _is_mkdocs_local() is False
     actions = result['actions']
-    assert len(actions) == 7
+    assert len(actions) == 6
     assert isinstance(actions[0][0], type(write_autoformatted_md_sections))
-    assert str(actions[2]).startswith('Cmd: poetry run pdoc')
-    assert isinstance(actions[3][0], type(write_text))
-    assert ' pyreverse ' in str(actions[4])
+    assert isinstance(actions[2][0], type(write_text))
+    assert ' pyreverse ' in str(actions[3])
     assert str(actions[-1]).startswith('Cmd: poetry run mkdocs build --site-dir')
 
 
