@@ -1,5 +1,11 @@
 {
-  "_info": [],
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_doit_tasks/test_lint.py",
+      "test_name": "test_lint_python"
+    }
+  ],
   "_json": [
     [
       "<function if_found_unlink(..)>",

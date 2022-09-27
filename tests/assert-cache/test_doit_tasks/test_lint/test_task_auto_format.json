@@ -1,5 +1,11 @@
 {
-  "_info": [],
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_doit_tasks/test_lint.py",
+      "test_name": "test_task_auto_format"
+    }
+  ],
   "_json": {
     "actions": [
       "poetry run pyupgrade \"dodo.py\" \"noxfile.py\" \"scripts/check_imports.py\" \"test_project/__init__.py\" \"tests/__init__.py\" \"tests/configuration.py\" \"tests/conftest.py\" \"tests/test_zz_test_project.py\" --py38-plus --keep-runtime-typing",
