@@ -6,31 +6,24 @@ labels: 'Type: Bug'
 assignees: kyleking
 ---
 
-## Describe the bug
+**Describe the bug**
+<!-- Describe the bug -->
 
-<!-- TODO: Describe the bug -->
-
-### To Reproduce
-
-<!-- TODO: How can someone else replicate the issue -->
+#**To Reproduce**
+<!-- How can someone else replicate the issue -->
 
 Steps and/or code snippet(s) to reproduce the behavior:
 
 1. ...
 1. ...
 
-## Expected behavior
+**Expected behavior**
+<!-- What did you expect? -->
 
-<!-- TODO: What did you expect? -->
-
-## Additional Information
-
-<!-- TODO: Add any relevant versions -->
+**Additional Information**
+<!-- Add any relevant versions -->
 
 - `calcipy` Version:
 - OS: \[e.g. macOS/Windows\]:
 - OS Version \[e.g. Catalina/10\]:
-
-<!-- TODO: Add `pip freeze` or other version information that is relevant -->
-
-<!-- 'calcipy:skip_tags' -->
+<!-- Add `pip freeze` or other version information that is relevant -->

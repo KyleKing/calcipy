@@ -8,6 +8,9 @@ on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - main
+    paths:
+      - .github/labels.yml
+      - .github/workflows/labels.yml
 
 jobs:
   labeler:
