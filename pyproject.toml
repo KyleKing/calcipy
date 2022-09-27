@@ -109,11 +109,14 @@ numpy = { version = ">=1.23.1", markers = "python_version > '3.7'" }
 better-exceptions = { version = ">=0.3.3", optional = true }
 commitizen = { version = ">=2.28.0", optional = true }                                                           # Prevent install of 1.X
 # Docs
-mdx_truly_sane_lists = { version = ">=1.2", optional= true}
+mdx_truly_sane_lists = { version = ">=1.2", optional= true }
+mkdocs-gen-files = { version = ">=0.4.0", optional = true }
 mkdocs-git-revision-date-localized-plugin = { version = ">=1.0.1", optional = true }
-mkdocs-include-markdown-plugin = { version = ">=3.3.0", optional= true}
+mkdocs-include-markdown-plugin = { version = ">=3.3.0", optional= true }
+mkdocs-literate-nav = { version = ">=0.5.0", optional = true }
 mkdocs-material = { version = ">=8.2.16", optional = true }
-mkdocstrings = { extras = ["python"], version = ">=0.18.1", optional= true}
+mkdocs-section-index = { version = ">=0.3.4", optional = true }
+mkdocstrings = { extras = ["python"], version = ">=0.18.1", optional= true }
 pdbpp = { version = ">=0.10.3", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pyupgrade = { version = ">=2.32.1", optional = true }
 
@@ -188,16 +191,18 @@ pytest-watcher = { version = ">=0.2.3", optional = true }
 
 # commitizen_legacy
 cz_legacy = { version = ">=0.1.2", optional = true }
-pybetter = "^0.4.1"
 
 [tool.poetry.extras]
 dev = [
     "better-exceptions",
     "commitizen",
     "mdx_truly_sane_lists",
+    "mkdocs-gen-files",
     "mkdocs-git-revision-date-localized-plugin",
     "mkdocs-include-markdown-plugin",
+    "mkdocs-literate-nav",
     "mkdocs-material",
+    "mkdocs-section-index",
     "mkdocstrings",
     "pdbpp",
     "pyupgrade",

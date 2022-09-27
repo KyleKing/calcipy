@@ -569,7 +569,7 @@ python-versions = "*"
 name = "exceptiongroup"
 version = "1.0.0rc9"
 description = "Backport of PEP 654 (exception groups)"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
@@ -1146,7 +1146,7 @@ async = ["aiofiles (>=0.7,<1.0)"]
 name = "hypothesis"
 version = "6.54.6"
 description = "A library for property-based testing"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
@@ -1173,19 +1173,6 @@ pytest = ["pytest (>=4.6)"]
 pytz = ["pytz (>=2014.1)"]
 redis = ["redis (>=3.0.0)"]
 zoneinfo = ["backports.zoneinfo (>=0.2.1)", "tzdata (>=2022.2)"]
-
-[[package]]
-name = "hypothesmith"
-version = "0.1.9"
-description = "Hypothesis strategies for generating Python programs, something like CSmith"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-hypothesis = ">=5.41.0"
-lark-parser = ">=0.7.2"
-libcst = ">=0.3.8"
 
 [[package]]
 name = "identify"
@@ -1311,19 +1298,6 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
-name = "lark-parser"
-version = "0.12.0"
-description = "a modern parsing library"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.extras]
-atomic_cache = ["atomicwrites"]
-nearley = ["js2py"]
-regex = ["regex"]
-
-[[package]]
 name = "lazy-object-proxy"
 version = "1.7.1"
 description = "A fast and thorough lazy object proxy."
@@ -1336,7 +1310,7 @@ name = "libcst"
 version = "0.4.7"
 description = "A concrete syntax tree with AST-like properties for Python 3.5, 3.6, 3.7, 3.8, 3.9, and 3.10 programs."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -1509,6 +1483,17 @@ Markdown = ">=3.3"
 mkdocs = ">=1.1"
 
 [[package]]
+name = "mkdocs-gen-files"
+version = "0.4.0"
+description = "MkDocs plugin to programmatically generate documentation pages during the build"
+category = "main"
+optional = true
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+mkdocs = ">=1.0.3,<2.0.0"
+
+[[package]]
 name = "mkdocs-git-revision-date-localized-plugin"
 version = "1.1.0"
 description = "Mkdocs plugin that enables displaying the localized date of the last git modification of a markdown file."
@@ -1534,6 +1519,17 @@ dev = ["bump2version (==1.0.1)", "flake8 (==3.9.2)", "flake8-implicit-str-concat
 test = ["mkdocs (==1.3.1)", "pytest (==6.2.5)", "pytest-cov (==3.0.0)"]
 
 [[package]]
+name = "mkdocs-literate-nav"
+version = "0.5.0"
+description = "MkDocs plugin to specify the navigation in Markdown instead of YAML"
+category = "main"
+optional = true
+python-versions = ">=3.6,<4.0"
+
+[package.dependencies]
+mkdocs = ">=1.0.3,<2.0.0"
+
+[[package]]
 name = "mkdocs-material"
 version = "8.5.3"
 description = "Documentation that simply works"
@@ -1557,6 +1553,17 @@ description = "Extension pack for Python Markdown."
 category = "main"
 optional = true
 python-versions = ">=3.6"
+
+[[package]]
+name = "mkdocs-section-index"
+version = "0.3.4"
+description = "MkDocs plugin to allow clickable sections that lead to an index page"
+category = "main"
+optional = true
+python-versions = ">=3.6,<4.0"
+
+[package.dependencies]
+mkdocs = ">=1.1,<2.0"
 
 [[package]]
 name = "mkdocstrings"
@@ -1915,21 +1922,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "pybetter"
-version = "0.4.1"
-description = "Tool for fixing trivial problems with your code."
-category = "main"
-optional = false
-python-versions = ">3.6"
-
-[package.dependencies]
-click = ">8.0"
-hypothesmith = ">=0.1.8,<0.2.0"
-libcst = ">=0.4.1,<0.5.0"
-pyemojify = ">=0.2.0,<0.3.0"
-pygments = ">=2.5.2,<3.0.0"
-
-[[package]]
 name = "pycodestyle"
 version = "2.9.1"
 description = "Python style guide checker"
@@ -1965,17 +1957,6 @@ snowballstemmer = "*"
 
 [package.extras]
 toml = ["toml"]
-
-[[package]]
-name = "pyemojify"
-version = "0.2.0"
-description = "Substitutes emoji aliases (like :sparkling_heart:) to emoji raw characters."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-click = ">=4.1"
 
 [[package]]
 name = "pyflakes"
@@ -2383,7 +2364,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "semgrep"
-version = "0.114.0"
+version = "0.115.0"
 description = "Lightweight static analysis for many languages. Find bug variants with patterns that look like source code."
 category = "main"
 optional = true
@@ -2471,7 +2452,7 @@ python-versions = "*"
 name = "sortedcontainers"
 version = "2.4.0"
 description = "Sorted Containers -- Sorted List, Sorted Dict, Sorted Set"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -2654,7 +2635,7 @@ name = "typing-inspect"
 version = "0.8.0"
 description = "Runtime inspection utilities for typing module."
 category = "main"
-optional = false
+optional = true
 python-versions = "*"
 
 [package.dependencies]
@@ -2861,14 +2842,14 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 
 [extras]
 commitizen_legacy = ["cz_legacy"]
-dev = ["better-exceptions", "commitizen", "mdx_truly_sane_lists", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocstrings", "pdbpp", "pyupgrade"]
+dev = ["better-exceptions", "commitizen", "mdx_truly_sane_lists", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pdbpp", "pyupgrade"]
 lint = ["absolufy-imports", "add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "docformatter", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-pie", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-simplify", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-typing-imports", "flake8-variables-names", "isort", "licensecheck", "pandas-vet", "pep8-naming", "pip-check", "proselint", "pylint", "semgrep", "tryceratops", "unimport", "vulture", "xenon", "yamllint"]
 test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest", "pytest-html"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "99048fa670278d224f6b6c9a9d515785eb7d3d1ec360ae7aba0cf9d51d1a94ef"
+content-hash = "627def50c099b287c7326aa874c18fdd88157498877ef82dda61c032f3fcc915"
 
 [metadata.files]
 absolufy-imports = [
@@ -3396,10 +3377,6 @@ hypothesis = [
     {file = "hypothesis-6.54.6-py3-none-any.whl", hash = "sha256:e44833325f9a55f795596ceefd7ede7d626cfe45836025d2647cccaff7070e10"},
     {file = "hypothesis-6.54.6.tar.gz", hash = "sha256:2d5e2d5ccd0efce4e0968a6164f4e4853f808e33f4d91490c975c98beec0c7c3"},
 ]
-hypothesmith = [
-    {file = "hypothesmith-0.1.9-py3-none-any.whl", hash = "sha256:f5337fb5fce2f798b356daeb0721566a3e5c696d3a7873aff956753881217768"},
-    {file = "hypothesmith-0.1.9.tar.gz", hash = "sha256:039fd6aa0102f89df9df7ad4cff70aa8068678c13c3be2713c92568917317a04"},
-]
 identify = [
     {file = "identify-2.5.5-py2.py3-none-any.whl", hash = "sha256:ef78c0d96098a3b5fe7720be4a97e73f439af7cf088ebf47b620aeaa10fadf97"},
     {file = "identify-2.5.5.tar.gz", hash = "sha256:322a5699daecf7c6fd60e68852f36f2ecbb6a36ff6e6e973e0d2bb6fca203ee6"},
@@ -3505,10 +3482,6 @@ kiwisolver = [
     {file = "kiwisolver-1.4.4-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f6cb459eea32a4e2cf18ba5fcece2dbdf496384413bc1bae15583f19e567f3b2"},
     {file = "kiwisolver-1.4.4-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:36dafec3d6d6088d34e2de6b85f9d8e2324eb734162fba59d2ba9ed7a2043d5b"},
     {file = "kiwisolver-1.4.4.tar.gz", hash = "sha256:d41997519fcba4a1e46eb4a2fe31bc12f0ff957b2b81bac28db24744f333e955"},
-]
-lark-parser = [
-    {file = "lark-parser-0.12.0.tar.gz", hash = "sha256:15967db1f1214013dca65b1180745047b9be457d73da224fcda3d9dd4e96a138"},
-    {file = "lark_parser-0.12.0-py2.py3-none-any.whl", hash = "sha256:0eaf30cb5ba787fe404d73a7d6e61df97b21d5a63ac26c5008c78a494373c675"},
 ]
 lazy-object-proxy = [
     {file = "lazy-object-proxy-1.7.1.tar.gz", hash = "sha256:d609c75b986def706743cdebe5e47553f4a5a1da9c5ff66d76013ef396b5a8a4"},
@@ -3768,6 +3741,10 @@ mkdocs-autorefs = [
     {file = "mkdocs-autorefs-0.4.1.tar.gz", hash = "sha256:70748a7bd025f9ecd6d6feeba8ba63f8e891a1af55f48e366d6d6e78493aba84"},
     {file = "mkdocs_autorefs-0.4.1-py3-none-any.whl", hash = "sha256:a2248a9501b29dc0cc8ba4c09f4f47ff121945f6ce33d760f145d6f89d313f5b"},
 ]
+mkdocs-gen-files = [
+    {file = "mkdocs-gen-files-0.4.0.tar.gz", hash = "sha256:377bff8ee8e93515916689f483d971643f83a94eed7e92318854da8f344f0163"},
+    {file = "mkdocs_gen_files-0.4.0-py3-none-any.whl", hash = "sha256:3241a4c947ecd11763ca77cc645015305bf71a0e1b9b886801c114fcf9971e71"},
+]
 mkdocs-git-revision-date-localized-plugin = [
     {file = "mkdocs-git-revision-date-localized-plugin-1.1.0.tar.gz", hash = "sha256:38517e2084229da1a1b9460e846c2748d238c2d79efd405d1b9174a87bd81d79"},
     {file = "mkdocs_git_revision_date_localized_plugin-1.1.0-py3-none-any.whl", hash = "sha256:4ba0e49abea3e9f6ee26e2623ff7283873da657471c61f1d0cfbb986f403316d"},
@@ -3776,6 +3753,10 @@ mkdocs-include-markdown-plugin = [
     {file = "mkdocs_include_markdown_plugin-3.8.1-py3-none-any.whl", hash = "sha256:168e092ba7ca04dfc1e8826eccb5cec8932332e2de6b450809e70dd31c82b852"},
     {file = "mkdocs_include_markdown_plugin-3.8.1.tar.gz", hash = "sha256:88b3486552b7be031b0657d9d86ff56141ab989552346f7c83aec71746d5e8d0"},
 ]
+mkdocs-literate-nav = [
+    {file = "mkdocs-literate-nav-0.5.0.tar.gz", hash = "sha256:c63d4385bb2b520baede25badad2d0936acebff3da175922c600d0a91902d8ff"},
+    {file = "mkdocs_literate_nav-0.5.0-py3-none-any.whl", hash = "sha256:b41149172af38c1a1df5e8d63292cbe7ed2a1431cd5daf884289036f2a9c7cca"},
+]
 mkdocs-material = [
     {file = "mkdocs_material-8.5.3-py3-none-any.whl", hash = "sha256:d194c38041d1e83560221022b3f85eec4604b35e44f5c3a488c24b88542074ed"},
     {file = "mkdocs_material-8.5.3.tar.gz", hash = "sha256:43b0aa707d6f9acd836024cab2dce9330957c94a4e1e41c23ee6c8ce67b4d8c5"},
@@ -3783,6 +3764,10 @@ mkdocs-material = [
 mkdocs-material-extensions = [
     {file = "mkdocs-material-extensions-1.0.3.tar.gz", hash = "sha256:bfd24dfdef7b41c312ede42648f9eb83476ea168ec163b613f9abd12bbfddba2"},
     {file = "mkdocs_material_extensions-1.0.3-py3-none-any.whl", hash = "sha256:a82b70e533ce060b2a5d9eb2bc2e1be201cf61f901f93704b4acf6e3d5983a44"},
+]
+mkdocs-section-index = [
+    {file = "mkdocs-section-index-0.3.4.tar.gz", hash = "sha256:050151bfe7c0e374f197335e0ecb19c45b53dbafc0f817aa203f0cc24bcf7d10"},
+    {file = "mkdocs_section_index-0.3.4-py3-none-any.whl", hash = "sha256:214f7a6df9d35a5772e9577f3899ff3edd90044064589e6dd4d84615b72a8024"},
 ]
 mkdocstrings = [
     {file = "mkdocstrings-0.19.0-py3-none-any.whl", hash = "sha256:3217d510d385c961f69385a670b2677e68e07b5fea4a504d86bf54c006c87c7d"},
@@ -4083,10 +4068,6 @@ py = [
 py-cpuinfo = [
     {file = "py-cpuinfo-8.0.0.tar.gz", hash = "sha256:5f269be0e08e33fd959de96b34cd4aeeeacac014dd8305f70eb28d06de2345c5"},
 ]
-pybetter = [
-    {file = "pybetter-0.4.1-py3-none-any.whl", hash = "sha256:c7ea10c23a122922eb78f7a799c5c7b29c8f01dbd7171099891e5e4a47a2e969"},
-    {file = "pybetter-0.4.1.tar.gz", hash = "sha256:b431cf1814935485ab1c69e3d24f1eccde4a4d10f1dadcb9ca1144902b6f9c79"},
-]
 pycodestyle = [
     {file = "pycodestyle-2.9.1-py2.py3-none-any.whl", hash = "sha256:d1735fc58b418fd7c5f658d28d943854f8a849b01a5d0a1e6f3f3fdd0166804b"},
     {file = "pycodestyle-2.9.1.tar.gz", hash = "sha256:2c9607871d58c76354b697b42f5d57e1ada7d261c261efac224b664affdc5785"},
@@ -4132,10 +4113,6 @@ pydantic = [
 pydocstyle = [
     {file = "pydocstyle-6.1.1-py3-none-any.whl", hash = "sha256:6987826d6775056839940041beef5c08cc7e3d71d63149b48e36727f70144dc4"},
     {file = "pydocstyle-6.1.1.tar.gz", hash = "sha256:1d41b7c459ba0ee6c345f2eb9ae827cab14a7533a88c5c6f7e94923f72df92dc"},
-]
-pyemojify = [
-    {file = "pyemojify-0.2.0-py2.py3-none-any.whl", hash = "sha256:e70e4cfcfe0aed7b5bc64f39b023d5d62a5f5c0c31c1b7114cd43a059fb14a72"},
-    {file = "pyemojify-0.2.0.tar.gz", hash = "sha256:6bbc3c8d52e3df3e4039bc0cad3616d3eb579b4c6e15a11bd5e0ef0d579596a9"},
 ]
 pyflakes = [
     {file = "pyflakes-2.5.0-py2.py3-none-any.whl", hash = "sha256:4579f67d887f804e67edb544428f264b7b24f435b263c4614f384135cea553d2"},
@@ -4355,10 +4332,10 @@ rich = [
     {file = "ruamel.yaml.clib-0.2.6.tar.gz", hash = "sha256:4ff604ce439abb20794f05613c374759ce10e3595d1867764dd1ae675b85acbd"},
 ]
 semgrep = [
-    {file = "semgrep-0.114.0-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:94bb5a082b970517194d1ab16b08772be1428b4b63433bac0341d084eb8e7fda"},
-    {file = "semgrep-0.114.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:57915ebd697e99299b35942ed021c8e0274ccdaaf4456aac9e00675db4806951"},
-    {file = "semgrep-0.114.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:bfddd7f143d3bff7c7ec4315ea212303dec69850a2d581bd3749a8041548080e"},
-    {file = "semgrep-0.114.0.tar.gz", hash = "sha256:fe02b3eb1aa14a889f98b63056597ac887047b7ccba99ccbf406be9a24aab657"},
+    {file = "semgrep-0.115.0-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:9b7b4cb1ab9b6d8fcdaf4212f69e5bc3c38341ed49e7418300e3fbfc3eda1658"},
+    {file = "semgrep-0.115.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:d064f58e367f087b9be10a21fe826b8584a82c2fd0f9d7f0c867a2208917d550"},
+    {file = "semgrep-0.115.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:3d3c19ef5c5c0e8b94781d26813ff2b3da440ed884db36c62352e9f282b1545e"},
+    {file = "semgrep-0.115.0.tar.gz", hash = "sha256:6b111884acc6da4c08543d4457bcbbfd1ecbc7306efb696311304e3b3f4902c1"},
 ]
 setuptools = [
     {file = "setuptools-65.4.0-py3-none-any.whl", hash = "sha256:c2d2709550f15aab6c9110196ea312f468f41cd546bceb24127a1be6fdcaeeb1"},
