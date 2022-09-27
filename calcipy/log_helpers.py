@@ -87,7 +87,7 @@ def _log_action(
         message: string message to describe the context
         level: log level. Default is `INFO`
         _logger: Optional logger instance
-        kwargs: function keyword arguments passed to the start log statement
+        **kwargs: function keyword arguments passed to the start log statement
 
     Yields:
         yields the logger instance
@@ -111,8 +111,8 @@ def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> A
 
     Args:
         fun: the decorated function
-        args: functional arguments
-        kwargs: function keyword arguments
+        *args: functional arguments
+        **kwargs: function keyword arguments
 
     Returns:
         Any: result of the function

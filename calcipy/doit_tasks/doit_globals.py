@@ -90,7 +90,7 @@ class _PathAttrBase:
 
         Args:
             prefix: optional string prefix to check starts with
-            kwargs: keyword arguments passed to `_member_filter`
+            **kwargs: keyword arguments passed to `_member_filter`
 
         Returns:
             List[Tuple[str, Any]]: filtered members from the class

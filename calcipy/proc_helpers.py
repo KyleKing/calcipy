@@ -16,7 +16,7 @@ def run_cmd(cmd: str, printer: Optional[Callable[[str], None]] = None, **kwargs)
     Args:
         cmd: string command
         printer: optional callable to output the lines in real time
-        kwargs: any additional keyword arguments to pass to `subprocess.Popen` (typically `cwd`)
+        **kwargs: any additional keyword arguments to pass to `subprocess.Popen` (typically `cwd`)
 
     Returns:
         str: stripped output

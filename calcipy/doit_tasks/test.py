@@ -242,7 +242,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 def task_ptw_not_interactive() -> DoitTask:
     """Run pytest watch for failed first and skip the INTERACTIVE marker.
 
-    kwargs: `-m 'not INTERACTIVE' -vvv`
+    >  `-m 'not INTERACTIVE' -vvv`
 
     Returns:
         DoitTask: doit task
@@ -255,7 +255,7 @@ def task_ptw_not_interactive() -> DoitTask:
 def task_ptw_ff() -> DoitTask:
     """Run pytest watch for failed first and skip the INTERACTIVE marker.
 
-    kwargs: `--last-failed --new-first -m 'not INTERACTIVE' -vv`
+    >  `--last-failed --new-first -m 'not INTERACTIVE' -vv`
 
     Returns:
         DoitTask: doit task
@@ -268,7 +268,7 @@ def task_ptw_ff() -> DoitTask:
 def task_ptw_current() -> DoitTask:
     """Run pytest watch for only tests with the CURRENT marker.
 
-    kwargs: `-m 'CURRENT' -vv`
+    >  `-m 'CURRENT' -vv`
 
     Returns:
         DoitTask: doit task

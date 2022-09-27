@@ -134,7 +134,7 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
     # https://github.com/KyleKing/calcipy.git
     sub_url = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)[0]
     repo_url = f'https://github.com/{sub_url}'
-    return (git_dir, repo_url)
+    return git_dir, repo_url
 
 
 @beartype
