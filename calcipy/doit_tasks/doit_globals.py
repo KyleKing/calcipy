@@ -191,6 +191,7 @@ class PackageMeta(_PathAttrBase):
         }
 
 
+# FIXME: Merge with .flake8 configuration...
 _DEF_IGNORE_LIST = [
     'AAA01',  # AAA01 / act block in pytest
     'C901',  # C901 / complexity from "max-complexity = 10"

@@ -1,8 +1,23 @@
 ## Unreleased
 
+### Feat
+
+- remove pdoc(s) from document task
+- add gen_ref_nav!
+- tried pybetter, but too focused on adding __all__
+- **#102**: sort-of-replace pdocs, but pdoc only shows one function
+- add mypy install argument
+- expand flake8 and reduce tests
+
 ### Fix
 
+- lower fail-under for diff. Raise for regular test
+- standardize on a single doit task list
 - Pathlib.absolute is not documented. Use .resolve
+
+### Refactor
+
+- make python files non-executable (chmod -x)
 
 ## 0.17.1 (2022-09-22)
 

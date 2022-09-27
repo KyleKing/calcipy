@@ -412,6 +412,9 @@ category = "main"
 optional = true
 python-versions = ">=3.7"
 
+[package.dependencies]
+tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.11.0a6\" and extra == \"toml\""}
+
 [package.extras]
 toml = ["tomli"]
 
@@ -2114,6 +2117,21 @@ StrEnum = ">=0.4.8"
 ujson = ">=5.1.0"
 
 [[package]]
+name = "pytest-cov"
+version = "3.0.0"
+description = "Pytest plugin for measuring coverage."
+category = "main"
+optional = true
+python-versions = ">=3.6"
+
+[package.dependencies]
+coverage = {version = ">=5.2.1", extras = ["toml"]}
+pytest = ">=4.6"
+
+[package.extras]
+testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtualenv"]
+
+[[package]]
 name = "pytest-html"
 version = "3.1.1"
 description = "pytest plugin for generating HTML reports"
@@ -2844,12 +2862,12 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 commitizen_legacy = ["cz_legacy"]
 dev = ["better-exceptions", "commitizen", "mdx_truly_sane_lists", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pdbpp", "pyupgrade"]
 lint = ["absolufy-imports", "add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "docformatter", "flake8", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-pie", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-return", "flake8-simplify", "flake8-SQL", "flake8-string-format", "flake8-tuple", "flake8-typing-imports", "flake8-variables-names", "isort", "licensecheck", "pandas-vet", "pep8-naming", "pip-check", "proselint", "pylint", "semgrep", "tryceratops", "unimport", "vulture", "xenon", "yamllint"]
-test = ["coverage", "diff-cover", "lxml", "mypy", "nox-poetry", "pytest", "pytest-html"]
+test = ["diff-cover", "lxml", "mypy", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-watcher"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "627def50c099b287c7326aa874c18fdd88157498877ef82dda61c032f3fcc915"
+content-hash = "f0d41f11cb4720c529ac7ae2b7143b3d8d44d602a2625093158a0c77f9ae065f"
 
 [metadata.files]
 absolufy-imports = [
@@ -4179,6 +4197,10 @@ pytest-benchmark = [
 pytest-cache-assert = [
     {file = "pytest_cache_assert-3.0.0-py3-none-any.whl", hash = "sha256:c9c328c1a0f7de1c741b6d919a3ca4a139c6812bbc6dc9d101bdaf7d83153d6b"},
     {file = "pytest_cache_assert-3.0.0.tar.gz", hash = "sha256:e572630479b910a8775bb67bd4ea7b00a72598a0f5110f4a6eaee27f749c163d"},
+]
+pytest-cov = [
+    {file = "pytest-cov-3.0.0.tar.gz", hash = "sha256:e7f0f5b1617d2210a2cabc266dfe2f4c75a8d32fb89eafb7ad9d06f6d076d470"},
+    {file = "pytest_cov-3.0.0-py3-none-any.whl", hash = "sha256:578d5d15ac4a25e5f961c938b85a05b09fdaae9deef3bb6de9a6e766622ca7a6"},
 ]
 pytest-html = [
     {file = "pytest-html-3.1.1.tar.gz", hash = "sha256:3ee1cf319c913d19fe53aeb0bc400e7b0bc2dbeb477553733db1dad12eb75ee3"},
