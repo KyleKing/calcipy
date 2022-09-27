@@ -225,8 +225,7 @@ def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Di
         Dict[str, str]: single key and value pair based on the parsed comment
 
     """
-    match = matcher.match(line.strip())
-    if match:
+    if match := matcher.match(line.strip()):
         matches = match.groupdict()
         return {matches['key']: matches['value']}
     return {}

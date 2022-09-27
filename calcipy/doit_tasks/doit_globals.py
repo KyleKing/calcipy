@@ -414,8 +414,9 @@ def _set_submodules(
     # Configure global options
     section_keys = ['lint', 'test', 'code_tag', 'doc']
     supported_keys = section_keys + ['ignore_patterns']
-    unexpected_keys = [key for key in calcipy_config if key not in supported_keys]
-    if unexpected_keys:
+    if unexpected_keys := [
+        key for key in calcipy_config if key not in supported_keys
+    ]:
         raise RuntimeError(f'Found unexpected key(s) {unexpected_keys} (i.e. not in {supported_keys})')
 
     # Parse the Copier file for configuration information
