@@ -1,3 +1,5 @@
+# mypy: disable-error-code="misc"
+# ^ ignores assignments to ClassVar
 """Global Variables for doit."""
 
 import inspect
