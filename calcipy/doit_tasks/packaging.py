@@ -13,7 +13,7 @@ from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
 from doit.tools import Interactive
 from loguru import logger
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
 
 from .base import debug_task
@@ -99,22 +99,6 @@ def task_publish_test_pypi() -> DoitTask:
 # Check for stale packages
 
 
-class ArrowType(Arrow):
-    """Create a type for pydantic use of Arrow."""
-
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, value):
-        @beartype
-        def arrow_converter(date: Optional[Union[str, Arrow]]) -> Optional[Arrow]:
-            return arrow.get(date) if date else date
-
-        return arrow_converter(value)
-
-
 class _HostedPythonPackage(BaseModel):
     """Representative information for a python package hosted on some domain."""
 
@@ -122,22 +106,17 @@ class _HostedPythonPackage(BaseModel):
     domain: str = Field(default='https://pypi.org/pypi/{name}/json')
     name: str
     version: str
-    datetime: Optional[ArrowType] = Field(default=None)
+    datetime: Optional[Arrow] = Field(default=None)
     latest_version: str = Field(default='')
-    latest_datetime: Optional[ArrowType] = Field(default=None)
+    latest_datetime: Optional[Arrow] = Field(default=None)
 
-    # HACK: See pending pydantic changes: https://github.com/pydantic/pydantic/discussions/4456
-    def _iter(self, *args, **kwargs):
-        """Hack to serialize Arrow types.
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {Arrow: str}
 
-        Based on: https://github.com/pydantic/pydantic/issues/2277#issuecomment-764132528
-
-        """
-        for key, v in super()._iter(*args, **kwargs):
-            if 'datetime' in key:
-                yield key, str(v)
-            else:
-                yield key, v
+    @validator('datetime', 'latest_datetime', pre=True)
+    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:
+        return arrow.get(value)
 
 
 _PATH_PACK_LOCK = get_dg().meta.path_project / '.calcipy_packaging.lock'
