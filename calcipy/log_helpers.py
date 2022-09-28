@@ -79,7 +79,7 @@ def serializable_compact(record: Dict[str, Any]) -> str:
 
 # FYI: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
 @contextmanager
-def log_action(
+def log_duration(
     message: str, level: str = 'INFO',
     _logger: loguru.Logger = logger,  # pylint: disable=no-member
     **kwargs: Any,
@@ -104,12 +104,15 @@ def log_action(
 
 
 @decorator
-def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> Any:
+def log_fun(
+    fun: Callable[[Any], Any], do_not_log: Optional[List[str]] = None, *args: Iterable[Any], **kwargs: Any,
+) -> Any:
     """Decorate a function to log the function name and completed time.
 
     Args:
         fun: the decorated function
         *args: functional arguments
+        do_not_log: optional list of strings to exclude from kwargs when logging
         **kwargs: function keyword arguments
 
     Returns:
@@ -117,7 +120,15 @@ def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> A
 
     """
     fun_name = fun.__name__
-    with log_action(f'Running {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
+    params = [*signature(fun).parameters]
+    if not_found := set(do_not_log or []).difference(set(params)):
+        raise ValueError(f'There are no arguments for {not_found} in {fun_name}')
+
+    extra = {**dict(zip(params, args or [])), **(kwargs or {})}
+    for key in do_not_log or []:
+        extra.pop(key)
+
+    with log_duration(f'Called "{fun_name}"', fun_name=fun_name, extra=extra):
         return fun(*args, **kwargs)
 
 

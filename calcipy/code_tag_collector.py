@@ -229,7 +229,7 @@ def _format_report(
     return output
 
 
-@log_fun
+@log_fun(do_not_log=['header'])
 @beartype
 def write_code_tag_file(
     path_tag_summary: Path, paths_source: List[Path], base_dir: Path,
