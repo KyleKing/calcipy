@@ -69,7 +69,7 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
     return instance_type is None or isinstance(member, instance_type)
 
 
-@dataclass(kw_only=True)
+@dataclass
 class _PathAttrBase:
 
     path_project: Path
@@ -116,11 +116,11 @@ class _PathAttrBase:
         """
         for name, path_raw in self._get_members(instance_type=type(Path()), prefix=None):
             if not path_raw.is_absolute():
-                setattr(self, name, base_path / path_raw)  # type: ignore[operator]
+                setattr(self, name, base_path / path_raw)
                 logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(self, name)})')
 
 
-@dataclass(kw_only=True)
+@dataclass
 class PackageMeta(_PathAttrBase):
     """Package Meta-Information."""
 
@@ -212,7 +212,7 @@ _DEF_IGNORE_LIST = [
 """Default list of excluded flake8 rules for the pre-commit check (additional to .flake8)."""
 
 
-@dataclass(kw_only=True)
+@dataclass
 class LintConfig(_PathAttrBase):
     """Lint Config."""
 
@@ -235,7 +235,7 @@ class LintConfig(_PathAttrBase):
         self.path_isort = _make_full_path(self.path_isort, path_base=self.path_project)
 
 
-@dataclass(kw_only=True)
+@dataclass
 class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attributes
     """Test Config."""
 
@@ -298,7 +298,7 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 
 
-@dataclass(kw_only=True)
+@dataclass
 class CodeTagConfig(_PathAttrBase):
     """Code Tag Config."""
 
@@ -321,7 +321,7 @@ class CodeTagConfig(_PathAttrBase):
         """Finish initializing class attributes."""
         super().__post_init__()
         # Configure full path to the code tag summary file
-        self.path_code_tag_summary = self.path_project / self.doc_sub_dir / self.code_tag_summary_filename
+        self.path_code_tag_summary = (self.path_project / self.doc_sub_dir / self.code_tag_summary_filename)
 
     @beartype
     def compile_issue_regex(self) -> Pattern[str]:
@@ -334,7 +334,7 @@ class CodeTagConfig(_PathAttrBase):
         return re.compile(self.re_raw.format(tag='|'.join(self.tags)))
 
 
-@dataclass(kw_only=True)
+@dataclass
 class DocConfig(_PathAttrBase):
     """Documentation Config."""
 
@@ -499,7 +499,7 @@ get_dg = _DG_CONTAINER.get_dg
 
 
 @beartype
-def init_dg():
+def init_dg() -> None:
     """Initialize the global DG instance."""
     work_dir = doit.get_initial_workdir()
     path_project = (Path(work_dir) if work_dir else Path.cwd()).resolve()

@@ -40,10 +40,10 @@ from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from beartype import beartype
-from beartype.typing import Callable, Dict, List
+from beartype.typing import Callable, Dict, Iterable, List
 from loguru import logger
 
-from ..doit_tasks.doit_globals import DoitAction, DoitTask, get_dg
+from ..doit_tasks.doit_globals import DoitTask, get_dg
 from ..doit_tasks.test import task_coverage, task_test
 from ..file_helpers import if_found_unlink
 
@@ -113,7 +113,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         for pin in _PINS.get(key, []):
             session.install(pin)
 
-    def _run_func_cmd(action: DoitAction) -> None:
+    def _run_func_cmd(action: Iterable) -> None:  # type-arg
         """Run a python action.
 
         Args:

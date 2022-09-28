@@ -2,6 +2,7 @@
 
 import re
 from pathlib import Path
+from typing import Dict, List, Tuple
 
 from cement import Controller, ex
 from loguru import logger
@@ -16,7 +17,7 @@ class CodeTagCollectorController(Controller):
     class Meta:
         label = 'CodeTagCollector'
 
-        arguments = []
+        arguments: List[Tuple[List[str], Dict[str, str]]] = []
         """Controller level arguments. ex: 'calcipy --version'."""
 
     def _default(self) -> None:

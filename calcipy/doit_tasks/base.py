@@ -101,7 +101,7 @@ def _make_archive(path_dir: Path, archive_format: str = 'zip') -> None:
         archive_format: default is `zip`. See `shutil.make_archive` for supported types
 
     """
-    shutil.make_archive(path_dir, archive_format, path_dir)
+    shutil.make_archive(path_dir.as_posix(), archive_format, path_dir)
 
 
 @beartype

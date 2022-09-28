@@ -4,6 +4,7 @@ import os
 import shutil
 import string
 import time
+from contextlib import suppress
 from pathlib import Path
 
 import yaml
@@ -216,7 +217,6 @@ def get_relative(full_path: Path, other_path: Path) -> Optional[Path]:
         relative path
 
     """
-    try:
+    with suppress(ValueError):
         return full_path.relative_to(other_path)
-    except ValueError:
-        return
+    return None

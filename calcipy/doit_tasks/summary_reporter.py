@@ -52,8 +52,8 @@ class SummaryReporter(ConsoleReporter):  # pragma: no cover # noqa: H601
     def __init__(self, *args, **kwargs) -> None:
         """Initialize data members."""  # noqa: DAR101
         super().__init__(*args, **kwargs)
-        self._all_tasks = []
-        self._task_summaries = {}
+        self._all_tasks: List[str] = []
+        self._task_summaries: Dict[str, _TaskSummary] = {}
 
     def initialize(self, tasks: OrderedDict[str, Task], selected_tasks: List[str]) -> None:
         """Initialize the data members for tracking task run status."""  # noqa: DAR101

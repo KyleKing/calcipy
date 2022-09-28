@@ -179,8 +179,6 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
         if release_data
     })
     package.datetime = release_dates.inverse[package.version]
-    if package.datetime is None:  # FYI: Explore alternatives to ensure datetime is set
-        logger.error(f'No datetime for {package} from: {res_json}')
     package.latest_datetime = max([*release_dates])
     package.latest_version = release_dates[package.latest_datetime]
     return package
@@ -231,9 +229,9 @@ def _collect_release_dates(
             cached_version = '' if cached_package is None else cached_package.version
             if package.version != cached_version:
                 package = _get_release_date(package)
-            else:
-                package = cached_package
-            updated_packages.append(package)
+                updated_packages.append(package)
+            elif cached_package:
+                updated_packages.append(cached_package)
         except requests.exceptions.HTTPError as err:
             logger.warning(f'Could not resolve {package} with error {err}')
     return updated_packages
@@ -296,9 +294,10 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 
     now = arrow.utcnow()
     stale_cutoff = now.shift(months=-1 * stale_months)
-    stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
+    stale_packages = [pack for pack in packages if not pack.datetime or pack.datetime < stale_cutoff]
     if stale_packages:
-        stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
+        pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
+        stale_list = '\n'.join(map(format_package, pkgs))
         logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}\n\n')
     else:
         oldest_date = np.amin([pack.datetime for pack in packages])

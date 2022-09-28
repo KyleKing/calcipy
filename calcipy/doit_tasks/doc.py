@@ -152,8 +152,7 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
 
     @beartype
     def _parse_line(
-        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], List[str]]],
-        path_file: Optional[Path] = None,
+        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], List[str]]], path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
 
@@ -190,7 +189,7 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
     @beartype
     def parse(
         self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], List[str]]],
-        path_file: Optional[Path] = None,
+        path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
 
@@ -286,7 +285,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     # Format table for Github Markdown
     df_cov = pd.DataFrame(records)
     df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
-    lines_table = df_cov.to_markdown(index=False, tablefmt='github').split('\n')
+    lines_table = str(df_cov.to_markdown(index=False, tablefmt='github')).split('\n')
     short_date = coverage_data['meta']['timestamp'].split('T')[0]
     lines_table.extend(['', f'Generated on: {short_date}'])
     return lines_table
