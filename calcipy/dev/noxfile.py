@@ -145,7 +145,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
             if isinstance(action, str):
                 _run_str_cmd(session, action)
             elif getattr(action, 'action', None):
-                _run_str_cmd(session, action.action)
+                _run_str_cmd(session, action.action)  # type: ignore[union-attr]
             elif isinstance(action, (list, tuple)):
                 _run_func_cmd(action)
             else:

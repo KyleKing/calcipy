@@ -48,8 +48,8 @@ def task_lock() -> DoitTask:
     """
     dg = get_dg()
     task = debug_task(['poetry lock --no-update'])
-    task['file_dep'].append(dg.meta.path_toml)
-    task['targets'].extend([dg.meta.path_project / 'poetry.lock'])
+    task['file_dep'].append(dg.meta.path_toml)  # type: ignore[union-attr]
+    task['targets'].extend([dg.meta.path_project / 'poetry.lock'])  # type: ignore[union-attr]
     return task
 
 
@@ -131,7 +131,7 @@ _ITEM = 'pypi'
 
 
 @beartype
-@_LIMITER.ratelimit(_ITEM, delay=True, max_delay=10)
+@_LIMITER.ratelimit(_ITEM, delay=True, max_delay=10)  # type: ignore[misc]
 def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
 
@@ -178,7 +178,7 @@ def _read_cache(path_pack_lock: Path = _PATH_PACK_LOCK) -> Dict[str, _HostedPyth
         path_pack_lock.write_text('{}')  # noqa: P103
     old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text())
     return {
-        package_name: _HostedPythonPackage(**meta_data)
+        package_name: _HostedPythonPackage(**meta_data)  # type: ignore[arg-type]
         for package_name, meta_data in old_cache.items()
     }
 
@@ -267,7 +267,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 
     """
     def format_package(pack: _HostedPythonPackage) -> str:
-        delta = pack.datetime.humanize()
+        delta = pack.datetime.humanize()  # type: ignore[union-attr]
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
         return f'- {delta}: {pack.name} {pack.version}{latest}'
 
@@ -320,6 +320,6 @@ def task_check_for_stale_packages() -> DoitTask:
         (find_stale_packages, (path_lock, path_pack_lock), {'stale_months': _DEF_STALE_M}),
         Interactive('poetry run pip-check --cmd="poetry run pip" --hide-unchanged'),
     ])
-    task['file_dep'].append(path_lock)
-    task['targets'].append(path_pack_lock)
+    task['file_dep'].append(path_lock)  # type: ignore[union-attr]
+    task['targets'].append(path_pack_lock)  # type: ignore[union-attr]
     return task

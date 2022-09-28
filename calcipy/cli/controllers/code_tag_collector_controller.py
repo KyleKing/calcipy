@@ -11,7 +11,7 @@ from ...code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_
 from ...file_search import find_project_files
 
 
-class CodeTagCollectorController(Controller):
+class CodeTagCollectorController(Controller):  # type: ignore[misc]
     """Base CLI Controller."""
 
     class Meta:
@@ -24,7 +24,7 @@ class CodeTagCollectorController(Controller):
         """Default action if no sub-command is passed."""
         self.app.args.print_help()
 
-    @ex(
+    @ex(  # type: ignore[misc]
         help='Code Tag Collector subcommand',
         arguments=[
             (

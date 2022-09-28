@@ -58,7 +58,7 @@ if _HAS_TEST_IMPORTS:
         except AttributeError:
             ...  # The test suite likely failed
 
-    @pytest.hookimpl(hookwrapper=True)
+    @pytest.hookimpl(hookwrapper=True)  # type: ignore[misc]
     def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover
         """Modify the pytest-html output.
 

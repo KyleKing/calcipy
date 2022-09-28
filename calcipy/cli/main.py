@@ -14,7 +14,7 @@ _CONFIG = init_defaults(__pkg_name__)
 _CONFIG[__pkg_name__]['foo'] = 'bar-default'
 
 
-class CLIApp(App):
+class CLIApp(App):  # type: ignore[misc]
     """My CLI Application."""
 
     class Meta:
@@ -33,7 +33,7 @@ class CLIApp(App):
         """Register handlers."""
 
 
-class CLIAppTest(TestApp, CLIApp):
+class CLIAppTest(TestApp, CLIApp):  # type: ignore[misc]
     """A sub-class of CLIApp that is better suited for testing."""
 
     class Meta:

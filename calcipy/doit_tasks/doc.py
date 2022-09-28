@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 from beartype import beartype
-from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
+from beartype.typing import Any, Callable, Dict, List, Pattern
 from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
@@ -122,7 +122,7 @@ class _ParseSkipError(RuntimeError):
     ...
 
 
-class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
+class _ReplacementMachine(Machine):  # noqa: H601
     """State machine to replace content with user-specified handlers.
 
     Uses `{cts}` and `{cte}` to demarcate sections (short for calcipy_template start|end)
@@ -213,7 +213,7 @@ _RE_VAR_COMMENT_HTML = re.compile(r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);'
 
 
 @beartype
-def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:
+def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:  # type: ignore[type-arg]
     """Parse the variable from a matching comment.
 
     Args:

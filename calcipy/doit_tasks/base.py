@@ -123,7 +123,7 @@ def _zip_release() -> List[DoitAction]:
                 (_make_archive, (path_dir,)),
                 (echo, (f'Created: {path_zip}',)),
             ])
-    return actions
+    return actions  # type: ignore[return-value]
 
 
 @beartype

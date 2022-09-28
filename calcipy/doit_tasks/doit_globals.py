@@ -431,10 +431,10 @@ def _set_submodules(
     paths_py = meta.paths_by_suffix.get('py', [])
     paths_md = meta.paths_by_suffix.get('md', [])
     return {
-        'lint': LintConfig(**meta_kwargs, paths_py=paths_py, **lint_k),
-        'test': TestingConfig(**meta_kwargs, **test_k),
-        'tags': CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k),
-        'doc': DocConfig(**meta_kwargs, paths_md=paths_md, doc_sub_dir=doc_sub_dir, **doc_k),
+        'lint': LintConfig(**meta_kwargs, paths_py=paths_py, **lint_k),  # type: ignore[arg-type]
+        'test': TestingConfig(**meta_kwargs, **test_k),  # type: ignore[arg-type]
+        'tags': CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k),  # type: ignore[arg-type]
+        'doc': DocConfig(**meta_kwargs, paths_md=paths_md, doc_sub_dir=doc_sub_dir, **doc_k),  # type: ignore[arg-type]
     }
 
 
@@ -455,7 +455,7 @@ def create_dg(*, path_project: Path) -> DoitGlobals:
 
     meta = _set_meta(path_project, calcipy_config)
     kwargs = _set_submodules(meta, calcipy_config)
-    return DoitGlobals(meta=meta, **kwargs)
+    return DoitGlobals(meta=meta, **kwargs)  # type: ignore[arg-type]
 
 
 class _DGContainer(BaseModel):
