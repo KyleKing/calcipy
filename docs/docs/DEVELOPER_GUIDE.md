@@ -52,7 +52,7 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/__init__.py`                                      |            6 |         0 |          0 | 100.0%     |
 | `calcipy/cli/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
 | `calcipy/cli/controllers/__init__.py`                      |            0 |         0 |          0 | 100.0%     |
-| `calcipy/cli/controllers/code_tag_collector_controller.py` |           26 |        12 |          0 | 53.8%      |
+| `calcipy/cli/controllers/code_tag_collector_controller.py` |           27 |        12 |          0 | 55.6%      |
 | `calcipy/cli/core/__init__.py`                             |            0 |         0 |          0 | 100.0%     |
 | `calcipy/cli/core/exceptions.py`                           |            2 |         0 |          0 | 100.0%     |
 | `calcipy/cli/core/version.py`                              |            8 |         8 |          0 | 0.0%       |
@@ -65,9 +65,9 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/doit_tasks/base.py`                               |           50 |        10 |          3 | 80.0%      |
 | `calcipy/doit_tasks/code_tags.py`                          |           11 |         0 |          0 | 100.0%     |
 | `calcipy/doit_tasks/doc.py`                                |          146 |        10 |          5 | 93.2%      |
-| `calcipy/doit_tasks/doit_globals.py`                       |          185 |         5 |          4 | 97.3%      |
+| `calcipy/doit_tasks/doit_globals.py`                       |          186 |         5 |          4 | 97.3%      |
 | `calcipy/doit_tasks/lint.py`                               |          103 |         9 |          0 | 91.3%      |
-| `calcipy/doit_tasks/packaging.py`                          |          141 |        13 |          0 | 90.8%      |
+| `calcipy/doit_tasks/packaging.py`                          |          132 |        12 |          0 | 90.9%      |
 | `calcipy/doit_tasks/summary_reporter.py`                   |           21 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`                               |           67 |         4 |          0 | 94.0%      |
 | `calcipy/dot_dict.py`                                      |            7 |         0 |          0 | 100.0%     |
@@ -75,7 +75,7 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/file_search.py`                                   |           34 |         0 |          2 | 100.0%     |
 | `calcipy/log_helpers.py`                                   |           62 |         6 |          0 | 90.3%      |
 | `calcipy/proc_helpers.py`                                  |           20 |         1 |          0 | 95.0%      |
-| **Totals**                                                 |         1169 |       127 |        155 | 89.1%      |
+| **Totals**                                                 |         1162 |       126 |        155 | 89.2%      |
 
 Generated on: 2022-09-27
 <!-- {cte} -->

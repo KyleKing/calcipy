@@ -347,9 +347,7 @@ class DocConfig(_PathAttrBase):
     auto_doc_path: ClassVar[Path]
     """Auto-calculated based on `self.doc_sub_dir`."""
 
-    handler_lookup: Optional[
-        Dict[str, Callable[[str, Path], List[str]]]
-    ] = Field(default=None)
+    handler_lookup: Optional[Dict[str, Callable[[str, Path], List[str]]]] = Field(default=None)
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     path_out: ClassVar[Path]
