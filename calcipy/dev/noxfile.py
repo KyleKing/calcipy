@@ -113,7 +113,7 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         for pin in _PINS.get(key, []):
             session.install(pin)
 
-    def _run_func_cmd(action: Iterable) -> None:  # type-arg
+    def _run_func_cmd(action: Iterable) -> None:  # type: ignore[type-arg]
         """Run a python action.
 
         Args:
