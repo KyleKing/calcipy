@@ -78,7 +78,8 @@ def serializable_compact(record: Dict[str, Any]) -> str:
 
 
 # FYI: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
-def _log_action(
+@contextmanager
+def log_action(
     message: str, level: str = 'INFO',
     _logger: loguru.Logger = logger,  # pylint: disable=no-member
     **kwargs: Any,
@@ -100,11 +101,6 @@ def _log_action(
     yield _logger
     runtime = time.time_ns() - start_time
     _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)
-
-
-# When using `contextmanager` as a decorator, Deepsource won't see the __enter__/__exit__ methods (PYL-E1129)
-#   Rather than skipping each use of log_action, use `contextmanager` as a function
-log_action = contextmanager(_log_action)
 
 
 @decorator
