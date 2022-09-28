@@ -2,6 +2,7 @@
 
 ### Feat
 
+- support Arrow in pydantic and mypy (ArrowType was causing errors)
 - remove pdoc(s) from document task
 - add gen_ref_nav!
 - tried pybetter, but too focused on adding __all__
@@ -18,6 +19,7 @@
 
 ### Refactor
 
+- add type hints and minor changes for mypy
 - make python files non-executable (chmod -x)
 
 ## 0.17.1 (2022-09-22)
