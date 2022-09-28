@@ -115,7 +115,7 @@ class _HostedPythonPackage(BaseModel):
         json_encoders = {Arrow: str}
 
     @validator('datetime', 'latest_datetime', pre=True)
-    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:
+    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: F841
         return arrow.get(value)
 
 
