@@ -2,7 +2,7 @@
 
 from loguru import logger
 
-__version__ = '0.18.0'
+__version__ = '0.19.0'
 __pkg_name__ = 'calcipy'
 
 logger.disable(__pkg_name__)
