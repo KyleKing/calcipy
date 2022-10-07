@@ -1,3 +1,13 @@
+## Unreleased
+
+### Feat
+
+- support optional logging of arguments
+
+### Fix
+
+- split mypy install from mypy run
+
 ## 0.18.0 (2022-09-27)
 
 ### Feat

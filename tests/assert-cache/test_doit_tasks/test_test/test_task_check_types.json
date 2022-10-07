@@ -8,7 +8,8 @@
   ],
   "_json": {
     "actions": [
-      "Cmd: poetry run mypy test_project --install-types"
+      "Cmd: poetry run mypy --install-types --non-interactive",
+      "Cmd: poetry run mypy test_project"
     ],
     "title": "<function _show_cmd(..)>",
     "verbosity": 2

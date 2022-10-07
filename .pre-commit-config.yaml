@@ -72,7 +72,7 @@ repos:
       - id: shellcheck
         args: [--severity=warning]
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.3.0
+    rev: v1.4.0
     hooks:
       # Can't generate baseline with Py 3.8. Use exclude regex rules instead
       # See: https://github.com/Yelp/detect-secrets/issues/452
