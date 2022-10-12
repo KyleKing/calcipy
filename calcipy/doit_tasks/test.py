@@ -190,7 +190,6 @@ def task_check_types() -> DoitTask:
 
     """
     return debug_task([
-        Interactive('poetry run mypy --install-types --non-interactive'),
         Interactive(f'poetry run mypy {get_dg().meta.pkg_name}'),
     ])
 
