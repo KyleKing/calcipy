@@ -1,4 +1,8 @@
-"""PyTest configuration."""
+"""PyTest configuration.
+
+Note: the calcipy imports are required for a nicer test HTML report
+
+"""
 
 import os
 from pathlib import Path
@@ -6,6 +10,8 @@ from pathlib import Path
 import pytest
 from beartype.typing import Dict, Generator
 from decorator import contextmanager
+from doit.tools import CmdAction, Interactive
+from pytest_cache_assert import AssertConfig, Converter
 
 from calcipy.dev.conftest import pytest_configure  # noqa: F401
 from calcipy.dev.conftest import pytest_html_results_table_header  # noqa: F401
@@ -28,6 +34,12 @@ def vcr_config() -> Dict:
         'ignore_localhost': True,
         'record_mode': 'once',
     }
+
+
+@pytest.fixture()
+def cache_assert_config() -> AssertConfig:
+    """Configure pytest_cache_assert using `AssertConfig`."""
+    return AssertConfig(converters=[Converter(types=[CmdAction, Interactive], func=str)])
 
 
 @contextmanager

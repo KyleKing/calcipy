@@ -1,21 +1,18 @@
 """Test doit_tasks/lint.py."""
 
-from itertools import zip_longest
 
 import pytest
 
-from calcipy.doit_tasks.base import echo
 from calcipy.doit_tasks.doit_globals import get_dg
 from calcipy.doit_tasks.lint import (
     _check_linting_errors, _lint_python, task_auto_format, task_lint_critical_only,
     task_lint_project, task_lint_python, task_pre_commit_hooks, task_radon_lint,
 )
-from calcipy.file_helpers import if_found_unlink
 
 from ..configuration import PATH_TEST_PROJECT
 
 
-def test_lint_python():
+def test_lint_python(assert_against_cache):
     """Test _lint_python."""
     result = _lint_python(
         lint_paths=[PATH_TEST_PROJECT / 'test_file.py', PATH_TEST_PROJECT / 'tests/test_file_2.py'],
@@ -23,12 +20,7 @@ def test_lint_python():
         ignore_errors=['F401', 'E800', 'I001', 'I003'],
     )
 
-    assert len(result) == 5
-    assert isinstance(result[0][0], type(if_found_unlink))
-    assert result[0][1][0].name == 'flake8.log'
-    assert str(result[1]).startswith('Cmd: poetry run python -m flake8 --config')
-    assert 'test_file.py' in str(result[1])
-    assert isinstance(result[2][0], type(_check_linting_errors))
+    assert_against_cache(result)
 
 
 FLAKE8_LOG = """doit_project/test_file.py:3:1: F401 'doit' imported but unused
@@ -60,89 +52,43 @@ def test_check_linting_errors_runtime_error(fix_test_cache):
     assert flake8_log_path.read_text() == FLAKE8_LOG
 
 
-def test_task_lint_python():
+def test_task_lint_python(assert_against_cache):
     """Test task_lint_python."""
     result = task_lint_python()
 
-    actions = result['actions']
-    assert len(actions) == 5
-    assert isinstance(actions[0][0], type(if_found_unlink))
-    assert len(actions[0][1]) == 1
-    assert actions[0][1][0].name == 'flake8.log'
-    assert str(actions[1]).startswith('Cmd: poetry run python -m flake8 --config')
-    assert 'dodo.py" ' in str(actions[1])
-    assert '.flake8 ' in str(actions[1])
-    assert 'flake8.log ' in str(actions[1])
-    assert isinstance(actions[2][0], type(_check_linting_errors))
-    assert len(actions[2][1]) == 2
-    assert actions[2][1][0].name == 'flake8.log'
-    assert actions[2][1][1] == ('T100', 'T101')
+    assert_against_cache(result)
 
 
-def test_task_lint_project():
+def test_task_lint_project(assert_against_cache):
     """Test task_lint_project."""
     result = task_lint_project()
 
-    actions = result['actions']
-    assert len(actions) == 6
-    assert 'poetry run yamllint ' in str(actions[5])
+    assert_against_cache(result)
 
 
-def test_task_lint_critical_only():
+def test_task_lint_critical_only(assert_against_cache):
     """Test task_lint_critical_only."""
     result = task_lint_critical_only()
 
-    actions = result['actions']
-    assert len(actions) == 6
-    assert 'T100' not in str(actions[1])
-    assert isinstance(actions[2][0], type(_check_linting_errors))
-    assert len(actions[2][1]) == 2
-    assert actions[2][1][0].name == 'flake8.log'
-    assert actions[2][1][1] == ['T100', 'T101', 'T103']  # Read from toml
-    assert 'T100' in actions[2][1][1]
-    assert '-m xenon ' in str(actions[4])
-    assert 'poetry run yamllint ' in str(actions[5])
+    assert_against_cache(result)
 
 
-def test_task_radon_lint():
+def test_task_radon_lint(assert_against_cache):
     """Test task_radon_lint."""
     result = task_radon_lint()
 
-    actions = result['actions']
-    assert len(actions) == 8
-    for action in actions:
-        if isinstance(action, tuple):
-            assert isinstance(action[0], type(echo))
-        else:
-            assert str(action).startswith('Cmd: poetry run radon ')
+    assert_against_cache(result)
 
 
-def test_task_auto_format():
+def test_task_auto_format(assert_against_cache):
     """Test task_auto_format."""
     result = task_auto_format()
 
-    actions = result['actions']
-    assert len(actions) == 8
-    cmd_seq = [
-        'run pyupgrade',
-        '-m autoflake',
-        '-m unimport',
-        '-m autopep8',
-        'run absolufy-imports',
-        '-m isort',
-        'run add-trailing-comma',
-        '-m docformatter',
-    ]
-    for cmd, action in zip_longest(cmd_seq, actions):
-        assert cmd in str(action)
+    assert_against_cache(result)
 
 
-def test_task_pre_commit_hooks():
+def test_task_pre_commit_hooks(assert_against_cache):
     """Test task_pre_commit_hooks."""
     result = task_pre_commit_hooks()
 
-    actions = result['actions']
-    assert len(actions) == 3
-    assert 'pre-commit install' in str(actions[0])
-    assert 'pre-commit autoupdate' in str(actions[1])
-    assert 'pre-commit run --all-files --hook-stage' in str(actions[2])
+    assert_against_cache(result)

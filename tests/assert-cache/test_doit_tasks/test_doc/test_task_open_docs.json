@@ -1,0 +1,22 @@
+{
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_doit_tasks/test_doc.py",
+      "test_name": "test_task_open_docs"
+    }
+  ],
+  "_json": {
+    "actions": [
+      [
+        "<function open(..)>",
+        [
+          "http://localhost:8000"
+        ]
+      ],
+      "Cmd: poetry run mkdocs serve --dirtyreload"
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}

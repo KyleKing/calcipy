@@ -89,4 +89,4 @@ def find_project_files_by_suffix(path_project: Path, ignore_patterns: List[str])
     file_lookup = defaultdict(list)
     for path_file in find_project_files(path_project, ignore_patterns):
         file_lookup[path_file.suffix.lstrip('.')].append(path_file)
-    return file_lookup
+    return dict(file_lookup)

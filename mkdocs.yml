@@ -23,10 +23,24 @@ theme:
 
 plugins:
   - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_nav.py
   - git-revision-date-localized:
       type: date
       fallback_to_build_date: true
       enable_creation_date: true
+  - mkdocstrings:
+      handlers:
+        python:
+          rendering:
+            docstring_section_style: spacy
+            line_length: 120
+            separate_signature: true
+            show_category_heading: true
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index:
 
 markdown_extensions:
   - abbr
@@ -38,6 +52,7 @@ markdown_extensions:
   - extra
   - fenced_code
   - footnotes
+  - mdx_truly_sane_lists
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
@@ -55,6 +70,9 @@ markdown_extensions:
   - toc:
       permalink: ⚓︎
       toc_depth: 5
+
+extra_css:
+  - css/mkdocstrings.css
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js

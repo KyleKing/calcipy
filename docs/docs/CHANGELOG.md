@@ -1,5 +1,55 @@
 ## Unreleased
 
+### Fix
+
+- don't auto-install types
+
+## 0.19.0 (2022-10-06)
+
+### Feat
+
+- support optional logging of arguments
+
+### Fix
+
+- split mypy install from mypy run
+
+## 0.18.0 (2022-09-27)
+
+### Feat
+
+- support Arrow in pydantic and mypy (ArrowType was causing errors)
+- remove pdoc(s) from document task
+- add gen_ref_nav!
+- tried pybetter, but too focused on adding __all__
+- **#102**: sort-of-replace pdocs, but pdoc only shows one function
+- add mypy install argument
+- expand flake8 and reduce tests
+
+### Fix
+
+- re-run prdc
+- lower fail-under for diff. Raise for regular test
+- standardize on a single doit task list
+- Pathlib.absolute is not documented. Use .resolve
+
+### Refactor
+
+- add type hints and minor changes for mypy
+- make python files non-executable (chmod -x)
+
+## 0.17.1 (2022-09-22)
+
+### Fix
+
+- pytest cache assert circular reference
+
+### Refactor
+
+- move check_security from nox into doit
+
+## 0.17.0 (2022-09-17)
+
 ### Feat
 
 - add docformat

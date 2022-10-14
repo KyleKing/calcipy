@@ -75,8 +75,7 @@ def _search_lines(
 
     comments = []
     for lineno, line in enumerate(lines):
-        match = regex_compiled.search(line)
-        if match:
+        if match := regex_compiled.search(line):
             if len(line) <= 400:  # FYI: Suppress long lines
                 group = match.groupdict()
                 comments.append(_CodeTag(lineno=lineno + 1, tag=group['tag'], text=group['text']))
@@ -105,8 +104,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         except UnicodeDecodeError as err:
             logger.debug('Could not parse: {path_source}', path_source=path_source, err=err)
 
-        comments = _search_lines(lines, regex_compiled)
-        if comments:
+        if comments := _search_lines(lines, regex_compiled):
             matches.append(_Tags(path_source=path_source, code_tags=comments))
 
     return matches
@@ -134,7 +132,7 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
     # https://github.com/KyleKing/calcipy.git
     sub_url = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)[0]
     repo_url = f'https://github.com/{sub_url}'
-    return (git_dir, repo_url)
+    return git_dir, repo_url
 
 
 @beartype
@@ -197,7 +195,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
 @beartype
 def _format_report(
     base_dir: Path, code_tags: List[_Tags], tag_order: List[str],
-) -> str:  # noqa: CCR001
+) -> str:    # noqa: CCR001
     """Pretty-format the code tags by file and line number.
 
     Args:
@@ -224,19 +222,20 @@ def _format_report(
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}
     logger.debug('sorted_counter={sorted_counter}', sorted_counter=sorted_counter)
-    formatted_summary = ', '.join(f'{tag} ({count})' for tag, count in sorted_counter.items())
-    if formatted_summary:
+    if formatted_summary := ', '.join(
+        f'{tag} ({count})' for tag, count in sorted_counter.items()
+    ):
         output += f'\n\nFound code tags for {formatted_summary}\n'
     return output
 
 
-@log_fun
+@log_fun(do_not_log=['header'])
 @beartype
 def write_code_tag_file(
     path_tag_summary: Path, paths_source: List[Path], base_dir: Path,
     regex_compiled: Optional[Pattern[str]] = None, tag_order: Optional[List[str]] = None,
     header: str = '# Task Summary',
-) -> None:  # noqa: CCR001
+) -> None:    # noqa: CCR001
     """Create the code tag summary file.
 
     Args:
@@ -253,9 +252,9 @@ def write_code_tag_file(
     regex_compiled = regex_compiled or re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))
 
     matches = _search_files(paths_source, regex_compiled)
-    report = _format_report(base_dir, matches, tag_order=tag_order).strip()
-
-    if report:
+    if report := _format_report(
+        base_dir, matches, tag_order=tag_order,
+    ).strip():
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
     elif path_tag_summary.is_file():
         path_tag_summary.unlink()

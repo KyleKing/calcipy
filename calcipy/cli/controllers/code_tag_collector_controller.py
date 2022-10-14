@@ -2,6 +2,7 @@
 
 import re
 from pathlib import Path
+from typing import Dict, List, Tuple
 
 from cement import Controller, ex
 from loguru import logger
@@ -10,20 +11,20 @@ from ...code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_
 from ...file_search import find_project_files
 
 
-class CodeTagCollectorController(Controller):
+class CodeTagCollectorController(Controller):  # type: ignore[misc]
     """Base CLI Controller."""
 
     class Meta:
         label = 'CodeTagCollector'
 
-        arguments = []
+        arguments: List[Tuple[List[str], Dict[str, str]]] = []
         """Controller level arguments. ex: 'calcipy --version'."""
 
     def _default(self) -> None:
         """Default action if no sub-command is passed."""
         self.app.args.print_help()
 
-    @ex(
+    @ex(  # type: ignore[misc]
         help='Code Tag Collector subcommand',
         arguments=[
             (
@@ -67,7 +68,7 @@ class CodeTagCollectorController(Controller):
         """Main subcommand to collect code tags."""
         pargs = self.app.pargs
 
-        base_dir = Path(pargs.base_dir).resolve().absolute()
+        base_dir = Path(pargs.base_dir).resolve()
         path_tag_summary = base_dir / pargs.filename
         ignore_patterns = pargs.ignore_patterns.split(',') if pargs.ignore_patterns else []
         paths_source = find_project_files(base_dir, ignore_patterns=ignore_patterns)

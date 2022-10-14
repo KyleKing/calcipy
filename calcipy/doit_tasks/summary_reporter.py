@@ -8,7 +8,7 @@ https://groups.google.com/g/python-doit/c/SgoiGt_XYDU/m/PQ8JmlKFAgAJ
 from enum import IntEnum
 
 from beartype import beartype
-from beartype.typing import Any, List, OrderedDict
+from beartype.typing import Any, Dict, List, OrderedDict
 from doit.reporter import ConsoleReporter
 from doit.task import Task
 from pydantic import BaseModel
@@ -46,14 +46,14 @@ def _format_task_summary(task_summary: _TaskSummary) -> str:
     return f'{foreground}{task_summary.name} {exit_summary}{fg.rs}'
 
 
-class SummaryReporter(ConsoleReporter):  # pragma: no cover # noqa: H601
+class SummaryReporter(ConsoleReporter):  # type: ignore[misc] # pragma: no cover # noqa: H601
     """Summarize results of doit tasks."""
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:  # type: ignore[no-untyped-def]
         """Initialize data members."""  # noqa: DAR101
         super().__init__(*args, **kwargs)
-        self._all_tasks = []
-        self._task_summaries = {}
+        self._all_tasks: List[str] = []
+        self._task_summaries: Dict[str, _TaskSummary] = {}
 
     def initialize(self, tasks: OrderedDict[str, Task], selected_tasks: List[str]) -> None:
         """Initialize the data members for tracking task run status."""  # noqa: DAR101

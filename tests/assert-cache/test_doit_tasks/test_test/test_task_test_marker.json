@@ -1,0 +1,25 @@
+{
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_doit_tasks/test_test.py",
+      "test_name": "test_task_test_marker"
+    }
+  ],
+  "_json": {
+    "actions": [
+      "Cmd: poetry run python -m pytest \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/tests\" -x -l --ff --nf -vv -m \"%(marker)s\""
+    ],
+    "params": [
+      {
+        "default": "",
+        "help": "Runs test with specified marker logic\nSee: https://docs.pytest.org/en/latest/example/markers.html?highlight=-m",
+        "long": "marker",
+        "name": "marker",
+        "short": "m"
+      }
+    ],
+    "title": "<function _show_cmd(..)>",
+    "verbosity": 2
+  }
+}

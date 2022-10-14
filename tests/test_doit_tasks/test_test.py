@@ -6,117 +6,81 @@ from calcipy.doit_tasks.test import (
 )
 
 
-def test_task_test():
+def test_task_test(assert_against_cache):
     """Test task_test."""
     result = task_test()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).endswith('" -x -l --ff --nf -vv')
+    assert_against_cache(result)
 
 
-def test_task_test_all():
+def test_task_test_all(assert_against_cache):
     """Test task_test_all."""
     result = task_test_all()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).endswith('" --ff -vv')
+    assert_against_cache(result)
 
 
-def test_task_test_marker():
+def test_task_test_marker(assert_against_cache):
     """Test task_test_marker."""
     result = task_test_marker()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).endswith('" -x -l --ff --nf -vv -m "%(marker)s"')
-    params = result['params']
-    assert len(params) == 1
-    assert params[0]['name'] == 'marker'
-    assert params[0]['short'] == 'm'
+    assert_against_cache(result)
 
 
-def test_task_test_keyword():
+def test_task_test_keyword(assert_against_cache):
     """Test task_test_keyword."""
     result = task_test_keyword()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).endswith('" -x -l --ff --nf -vv -k "%(keyword)s"')
-    params = result['params']
-    assert len(params) == 1
-    assert params[0]['name'] == 'keyword'
-    assert params[0]['short'] == 'k'
+    assert_against_cache(result)
 
 
-def test_task_coverage():
+def test_task_coverage(assert_against_cache):
     """Test task_coverage."""
     result = task_coverage()
 
-    actions = result['actions']
-    assert len(actions) == 6
-    assert 'pytest' in str(actions[0])
-    for index, report_format in enumerate(['report', 'html', 'json', 'xml']):
-        assert f'poetry run python -m coverage {report_format}' in str(actions[1 + index])
-    assert 'diff-cover' in str(actions[-1])
+    assert_against_cache(result)
 
 
-def task_task_check_types():
+def test_task_check_types(assert_against_cache):
     """Test task_check_types."""
     result = task_check_types()
 
-    actions = result['actions']
-    assert 2 <= len(actions) > 1
-    assert str(actions[0]).startswitch('poetry run ')
+    # assert 2 <= len(actions) > 1
+    # assert str(actions[0]).startswitch('poetry run ')
+    assert_against_cache(result)  # FIXME: Revisit. Seems unstable
 
 
-def task_task_open_test_docs():
+def test_task_open_test_docs(assert_against_cache):
     """Test task_open_test_docs."""
     result = task_open_test_docs()
 
-    actions = result['actions']
-    assert 3 <= len(actions) > 2
+    # assert 3 <= len(actions) > 2
+    assert_against_cache(result)  # FIXME: Revisit. Seems unstable
 
 
-def task_task_ptw_not_interactive():
+def test_task_ptw_not_interactive(assert_against_cache):
     """Test task_ptw_not_interactive."""
     result = task_ptw_not_interactive()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).startswitch('poetry run ptw -- "')
-    assert str(actions[0]).endswitch('" -m "not INTERACTIVE" -vvv')
+    assert_against_cache(result)
 
 
-def task_task_ptw_ff():
+def test_task_ptw_ff(assert_against_cache):
     """Test task_ptw_ff."""
     result = task_ptw_ff()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).startswitch('poetry run ptw -- "')
-    assert str(actions[0]).endswitch('" --last-failed --new-first -m "not INTERACTIVE" -vv')
+    assert_against_cache(result)
 
 
-def task_task_ptw_current():
+def test_task_ptw_current(assert_against_cache):
     """Test task_ptw_current."""
     result = task_ptw_current()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).startswitch('poetry run ptw -- "')
-    assert str(actions[0]).endswitch('" -m "CURRENT" -vv')
+    assert_against_cache(result)
 
 
-def test_task_ptw_marker():
+def test_task_ptw_marker(assert_against_cache):
     """Test task_ptw_marker."""
     result = task_ptw_marker()
 
-    actions = result['actions']
-    assert len(actions) == 1
-    assert str(actions[0]).endswith('" -vvv -m "%(marker)s"')
-    params = result['params']
-    assert len(params) == 1
-    assert params[0]['name'] == 'marker'
-    assert params[0]['short'] == 'm'
+    assert_against_cache(result)

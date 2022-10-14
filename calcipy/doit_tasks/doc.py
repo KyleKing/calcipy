@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 from beartype import beartype
-from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
+from beartype.typing import Any, Callable, Dict, List, Pattern
 from doit.tools import Interactive
 from loguru import logger
 from transitions import Machine
@@ -122,7 +122,7 @@ class _ParseSkipError(RuntimeError):
     ...
 
 
-class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
+class _ReplacementMachine(Machine):  # noqa: H601
     """State machine to replace content with user-specified handlers.
 
     Uses `{cts}` and `{cte}` to demarcate sections (short for calcipy_template start|end)
@@ -152,8 +152,7 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
 
     @beartype
     def _parse_line(
-        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], List[str]]],
-        path_file: Optional[Path] = None,
+        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], List[str]]], path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
 
@@ -190,7 +189,7 @@ class _ReplacementMachine(Machine):  # type: ignore[misc] # noqa: H601
     @beartype
     def parse(
         self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], List[str]]],
-        path_file: Optional[Path] = None,
+        path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
 
@@ -214,7 +213,7 @@ _RE_VAR_COMMENT_HTML = re.compile(r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);'
 
 
 @beartype
-def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:
+def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:  # type: ignore[type-arg]
     """Parse the variable from a matching comment.
 
     Args:
@@ -225,8 +224,7 @@ def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Di
         Dict[str, str]: single key and value pair based on the parsed comment
 
     """
-    match = matcher.match(line.strip())
-    if match:
+    if match := matcher.match(line.strip()):
         matches = match.groupdict()
         return {matches['key']: matches['value']}
     return {}
@@ -287,7 +285,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     # Format table for Github Markdown
     df_cov = pd.DataFrame(records)
     df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
-    lines_table = df_cov.to_markdown(index=False, tablefmt='github').split('\n')
+    lines_table = str(df_cov.to_markdown(index=False, tablefmt='github')).split('\n')
     short_date = coverage_data['meta']['timestamp'].split('T')[0]
     lines_table.extend(['', f'Generated on: {short_date}'])
     return lines_table
@@ -343,7 +341,7 @@ def write_autoformatted_md_sections() -> None:
 def _diagram_tasks(pdoc_out_path: Path) -> List[DoitAction]:
     """Return actions to generate code diagrams in the module documentation directory.
 
-    Note: must be run after `document` because pdocs will delete these files
+    Note: must be run after `document` because pdoc will delete these files
 
     PUML support may be coming in a future release: https://github.com/PyCQA/pylint/issues/4498
 
@@ -410,15 +408,12 @@ def task_document() -> DoitTask:
 
     """
     _ensure_handler_lookup()
-    pdoc_out_path = get_dg().doc.auto_doc_path
-    pdoc_out = f'--output_dir {pdoc_out_path} --overwrite'
-    pdoc_template = f'--template_dir {get_dg().calcipy_dir}/doit_tasks/templates'
+    auto_doc_path = get_dg().doc.auto_doc_path
     return debug_task([
         (write_autoformatted_md_sections, ()),
-        (delete_dir, (pdoc_out_path,)),
-        Interactive(f'poetry run pdocs as_markdown {get_dg().meta.pkg_name} {pdoc_out} {pdoc_template}'),
-        *_diagram_tasks(pdoc_out_path),
-        (_find_and_trim_trailing_whitespace, (pdoc_out_path,)),
+        (delete_dir, (auto_doc_path,)),
+        *_diagram_tasks(auto_doc_path),
+        (_find_and_trim_trailing_whitespace, (auto_doc_path,)),
         Interactive(f'poetry run mkdocs build --site-dir {get_dg().doc.path_out}'),
     ])
 

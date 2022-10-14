@@ -163,10 +163,11 @@ def task_coverage() -> DoitTask:
     cov_dir = dg.test.path_coverage_index.parent
     test_html = f'--html="{dg.test.path_test_report}" --self-contained-html'
     diff_html = f'--html-report {dg.test.path_diff_test_report}'
+    min_cov = f'--cov-fail-under={dg.test.min_cov}' if dg.test.min_cov else ''
     return debug_task([
         Interactive(
             f'poetry run coverage run --source={dg.meta.pkg_name} --module'
-            + f' pytest "{path_tests}" {dg.test.args_pytest} {test_html}',
+            + f' pytest "{path_tests}" {dg.test.args_pytest} {min_cov} {test_html}',
         ),
         'poetry run python -m coverage report --show-missing',
         f'poetry run python -m coverage html --directory={cov_dir}',
@@ -189,7 +190,7 @@ def task_check_types() -> DoitTask:
 
     """
     return debug_task([
-        Interactive(f'poetry run mypy {get_dg().meta.pkg_name} --show-error-codes'),
+        Interactive(f'poetry run mypy {get_dg().meta.pkg_name}'),
     ])
 
 
@@ -241,7 +242,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 def task_ptw_not_interactive() -> DoitTask:
     """Run pytest watch for failed first and skip the INTERACTIVE marker.
 
-    kwargs: `-m 'not INTERACTIVE' -vvv`
+    >  `-m 'not INTERACTIVE' -vvv`
 
     Returns:
         DoitTask: doit task
@@ -254,7 +255,7 @@ def task_ptw_not_interactive() -> DoitTask:
 def task_ptw_ff() -> DoitTask:
     """Run pytest watch for failed first and skip the INTERACTIVE marker.
 
-    kwargs: `--last-failed --new-first -m 'not INTERACTIVE' -vv`
+    >  `--last-failed --new-first -m 'not INTERACTIVE' -vv`
 
     Returns:
         DoitTask: doit task
@@ -267,7 +268,7 @@ def task_ptw_ff() -> DoitTask:
 def task_ptw_current() -> DoitTask:
     """Run pytest watch for only tests with the CURRENT marker.
 
-    kwargs: `-m 'CURRENT' -vv`
+    >  `-m 'CURRENT' -vv`
 
     Returns:
         DoitTask: doit task

@@ -13,7 +13,7 @@ from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
 from doit.tools import Interactive
 from loguru import logger
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
 
 from .base import debug_task
@@ -48,8 +48,8 @@ def task_lock() -> DoitTask:
     """
     dg = get_dg()
     task = debug_task(['poetry lock --no-update'])
-    task['file_dep'].append(dg.meta.path_toml)
-    task['targets'].extend([dg.meta.path_project / 'poetry.lock'])
+    task['file_dep'].append(dg.meta.path_toml)  # type: ignore[union-attr]
+    task['targets'].extend([dg.meta.path_project / 'poetry.lock'])  # type: ignore[union-attr]
     return task
 
 
@@ -99,22 +99,6 @@ def task_publish_test_pypi() -> DoitTask:
 # Check for stale packages
 
 
-class ArrowType(Arrow):
-    """Create a type for pydantic use of Arrow."""
-
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, value):
-        @beartype
-        def arrow_converter(date: Optional[Union[str, Arrow]]) -> Optional[Arrow]:
-            return arrow.get(date) if date else date
-
-        return arrow_converter(value)
-
-
 class _HostedPythonPackage(BaseModel):
     """Representative information for a python package hosted on some domain."""
 
@@ -122,22 +106,17 @@ class _HostedPythonPackage(BaseModel):
     domain: str = Field(default='https://pypi.org/pypi/{name}/json')
     name: str
     version: str
-    datetime: Optional[ArrowType] = Field(default=None)
+    datetime: Optional[Arrow] = Field(default=None)
     latest_version: str = Field(default='')
-    latest_datetime: Optional[ArrowType] = Field(default=None)
+    latest_datetime: Optional[Arrow] = Field(default=None)
 
-    # HACK: See pending pydantic changes: https://github.com/pydantic/pydantic/discussions/4456
-    def _iter(self, *args, **kwargs):
-        """Hack to serialize Arrow types.
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {Arrow: str}
 
-        Based on: https://github.com/pydantic/pydantic/issues/2277#issuecomment-764132528
-
-        """
-        for key, v in super()._iter(*args, **kwargs):
-            if 'datetime' in key:
-                yield key, str(v)
-            else:
-                yield key, v
+    @validator('datetime', 'latest_datetime', pre=True)
+    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: F841
+        return arrow.get(value)
 
 
 _PATH_PACK_LOCK = get_dg().meta.path_project / '.calcipy_packaging.lock'
@@ -152,7 +131,7 @@ _ITEM = 'pypi'
 
 
 @beartype
-@_LIMITER.ratelimit(_ITEM, delay=True, max_delay=10)
+@_LIMITER.ratelimit(_ITEM, delay=True, max_delay=10)  # type: ignore[misc]
 def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
 
@@ -179,8 +158,6 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
         if release_data
     })
     package.datetime = release_dates.inverse[package.version]
-    if package.datetime is None:  # FYI: Explore alternatives to ensure datetime is set
-        logger.error(f'No datetime for {package} from: {res_json}')
     package.latest_datetime = max([*release_dates])
     package.latest_version = release_dates[package.latest_datetime]
     return package
@@ -201,7 +178,7 @@ def _read_cache(path_pack_lock: Path = _PATH_PACK_LOCK) -> Dict[str, _HostedPyth
         path_pack_lock.write_text('{}')  # noqa: P103
     old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text())
     return {
-        package_name: _HostedPythonPackage(**meta_data)
+        package_name: _HostedPythonPackage(**meta_data)  # type: ignore[arg-type]
         for package_name, meta_data in old_cache.items()
     }
 
@@ -231,9 +208,9 @@ def _collect_release_dates(
             cached_version = '' if cached_package is None else cached_package.version
             if package.version != cached_version:
                 package = _get_release_date(package)
-            else:
-                package = cached_package
-            updated_packages.append(package)
+                updated_packages.append(package)
+            elif cached_package:
+                updated_packages.append(cached_package)
         except requests.exceptions.HTTPError as err:
             logger.warning(f'Could not resolve {package} with error {err}')
     return updated_packages
@@ -290,15 +267,16 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 
     """
     def format_package(pack: _HostedPythonPackage) -> str:
-        delta = pack.datetime.humanize()
+        delta = pack.datetime.humanize()  # type: ignore[union-attr]
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
         return f'- {delta}: {pack.name} {pack.version}{latest}'
 
     now = arrow.utcnow()
     stale_cutoff = now.shift(months=-1 * stale_months)
-    stale_packages = [pack for pack in packages if pack.datetime < stale_cutoff]
+    stale_packages = [pack for pack in packages if not pack.datetime or pack.datetime < stale_cutoff]
     if stale_packages:
-        stale_list = '\n'.join(map(format_package, sorted(stale_packages, key=lambda x: x.datetime)))
+        pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
+        stale_list = '\n'.join(map(format_package, pkgs))
         logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}\n\n')
     else:
         oldest_date = np.amin([pack.datetime for pack in packages])
@@ -342,6 +320,6 @@ def task_check_for_stale_packages() -> DoitTask:
         (find_stale_packages, (path_lock, path_pack_lock), {'stale_months': _DEF_STALE_M}),
         Interactive('poetry run pip-check --cmd="poetry run pip" --hide-unchanged'),
     ])
-    task['file_dep'].append(path_lock)
-    task['targets'].append(path_pack_lock)
+    task['file_dep'].append(path_lock)  # type: ignore[union-attr]
+    task['targets'].append(path_pack_lock)  # type: ignore[union-attr]
     return task

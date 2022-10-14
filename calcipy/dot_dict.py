@@ -17,7 +17,7 @@ def ddict(**kwargs: Dict[str, Any]) -> DDICT_TYPE:
     Other variations are no longer supported, such as `bunch` and `ddict` among others
 
     Args:
-        kwargs: keyword arguments formatted into dictionary
+        **kwargs: keyword arguments formatted into dictionary
 
     Returns:
         DDICT_TYPE: dotted dictionary

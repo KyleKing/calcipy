@@ -1,3 +1,5 @@
+# mypy: disable-error-code="misc"
+# ^ ignores assignments to ClassVar
 """Global Variables for doit."""
 
 import inspect
@@ -67,7 +69,7 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
     return instance_type is None or isinstance(member, instance_type)
 
 
-@dataclass(kw_only=True)
+@dataclass
 class _PathAttrBase:
 
     path_project: Path
@@ -90,7 +92,7 @@ class _PathAttrBase:
 
         Args:
             prefix: optional string prefix to check starts with
-            kwargs: keyword arguments passed to `_member_filter`
+            **kwargs: keyword arguments passed to `_member_filter`
 
         Returns:
             List[Tuple[str, Any]]: filtered members from the class
@@ -114,11 +116,11 @@ class _PathAttrBase:
         """
         for name, path_raw in self._get_members(instance_type=type(Path()), prefix=None):
             if not path_raw.is_absolute():
-                setattr(self, name, base_path / path_raw)  # type: ignore[operator]
+                setattr(self, name, base_path / path_raw)
                 logger.debug(f'Mutated: self.{name}={path_raw} (now: {getattr(self, name)})')
 
 
-@dataclass(kw_only=True)
+@dataclass
 class PackageMeta(_PathAttrBase):
     """Package Meta-Information."""
 
@@ -191,6 +193,7 @@ class PackageMeta(_PathAttrBase):
         }
 
 
+# FIXME: Merge with .flake8 configuration...
 _DEF_IGNORE_LIST = [
     'AAA01',  # AAA01 / act block in pytest
     'C901',  # C901 / complexity from "max-complexity = 10"
@@ -209,7 +212,7 @@ _DEF_IGNORE_LIST = [
 """Default list of excluded flake8 rules for the pre-commit check (additional to .flake8)."""
 
 
-@dataclass(kw_only=True)
+@dataclass
 class LintConfig(_PathAttrBase):
     """Lint Config."""
 
@@ -232,7 +235,7 @@ class LintConfig(_PathAttrBase):
         self.path_isort = _make_full_path(self.path_isort, path_base=self.path_project)
 
 
-@dataclass(kw_only=True)
+@dataclass
 class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attributes
     """Test Config."""
 
@@ -251,13 +254,20 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
     path_tests: Path = Field(default=Path('tests'))
     """Relative path to the tests directory. Default is `tests`."""
 
-    args_pytest: str = Field(
-        default='--exitfirst --showlocals --failed-first --new-first --verbose --doctest-modules',
-    )
-    """Default arguments to Pytest. In short form, the defaults are `-x -l --ff --nf -vv`."""
+    min_cov: int = Field(default=80)
+    """Configurable minimum percent coverage."""
 
-    args_diff: str = Field(default='--fail-under=80 --compare-branch=origin/main')
-    """Default arguments to diff-cover."""
+    args_pytest: str = Field(default='--exitfirst --showlocals --failed-first --new-first --verbose')
+    """Default arguments to Pytest"""
+
+    args_diff: str = Field(
+        default='--fail-under=50 --include-untracked --ignore-whitespace --show-uncovered --compare-branch=origin/main',
+    )
+    """Default arguments to diff-cover.
+
+    Note: this may need to overridden for projects that don't use a main branch or need a lower threshold
+
+    """
 
     path_test_report: ClassVar[Path]
     """Path to the self-contained test HTML report."""
@@ -288,7 +298,7 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 
 
-@dataclass(kw_only=True)
+@dataclass
 class CodeTagConfig(_PathAttrBase):
     """Code Tag Config."""
 
@@ -311,7 +321,7 @@ class CodeTagConfig(_PathAttrBase):
         """Finish initializing class attributes."""
         super().__post_init__()
         # Configure full path to the code tag summary file
-        self.path_code_tag_summary = self.path_project / self.doc_sub_dir / self.code_tag_summary_filename
+        self.path_code_tag_summary = (self.path_project / self.doc_sub_dir / self.code_tag_summary_filename)
 
     @beartype
     def compile_issue_regex(self) -> Pattern[str]:
@@ -324,7 +334,7 @@ class CodeTagConfig(_PathAttrBase):
         return re.compile(self.re_raw.format(tag='|'.join(self.tags)))
 
 
-@dataclass(kw_only=True)
+@dataclass
 class DocConfig(_PathAttrBase):
     """Documentation Config."""
 
@@ -337,9 +347,7 @@ class DocConfig(_PathAttrBase):
     auto_doc_path: ClassVar[Path]
     """Auto-calculated based on `self.doc_sub_dir`."""
 
-    handler_lookup: Optional[
-        Dict[str, Callable[[str, Path], List[str]]]
-    ] = Field(default=None)
+    handler_lookup: Optional[Dict[str, Callable[[str, Path], List[str]]]] = Field(default=None)
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     path_out: ClassVar[Path]
@@ -406,8 +414,9 @@ def _set_submodules(
     # Configure global options
     section_keys = ['lint', 'test', 'code_tag', 'doc']
     supported_keys = section_keys + ['ignore_patterns']
-    unexpected_keys = [key for key in calcipy_config if key not in supported_keys]
-    if unexpected_keys:
+    if unexpected_keys := [
+        key for key in calcipy_config if key not in supported_keys
+    ]:
         raise RuntimeError(f'Found unexpected key(s) {unexpected_keys} (i.e. not in {supported_keys})')
 
     # Parse the Copier file for configuration information
@@ -420,10 +429,10 @@ def _set_submodules(
     paths_py = meta.paths_by_suffix.get('py', [])
     paths_md = meta.paths_by_suffix.get('md', [])
     return {
-        'lint': LintConfig(**meta_kwargs, paths_py=paths_py, **lint_k),
-        'test': TestingConfig(**meta_kwargs, **test_k),
-        'tags': CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k),
-        'doc': DocConfig(**meta_kwargs, paths_md=paths_md, doc_sub_dir=doc_sub_dir, **doc_k),
+        'lint': LintConfig(**meta_kwargs, paths_py=paths_py, **lint_k),  # type: ignore[arg-type]
+        'test': TestingConfig(**meta_kwargs, **test_k),  # type: ignore[arg-type]
+        'tags': CodeTagConfig(**meta_kwargs, doc_sub_dir=doc_sub_dir, **code_k),  # type: ignore[arg-type]
+        'doc': DocConfig(**meta_kwargs, paths_md=paths_md, doc_sub_dir=doc_sub_dir, **doc_k),  # type: ignore[arg-type]
     }
 
 
@@ -444,7 +453,7 @@ def create_dg(*, path_project: Path) -> DoitGlobals:
 
     meta = _set_meta(path_project, calcipy_config)
     kwargs = _set_submodules(meta, calcipy_config)
-    return DoitGlobals(meta=meta, **kwargs)
+    return DoitGlobals(meta=meta, **kwargs)  # type: ignore[arg-type]
 
 
 class _DGContainer(BaseModel):
@@ -488,7 +497,7 @@ get_dg = _DG_CONTAINER.get_dg
 
 
 @beartype
-def init_dg():
+def init_dg() -> None:
     """Initialize the global DG instance."""
     work_dir = doit.get_initial_workdir()
     path_project = (Path(work_dir) if work_dir else Path.cwd()).resolve()

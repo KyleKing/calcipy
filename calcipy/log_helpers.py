@@ -1,6 +1,6 @@
 """Loguru Helpers."""
 
-# PLANNED: consider a STDOUT format like https://pypi.org/project/readable-log-formatter
+# FIXME: consider a STDOUT format like https://pypi.org/project/readable-log-formatter
 #   Colorful Debug Level / Parent/FileName / Line NUmber
 #       Indented and wrapped summary string
 #       Indented, optional variables (would otherwise not be shown) (i.e. **{name}**: {value})
@@ -8,6 +8,8 @@
 #       See: https://github.com/Delgan/loguru/issues/156
 #           And: https://loguru.readthedocs.io/en/stable/api/logger.html#message
 #       Or: https://github.com/Delgan/loguru/issues/133
+# TODO: Provide interface for logger.info, etc.)
+# TODO: Improve logging for function timing (maybe size/number of data in arguments?)
 
 from __future__ import annotations
 
@@ -76,7 +78,8 @@ def serializable_compact(record: Dict[str, Any]) -> str:
 
 
 # FYI: loguru.Logger is PEP563 Postponed and can't be use with beartype runtime
-def _log_action(
+@contextmanager
+def log_duration(
     message: str, level: str = 'INFO',
     _logger: loguru.Logger = logger,  # pylint: disable=no-member
     **kwargs: Any,
@@ -87,7 +90,7 @@ def _log_action(
         message: string message to describe the context
         level: log level. Default is `INFO`
         _logger: Optional logger instance
-        kwargs: function keyword arguments passed to the start log statement
+        **kwargs: function keyword arguments passed to the start log statement
 
     Yields:
         yields the logger instance
@@ -100,27 +103,33 @@ def _log_action(
     _logger.log(level, f'(end) {message}', start_time=start_time, runtime=runtime)
 
 
-# When using `contextmanager` as a decorator, Deepsource won't see the __enter__/__exit__ methods (PYL-E1129)
-#   Rather than skipping each use of log_action, use `contextmanager` as a function
-log_action = contextmanager(_log_action)
-
-
 @decorator
-def log_fun(fun: Callable[[Any], Any], *args: Iterable[Any], **kwargs: Any) -> Any:
+def log_fun(
+    fun: Callable[[Any], Any], do_not_log: Optional[List[str]] = None, *args: Iterable[Any], **kwargs: Any,
+) -> Any:
     """Decorate a function to log the function name and completed time.
 
     Args:
         fun: the decorated function
-        args: functional arguments
-        kwargs: function keyword arguments
+        *args: functional arguments
+        do_not_log: optional list of strings to exclude from kwargs when logging
+        **kwargs: function keyword arguments
 
     Returns:
         Any: result of the function
 
     """
     fun_name = fun.__name__
-    with log_action(f'Running {fun_name}{signature(fun)}', args=args, kwargs=kwargs):
-        return fun(*args, **kwargs)  # type: ignore[call-arg]
+    params = [*signature(fun).parameters]
+    if not_found := set(do_not_log or []).difference(set(params)):
+        raise ValueError(f'There are no arguments for {not_found} in {fun_name}')
+
+    extra = {**dict(zip(params, args or [])), **(kwargs or {})}
+    for key in do_not_log or []:
+        extra.pop(key)
+
+    with log_duration(f'Called "{fun_name}"', fun_name=fun_name, extra=extra):
+        return fun(*args, **kwargs)
 
 
 _LOG_SUB_DIR = '.logs'
@@ -167,9 +176,7 @@ def _format_jsonl_handler(log_dir: Path, production: bool = True) -> Dict[str, A
 
 @beartype
 def build_logger_config(
-    path_parent: Optional[Path] = None,
-    *, format_handler: Callable[[Path, bool], Dict[str, Any]] = _format_jsonl_handler,
-    production: bool = True,
+    path_parent: Optional[Path] = None, *, production: bool = True,
 ) -> Dict[str, Any]:
     """Build the loguru configuration. Use with `loguru.configure(**configuration)`.
 
@@ -177,7 +184,6 @@ def build_logger_config(
 
     Args:
         path_parent: Path to the directory where the '.logs/' folder should be created. Default is this package
-        format_handler: function that will generate the loguru handler dictionary. Default is `_format_jsonl_handler`
         production: if True, will tweak logging configuration for production code. Default is `True`
 
     Returns:
@@ -191,7 +197,8 @@ def build_logger_config(
     log_dir.mkdir(exist_ok=True, parents=True)
     logger.info(f'Started logging to {log_dir} (production={production})')
 
-    return format_handler(log_dir=log_dir, production=production)
+    # PLANNED: Consider making the format handler specified via Protocol
+    return _format_jsonl_handler(log_dir=log_dir, production=production)
 
 
 @beartype
