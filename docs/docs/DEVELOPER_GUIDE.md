@@ -50,7 +50,6 @@ poetry run doit run lock document deploy_docs publish
 | File                                                       |   Statements |   Missing |   Excluded | Coverage   |
 |------------------------------------------------------------|--------------|-----------|------------|------------|
 | `calcipy/__init__.py`                                      |            6 |         0 |          0 | 100.0%     |
-| `calcipy/bump_dependencies.py`                             |           44 |        44 |          0 | 0.0%       |
 | `calcipy/cli/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
 | `calcipy/cli/controllers/__init__.py`                      |            0 |         0 |          0 | 100.0%     |
 | `calcipy/cli/controllers/code_tag_collector_controller.py` |           27 |        12 |          0 | 55.6%      |
@@ -74,9 +73,9 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/dot_dict.py`                                      |            7 |         0 |          0 | 100.0%     |
 | `calcipy/file_helpers.py`                                  |           76 |         6 |          3 | 92.1%      |
 | `calcipy/file_search.py`                                   |           34 |         0 |          2 | 100.0%     |
-| `calcipy/log_helpers.py`                                   |           81 |        13 |          0 | 84.0%      |
+| `calcipy/log_helpers.py`                                   |           68 |         7 |          0 | 89.7%      |
 | `calcipy/proc_helpers.py`                                  |           20 |         1 |          0 | 95.0%      |
-| **Totals**                                                 |         1225 |       177 |        155 | 85.6%      |
+| **Totals**                                                 |         1168 |       127 |        155 | 89.1%      |
 
-Generated on: 2022-10-05
+Generated on: 2022-10-13
 <!-- {cte} -->
