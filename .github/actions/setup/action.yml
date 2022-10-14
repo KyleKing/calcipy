@@ -4,9 +4,8 @@ description: Run "poetry install"
 
 inputs:
   os:
-    required: true
+    default: ubuntu-latest
   poetry-version:
-    required: true
     default: 1.2.1
   python-version:
     required: true

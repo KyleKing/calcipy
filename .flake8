@@ -23,6 +23,6 @@ max-expression-complexity = 7
 max-function-length = 55
 max-line-length = 120
 max-parameters-amount = 6
-min-python-version = 3.8.4
+min-python-version = 3.8
 per-file-ignores=test_*.py:ANN001,ANN201,DAR101,DAR201,E800,S101
 select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
