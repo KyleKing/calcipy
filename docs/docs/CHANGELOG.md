@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Feat
+
+- add plantuml generation to mkdocs
+
+## 0.19.1 (2022-10-13)
+
 ### Fix
 
 - don't auto-install types
