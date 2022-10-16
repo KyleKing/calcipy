@@ -22,6 +22,15 @@ theme:
     - toc.autohide
 
 plugins:
+  - build_plantuml:
+      render: server   # or "local"
+      bin_path: /usr/local/bin/plantuml    # ignored when render: server
+      server: http://www.plantuml.com/plantuml    # official plantuml server
+      output_format: svg
+      diagram_root: docs/diagrams
+      output_folder: out
+      input_folder: src
+      input_extensions: puml
   - search
   - gen-files:
       scripts:
