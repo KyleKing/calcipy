@@ -2,7 +2,12 @@
 
 ### Feat
 
+- sign commitizen tags
 - add plantuml generation to mkdocs
+
+### Fix
+
+- remove version conflict with flake8-simplify and cl_bump
 
 ## 0.19.1 (2022-10-13)
 
