@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- drop pdbpp and add flake8-fine-pytest
+
+## 0.20.0 (2022-10-16)
+
 ### Feat
 
 - sign commitizen tags
