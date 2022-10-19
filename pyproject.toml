@@ -117,7 +117,6 @@ mkdocs-literate-nav = { version = ">=0.5.0", optional = true }
 mkdocs-material = { version = ">=8.2.16", optional = true }
 mkdocs-section-index = { version = ">=0.3.4", optional = true }
 mkdocstrings = { extras = ["python"], version = ">=0.18.1", optional= true }
-pdbpp = { version = ">=0.10.3", optional = true, markers = "sys_platform != 'win32' or python_version < '3.9'" }
 pyupgrade = { version = ">=2.32.1", optional = true }
 
 # Lint
@@ -146,6 +145,7 @@ flake8-debugger = { version = ">=4.1.2", optional = true }
 flake8-docstrings = { version = ">=1.6.0", optional = true }
 flake8-eradicate = { version = ">=1.2.1", optional = true }
 flake8-expression-complexity = { version = ">=0.0.11", optional = true }
+flake8-fine-pytest = { version = ">=1.0.3", optional = true }
 flake8-fixme = { version = ">=1.1.1", optional = true }
 flake8-functions = { version = ">=0.0.7", optional = true }
 flake8-isort = { version = ">=4.1.1", optional = true }
@@ -208,7 +208,6 @@ dev = [
     "mkdocs-material",
     "mkdocs-section-index",
     "mkdocstrings",
-    "pdbpp",
     "pyupgrade",
 ]
 lint = [
@@ -238,6 +237,7 @@ lint = [
     "flake8-docstrings",
     "flake8-eradicate",
     "flake8-expression-complexity",
+    "flake8-fine-pytest",
     "flake8-fixme",
     "flake8-functions",
     "flake8-isort",
@@ -291,7 +291,7 @@ matplotlib = "^3.5.2"
 # FYI: Must be added manually because of the circular dependency when testing pca
 hypothesis = { extras = ["cli"], version = ">=6.46.9" }
 # ^ Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
-pytest-cache-assert = ">=2.0.0"
+pytest-cache-assert = ">=3.0.5"
 pytest-benchmark = ">=3.4.1"
 pytest-randomly = ">=3.12.0"
 pytest-recording = ">=0.12.0"
