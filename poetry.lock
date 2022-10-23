@@ -503,11 +503,11 @@ toml = ["tomli (>=1.2.1)"]
 
 [[package]]
 name = "dill"
-version = "0.3.5.1"
+version = "0.3.6"
 description = "serialize all of python"
 category = "main"
 optional = true
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*"
+python-versions = ">=3.7"
 
 [package.extras]
 graph = ["objgraph (>=1.7.2)"]
@@ -937,15 +937,16 @@ python-versions = ">=3.6"
 flake8 = ">=3.8.4"
 
 [[package]]
-name = "flake8-if-expr"
-version = "1.0.4"
-description = "The plugin checks `if expressions` (ternary operator)"
+name = "flake8-implicit-str-concat"
+version = "0.3.0"
+description = "Flake8 plugin to encourage correct string literal concatenation."
 category = "main"
 optional = true
-python-versions = ">=3.6,<4.0"
+python-versions = "~=3.7"
 
 [package.dependencies]
-flake8-plugin-utils = ">=1.0,<2.0"
+attrs = ">=19.3"
+more-itertools = ">=8.0.2,<9"
 
 [[package]]
 name = "flake8-isort"
@@ -984,21 +985,6 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 flake8 = ">=5.0.0"
-
-[[package]]
-name = "flake8-no-implicit-concat"
-version = "0.3.3"
-description = "Flake8 plugin that forbids implicit str/bytes literal concatenations"
-category = "main"
-optional = true
-python-versions = ">=3.3"
-
-[package.dependencies]
-flake8 = "*"
-more-itertools = {version = "*", markers = "python_version < \"3.10\""}
-
-[package.extras]
-dev = ["black", "codecov", "coverage", "darglint", "flake8", "flake8-2020", "flake8-black", "flake8-broken-line", "flake8-builtins", "flake8-docstrings", "flake8-isort", "flake8-rst-docstrings", "hacking (>=4)", "isort", "mypy", "pep8-naming"]
 
 [[package]]
 name = "flake8-pep3101"
@@ -1099,19 +1085,6 @@ python-versions = ">=3.5"
 
 [package.dependencies]
 flake8 = ">=3.2.0"
-
-[[package]]
-name = "flake8-requirements"
-version = "1.7.2"
-description = "Package requirements checker, plugin for flake8"
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-flake8 = ">=2.0.0"
-setuptools = ">=10.0.0"
-toml = ">=0.7.0"
 
 [[package]]
 name = "flake8-return"
@@ -1807,11 +1780,11 @@ mkdocstrings = ">=0.19"
 
 [[package]]
 name = "more-itertools"
-version = "9.0.0"
+version = "8.14.0"
 description = "More routines for operating on iterables, beyond itertools"
 category = "main"
 optional = true
-python-versions = ">=3.7"
+python-versions = ">=3.5"
 
 [[package]]
 name = "mr-proper"
@@ -2360,8 +2333,8 @@ pytest = ">=3.0.0,<8.0.0"
 name = "pytest-randomly"
 version = "3.12.0"
 description = "Pytest plugin to randomly order tests and control random.seed."
-category = "dev"
-optional = false
+category = "main"
+optional = true
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -3090,13 +3063,13 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [extras]
 commitizen-legacy = ["cz_legacy"]
 dev = ["better-exceptions", "commitizen", "mdx_truly_sane_lists", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pdbr", "pyupgrade"]
-lint = ["absolufy-imports", "add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "docformatter", "flake8", "flake8-2020", "flake8-aaa", "flake8-absolute-import", "flake8-adjustable-complexity", "flake8-annotations", "flake8-annotations-complexity", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-class-attributes-order", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-datetimez", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-executable", "flake8-expression-complexity", "flake8-fine-pytest", "flake8-fixme", "flake8-functions", "flake8-if-expr", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-no-implicit-concat", "flake8-pep3101", "flake8-pie", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-raise", "flake8-requirements", "flake8-return", "flake8-simplify", "flake8-SQL", "flake8-strftime", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names", "isort", "licensecheck", "lxml", "mypy", "pandas-vet", "pep8-naming", "pip-check", "proselint", "pylint", "semgrep", "tryceratops", "types-decorator", "types-pyyaml", "types-requests", "unimport", "vulture", "xenon", "yamllint"]
-test = ["diff-cover", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-watcher"]
+lint = ["absolufy-imports", "add-trailing-comma", "autoflake", "autopep8", "cohesion", "darglint", "dlint", "docformatter", "flake8", "flake8-2020", "flake8-aaa", "flake8-absolute-import", "flake8-adjustable-complexity", "flake8-annotations", "flake8-annotations-complexity", "flake8-assertive", "flake8-bandit", "flake8-blind-except", "flake8-breakpoint", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-class-attributes-order", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-datetimez", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-executable", "flake8-expression-complexity", "flake8-fine-pytest", "flake8-fixme", "flake8-functions", "flake8-implicit-str-concat", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-pie", "flake8-plone-hasattr", "flake8-print", "flake8-printf-formatting", "flake8-pytest-style", "flake8-quotes", "flake8-raise", "flake8-return", "flake8-simplify", "flake8-SQL", "flake8-strftime", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names", "isort", "licensecheck", "lxml", "mypy", "pandas-vet", "pep8-naming", "pip-check", "proselint", "pylint", "semgrep", "tryceratops", "types-decorator", "types-pyyaml", "types-requests", "unimport", "vulture", "xenon", "yamllint"]
+test = ["diff-cover", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-randomly", "pytest-watcher"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "0a2df724207fe86a7f558575383bb7eac0a50ed612af7ca9f9c166ec85f81540"
+content-hash = "9d4a1a54024d08201915c7d7a6974145849b7fda1fb0550a75f5d9373575ddec"
 
 [metadata.files]
 absolufy-imports = [
@@ -3396,8 +3369,8 @@ diff-cover = [
     {file = "diff_cover-7.0.1.tar.gz", hash = "sha256:69258355daf8276057a92e42cec52594ad8cfe7dd505d6f0e56fe440bc4418d0"},
 ]
 dill = [
-    {file = "dill-0.3.5.1-py2.py3-none-any.whl", hash = "sha256:33501d03270bbe410c72639b350e941882a8b0fd55357580fbc873fba0c59302"},
-    {file = "dill-0.3.5.1.tar.gz", hash = "sha256:d75e41f3eff1eee599d738e76ba8f4ad98ea229db8b085318aa2b3333a208c86"},
+    {file = "dill-0.3.6-py3-none-any.whl", hash = "sha256:a07ffd2351b8c678dfc4a856a3005f8067aea51d6ba6c700796a4d9e280f39f0"},
+    {file = "dill-0.3.6.tar.gz", hash = "sha256:e5db55f3687856d8fbdab002ed78544e1c4559a130302693d839dfe8f93f2373"},
 ]
 distlib = [
     {file = "distlib-0.3.6-py2.py3-none-any.whl", hash = "sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e"},
@@ -3543,9 +3516,9 @@ flake8-helper = [
     {file = "flake8_helper-0.2.1-py3-none-any.whl", hash = "sha256:9123cdf351ad32ee8a51b85036052302c478122d62fb512c0773e111b3d05241"},
     {file = "flake8_helper-0.2.1.tar.gz", hash = "sha256:479f86d1c52df8e49ff876ecd3873242699f93eeece7e6675cdca9c37c9b0a16"},
 ]
-flake8-if-expr = [
-    {file = "flake8-if-expr-1.0.4.tar.gz", hash = "sha256:e0050b59b46114b6e20628d61175a7a608d3eb55fb5b90d87db0f9352a91a491"},
-    {file = "flake8_if_expr-1.0.4-py3-none-any.whl", hash = "sha256:3f2d45cc1e48b4cdf22377ca1624b2a59b6f1c7825ba1cdee99ff1e647e7ae3f"},
+flake8-implicit-str-concat = [
+    {file = "flake8_implicit_str_concat-0.3.0-py2.py3-none-any.whl", hash = "sha256:a89ebc50567790fb7b83e032ed4014ae0db70e35d89e269c3323967135023600"},
+    {file = "flake8_implicit_str_concat-0.3.0.tar.gz", hash = "sha256:c0e6ae227e46238e4c87844091f8072892caeccd3bb266576a7d449eadbf53a0"},
 ]
 flake8-isort = [
     {file = "flake8-isort-5.0.0.tar.gz", hash = "sha256:e336f928c7edc509684930ab124414194b7f4e237c712af8fcbdf49d8747b10c"},
@@ -3557,10 +3530,6 @@ flake8-logging-format = [
 flake8-markdown = [
     {file = "flake8-markdown-0.4.0.tar.gz", hash = "sha256:c1d1f2c5055df2d6af22597aca401e6693a3d1389d06d2105272cb80478e686c"},
     {file = "flake8_markdown-0.4.0-py3-none-any.whl", hash = "sha256:d03dfd75605e7346416de0adaedfbfa0f50833a1f8a3aec634065a577f90a950"},
-]
-flake8-no-implicit-concat = [
-    {file = "flake8-no-implicit-concat-0.3.3.tar.gz", hash = "sha256:b68ff39c5620b0c9fd412c22e6dd98e56ca255eb9cc007135dbc26033dc5e07d"},
-    {file = "flake8_no_implicit_concat-0.3.3-py3-none-any.whl", hash = "sha256:ae5c17d0bce1a1c5f1117786c111616ffe9f81bf4fe98bcdd715d44a7371b370"},
 ]
 flake8-pep3101 = [
     {file = "flake8-pep3101-2.0.0.tar.gz", hash = "sha256:ae2ee1758734a473ca971b4bf9ff09c961b6099916db91fdb6b9718328dfcacb"},
@@ -3596,9 +3565,6 @@ flake8-quotes = [
 flake8-raise = [
     {file = "flake8-raise-0.0.5.tar.gz", hash = "sha256:0a9890e16b851402d9b0d4fafe6c34890eab73835a2c2079c3850a25be575623"},
     {file = "flake8_raise-0.0.5-py3-none-any.whl", hash = "sha256:df26e5c542a58c8f8786d978e18ad7e54126a0ef5c6241c35dafaca7e2bbb808"},
-]
-flake8-requirements = [
-    {file = "flake8_requirements-1.7.2-py2.py3-none-any.whl", hash = "sha256:ea0305f7a362d515f0863863dec08d39e5de1dfdd3dccf533d02ef3aba07cda3"},
 ]
 flake8-return = [
     {file = "flake8-return-1.1.3.tar.gz", hash = "sha256:13a31edeb0c6157dd4f77166cdaa6141703d2b8b24def5558ae659852a003cb4"},
@@ -4079,8 +4045,8 @@ mkdocstrings-python = [
     {file = "mkdocstrings_python-0.7.1-py3-none-any.whl", hash = "sha256:a22060bfa374697678e9af4e62b020d990dad2711c98f7a9fac5c0345bef93c7"},
 ]
 more-itertools = [
-    {file = "more-itertools-9.0.0.tar.gz", hash = "sha256:5a6257e40878ef0520b1803990e3e22303a41b5714006c32a3fd8304b26ea1ab"},
-    {file = "more_itertools-9.0.0-py3-none-any.whl", hash = "sha256:250e83d7e81d0c87ca6bd942e6aeab8cc9daa6096d12c5308f3f92fa5e5c1f41"},
+    {file = "more-itertools-8.14.0.tar.gz", hash = "sha256:c09443cd3d5438b8dafccd867a6bc1cb0894389e90cb53d227456b0b0bccb750"},
+    {file = "more_itertools-8.14.0-py3-none-any.whl", hash = "sha256:1bc4f91ee5b1b31ac7ceacc17c09befe6a40a503907baf9c839c229b5095cfd2"},
 ]
 mr-proper = [
     {file = "mr_proper-0.0.7-py3-none-any.whl", hash = "sha256:74a1b60240c46f10ba518707ef72811a01e5c270da0a78b5dd2dd923d99fdb14"},

@@ -155,10 +155,6 @@ class PackageMeta(_PathAttrBase):
         """
         super().__post_init__()
 
-        # Note: toml is an optional dependency required only when using the `doit_tasks` in development
-        if tomli is None:  # pragma: no cover
-            raise RuntimeError(_DOIT_TASK_IMPORT_ERROR)
-
         self.path_toml = self.path_project / 'pyproject.toml'
         if not self.path_toml.is_file():
             raise RuntimeError(f'Check "path_project". Could not find: "{self.path_toml}"')

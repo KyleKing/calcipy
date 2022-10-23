@@ -1,5 +1,15 @@
 ## Unreleased
 
+### Feat
+
+- merge extra flake8 packages based on flake8-aggressive
+
+### Fix
+
+- add pdbr with rich to replace pdbpp
+
+## 0.20.1 (2022-10-19)
+
 ### Fix
 
 - drop pdbpp and add flake8-fine-pytest
