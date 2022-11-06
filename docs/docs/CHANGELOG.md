@@ -2,6 +2,7 @@
 
 ### Feat
 
+- remove if-expr and other unnecessary new flake8 plugins
 - merge extra flake8 packages based on flake8-aggressive
 
 ### Fix
