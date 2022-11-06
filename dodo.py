@@ -25,6 +25,5 @@ from calcipy.log_helpers import activate_debug_logging
 
 activate_debug_logging(pkg_names=[__pkg_name__])
 
-
 # Create list of all tasks run with `poetry run doit`
 DOIT_CONFIG = DOIT_CONFIG_RECOMMENDED

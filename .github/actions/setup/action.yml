@@ -6,7 +6,7 @@ inputs:
   os:
     default: ubuntu-latest
   poetry-version:
-    default: 1.2.1
+    default: 1.2.2
   python-version:
     required: true
 
