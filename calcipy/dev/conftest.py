@@ -49,7 +49,7 @@ else:
     except ImportError as exc:  # pragma: no cover
         raise RuntimeError("The 'lxml' library is missing") from exc
 
-    @pytest.hookimpl(optionalhook=True)
+    @pytest.hookimpl(optionalhook=True)  # type: ignore[misc]
     def pytest_html_results_table_header(cells: Any) -> None:  # pragma: no cover
         """Modify results table in the pytest-html output.
 
@@ -60,7 +60,7 @@ else:
         cells.insert(1, html.th('Description'))
         cells.insert(1, html.th('Time', class_='sortable time', col='time'))
 
-    @pytest.hookimpl(optionalhook=True)
+    @pytest.hookimpl(optionalhook=True)  # type: ignore[misc]
     def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: no cover
         """Modify results table in the pytest-html output.
 
