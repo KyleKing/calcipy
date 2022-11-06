@@ -2,6 +2,7 @@
 
 ### Fix
 
+- install poetry for 'doit publish'
 - bump minimum mkdocs for deploy_docs
 
 ## 0.21.0 (2022-11-05)
