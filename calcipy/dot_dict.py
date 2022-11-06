@@ -12,9 +12,9 @@ DDICT_TYPE = Union[Dict[str, Any], Box]
 def ddict(**kwargs: Dict[str, Any]) -> DDICT_TYPE:
     """Return a dotted dictionary that can also be accessed normally.
 
-    Currently uses `python-box` because there is a more recent release, but could also use `munch`
-
-    Other variations are no longer supported, such as `bunch` and `ddict` among others
+    - Currently uses `python-box`
+    - Could consider `cleveridct` which had updates as recently as 2022
+    - There are numerous other variations that haven't been updated since 2020, such as `munch`, `bunch`, `ddict`
 
     Args:
         **kwargs: keyword arguments formatted into dictionary
