@@ -7,6 +7,7 @@
 
 ### Fix
 
+- prevent line break in table for Code Tag summary
 - add pdbr with rich to replace pdbpp
 
 ## 0.20.1 (2022-10-19)

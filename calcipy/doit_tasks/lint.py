@@ -76,14 +76,20 @@ def _lint_python(
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
+    dg = get_dg()
+
+    def to_rel(_pth: Path) -> str:
+        return _pth.relative_to(dg.meta.path_project).as_posix()
+
     run_m = 'poetry run python -m'
-    flake8_log_path = get_dg().meta.path_project / 'flake8.log'
-    flake8_flags = f'--config={path_flake8} --output-file={flake8_log_path} --exit-zero'
+    flake8_log_path = 'flake8.log'
+    flake8_flags = f'--config={to_rel(path_flake8)} --output-file={flake8_log_path} --exit-zero'
     diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
     diff_report = f'--html-report {get_dg().test.path_diff_lint_report}'
+    path_args = ' '.join(f'"{to_rel(pth)}"' for pth in lint_paths)
     return [
         (if_found_unlink, (flake8_log_path,)),
-        Interactive(f'{run_m} flake8 {flake8_flags} ' + ' '.join(f'"{pth}"' for pth in lint_paths)),
+        Interactive(f'{run_m} flake8 {flake8_flags} {path_args}'),
         (_check_linting_errors, (flake8_log_path, ignore_errors)),
         # FIXME" Need to check if the branch is available first! Will fail on GHA
         Interactive(f'echo "poetry run diff-quality --violations=flake8 {diff_params} {diff_report}"'),

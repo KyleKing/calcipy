@@ -229,7 +229,7 @@ def _format_report(
     return output
 
 
-@log_fun(do_not_log=['header'])
+@log_fun(do_not_log=['header'])  # type: ignore[call-arg]  # FIXME: properly fix mypy typing of 'log_fun'
 @beartype
 def write_code_tag_file(
     path_tag_summary: Path, paths_source: List[Path], base_dir: Path,
