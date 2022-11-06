@@ -217,7 +217,7 @@ def _format_report(
                 counter[comment.tag] += 1
     if records:
         df_tags = pd.DataFrame(records)
-        output += df_tags.to_markdown(index=False, tablefmt='github') or ''
+        output += df_tags.to_markdown(index=False, tablefmt='github', maxcolwidths=None) or ''
     logger.debug('counter={counter}', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}
