@@ -26,13 +26,30 @@ from loguru import logger
 _HAS_TEST_IMPORTS = False
 try:
     import pytest
-    from py.xml import html
     _HAS_TEST_IMPORTS = True
 except ImportError:  # pragma: no cover
     ...
 
-if _HAS_TEST_IMPORTS:
-    @pytest.mark.optionalhook()
+
+if not _HAS_TEST_IMPORTS:  # noqa: C901  # pragma: no cover
+    def pytest_html_results_table_header(cells: Any) -> None:
+        pass
+
+    def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: no cover
+        pass
+
+    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover
+        pass
+
+    def pytest_configure(config: Any) -> None:
+        pass
+else:
+    try:
+        from py.xml import html
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError("The 'lxml' library is missing") from exc
+
+    @pytest.hookimpl(optionalhook=True)
     def pytest_html_results_table_header(cells: Any) -> None:  # pragma: no cover
         """Modify results table in the pytest-html output.
 
@@ -43,7 +60,7 @@ if _HAS_TEST_IMPORTS:
         cells.insert(1, html.th('Description'))
         cells.insert(1, html.th('Time', class_='sortable time', col='time'))
 
-    @pytest.mark.optionalhook()
+    @pytest.hookimpl(optionalhook=True)
     def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: no cover
         """Modify results table in the pytest-html output.
 
