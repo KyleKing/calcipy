@@ -1965,13 +1965,14 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "pip-check"
-version = "2.7"
+version = "2.8.1"
 description = "Display installed pip packages and their update status.."
 category = "main"
 optional = true
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
+packaging = "*"
 pip = ">=9"
 terminaltables = "*"
 
@@ -3025,7 +3026,7 @@ test = ["diff-cover", "nox-poetry", "pytest", "pytest-cov", "pytest-html", "pyte
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "267c37333b44f16764d437fbcbb40972e419b3c1c628dcee843f4e04cba04f6b"
+content-hash = "1e3c068c80f90652440a29853f796b590848b0b8b9881d98faafda2a33e1c32c"
 
 [metadata.files]
 absolufy-imports = [
@@ -4245,8 +4246,8 @@ pip = [
     {file = "pip-22.3.1.tar.gz", hash = "sha256:65fd48317359f3af8e593943e6ae1506b66325085ea64b706a998c6e83eeaf38"},
 ]
 pip-check = [
-    {file = "pip-check-2.7.tar.gz", hash = "sha256:17d1612af84fecfebdf8f8c60b9eaa9c389814a49affdcd88a1d4fd98fd17aee"},
-    {file = "pip_check-2.7-py2.py3-none-any.whl", hash = "sha256:f14ba13b0a66cd9d4732f958fa79d0b0ed2ef7833239927ef4336266265b72fa"},
+    {file = "pip-check-2.8.1.tar.gz", hash = "sha256:76d6abd49b1cd4b2db8752da685c2fae2eae39349efc2adeccf49cb148264d3b"},
+    {file = "pip_check-2.8.1-py2.py3-none-any.whl", hash = "sha256:f0b0761bb4b321da6f8d108b0111c22087203fb9fde96c392afc4fe663246bff"},
 ]
 pkgutil-resolve-name = [
     {file = "pkgutil_resolve_name-1.3.10-py3-none-any.whl", hash = "sha256:ca27cc078d25c5ad71a9de0a7a330146c4e014c2462d9af19c6b828280649c5e"},
