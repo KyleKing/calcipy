@@ -82,7 +82,7 @@ def _lint_python(
         return _pth.relative_to(dg.meta.path_project).as_posix()
 
     run_m = 'poetry run python -m'
-    flake8_log_path = 'flake8.log'
+    flake8_log_path = Path('flake8.log')
     flake8_flags = f'--config={to_rel(path_flake8)} --output-file={flake8_log_path} --exit-zero'
     diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
     diff_report = f'--html-report {get_dg().test.path_diff_lint_report}'

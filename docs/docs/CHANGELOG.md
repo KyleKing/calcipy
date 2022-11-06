@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- bump minimum mkdocs for deploy_docs
+
+## 0.21.0 (2022-11-05)
+
 ### Feat
 
 - remove if-expr and other unnecessary new flake8 plugins
