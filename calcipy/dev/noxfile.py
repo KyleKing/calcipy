@@ -204,8 +204,8 @@ if _HAS_TEST_IMPORTS:  # pragma: no cover  # noqa: C901
         logger.debug(f'Fixed sdist URI ({sdist_uri}): {path_sdist}')
         # Check with pyroma
         session.install('pyroma>=4.0', '--upgrade')
-        # FYI: Using poetry beta because of conflict with package==20.1.3 and poetry>=1.1.12 at the time
-        session.install('poetry>=1.2.0b3')  # required for "poetry.core.masonry.api" build backend
+        # required for "poetry.core.masonry.api" build backend
+        session.run('python', '-m', 'pip', 'install', 'poetry>=1.2.2', stdout=True)
         session.run('pyroma', '--file', path_sdist.as_posix(), '--min=9', stdout=True)
 
     # TODO: https://github.com/tonybaloney/wily/blob/e72b7d95228bbe5538a072dc5d1186daa318bb03/src/wily/__main__.py#L261
