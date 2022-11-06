@@ -1,6 +1,8 @@
 [build-system]
-requires = ["poetry-core>=1.0.7"]
 build-backend = "poetry.core.masonry.api"
+requires = [
+  "poetry-core>=1.0.7",
+]
 
 [tool.calcipy]
 ignore_patterns = [
@@ -105,6 +107,7 @@ requests = ">=2.28.1" # Should be optional, but needed for packaging tasks
 better-exceptions = { version = ">=0.3.3", optional = true }
 commitizen = { version = ">=2.28.0", optional = true }                               # Prevent install of 1.X
 mdx_truly_sane_lists = { version = ">=1.2", optional = true }
+mkdocs = { version = ">=1.4.1", optional = true }
 mkdocs-build-plantuml-plugin = { version = ">=1.7.4", optional = true }
 mkdocs-gen-files = { version = ">=0.4.0", optional = true }
 mkdocs-git-revision-date-localized-plugin = { version = ">=1.0.1", optional = true }
@@ -207,6 +210,7 @@ dev = [
   "better-exceptions",
   "commitizen",
   "mdx_truly_sane_lists",
+  "mkdocs",
   "mkdocs-build-plantuml-plugin",
   "mkdocs-gen-files",
   "mkdocs-git-revision-date-localized-plugin",
