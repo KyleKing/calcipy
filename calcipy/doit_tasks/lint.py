@@ -236,7 +236,7 @@ def task_security_checks() -> DoitTask:
     ])
     return debug_task([
         Interactive(f'poetry run bandit --recursive {get_dg().meta.pkg_name}'),
-        Interactive(f'semgrep {get_dg().meta.pkg_name} {configs}'),
+        Interactive(f'semgrep ci {configs}'),
     ])
 
 

@@ -13,7 +13,7 @@
         "--/flake8.log"
       ]
     ],
-    "Cmd: poetry run python -m flake8 --config=.flake8 --output-file=flake8.log --exit-zero \"test_file.py\" \"tests/test_file_2.py\"",
+    "Cmd: poetry run python -m flake8 --config=.flake8 --output-file=flake8.log --exit-zero \"./test_file.py\" \"./tests/test_file_2.py\"",
     [
       "<function _check_linting_errors(..)>",
       [

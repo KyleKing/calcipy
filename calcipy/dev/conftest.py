@@ -33,16 +33,16 @@ except ImportError:  # pragma: no cover
 
 if not _HAS_TEST_IMPORTS:  # noqa: C901  # pragma: no cover
     def pytest_html_results_table_header(cells: Any) -> None:
-        pass
+        ...
 
-    def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: no cover
-        pass
+    def pytest_html_results_table_row(report: Any, cells: Any) -> None:
+        ...
 
-    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover
-        pass
+    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore
+        ...
 
     def pytest_configure(config: Any) -> None:
-        pass
+        ...
 else:
     try:
         from py.xml import html

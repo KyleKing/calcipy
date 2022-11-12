@@ -25,7 +25,7 @@ def run_cmd(cmd: str, printer: Optional[Callable[[str], None]] = None, **kwargs)
         CalledProcessError: if return code is non-zero
 
     """
-    with subprocess.Popen(  # noqa: DUO116  # nosec
+    with subprocess.Popen(  # noqa: DUO116  # nosec  # nosemgrep
         cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True,
         shell=True, **kwargs,  # noqa: S602
     ) as proc:

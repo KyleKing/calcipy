@@ -38,7 +38,12 @@ def vcr_config() -> Dict:
 
 @pytest.fixture()
 def cache_assert_config() -> AssertConfig:
-    """Configure pytest_cache_assert using `AssertConfig`."""
+    """Configure pytest_cache_assert using `AssertConfig`.
+
+    Returns:
+        AssertConfig: Modified configuration
+
+    """
     return AssertConfig(converters=[Converter(types=[CmdAction, Interactive], func=str)])
 
 
