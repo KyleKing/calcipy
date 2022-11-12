@@ -123,7 +123,7 @@ pyupgrade = { version = ">=2.32.1", optional = true }
 absolufy-imports = { version = ">=0.3.1", optional = true }
 add-trailing-comma = { version = ">=2.2.3", optional = true }
 autoflake = { version = ">=1.4", optional = true }
-autopep8 = { version = ">=1.5.5", optional = true }
+autopep8 = { version = ">=2.0.0", optional = true }
 cohesion = { version = ">=1.0.0", optional = true }
 darglint = { version = ">=1.8.1", optional = true }
 dlint = { version = ">=0.12.0", optional = true }

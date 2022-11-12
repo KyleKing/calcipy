@@ -86,7 +86,7 @@ def _lint_python(
     flake8_flags = f'--config={to_rel(path_flake8)} --output-file={flake8_log_path} --exit-zero'
     diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
     diff_report = f'--html-report {get_dg().test.path_diff_lint_report}'
-    path_args = ' '.join(f'"{to_rel(pth)}"' for pth in lint_paths)
+    path_args = ' '.join(f'"./{to_rel(pth)}"' for pth in lint_paths)
     return [
         (if_found_unlink, (flake8_log_path,)),
         Interactive(f'{run_m} flake8 {flake8_flags} {path_args}'),
