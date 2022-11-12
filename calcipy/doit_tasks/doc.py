@@ -82,6 +82,7 @@ def task_cl_bump() -> DoitTask:
     return debug_task([
         *_write_changelog(),
         Interactive('poetry run cz bump --annotated-tag --no-verify --gpg-sign'),
+        'poetry lock --check',
         'git push origin --tags --no-verify',
         f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag})',
     ])
