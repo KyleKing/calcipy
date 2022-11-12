@@ -2,6 +2,14 @@
 
 ### Fix
 
+- add relative path prefix for linting './'
+- ensure that cz bump doesn't break the requirements file
+- bump minimum pip-check
+
+## 0.21.1 (2022-11-05)
+
+### Fix
+
 - install poetry for 'doit publish'
 - bump minimum mkdocs for deploy_docs
 
