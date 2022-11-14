@@ -1,3 +1,10 @@
+## Unreleased
+
+### Fix
+
+- remove unimplemented diff-cover
+- exit 1 on semgrep errors
+
 ## 0.21.2 (2022-11-12)
 
 ### Fix

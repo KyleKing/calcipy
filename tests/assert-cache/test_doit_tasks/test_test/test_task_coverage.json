@@ -11,9 +11,7 @@
       "Cmd: poetry run coverage run --source=test_project --module pytest \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/tests\" -x -l --ff --nf -vv --cov-fail-under=80 --html=\"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/releases/tests/test_report.html\" --self-contained-html",
       "poetry run python -m coverage report --show-missing",
       "poetry run python -m coverage html --directory=/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/releases/tests/cov_html",
-      "poetry run python -m coverage json",
-      "poetry run python -m coverage xml",
-      "Cmd: poetry run diff-cover coverage.xml --fail-under=95 --compare-branch=origin/release --html-report /Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/releases/tests/diff_test_report.html"
+      "poetry run python -m coverage json"
     ],
     "title": "<function _show_cmd(..)>",
     "verbosity": 2

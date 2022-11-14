@@ -8,6 +8,9 @@ suggestion-mode=yes
 [BASIC]
 include-naming-hint=yes
 
+# Default: i,j,k,ex,Run,_
+good-names=i,j,k,Run,__,exc,dg
+
 [CLASSES]
 check-protected-access-in-special-methods=yes
 

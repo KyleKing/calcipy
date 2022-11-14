@@ -162,7 +162,6 @@ def task_coverage() -> DoitTask:
     path_tests = dg.test.path_tests
     cov_dir = dg.test.path_coverage_index.parent
     test_html = f'--html="{dg.test.path_test_report}" --self-contained-html'
-    diff_html = f'--html-report {dg.test.path_diff_test_report}'
     min_cov = f'--cov-fail-under={dg.test.min_cov}' if dg.test.min_cov else ''
     return debug_task([
         Interactive(
@@ -172,8 +171,6 @@ def task_coverage() -> DoitTask:
         'poetry run python -m coverage report --show-missing',
         f'poetry run python -m coverage html --directory={cov_dir}',
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
-        'poetry run python -m coverage xml',
-        Interactive(f'poetry run diff-cover coverage.xml {dg.test.args_diff} {diff_html}'),
     ])
 
 
@@ -209,8 +206,6 @@ def task_open_test_docs() -> DoitTask:
     dg = get_dg()
     paths = [
         dg.test.path_test_report,
-        dg.test.path_diff_test_report,
-        dg.test.path_diff_lint_report,
         dg.test.path_coverage_index,
         dg.test.path_mypy_index,
     ]

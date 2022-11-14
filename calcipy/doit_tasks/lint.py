@@ -59,7 +59,6 @@ def _lint_python(
     lint_paths: List[Path], path_flake8: Path,
     ignore_errors: Iterable[str] = ('T100', 'T101'),
     xenon_args: str = '--max-absolute B --max-modules A --max-average A',
-    diff_fail_under: int = 80, diff_branch: str = 'origin/main',
 ) -> List[DoitAction]:
     """Lint specified files creating summary log file of errors.
 
@@ -68,8 +67,6 @@ def _lint_python(
         path_flake8: path to flake8 configuration file
         ignore_errors: list of error codes to ignore (beyond the flake8 config settings). Default is to ignore Code Tags
         xenon_args: string arguments passed to xenon. Default is for most strict options available
-        diff_fail_under: integer minimum test coverage. Default is 80
-        diff_branch: string branch to compare against. Default is `origin/main`
 
     Returns:
         List[DoitAction]: doit task
@@ -86,15 +83,11 @@ def _lint_python(
     run_m = 'poetry run python -m'
     flake8_log_path = Path('flake8.log')
     flake8_flags = f'--config={to_rel(path_flake8)} --output-file={flake8_log_path} --exit-zero'
-    diff_params = f'--compare-branch={diff_branch} --fail-under={diff_fail_under}'
-    diff_report = f'--html-report {get_dg().test.path_diff_lint_report}'
     path_args = ' '.join(f'"./{to_rel(pth)}"' for pth in lint_paths)
     return [
         (if_found_unlink, (flake8_log_path,)),
         Interactive(f'{run_m} flake8 {flake8_flags} {path_args}'),
         (_check_linting_errors, (flake8_log_path, ignore_errors)),
-        # FIXME" Need to check if the branch is available first! Will fail on GHA
-        Interactive(f'echo "poetry run diff-quality --violations=flake8 {diff_params} {diff_report}"'),
         Interactive(f'{run_m} xenon {get_dg().meta.pkg_name} {xenon_args}'),
     ]
 

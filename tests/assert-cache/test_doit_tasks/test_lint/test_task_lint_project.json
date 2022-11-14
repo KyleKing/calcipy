@@ -25,7 +25,6 @@
           ]
         ]
       ],
-      "Cmd: echo \"poetry run diff-quality --violations=flake8 --compare-branch=origin/main --fail-under=80 --html-report /Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/releases/tests/diff_lint_report.html\"",
       "Cmd: poetry run python -m xenon test_project --max-absolute B --max-modules A --max-average A",
       "Cmd: poetry run yamllint \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.copier-answers.yml\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.github/ISSUE_TEMPLATE/config.yml\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.github/labels.yml\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.github/workflows/labels.yml\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/appveyor.yml\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/mkdocs.yml\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.pre-commit-config.yaml\" \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/.sourcery.yaml\""
     ],

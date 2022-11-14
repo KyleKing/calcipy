@@ -65,17 +65,17 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/doit_tasks/base.py`                               |           50 |        10 |          3 | 80.0%      |
 | `calcipy/doit_tasks/code_tags.py`                          |           11 |         0 |          0 | 100.0%     |
 | `calcipy/doit_tasks/doc.py`                                |          146 |        10 |          5 | 93.2%      |
-| `calcipy/doit_tasks/doit_globals.py`                       |          186 |         5 |          2 | 97.3%      |
-| `calcipy/doit_tasks/lint.py`                               |          107 |         9 |          0 | 91.6%      |
+| `calcipy/doit_tasks/doit_globals.py`                       |          181 |         5 |          2 | 97.2%      |
+| `calcipy/doit_tasks/lint.py`                               |          105 |         9 |          0 | 91.4%      |
 | `calcipy/doit_tasks/packaging.py`                          |          132 |        12 |          0 | 90.9%      |
 | `calcipy/doit_tasks/summary_reporter.py`                   |           21 |         0 |         40 | 100.0%     |
-| `calcipy/doit_tasks/test.py`                               |           67 |         4 |          0 | 94.0%      |
+| `calcipy/doit_tasks/test.py`                               |           66 |         4 |          0 | 93.9%      |
 | `calcipy/dot_dict.py`                                      |            7 |         0 |          0 | 100.0%     |
-| `calcipy/file_helpers.py`                                  |           76 |         6 |          3 | 92.1%      |
+| `calcipy/file_helpers.py`                                  |           76 |         7 |          3 | 90.8%      |
 | `calcipy/file_search.py`                                   |           34 |         0 |          2 | 100.0%     |
 | `calcipy/log_helpers.py`                                   |           68 |         7 |          0 | 89.7%      |
 | `calcipy/proc_helpers.py`                                  |           20 |         1 |          0 | 95.0%      |
-| **Totals**                                                 |         1172 |       127 |        164 | 89.2%      |
+| **Totals**                                                 |         1164 |       128 |        164 | 89.0%      |
 
-Generated on: 2022-11-05
+Generated on: 2022-11-13
 <!-- {cte} -->

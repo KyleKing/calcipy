@@ -256,23 +256,8 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
     args_pytest: str = Field(default='--exitfirst --showlocals --failed-first --new-first --verbose')
     """Default arguments to Pytest"""
 
-    args_diff: str = Field(
-        default='--fail-under=50 --include-untracked --ignore-whitespace --show-uncovered --compare-branch=origin/main',
-    )
-    """Default arguments to diff-cover.
-
-    Note: this may need to overridden for projects that don't use a main branch or need a lower threshold
-
-    """
-
     path_test_report: ClassVar[Path]
     """Path to the self-contained test HTML report."""
-
-    path_diff_test_report: ClassVar[Path]
-    """Path to the self-contained diff-test HTML report."""
-
-    path_diff_lint_report: ClassVar[Path]
-    """Path to the self-contained diff-lint HTML report."""
 
     path_coverage_index: ClassVar[Path]
     """Path to the coverage HTML index file within the report directory."""
@@ -288,8 +273,6 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
         self.path_out.mkdir(exist_ok=True, parents=True)
         # Configure the paths to the report HTML and coverage HTML files
         self.path_test_report = self.path_out / 'test_report.html'
-        self.path_diff_test_report = self.path_out / 'diff_test_report.html'
-        self.path_diff_lint_report = self.path_out / 'diff_lint_report.html'
         self.path_coverage_index = self.path_out / 'cov_html/index.html'
         self.path_mypy_index = self.path_out / 'mypy_html/index.html'
 

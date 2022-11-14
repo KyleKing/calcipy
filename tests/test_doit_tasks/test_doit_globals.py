@@ -44,7 +44,6 @@ def test_doit_configurable():
     assert dg.test.path_out == PATH_TEST_PROJECT / 'releases/tests'
     assert dg.test.pythons == ['3.8', '3.9']
     assert dg.test.args_pytest == '-x -l --ff --nf -vv'
-    assert dg.test.args_diff == '--fail-under=95 --compare-branch=origin/release'
     assert dg.doc.path_out == PATH_TEST_PROJECT / 'releases/site'
     assert dg.lint.path_flake8 == PATH_TEST_PROJECT / '.flake8'
     assert dg.lint.path_isort == PATH_TEST_PROJECT / '.isort.cfg'  # user-configured

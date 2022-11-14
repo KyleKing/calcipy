@@ -26,7 +26,6 @@
         ]
       ]
     ],
-    "Cmd: echo \"poetry run diff-quality --violations=flake8 --compare-branch=origin/main --fail-under=80 --html-report /Users/kyleking/Developer/packages/calcipy/.test_calcipy_project/releases/tests/diff_lint_report.html\"",
     "Cmd: poetry run python -m xenon test_project --max-absolute B --max-modules A --max-average A"
   ]
 }

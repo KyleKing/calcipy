@@ -38,7 +38,7 @@ if not _HAS_TEST_IMPORTS:  # noqa: C901  # pragma: no cover
     def pytest_html_results_table_row(report: Any, cells: Any) -> None:
         ...
 
-    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore
+    def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[empty-body, type-arg]
         ...
 
     def pytest_configure(config: Any) -> None:
