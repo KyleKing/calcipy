@@ -2,6 +2,7 @@
 
 import re
 from collections import defaultdict
+from contextlib import suppress
 from functools import lru_cache
 from pathlib import Path
 from subprocess import CalledProcessError  # nosec
@@ -126,7 +127,9 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
 
     """
     git_dir = Path(run_cmd('git rev-parse --show-toplevel', cwd=str(cwd)))
-    clone_uri = run_cmd('git remote get-url origin', cwd=str(cwd))
+    clone_uri = 'https://github.com/'
+    with suppress(CalledProcessError):
+        clone_uri = run_cmd('git remote get-url origin', cwd=str(cwd))
     # Could be ssh or http (with or without .git)
     # git@github.com:KyleKing/calcipy.git
     # https://github.com/KyleKing/calcipy.git

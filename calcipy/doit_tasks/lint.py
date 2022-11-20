@@ -73,7 +73,6 @@ def _lint_python(
 
     """
     # Flake8 appends to the log file. Ensure that an existing file is deleted so that Flake8 creates a fresh file
-    # FIXME: Make all dg > d_g
     dg = get_dg()
 
     # FIXME: Update assert-cache by making all paths in DG relative
