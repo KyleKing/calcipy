@@ -7,6 +7,11 @@ from calcipy import __version__
 try:
     import tomllib
 except ModuleNotFoundError:
+    import tomli as tomllib  # ignore: type[no-redef]
+
+try:
+    import tomllib
+except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore[no-redef]
 
 
