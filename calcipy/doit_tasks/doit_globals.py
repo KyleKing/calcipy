@@ -11,7 +11,6 @@ from typing import ClassVar
 from uuid import uuid4
 
 import doit
-import tomli
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, Iterable, List, Optional, Pattern, Set, Tuple, Union
 from doit.action import BaseAction
@@ -24,6 +23,11 @@ from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS
 from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, get_doc_dir
 from ..file_search import find_project_files, find_project_files_by_suffix
 from ..log_helpers import log_fun
+
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib  # type: ignore[no-redef]
 
 _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
 """Standard error message when an optional import is not available. Raise with RuntimeError."""
@@ -159,7 +163,7 @@ class PackageMeta(_PathAttrBase):
         if not self.path_toml.is_file():
             raise RuntimeError(f'Check "path_project". Could not find: "{self.path_toml}"')
 
-        poetry_config = tomli.loads(self.path_toml.read_text())['tool']['poetry']
+        poetry_config = tomllib.loads(self.path_toml.read_text())['tool']['poetry']
         self.pkg_name = poetry_config['name']
         self.pkg_version = poetry_config['version']
         py_constraint = poetry_config['dependencies']['python']
@@ -428,7 +432,7 @@ def create_dg(*, path_project: Path) -> DoitGlobals:
     # Read the optional toml configuration
     # > Note: could allow LintConfig/.../DocConfig kwargs to be set in toml, but may be difficult to maintain
     data = (path_project / 'pyproject.toml').read_text()
-    calcipy_config = tomli.loads(data).get('tool', {}).get('calcipy', {})
+    calcipy_config = tomllib.loads(data).get('tool', {}).get('calcipy', {})
 
     meta = _set_meta(path_project, calcipy_config)
     kwargs = _set_submodules(meta, calcipy_config)

@@ -68,6 +68,7 @@ classifiers = [
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Topic :: Software Development :: Libraries",
   "Topic :: Utilities",
 ] # https://pypi.org/classifiers/
@@ -82,26 +83,23 @@ calcipy = "calcipy:run"
 [tool.poetry.dependencies]
 python = "^3.8.4"
 arrow = ">=1.2.3"
-beartype = ">=0.11.0"  # dyce has nice no-op decorator for beartype, but shouldn't be optional
+beartype = ">=0.11.0"
 bidict = ">=0.22.0"
 cement = ">=3.0.6"
 decorator = ">=5.1.1"
+doit = ">=0.34.2"
 loguru = ">=0.6.0"
 pandas = ">=1.4.0"
+pre-commit = ">=2.20.0"
 pydantic = ">=1.8.1"
+pyrate_limiter = ">=2.4"
 python-box = ">=6.0.2"
-tabulate = ">=0.8.10"  # Required for pandas.to_markdown
-
-# TODO: Implement fully optional imports with: https://github.com/KyleKing/calcipy/issues/19#issuecomment-807886404
-doit = ">=0.34.2"        # Should be optional, but needed for doit_tasks
-pre-commit = ">=2.20.0"  # Should be optional, but needed for doit_globals
-pyrate_limiter = ">=2.4" # Should be optional, but needed for packaging task
-sty = ">=1.0.4"          # Should be optional, but needed for Custom Summary
-tomli = ">=2.0.1"        # Should be optional, but needed for doit_globals
-transitions = ">=0.8.11" # Should be optional, but needed for doc tasks
-# Indirect imports necessary only to comply with check_imports
-pyyaml = ">=5.2"      # Should be optional, but needed for doit_globals
-requests = ">=2.28.1" # Should be optional, but needed for packaging tasks
+pyyaml = ">=5.2"
+requests = ">=2.28.1"
+sty = ">=1.0.4"
+tabulate = ">=0.8.10"
+tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
+transitions = ">=0.8.11"
 
 # Dev (Development)
 better-exceptions = { version = ">=0.3.3", optional = true }
@@ -311,7 +309,8 @@ matplotlib = "^3.5.2"
 # FYI: Must be added manually because of the circular dependency when testing pca
 hypothesis = { extras = ["cli"], version = ">=6.46.9" }
 # ^ Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
-pytest-cache-assert = ">=3.0.5"
 pytest-benchmark = ">=3.4.1"
+pytest-cache-assert = ">=3.0.5"
 pytest-recording = ">=0.12.0"
+pytest-shell-utilities = ">=1.7.0"
 pytest-subprocess = ">=1.4.1"

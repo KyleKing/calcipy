@@ -6,7 +6,6 @@ from pathlib import Path
 import arrow
 import numpy as np
 import requests
-import tomli
 from arrow import Arrow
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Union
@@ -18,6 +17,11 @@ from pyrate_limiter import Duration, Limiter, RequestRate
 
 from .base import debug_task
 from .doit_globals import DoitTask, get_dg
+
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib  # type: ignore[no-redef]
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Publish releases
@@ -247,7 +251,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     if path_lock.name != 'poetry.lock':
         raise NotImplementedError(f'{path_lock.name} is not a currently supported lock type. Try "poetry.lock" instead')
 
-    lock = tomli.loads(path_lock.read_text(errors='ignore'))
+    lock = tomllib.loads(path_lock.read_text(errors='ignore'))
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
     # > domain=dependency['source']['url'] + '{name}/json'
     return [
