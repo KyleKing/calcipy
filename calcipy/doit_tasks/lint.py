@@ -77,7 +77,8 @@ def _lint_python(
 
     # FIXME: Update assert-cache by making all paths in DG relative
     def to_rel(_pth: Path) -> str:
-        return _pth.relative_to(dg.meta.path_project).as_posix()
+        """COnvert to relative path and escape % symbols."""
+        return _pth.relative_to(dg.meta.path_project).as_posix().replace('%', '%%')
 
     run_m = 'poetry run python -m'
     flake8_log_path = Path('flake8.log')
