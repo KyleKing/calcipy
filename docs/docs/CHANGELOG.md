@@ -2,6 +2,18 @@
 
 ### Fix
 
+- handle % in path names for ctt
+- suppress code tag failures when not a git directory
+- add support for tomllib in Python 3.11!
+
+### Refactor
+
+- copier update
+
+## 0.21.3 (2022-11-13)
+
+### Fix
+
 - remove unimplemented diff-cover
 - exit 1 on semgrep errors
 
