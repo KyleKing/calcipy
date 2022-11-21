@@ -52,7 +52,8 @@
           "--/.test_calcipy_project/tests/configuration.py",
           "--/.test_calcipy_project/tests/conftest.py",
           "--/.test_calcipy_project/tests/data/README.md",
-          "--/.test_calcipy_project/tests/test_zz_test_project.py"
+          "--/.test_calcipy_project/tests/test_zz_test_project.py",
+          "--/.test_calcipy_project/{% if percentage %}placeholder.yml"
         ],
         "regex_compiled": "re.compile('((^|\\\\s|\\\\(|\"|\\\\\\')(?P<tag>FIXME|TODO|PLANNED)(:| -)([^\\\\r\\\\n]))(?P<text>.+)')",
         "tag_order": [
