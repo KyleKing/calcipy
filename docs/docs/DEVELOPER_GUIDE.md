@@ -57,7 +57,7 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/cli/core/exceptions.py`                           |            2 |         0 |          0 | 100.0%     |
 | `calcipy/cli/core/version.py`                              |            8 |         8 |          0 | 0.0%       |
 | `calcipy/cli/main.py`                                      |           38 |        19 |          0 | 50.0%      |
-| `calcipy/code_tag_collector.py`                            |          116 |        23 |          0 | 80.2%      |
+| `calcipy/code_tag_collector.py`                            |          119 |        25 |          0 | 79.0%      |
 | `calcipy/dev/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
 | `calcipy/dev/conftest.py`                                  |           16 |         0 |         34 | 100.0%     |
 | `calcipy/dev/noxfile.py`                                   |           23 |         1 |         75 | 95.7%      |
@@ -65,17 +65,17 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/doit_tasks/base.py`                               |           50 |        10 |          3 | 80.0%      |
 | `calcipy/doit_tasks/code_tags.py`                          |           11 |         0 |          0 | 100.0%     |
 | `calcipy/doit_tasks/doc.py`                                |          146 |        10 |          5 | 93.2%      |
-| `calcipy/doit_tasks/doit_globals.py`                       |          181 |         5 |          2 | 97.2%      |
+| `calcipy/doit_tasks/doit_globals.py`                       |          184 |         5 |          2 | 97.3%      |
 | `calcipy/doit_tasks/lint.py`                               |          105 |         9 |          0 | 91.4%      |
-| `calcipy/doit_tasks/packaging.py`                          |          132 |        12 |          0 | 90.9%      |
+| `calcipy/doit_tasks/packaging.py`                          |          135 |        12 |          0 | 91.1%      |
 | `calcipy/doit_tasks/summary_reporter.py`                   |           21 |         0 |         40 | 100.0%     |
 | `calcipy/doit_tasks/test.py`                               |           66 |         4 |          0 | 93.9%      |
 | `calcipy/dot_dict.py`                                      |            7 |         0 |          0 | 100.0%     |
-| `calcipy/file_helpers.py`                                  |           76 |         7 |          3 | 90.8%      |
+| `calcipy/file_helpers.py`                                  |           76 |         6 |          3 | 92.1%      |
 | `calcipy/file_search.py`                                   |           34 |         0 |          2 | 100.0%     |
 | `calcipy/log_helpers.py`                                   |           68 |         7 |          0 | 89.7%      |
 | `calcipy/proc_helpers.py`                                  |           20 |         1 |          0 | 95.0%      |
-| **Totals**                                                 |         1164 |       128 |        164 | 89.0%      |
+| **Totals**                                                 |         1173 |       129 |        164 | 89.0%      |
 
-Generated on: 2022-11-13
+Generated on: 2022-11-27
 <!-- {cte} -->

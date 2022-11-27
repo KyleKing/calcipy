@@ -3092,7 +3092,7 @@ test = ["nox-poetry", "pytest", "pytest-cov", "pytest-html", "pytest-randomly", 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.4"
-content-hash = "2b8d375b06a28acb69b9a41a2b458f641b9d87aba2e7101aff20c3520e7dc740"
+content-hash = "a4fc93fdbd3e657ca5c3c316c69813cddbb11453390611f32a91195a72cf4e4c"
 
 [metadata.files]
 absolufy-imports = [

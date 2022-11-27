@@ -2,6 +2,12 @@
 
 ### Fix
 
+- escape % in yaml files as well
+
+## 0.21.4 (2022-11-20)
+
+### Fix
+
 - handle % in path names for ctt
 - suppress code tag failures when not a git directory
 - add support for tomllib in Python 3.11!
