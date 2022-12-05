@@ -14,7 +14,7 @@ doc_dir: docs
 include_adrs: false
 include_all: true
 install_extras: -E dev -E lint -E test -E commitizen_legacy
-minimum_python: 3.8.4
+minimum_python: 3.8.12
 package_name_py: calcipy
 project_description: Python package to simplify development. Includes functionality
     for task running, testing, linting, documenting, and more
