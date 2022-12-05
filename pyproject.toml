@@ -122,6 +122,7 @@ absolufy-imports = { version = ">=0.3.1", optional = true }
 add-trailing-comma = { version = ">=2.2.3", optional = true }
 autoflake = { version = ">=1.4", optional = true }
 autopep8 = { version = ">=2.0.0", optional = true }
+click = { version = ">=8.1.0", optional = true }  # https://github.com/returntocorp/semgrep/pull/5491
 cohesion = { version = ">=1.0.0", optional = true }
 darglint = { version = ">=1.8.1", optional = true }
 dlint = { version = ">=0.12.0", optional = true }
@@ -174,7 +175,7 @@ flake8-use-pathlib = { version=">=0.3.0", optional=true }
 flake8-variables-names = { version = ">=0.0.5", optional = true }
 isort = { version = ">=5.10.1", optional = true }
 licensecheck = { extras = ["full"], version = ">=2022", optional = true }
-lxml = { version = ">=4.8.0", optional = true }                                               # required for the HTML mypy report format
+lxml = { version = ">=4.9.1", optional = true }                                               # required for the HTML mypy report format
 mypy = { version = ">=0.981", optional = true }
 pandas-vet = { version = ">=0.2.3", optional = true }
 pep8-naming = { version = ">=0.11.1", optional = true }
@@ -224,6 +225,7 @@ lint = [
   "add-trailing-comma",
   "autoflake",
   "autopep8",
+  "click",
   "cohesion",
   "darglint",
   "demjson",

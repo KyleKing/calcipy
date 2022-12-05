@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.21.5 (2022-11-27)
+
 ### Fix
 
 - escape % in yaml files as well

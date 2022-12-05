@@ -77,5 +77,5 @@ poetry run doit run lock document deploy_docs publish
 | `calcipy/proc_helpers.py`                                  |           20 |         1 |          0 | 95.0%      |
 | **Totals**                                                 |         1173 |       129 |        164 | 89.0%      |
 
-Generated on: 2022-11-27
+Generated on: 2022-12-02
 <!-- {cte} -->
