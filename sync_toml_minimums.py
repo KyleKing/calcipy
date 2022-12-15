@@ -6,6 +6,7 @@ resolver by reducing the possible number of combinations to consider
 
 """
 
+
 import re
 from pathlib import Path
 
@@ -48,8 +49,7 @@ pip_freeze = run_cmd(f'{py_path} -m pip list --format=freeze', cwd=str(cwd))
 # Parse each line from freeze pip_freeze into dictionary: {name: version}
 freeze_dict = {}
 for line in pip_freeze.split('\n'):
-    match = RE_FREEZE.match(line)
-    if match:
+    if match := RE_FREEZE.match(line):
         group_dict = match.groupdict()
         if group_dict['name'] not in skipped_packages:
             freeze_dict[group_dict['name']] = group_dict['version']
@@ -68,8 +68,7 @@ for dep_key in ['dependencies', 'dev-dependencies']:
             old_ver = dependencies.get(name)
 
         if old_ver:
-            match = RE_TOML_VER.match(old_ver)
-            if match:
+            if match := RE_TOML_VER.match(old_ver):
                 prefix = match.groupdict()['prefix']
             elif old_ver == '*':
                 prefix = '>='
