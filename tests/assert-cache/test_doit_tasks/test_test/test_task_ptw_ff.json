@@ -8,7 +8,7 @@
   ],
   "_json": {
     "actions": [
-      "Cmd: poetry run ptw \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project\" --last-failed --new-first -m \"not INTERACTIVE\" -vv"
+      "Cmd: poetry run ptw \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project\" --now --last-failed --new-first -m \"not INTERACTIVE\" -vv"
     ],
     "verbosity": 2
   }

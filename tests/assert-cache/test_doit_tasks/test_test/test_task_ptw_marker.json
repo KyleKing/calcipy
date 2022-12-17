@@ -8,7 +8,7 @@
   ],
   "_json": {
     "actions": [
-      "Cmd: poetry run ptw \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project\" -vvv -m \"%(marker)s\""
+      "Cmd: poetry run ptw \"/Users/kyleking/Developer/packages/calcipy/.test_calcipy_project\" --now -vvv -m \"%(marker)s\""
     ],
     "params": [
       {

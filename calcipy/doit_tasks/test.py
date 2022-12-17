@@ -228,7 +228,7 @@ def ptw_task(cli_args: str) -> DoitTask:
 
     """
     return {
-        'actions': [Interactive(f'poetry run ptw "{get_dg().meta.path_project}" {cli_args}')],
+        'actions': [Interactive(f'poetry run ptw "{get_dg().meta.path_project}" --now {cli_args}')],
         'verbosity': 2,
     }
 
