@@ -114,7 +114,6 @@ mkdocs-literate-nav = { version = ">=0.5.0", optional = true }
 mkdocs-material = { version = ">=8.2.16", optional = true }
 mkdocs-section-index = { version = ">=0.3.4", optional = true }
 mkdocstrings = { extras = ["python"], version = ">=0.18.1", optional = true }
-pdbr = { version = ">=0.7.3", optional = true }
 pyupgrade = { version = ">=2.32.1", optional = true }
 
 # Lint
@@ -202,6 +201,10 @@ pytest-watcher = { version = ">=0.2.3", optional = true }
 
 # commitizen_legacy
 cz_legacy = { version = ">=0.1.2", optional = true }
+flake8-require-beartype = "^0.1.1"
+
+# Debug
+pdbpp = { version = ">=0.10.3", optional = true }
 
 [tool.poetry.extras]
 dev = [
@@ -217,7 +220,6 @@ dev = [
   "mkdocs-material",
   "mkdocs-section-index",
   "mkdocstrings",
-  "pdbr",
   "pyupgrade",
 ]
 lint = [
@@ -305,6 +307,7 @@ test = [
   "pytest-watcher",
 ]
 commitizen_legacy = ["cz_legacy"]
+debug = ["pdbpp"]
 
 [tool.poetry.dev-dependencies]
 matplotlib = "^3.5.2"

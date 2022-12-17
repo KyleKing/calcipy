@@ -383,14 +383,6 @@
         "name": "exceptiongroup",
         "version": "1.0.4"
     },
-    "executing": {
-        "datetime": "2022-10-29T13:51:08.470842+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-10-29T13:51:08.470842+00:00",
-        "latest_version": "1.2.0",
-        "name": "executing",
-        "version": "1.2.0"
-    },
     "face": {
         "datetime": "2022-10-18T00:31:22.171214+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -398,6 +390,14 @@
         "latest_version": "22.0.0",
         "name": "face",
         "version": "22.0.0"
+    },
+    "fancycompleter": {
+        "datetime": "2020-02-04T13:30:08.106140+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2020-02-04T13:30:08.106140+00:00",
+        "latest_version": "0.9.1",
+        "name": "fancycompleter",
+        "version": "0.9.1"
     },
     "fhconfparser": {
         "datetime": "2022-01-27T23:43:18.076209+00:00",
@@ -719,6 +719,14 @@
         "name": "flake8-raise",
         "version": "0.0.5"
     },
+    "flake8-require-beartype": {
+        "datetime": "2022-05-22T20:04:15.193807+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2022-05-22T20:04:15.193807+00:00",
+        "latest_version": "0.1.1",
+        "name": "flake8-require-beartype",
+        "version": "0.1.1"
+    },
     "flake8-return": {
         "datetime": "2022-10-28T09:37:14.468591+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -862,14 +870,6 @@
         "latest_version": "6.58.1",
         "name": "hypothesis",
         "version": "6.58.1"
-    },
-    "icecream": {
-        "datetime": "2022-07-21T09:18:16.303068+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-07-21T09:18:16.303068+00:00",
-        "latest_version": "2.1.3",
-        "name": "icecream",
-        "version": "2.1.3"
     },
     "identify": {
         "datetime": "2022-11-18T16:05:32.908434+00:00",
@@ -1255,13 +1255,13 @@
         "name": "pbr",
         "version": "5.11.0"
     },
-    "pdbr": {
-        "datetime": "2022-10-31T11:47:41.531027+00:00",
+    "pdbpp": {
+        "datetime": "2021-07-09T22:22:20.271179+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-10-31T11:47:41.531027+00:00",
-        "latest_version": "0.7.4",
-        "name": "pdbr",
-        "version": "0.7.4"
+        "latest_datetime": "2021-07-09T22:22:20.271179+00:00",
+        "latest_version": "0.10.3",
+        "name": "pdbpp",
+        "version": "0.10.3"
     },
     "peewee": {
         "datetime": "2022-11-11T14:33:14.070224+00:00",
@@ -1447,13 +1447,21 @@
         "name": "pyrate-limiter",
         "version": "2.8.4"
     },
-    "pyreadline3": {
-        "datetime": "2022-01-24T20:05:10.442853+00:00",
+    "pyreadline": {
+        "datetime": "2015-09-16T08:27:16.911586+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-01-24T20:05:10.442853+00:00",
-        "latest_version": "3.4.1",
-        "name": "pyreadline3",
-        "version": "3.4.1"
+        "latest_datetime": "2015-09-16T08:27:16.911586+00:00",
+        "latest_version": "2.1",
+        "name": "pyreadline",
+        "version": "2.1"
+    },
+    "pyrepl": {
+        "datetime": "2019-04-16T14:16:21.663525+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2019-04-16T14:16:21.663525+00:00",
+        "latest_version": "0.9.0",
+        "name": "pyrepl",
+        "version": "0.9.0"
     },
     "pyrsistent": {
         "datetime": "2022-11-03T00:39:51.806584+00:00",
@@ -2006,6 +2014,14 @@
         "latest_version": "1.1.0",
         "name": "win32-setctime",
         "version": "1.1.0"
+    },
+    "wmctrl": {
+        "datetime": "2021-04-23T16:38:44.238436+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2021-04-23T16:38:44.238436+00:00",
+        "latest_version": "0.4",
+        "name": "wmctrl",
+        "version": "0.4"
     },
     "wrapt": {
         "datetime": "2022-05-02T05:26:13.235405+00:00",

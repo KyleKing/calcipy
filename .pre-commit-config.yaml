@@ -41,7 +41,7 @@ repos:
     hooks:
       - id: beautysh
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.37.1
+    rev: v2.38.0
     hooks:
       - id: commitizen
         additional_dependencies: [cz_legacy]
@@ -52,6 +52,7 @@ repos:
     hooks:
       - id: mdformat
         additional_dependencies:
+          - mdformat-admon
           - mdformat-beautysh
           - mdformat-black
           - mdformat-config
@@ -86,6 +87,10 @@ repos:
         exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml
         types_or: []
         types: [file, yaml]
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.6.22
+    hooks:
+      - id: actionlint
   - repo: local
     hooks:
       - id: copier-forbidden-files
