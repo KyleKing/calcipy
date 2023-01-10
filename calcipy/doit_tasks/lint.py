@@ -252,20 +252,14 @@ def _gen_format_actions(paths: str) -> List[str]:
     """
     run = 'poetry run'
     run_mod = f'{run} python -m'
-    # pyupgrade only supports py36 to py311 at this time
+    # pyupgrade currently only supports py36 to py311
     pyup_ver = ''.join(get_dg().meta.min_python[:2])
     pyup_flag = ''
     if pyup_ver in [f'3{ix}' for ix in range(6, 12)]:
         pyup_flag = f'--py{pyup_ver}-plus'
-    autoflake_args = (
-        '--in-place --remove-all-unused-imports --remove-unused-variables --ignore-init-module-imports'
-        ' --remove-duplicate-keys'
-    )
     docfmt_args = '--blank --close-quotes-on-newline --in-place --wrap-summaries=120 --wrap-descriptions=120'
     return [
         f'{run} pyupgrade {paths} {pyup_flag} --keep-runtime-typing',
-        # Note: autoflake and unimport basically do the same thing. Could select just one
-        f'{run_mod} autoflake {paths} {autoflake_args}',
         f'{run_mod} unimport {paths} --include-star-import --remove',
         f'{run_mod} autopep8 {paths} --in-place --aggressive',
         f'{run} absolufy-imports {paths} --never',

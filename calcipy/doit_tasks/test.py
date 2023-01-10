@@ -227,6 +227,7 @@ def ptw_task(cli_args: str) -> DoitTask:
         DoitTask: doit task
 
     """
+    # FIXME: Return the relative path here... Add new method
     return {
         'actions': [Interactive(f'poetry run ptw "{get_dg().meta.path_project}" --now {cli_args}')],
         'verbosity': 2,
