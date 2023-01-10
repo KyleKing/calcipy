@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8.12]
+        python-version: ['3.8']
         language: [python]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
         with:
-          os: ${{ matrix.os }}
+          os: ubuntu-latest
           python-version: ${{ matrix.python-version }}
 
       # Initializes the CodeQL tools for scanning.
