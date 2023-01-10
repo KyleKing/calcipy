@@ -12,6 +12,5 @@ rules:
     patterns:
       - pattern-regex: get_dg\(\)([^\n]+(\n\n? {4,})[^\n]*get_dg\(\))+
     message: 'Multiple get_dg calls made. Use a local variable instead: "dg = get_dg()"'
-    languages:
-      - python
+    languages: [python]
     severity: ERROR

@@ -4,9 +4,7 @@ name: Update Docs
 on:  # yamllint disable-line rule:truthy
   push:
     branches: [main]
-    paths:
-      - docs/**
-      - mkdocs.yml
+    paths: [docs/**, mkdocs.yml]
   workflow_dispatch:  # For manual runs
 
 jobs:

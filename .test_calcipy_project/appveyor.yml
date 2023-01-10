@@ -1,9 +1,7 @@
 ---
 version: 0.0.1.{build}
 
-image:
-  - Ubuntu
-  - Visual Studio 2019
+image: [Ubuntu, Visual Studio 2019]
 
 environment:
   # Python versions
@@ -27,9 +25,7 @@ environment:
 # > https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
 # > stack: python %PYTHON_STACK%
 
-cache:
-  - .venv -> poetry.lock
-  - .nox -> poetry.lock
+cache: [.venv -> poetry.lock, .nox -> poetry.lock]
 
 build: false
 
@@ -78,17 +74,13 @@ test_script:
   # Pack up the release into a single zip file
   - poetry run doit run zip_release
 
-deploy_script:
-  - echo "Deploying..."
+deploy_script: [echo "Deploying..."]
 
-on_success:
-  - echo "On Success..."
+on_success: [echo "On Success..."]
 
-on_failure:
-  - echo "On Error..."
+on_failure: [echo "On Error..."]
 
-on_finish:
-  - echo "Build Finish"
+on_finish: [echo "Build Finish"]
 
 artifacts:
   - path: releases/site.zip

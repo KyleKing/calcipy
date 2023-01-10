@@ -16,8 +16,9 @@ theme:
       accent: green
   icon:
     repo: fontawesome/brands/github
-  features:
-    - toc.autohide
+  features: [toc.autohide]
+
+watch: [calcipy]
 
 plugins:
   - build_plantuml:
@@ -31,15 +32,12 @@ plugins:
       input_extensions: puml
   - search
   - gen-files:
-      scripts:
-        - docs/gen_ref_nav.py
+      scripts: [docs/gen_ref_nav.py]
   - git-revision-date-localized:
       type: date
       fallback_to_build_date: true
       enable_creation_date: true
   - mkdocstrings:
-      watch:
-        - calcipy
       handlers:
         python:
           rendering:
@@ -80,8 +78,7 @@ markdown_extensions:
       permalink: ⚓︎
       toc_depth: 5
 
-extra_css:
-  - _styles/mkdocstrings.css
+extra_css: [_styles/mkdocstrings.css]
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js

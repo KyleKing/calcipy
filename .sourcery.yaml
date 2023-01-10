@@ -677,9 +677,7 @@ rules:
           ...
     condition: not name.starts_with("_")
     paths:
-      exclude:
-        - test/
-        - tests/
+      exclude: [test/, tests/]
     description: Annotate public function/method `${name}` with a return type annotation
     explanation: |
       Adding type annotations has several benefits:

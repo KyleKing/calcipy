@@ -6,10 +6,7 @@ on:  # yamllint disable-line rule:truthy
     branches: [main]
   pull_request:
     branches: [main]
-    paths:
-      - calcipy/**
-      - tests/**
-      - pyproject.toml
+    paths: [calcipy/**, tests/**, pyproject.toml]
 
 jobs:
   lint:
