@@ -30,7 +30,11 @@ except ModuleNotFoundError:
     import tomli as tomllib  # type: ignore[no-redef]
 
 _DOIT_TASK_IMPORT_ERROR = 'User must install the optional calcipy extra "dev" to utilize "doit_tasks"'
-"""Standard error message when an optional import is not available. Raise with RuntimeError."""
+"""Standard error message when an optional import is not available.
+
+Raise with RuntimeError.
+
+"""
 
 _DoitCallableArgs = Iterable[Union[str, float, int, Path, Dict[str, Any]]]
 """Type: legal types that can be passed to a Python callable for doit actions."""
@@ -75,7 +79,6 @@ def _member_filter(member: Any, instance_type: Any) -> bool:
 
 @dataclass
 class _PathAttrBase:
-
     path_project: Path
     """Path to the package directory."""
 
@@ -217,13 +220,25 @@ class LintConfig(_PathAttrBase):
     """Lint Config."""
 
     paths_py: List[Path]
-    """Paths to the Python files used when linting. Created with `find_project_files_by_suffix`."""
+    """Paths to the Python files used when linting.
+
+    Created with `find_project_files_by_suffix`.
+
+    """
 
     path_flake8: Path = Field(default=Path('.flake8'))
-    """Relative path to the flake8 configuration file. Default is ".flake8" created by calcipy_template."""
+    """Relative path to the flake8 configuration file.
+
+    Default is ".flake8" created by calcipy_template.
+
+    """
 
     path_isort: Path = Field(default=Path('pyproject.toml'))
-    """Relative path to the isort configuration file. Default is "pyproject.toml" created by calcipy_template."""
+    """Relative path to the isort configuration file.
+
+    Default is "pyproject.toml" created by calcipy_template.
+
+    """
 
     ignore_errors: List[str] = Field(default_factory=lambda: _DEF_IGNORE_LIST)
     """List of additional excluded flake8 rules for the pre-commit check."""
@@ -249,16 +264,24 @@ class TestingConfig(_PathAttrBase):  # pylint: disable=too-many-instance-attribu
     """
 
     path_out: Path = Field(default=Path('releases/tests'))
-    """Relative path to the report output directory. Default is `releases/tests`."""
+    """Relative path to the report output directory.
+
+    Default is `releases/tests`.
+
+    """
 
     path_tests: Path = Field(default=Path('tests'))
-    """Relative path to the tests directory. Default is `tests`."""
+    """Relative path to the tests directory.
+
+    Default is `tests`.
+
+    """
 
     min_cov: int = Field(default=80)
     """Configurable minimum percent coverage."""
 
     args_pytest: str = Field(default='--exitfirst --showlocals --failed-first --new-first --verbose')
-    """Default arguments to Pytest"""
+    """Default arguments to Pytest."""
 
     path_test_report: ClassVar[Path]
     """Path to the self-contained test HTML report."""
@@ -298,7 +321,11 @@ class CodeTagConfig(_PathAttrBase):
     """string regular expression that contains `{tag}`."""
 
     path_code_tag_summary: ClassVar[Path]
-    """Path to the code tag summary file. Uses `code_tag_summary_filename`."""
+    """Path to the code tag summary file.
+
+    Uses `code_tag_summary_filename`.
+
+    """
 
     def __post_init__(self) -> None:
         """Finish initializing class attributes."""
@@ -322,7 +349,11 @@ class DocConfig(_PathAttrBase):
     """Documentation Config."""
 
     paths_md: List[Path]
-    """Paths to Markdown files used when documenting. Created with `find_project_files_by_suffix`."""
+    """Paths to Markdown files used when documenting.
+
+    Created with `find_project_files_by_suffix`.
+
+    """
 
     doc_sub_dir: Path = Field(default=Path('docs/docs'))
     """Relative path to the source documentation directory."""
@@ -334,7 +365,11 @@ class DocConfig(_PathAttrBase):
     """Lookup dictionary for autoformatted sections of the project's markdown files."""
 
     path_out: ClassVar[Path]
-    """The documentation output directory. Specified in `mkdocs.yml`."""
+    """The documentation output directory.
+
+    Specified in `mkdocs.yml`.
+
+    """
 
     def __post_init__(self) -> None:
         """Finish initializing class attributes."""

@@ -1,7 +1,6 @@
 """Custom doit reporter.
 
-Based on conversation here:
-https://groups.google.com/g/python-doit/c/SgoiGt_XYDU/m/PQ8JmlKFAgAJ
+Based on conversation here: https://groups.google.com/g/python-doit/c/SgoiGt_XYDU/m/PQ8JmlKFAgAJ
 
 """
 

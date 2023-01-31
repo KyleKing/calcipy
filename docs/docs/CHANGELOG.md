@@ -4,6 +4,10 @@
 
 - use the --now flag for ptw!
 
+### Refactor
+
+- remove autoflake in favor of unimport
+
 ## 0.21.5 (2022-11-27)
 
 ### Fix

@@ -8,7 +8,6 @@ repo_url: https://github.com/kyleking/calcipy
 edit_uri: edit/main/docs
 docs_dir: docs
 site_dir: releases/site
-
 theme:
   name: material
   palette:
@@ -17,9 +16,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features: [toc.autohide]
-
 watch: [calcipy]
-
 plugins:
   - build_plantuml:
       render: server  # or "local"
@@ -48,7 +45,6 @@ plugins:
   - literate-nav:
       nav_file: SUMMARY.md
   - section-index
-
 markdown_extensions:
   - abbr
   - admonition
@@ -77,9 +73,7 @@ markdown_extensions:
   - toc:
       permalink: ⚓︎
       toc_depth: 5
-
 extra_css: [_styles/mkdocstrings.css]
-
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - _javascript/tables.js

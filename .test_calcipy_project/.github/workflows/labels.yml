@@ -1,6 +1,5 @@
 ---
 # Docs: https://github.com/marketplace/actions/github-labeler
-
 name: github_labeler
 
 # Run on "push" for first initialization, then only on PR's thereafter
@@ -8,7 +7,6 @@ name: github_labeler
 on:  # yamllint disable-line rule:truthy
   pull_request:
     branches: [main]
-
 jobs:
   labeler:
     runs-on: ubuntu-latest

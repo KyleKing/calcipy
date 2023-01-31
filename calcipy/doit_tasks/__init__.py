@@ -84,4 +84,8 @@ DOIT_CONFIG_RECOMMENDED = {
     'dep_file': '.doit-db.sqlite',
     'reporter': SummaryReporter,
 }
-"""doit Configuration Settings. Run with `poetry run doit`."""
+"""doit Configuration Settings.
+
+Run with `poetry run doit`.
+
+"""

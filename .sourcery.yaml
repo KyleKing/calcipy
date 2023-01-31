@@ -2,7 +2,6 @@
 # See: https://docs.sourcery.ai/Configuration/
 refactor:
   python_version: '3.8'
-
 # Full Google Style Set from: https://sourcery.ai/blog/google-python-style-guide/
 rules:
 # Import Rules
@@ -36,7 +35,6 @@ rules:
   #     - match: from ..my_module import important_function, unimportant_function
   #     - no-match: from my_company.my_module import important_function
   #     - no-match: from pathlib import Path
-
   - id: use-standard-name-for-aliases-pandas
     description: Import `pandas` as `pd`
     explanation: |
@@ -54,7 +52,6 @@ rules:
       - match: import pandas as pds
       - match: import pandas as np
       - match: import numpy, pandas as pds, tensorflow
-
   - id: use-standard-name-for-aliases-numpy
     description: Import `numpy` as `np`
     explanation: |
@@ -70,7 +67,6 @@ rules:
       - match: import numpy as numpie
       - match: import numpy as pd
       - match: import pandas, numpy as numpie, tensorflow
-
   - id: use-standard-name-for-aliases-matplotlib-pyplot
     description: Import `matplotlib.pyplot` as `plt`
     explanation: |
@@ -85,7 +81,6 @@ rules:
       - no-match: import pandas, matplotlib.pyplot as plt, tensorflow
       - match: import matplotlib.pyplot as mplplot
       - match: import pandas, matplotlib.pyplot as mplplot, tensorflow
-
   - id: use-standard-name-for-aliases-tensorflow
     description: Import `tensorflow` as `tf`
     explanation: |
@@ -100,7 +95,6 @@ rules:
       - no-match: import pandas, tensorflow as tf
       - match: import tensorflow as tflow
       - match: import pandas, tensorflow as tflow
-
   - id: use-standard-name-for-aliases-datetime
     description: Import `datetime` as `dt`
     explanation: |
@@ -115,7 +109,6 @@ rules:
       - no-match: import pandas, datetime as dt
       - match: import datetime as dtime
       - match: import pandas, datetime as dtime, tensorflow
-
   - id: use-standard-name-for-aliases-tkinter
     description: Import `tkinter` as `tk`
     explanation: |
@@ -130,7 +123,6 @@ rules:
       - no-match: import pandas, tkinter as tk
       - match: import tkinter as t
       - match: import pandas, tkinter as t, tensorflow
-
   - id: use-standard-name-for-aliases-multiprocessing
     description: Import `multiprocessing` as `mp`
     explanation: |
@@ -147,7 +139,6 @@ rules:
       - match: import pandas, multiprocessing as multi, tensorflow
 
 # Naming Rules
-
   - id: avoid-single-character-names-variables
     pattern: ${var} = ${value}
     condition: var.character_count() == 1
@@ -178,7 +169,6 @@ rules:
       - no-match: |
           from typing import TypeVar
           _T = TypeVar("_T")
-
   - id: avoid-single-character-names-functions
     pattern: |
       def ${function_name}(...):
@@ -222,7 +212,6 @@ rules:
             def good_method(self, a: int, b: float) -> str:
               print(a)
               return repr(b)
-
   - id: name-type-suffix
     pattern: ${name} = ${value}
     condition: |
@@ -245,7 +234,6 @@ rules:
       - match: magic_float = 42
       - match: magic_float = 42.00
       - match: custom_notes_dict = {}
-
   - id: errors-named-error
     pattern: |
       class ${error}(${base}):
@@ -279,7 +267,6 @@ rules:
       - no-match: |
           class Dog(Mammal):
             ...
-
   - id: snake-case-variable-declarations
     pattern: |
       ${var}: ${type_annotation}
@@ -332,7 +319,6 @@ rules:
           def some_function():
             __initial_value: int = 0
       - no-match: __version__ = "3.14"
-
   - id: snake-case-functions
     pattern: |
       def ${function_name}(...):
@@ -379,7 +365,6 @@ rules:
           class Something:
             def __init__(self):
               pass
-
   - id: camel-case-classes
     pattern: |
       class ${class_name}(...):
@@ -416,7 +401,6 @@ rules:
             pass
 
 # Structural Rules
-
   - id: do-not-use-staticmethod
     pattern: |
       @staticmethod
@@ -443,7 +427,6 @@ rules:
           @other_decorator
           def suggested_event(new_suggestion) -> str:
               pass
-
   - id: no-complex-if-expressions
     description: Only use conditional expressions for simple cases
     explanation: |
@@ -460,7 +443,6 @@ rules:
           if cond else 2
       - match: a = 1 if cond else this_is_an_incredibly_long_value_that_is_more_than_80_characters_long_no_joking_around
       - match: a = 1 if cond else this_is_an_incredibly_long_value + is_more_than_80_characters_long_no_joking_around()
-
   - id: lambdas-should-be-short
     description: Lambda functions should be kept to a single line
     explanation: |
@@ -475,7 +457,6 @@ rules:
       - match: 'lambda x: do_something_very_long_and_involved_with(x) - do_other_very_long_and_involved_things_with(x)'
       - match: 'lambda x, y, z: do_something_very_long_and_involved_with(x) - do_other_very_long_and_involved_things_with(y,
           z)'
-
   - id: map-lambda-to-generator
     pattern: 'map(lambda ${arg}: ${expr}, ${items})'
     replacement: (${expr} for ${arg} in ${items})
@@ -489,7 +470,6 @@ rules:
       - match: 'list(map(lambda x: x**2, things))'
         expect: list(x**2 for x in things)
       - no-match: 'filter(lambda x: x > x**2, things)'
-
   - id: filter-lambda-to-generator
     pattern: 'filter(lambda ${arg}: ${expr}, ${items})'
     replacement: (${arg} for ${arg} in ${items} if ${expr})
@@ -503,7 +483,6 @@ rules:
       - match: 'list(filter(lambda x: x > x**2, things))'
         expect: list(x for x in things if x > x**2)
       - no-match: 'map(lambda x: x**2, things)'
-
   - id: avoid-global-variables
     pattern: ${var} = ${value}
     condition: pattern.in_module_scope() and var.is_lower_case() and not var.starts_with("_")
@@ -524,7 +503,6 @@ rules:
       - no-match: |
           def f():
               max_holy_handgrenade_count = 3
-
   - id: avoid-trivial-properties
     description: Avoid defining trivial properties
     explanation: |
@@ -600,7 +578,6 @@ rules:
             def name(self) -> str:
               return self._name.title()  # perform computation on name
             # no setter: this means that `Student.name` is read-only
-
   - id: no-long-functions
     pattern: |
       def ${name}(...):
@@ -616,7 +593,6 @@ rules:
       - no-match: |
           def f(a, b) -> int:
               x()
-
   - id: do-not-use-has-key
     pattern: ${d}.has_key(${key})
     condition: d.has_type("dict")
@@ -670,7 +646,6 @@ rules:
           print(database.has_key("dinosaur"))
 
 # Typing Rules
-
   - id: require-return-annotation
     pattern: |
       def ${name}(...) -> !!!:

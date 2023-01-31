@@ -1,12 +1,10 @@
 ---
 name: Update Docs
-
 on:  # yamllint disable-line rule:truthy
   push:
     branches: [main]
     paths: [docs/**, mkdocs.yml]
   workflow_dispatch:  # For manual runs
-
 jobs:
   docs:
     runs-on: ${{ matrix.os }}

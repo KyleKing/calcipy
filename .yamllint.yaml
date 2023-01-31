@@ -1,6 +1,5 @@
 ---
 extends: default
-
 rules:
   # Don't raise an error on line length. Defer to developer
   line-length:

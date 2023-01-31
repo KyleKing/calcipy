@@ -18,7 +18,11 @@ class CodeTagCollectorController(Controller):  # type: ignore[misc]
         label = 'CodeTagCollector'
 
         arguments: List[Tuple[List[str], Dict[str, str]]] = []
-        """Controller level arguments. ex: 'calcipy --version'."""
+        """Controller level arguments.
+
+        ex: 'calcipy --version'.
+
+        """
 
     def _default(self) -> None:
         """Default action if no sub-command is passed."""

@@ -1,4 +1,5 @@
-# From: https://github.com/charliermarsh/ruff/blob/3e80c0d43e801c837eea81c6b75fd586ad532b1f/flake8_to_ruff/src/plugin.rs#L39-L60
+# From:
+# https://github.com/charliermarsh/ruff/blob/3e80c0d43e801c837eea81c6b75fd586ad532b1f/flake8_to_ruff/src/plugin.rs#L39-L60
 in_ruff = {
     'flake8-annotations',
     'flake8-bandit',

@@ -1,8 +1,6 @@
 ---
 version: 0.0.1.{build}
-
 image: [Ubuntu, Visual Studio 2019]
-
 environment:
   # Python versions
   #   Windows: https://www.appveyor.com/docs/windows-images-software/#python
@@ -13,22 +11,17 @@ environment:
     - PYTHON_WIN: C:/Python39
       PYENV_38: 3.8.3
       PYENV_39: 3.9.5
-
   APPVEYOR_SAVE_CACHE_ON_ERROR: false
   CODECOV_TOKEN: NA
 
   # To encrypt passwords, go to Account -> "Settings" -> "Encrypt YAML"
-
 # Python is now managed with pyenv instead of stack so that a ".venv" is created
 # > Must be after the declaration of "PYTHON_STACK" variable
 # yamllint disable-line rule:line-length
 # > https://help.appveyor.com/discussions/questions/32001-ubuntu-python-3-as-default
 # > stack: python %PYTHON_STACK%
-
 cache: [.venv -> poetry.lock, .nox -> poetry.lock]
-
 build: false
-
 # Specify commands specific to platform (cmd-Windows/sh-Linux/None-Both)
 install:
   - echo "Install..."
@@ -63,7 +56,6 @@ install:
   - poetry config --list
   # Install project-specific dependencies and extras
   - poetry install
-
 test_script:
   - echo "Testing..."
   - poetry run doit --continue
@@ -73,15 +65,10 @@ test_script:
   - cmd: codecov --file coverage.json
   # Pack up the release into a single zip file
   - poetry run doit run zip_release
-
 deploy_script: [echo "Deploying..."]
-
 on_success: [echo "On Success..."]
-
 on_failure: [echo "On Error..."]
-
 on_finish: [echo "Build Finish"]
-
 artifacts:
   - path: releases/site.zip
   - path: releases/tests.zip

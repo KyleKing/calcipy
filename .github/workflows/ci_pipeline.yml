@@ -1,13 +1,11 @@
 ---
 name: CI Pipeline
-
 on:  # yamllint disable-line rule:truthy
   push:
     branches: [main]
   pull_request:
     branches: [main]
     paths: [calcipy/**, tests/**, pyproject.toml]
-
 jobs:
   lint:
     runs-on: ${{ matrix.os }}
@@ -21,10 +19,8 @@ jobs:
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-
       - name: Run linters
         run: poetry run doit run --continue lint_project static_checks security_checks
-
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -37,11 +33,9 @@ jobs:
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-
       - name: Test with pytest
         run: |-
           poetry run doit run test_all
-
   check_types:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -54,6 +48,5 @@ jobs:
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-
       - name: Run linters
         run: poetry run doit run check_types

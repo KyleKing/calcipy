@@ -1,6 +1,8 @@
 [build-system]
 build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+requires = [
+  "poetry-core",
+]
 
 [tool.poetry]
 authors = ["Kyle King <KyleKing@users.noreply.github.com>"]

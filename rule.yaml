@@ -6,7 +6,6 @@
 #
 # Run locally with:
 # poetry run semgrep --config rule.yaml .
-
 rules:
   - id: repeated_get_dg
     patterns:

@@ -7,7 +7,6 @@ repo_url: https://github.com/kyleking/test_project
 edit_uri: edit/main/docs_custom
 docs_dir: docs_custom
 site_dir: releases/site
-
 theme:
   name: material
   palette:
@@ -16,14 +15,12 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features: [navigation.instant, navigation.tabs, toc.autohide]
-
 plugins:
   - search
   - git-revision-date-localized:
       type: date
       fallback_to_build_date: true
       enable_creation_date: true
-
 markdown_extensions:
   - abbr
   - admonition
@@ -51,7 +48,6 @@ markdown_extensions:
   - toc:
       permalink: ⚓︎
       toc_depth: 5
-
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - _javascript/tables.js
