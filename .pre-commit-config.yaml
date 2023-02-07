@@ -9,7 +9,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.3.0
     hooks:
       - id: check-added-large-files
       - id: check-executables-have-shebangs
@@ -41,7 +41,7 @@ repos:
     hooks:
       - id: beautysh
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.40.0
+    rev: v2.37.0
     hooks:
       - id: commitizen
         additional_dependencies: [cz_legacy]
@@ -52,24 +52,22 @@ repos:
     hooks:
       - id: mdformat
         additional_dependencies:
-          - mdformat-admon
           - mdformat-beautysh
           - mdformat-black
           - mdformat-config
           - mdformat-frontmatter
           - mdformat-gfm
-          - mdformat-mkdocs
-          - mdformat-pyproject  # New!
           - mdformat-tables
           - mdformat-toc
           - mdformat-web
         exclude: _.*\.md|CHANGELOG\.md
+        args: [--wrap=no]
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: 0.6.0
+    rev: 0.3.5
     hooks:
       - id: pyproject-fmt
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.2
+    rev: v0.8.0.4
     hooks:
       - id: shellcheck
         args: [--severity=warning]
@@ -82,16 +80,12 @@ repos:
         # args: ["--baseline", ".secrets.baseline"]
         exclude: poetry\.lock|.*/cassettes/.*\.yaml
   - repo: https://github.com/lyz-code/yamlfix/
-    rev: 1.7.0
+    rev: 1.1.0
     hooks:
       - id: yamlfix
         exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml
         types_or: []
         types: [file, yaml]
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.6.23
-    hooks:
-      - id: actionlint
   - repo: local
     hooks:
       - id: copier-forbidden-files

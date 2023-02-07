@@ -8,7 +8,7 @@ author_email: dev.act.kyle@gmail.com
 author_name: Kyle King
 author_username: kyleking
 cname: calcipy.kyleking.me
-copyright_date: '2021'
+copyright_date: '2023'
 development_branch: main
 doc_dir: docs
 include_adrs: false
@@ -16,8 +16,7 @@ include_all: true
 install_extras: -E dev -E lint -E test -E commitizen_legacy
 minimum_python: 3.8.12
 package_name_py: calcipy
-project_description: Python package to simplify development. Includes functionality
-    for task running, testing, linting, documenting, and more
+project_description: Python package to simplify development
 project_name: calcipy
 repository_namespace: kyleking
 repository_provider: https://github.com

@@ -4,73 +4,15 @@ Note: the calcipy imports are required for a nicer test HTML report
 
 """
 
-import os
 from pathlib import Path
 
 import pytest
-from beartype.typing import Dict, Generator
-from decorator import contextmanager
-from doit.tools import CmdAction, Interactive
-from pytest_cache_assert import AssertConfig, Converter
-
 from calcipy.dev.conftest import pytest_configure  # noqa: F401
 from calcipy.dev.conftest import pytest_html_results_table_header  # noqa: F401
 from calcipy.dev.conftest import pytest_html_results_table_row  # noqa: F401
 from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
-
-
-@pytest.fixture(scope='module')
-def vcr_config() -> Dict:
-    """Global configuration (https://github.com/kiwicom/pytest-recording) for `pytest-recording` (vcr).
-
-    Returns:
-        Dict: `pytest-recording` options
-
-    """
-    return {
-        'filter_headers': ['authorization'],
-        'ignore_localhost': True,
-        'record_mode': 'once',
-    }
-
-
-@pytest.fixture()
-def cache_assert_config() -> AssertConfig:
-    """Configure pytest_cache_assert using `AssertConfig`.
-
-    Returns:
-        AssertConfig: Modified configuration
-
-    """
-    return AssertConfig(converters=[Converter(types=[CmdAction, Interactive], func=str)])
-
-
-@contextmanager
-def __temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
-    """Temporarily change the working directory.
-
-    > Not currently used because setting `cwd` for a modified version of `_get_all_files` is more robust
-
-    ```python3
-    with _temp_chdir(get_dg().meta.path_project):
-        print(f'Current in: {Path.cwd()}')
-    ```
-
-    Args:
-        path_tmp: path to use as the working directory
-
-    Yields:
-        None: continues execution with the specified `path_tmp` working directory
-
-    """
-    path_cwd = Path.cwd()
-    try:
-        os.chdir(path_tmp)
-        yield
-    finally:
-        os.chdir(path_cwd)
 
 
 @pytest.fixture()
