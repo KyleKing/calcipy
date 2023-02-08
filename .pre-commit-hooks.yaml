@@ -1,0 +1,12 @@
+---
+# Docs: https://pre-commit.com/#new-hooks
+# Can be tested with:
+# pre-commit try-repo . calcipy-code-tags --verbose --all-files
+- id: calcipy-code-tags
+  args: [collect-code-tags]
+  description: 'calcipy: Auto-Generate a Code Tag Summary'
+  entry: calcipy
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  name: calcipy-code-tags
+  pass_filenames: false
