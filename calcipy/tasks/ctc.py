@@ -30,7 +30,7 @@ def collect_code_tags(
         regex: str = CODE_TAG_RE,
         ignore_patterns: str = '',
     ) -> None:
-    """Create a `CODE_TAG_SUMMARY.md` with a table for TODO and FIXME comments."""
+    """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
     base_dir = Path(base_dir).resolve()
     path_tag_summary = Path(filename).resolve()
     patterns = ignore_patterns.split(',') if ignore_patterns else []
