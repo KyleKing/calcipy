@@ -2,7 +2,7 @@
 
 import re
 from pathlib import Path
-from typing import Dict, List, Tuple
+from beartype.typing import Dict, List, Tuple
 
 from invoke import task, Context
 from beartype import beartype
