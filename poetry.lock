@@ -47,18 +47,6 @@ files = [
 ]
 
 [[package]]
-name = "colorama"
-version = "0.4.6"
-description = "Cross-platform colored terminal text."
-category = "main"
-optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
-files = [
-    {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
-    {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
-]
-
-[[package]]
 name = "distlib"
 version = "0.3.6"
 description = "Distribution utilities"
@@ -102,23 +90,16 @@ files = [
 license = ["ukkonen"]
 
 [[package]]
-name = "loguru"
-version = "0.6.0"
-description = "Python logging made (stupidly) simple"
+name = "invoke"
+version = "2.0.0"
+description = "Pythonic task execution"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 files = [
-    {file = "loguru-0.6.0-py3-none-any.whl", hash = "sha256:4e2414d534a2ab57573365b3e6d0234dfb1d84b68b7f3b948e6fb743860a77c3"},
-    {file = "loguru-0.6.0.tar.gz", hash = "sha256:066bd06758d0a513e9836fd9c6b5a75bfb3fd36841f4b996bc60b547a309d41c"},
+    {file = "invoke-2.0.0-py3-none-any.whl", hash = "sha256:a860582bcf7a4b336fe18ef53937f0f28cec1c0053ffa767c2fcf7ba0b850f59"},
+    {file = "invoke-2.0.0.tar.gz", hash = "sha256:7ab5dd9cd76b787d560a78b1a9810d252367ab595985c50612702be21d671dd7"},
 ]
-
-[package.dependencies]
-colorama = {version = ">=0.3.4", markers = "sys_platform == \"win32\""}
-win32-setctime = {version = ">=1.0.0", markers = "sys_platform == \"win32\""}
-
-[package.extras]
-dev = ["Sphinx (>=4.1.1)", "black (>=19.10b0)", "colorama (>=0.3.4)", "docutils (==0.16)", "flake8 (>=3.7.7)", "isort (>=5.1.1)", "pytest (>=4.6.2)", "pytest-cov (>=2.7.1)", "sphinx-autobuild (>=0.7.1)", "sphinx-rtd-theme (>=0.4.3)", "tox (>=3.9.0)"]
 
 [[package]]
 name = "markdown-it-py"
@@ -461,28 +442,28 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "ruff"
-version = "0.0.243"
+version = "0.0.244"
 description = "An extremely fast Python linter, written in Rust."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "ruff-0.0.243-py3-none-macosx_10_7_x86_64.whl", hash = "sha256:242571d79d3d7a1e441e88b0cf2814b24bfc4e3a073e5d82df81aa52ad829e4c"},
-    {file = "ruff-0.0.243-py3-none-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:4fd0ef0dddd7ccce6457cca556baf51504c11f7deaaa5944a47c5e0c6c3b1425"},
-    {file = "ruff-0.0.243-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a9e2e6632e2d07e6e7257a44592e0fade0d5df23004a3b180efd0d3bbb581a09"},
-    {file = "ruff-0.0.243-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:9a70c7810453f6c5120887fc22fcbcf8a4987e767f45270a9aad5e6e9b0a26ff"},
-    {file = "ruff-0.0.243-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:0cb8ef4a5cbb219ed344286b07795c0b88f277bc860207e0a6bce0fd8e4c5f8e"},
-    {file = "ruff-0.0.243-py3-none-manylinux_2_17_ppc64.manylinux2014_ppc64.whl", hash = "sha256:f75c11940cc6b374ba070b5dc154c85c2b8753d03cbb53f182438404bae52d31"},
-    {file = "ruff-0.0.243-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:919075726724d62b60caedd286317ca0c77cb67ba4291b9067feafdac2506872"},
-    {file = "ruff-0.0.243-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:a0f5bdb14a2a2f9a63f6f0979fb0501e426e2bd8e6499ade41e1311b379a4d92"},
-    {file = "ruff-0.0.243-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b8ffdbf62d72db5ab5d3b51abe5b4dfb53cf3f330af7f57e0101f36ff7176449"},
-    {file = "ruff-0.0.243-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:081b70f1dd2d16d9f60079cf95215d9095ca16032c02118cfc88b0b53e406b9c"},
-    {file = "ruff-0.0.243-py3-none-musllinux_1_2_armv7l.whl", hash = "sha256:d8f1d26c0a3b51a4b5c493c29536112c61ec6ff7a66c5b673b2af37b7859d6f1"},
-    {file = "ruff-0.0.243-py3-none-musllinux_1_2_i686.whl", hash = "sha256:5f432e745f6b38e2a643ae9c05ae30345196a435a23d844b61a50d1808acba82"},
-    {file = "ruff-0.0.243-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:f38b6b6470b468271e283ecc7bc169465b3f3cdb6df199abe69aff0c3c17c756"},
-    {file = "ruff-0.0.243-py3-none-win32.whl", hash = "sha256:2707e2c32ace855afad3e06bddf2280d1fc15e303dea2de3ccd0e308a5b395ae"},
-    {file = "ruff-0.0.243-py3-none-win_amd64.whl", hash = "sha256:be44aff098fd424b9a9218eedef80d7125222ea86c3cd62e15f6f587455c99f3"},
-    {file = "ruff-0.0.243.tar.gz", hash = "sha256:d5847e75038b51801f45b31a93c3526114d3aac59acea3493bb06ebc7783b004"},
+    {file = "ruff-0.0.244-py3-none-macosx_10_7_x86_64.whl", hash = "sha256:5d65a0adffa51314cf9f1036c51dbcde0462b23b49a3d8e3a696a221f9f46f54"},
+    {file = "ruff-0.0.244-py3-none-macosx_10_9_x86_64.macosx_11_0_arm64.macosx_10_9_universal2.whl", hash = "sha256:3d6bf5094f2c447f5ff8d10c670dc1bc8b7f70cb5f4e43afe1d0624b934c1284"},
+    {file = "ruff-0.0.244-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c0f54790b297d5df8120a348c91426a0375c40f62880d30438e46922399b29bf"},
+    {file = "ruff-0.0.244-py3-none-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:88e263e3d7267b4b10f5c1fc1446c5d6b47824c6d78e5c3a97ef79c83d9cb837"},
+    {file = "ruff-0.0.244-py3-none-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:8044c79098e3f2deaf970ab468bf5661b193163369bfe5bbda636e6363aa7932"},
+    {file = "ruff-0.0.244-py3-none-manylinux_2_17_ppc64.manylinux2014_ppc64.whl", hash = "sha256:258e5e3386a8efdff9f253395cc03a3a88204442ac8db50aeb0a529e2862d57b"},
+    {file = "ruff-0.0.244-py3-none-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:bd09c523aeed4d81f358093dc4df384a4db42ff5f9627c9506c26c2becbe19a7"},
+    {file = "ruff-0.0.244-py3-none-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:c98f0d4a4e052e8b0e27b47e83563026d749b07a21a097780cd283c2f885ad3c"},
+    {file = "ruff-0.0.244-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2359f840c95364d779b86a822fe025fa416eb14adc661c1263bc39e90065f0bd"},
+    {file = "ruff-0.0.244-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:8b85ced1e75b7cf1dd90d0708f8e46e2d58fc124334492cc5103f24d832a3922"},
+    {file = "ruff-0.0.244-py3-none-musllinux_1_2_armv7l.whl", hash = "sha256:9c2d49c2021bf80f3e66968c1a41f89061911ffb7ed1f0d39a3204a45fc97ba7"},
+    {file = "ruff-0.0.244-py3-none-musllinux_1_2_i686.whl", hash = "sha256:da77d573c7a5b27bad43468fb7e47e78e22715426beb4e673106d24a9a584838"},
+    {file = "ruff-0.0.244-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:9f16fc3380753310af2a10e2867dfc133849e51c545561ec0a389aa93b3058b0"},
+    {file = "ruff-0.0.244-py3-none-win32.whl", hash = "sha256:b3fc70a4c5d5a0ab8e5b3c3e818ca224913eee84f65bf63ee212af2bbd5f1792"},
+    {file = "ruff-0.0.244-py3-none-win_amd64.whl", hash = "sha256:78bbc5d1cca0a8752f6e4b3f4485f4c4f2428543a0777d1bde865aa43bdab190"},
+    {file = "ruff-0.0.244.tar.gz", hash = "sha256:7c05773e990348a6d7628b9b7294fe76303bc870dd94d9c34154bc1560053050"},
 ]
 
 [[package]]
@@ -504,20 +485,20 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "shoal"
-version = "0.2.0"
+version = "0.2.1"
 description = "Lazy, Python-first, alternative to make, just, doit, and invoke"
 category = "main"
 optional = false
-python-versions = ">=3.8.12,<4.0.0"
+python-versions = ">=3.7.12,<4.0.0"
 files = [
-    {file = "shoal-0.2.0-py3-none-any.whl", hash = "sha256:f22dcd87e91951fb9edf0e35c1199576c7f0af371fb3acfeca0bd6f1aa128206"},
-    {file = "shoal-0.2.0.tar.gz", hash = "sha256:dfb54cc1c8a80b2830c95ce9284db65778cae186c61460898411f72791eb57dc"},
+    {file = "shoal-0.2.1-py3-none-any.whl", hash = "sha256:c2ac6b05eb1d7fe46440bd5c229c84113948c1f3d6901c84cb30817b0bc4cdef"},
+    {file = "shoal-0.2.1.tar.gz", hash = "sha256:c515f02a5dc392d6c2fc1b85b09e8236544bbed8e2cbbbe1bbbef9e44b5a4da8"},
 ]
 
 [package.dependencies]
 beartype = ">=0.12.0"
-calcipy = ">=0.21.3"
 pydantic = ">=1.10.4"
+rich = ">=13.3.1"
 
 [[package]]
 name = "six"
@@ -591,22 +572,7 @@ platformdirs = ">=2.4,<4"
 docs = ["furo (>=2022.12.7)", "proselint (>=0.13)", "sphinx (>=6.1.3)", "sphinx-argparse (>=0.4)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=22.12)"]
 test = ["covdefaults (>=2.2.2)", "coverage (>=7.1)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7)", "packaging (>=23)", "pytest (>=7.2.1)", "pytest-env (>=0.8.1)", "pytest-freezegun (>=0.4.2)", "pytest-mock (>=3.10)", "pytest-randomly (>=3.12)", "pytest-timeout (>=2.1)"]
 
-[[package]]
-name = "win32-setctime"
-version = "1.1.0"
-description = "A small Python utility to set file creation time on Windows"
-category = "main"
-optional = false
-python-versions = ">=3.5"
-files = [
-    {file = "win32_setctime-1.1.0-py3-none-any.whl", hash = "sha256:231db239e959c2fe7eb1d7dc129f11172354f98361c4fa2d6d2d7e278baa8aad"},
-    {file = "win32_setctime-1.1.0.tar.gz", hash = "sha256:15cf5750465118d6929ae4de4eb46e8edae9a5634350c01ba582df868e932cb2"},
-]
-
-[package.extras]
-dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
-
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "975d2cae0606cd446cfca246cbe9b001e8f33aaec05de4b8b2a0ae23475902f1"
+content-hash = "326ce5ae6c7c6142382f92074842a4b3e1d578c7c58cff90636fb72600f1f6dd"

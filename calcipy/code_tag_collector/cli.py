@@ -4,22 +4,39 @@ import re
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+from invoke import task, Context
 from beartype import beartype
-from shoal import get_logger, register_fun
+from shoal import get_logger
 from ._collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
 from ..file_search import find_project_files
 
 logger = get_logger()
 
-
+@task(
+    help={
+        'base_dir': 'Working Directory',
+        'filename': 'Code Tag Summary Filename',
+        'tag_order': 'Ordered list of code tags to locate (Comma-separated)',
+        'regex': 'Custom Code Tag Regex. Must contain "{tag}"',
+        'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated)',
+    }
+)
 @beartype
-def collect_code_tags(argv: List[str]) -> None:
+def collect_code_tags(
+    ctx: Context,
+        base_dir: str = '.',
+        filename: str = 'CODE_TAG_SUMMARY.md',
+        tag_order: str = ','.join(COMMON_CODE_TAGS),
+        regex: str = CODE_TAG_RE,
+        ignore_patterns: str = '',
+    ) -> None:
     """Create a `CODE_TAG_SUMMARY.md` with a table for TODO and FIXME comments."""
-    base_dir = Path()
-    path_tag_summary = Path('CODE_TAG_SUMMARY.md').resolve()
-    paths_source = find_project_files(base_dir, ignore_patterns=[])
-    tag_order = COMMON_CODE_TAGS
-    regex_compiled = re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))
+    base_dir = Path(base_dir).resolve()
+    path_tag_summary = Path(filename).resolve()
+    patterns = ignore_patterns.split(',') if ignore_patterns else []
+    paths_source = find_project_files(base_dir, ignore_patterns=patterns)
+    tag_order = tag_order.split(',')
+    regex_compiled = re.compile(regex.format(tag='|'.join(tag_order)))
 
     write_code_tag_file(
         path_tag_summary=path_tag_summary,
@@ -30,8 +47,3 @@ def collect_code_tags(argv: List[str]) -> None:
         header='# Collected Code Tags',
     )
     logger.info(f'Created: {path_tag_summary}')
-
-
-@beartype
-def load() -> None:
-	register_fun(collect_code_tags)

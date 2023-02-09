@@ -1,6 +1,8 @@
 [build-system]
 build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+requires = [
+  "poetry-core",
+]
 
 [tool.commitizen]
 version = "1.0.0"
@@ -33,7 +35,7 @@ classifiers = [
 ] # https://pypi.org/classifiers/
 
 [tool.poetry.scripts]
-calcipy = "calcipy.shoals:run"
+calcipy = "calcipy.main:run"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
@@ -42,12 +44,10 @@ calcipy = "calcipy.shoals:run"
 [tool.poetry.dependencies]
 python = "^3.8.12"
 arrow = ">=1.2.3"
-beartype = ">=0.12.0"
-loguru = "0.6.0"  # FIXME: Remove when shoal is updated for fix to __init__.py
+invoke = ">=2.0.0"
 pandas = ">=1.5.3"
 pre-commit = ">=3.0.4"
-rich = ">=13.3.1"
 ruff = ">=0.0.238"
-shoal = ">=0.2.0"
+shoal = ">=0.2.1"
 tabulate = ">=0.9.0"  # Required for pandas to markdown
 tomli = { version = ">=2.0.1", markers = "python_version < \"3.11\"" }
