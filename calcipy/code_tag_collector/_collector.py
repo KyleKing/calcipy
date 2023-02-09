@@ -13,9 +13,9 @@ from beartype import beartype
 from beartype.typing import Dict, List, Optional, Pattern, Sequence, Tuple
 from pydantic import BaseModel
 
-from ..file_helpers import read_lines
-from shoal import capture_shell
-from shoal import get_logger
+from ..file_helpers import read_lines  # FIXME: Move to grouper (name tbd)
+from shoal import capture_shell  # FIXME: Move to grouper (name tbd)
+from shoal import get_logger  # FIXME: Move to grouper (name tbd)
 
 logger = get_logger()
 

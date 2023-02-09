@@ -32,8 +32,8 @@ def nox(
 	) -> None:
     """Run the local noxfile."""
     configure_logger(log_level=logging.INFO if verbose else logging.DEBUG)
-    logger.info(f'Starting nox with: {nox_tasks} and {ctx.config}')
-    logger.info(f'file_args {ctx.config.file_args}')
+    logger.info(f'Starting nox with: {nox_tasks} and {ctx.config.gto}')
+    logger.info(f'file_args {ctx.gto.config.file_args}')
 
-
-    ctx.run(f'poetry run nox --error-on-missing-interpreters {" ".join(nox_tasks or [])}')
+    # TODO: Are these the defaults?
+    ctx.run(f'poetry run nox --error-on-missing-interpreters {" ".join(nox_tasks or [])}', echo=True, pty=True)

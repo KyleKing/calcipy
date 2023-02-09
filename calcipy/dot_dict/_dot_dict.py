@@ -1,5 +1,7 @@
 """Dotted dictionary for consistent interface."""
 
+# FIXME: Move ddict to grouper (name tbd)
+
 from beartype import beartype
 from beartype.typing import Any, Dict, Union
 from box import Box

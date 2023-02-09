@@ -7,7 +7,7 @@ from beartype.typing import Dict, List, Tuple
 from invoke import task, Context
 from beartype import beartype
 from shoal import get_logger
-from ._collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
+from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
 from ..file_search import find_project_files
 
 logger = get_logger()
