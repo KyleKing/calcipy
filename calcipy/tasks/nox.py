@@ -1,7 +1,7 @@
 """Testing CLI."""
 
 from pathlib import Path
-from beartype.typing import Dict, List, Tuple, Optional
+from beartype.typing import Dict, List, Tuple, Optional, Callable
 from functools import partial
 from invoke import task, Context
 from beartype import beartype
@@ -11,29 +11,47 @@ from shoal._log import configure_logger
 
 logger = get_logger()
 
-# FIXME: Make this a decorator to handle configure_logger internally
-# 	^ possibly consider pairing with a global Config
-tang = partial(task, incrementable=['verbose'])
+@beartype
+def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
+    """Shared task logic."""
+    gto = ctx.config.gto
+    print(f'Starting nox with: {gto}')
+    print(f'file_args {gto.file_args}')
+    configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(gto.verbose) or logging.ERROR)
+
+    with ctx.cd('.'):  # FYI: can change directory like this
+        ctx.run(
+            f'poetry run nox --error-on-missing-interpreters {" ".join(cli_args)}',
+            # TODO: Is echo always True?
+            echo=True,
+            # TODO: How to set pty to False for GHA?
+            pty=True,
+        )
 
 
-@tang(
-	iterable=['nox_tasks'],
-    help={
-        'nox_tasks': 'nox-args',
-        'install_types': 'TBD',
-    }
+@task(
+    default=True,
+    help={},
 )
 @beartype
-def nox(
-		ctx: Context,
-		verbose: int = 0,
-		nox_tasks: Optional[List[str]] = None,
-		install_types: bool = False,
-	) -> None:
-    """Run the local noxfile."""
-    configure_logger(log_level=logging.INFO if verbose else logging.DEBUG)
-    logger.info(f'Starting nox with: {nox_tasks} and {ctx.config.gto}')
-    logger.info(f'file_args {ctx.gto.config.file_args}')
+def default(ctx: Context) -> None:
+    """Run all nox steps from the local noxfile."""
+    _inner_task(ctx, cli_args=[])
 
-    # TODO: Are these the defaults?
-    ctx.run(f'poetry run nox --error-on-missing-interpreters {" ".join(nox_tasks or [])}', echo=True, pty=True)
+
+@beartype
+def gen_task(task_name: str) -> None:
+
+    @task(help=default.help)
+    @beartype
+    def _task(ctx: Context) -> None:
+        _inner_task(ctx, cli_args=[task_name])
+
+    _task.__name__ = task_name
+    _task.__doc__ = f"""Run {task_name} from the local noxfile."""
+
+    globals()[task_name] = _task
+
+
+for name in ['build_check', 'test', 'coverage']:
+    gen_task(name)

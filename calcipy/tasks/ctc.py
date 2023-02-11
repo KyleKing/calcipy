@@ -13,13 +13,14 @@ from ..file_search import find_project_files
 logger = get_logger()
 
 @task(
+    default=True,
     help={
         'base_dir': 'Working Directory',
         'filename': 'Code Tag Summary Filename',
         'tag_order': 'Ordered list of code tags to locate (Comma-separated)',
         'regex': 'Custom Code Tag Regex. Must contain "{tag}"',
         'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated)',
-    }
+    },
 )
 @beartype
 def collect_code_tags(
