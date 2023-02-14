@@ -6,7 +6,7 @@ To use the custom markers, create a file `tests/conftest.py` and add this import
 from calcipy.dev.conftest import pytest_configure  # noqa: F401
 ```
 
-For HTML Reports, see: https://pypi.org/project/pytest-html/.
+For HTML Reports, see: https://pypi.org/project/pytest-html.
 
 ```python3
 '''Custom PyTest-HTML Report Configuration.'''
@@ -24,6 +24,10 @@ from datetime import datetime
 from beartype.typing import Any, Generator
 import pytest
 
+try:
+    from py.xml import html
+except ImportError as exc:  # pragma: no cover
+    raise RuntimeError("The 'lxml' library is missing") from exc
 
 
 @pytest.hookimpl(optionalhook=True)  # type: ignore[misc]

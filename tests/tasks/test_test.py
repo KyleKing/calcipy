@@ -32,8 +32,8 @@ def test_test(ctx, task, kwargs, command):
 def test_write_json(ctx):
     write_json(ctx)
     ctx.run.assert_has_calls([
-        call('poetry run coverage run --source=calcipy --module=pytest ./tests --cov-report=html:None --html=None/test_report.html --self-contained-html ', echo=True, pty=True),
+        call('poetry run coverage run --source=calcipy --module pytest ./tests --cov-report=html:.cover --html=.cover/test_report.html --self-contained-html', echo=True, pty=True),
         call('poetry run python -m coverage report --show-missing', echo=True, pty=True),
-        call('poetry run python -m coverage html --directory=None', echo=True, pty=True),
+        call('poetry run python -m coverage html --directory=.cover', echo=True, pty=True),
         call('poetry run python -m coverage json', echo=True, pty=True),
     ])

@@ -68,13 +68,13 @@ def watch(ctx: Context, keyword: str = '', marker: str = '') -> None:
 def write_json(ctx: Context, min_cover: int = 0) -> None:
     """Create json coverage file."""
     pkg_name = read_package_name()
-    cover_args = f'--cov-fail-under={min_cover}'  if min_cover else ''
+    cover_args = f' --cov-fail-under={min_cover}'  if min_cover else ''
     # FYI: Support .cover vs. releases/tests
     cov_dir = Path('.cover')
-    cov_dir = cov_dir.mkdir(exist_ok=True, parents=True)
-    html_args = f'--cov-report=html:{cov_dir} --html={cov_dir}/test_report.html --self-contained-html'
+    cov_dir.mkdir(exist_ok=True, parents=True)
+    html_args = f' --cov-report=html:{cov_dir} --html={cov_dir}/test_report.html --self-contained-html'
     ctx.run(
-        f'poetry run coverage run --source={pkg_name} --module=pytest ./tests {html_args} {cover_args}',
+        f'poetry run coverage run --source={pkg_name} --module pytest ./tests{html_args}{cover_args}',
         # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
