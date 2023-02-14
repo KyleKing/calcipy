@@ -16,7 +16,6 @@ logger = get_logger()
     default=True,
     help={},
 )
-@beartype
 def default(ctx: Context) -> None:
     """TBD."""
     gto = ctx.config.gto

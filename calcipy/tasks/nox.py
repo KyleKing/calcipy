@@ -14,6 +14,8 @@ logger = get_logger()
 @beartype
 def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     """Shared task logic."""
+
+    # FIXME: Move the log configuration logic to shoal
     gto = ctx.config.gto
     print(f'Starting nox with: {gto}')
     print(f'file_args {gto.file_args}')
@@ -33,17 +35,17 @@ def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     default=True,
     help={},
 )
-@beartype
+# @beartype # FIXME: Make beartype part of my custom "task/tang" wrapper in shoal
 def default(ctx: Context) -> None:
     """Run all nox steps from the local noxfile."""
     _inner_task(ctx, cli_args=[])
 
 
 @beartype
-def gen_task(task_name: str) -> None:
+def _gen_task(task_name: str) -> None:
+    """Dynamically generate common nox tasks."""
 
     @task(help=default.help)
-    @beartype
     def _task(ctx: Context) -> None:
         _inner_task(ctx, cli_args=[task_name])
 
@@ -54,4 +56,4 @@ def gen_task(task_name: str) -> None:
 
 
 for name in ['build_check', 'test', 'coverage']:
-    gen_task(name)
+    _gen_task(name)

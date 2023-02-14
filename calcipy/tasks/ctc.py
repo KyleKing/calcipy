@@ -22,7 +22,6 @@ logger = get_logger()
         'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated)',
     },
 )
-@beartype
 def collect_code_tags(
     ctx: Context,
         base_dir: str = '.',

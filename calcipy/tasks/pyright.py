@@ -28,7 +28,6 @@ def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     default=True,
     help={},
 )
-@beartype
 def default(ctx: Context) -> None:
     """TBD."""
     _inner_task(ctx, cli_args=[])

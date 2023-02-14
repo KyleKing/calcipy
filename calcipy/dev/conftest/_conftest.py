@@ -22,11 +22,9 @@ from contextlib import suppress
 from datetime import datetime
 
 from beartype.typing import Any, Generator
-from shoal import get_logger
 import pytest
 
 
-logger = get_logger()
 
 @pytest.hookimpl(optionalhook=True)  # type: ignore[misc]
 def pytest_html_results_table_header(cells: Any) -> None:  # pragma: no cover
@@ -65,7 +63,6 @@ def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignor
 
     """
     with suppress(AttributeError):  # The test suite likely failed
-        logger.debug('call excinfo={excinfo}', excinfo=call.excinfo)
         outcome = yield
         report = outcome.get_result()
         report.description = str(item.function.__doc__)

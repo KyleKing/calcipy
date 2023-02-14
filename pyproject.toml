@@ -52,3 +52,14 @@ ruff = ">=0.0.238"
 shoal = ">=0.2.1"
 tabulate = ">=0.9.0"  # Required for pandas to markdown
 tomli = { version = ">=2.0.1", markers = "python_version < \"3.11\"" }
+pytest = { version = ">=7.1.2" }
+pytest-cov = { version = ">=3.0.0" }
+pytest-watcher = { version = ">=0.2.3" }
+pytest-randomly = { version = ">=3.12.0" }
+
+# pytest-html = { version = ">=3.1.1" }
+# pytest-benchmark = ">=3.4.1"
+# pytest-cache-assert = ">=3.0.5"
+# pytest-recording = ">=0.12.0"
+# pytest-shell-utilities = ">=1.7.0"
+# pytest-subprocess = ">=1.4.1"
