@@ -1,5 +1,6 @@
 """File Helpers."""
 
+import webbrowser
 import os
 import shutil
 import string
@@ -241,3 +242,18 @@ def get_relative(full_path: Path, other_path: Path) -> Optional[Path]:
     with suppress(ValueError):
         return full_path.relative_to(other_path)
     return None
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Open Files
+
+
+@beartype
+def open_in_browser(path_file: Path) -> None: # pragma: no cover
+    """Open the path in the default web browser.
+
+    Args:
+        path_file: Path to file
+
+    """
+    webbrowser.open(path_file.resolve().as_uri())

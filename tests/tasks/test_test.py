@@ -2,6 +2,7 @@ import pytest
 from calcipy.tasks.test import default, step, watch, write_json
 from unittest.mock import call
 
+_COV = '--cov=calcipy --cov-report=term-missing'
 _MARKERS = 'mark1 and not mark 2'
 _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 
@@ -10,9 +11,9 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 @pytest.mark.parametrize(
     'task,kwargs,command',
     [
-        (default, {}, 'poetry run python -m pytest ./tests'),
-        (default, {'keyword': 'test'}, 'poetry run python -m pytest ./tests -k "test"'),
-        (default, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests -m "{_MARKERS}"'),
+        (default, {}, f'poetry run python -m pytest ./tests {_COV}'),
+        (default, {'keyword': 'test'}, f'poetry run python -m pytest ./tests {_COV} -k "test"'),
+        (default, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests {_COV} -m "{_MARKERS}"'),
         (step, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests {_FAILFIRST} -m "{_MARKERS}"'),
         (watch, {'marker': _MARKERS}, f'poetry run ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"'),
     ],
@@ -30,7 +31,7 @@ def test_test(ctx, task, kwargs, command):
 
 
 def test_write_json(ctx):
-    write_json(ctx)
+    write_json(ctx, out_dir='.cover')
     ctx.run.assert_has_calls([
         call('poetry run coverage run --source=calcipy --module pytest ./tests --cov-report=html:.cover --html=.cover/test_report.html --self-contained-html', echo=True, pty=True),
         call('poetry run python -m coverage report --show-missing', echo=True, pty=True),
