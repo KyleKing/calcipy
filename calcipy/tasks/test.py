@@ -20,19 +20,20 @@ _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 
 
 @beartype
-def _inner_task(ctx: Context, *, cli_args: str, keyword: str = '', marker: str = '', target: str = 'python -m pytest') -> None:
+def _inner_task(ctx: Context, *, cli_args: str, keyword: str = '', marker: str = '', command: str = 'python -m pytest') -> None:
     """Shared task logic."""
     verbose = 2
     with suppress(AttributeError):
         verbose = ctx.config.gto.verbose
-    configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(verbose) or logging.ERROR)
+    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
+    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
 
     if keyword:
         cli_args += f' -k "{keyword}"'
     if marker:
         cli_args += f' -m "{marker}"'
     ctx.run(
-        f'poetry run {target} ./tests{cli_args}',
+        f'poetry run {command} ./tests{cli_args}',
         # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
@@ -46,22 +47,22 @@ def _inner_task(ctx: Context, *, cli_args: str, keyword: str = '', marker: str =
         'marker': 'Only run tests matching given mark expression',
     },
 )
-def default(ctx: Context, keyword: str = '', marker: str = '') -> None:
+def default(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with default arguments."""
     pkg_name = read_package_name()
     _inner_task(ctx, cli_args=f' --cov={pkg_name} --cov-report=term-missing', keyword=keyword, marker=marker)
 
 
 @task(help=default.help)
-def step(ctx: Context, keyword: str = '', marker: str = '') -> None:
+def step(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker)
 
 
 @task(help=default.help)
-def watch(ctx: Context, keyword: str = '', marker: str = '') -> None:
+def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with polling and optimized to stop on first error."""
-    _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, target='ptw . --now')
+    _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')
 
 
 @task(
@@ -71,7 +72,7 @@ def watch(ctx: Context, keyword: str = '', marker: str = '') -> None:
         'view': 'If True, open the created files',
     },
 )
-def write_json(ctx: Context, min_cover: int = 0, out_dir: Optional[str] = None, view: bool = False) -> None:
+def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None, view: bool = False) -> None:
     """Create json coverage file."""
     cover_args = f' --cov-fail-under={min_cover}'  if min_cover else ''
 

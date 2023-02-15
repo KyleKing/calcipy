@@ -3,7 +3,9 @@
 To use the custom markers, create a file `tests/conftest.py` and add this import:
 
 ```python3
-from calcipy.dev.conftest import pytest_configure  # noqa: F401
+from calcipy.dev.conftest import (  # noqa: F401
+    pytest_configure,
+)
 ```
 
 For HTML Reports, see: https://pypi.org/project/pytest-html.
@@ -11,9 +13,11 @@ For HTML Reports, see: https://pypi.org/project/pytest-html.
 ```python3
 '''Custom PyTest-HTML Report Configuration.'''
 
-from calcipy.dev.conftest import pytest_html_results_table_header  # noqa: F401
-from calcipy.dev.conftest import pytest_html_results_table_row  # noqa: F401
-from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
+from calcipy.dev.conftest import (  # noqa: F401
+    pytest_html_results_table_header,
+    pytest_html_results_table_row,
+    pytest_runtest_makereport,
+)
 ```
 
 """
@@ -22,6 +26,7 @@ from contextlib import suppress
 from datetime import datetime
 
 import pytest
+import timezone
 from beartype.typing import Any, Generator
 
 try:
@@ -52,7 +57,7 @@ def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: n
     """
     with suppress(AttributeError):  # The test suite likely failed
         cells.insert(1, html.td(report.description))
-        cells.insert(1, html.td(str(datetime.utcnow()), class_='col-time'))
+        cells.insert(1, html.td(str(datetime.now(tz=timezone.utc)), class_='col-time'))
 
 @pytest.hookimpl(hookwrapper=True)  # type: ignore[misc]
 def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover

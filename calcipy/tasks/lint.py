@@ -20,7 +20,8 @@ def _inner_task(ctx: Context, *, cli_args: str, command: str = 'python -m ruff c
     verbose = 2
     with suppress(AttributeError):
         verbose = ctx.config.gto.verbose
-    configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(verbose) or logging.ERROR)
+    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
+    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
 
     target = f' ./{read_package_name()} ./tests' if target is None else f' {target}'
     ctx.run(
@@ -33,21 +34,22 @@ def _inner_task(ctx: Context, *, cli_args: str, command: str = 'python -m ruff c
 @task(
     default=True,
     help={
+        # TODO: use file_args! 'ctx.config.gto.file_args'
         'target': 'Optional path to directory or file to watch',
     },
 )
-def fix(ctx: Context, target: Optional[str] = None) -> None:
+def fix(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, cli_args=' --fix', target=target)
 
 
 @task(help=fix.help)
-def check(ctx: Context, target: Optional[str] = None) -> None:
+def check(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args='', target=target)
 
 
 @task(help=fix.help)
-def watch(ctx: Context, target: Optional[str] = None) -> None:
+def watch(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args=' --watch --show-source', target=target)

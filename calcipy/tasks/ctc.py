@@ -30,7 +30,7 @@ def collect_code_tags(
     ctx: Context,
         base_dir: str = '.',
         filename: Optional[str] = None,
-        tag_order: str = ','.join(COMMON_CODE_TAGS),
+        tag_order: str = ','.join(COMMON_CODE_TAGS),  # noqa: B008
         regex: str = CODE_TAG_RE,
         ignore_patterns: str = '',
     ) -> None:
@@ -38,7 +38,8 @@ def collect_code_tags(
     verbose = 2
     with suppress(AttributeError):
         verbose = ctx.config.gto.verbose
-    configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(verbose) or logging.ERROR)
+    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
+    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
 
     base_dir = Path(base_dir).resolve()
     path_tag_summary = Path(filename or from_ctx(ctx, 'ctc', 'filename')).resolve()
@@ -55,4 +56,4 @@ def collect_code_tags(
         tag_order=tag_order,
         header='# Collected Code Tags',
     )
-    logger.info(f'Created: {path_tag_summary}')
+    logger.info('Created Code Tag Summary', path_tag_summary=path_tag_summary)

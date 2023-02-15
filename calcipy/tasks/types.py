@@ -18,16 +18,17 @@ logger = get_logger()
 
 
 @beartype
-def _inner_task(ctx: Context, *, cli_args: str, target: str) -> None:
+def _inner_task(ctx: Context, *, cli_args: str, command: str) -> None:
     """Shared task logic."""
     verbose = 2
     with suppress(AttributeError):
         verbose = ctx.config.gto.verbose
-    configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(verbose) or logging.ERROR)
+    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
+    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
 
     pkg_name = read_package_name()
     ctx.run(
-        f'{target} {pkg_name}{cli_args}',
+        f'poetry run {command} {pkg_name}{cli_args}',
         # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
@@ -39,7 +40,7 @@ def _inner_task(ctx: Context, *, cli_args: str, target: str) -> None:
 )
 def pyright(ctx: Context) -> None:
     """Default task to run pyright."""
-    _inner_task(ctx, cli_args='', target='pyright')
+    _inner_task(ctx, cli_args='', command='pyright')
 
 @task(
     help={
@@ -47,11 +48,11 @@ def pyright(ctx: Context) -> None:
         'view': 'If True, open the created file',
     },
 )
-def mypy(ctx: Context, out_dir: Optional[str] = None, view: bool = False) -> None:
+def mypy(ctx: Context, *, out_dir: Optional[str] = None, view: bool = False) -> None:
     """Alternatie task to run mypy."""
     # PLANNED: If `out_dir == ''`, then do not create an HTML report
     report_dir = Path(out_dir or from_ctx(ctx, 'types', 'out_dir'))
-    _inner_task(ctx, cli_args=f' --html-report={report_dir}', target='poetry run python -m mypy')
+    _inner_task(ctx, cli_args=f' --html-report={report_dir}', command='python -m mypy')
 
     if view:
         open_in_browser(report_dir / 'index.html')

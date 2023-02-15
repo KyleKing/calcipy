@@ -3,6 +3,7 @@
 from contextlib import suppress
 
 from beartype import beartype
+from invoke import Context
 
 # Docs: https://docs.pyinvoke.org/en/stable/concepts/configuration.html#configuring-via-task-collection
 # 	Can be overriden in `invoke.yaml`: https://docs.pyinvoke.org/en/stable/concepts/configuration.html#config-hierarchy
@@ -22,7 +23,8 @@ DEFAULTS = {
 
 
 @beartype
-def from_ctx(ctx, group: str, key: str) -> str:
+def from_ctx(ctx: Context, group: str, key: str) -> str:
+	"""Safely extract the value from the context or the defaults."""
 	with suppress(Exception):
 		return ctx.getattr(group).getattr(key)
 	return DEFAULTS[group][key]

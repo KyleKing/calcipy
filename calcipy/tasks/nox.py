@@ -1,6 +1,7 @@
 """Testing CLI."""
 
 import logging
+from contextlib import suppress
 
 from beartype import beartype
 from beartype.typing import List
@@ -13,11 +14,12 @@ logger = get_logger()
 @beartype
 def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     """Shared task logic."""
-    # FIXME: Move the log configuration logic to shoal
-    gto = ctx.config.gto
-    print(f'Starting nox with: {gto}')
-    print(f'file_args {gto.file_args}')
-    configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(gto.verbose) or logging.ERROR)
+    # FIXME: Move the log configuration logic to shoal (manually copied in several spots...)
+    verbose = 2
+    with suppress(AttributeError):
+        verbose = ctx.config.gto.verbose
+    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
+    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
 
     with ctx.cd('.'):  # FYI: can change directory like this
         ctx.run(

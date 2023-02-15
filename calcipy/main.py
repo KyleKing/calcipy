@@ -1,3 +1,5 @@
+"""Run the Command Line Application (CLA)."""
+
 import sys
 from pathlib import Path
 
@@ -12,6 +14,7 @@ from .tasks import all_tasks
 
 @beartype
 def run() -> None:
+    """Run the CLA."""
     # FIXME: Move this logic to shoal
 
     # FYI: recommendation is to extend the `core_args` method, but this won't parse positional arguments
@@ -55,12 +58,12 @@ def run() -> None:
 
             """
             super().print_help()
-            print('Global Task Options:')
-            print('')
+            print('Global Task Options:')  # noqa: T201
+            print('')  # noqa: T201
             self.print_columns([
                 ('*file_args', 'List of Paths available globally to all tasks'),
                 ('verbose', 'Globally configure logger verbosity (-vvv for most verbose)'),
             ])
-            print('')
+            print('')  # noqa: T201
 
     ShoalProgram(name=__pkg_name__, version=__version__, namespace=Collection.from_module(all_tasks), config_class=ShoalConfig).run()

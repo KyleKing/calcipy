@@ -6,9 +6,12 @@ line-length = 120
 select = ['ALL']
 ignore = [
 	'ANN101',  # Missing type annotation for `self` in method
+	'BLE001',  # Do not catch blind exception: `Exception`
     'D203',    # "1 blank line required before class docstring" (Conflicts with D211)
     'D213',    # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
 	'D4',      # Numpy-Style Docstrings (e.g. "Section name should end with a newline ("Returns")")
+	'EM101',   # Exception must not use a string literal, assign to variable first
+	'FBT002',  # Boolean default value in function definition
 	'TCH002',  # Move third-party import {} into a type-checking block
 	'TID252',  # Relative imports from parent modules are banned
 	'TRY003',  # Avoid specifying long messages outside the exception class
@@ -30,6 +33,9 @@ known-first-party = ['calcipy']
 '*/__init__.py' = [
 	'D104',  # Missing docstring in public package
 	'F401',  # imported but unused; consider adding to __all__ or using a redundant alias
+]
+'*/_noxfile.py' = [
+	'ERA001',  # TODO: Temporary while working on the noxfile
 ]
 '*tests/*.py' = [
     'ANN201',  # Missing return type annotation for public function
