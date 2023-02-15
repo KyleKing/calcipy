@@ -8,6 +8,9 @@ from beartype import beartype
 
 # FYI: reference with `ctx.tests.out_dir` or `from_ctx(ctx, 'tests', 'out_dir')`
 DEFAULTS = {
+	'ctc': {
+		'filename': 'docs/docs/CODE_TAG_SUMMARY.md',
+	},
 	'tests': {
 		'out_dir': 'releases/tests',
 	},

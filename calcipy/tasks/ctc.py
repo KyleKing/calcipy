@@ -12,6 +12,8 @@ from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_f
 from ..file_search import find_project_files
 from shoal._log import configure_logger
 import logging
+from .defaults import from_ctx
+from beartype.typing import Optional
 
 logger = get_logger()
 
@@ -28,7 +30,7 @@ logger = get_logger()
 def collect_code_tags(
     ctx: Context,
         base_dir: str = '.',
-        filename: str = 'CODE_TAG_SUMMARY.md',
+        filename: Optional[str] = None,
         tag_order: str = ','.join(COMMON_CODE_TAGS),
         regex: str = CODE_TAG_RE,
         ignore_patterns: str = '',
@@ -40,7 +42,7 @@ def collect_code_tags(
     configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(verbose) or logging.ERROR)
 
     base_dir = Path(base_dir).resolve()
-    path_tag_summary = Path(filename).resolve()
+    path_tag_summary = Path(filename or from_ctx(ctx, 'ctc', 'filename')).resolve()
     patterns = ignore_patterns.split(',') if ignore_patterns else []
     paths_source = find_project_files(base_dir, ignore_patterns=patterns)
     tag_order = tag_order.split(',')

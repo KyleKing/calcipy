@@ -52,6 +52,7 @@ repos:
       - id: mdformat
         additional_dependencies: ["mdformat-mkdocs[recommneded]"]
         args: [--wrap=no]
+        exclude: _.+\.md|CHANGELOG\.md|CODE_TAG_SUMMARY\.md
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: 0.6.0
     hooks:
