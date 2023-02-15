@@ -1,5 +1,5 @@
 try:
-	from ._conftest import (  # noqa: F401
+	from ._conftest import (
 		pytest_configure,
 		pytest_html_results_table_header,
 		pytest_html_results_table_row,

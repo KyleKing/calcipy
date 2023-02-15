@@ -4,6 +4,7 @@ import logging
 from contextlib import suppress
 
 from beartype import beartype
+from beartype.typing import Optional
 from invoke import Context, task
 from shoal import get_logger
 from shoal._log import configure_logger
@@ -14,16 +15,16 @@ logger = get_logger()
 
 
 @beartype
-def _inner_task(ctx: Context, *, cli_args: str, target: str) -> None:
+def _inner_task(ctx: Context, *, cli_args: str, command: str = 'python -m ruff check', target: Optional[str] = None) -> None:
     """Shared task logic."""
     verbose = 2
     with suppress(AttributeError):
         verbose = ctx.config.gto.verbose
     configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(verbose) or logging.ERROR)
 
-    pkg_name = read_package_name()
+    target = f' ./{read_package_name()} ./tests' if target is None else f' {target}'
     ctx.run(
-        f'poetry run {target} {pkg_name}{cli_args}',
+        f'poetry run {command}{target}{cli_args}',
         # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
@@ -32,14 +33,21 @@ def _inner_task(ctx: Context, *, cli_args: str, target: str) -> None:
 @task(
     default=True,
     help={
+        'target': 'Optional path to directory or file to watch',
     },
 )
-def fix(ctx: Context) -> None:
+def fix(ctx: Context, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
-    _inner_task(ctx, cli_args=' --fix', target='python -m ruff check')
+    _inner_task(ctx, cli_args=' --fix', target=target)
 
 
-@task(help={})
-def check(ctx: Context) -> None:
+@task(help=fix.help)
+def check(ctx: Context, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
-    _inner_task(ctx, cli_args='', target='python -m ruff check')
+    _inner_task(ctx, cli_args='', target=target)
+
+
+@task(help=fix.help)
+def watch(ctx: Context, target: Optional[str] = None) -> None:
+    """Run ruff as check-only."""
+    _inner_task(ctx, cli_args=' --watch --show-source', target=target)

@@ -7,11 +7,14 @@ Note: the calcipy imports are required for a nicer test HTML report
 from pathlib import Path
 
 import pytest
-from calcipy.dev.conftest import pytest_configure  # noqa: F401
-from calcipy.dev.conftest import pytest_html_results_table_header  # noqa: F401
-from calcipy.dev.conftest import pytest_html_results_table_row  # noqa: F401
-from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 from invoke import MockContext
+
+from calcipy.dev.conftest import (  # noqa: F401
+    pytest_configure,
+    pytest_html_results_table_header,
+    pytest_html_results_table_row,
+    pytest_runtest_makereport,
+)
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
 
@@ -28,7 +31,7 @@ def fix_test_cache() -> Path:
     return TEST_TMP_CACHE
 
 
-@pytest.fixture
+@pytest.fixture()
 def ctx() -> MockContext:
     """Mock Invoke Context.
 

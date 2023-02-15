@@ -4,8 +4,6 @@ from pathlib import Path
 
 from calcipy.file_helpers import delete_dir, ensure_dir
 
-from calcipy import __pkg_name__
-
 TEST_DIR = Path(__file__).resolve().parent
 """Path to the `test` directory that contains this file and all other tests."""
 

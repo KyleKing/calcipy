@@ -205,7 +205,7 @@ def build_check(session: Session) -> None:
     # Build sdist and fix return URI, which will have file://...#egg=calcipy
     sdist_uri = session.poetry.build_package(distribution_format=DistributionFormat.SDIST)
     path_sdist = Path(url2pathname(urlparse(sdist_uri).path))
-    logger.debug(f'Fixed sdist URI ({sdist_uri}): {path_sdist}')
+    logger.debug('Fixed sdist URI', sdist_uri=sdist_uri, path_sdist=path_sdist)
     # Check with pyroma
     session.install('pyroma>=4.0', '--upgrade')
     # required for "poetry.core.masonry.api" build backend

@@ -13,7 +13,6 @@ logger = get_logger()
 @beartype
 def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     """Shared task logic."""
-
     # FIXME: Move the log configuration logic to shoal
     gto = ctx.config.gto
     print(f'Starting nox with: {gto}')

@@ -1,12 +1,14 @@
+
 import pytest
-from calcipy.tasks.types import pyright, mypy
-from unittest.mock import call
+
+from calcipy.tasks.types import mypy, pyright
+
 
 @pytest.mark.parametrize(
-    'task,kwargs,command',
+    ('task', 'kwargs', 'command'),
     [
-        (pyright, {}, f'pyright calcipy'),
-        (mypy, {}, f'poetry run python -m mypy calcipy --html-report=releases/tests/mypy_html'),
+        (pyright, {}, 'pyright calcipy'),
+        (mypy, {}, 'poetry run python -m mypy calcipy --html-report=releases/tests/mypy_html'),
     ],
     ids=[
         'Default pyright task',

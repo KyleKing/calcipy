@@ -1,4 +1,4 @@
-from ._check_for_stale_packages import (  # noqa: F401
+from ._check_for_stale_packages import (
     PACK_LOCK_PATH,
     check_for_stale_packages,
 )

@@ -1,6 +1,8 @@
-import pytest
-from calcipy.tasks.test import default, step, watch, write_json
 from unittest.mock import call
+
+import pytest
+
+from calcipy.tasks.test import default, step, watch, write_json
 
 _COV = '--cov=calcipy --cov-report=term-missing'
 _MARKERS = 'mark1 and not mark 2'
@@ -9,7 +11,7 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 # FIXME: pytest parametrize can have IDs!
 #  https://github.com/pyinvoke/invocations/blob/8a277c304dd7aaad03888ee42d811c468e7fb37d/tests/checks.py#L49-L58
 @pytest.mark.parametrize(
-    'task,kwargs,command',
+    ('task', 'kwargs', 'command'),
     [
         (default, {}, f'poetry run python -m pytest ./tests {_COV}'),
         (default, {'keyword': 'test'}, f'poetry run python -m pytest ./tests {_COV} -k "test"'),

@@ -39,7 +39,7 @@ class _HostedPythonPackage(BaseModel):
         json_encoders = {Arrow: str}
 
     @validator('datetime', 'latest_datetime', pre=True)
-    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:
+    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: N805
         return arrow.get(value)
 
 
@@ -73,7 +73,8 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     res_json = res.json()
     releases = res_json['releases']
     if not releases:
-        raise RuntimeError(f'Failed to locate "releases" or "urls" from {json_url}: {res_json}')
+        msg = f'Failed to locate "releases" or "urls" from {json_url}: {res_json}'
+        raise RuntimeError(msg)
 
     # Also retrieve the latest release date of the package looking through all releases
     release_dates = bidict({
@@ -135,8 +136,8 @@ def _collect_release_dates(
                 updated_packages.append(package)
             elif cached_package:
                 updated_packages.append(cached_package)
-        except requests.exceptions.HTTPError as err:
-            logger.warning(f'Could not resolve {package} with error {err}')
+        except requests.exceptions.HTTPError as exc:
+            logger.warning('Could not lock package', package=package, error=str(exc))
     return updated_packages
 
 
@@ -169,7 +170,8 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
 
     """
     if path_lock.name != 'poetry.lock':
-        raise NotImplementedError(f'{path_lock.name} is not a currently supported lock type. Try "poetry.lock" instead')
+        msg = f'"{path_lock.name}" is not a currently supported lock type. Try "poetry.lock" instead'
+        raise NotImplementedError(msg)
 
     lock = tomllib.loads(path_lock.read_text(errors='ignore'))
     # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
@@ -201,10 +203,10 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
     if stale_packages:
         pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
         stale_list = '\n'.join(map(format_package, pkgs))
-        logger.warning(f'Found stale packages that may be a dependency risk:\n\n{stale_list}\n\n')
+        logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
     else:
         oldest_date = np.amin([pack.datetime for pack in packages])
-        logger.warning(f'The oldest package was released {oldest_date.humanize()} (stale is >{stale_months} months)\n')
+        logger.info('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
 
 
 
