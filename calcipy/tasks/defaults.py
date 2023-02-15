@@ -1,6 +1,7 @@
 """Invoke Defaults."""
 
 from contextlib import suppress
+
 from beartype import beartype
 
 # Docs: https://docs.pyinvoke.org/en/stable/concepts/configuration.html#configuring-via-task-collection

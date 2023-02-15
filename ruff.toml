@@ -1,0 +1,40 @@
+# Docs: https://github.com/charliermarsh/ruff
+# Tip: poetry run python -m ruff --explain RUF100
+
+line-length = 120
+
+select = [
+	"A",
+	"B",
+	"C",
+	"D1",
+	"D401",
+	"DTZ",
+	"E",
+	"F",
+	"G",
+	"I",
+	"N",
+	"Q",
+	"RET",
+	"RUF",
+	"S",
+	"T",
+	"UP",
+	"W",
+	"YTT",
+]
+ignore = [
+    'D203', # "1 blank line required before class docstring" (Conflicts with D211)
+    'D213', # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
+]
+
+[flake8-quotes]
+inline-quotes = "single"
+
+[isort]
+known-first-party = ["calcipy"]
+
+[pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true

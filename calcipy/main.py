@@ -1,13 +1,14 @@
-import logging
-from invoke import Program, Collection, Config
-from shoal._log import configure_logger
-from beartype import beartype
-from beartype.typing import Optional, List
-from . import __version__, __pkg_name__
-from .tasks import all_tasks
-from pathlib import Path
 import sys
+from pathlib import Path
+
+from beartype import beartype
+from beartype.typing import List
+from invoke import Collection, Config, Program
 from pydantic import BaseModel
+
+from . import __pkg_name__, __version__
+from .tasks import all_tasks
+
 
 @beartype
 def run() -> None:

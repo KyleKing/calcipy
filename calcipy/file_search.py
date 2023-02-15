@@ -5,9 +5,9 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Dict, List
-from shoal import get_logger
 from pre_commit.git import zsplit  # FIXME: How does this relate to capture_shell?
 from pre_commit.util import cmd_output  # FIXME: How does this relate to capture_shell?
+from shoal import get_logger
 
 logger = get_logger()
 

@@ -1,19 +1,18 @@
 """Code Tag Collector CLI."""
 
+import logging
 import re
-from pathlib import Path
-from beartype.typing import Dict, List, Tuple
 from contextlib import suppress
+from pathlib import Path
 
-from invoke import task, Context
-from beartype import beartype
+from beartype.typing import Optional
+from invoke import Context, task
 from shoal import get_logger
+from shoal._log import configure_logger
+
 from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
 from ..file_search import find_project_files
-from shoal._log import configure_logger
-import logging
 from .defaults import from_ctx
-from beartype.typing import Optional
 
 logger = get_logger()
 

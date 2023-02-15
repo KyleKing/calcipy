@@ -1,16 +1,17 @@
 """Types CLI."""
 
+import logging
 from contextlib import suppress
 from pathlib import Path
-from beartype.typing import Dict, List, Tuple, Optional, Callable
-from functools import partial
-from invoke import task, Context
+
 from beartype import beartype
-import logging
+from beartype.typing import Optional
+from invoke import Context, task
 from shoal import get_logger
 from shoal._log import configure_logger
-from .cached_utilities import read_package_name
+
 from ..file_helpers import open_in_browser
+from .cached_utilities import read_package_name
 from .defaults import from_ctx
 
 logger = get_logger()

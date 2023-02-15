@@ -32,25 +32,19 @@ with open(path_stdout, 'w') as out:
 
 """
 
-import re
-import shlex
-from contextlib import suppress
-from pathlib import Path
 from functools import lru_cache
+from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from beartype import beartype
-from beartype.typing import Callable, Dict, Iterable, List
+from beartype.typing import Dict, List
 
 # from ..._fixme_.doit_tasks.doit_globals import DoitTask, get_dg
 # from ..._fixme_.doit_tasks.test import task_coverage, task_test
-from ...file_helpers import if_found_unlink  # FIXME: Move to grouper (name tbd)
-
 from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
-
 from shoal import get_logger
 
 logger = get_logger()

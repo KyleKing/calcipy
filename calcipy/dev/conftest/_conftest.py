@@ -21,8 +21,8 @@ from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
 from contextlib import suppress
 from datetime import datetime
 
-from beartype.typing import Any, Generator
 import pytest
+from beartype.typing import Any, Generator
 
 try:
     from py.xml import html

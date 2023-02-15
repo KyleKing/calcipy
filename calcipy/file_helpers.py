@@ -1,16 +1,17 @@
 """File Helpers."""
 
-import webbrowser
 import os
 import shutil
 import string
 import time
+import webbrowser
 from contextlib import suppress
 from pathlib import Path
 
 from beartype import beartype
-from beartype.typing import Any, List, Optional, Dict
+from beartype.typing import Any, Dict, List, Optional
 from shoal import get_logger
+
 logger = get_logger()
 
 

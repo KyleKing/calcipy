@@ -14,7 +14,6 @@ from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
 from shoal import get_logger
 
-
 try:
     import tomllib
 except ModuleNotFoundError:
@@ -40,7 +39,7 @@ class _HostedPythonPackage(BaseModel):
         json_encoders = {Arrow: str}
 
     @validator('datetime', 'latest_datetime', pre=True)
-    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: F841
+    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:
         return arrow.get(value)
 
 
@@ -100,7 +99,7 @@ def _read_cache(path_pack_lock: Path = PACK_LOCK_PATH) -> Dict[str, _HostedPytho
 
     """
     if not path_pack_lock.is_file():
-        path_pack_lock.write_text('{}')  # noqa: P103
+        path_pack_lock.write_text('{}')
     old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text())
     return {
         package_name: _HostedPythonPackage(**meta_data)  # type: ignore[arg-type]

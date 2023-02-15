@@ -1,16 +1,14 @@
 """Stale Packages CLI."""
 
-import re
-from pathlib import Path
-from beartype.typing import Dict, List, Tuple
-from contextlib import suppress
-
-from invoke import task, Context
-from beartype import beartype
-from ..check_for_stale_packages import check_for_stale_packages as cfsp
-from ..check_for_stale_packages import PACK_LOCK_PATH
-from shoal._log import configure_logger
 import logging
+from contextlib import suppress
+from pathlib import Path
+
+from invoke import Context, task
+from shoal._log import configure_logger
+
+from ..check_for_stale_packages import PACK_LOCK_PATH
+from ..check_for_stale_packages import check_for_stale_packages as cfsp
 
 
 @task(

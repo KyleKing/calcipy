@@ -1,8 +1,9 @@
 """General task utilities."""
 
-from beartype import beartype
-from pathlib import Path
 from functools import lru_cache
+from pathlib import Path
+
+from beartype import beartype
 
 try:
     import tomllib
