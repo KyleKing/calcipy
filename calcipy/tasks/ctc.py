@@ -3,12 +3,15 @@
 import re
 from pathlib import Path
 from beartype.typing import Dict, List, Tuple
+from contextlib import suppress
 
 from invoke import task, Context
 from beartype import beartype
 from shoal import get_logger
 from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
 from ..file_search import find_project_files
+from shoal._log import configure_logger
+import logging
 
 logger = get_logger()
 
@@ -31,6 +34,11 @@ def collect_code_tags(
         ignore_patterns: str = '',
     ) -> None:
     """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
+    verbose = 2
+    with suppress(AttributeError):
+        verbose = ctx.config.gto.verbose
+    configure_logger(log_level={3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}.get(verbose) or logging.ERROR)
+
     base_dir = Path(base_dir).resolve()
     path_tag_summary = Path(filename).resolve()
     patterns = ignore_patterns.split(',') if ignore_patterns else []

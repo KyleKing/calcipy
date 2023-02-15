@@ -1,7 +1,7 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
 from .defaults import DEFAULTS
-from . import ctc, nox, test, types
+from . import ctc, nox, test, types, stale
 from invoke import Collection
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
@@ -9,6 +9,7 @@ from invoke import Collection
 ns = Collection('')
 ns.add_collection(Collection.from_module(ctc))
 ns.add_collection(nox)
+ns.add_collection(stale)
 ns.add_collection(test)
 ns.add_collection(types)
 
