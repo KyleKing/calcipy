@@ -2,13 +2,13 @@
 
 from invoke import Collection
 
-from . import ctc, lint, nox, stale, test, types
+from . import lint, nox, stale, tags, test, types
 from .defaults import DEFAULTS
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
 # https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module
 ns = Collection('')
-ns.add_collection(Collection.from_module(ctc))
+ns.add_collection(tags)
 ns.add_collection(lint)
 ns.add_collection(nox)
 ns.add_collection(stale)

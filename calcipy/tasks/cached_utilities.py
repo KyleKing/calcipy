@@ -19,8 +19,9 @@ def read_poetry_config() -> dict:
 	toml_path = Path('pyproject.toml')
 	try:
 		pyproject_txt = toml_path.read_text()
-	except Exception:
-		raise RuntimeError(f"This task must be run from a directory that contains a '{toml_path.name}' for poetry, but the command could not locate: {toml_path}")
+	except Exception as exc:
+		msg = f"This task must be run from a directory that contains a '{toml_path.name}' for poetry, but the command could not locate: {toml_path}"  # noqa: E501
+		raise RuntimeError(msg) from exc
 	return tomllib.loads(pyproject_txt)['tool']['poetry']
 
 

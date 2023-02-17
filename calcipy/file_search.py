@@ -70,7 +70,7 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
         if path_file.is_file():
             file_paths.append(path_file)
         else:  # pragma: no cover
-            logger.warning(f'Could not find {rel_file} in {path_project}')
+            logger.warning('Could not find the specified file', path_file=path_file)
     return file_paths
 
 

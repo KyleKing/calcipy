@@ -49,7 +49,7 @@ def tail_lines(path_file: Path, *, count: int) -> List[str]:
         List[str]: lines of text as list
 
     """
-    with open(path_file, 'rb') as f_h:
+    with path_file.open('rb') as f_h:
         rem_bytes = f_h.seek(0, os.SEEK_END)
         step_size = 1  # Initially set to 1 so that the last byte is read
         found_lines = 0
@@ -105,8 +105,8 @@ def _read_yaml_file(path_yaml: Path) -> Any:
     yaml.add_multi_constructor('!!', lambda _loader, _suffix, _node: None)
     try:
         return yaml.unsafe_load(path_yaml.read_text())  # nosemgrep
-    except (FileNotFoundError, KeyError) as err:  # pragma: no cover
-        logger.warning(f'Unexpected error reading the {path_yaml.name} file ({path_yaml}): {err}')
+    except (FileNotFoundError, KeyError) as exc:  # pragma: no cover
+        logger.warning('Unexpected read error', path_yaml=path_yaml, error=str(exc))
         return {}
     except yaml.constructor.ConstructorError:
         logger.exception('Warning: burying poorly handled yaml error')
@@ -185,7 +185,7 @@ def if_found_unlink(path_file: Path) -> None:
 
     """
     if path_file.is_file():
-        logger.info(f'Deleting `{path_file}`', path_file=path_file)
+        logger.info('Deleting', path_file=path_file)
         path_file.unlink()
 
 
@@ -212,7 +212,7 @@ def delete_dir(dir_path: Path) -> None:
 
     """
     if dir_path.is_dir():
-        logger.info(f'Deleting `{dir_path}`', dir_path=dir_path)
+        logger.info('Deleting', dir_path=dir_path)
         shutil.rmtree(dir_path)
 
 
@@ -224,7 +224,7 @@ def ensure_dir(dir_path: Path) -> None:
         dir_path: Path to directory that needs to exists
 
     """
-    logger.info(f'Creating `{dir_path}`', dir_path=dir_path)
+    logger.info('Creating', dir_path=dir_path)
     dir_path.mkdir(parents=True, exist_ok=True)
 
 

@@ -7,14 +7,15 @@ select = ['ALL']
 ignore = [
 	'ANN101',  # Missing type annotation for `self` in method
 	'BLE001',  # Do not catch blind exception: `Exception`
-    'D203',    # "1 blank line required before class docstring" (Conflicts with D211)
-    'D213',    # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
 	'D4',      # Numpy-Style Docstrings (e.g. "Section name should end with a newline ("Returns")")
 	'EM101',   # Exception must not use a string literal, assign to variable first
 	'FBT002',  # Boolean default value in function definition
 	'TCH002',  # Move third-party import {} into a type-checking block
+	'TCH003',  # Move standard library import `pathlib.Path` into a type-checking block
 	'TID252',  # Relative imports from parent modules are banned
 	'TRY003',  # Avoid specifying long messages outside the exception class
+    'D203',    # "1 blank line required before class docstring" (Conflicts with D211)
+    'D213',    # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
 ]
 unfixable = [
     'ERA001',  # Commented out code
@@ -38,7 +39,10 @@ known-first-party = ['calcipy']
 	'ERA001',  # TODO: Temporary while working on the noxfile
 ]
 '*tests/*.py' = [
+	'ANN001',  # Missing type annotation for function argument
+	'D100',    # Missing docstring in public module
     'ANN201',  # Missing return type annotation for public function
+    'D103',    # Missing docstring in public function
     'PT004',   # flake8-pytest-style: fixture does not return
     'S101',    # Matches 'assert'
 ]

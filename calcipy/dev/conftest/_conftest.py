@@ -60,7 +60,7 @@ def pytest_html_results_table_row(report: Any, cells: Any) -> None:  # pragma: n
         cells.insert(1, html.td(str(datetime.now(tz=timezone.utc)), class_='col-time'))
 
 @pytest.hookimpl(hookwrapper=True)  # type: ignore[misc]
-def pytest_runtest_makereport(item: Any, call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover
+def pytest_runtest_makereport(item: Any, _call: Any) -> Generator:  # type: ignore[type-arg]  # pragma: no cover
     """Modify the pytest-html output.
 
     Args:
