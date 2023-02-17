@@ -1,14 +1,12 @@
 """Types CLI."""
 
-import logging
-from contextlib import suppress
 from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Optional
-from invoke import Context, task
+from invoke import Context
 from shoal import get_logger
-from shoal._log import configure_logger
+from shoal.cli import task
 
 from ..file_helpers import open_in_browser
 from .cached_utilities import read_package_name
@@ -20,12 +18,6 @@ logger = get_logger()
 @beartype
 def _inner_task(ctx: Context, *, cli_args: str, command: str) -> None:
     """Shared task logic."""
-    verbose = 2
-    with suppress(AttributeError):
-        verbose = ctx.config.gto.verbose
-    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
-    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
-
     pkg_name = read_package_name()
     ctx.run(
         f'poetry run {command} {pkg_name}{cli_args}',

@@ -37,7 +37,7 @@ version = "1.0.0"
 [tool.poetry.dependencies]
 python = "^3.8.12"
 invoke = ">=2.0.0"
-shoal = {path = "../shoal"}
+shoal = ">=0.3.0"  # poetry run pip install -e ../shoal
 tomli = {markers = "python_version < \"3.11\"", version = ">=2.0.1"}
 
 [tool.poetry.group.tags.dependencies]

@@ -1,14 +1,12 @@
 """Code Tag Collector CLI."""
 
-import logging
 import re
-from contextlib import suppress
 from pathlib import Path
 
 from beartype.typing import Optional
-from invoke import Context, task
+from invoke import Context
 from shoal import get_logger
-from shoal._log import configure_logger
+from shoal.cli import task
 
 from ..code_tag_collector import CODE_TAG_RE, COMMON_CODE_TAGS, write_code_tag_file
 from ..file_search import find_project_files
@@ -35,12 +33,6 @@ def collect_code_tags(
         ignore_patterns: str = '',
     ) -> None:
     """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
-    verbose = 2
-    with suppress(AttributeError):
-        verbose = ctx.config.gto.verbose
-    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
-    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
-
     pth_base_dir = Path(base_dir).resolve()
     path_tag_summary = Path(filename or from_ctx(ctx, 'tags', 'filename')).resolve()
     patterns = ignore_patterns.split(',') if ignore_patterns else []

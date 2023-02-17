@@ -1,26 +1,17 @@
 """Testing CLI."""
 
-import logging
-from contextlib import suppress
 
 from beartype import beartype
 from beartype.typing import List
-from invoke import Context, task
+from invoke import Context
 from shoal import get_logger
-from shoal._log import configure_logger
+from shoal.cli import task
 
 logger = get_logger()
 
 @beartype
 def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     """Shared task logic."""
-    # FIXME: Move the log configuration logic to shoal (manually copied in several spots...)
-    verbose = 2
-    with suppress(AttributeError):
-        verbose = ctx.config.gto.verbose
-    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
-    configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
-
     with ctx.cd('.'):  # FYI: can change directory like this
         ctx.run(
             f'poetry run nox --error-on-missing-interpreters {" ".join(cli_args)}',

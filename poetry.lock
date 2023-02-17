@@ -483,14 +483,14 @@ pyflakes = ">=2.5.0,<2.6.0"
 
 [[package]]
 name = "flake8-aaa"
-version = "0.12.2"
+version = "0.13.0"
 description = "A Flake8 plugin that checks Python tests follow the Arrange-Act-Assert pattern"
 category = "dev"
 optional = false
 python-versions = ">=3.7, <4"
 files = [
-    {file = "flake8-aaa-0.12.2.tar.gz", hash = "sha256:38b5009248d8bc1e9568c8cc6f00870582f0e6b1be168d2f880a404796029e83"},
-    {file = "flake8_aaa-0.12.2-py3-none-any.whl", hash = "sha256:80840d34885506128a94e4912281bbab315591c414befd496dd041da640a1546"},
+    {file = "flake8-aaa-0.13.0.tar.gz", hash = "sha256:21cbd08b87a1af845c98df0ddf018e766e884878b9e8b47b5c1d326c733d6432"},
+    {file = "flake8_aaa-0.13.0-py3-none-any.whl", hash = "sha256:93c14d703de00a6617a207e5e0537a4fb53bffb94794dd64d5bd5f0d77e23834"},
 ]
 
 [package.dependencies]
@@ -1873,19 +1873,16 @@ version = "0.3.0"
 description = "Lazy, Python-first, alternative to make, just, doit, and invoke"
 category = "main"
 optional = false
-python-versions = "^3.7.12"
-files = []
-develop = false
+python-versions = ">=3.7.12,<4.0.0"
+files = [
+    {file = "shoal-0.3.0-py3-none-any.whl", hash = "sha256:c4d20575856455096d9c555d9073846f4a723171e1f1f657263ea3fb4650e45d"},
+    {file = "shoal-0.3.0.tar.gz", hash = "sha256:34a75d43f4d71a8b6a0f6ed816e63834ec41a65555177815cceef3c7a41f6908"},
+]
 
 [package.dependencies]
 beartype = ">=0.12.0"
-invoke = ">=2.0.0"
 pydantic = ">=1.10.4"
 rich = ">=13.3.1"
-
-[package.source]
-type = "directory"
-url = "../shoal"
 
 [[package]]
 name = "six"
@@ -2234,4 +2231,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "6eaf56b27a9a4e54851a775950157364c8c2776f91783719bbe559407fb46a46"
+content-hash = "64c982939d1bc6b041f8c877d1d1fa0334256972784c83fae883b3777cdd810d"
