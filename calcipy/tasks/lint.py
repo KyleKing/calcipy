@@ -38,18 +38,18 @@ def _inner_task(ctx: Context, *, cli_args: str, command: str = 'python -m ruff c
         'target': 'Optional path to directory or file to watch',
     },
 )
-def fix(ctx: Context, *, target: Optional[str] = None) -> None:
-    """Run ruff and apply fixes."""
-    _inner_task(ctx, cli_args=' --fix', target=target)
-
-
-@task(help=fix.help)
 def check(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args='', target=target)
 
 
-@task(help=fix.help)
+@task(help=check.help)
+def fix(ctx: Context, *, target: Optional[str] = None) -> None:
+    """Run ruff and apply fixes."""
+    _inner_task(ctx, cli_args=' --fix', target=target)
+
+
+@task(help=check.help)
 def watch(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args=' --watch --show-source', target=target)
