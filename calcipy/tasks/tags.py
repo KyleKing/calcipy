@@ -30,7 +30,7 @@ def collect_code_tags(
     ctx: Context,
         base_dir: str = '.',
         filename: Optional[str] = None,
-        tag_order: str = ','.join(COMMON_CODE_TAGS),  # noqa: B008
+        tag_order: str = '',
         regex: str = CODE_TAG_RE,
         ignore_patterns: str = '',
     ) -> None:
@@ -41,19 +41,18 @@ def collect_code_tags(
     log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
     configure_logger(log_level=log_lookup.get(verbose) or logging.ERROR)
 
-    base_dir = Path(base_dir).resolve()
-    path_tag_summary = Path(filename or from_ctx(ctx, 'ctc', 'filename')).resolve()
+    pth_base_dir = Path(base_dir).resolve()
+    path_tag_summary = Path(filename or from_ctx(ctx, 'tags', 'filename')).resolve()
     patterns = ignore_patterns.split(',') if ignore_patterns else []
-    paths_source = find_project_files(base_dir, ignore_patterns=patterns)
-    tag_order = tag_order.split(',')
+    paths_source = find_project_files(pth_base_dir, ignore_patterns=patterns)
     regex_compiled = re.compile(regex.format(tag='|'.join(tag_order)))
 
     write_code_tag_file(
         path_tag_summary=path_tag_summary,
         paths_source=paths_source,
-        base_dir=base_dir,
+        base_dir=pth_base_dir,
         regex_compiled=regex_compiled,
-        tag_order=tag_order,
+        tag_order=tag_order.split(',') or COMMON_CODE_TAGS,
         header='# Collected Code Tags',
     )
     logger.info('Created Code Tag Summary', path_tag_summary=path_tag_summary)

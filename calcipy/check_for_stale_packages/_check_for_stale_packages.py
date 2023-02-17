@@ -17,7 +17,7 @@ from shoal import get_logger
 try:
     import tomllib
 except ModuleNotFoundError:
-    import tomli as tomllib  # type: ignore[no-redef]
+    import tomli as tomllib
 
 
 logger = get_logger()

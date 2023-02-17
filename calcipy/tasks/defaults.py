@@ -10,7 +10,7 @@ from invoke import Context
 
 # FYI: reference with `ctx.tests.out_dir` or `from_ctx(ctx, 'tests', 'out_dir')`
 DEFAULTS = {
-	'ctc': {
+	'tags': {
 		'filename': 'docs/docs/CODE_TAG_SUMMARY.md',
 	},
 	'tests': {
@@ -26,5 +26,5 @@ DEFAULTS = {
 def from_ctx(ctx: Context, group: str, key: str) -> str:
 	"""Safely extract the value from the context or the defaults."""
 	with suppress(Exception):
-		return ctx.getattr(group).getattr(key)
-	return DEFAULTS[group][key]
+		return str(ctx.getattr(group).getattr(key))
+	return str(DEFAULTS[group][key])

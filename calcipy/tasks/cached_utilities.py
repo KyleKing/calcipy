@@ -4,17 +4,18 @@ from functools import lru_cache
 from pathlib import Path
 
 from beartype import beartype
+from beartype.typing import Any
 
 try:
     import tomllib
 except ModuleNotFoundError:
-    import tomli as tomllib  # type: ignore[no-redef]
+    import tomli as tomllib
 
 # FYI: Actively adapting from DIG: https://github.com/KyleKing/calcipy/blob/4b102c8a8c752bae0804860f06b7f85ebcba6c3f/calcipy/doit_tasks/doit_globals.py#L165-L181
 
 @lru_cache(maxsize=1)
 @beartype
-def read_poetry_config() -> dict:
+def read_poetry_config() -> Any:
 	"""Read the 'pyproject.toml' file once."""
 	toml_path = Path('pyproject.toml')
 	try:
@@ -30,4 +31,4 @@ def read_poetry_config() -> dict:
 def read_package_name() -> str:
 	"""Read the package name once."""
 	poetry_config = read_poetry_config()
-	return poetry_config['name']
+	return str(poetry_config['name'])
