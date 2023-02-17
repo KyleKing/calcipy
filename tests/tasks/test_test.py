@@ -8,7 +8,7 @@ _COV = '--cov=calcipy --cov-report=term-missing'
 _MARKERS = 'mark1 and not mark 2'
 _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 
-# FIXME: pytest parametrize can have IDs!
+# TODO: Is there an easier way to maintain pytest parameter IDs?
 #  https://github.com/pyinvoke/invocations/blob/8a277c304dd7aaad03888ee42d811c468e7fb37d/tests/checks.py#L49-L58
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'command'),
@@ -34,9 +34,8 @@ def test_test(ctx, task, kwargs, command):
 
 def test_write_json(ctx):
     write_json(ctx, out_dir='.cover')
-    call_1 = 'poetry run coverage run --source=calcipy --module pytest ./tests --cov-report=html:.cover --html=.cover/test_report.html --self-contained-html'  # noqa: E501
     ctx.run.assert_has_calls([
-        call(call_1, echo=True, pty=True),
+        call('poetry run coverage run --source=calcipy --module pytest ./tests', echo=True, pty=True),
         call('poetry run python -m coverage report --show-missing', echo=True, pty=True),
         call('poetry run python -m coverage html --directory=.cover', echo=True, pty=True),
         call('poetry run python -m coverage json', echo=True, pty=True),

@@ -9,13 +9,6 @@ from pathlib import Path
 import pytest
 from invoke import MockContext
 
-from calcipy.dev.conftest import (  # noqa: F401
-    pytest_configure,
-    pytest_html_results_table_header,
-    pytest_html_results_table_row,
-    pytest_runtest_makereport,
-)
-
 from .configuration import TEST_TMP_CACHE, clear_test_cache
 
 

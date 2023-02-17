@@ -7,7 +7,7 @@ from calcipy.tasks.types import mypy, pyright
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'command'),
     [
-        (pyright, {}, 'pyright calcipy'),
+        (pyright, {}, 'poetry run pyright calcipy'),
         (mypy, {}, 'poetry run python -m mypy calcipy --html-report=releases/tests/mypy_html'),
     ],
     ids=[

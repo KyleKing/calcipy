@@ -76,17 +76,15 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
     """Create json coverage file."""
     cover_args = f' --cov-fail-under={min_cover}'  if min_cover else ''
 
-    cov_dir = Path(out_dir or from_ctx(ctx, 'tests', 'out_dir'))
-    cov_dir.mkdir(exist_ok=True, parents=True)
-    html_args = f' --cov-report=html:{cov_dir} --html={cov_dir}/test_report.html --self-contained-html'
-
     pkg_name = read_package_name()
     ctx.run(
-        f'poetry run coverage run --source={pkg_name} --module pytest ./tests{html_args}{cover_args}',
+        f'poetry run coverage run --source={pkg_name} --module pytest ./tests{cover_args}',
         # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
 
+    cov_dir = Path(out_dir or from_ctx(ctx, 'tests', 'out_dir'))
+    cov_dir.mkdir(exist_ok=True, parents=True)
     for cmd in [
         'poetry run python -m coverage report --show-missing',  # Write to STDOUT
         f'poetry run python -m coverage html --directory={cov_dir}',  # Write to HTML
@@ -95,5 +93,4 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
         ctx.run(cmd, echo=True, pty=True)
 
     if view:  # pragma: no cover
-        for pth in [cov_dir / 'index.html', cov_dir / 'test_report.html']:
-            open_in_browser(pth)
+        open_in_browser(cov_dir / 'index.html')
