@@ -32,9 +32,7 @@ runs:
       id: cache
       with:
         path: .nox
-        key:
-          ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock')
-          }}
+        key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Poetry Debug Info
       run: |-
@@ -44,5 +42,5 @@ runs:
 
     - name: Install Project and Dependencies
       run: |-
-        poetry install -E dev -E lint -E test -E commitizen_legacy
+        poetry install --with=tags,file_search,flake8,lint,pylint,stale,test,types
       shell: bash
