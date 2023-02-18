@@ -24,7 +24,7 @@ def lock(ctx: Context) -> None:
         'to_test_pypi': 'Publish to the TestPyPi repository',
     },
 )
-def publish(ctx: Context, to_test_pypi: bool = False) -> None:
+def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     """Build the distributed format(s) and publish."""
     ctx.run('poetry run nox --session build_dist build_check', echo=True, pty=True)
 

@@ -39,11 +39,10 @@ from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from beartype import beartype
-from beartype.typing import List, Union, Dict
+from beartype.typing import Dict, List, Union
 from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
-from numpy import isin
 from shoal import get_logger
 
 from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name, read_pyproject

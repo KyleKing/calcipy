@@ -21,16 +21,16 @@ ns.add_collection(types)
 @task(  # type: ignore[misc]
     pre=[
         tags.collect_code_tags,
-        # tbd.cl_write,
+        # cl_write,
         pack.lock,
         nox.noxfile,
         lint.fix,
-        # docs.document,
+        # > docs.document,
         stale.check_for_stale_packages,
         call(lint.pre_commit, no_update=True),
-        # tbd.lint_project,
-        # tbd.static_checks,
-        # tbd.security_checks,
+        # lint_project,
+        # static_checks,
+        # security_checks,
         types.mypy,
     ],
 )
@@ -43,10 +43,10 @@ def main(_ctx: Context) -> None:
 
 @task(  # type: ignore[misc]
     pre=[
-        # tbd.cl_bump,  # TODO: Support pre-release: "cl_bump_pre -p rc"
+        # > cl_bump,  # TODO: Support pre-release: "cl_bump_pre -p rc"
         pack.lock,
-        # docs.document,
-        # docs.deploy_docs,
+        # > docs.document,
+        # > docs.deploy_docs,
         pack.publish,
     ],
 )

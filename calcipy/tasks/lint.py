@@ -55,9 +55,9 @@ def watch(ctx: Context, *, target: Optional[str] = None) -> None:
 @task(  # type: ignore[misc]
     help={
         'no_update': 'Skip updating the pre-commit hooks',
-    }
+    },
 )
-def pre_commit(ctx: Context, no_update: bool = False) -> None:
+def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     """Run pre-commit."""
     ctx.run('pre-commit install')
     if not no_update:

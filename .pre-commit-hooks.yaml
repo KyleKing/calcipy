@@ -4,7 +4,7 @@
 # pre-commit try-repo . calcipy-code-tags --verbose --all-files
 - id: calcipy-code-tags
   args: [collect-code-tags]
-  description: 'calcipy: Auto-Generate a Code Tag Summary'
+  description: "calcipy: Auto-Generate a Code Tag Summary"
   entry: calcipy
   language: python
   minimum_pre_commit_version: 2.9.2
