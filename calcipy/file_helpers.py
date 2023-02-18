@@ -12,7 +12,7 @@ from pathlib import Path
 from beartype import beartype
 from beartype.typing import Any, Dict, List, Optional
 
-from calcipy.log import logger
+from .log import logger
 
 try:
     import tomllib

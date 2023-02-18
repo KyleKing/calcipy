@@ -6,7 +6,7 @@ from invoke import Context
 from shoal.can_skip import can_skip
 from shoal.cli import task
 
-from calcipy.log import logger
+from ..log import logger
 
 
 @task()  # type: ignore[misc]

@@ -1,5 +1,7 @@
 """Lint CLI."""
 
+from pathlib import Path
+
 from beartype import beartype
 from beartype.typing import Optional
 from invoke import Context
@@ -21,9 +23,13 @@ def _inner_task(
     target: Optional[str] = None,
 ) -> None:
     """Shared task logic."""
-    target = f' ./{read_package_name()} ./tests' if target is None else f' {target}'
+    file_args = ctx.config.gto.file_args
+    if file_args:
+        target = ' '.join(map(str, file_args))
+    else:
+        target = f'./{read_package_name()} ./tests' if target is None else target
     ctx.run(
-        f'poetry run {command}{target}{cli_args}',
+        f'poetry run {command} {target}{cli_args}',
         echo=True, pty=True,
     )
 
@@ -32,7 +38,7 @@ def _inner_task(
     default=True,
     help={
         # TODO: use file_args! 'ctx.config.gto.file_args'
-        'target': 'Optional path to directory or file to watch',
+        'target': 'Optional path to directory or file to lint',
     },
 )
 def check(ctx: Context, *, target: Optional[str] = None) -> None:
@@ -40,7 +46,15 @@ def check(ctx: Context, *, target: Optional[str] = None) -> None:
     _inner_task(ctx, cli_args='', target=target)
 
 
-@task(help=check.help)  # type: ignore[misc]
+@task()  # type: ignore[misc]
+def absolufy_imports(ctx: Context) -> None:
+    """Run absolufy-imports."""
+    paths = Path(read_package_name()).rglob('*.py')
+    target = ' '.join(map(str, paths))
+    _inner_task(ctx, cli_args=' --never', target=target, command='absolufy-imports')
+
+
+@task(pre=[absolufy_imports], help=check.help)  # type: ignore[misc]
 def fix(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, cli_args=' --fix', target=target)
@@ -50,6 +64,18 @@ def fix(ctx: Context, *, target: Optional[str] = None) -> None:
 def watch(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args=' --watch --show-source', target=target)
+
+
+@task(help=check.help)  # type: ignore[misc]
+def flake8(ctx: Context, *, target: Optional[str] = None) -> None:
+    """Run ruff and apply fixes."""
+    _inner_task(ctx, cli_args='', target=target, command='python -m flake8')
+
+
+@task(help=check.help)  # type: ignore[misc]
+def pylint(ctx: Context, *, target: Optional[str] = None) -> None:
+    """Run ruff and apply fixes."""
+    _inner_task(ctx, cli_args='', target=target, command='python -m pylint')
 
 
 # ==============================================================================

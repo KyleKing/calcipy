@@ -44,9 +44,8 @@ from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
 
-from calcipy.log import logger
-
 from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name, read_pyproject
+from ..log import logger
 
 
 @lru_cache(maxsize=1)

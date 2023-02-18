@@ -34,6 +34,7 @@ version = "1.0.0"
 
 [tool.poetry.dependencies]
 python = "^3.8.12"
+absolufy-imports = {optional = true, version = ">=0.3.1"} # lint
 arrow = {optional = true, version = ">=1.2.3"} # tags
 bandit = {optional = true, version = ">=1.7.4"} # lint
 bidict = {optional = true, version = ">=0.22.1"} # stale
@@ -149,6 +150,7 @@ flake8 = [
   "xenon",
 ]
 lint = [
+  "absolufy-imports",
   "bandit",
   "ruff",
   "semgrep",

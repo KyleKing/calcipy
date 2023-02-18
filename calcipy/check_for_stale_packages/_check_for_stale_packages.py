@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
 from shoal.can_skip import can_skip
 
-from calcipy.log import logger
+from ..log import logger
 
 try:
     import tomllib
