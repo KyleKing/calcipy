@@ -23,12 +23,12 @@ from .defaults import from_ctx
 )
 def collect_code_tags(
     ctx: Context,
-        base_dir: str = '.',
-        filename: Optional[str] = None,
-        tag_order: str = '',
-        regex: str = '',
-        ignore_patterns: str = '',
-    ) -> None:
+    base_dir: str = '.',
+    filename: Optional[str] = None,
+    tag_order: str = '',
+    regex: str = '',
+    ignore_patterns: str = '',
+) -> None:
     """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
     pth_base_dir = Path(base_dir).resolve()
     path_tag_summary = Path(filename or from_ctx(ctx, 'tags', 'filename')).resolve()

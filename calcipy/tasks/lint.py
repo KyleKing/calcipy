@@ -56,8 +56,14 @@ def absolufy_imports(ctx: Context) -> None:
 
 @task()  # type: ignore[misc]
 def autopep8(ctx: Context) -> None:
-    """Run autopep8."""
-    _inner_task(ctx, cli_args=' --recursive --in-place --aggressive', command='python -m autopep8')
+    """Run autopep8.
+
+    FYI: This is temporary until ruff implements white space rules
+    https://github.com/charliermarsh/ruff/issues/970
+
+    """
+    cli_args = ' --aggressive --recursive --in-place --max-line-length=120'
+    _inner_task(ctx, cli_args=cli_args, command='python -m autopep8')
 
 
 @task(pre=[absolufy_imports, autopep8], help=check.help)  # type: ignore[misc]

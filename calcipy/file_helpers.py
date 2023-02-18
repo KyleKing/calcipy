@@ -86,7 +86,7 @@ def tail_lines(path_file: Path, *, count: int) -> List[str]:
 @beartype
 def get_tool_versions(cwd: Optional[Path] = None) -> Dict[str, List[str]]:
     """Parse a `.tool-versions` file."""
-    cwd  = cwd or Path()
+    cwd = cwd or Path()
     return {
         line.split(' ')[0]: line.split(' ')[1:]
         for line in (cwd / '.tool-versions').read_text().splitlines()
@@ -285,7 +285,7 @@ def get_relative(full_path: Path, other_path: Path) -> Optional[Path]:
 
 
 @beartype
-def open_in_browser(path_file: Path) -> None: # pragma: no cover
+def open_in_browser(path_file: Path) -> None:  # pragma: no cover
     """Open the path in the default web browser.
 
     Args:

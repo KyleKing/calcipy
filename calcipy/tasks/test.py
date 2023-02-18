@@ -69,7 +69,7 @@ def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
 )
 def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None, view: bool = False) -> None:
     """Create json coverage file."""
-    cover_args = f' --cov-fail-under={min_cover}'  if min_cover else ''
+    cover_args = f' --cov-fail-under={min_cover}' if min_cover else ''
 
     pkg_name = read_package_name()
     ctx.run(
