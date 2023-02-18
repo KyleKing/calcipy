@@ -28,9 +28,7 @@ ns.add_collection(types)
         # > docs.document,
         stale.check_for_stale_packages,
         call(lint.pre_commit, no_update=True),
-        # lint_project,
-        # static_checks,
-        # security_checks,
+        lint.security,
         types.mypy,
     ],
 )

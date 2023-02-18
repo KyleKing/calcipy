@@ -24,10 +24,7 @@ def _inner_task(ctx: Context, *, cli_args: str, command: str) -> None:
     )
 
 
-@task(  # type: ignore[misc]
-    default=True,
-    help={},
-)
+@task()  # type: ignore[misc]
 def pyright(ctx: Context) -> None:
     """Run pyright."""
     _inner_task(ctx, cli_args='', command='pyright')

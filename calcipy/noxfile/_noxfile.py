@@ -67,16 +67,16 @@ def _get_dev_deps() -> List[str]:
 
     """
     @beartype
-    def to_package(key: str, value: Union[Dict, str]) -> str:
+    def to_package(key: str, value: Union[Dict, str]) -> str:  # type: ignore[type-arg]
         extras = [] if isinstance(value, str) else value.get('extras', [])
         if extras:
             key += f'[{",".join(extras)}]'
         return key
 
     @beartype
-    def to_constraint(value: Union[Dict, str]) -> str:
+    def to_constraint(value: Union[Dict, str]) -> str:  # type: ignore[type-arg]
         version = value if isinstance(value, str) else value['version']
-        return version.replace('^', '==')
+        return str(version).replace('^', '==')
 
     poetry_config = read_pyproject()['tool']['poetry']
     dependencies = {

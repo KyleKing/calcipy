@@ -1,6 +1,5 @@
 """Lint CLI."""
 
-
 from beartype import beartype
 from beartype.typing import Optional
 from invoke import Context
@@ -11,12 +10,16 @@ from ..file_helpers import read_package_name
 
 logger = get_logger()
 
+# ==============================================================================
+# Ruff
+
 
 @beartype
 def _inner_task(
     ctx: Context,
     *,
     cli_args: str,
+    # PLANNED: Consider `f'poetry run absolufy-imports {pkg_name} --never'`
     command: str = 'python -m ruff check',
     target: Optional[str] = None,
 ) -> None:
@@ -50,6 +53,50 @@ def fix(ctx: Context, *, target: Optional[str] = None) -> None:
 def watch(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args=' --watch --show-source', target=target)
+
+
+# ==============================================================================
+# Security
+
+
+@task()  # type: ignore[misc]
+def security(ctx: Context) -> None:
+    """Attempt to identify possible security vulnerabilities, but use `# nosec` to selectively override checks."""
+    pkg_name = read_package_name()
+    ctx.run(f'poetry run bandit --recursive {pkg_name}')
+
+    # PLANNED: Extend semgrep
+    #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
+    #   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45
+    semgrep_configs = ' '.join([
+        # See more at: https://semgrep.dev/explore
+        '--config=p/ci',
+        '--config=p/security-audit',
+        '--config=r/python.airflow',
+        '--config=r/python.attr',
+        '--config=r/python.click',
+        '--config=r/python.cryptography',
+        '--config=r/python.distributed',
+        '--config=r/python.docker',
+        '--config=r/python.flask',
+        '--config=r/python.jinja2',
+        '--config=r/python.jwt',
+        '--config=r/python.lang',
+        '--config=r/python.pycryptodome',
+        '--config=r/python.requests',
+        '--config=r/python.security',
+        '--config=r/python.sh',
+        '--config=r/python.sqlalchemy',
+        # > dlukeomalley:unchecked-subprocess-call
+        # > dlukeomalley:use-assertEqual-for-equality
+        # > dlukeomalley:flask-set-cookie
+        # > clintgibler:no-exec
+    ])
+    ctx.run(f'poetry run semgrep ci {semgrep_configs}')
+
+
+# ==============================================================================
+# Pre-Commit
 
 
 @task(  # type: ignore[misc]
