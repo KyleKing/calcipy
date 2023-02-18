@@ -2877,11 +2877,23 @@ rich = ">=10.14.0"
 toml = ">=0.10.2"
 
 [[package]]
+name = "types-docutils"
+version = "0.19.1.4"
+description = "Typing stubs for docutils"
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "types-docutils-0.19.1.4.tar.gz", hash = "sha256:1b64b21b609ff1fc7791d3d930f14b56b36ad09029fd97e45e34cc889d671b5f"},
+    {file = "types_docutils-0.19.1.4-py3-none-any.whl", hash = "sha256:870d71f3663141f67a3c59d26d2c54a8c478c842208bb0b345fbf6036f49f561"},
+]
+
+[[package]]
 name = "types-pyyaml"
 version = "6.0.12.6"
 description = "Typing stubs for PyYAML"
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 files = [
     {file = "types-PyYAML-6.0.12.6.tar.gz", hash = "sha256:24e76b938d58e68645271eeb149af6022d1da99788e481f959bd284b164f39a1"},
@@ -2893,7 +2905,7 @@ name = "types-requests"
 version = "2.28.11.13"
 description = "Typing stubs for requests"
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 files = [
     {file = "types-requests-2.28.11.13.tar.gz", hash = "sha256:3fd332842e8759ea5f7eb7789df8aa772ba155216ccf10ef4aa3b0e5b42e1b46"},
@@ -2904,11 +2916,26 @@ files = [
 types-urllib3 = "<1.27"
 
 [[package]]
+name = "types-setuptools"
+version = "67.3.0.1"
+description = "Typing stubs for setuptools"
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "types-setuptools-67.3.0.1.tar.gz", hash = "sha256:1a26d373036c720e566823b6edd664a2db4d138b6eeba856721ec1254203474f"},
+    {file = "types_setuptools-67.3.0.1-py3-none-any.whl", hash = "sha256:a7e0f0816b5b449f5bcdc0efa43da91ff81dbe6941f293a6490d68a450e130a1"},
+]
+
+[package.dependencies]
+types-docutils = "*"
+
+[[package]]
 name = "types-urllib3"
 version = "1.26.25.6"
 description = "Typing stubs for urllib3"
 category = "dev"
-optional = true
+optional = false
 python-versions = "*"
 files = [
     {file = "types-urllib3-1.26.25.6.tar.gz", hash = "sha256:35586727cbd7751acccf2c0f34a88baffc092f435ab62458f10776466590f2d5"},
@@ -3230,4 +3257,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "3e6aa0c39df83276c3062913296091b2b5d265174815603c3826a3b63946f275"
+content-hash = "cb4c492ce6a676fbc6a08ec1868632913d3882286f622a456ce9d439e84cffbb"

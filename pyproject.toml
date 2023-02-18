@@ -176,8 +176,9 @@ test = [
 types = ["mypy"]
 
 [tool.poetry.group.dev.dependencies]
-types-pyyaml = {optional = true, version = ">=6.0.12.6"}
-types-requests = {optional = true, version = ">=2.28.11.13"}
+types-pyyaml = ">=6.0.12.6"
+types-requests = ">=2.28.11.13"
+types-setuptools = ">=67.3.0.1"
 
 [tool.poetry.scripts]
 calcipy = "calcipy.main:start"

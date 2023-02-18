@@ -59,6 +59,7 @@ def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')
 
 
+# TODO: Consider renaming/breaking up this task
 @task(  # type: ignore[misc]
     help={
         'min_cover': 'Fail if coverage less than threshold',
