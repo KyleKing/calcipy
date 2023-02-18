@@ -50,3 +50,17 @@ def fix(ctx: Context, *, target: Optional[str] = None) -> None:
 def watch(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args=' --watch --show-source', target=target)
+
+
+@task(  # type: ignore[misc]
+    help={
+        'no_update': 'Skip updating the pre-commit hooks',
+    }
+)
+def pre_commit(ctx: Context, no_update: bool = False) -> None:
+    """Run pre-commit."""
+    ctx.run('pre-commit install')
+    if not no_update:
+        ctx.run('pre-commit autoupdate')
+    # PLANNED: get hook stages from `.pre-commit-config.yaml`
+    ctx.run('poetry run pre-commit run --all-files --hook-stage commit --hook-stage push')

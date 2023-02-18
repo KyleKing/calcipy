@@ -1,6 +1,6 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
-from invoke import Collection, Context
+from invoke import Collection, Context, call
 from shoal.cli import task
 
 from . import lint, nox, pack, stale, tags, test, types
@@ -27,7 +27,7 @@ ns.add_collection(types)
         lint.fix,
         # docs.document,
         stale.check_for_stale_packages,
-        # tbd.pre_commit_hooks,
+        call(lint.pre_commit, no_update=True),
         # tbd.lint_project,
         # tbd.static_checks,
         # tbd.security_checks,
