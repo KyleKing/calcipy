@@ -17,8 +17,6 @@ from ..check_for_stale_packages import check_for_stale_packages as cfsp
 )
 def check_for_stale_packages(_ctx: Context, *, stale_months: int = 48) -> None:
     """Maintain `PACK_LOCK_PATH` based on `poetry.lock` to identify stale dependencies."""
-    # FIXME: Use can_skip() for poetry.lock vs. PACK_LOCK_PATH
-
     path_lock = Path('poetry.lock')
     cfsp(path_lock=path_lock, path_pack_lock=PACK_LOCK_PATH, stale_months=stale_months)
 

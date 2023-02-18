@@ -13,6 +13,7 @@ from bidict import bidict
 from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
 from shoal import get_logger
+from shoal.can_skip import can_skip
 
 try:
     import tomllib
@@ -184,7 +185,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
 
 
 @beartype
-def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_months: int) -> None:
+def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_months: int) -> bool:
     """Check for stale packages. Raise error and log all stale versions found.
 
     Args:
@@ -204,16 +205,16 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
         stale_list = '\n'.join(map(format_package, pkgs))
         logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
-    else:
-        oldest_date = np.amin([pack.datetime for pack in packages])
-        logger.info('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
-
+        return True
+    oldest_date = np.amin([pack.datetime for pack in packages])
+    logger.info('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
+    return False
 
 
 @beartype
 def check_for_stale_packages(
     path_lock: Path, *, stale_months: int, path_pack_lock: Path = PACK_LOCK_PATH,
-) -> None:
+) -> bool:
     """Read the cached packaging information.
 
     Args:
@@ -223,7 +224,10 @@ def check_for_stale_packages(
 
     """
     packages = _read_packages(path_lock)
-    old_cache = _read_cache(path_pack_lock)
-    updated_packages = _collect_release_dates(packages, old_cache)
-    _write_cache(updated_packages, path_pack_lock)
-    _check_for_stale_packages(updated_packages, stale_months=stale_months)
+    cached_packages = _read_cache(path_pack_lock)
+    if can_skip(prerequisites=[path_lock], targets=[PACK_LOCK_PATH]):
+        packages = [*cached_packages.values()]
+    else:
+        packages = _collect_release_dates(packages, cached_packages)
+        _write_cache(packages, path_pack_lock)
+    return _check_for_stale_packages(packages, stale_months=stale_months)

@@ -1869,18 +1869,19 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "shoal"
-version = "0.3.0"
+version = "0.4.0"
 description = "Lazy, Python-first, alternative to make, just, doit, and invoke"
 category = "main"
 optional = false
 python-versions = ">=3.7.12,<4.0.0"
 files = [
-    {file = "shoal-0.3.0-py3-none-any.whl", hash = "sha256:c4d20575856455096d9c555d9073846f4a723171e1f1f657263ea3fb4650e45d"},
-    {file = "shoal-0.3.0.tar.gz", hash = "sha256:34a75d43f4d71a8b6a0f6ed816e63834ec41a65555177815cceef3c7a41f6908"},
+    {file = "shoal-0.4.0-py3-none-any.whl", hash = "sha256:8c2a1f4fbfd049822cd81778130d67390ff7ddc7eb33b9e8ec2274872f2e0d23"},
+    {file = "shoal-0.4.0.tar.gz", hash = "sha256:5cb3a96c65bb4f82fba3087a1eb0200956c1886647311f3c23335e3f3e81193b"},
 ]
 
 [package.dependencies]
 beartype = ">=0.12.0"
+invoke = ">=2.0.0"
 pydantic = ">=1.10.4"
 rich = ">=13.3.1"
 
@@ -2231,4 +2232,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "64c982939d1bc6b041f8c877d1d1fa0334256972784c83fae883b3777cdd810d"
+content-hash = "71666e5c95c77e2913adf7858f17a15de9c3888b6688d469a98b31636d832c63"
