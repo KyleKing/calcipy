@@ -7,12 +7,13 @@ from shoal.cli import task
 
 from calcipy.log import logger
 
-from . import lint, nox, pack, stale, tags, test, types
+from . import doc, lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
 # https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module
 ns = Collection('')
+ns.add_collection(doc)
 ns.add_collection(lint)
 ns.add_collection(nox)
 ns.add_collection(pack)
@@ -49,11 +50,11 @@ def with_progress(items: List[Union[Call, Task]]) -> List[Union[Call, Task]]:
     pre=with_progress(
         [
             tags.collect_code_tags,
-            # cl_write,
+            # FIXME: doc.cl_write,
             pack.lock,
             nox.noxfile,
             lint.fix,
-            # > docs.document,
+            doc.build,
             stale.check_for_stale_packages,
             call(lint.pre_commit, no_update=True),
             lint.security,
@@ -69,10 +70,10 @@ def main(_ctx: Context) -> None:
 @task(  # type: ignore[misc]
     pre=with_progress(
         [
-            # > cl_bump,  # TODO: Support pre-release: "cl_bump_pre -p rc"
+            # > doc.cl_bump,  # TODO: Support pre-release: "cl_bump_pre -p rc"
             pack.lock,
-            # > docs.document,
-            # > docs.deploy_docs,
+            doc.build,
+            doc.deploy,
             pack.publish,
         ],
     ),

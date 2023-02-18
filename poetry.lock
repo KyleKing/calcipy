@@ -2829,6 +2829,25 @@ slack = ["slack-sdk"]
 telegram = ["requests"]
 
 [[package]]
+name = "transitions"
+version = "0.9.0"
+description = "A lightweight, object-oriented Python state machine implementation with many extensions."
+category = "main"
+optional = true
+python-versions = "*"
+files = [
+    {file = "transitions-0.9.0-py2.py3-none-any.whl", hash = "sha256:5687ee8c6a3200830e44f988d16b0045f53293f7a873002d7bff70852331a078"},
+    {file = "transitions-0.9.0.tar.gz", hash = "sha256:2f54d11bdb225779d7e729011e93a9fb717668ce3dc65f8d4f5a5d7ba2f48e10"},
+]
+
+[package.dependencies]
+six = "*"
+
+[package.extras]
+diagrams = ["pygraphviz"]
+test = ["pytest"]
+
+[[package]]
 name = "tryceratops"
 version = "1.1.0"
 description = "A linter to manage your exception like a PRO!"
@@ -3186,7 +3205,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 
 [extras]
 ddict = ["python-box"]
-docs = ["commitizen", "mdx_truly_sane_lists", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pyyaml"]
+doc = ["commitizen", "mdx_truly_sane_lists", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pyyaml", "transitions"]
 flake8 = ["cohesion", "dlint", "flake8-aaa", "flake8-absolute-import", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-broken-line", "flake8-class-attributes-order", "flake8-executable", "flake8-expression-complexity", "flake8-fine-pytest", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-require-beartype", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names", "tryceratops", "xenon"]
 lint = ["bandit", "ruff", "semgrep"]
 nox = ["nox-poetry"]
@@ -3199,4 +3218,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "eeeb87fcf18fde8450d5d93c71d873666184cc009d14e415538ae0b42f77a37c"
+content-hash = "5fa0e8bba50d932b00d86db7963845b462e9ecfb26f4b1e1320149ea5514b775"

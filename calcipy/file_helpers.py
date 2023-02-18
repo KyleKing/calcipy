@@ -118,8 +118,8 @@ def _read_yaml_file(path_yaml: Path) -> Any:
     """
     try:
         import yaml  # lazy-load the optional dependency
-    except ImportError:
-        raise RuntimeError("The 'calcipy[docs]' extras are missing") from None
+    except ImportError as exc:
+        raise RuntimeError("The 'calcipy[docs]' extras are missing") from exc
 
     # TODO: modify so that mkdocs.yml can be read, but Python won't be executed...
 

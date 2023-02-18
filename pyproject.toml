@@ -38,7 +38,7 @@ arrow = {optional = true, version = ">=1.2.3"} # tags
 bandit = {optional = true, version = ">=1.7.4"} # lint
 bidict = {optional = true, version = ">=0.22.1"} # stale
 cohesion = {optional = true, version = ">=1.0.0"} # flake8
-commitizen = {optional = true, version = ">=2.28.0"} # docs
+commitizen = {optional = true, version = ">=2.28.0"} # doc
 dlint = {optional = true, version = ">=0.14.0"} # flake8
 flake8-aaa = {optional = true, version = ">=0.12.2"} # flake8
 flake8-absolute-import = {optional = true, version = ">=1.0.0.1"} # flake8
@@ -67,19 +67,19 @@ flake8-typing-imports = {optional = true, version = ">=1.14.0"} # flake8
 flake8-use-pathlib = {optional = true, version = ">=0.3.0"} # flake8
 flake8-variables-names = {optional = true, version = ">=0.0.5"} # flake8
 invoke = ">=2.0.0"
-mdx_truly_sane_lists = {optional = true, version = ">=1.2"} # docs
-mkdocs = {optional = true, version = ">=1.4.1"} # docs
-mkdocs-build-plantuml-plugin = {optional = true, version = ">=1.7.4"} # docs
-mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # docs
-mkdocs-git-revision-date-localized-plugin = {optional = true, version = ">=1.0.1"} # docs
-mkdocs-include-markdown-plugin = {optional = true, version = ">=3.3.0"} # docs
-mkdocs-literate-nav = {optional = true, version = ">=0.5.0"} # docs
-mkdocs-material = {optional = true, version = ">=8.2.16"} # docs
-mkdocs-section-index = {optional = true, version = ">=0.3.4"} # docs
-mkdocstrings = {extras = ["python"], optional = true, version = ">=0.18.1"} # docs
+mdx_truly_sane_lists = {optional = true, version = ">=1.2"} # doc
+mkdocs = {optional = true, version = ">=1.4.1"} # doc
+mkdocs-build-plantuml-plugin = {optional = true, version = ">=1.7.4"} # doc
+mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # doc
+mkdocs-git-revision-date-localized-plugin = {optional = true, version = ">=1.0.1"} # doc
+mkdocs-include-markdown-plugin = {optional = true, version = ">=3.3.0"} # doc
+mkdocs-literate-nav = {optional = true, version = ">=0.5.0"} # doc
+mkdocs-material = {optional = true, version = ">=8.2.16"} # doc
+mkdocs-section-index = {optional = true, version = ">=0.3.4"} # doc
+mkdocstrings = {extras = ["python"], optional = true, version = ">=0.18.1"} # doc
 mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.2"} # test
-pandas = {optional = true, version = ">=1.5.3"} # tags
+pandas = {optional = true, version = ">=1.5.3"} # docs,tags
 pylint = {optional = true, version = ">=2.16.2"} # pylint
 pyrate_limiter = {optional = true, version = ">=2.4"} # stale
 pytest = {optional = true, version = ">=7.2.1"} # test
@@ -87,19 +87,20 @@ pytest-cov = {optional = true, version = ">=4.0.0"} # test
 pytest-randomly = {optional = true, version = ">=3.12.0"} # test
 pytest-watcher = {optional = true, version = ">=0.2.6"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
-pyyaml = {optional = true, version = ">=5.2"} # docs
+pyyaml = {optional = true, version = ">=5.2"} # doc
 requests = {optional = true, version = ">=2.28.1"} # stale
 ruff = {optional = true, version = ">=0.0.238"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
 shoal = ">=0.5.0" # poetry run pip install -e ../shoal
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 tomli = {markers = "python_version < '3.11'", version = ">=2.0.1"}
+transitions = {optional = true, version = ">=0.9.0"} # tags: docs
 tryceratops = {optional = true, version = ">=1.1.0"} # flake8
 xenon = {optional = true, version = ">=0.9.0"} # flake8: Wraps radon, which has a flake8 plugin
 
 [tool.poetry.extras]
 ddict = ["python-box"]
-docs = [
+doc = [
   "commitizen",
   "mdx_truly_sane_lists",
   "mkdocs",
@@ -111,7 +112,9 @@ docs = [
   "mkdocs-material",
   "mkdocs-section-index",
   "mkdocstrings",
+  "pandas",
   "pyyaml",
+  "transitions",
 ]
 flake8 = [
   "cohesion",

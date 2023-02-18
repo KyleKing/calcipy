@@ -86,7 +86,7 @@ The core functionality of calcipy is the rich set of tasks run with `doit`
     - **nox**/**test**/**coverage**: Tasks for running nox sessions, pytest in the local environment, and pytest coverage
     - **ptw\_\***: Variations of tasks to run pytest watch
     - **cl_bump** (**cl_bump_pre**):Bumps project version based on commits & settings in pyproject.toml.
-    - **deploy_docs**: Deploy docs to the Github `gh-pages` branch.
+    - **doc.deploy**: Deploy docs to the Github `gh-pages` branch.
     - **publish**: Build the distributable format(s) and publish.
     - **check_license**: Check licenses for compatibility.
     - **lint_critical_only**: Suppress non-critical linting errors. Great for gating PRs/commits.
