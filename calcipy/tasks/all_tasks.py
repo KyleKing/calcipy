@@ -1,10 +1,13 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
-from invoke import Collection, Context, call
+from invoke import Collection, Context, call, run
+from shoal import get_logger
 from shoal.cli import task
 
 from . import lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
+
+logger = get_logger()
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
 # https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module
@@ -19,9 +22,15 @@ ns.add_collection(types)
 
 
 @task(  # type: ignore[misc]
-    pre=[
+    help={
+        'continue': 'Run all tasks even if there are failures',
+    },
+)
+def main(_ctx: Context, *, continue_: bool = False) -> None:
+    """Main task pipeline."""
+    pipeline = [
         tags.collect_code_tags,
-        # cl_write,
+        # > docs.cl_write,
         pack.lock,
         nox.noxfile,
         lint.fix,
@@ -30,13 +39,14 @@ ns.add_collection(types)
         call(lint.pre_commit, no_update=True),
         lint.security,
         types.mypy,
-    ],
-)
-def main(_ctx: Context) -> None:
-    """Main task pipeline."""
-    # TODO: Consider using `invoke.run` to emulate `doit --continue` behavior
-    # TODO: ^ If using `run()` could consider selectively using multi-process as well..
-    ...
+    ]  # TODO: Make the list of pipeline tasks interchangeable (to add/remove)
+    for idx, item in enumerate(pipeline):
+        logger.info('Progress', idx=idx, total=len(pipeline))
+        try:
+            run(item)
+        except Exception:
+            if not continue_:
+                raise
 
 
 @task(  # type: ignore[misc]
