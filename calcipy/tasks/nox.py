@@ -15,18 +15,14 @@ def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     with ctx.cd('.'):  # FYI: can change directory like this
         ctx.run(
             f'poetry run nox --error-on-missing-interpreters {" ".join(cli_args)}',
-            # TODO: Is echo always True?
-            echo=True,
-            # TODO: How to set pty to False for GHA?
-            pty=True,
+            echo=True, pty=True,
         )
 
 
-@task(
+@task(  # type: ignore[misc]
     default=True,
     help={},
 )
-# @beartype # FIXME: Make beartype part of my custom "task/tang" wrapper in shoal
 def default(ctx: Context) -> None:
     """Run all nox steps from the local noxfile."""
     _inner_task(ctx, cli_args=[])
@@ -36,7 +32,7 @@ def default(ctx: Context) -> None:
 def _gen_task(task_name: str) -> None:
     """Dynamically generate common nox tasks."""
 
-    @task(help=default.help)
+    @task(help=default.help)  # type: ignore[misc]
     def _task(ctx: Context) -> None:
         _inner_task(ctx, cli_args=[task_name])
 

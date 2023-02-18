@@ -24,12 +24,11 @@ def _inner_task(
     target = f' ./{read_package_name()} ./tests' if target is None else f' {target}'
     ctx.run(
         f'poetry run {command}{target}{cli_args}',
-        # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
 
 
-@task(
+@task(  # type: ignore[misc]
     default=True,
     help={
         # TODO: use file_args! 'ctx.config.gto.file_args'
@@ -41,13 +40,13 @@ def check(ctx: Context, *, target: Optional[str] = None) -> None:
     _inner_task(ctx, cli_args='', target=target)
 
 
-@task(help=check.help)
+@task(help=check.help)  # type: ignore[misc]
 def fix(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, cli_args=' --fix', target=target)
 
 
-@task(help=check.help)
+@task(help=check.help)  # type: ignore[misc]
 def watch(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args=' --watch --show-source', target=target)

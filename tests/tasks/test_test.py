@@ -36,7 +36,7 @@ def test_write_json(ctx):
     write_json(ctx, out_dir='.cover')
     ctx.run.assert_has_calls([
         call('poetry run coverage run --source=calcipy --module pytest ./tests', echo=True, pty=True),
-        call('poetry run python -m coverage report --show-missing', echo=True, pty=True),
-        call('poetry run python -m coverage html --directory=.cover', echo=True, pty=True),
-        call('poetry run python -m coverage json', echo=True, pty=True),
+        call('poetry run python -m coverage report --show-missing'),
+        call('poetry run python -m coverage html --directory=.cover'),
+        call('poetry run python -m coverage json'),
     ])

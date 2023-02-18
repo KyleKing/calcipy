@@ -33,12 +33,11 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     ctx.run(
         f'poetry run {command} ./tests{cli_args}',
-        # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
 
 
-@task(
+@task(  # type: ignore[misc]
     default=True,
     help={
         # See: https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests
@@ -52,19 +51,19 @@ def default(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     _inner_task(ctx, cli_args=f' --cov={pkg_name} --cov-report=term-missing', keyword=keyword, marker=marker)
 
 
-@task(help=default.help)
+@task(help=default.help)  # type: ignore[misc]
 def step(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker)
 
 
-@task(help=default.help)
+@task(help=default.help)  # type: ignore[misc]
 def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with polling and optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')
 
 
-@task(
+@task(  # type: ignore[misc]
     help={
         'min_cover': 'Fail if coverage less than threshold',
         'out_dir': 'Optional path to coverage directory. Typically ".cover" or "releases/tests"',
@@ -78,7 +77,6 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
     pkg_name = read_package_name()
     ctx.run(
         f'poetry run coverage run --source={pkg_name} --module pytest ./tests{cover_args}',
-        # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
 
@@ -89,7 +87,7 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
         f'poetry run python -m coverage html --directory={cov_dir}',  # Write to HTML
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
     ]:
-        ctx.run(cmd, echo=True, pty=True)
+        ctx.run(cmd)
 
     if view:  # pragma: no cover
         open_in_browser(cov_dir / 'index.html')

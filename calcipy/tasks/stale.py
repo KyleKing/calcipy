@@ -9,7 +9,7 @@ from ..check_for_stale_packages import PACK_LOCK_PATH
 from ..check_for_stale_packages import check_for_stale_packages as cfsp
 
 
-@task(
+@task(  # type: ignore[misc]
     default=True,
     help={
         'stale_months': 'Cutoff in months for when a package may be stale enough to be a risk',

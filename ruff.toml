@@ -23,6 +23,7 @@ unfixable = [
 
 [flake8-tidy-imports.banned-api]
 "typing".msg = "Use beartype.typing instead."
+"invoke.task".msg = "Use shoal.cli.task instead."
 
 [flake8-quotes]
 inline-quotes = 'single'

@@ -21,12 +21,11 @@ def _inner_task(ctx: Context, *, cli_args: str, command: str) -> None:
     pkg_name = read_package_name()
     ctx.run(
         f'poetry run {command} {pkg_name}{cli_args}',
-        # FYI: see ../tasks/nox.py for open questions
         echo=True, pty=True,
     )
 
 
-@task(
+@task(  # type: ignore[misc]
     default=True,
     help={},
 )
@@ -34,7 +33,7 @@ def pyright(ctx: Context) -> None:
     """Default task to run pyright."""
     _inner_task(ctx, cli_args='', command='pyright')
 
-@task(
+@task(  # type: ignore[misc]
     help={
         'out_dir': 'Optional path to the report directory. Typically "releases/tests/mypy_html"',
         'view': 'If True, open the created file',

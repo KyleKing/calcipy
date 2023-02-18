@@ -14,7 +14,7 @@ from .defaults import from_ctx
 
 logger = get_logger()
 
-@task(
+@task(  # type: ignore[misc]
     default=True,
     help={
         'base_dir': 'Working Directory',
