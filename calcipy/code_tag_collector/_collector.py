@@ -10,7 +10,7 @@ from subprocess import CalledProcessError  # nosec
 import arrow
 import pandas as pd
 from beartype import beartype
-from beartype.typing import Dict, List, Optional, Pattern, Sequence, Tuple
+from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from pydantic import BaseModel
 from shoal import (
     capture_shell,  # FIXME: Move to grouper (name tbd)

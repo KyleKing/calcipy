@@ -45,19 +45,19 @@ def _inner_task(
         'marker': 'Only run tests matching given mark expression',
     },
 )
-def default(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
+def pytest(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with default arguments."""
     pkg_name = read_package_name()
     _inner_task(ctx, cli_args=f' --cov={pkg_name} --cov-report=term-missing', keyword=keyword, marker=marker)
 
 
-@task(help=default.help)  # type: ignore[misc]
+@task(help=pytest.help)  # type: ignore[misc]
 def step(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker)
 
 
-@task(help=default.help)  # type: ignore[misc]
+@task(help=pytest.help)  # type: ignore[misc]
 def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with polling and optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')

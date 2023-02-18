@@ -6,7 +6,7 @@ from shoal.cli import task
 from . import lint, nox, stale, tags, test, types
 from .defaults import DEFAULTS
 from .lint import fix
-from .nox import default as nox_default
+from .nox import noxfile
 from .stale import check_for_stale_packages
 from .tags import collect_code_tags
 from .types import mypy as types_mypy
@@ -27,7 +27,7 @@ ns.add_collection(types)
         collect_code_tags,
         # cl_write,
         # lock,
-        nox_default,
+        noxfile,
         fix,
         # document,
         check_for_stale_packages,

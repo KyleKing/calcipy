@@ -30,7 +30,7 @@ def _inner_task(ctx: Context, *, cli_args: str, command: str) -> None:
     help={},
 )
 def pyright(ctx: Context) -> None:
-    """Default task to run pyright."""
+    """Run pyright."""
     _inner_task(ctx, cli_args='', command='pyright')
 
 @task(  # type: ignore[misc]
@@ -40,7 +40,7 @@ def pyright(ctx: Context) -> None:
     },
 )
 def mypy(ctx: Context, *, out_dir: Optional[str] = None, view: bool = False) -> None:
-    """Alternatie task to run mypy."""
+    """Run mypy."""
     # PLANNED: If `out_dir == ''`, then do not create an HTML report
     report_dir = Path(out_dir or from_ctx(ctx, 'types', 'out_dir'))
     _inner_task(ctx, cli_args=f' --html-report={report_dir}', command='python -m mypy')

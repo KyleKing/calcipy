@@ -1,6 +1,5 @@
 """Code Tag Collector CLI."""
 
-import re
 from pathlib import Path
 
 from beartype.typing import Optional

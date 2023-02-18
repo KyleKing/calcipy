@@ -47,16 +47,14 @@ class _HostedPythonPackage(BaseModel):
 PACK_LOCK_PATH = Path('.calcipy_packaging.lock')
 """Path to the packaging lock file."""
 
-# HACK: Check that this works then refactor (shouldn't be global)
+# Configure rate-limiter
 #   https://pypi.org/project/pyrate-limiter/
-#   https://learn.vonage.com/blog/2020/10/22/respect-api-rate-limits-with-a-backoff-dr/
 _RATE = RequestRate(3, 5 * Duration.SECOND)
 _LIMITER = Limiter(_RATE)
-_ITEM = 'pypi'
 
 
 @beartype
-@_LIMITER.ratelimit(_ITEM, delay=True, max_delay=10)  # type: ignore[misc]
+@_LIMITER.ratelimit('pypi', delay=True, max_delay=10)  # type: ignore[misc]
 def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
 

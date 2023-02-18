@@ -23,7 +23,7 @@ def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     default=True,
     help={},
 )
-def default(ctx: Context) -> None:
+def noxfile(ctx: Context) -> None:
     """Run all nox steps from the local noxfile."""
     _inner_task(ctx, cli_args=[])
 
@@ -32,7 +32,7 @@ def default(ctx: Context) -> None:
 def _gen_task(task_name: str) -> None:
     """Dynamically generate common nox tasks."""
 
-    @task(help=default.help)  # type: ignore[misc]
+    @task(help=noxfile.help)  # type: ignore[misc]
     def _task(ctx: Context) -> None:
         _inner_task(ctx, cli_args=[task_name])
 

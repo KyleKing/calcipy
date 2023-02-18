@@ -43,7 +43,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Run test
-        run: poetry run calcipy test.default
+        run: poetry run calcipy test.pytest
 
   typecheck:
     runs-on: ${{ matrix.os }}
