@@ -5,11 +5,19 @@ import webbrowser
 from pathlib import Path
 
 from beartype import beartype
-from beartype.typing import Literal
 from invoke import Context
 from shoal.cli import task
 
-from ..file_helpers import _MKDOCS_CONFIG_NAME, _read_yaml_file, open_in_browser, trim_trailing_whitespace
+from .._temp_dg import dg
+from ..file_helpers import (
+    _MKDOCS_CONFIG_NAME,
+    _read_yaml_file,
+    ensure_dir,
+    get_project_path,
+    open_in_browser,
+    read_package_name,
+    trim_trailing_whitespace,
+)
 from ..md_writer import write_autoformatted_md_sections
 
 
@@ -41,28 +49,18 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
 
 [Full Size](./classes.svg)
 """
-    path_diagram = pdoc_out_path / dg.meta.pkg_name / '_code_diagrams.md'
+    pkg_name = read_package_name()
+    path_diagram = pdoc_out_path / pkg_name / '_code_diagrams.md'
+    ensure_dir(path_diagram.parent)
     path_diagram.write_text(diagram_md)
     ctx.run(
-        f'poetry run pyreverse {dg.meta.pkg_name} --output svg --output-directory {path_diagram.parent}',
+        f'poetry run pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}',
     )
-
-
-@beartype
-def _ensure_handler_lookup() -> None:
-    """Configure the handler lookup if not already configured."""
-    if dg.doc.handler_lookup is None:
-        dg.doc.handler_lookup = {
-            'COVERAGE ': _handle_coverage,
-            'SOURCE_FILE=': _handle_source_file,
-        }
 
 
 @task()  # type: ignore[misc]
 def build(ctx: Context) -> None:
     """Build documentation with mkdocs."""
-    _ensure_handler_lookup()
-
     auto_doc_path = dg.doc.auto_doc_path
     write_autoformatted_md_sections()
     shutil.rmtree(auto_doc_path)
@@ -87,7 +85,7 @@ def _is_mkdocs_local() -> bool:
         bool: True if configured for local file output rather than hosted
 
     """
-    mkdocs_config = _read_yaml_file(dg.meta.path_project / _MKDOCS_CONFIG_NAME)
+    mkdocs_config = _read_yaml_file(get_project_path() / _MKDOCS_CONFIG_NAME)
     return mkdocs_config.get('use_directory_urls') is False
 
 

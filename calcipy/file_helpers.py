@@ -20,6 +20,17 @@ except ModuleNotFoundError:
     import tomli as tomllib
 
 # ----------------------------------------------------------------------------------------------------------------------
+# Path Helpers
+
+
+@lru_cache(maxsize=1)
+@beartype
+def get_project_path() -> Path:
+    """Retrieve either the git directory or the `cwd`."""
+    # PLANNED: Consider using `Path(capture_shell('git ...'))`
+    return Path.cwd()
+
+# ----------------------------------------------------------------------------------------------------------------------
 # Read General Text Files
 
 

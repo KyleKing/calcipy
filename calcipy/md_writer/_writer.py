@@ -6,13 +6,15 @@ from pathlib import Path
 
 import pandas as pd
 from beartype import beartype
-from beartype.typing import Any, Callable, Dict, List, Pattern
+from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
 from transitions import Machine
 
-from ..file_helpers import (
-    read_lines,
-)
+from ..file_helpers import get_project_path, read_lines
+from ..file_search import find_project_files_by_suffix
 from ..log import logger
+
+HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
+"""Handler Lookup."""
 
 
 class _ParseSkipError(RuntimeError):
@@ -51,7 +53,7 @@ class _ReplacementMachine(Machine):
 
     @beartype
     def _parse_line(
-        self, line: str, handler_lookup: Dict[str, Callable[[str, Path], List[str]]], path_file: Path,
+        self, line: str, handler_lookup: HandlerLookupT, path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
 
@@ -87,7 +89,7 @@ class _ReplacementMachine(Machine):
 
     @beartype
     def parse(
-        self, lines: List[str], handler_lookup: Dict[str, Callable[[str, Path], List[str]]],
+        self, lines: List[str], handler_lookup: HandlerLookupT,
         path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
@@ -142,12 +144,12 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
 
     """
     key, path_rel = [*_parse_var_comment(line).items()][0]
-    path_base = dg.meta.path_project if path_rel.startswith('/') else path_file.resolve().parent
+    path_base = get_project_path() if path_rel.startswith('/') else path_file.resolve().parent
     path_source = path_base / path_rel.lstrip('/')
     language = path_source.suffix.lstrip('.')
     lines_source = [f'```{language}', *read_lines(path_source), '```']
     if not path_source.is_file():
-        logger.warning(f'Could not locate: {path_source}')
+        logger.warning('Could not locate source file', path_source=path_source)
 
     line_start = f'<!-- {{cts}} {key}={path_rel}; -->'
     line_end = '<!-- {cte} -->'
@@ -173,12 +175,12 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     }
     records = [
         {
-            **{'File': f'`{Path(path_file).as_posix()}`'},
+            'File': f'`{Path(path_file).as_posix()}`',
             **{col: file_obj['summary'][key] for col, key in col_key_map.items()},
         } for path_file, file_obj in coverage_data['files'].items()
     ]
     records.append({
-        **{'File': '**Totals**'},
+        'File': '**Totals**',
         **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
     })
     # Format table for Github Markdown
@@ -205,9 +207,10 @@ def _handle_coverage(line: str, _path_file: Path) -> List[str]:
         _ParseSkipError: if the "coverage.json" file is not available
 
     """
-    path_coverage = dg.meta.path_project / 'coverage.json'  # Created by "task_coverage"
+    path_coverage = get_project_path() / 'coverage.json'  # Created by "task_coverage"
     if not path_coverage.is_file():
-        raise _ParseSkipError(f'Could not locate: {path_coverage}')
+        msg = f'Could not locate: {path_coverage}'
+        raise _ParseSkipError(msg)
     coverage_data = json.loads(path_coverage.read_text())
     lines_cov = _format_cov_table(coverage_data)
     line_end = '<!-- {cte} -->'
@@ -215,18 +218,16 @@ def _handle_coverage(line: str, _path_file: Path) -> List[str]:
 
 
 @beartype
-def write_autoformatted_md_sections() -> None:
-    """Populate the auto-formatted sections of markdown files with user-configured logic.
+def write_autoformatted_md_sections(handler_loookup: Optional[HandlerLookupT] = None) -> None:
+    """Populate the auto-formatted sections of markdown files with user-configured logic."""
+    _lookup: HandlerLookupT = handler_loookup or {
+        'COVERAGE ': _handle_coverage,
+        'SOURCE_FILE=': _handle_source_file,
+    }
 
-    Raises:
-        RuntimeError: if `dg.doc.handler_lookup` hasn't ben configured. See `_ensure_handler_lookup`
-
-    """
-    dg = dg
-    if dg.doc.handler_lookup is None:
-        raise RuntimeError('The "dg.doc.handler_lookup" dictionary has not been created')
-
-    logger.info('> {paths_md}', paths_md=dg.doc.paths_md)
-    for path_md in dg.doc.paths_md:
-        md_lines = _ReplacementMachine().parse(read_lines(path_md), dg.doc.handler_lookup, path_md)
+    # PLANNED: Could be more efficient?
+    paths_by_suffix = find_project_files_by_suffix(get_project_path(), [])
+    for path_md in paths_by_suffix.get('md', []):
+        logger.debug('Processing', path_md=path_md)
+        md_lines = _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md)
         path_md.write_text('\n'.join(md_lines))

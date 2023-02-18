@@ -42,5 +42,31 @@ poetry config pypi-token.pypi ...
 ## Current Status
 
 <!-- {cts} COVERAGE -->
+| File                                                            |   Statements |   Missing |   Excluded | Coverage   |
+|-----------------------------------------------------------------|--------------|-----------|------------|------------|
+| `calcipy/__init__.py`                                           |            2 |         0 |          0 | 100.0%     |
+| `calcipy/check_for_stale_packages/__init__.py`                  |            1 |         1 |          0 | 0.0%       |
+| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          108 |       108 |          0 | 0.0%       |
+| `calcipy/code_tag_collector/__init__.py`                        |            1 |         1 |          0 | 0.0%       |
+| `calcipy/code_tag_collector/_collector.py`                      |          126 |       126 |          0 | 0.0%       |
+| `calcipy/dot_dict/__init__.py`                                  |            4 |         4 |          0 | 0.0%       |
+| `calcipy/dot_dict/_dot_dict.py`                                 |            8 |         8 |          0 | 0.0%       |
+| `calcipy/file_helpers.py`                                       |           89 |        47 |          6 | 47.2%      |
+| `calcipy/file_search.py`                                        |           35 |        35 |          2 | 0.0%       |
+| `calcipy/main.py`                                               |            7 |         7 |          0 | 0.0%       |
+| `calcipy/noxfile/__init__.py`                                   |            4 |         4 |          0 | 0.0%       |
+| `calcipy/noxfile/_noxfile.py`                                   |           30 |        30 |          1 | 0.0%       |
+| `calcipy/tasks/__init__.py`                                     |            0 |         0 |          0 | 100.0%     |
+| `calcipy/tasks/all_tasks.py`                                    |           11 |        11 |          0 | 0.0%       |
+| `calcipy/tasks/cached_utilities.py`                             |           23 |         5 |          0 | 78.3%      |
+| `calcipy/tasks/defaults.py`                                     |            9 |         0 |          0 | 100.0%     |
+| `calcipy/tasks/lint.py`                                         |           27 |        27 |          0 | 0.0%       |
+| `calcipy/tasks/nox.py`                                          |           30 |        30 |          0 | 0.0%       |
+| `calcipy/tasks/stale.py`                                        |           16 |        16 |          0 | 0.0%       |
+| `calcipy/tasks/tags.py`                                         |           26 |        26 |          0 | 0.0%       |
+| `calcipy/tasks/test.py`                                         |           44 |         0 |          2 | 100.0%     |
+| `calcipy/tasks/types.py`                                        |           30 |         1 |          0 | 96.7%      |
+| **Totals**                                                      |          631 |       487 |         11 | 22.8%      |
 
+Generated on: 2023-02-17
 <!-- {cte} -->

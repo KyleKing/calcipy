@@ -1,8 +1,11 @@
 """Changelog CLI."""
 
-from beartype.typing import Literal
+from beartype.typing import Literal, Optional
 from invoke import Context
 from shoal.cli import task
+
+from .._temp_dg import dg
+from ..file_helpers import get_project_path
 
 
 @task()  # type: ignore[misc]
@@ -23,9 +26,10 @@ def write(ctx: Context) -> None:
 
     """
     ctx.run('poetry run cz changelog')
-    path_cl = dg.meta.path_project / 'CHANGELOG.md'
+    path_cl = get_project_path() / 'CHANGELOG.md'
     if not path_cl.is_file():
-        raise FileNotFoundError(f'Could not locate the changelog at: {path_cl}')
+        msg = f'Could not locate the changelog at: {path_cl}'
+        raise FileNotFoundError(msg)
     path_cl.replace(dg.doc.doc_sub_dir / path_cl.name)
 
 
@@ -35,7 +39,7 @@ def write(ctx: Context) -> None:
         'suffix': 'Specify prerelease suffix for version bump (alpha, beta, rc)',
     },
 )
-def bump(ctx: Context, *, suffix: Literal['alpha', 'beta', 'rc', ''] = '') -> None:
+def bump(ctx: Context, *, suffix: Optional[Literal['alpha', 'beta', 'rc']] = None) -> None:  # noqa: F821
     """Bumps project version based on commits & settings in pyproject.toml."""
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
