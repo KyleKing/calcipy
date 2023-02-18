@@ -12,6 +12,8 @@ jobs:
   upgrade:
     name: Upgrade & Open Pull Request
     runs-on: ${{ matrix.os }}
+    permissions:
+      issues: write
     strategy:
       matrix:
         os: [ubuntu-22.04]
