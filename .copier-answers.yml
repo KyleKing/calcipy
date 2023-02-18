@@ -13,7 +13,7 @@ development_branch: main
 doc_dir: docs
 include_adrs: false
 include_all: true
-install_extras: --with=tags,file_search,flake8,lint,pylint,stale,test,types
+install_extras: -E lint -E nox -E stale -E tags -E test -E types
 minimum_python: 3.8.12
 package_name_py: calcipy
 project_description: Python package to simplify development

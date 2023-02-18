@@ -42,5 +42,5 @@ runs:
 
     - name: Install Project and Dependencies
       run: |-
-        poetry install -E main
+        poetry install -E lint -E nox -E stale -E tags -E test -E types
       shell: bash

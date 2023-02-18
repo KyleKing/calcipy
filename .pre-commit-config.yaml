@@ -44,7 +44,6 @@ repos:
     rev: v2.40.0
     hooks:
       - id: commitizen
-        additional_dependencies: [cz_legacy]
         stages: [commit-msg]
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16
@@ -53,23 +52,11 @@ repos:
         additional_dependencies: ["mdformat-mkdocs[recommneded]"]
         args: [--wrap=no]
         exclude: _.+\.md|CHANGELOG\.md|CODE_TAG_SUMMARY\.md
-  - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: 0.6.0
-    hooks:
-      - id: pyproject-fmt
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.9.0.2
     hooks:
       - id: shellcheck
         args: [--severity=warning]
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0
-    hooks:
-      # Can't generate baseline with Py 3.8. Use exclude regex rules instead
-      # See: https://github.com/Yelp/detect-secrets/issues/452
-      - id: detect-secrets
-        # args: ["--baseline", ".secrets.baseline"]
-        exclude: poetry\.lock|.*/cassettes/.*\.yaml
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.0-alpha.4
     hooks:
@@ -87,12 +74,9 @@ repos:
           (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: \.rej$
-      #   # Note: there are occasional errors when running doit in pre-commit
-      #   #  "doit.dependency.DatabaseException: [Errno 35] Resource temporarily unavailable: '.doit.db'"
-      #   #  Using './.doit.tmp-*' helps, but sometimes the file needs to be manually removed
-      # - id: python-formatter
-      #   name: Python Auto-Formatter
-      #   description: Apply calcipy formatting
-      #   language: system
-      #   entry: poetry run doit run --db-file=./.doit.tmp-py format_py
-      #   types: [python]
+      - id: python-formatter
+        name: Python Auto-Formatter
+        description: Apply calcipy formatting
+        language: system
+        entry: ./run lint.fix
+        types: [python]
