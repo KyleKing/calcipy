@@ -118,9 +118,8 @@ def _read_yaml_file(path_yaml: Path) -> Any:
     """
     try:
         import yaml  # lazy-load the optional dependency
-    except ImportError as exc:
-        # FIXME: Which dependency has the yaml library?
-        raise RuntimeError("The '(TBD)' dependency is missing") from exc
+    except ImportError:
+        raise RuntimeError("The 'calcipy[docs]' extras are missing") from None
 
     # TODO: modify so that mkdocs.yml can be read, but Python won't be executed...
 

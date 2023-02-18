@@ -5,10 +5,15 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Dict, List
-from pre_commit.git import zsplit  # FIXME: How does this relate to capture_shell?
-from pre_commit.util import cmd_output  # FIXME: How does this relate to capture_shell?
+from shoal.shell import capture_shell  # FIXME: Move to grouper (name tbd)
 
 from calcipy.log import logger
+
+
+@beartype
+def _zsplit(stdout: str) -> List[str]:
+    """Split output from git when used with `-z`."""
+    return [item for item in stdout.split('\0') if item]
 
 
 @beartype
@@ -24,7 +29,7 @@ def _get_all_files(*, cwd: Path) -> List[str]:
         List[str]: list of all file paths relative to the `cwd`
 
     """
-    return zsplit(cmd_output('git', 'ls-files', '-z', cwd=cwd)[1])  # type: ignore[no-any-return]
+    return _zsplit(capture_shell('git ls-files -z', cwd=cwd))
 
 
 @beartype

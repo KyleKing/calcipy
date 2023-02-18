@@ -5,16 +5,16 @@
 ```sh
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
-poetry install -E dev -E lint -E test -E commitizen_legacy
+poetry install --sync -E ddict -E docs -E flake8 -E lint -E nox -E pylint -E stale -E tags -E test -E types
 
 # See the available tasks
-poetry run doit list
+./run
 
 # Run the default task list (lint, auto-format, test coverage, etc.)
-poetry run doit --continue
+./run main
 
 # Make code changes and run specific tasks as needed:
-poetry run doit run test
+./run lint test
 ```
 
 ## Publishing
@@ -25,7 +25,7 @@ For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Rep
 poetry config repositories.testpypi https://test.pypi.org/legacy/
 poetry config pypi-token.testpypi ...
 
-poetry run doit run publish_test_pypi
+./run main pack.publish --to-test-pypi
 # If you didn't configure a token, you will need to provide your username and password to publish
 ```
 
@@ -33,15 +33,10 @@ To publish to the real PyPi
 
 ```sh
 poetry config pypi-token.pypi ...
-poetry run doit run publish
+./run release
 
-# For a full release, triple check the default tasks, increment the version, rebuild documentation (twice), and publish!
-poetry run doit run --continue
-poetry run doit run cl_bump lock document deploy_docs publish
-
-# For pre-releases use cl_bump_pre
-poetry run doit run cl_bump_pre -p rc
-poetry run doit run lock document deploy_docs publish
+# Or for a pre-release
+./run cl_bump --suffix=rc docs.build docs.deploy pack.publish
 ```
 
 ## Current Status

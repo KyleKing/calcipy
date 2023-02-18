@@ -106,5 +106,4 @@ def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     ctx.run('pre-commit install')
     if not no_update:
         ctx.run('pre-commit autoupdate')
-    # PLANNED: get hook stages from `.pre-commit-config.yaml`
-    ctx.run('poetry run pre-commit run --all-files --hook-stage commit --hook-stage push')
+    ctx.run('pre-commit run --all-files --hook-stage commit --hook-stage push')
