@@ -7,7 +7,7 @@ from invoke import Context
 from shoal import get_logger
 from shoal.cli import task
 
-from .cached_utilities import read_package_name
+from ..file_helpers import read_package_name
 
 logger = get_logger()
 

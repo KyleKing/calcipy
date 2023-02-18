@@ -8,8 +8,7 @@ from invoke import Context
 from shoal import get_logger
 from shoal.cli import task
 
-from ..file_helpers import open_in_browser
-from .cached_utilities import read_package_name
+from ..file_helpers import open_in_browser, read_package_name
 from .defaults import from_ctx
 
 logger = get_logger()

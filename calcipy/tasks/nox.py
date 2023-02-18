@@ -1,5 +1,4 @@
-"""Testing CLI."""
-
+"""Nox CLI."""
 
 from beartype import beartype
 from beartype.typing import List
@@ -8,6 +7,7 @@ from shoal import get_logger
 from shoal.cli import task
 
 logger = get_logger()
+
 
 @beartype
 def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
@@ -34,7 +34,7 @@ def _gen_task(task_name: str) -> None:
 
     @task(help=noxfile.help)  # type: ignore[misc]
     def _task(ctx: Context) -> None:
-        _inner_task(ctx, cli_args=[task_name])
+        _inner_task(ctx, cli_args=['--session', task_name])
 
     _task.__name__ = task_name
     _task.__doc__ = f"""Run {task_name} from the local noxfile."""
@@ -42,5 +42,5 @@ def _gen_task(task_name: str) -> None:
     globals()[task_name] = _task
 
 
-for name in ['build_check', 'test', 'coverage']:
+for name in ['test', 'coverage', 'build_check', 'build_dist']:
     _gen_task(name)

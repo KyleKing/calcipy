@@ -2,7 +2,8 @@ from unittest.mock import call
 
 import pytest
 
-from calcipy.tasks.test import default, step, watch, write_json
+from calcipy.tasks.test import step, watch, write_json
+from calcipy.tasks.test import pytest as task_pytest
 
 _COV = '--cov=calcipy --cov-report=term-missing'
 _MARKERS = 'mark1 and not mark 2'
@@ -13,9 +14,9 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'command'),
     [
-        (default, {}, f'poetry run python -m pytest ./tests {_COV}'),
-        (default, {'keyword': 'test'}, f'poetry run python -m pytest ./tests {_COV} -k "test"'),
-        (default, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests {_COV} -m "{_MARKERS}"'),
+        (task_pytest, {}, f'poetry run python -m pytest ./tests {_COV}'),
+        (task_pytest, {'keyword': 'test'}, f'poetry run python -m pytest ./tests {_COV} -k "test"'),
+        (task_pytest, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests {_COV} -m "{_MARKERS}"'),
         (step, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests {_FAILFIRST} -m "{_MARKERS}"'),
         (watch, {'marker': _MARKERS}, f'poetry run ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"'),
     ],

@@ -6,11 +6,17 @@ import string
 import time
 import webbrowser
 from contextlib import suppress
+from functools import lru_cache
 from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Any, Dict, List, Optional
 from shoal import get_logger
+
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 
 logger = get_logger()
 
@@ -76,6 +82,27 @@ def get_tool_versions(cwd: Optional[Path] = None) -> Dict[str, List[str]]:
         line.split(' ')[0]: line.split(' ')[1:]
         for line in (cwd / '.tool-versions').read_text().splitlines()
     }
+
+
+@lru_cache(maxsize=5)
+@beartype
+def read_pyproject(cwd: Optional[Path] = None) -> Any:
+    """Read the 'pyproject.toml' file once."""
+    toml_path = cwd / 'pyproject.toml' if cwd else Path('pyproject.toml')
+    try:
+        pyproject_txt = toml_path.read_text()
+    except Exception as exc:
+        msg = f'Could not locate: {toml_path}'
+        raise RuntimeError(msg) from exc
+    return tomllib.loads(pyproject_txt)
+
+
+@lru_cache(maxsize=1)
+@beartype
+def read_package_name() -> str:
+    """Read the package name once."""
+    poetry_config = read_pyproject()
+    return str(poetry_config['tool']['poetry']['name'])
 
 
 @beartype

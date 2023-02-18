@@ -32,169 +32,121 @@ with open(path_stdout, 'w') as out:
 
 """
 
+import shlex
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from beartype import beartype
-from beartype.typing import Dict, List
-
-# from ..._fixme_.doit_tasks.doit_globals import DoitTask, get_dg
-# from ..._fixme_.doit_tasks.test import task_coverage, task_test
+from beartype.typing import List, Union, Dict
 from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
+from numpy import isin
 from shoal import get_logger
 
+from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name, read_pyproject
+
 logger = get_logger()
-
-_DEV_KEY = '_dev'
-"""Key for list of development dependencies."""
-
-_PINS: Dict[str, List[str]] = {_DEV_KEY: []}
-"""Hackish global to track dev-dependencies that are user-specified."""
 
 
 @lru_cache(maxsize=1)
 @beartype
-def get_pythons() -> List[str]:
-    # FIXME: Replace with read_tool_versions...
-    return ['3.10.5']
+def _get_pythons() -> List[str]:
+    """Read the `.tool-versions` file."""
+    return get_tool_versions()['python']
 
+
+@lru_cache(maxsize=1)
 @beartype
-def pin_dev_dependencies(pins: List[str]) -> None:
-    """Manually specify dependencies for development.
+def _get_dev_deps() -> List[str]:
+    """list of dependencies from pyproject.
 
-    TODO: Make this auto-resolve based on pyproject.toml
-
-    Args:
-        pins: list of dependencies (i.e. `['Cerberus=>1.3.4', 'freezegun']`)
+    Returns:
+        List[str]: `['Cerberus=>1.3.4', 'freezegun']`
 
     """
-    _PINS[_DEV_KEY] = pins
+    @beartype
+    def to_package(key: str, value: Union[Dict, str]) -> str:
+        extras = [] if isinstance(value, str) else value.get('extras', [])
+        if extras:
+            key += f'[{",".join(extras)}]'
+        return key
+
+    @beartype
+    def to_constraint(value: Union[Dict, str]) -> str:
+        version = value if isinstance(value, str) else value['version']
+        return version.replace('^', '==')
+
+    poetry_config = read_pyproject()['tool']['poetry']
+    dependencies = {
+        **poetry_config.get('dev', {}).get('dependencies', {}),
+        **poetry_config.get('group', {}).get('dev', {}).get('dependencies', {}),
+    }
+    return [f'{to_package(key, value)}{to_constraint(value)}' for key, value in dependencies.items()]
 
 
+@beartype
+def _install_local(session: Session, extras: List[str]) -> None:
+    """Ensure local dev-dependencies and calcipy extras are installed.
 
-# @beartype
-# def _run_str_cmd(session: Session, cmd_str: str) -> None:
-#     """Run a command string. Ensure that poetry is left-stripped.
+    See: https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855445920
 
-#     Args:
-#         session: nox_poetry Session
-#         cmd_str: string command to run
+    """
+    if read_package_name() == 'calcipy':
+        session.poetry.installroot(extras=extras)
+    else:  # pragma: no cover
+        session.install('.', f'calcipy[{",".join(extras)}]')
 
-#     """
-#     cmd_str = re.sub(r'^poetry run ', '', cmd_str)
-#     session.run(*shlex.split(cmd_str), stdout=True)
+    session.install(*_get_dev_deps())
 
-# @beartype
-# def _install_calcipy_extras(session: Session, extras: List[str]) -> None:
-#     """Ensure calcipy extras are installed.
 
-#     Args:
-#         session: nox_poetry Session
-#         extras: list of extras to install
+@nox_session(python=_get_pythons(), reuse_venv=True)
+def tests(session: Session) -> None:
+    """Run doit test task for specified python versions.
 
-#     """
-#     if get_dg().meta.pkg_name == 'calcipy':
-#         session.poetry.installroot(extras=extras)
-#     else:  # pragma: no cover
-#         session.install('.', f'calcipy[{",".join(extras)}]')
+    Args:
+        session: nox_poetry Session
 
-# @beartype
-# def _install_pinned(session: Session, key: str) -> None:
-#     """Ensure user-pinned dependencies are installed.
+    """
+    _install_local(session, ['dev', 'test'])
+    session.run(*shlex.split('pytest ./tests'), stdout=True)
 
-#     See [Issue #230](https://github.com/cjolowicz/nox-poetry/issues/230)
 
-#     Args:
-#         session: nox_poetry Session
+@nox_session(python=_get_pythons()[-1:], reuse_venv=True)
+def coverage(session: Session) -> None:
+    """Run doit test task for specified python versions.
 
-#     """
-#     for pin in _PINS.get(key, []):
-#         session.install(pin)
+    Args:
+        session: nox_poetry Session
 
-# @beartype
-# def _run_func_cmd(action: Iterable) -> None:  # type: ignore[type-arg]
-#     """Run a python action.
+    """
+    _install_local(session, ['dev', 'test'])
+    pkg_name = read_package_name()
+    session.run(
+        *shlex.split(f'pytest ./tests --cov={pkg_name} --cov-report=term-missing'),
+        stdout=True,
+    )
 
-#     Args:
-#         action: doit python action
 
-#     Raises:
-#         RuntimeError: if a function action fails
+@nox_session(python=_get_pythons()[-1:], reuse_venv=False)
+def build_dist(session: Session) -> None:
+    """Build the project files within a controlled environment for repeatability.
 
-#     """
-#     # https://pydoit.org/tasks.html#python-action
-#     func, args, kwargs = [*list(action), {}][:3]
-#     result = func(args, **kwargs)
-#     if result not in [True, None] or not isinstance(result, (str, dict)):
-#         raise RuntimeError(f'Returned {result}. Failed to run task: {action}')
+    Args:
+        session: nox_poetry Session
 
-# @beartype
-# def _run_doit_task(session: Session, task_fun: Callable[[], DoitTask]) -> None:
-#     """Run a DoitTask actions without using doit.
+    """
+    if_found_unlink(Path('dist'))
+    path_wheel = session.poetry.build_package()
+    logger.info('Created wheel', path_wheel=path_wheel)
+    # Install the wheel and check that imports without any of the optional dependencies
+    session.install(path_wheel)
+    session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
 
-#     Args:
-#         session: nox_poetry Session
-#         task_fun: function that returns a DoitTask
 
-#     Raises:
-#         NotImplementedError: if the action is of an unknown type
-
-#     """
-#     task = task_fun()
-#     for action in task['actions']:
-#         if isinstance(action, str):
-#             _run_str_cmd(session, action)
-#         elif getattr(action, 'action', None):
-#             _run_str_cmd(session, action.action)  # type: ignore[union-attr]
-#         elif isinstance(action, (list, tuple)):
-#             _run_func_cmd(action)
-#         else:
-#             raise NotImplementedError(f'Unable to run {action} ({type(action)})')
-
-# @nox_session(python=get_pythons(), reuse_venv=True)
-# def tests(session: Session) -> None:
-#     """Run doit test task for specified python versions.
-
-#     Args:
-#         session: nox_poetry Session
-
-#     """
-#     _install_calcipy_extras(session, ['dev', 'test'])
-#     _install_pinned(session, key=_DEV_KEY)
-#     _run_doit_task(session, task_test)
-
-# @nox_session(python=get_pythons()[-1:], reuse_venv=True)
-# def coverage(session: Session) -> None:
-#     """Run doit test task for specified python versions.
-
-#     Args:
-#         session: nox_poetry Session
-
-#     """
-#     _install_calcipy_extras(session, ['dev', 'test'])
-#     _install_pinned(session, key=_DEV_KEY)
-#     _run_doit_task(session, task_coverage)
-
-# @nox_session(python=get_pythons()[-1:], reuse_venv=False)
-# def build_dist(session: Session) -> None:
-#     """Build the project files within a controlled environment for repeatability.
-
-#     Args:
-#         session: nox_poetry Session
-
-#     """
-#     if_found_unlink(get_dg().meta.path_project / 'dist')
-#     path_wheel = session.poetry.build_package()
-#     logger.info(f'Created wheel: {path_wheel}')
-#     # Install the wheel and check that imports without any of the optional dependencies
-#     session.install(path_wheel)
-#     session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
-
-@nox_session(python=get_pythons()[-1:], reuse_venv=True)
+@nox_session(python=_get_pythons()[-1:], reuse_venv=True)
 def build_check(session: Session) -> None:
     """Check that the built output meets all checks.
 

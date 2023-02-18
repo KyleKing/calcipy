@@ -36,9 +36,6 @@ known-first-party = ['calcipy']
 	'D104',  # Missing docstring in public package
 	'F401',  # imported but unused; consider adding to __all__ or using a redundant alias
 ]
-'*/_noxfile.py' = [
-	'ERA001',  # TODO: Temporary while working on the noxfile
-]
 '*tests/*.py' = [
 	'ANN001',  # Missing type annotation for function argument
 	'D100',    # Missing docstring in public module
