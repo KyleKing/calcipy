@@ -1,6 +1,7 @@
 
 import pytest
 
+from calcipy.tasks.invoke_helpers import use_pty
 from calcipy.tasks.types import mypy, pyright
 
 
@@ -17,4 +18,4 @@ from calcipy.tasks.types import mypy, pyright
 )
 def test_types(ctx, task, kwargs, command):
     task(ctx, **kwargs)
-    ctx.run.assert_called_once_with(command, echo=True, pty=True)
+    ctx.run.assert_called_once_with(command, echo=True, pty=use_pty())

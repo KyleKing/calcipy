@@ -5,6 +5,8 @@ from beartype.typing import List
 from invoke import Context
 from shoal.cli import task
 
+from .invoke_helpers import use_pty
+
 
 @beartype
 def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
@@ -12,7 +14,7 @@ def _inner_task(ctx: Context, *, cli_args: List[str]) -> None:
     with ctx.cd('.'):  # FYI: can change directory like this
         ctx.run(
             f'poetry run nox --error-on-missing-interpreters {" ".join(cli_args)}',
-            echo=True, pty=True,
+            echo=True, pty=use_pty(),
         )
 
 

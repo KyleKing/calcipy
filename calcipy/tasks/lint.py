@@ -8,6 +8,7 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import read_package_name
+from .invoke_helpers import use_pty
 
 # ==============================================================================
 # Ruff
@@ -30,7 +31,7 @@ def _inner_task(
         target = f'./{read_package_name()} ./tests' if target is None else target
     ctx.run(
         f'poetry run {command} {target}{cli_args}',
-        echo=True, pty=True,
+        echo=True, pty=use_pty(),
     )
 
 

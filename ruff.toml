@@ -19,6 +19,7 @@ ignore = [
 ]
 unfixable = [
     'ERA001',  # Commented out code
+    'RUF100',  # Unused noqa directive (remove once flake8 is fully replaced)
 ]
 
 [flake8-tidy-imports.banned-api]

@@ -2,6 +2,7 @@ from unittest.mock import call
 
 import pytest
 
+from calcipy.tasks.invoke_helpers import use_pty
 from calcipy.tasks.test import pytest as task_pytest
 from calcipy.tasks.test import step, watch, write_json
 
@@ -31,13 +32,13 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 )
 def test_test(ctx, task, kwargs, command):
     task(ctx, **kwargs)
-    ctx.run.assert_called_once_with(command, echo=True, pty=True)
+    ctx.run.assert_called_once_with(command, echo=True, pty=use_pty())
 
 
 def test_write_json(ctx):
     write_json(ctx, out_dir='.cover')
     ctx.run.assert_has_calls([
-        call('poetry run coverage run --source=calcipy --module pytest ./tests', echo=True, pty=True),
+        call('poetry run coverage run --source=calcipy --module pytest ./tests', echo=True, pty=use_pty()),
         call('poetry run python -m coverage report --show-missing'),
         call('poetry run python -m coverage html --directory=.cover'),
         call('poetry run python -m coverage json'),

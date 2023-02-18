@@ -9,6 +9,7 @@ from shoal.cli import task
 
 from ..file_helpers import open_in_browser, read_package_name
 from .defaults import from_ctx
+from .invoke_helpers import use_pty
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 
@@ -29,7 +30,7 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     ctx.run(
         f'poetry run {command} ./tests{cli_args}',
-        echo=True, pty=True,
+        echo=True, pty=use_pty(),
     )
 
 
@@ -74,7 +75,7 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
     pkg_name = read_package_name()
     ctx.run(
         f'poetry run coverage run --source={pkg_name} --module pytest ./tests{cover_args}',
-        echo=True, pty=True,
+        echo=True, pty=use_pty(),
     )
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'tests', 'out_dir'))
