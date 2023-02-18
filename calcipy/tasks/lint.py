@@ -54,7 +54,13 @@ def absolufy_imports(ctx: Context) -> None:
     _inner_task(ctx, cli_args=' --never', target=target, command='absolufy-imports')
 
 
-@task(pre=[absolufy_imports], help=check.help)  # type: ignore[misc]
+@task()  # type: ignore[misc]
+def autopep8(ctx: Context) -> None:
+    """Run autopep8."""
+    _inner_task(ctx, cli_args=' --recursive --in-place --aggressive', command='python -m autopep8')
+
+
+@task(pre=[absolufy_imports, autopep8], help=check.help)  # type: ignore[misc]
 def fix(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, cli_args=' --fix', target=target)

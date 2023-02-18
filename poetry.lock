@@ -112,6 +112,22 @@ tests = ["attrs[tests-no-zope]", "zope.interface"]
 tests-no-zope = ["cloudpickle", "cloudpickle", "hypothesis", "hypothesis", "mypy (>=0.971,<0.990)", "mypy (>=0.971,<0.990)", "pympler", "pympler", "pytest (>=4.3.0)", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-mypy-plugins", "pytest-xdist[psutil]", "pytest-xdist[psutil]"]
 
 [[package]]
+name = "autopep8"
+version = "2.0.1"
+description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
+category = "main"
+optional = true
+python-versions = ">=3.6"
+files = [
+    {file = "autopep8-2.0.1-py2.py3-none-any.whl", hash = "sha256:be5bc98c33515b67475420b7b1feafc8d32c1a69862498eda4983b45bffd2687"},
+    {file = "autopep8-2.0.1.tar.gz", hash = "sha256:d27a8929d8dcd21c0f4b3859d2d07c6c25273727b98afc984c039df0f0d86566"},
+]
+
+[package.dependencies]
+pycodestyle = ">=2.10.0"
+tomli = {version = "*", markers = "python_version < \"3.11\""}
+
+[[package]]
 name = "babel"
 version = "2.11.0"
 description = "Internationalization utilities"
@@ -517,20 +533,20 @@ testing = ["covdefaults (>=2.2.2)", "coverage (>=7.0.1)", "pytest (>=7.2)", "pyt
 
 [[package]]
 name = "flake8"
-version = "5.0.4"
+version = "6.0.0"
 description = "the modular source code checker: pep8 pyflakes and co"
 category = "main"
 optional = true
-python-versions = ">=3.6.1"
+python-versions = ">=3.8.1"
 files = [
-    {file = "flake8-5.0.4-py2.py3-none-any.whl", hash = "sha256:7a1cf6b73744f5806ab95e526f6f0d8c01c66d7bbe349562d22dfca20610b248"},
-    {file = "flake8-5.0.4.tar.gz", hash = "sha256:6fbe320aad8d6b95cec8b8e47bc933004678dc63095be98528b7bdd2a9f510db"},
+    {file = "flake8-6.0.0-py2.py3-none-any.whl", hash = "sha256:3833794e27ff64ea4e9cf5d410082a8b97ff1a06c16aa3d2027339cd0f1195c7"},
+    {file = "flake8-6.0.0.tar.gz", hash = "sha256:c61007e76655af75e6785a931f452915b371dc48f56efd765247c8fe68f2b181"},
 ]
 
 [package.dependencies]
 mccabe = ">=0.7.0,<0.8.0"
-pycodestyle = ">=2.9.0,<2.10.0"
-pyflakes = ">=2.5.0,<2.6.0"
+pycodestyle = ">=2.10.0,<2.11.0"
+pyflakes = ">=3.0.0,<3.1.0"
 
 [[package]]
 name = "flake8-aaa"
@@ -590,21 +606,6 @@ files = [
 
 [package.dependencies]
 flake8 = "*"
-
-[[package]]
-name = "flake8-broken-line"
-version = "0.6.0"
-description = "Flake8 plugin to forbid backslashes for line breaks"
-category = "main"
-optional = true
-python-versions = ">=3.7,<4.0"
-files = [
-    {file = "flake8-broken-line-0.6.0.tar.gz", hash = "sha256:a02268f11a18837c83c59013a36cc00fee9e17a042745cc0c9895f1c9f6acc16"},
-    {file = "flake8_broken_line-0.6.0-py3-none-any.whl", hash = "sha256:c0ab336ff7de228dbffbe56d67b3615bb21fb15f3ed0604fa7bdf9feb72d7d88"},
-]
-
-[package.dependencies]
-flake8 = ">=3.5,<6"
 
 [[package]]
 name = "flake8-class-attributes-order"
@@ -729,21 +730,6 @@ files = [
 [package.extras]
 lint = ["flake8"]
 test = ["PyHamcrest", "pytest", "pytest-cov"]
-
-[[package]]
-name = "flake8-markdown"
-version = "0.4.0"
-description = "Lints Python code blocks in Markdown files using flake8"
-category = "main"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8-markdown-0.4.0.tar.gz", hash = "sha256:c1d1f2c5055df2d6af22597aca401e6693a3d1389d06d2105272cb80478e686c"},
-    {file = "flake8_markdown-0.4.0-py3-none-any.whl", hash = "sha256:d03dfd75605e7346416de0adaedfbfa0f50833a1f8a3aec634065a577f90a950"},
-]
-
-[package.dependencies]
-flake8 = ">=5.0.0"
 
 [[package]]
 name = "flake8-pep3101"
@@ -1916,14 +1902,14 @@ wcwidth = "*"
 
 [[package]]
 name = "pycodestyle"
-version = "2.9.1"
+version = "2.10.0"
 description = "Python style guide checker"
 category = "main"
 optional = true
 python-versions = ">=3.6"
 files = [
-    {file = "pycodestyle-2.9.1-py2.py3-none-any.whl", hash = "sha256:d1735fc58b418fd7c5f658d28d943854f8a849b01a5d0a1e6f3f3fdd0166804b"},
-    {file = "pycodestyle-2.9.1.tar.gz", hash = "sha256:2c9607871d58c76354b697b42f5d57e1ada7d261c261efac224b664affdc5785"},
+    {file = "pycodestyle-2.10.0-py2.py3-none-any.whl", hash = "sha256:8a4eaf0d0495c7395bdab3589ac2db602797d76207242c17d470186815706610"},
+    {file = "pycodestyle-2.10.0.tar.gz", hash = "sha256:347187bdb476329d98f695c213d7295a846d1152ff4fe9bacb8a9590b8ee7053"},
 ]
 
 [[package]]
@@ -1981,14 +1967,14 @@ email = ["email-validator (>=1.0.3)"]
 
 [[package]]
 name = "pyflakes"
-version = "2.5.0"
+version = "3.0.1"
 description = "passive checker of Python programs"
 category = "main"
 optional = true
 python-versions = ">=3.6"
 files = [
-    {file = "pyflakes-2.5.0-py2.py3-none-any.whl", hash = "sha256:4579f67d887f804e67edb544428f264b7b24f435b263c4614f384135cea553d2"},
-    {file = "pyflakes-2.5.0.tar.gz", hash = "sha256:491feb020dca48ccc562a8c0cbe8df07ee13078df59813b83959cbdada312ea3"},
+    {file = "pyflakes-3.0.1-py2.py3-none-any.whl", hash = "sha256:ec55bf7fe21fff7f1ad2f7da62363d749e2a470500eab1b555334b67aa1ef8cf"},
+    {file = "pyflakes-3.0.1.tar.gz", hash = "sha256:ec8b276a6b60bd80defed25add7e439881c19e64850afd9b346283d4165fd0fd"},
 ]
 
 [[package]]
@@ -3245,7 +3231,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [extras]
 ddict = ["python-box"]
 doc = ["commitizen", "mdx_truly_sane_lists", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pyyaml", "transitions"]
-flake8 = ["cohesion", "dlint", "flake8-aaa", "flake8-absolute-import", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-broken-line", "flake8-class-attributes-order", "flake8-executable", "flake8-expression-complexity", "flake8-fine-pytest", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-markdown", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-require-beartype", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names", "tryceratops", "xenon"]
+flake8 = ["autopep8", "cohesion", "dlint", "flake8", "flake8-aaa", "flake8-absolute-import", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-class-attributes-order", "flake8-executable", "flake8-expression-complexity", "flake8-fine-pytest", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-require-beartype", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names", "tryceratops", "xenon"]
 lint = ["absolufy-imports", "bandit", "ruff", "semgrep"]
 nox = ["nox-poetry"]
 pylint = ["pylint"]
@@ -3257,4 +3243,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "cb4c492ce6a676fbc6a08ec1868632913d3882286f622a456ce9d439e84cffbb"
+content-hash = "a702696b9163a756127b3381ddbb38f910d727f82db8c08c2170736959c1ff35"

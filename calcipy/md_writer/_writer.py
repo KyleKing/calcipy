@@ -20,8 +20,6 @@ HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
 class _ParseSkipError(RuntimeError):
     """Exception caught if the handler does not want to replace the text."""
 
-    ...
-
 
 class _ReplacementMachine(Machine):
     """State machine to replace content with user-specified handlers.

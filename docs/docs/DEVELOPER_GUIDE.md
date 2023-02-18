@@ -36,7 +36,7 @@ poetry config pypi-token.pypi ...
 ./run release
 
 # Or for a pre-release
-./run cl_bump --suffix=rc doc.build doc.deploy pack.publish
+./run release --suffix=rc
 ```
 
 ## Current Status

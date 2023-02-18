@@ -37,7 +37,8 @@ def progress(_ctx: Context, *, index: int, total: int) -> None:
 
 
 @beartype
-def with_progress(items: List[Union[Call, Task]], offset: int = 0) -> List[Union[Call, Task]]:
+def with_progress(items: List[Union[Call, Task]],
+                  offset: int = 0) -> List[Union[Call, Task]]:
     """Inject intermediary 'progress' tasks.
 
     Args:
@@ -52,32 +53,32 @@ def with_progress(items: List[Union[Call, Task]], offset: int = 0) -> List[Union
     return tasks
 
 
+_MAIN_TASKS = [
+    tags.collect_code_tags,
+    cl.write,
+    pack.lock,
+    nox.noxfile,
+    lint.fix,
+    doc.build,
+    stale.check_for_stale_packages,
+    call(lint.pre_commit, no_update=True),
+    lint.security,
+    types.mypy,
+]
+
+# TODO: Can the main tasks be extended? Maybe by adding a new 'main' task?'
+
+
 @task(  # type: ignore[misc]
-    pre=with_progress(
-        [
-            tags.collect_code_tags,
-            cl.write,
-            pack.lock,
-            nox.noxfile,
-            lint.fix,
-            doc.build,
-            stale.check_for_stale_packages,
-            call(lint.pre_commit, no_update=True),
-            lint.security,
-            types.mypy,
-        ],
-    ),  # TODO: Make the list of pipeline tasks interchangeable (support add/remove)
+    post=with_progress(_MAIN_TASKS),
 )
 def main(_ctx: Context) -> None:
     """Main task pipeline."""
-    ...
+    logger.info('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
 
 
 @task(  # type: ignore[misc]
-    pre=[
-        # TODO: Figure out a way to pass suffix to cl.bump (i.e. )"cl.bump -suffix rc")
-        cl.bump,
-    ],
+    help=cl.bump.help,
     post=with_progress(
         [
             pack.lock,
@@ -88,9 +89,9 @@ def main(_ctx: Context) -> None:
         offset=1,
     ),
 )
-def release(_ctx: Context) -> None:
+def release(ctx: Context, *, suffix: cl.SuffixT = None) -> None:
     """Release pipeline."""
-    ...
+    cl.bumpz(ctx, suffix=suffix)
 
 
 ns.add_task(main)
