@@ -2,12 +2,9 @@
 
 from beartype import beartype
 from invoke import Context
-from shoal import get_logger
 from shoal.cli import task
 
 from ..file_helpers import read_package_name
-
-logger = get_logger()
 
 
 @beartype

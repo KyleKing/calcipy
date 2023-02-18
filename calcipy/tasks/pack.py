@@ -3,11 +3,10 @@
 from pathlib import Path
 
 from invoke import Context
-from shoal import get_logger
 from shoal.can_skip import can_skip
 from shoal.cli import task
 
-logger = get_logger()
+from calcipy.log import logger
 
 
 @task()  # type: ignore[misc]

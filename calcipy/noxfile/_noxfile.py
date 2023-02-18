@@ -43,11 +43,10 @@ from beartype.typing import Dict, List, Union
 from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
-from shoal import get_logger
+
+from calcipy.log import logger
 
 from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name, read_pyproject
-
-logger = get_logger()
 
 
 @lru_cache(maxsize=1)

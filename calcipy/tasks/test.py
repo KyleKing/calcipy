@@ -5,13 +5,10 @@ from pathlib import Path
 from beartype import beartype
 from beartype.typing import Optional
 from invoke import Context
-from shoal import get_logger
 from shoal.cli import task
 
 from ..file_helpers import open_in_browser, read_package_name
 from .defaults import from_ctx
-
-logger = get_logger()
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 

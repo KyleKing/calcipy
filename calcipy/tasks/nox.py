@@ -3,10 +3,7 @@
 from beartype import beartype
 from beartype.typing import List
 from invoke import Context
-from shoal import get_logger
 from shoal.cli import task
-
-logger = get_logger()
 
 
 @beartype

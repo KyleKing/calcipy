@@ -12,14 +12,11 @@ import pandas as pd
 from beartype import beartype
 from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from pydantic import BaseModel
-from shoal import (
-    capture_shell,  # FIXME: Move to grouper (name tbd)
-    get_logger,  # FIXME: Move to grouper (name tbd)
-)
+from shoal.shell import capture_shell  # FIXME: Move to grouper (name tbd)
+
+from calcipy.log import logger
 
 from ..file_helpers import read_lines  # FIXME: Move to grouper (name tbd)
-
-logger = get_logger()
 
 SKIP_PHRASE = 'calcipy:skip_tags'
 """String that indicates the file should be excluded from the tag search."""

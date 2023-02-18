@@ -1,13 +1,11 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
 from invoke import Collection, Context, call, run
-from shoal import get_logger
 from shoal.cli import task
 
+from calcipy.log import logger
 from . import lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
-
-logger = get_logger()
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
 # https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module

@@ -11,15 +11,13 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Any, Dict, List, Optional
-from shoal import get_logger
+
+from calcipy.log import logger
 
 try:
     import tomllib
 except ModuleNotFoundError:
     import tomli as tomllib
-
-logger = get_logger()
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Read General Text Files

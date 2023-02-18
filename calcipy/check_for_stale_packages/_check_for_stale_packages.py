@@ -12,16 +12,14 @@ from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
 from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
-from shoal import get_logger
 from shoal.can_skip import can_skip
+
+from calcipy.log import logger
 
 try:
     import tomllib
 except ModuleNotFoundError:
     import tomli as tomllib
-
-
-logger = get_logger()
 
 
 class _HostedPythonPackage(BaseModel):
