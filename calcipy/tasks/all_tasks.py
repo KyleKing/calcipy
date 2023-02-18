@@ -5,14 +5,14 @@ from beartype.typing import List, Union
 from invoke import Call, Collection, Context, Task, call
 from shoal.cli import task
 
-from calcipy.log import logger
-
-from . import doc, lint, nox, pack, stale, tags, test, types
+from ..log import logger
+from . import cl, doc, lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
 # https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module
 ns = Collection('')
+ns.add_collection(cl)
 ns.add_collection(doc)
 ns.add_collection(lint)
 ns.add_collection(nox)
@@ -37,12 +37,18 @@ def progress(_ctx: Context, *, index: int, total: int) -> None:
 
 
 @beartype
-def with_progress(items: List[Union[Call, Task]]) -> List[Union[Call, Task]]:
-    """Inject intermediary 'progress' tasks."""
+def with_progress(items: List[Union[Call, Task]], offset: int = 0) -> List[Union[Call, Task]]:
+    """Inject intermediary 'progress' tasks.
+
+    Args:
+        items: list of tasks
+        offset: Optional offset to shift counters
+
+    """
     tasks = []
-    total = len(items)
+    total = len(items) + offset
     for ix, item in enumerate(items):
-        tasks.extend([call(progress, index=ix, total=total), item])
+        tasks.extend([call(progress, index=ix + offset, total=total), item])
     return tasks
 
 
@@ -50,7 +56,7 @@ def with_progress(items: List[Union[Call, Task]]) -> List[Union[Call, Task]]:
     pre=with_progress(
         [
             tags.collect_code_tags,
-            # FIXME: doc.cl_write,
+            cl.write,
             pack.lock,
             nox.noxfile,
             lint.fix,
@@ -68,14 +74,18 @@ def main(_ctx: Context) -> None:
 
 
 @task(  # type: ignore[misc]
-    pre=with_progress(
+    pre=[
+        # TODO: Figure out a way to pass suffix to cl.bump (i.e. )"cl.bump -suffix rc")
+        cl.bump,
+    ],
+    post=with_progress(
         [
-            # > doc.cl_bump,  # TODO: Support pre-release: "cl_bump_pre -p rc"
             pack.lock,
             doc.build,
             doc.deploy,
             pack.publish,
         ],
+        offset=1,
     ),
 )
 def release(_ctx: Context) -> None:
