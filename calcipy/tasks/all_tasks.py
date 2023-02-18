@@ -1,9 +1,12 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
-from invoke import Collection, Context, call, run
+from beartype import beartype
+from beartype.typing import List, Union
+from invoke import Call, Collection, Context, Task, call
 from shoal.cli import task
 
 from calcipy.log import logger
+
 from . import lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
 
@@ -21,40 +24,58 @@ ns.add_collection(types)
 
 @task(  # type: ignore[misc]
     help={
-        'continue': 'Run all tasks even if there are failures',
+        'index': 'Current index (0-indexed)',
+        'total': 'Total steps',
     },
 )
-def main(_ctx: Context, *, continue_: bool = False) -> None:
+def progress(_ctx: Context, *, index: int, total: int) -> None:
     """Main task pipeline."""
-    pipeline = [
-        tags.collect_code_tags,
-        # > docs.cl_write,
-        pack.lock,
-        nox.noxfile,
-        lint.fix,
-        # > docs.document,
-        stale.check_for_stale_packages,
-        call(lint.pre_commit, no_update=True),
-        lint.security,
-        types.mypy,
-    ]  # TODO: Make the list of pipeline tasks interchangeable (to add/remove)
-    for idx, item in enumerate(pipeline):
-        logger.info('Progress', idx=idx, total=len(pipeline))
-        try:
-            run(item)
-        except Exception:
-            if not continue_:
-                raise
+    if index > 0:
+        print('')  # noqa: T201
+    logger.info('Progress', index=index + 1, total=total)
+
+
+@beartype
+def with_progress(items: List[Union[Call, Task]]) -> List[Union[Call, Task]]:
+    """Inject intermediary 'progress' tasks."""
+    tasks = []
+    total = len(items)
+    for ix, item in enumerate(items):
+        tasks.extend([call(progress, index=ix, total=total), item])
+    return tasks
 
 
 @task(  # type: ignore[misc]
-    pre=[
-        # > cl_bump,  # TODO: Support pre-release: "cl_bump_pre -p rc"
-        pack.lock,
-        # > docs.document,
-        # > docs.deploy_docs,
-        pack.publish,
-    ],
+    pre=with_progress(
+        [
+            tags.collect_code_tags,
+            # cl_write,
+            pack.lock,
+            nox.noxfile,
+            lint.fix,
+            # > docs.document,
+            stale.check_for_stale_packages,
+            call(lint.pre_commit, no_update=True),
+            lint.security,
+            types.mypy,
+        ],
+    ),  # TODO: Make the list of pipeline tasks interchangeable (support add/remove)
+)
+def main(_ctx: Context) -> None:
+    """Main task pipeline."""
+    ...
+
+
+@task(  # type: ignore[misc]
+    pre=with_progress(
+        [
+            # > cl_bump,  # TODO: Support pre-release: "cl_bump_pre -p rc"
+            pack.lock,
+            # > docs.document,
+            # > docs.deploy_docs,
+            pack.publish,
+        ],
+    ),
 )
 def release(_ctx: Context) -> None:
     """Release pipeline."""

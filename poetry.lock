@@ -1828,14 +1828,14 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "shoal"
-version = "0.4.0"
+version = "0.5.0"
 description = "Lazy, Python-first, alternative to make, just, doit, and invoke"
 category = "main"
 optional = false
 python-versions = ">=3.7.12,<4.0.0"
 files = [
-    {file = "shoal-0.4.0-py3-none-any.whl", hash = "sha256:8c2a1f4fbfd049822cd81778130d67390ff7ddc7eb33b9e8ec2274872f2e0d23"},
-    {file = "shoal-0.4.0.tar.gz", hash = "sha256:5cb3a96c65bb4f82fba3087a1eb0200956c1886647311f3c23335e3f3e81193b"},
+    {file = "shoal-0.5.0-py3-none-any.whl", hash = "sha256:022809913cd5b945cf8175666f4df4b7ac07d593fb48922ba19ee59c99fca1b0"},
+    {file = "shoal-0.5.0.tar.gz", hash = "sha256:956fd592d1827b21c55a21233b5f00b4f807402af6250a33298bc6e265081e23"},
 ]
 
 [package.dependencies]
@@ -2228,4 +2228,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "02d4adb27886fb1066d1a260b583656c3fdca4fc14dc6a966646a52d7b0c66a5"
+content-hash = "3350714decd3832c85c3be3cb94155dd1eca3c37e249d6062ff1753efb84a9e8"
