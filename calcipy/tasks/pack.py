@@ -6,6 +6,7 @@ from shoal.cli import task
 
 from ..file_helpers import LOCK, PROJECT_TOML
 from ..log import logger
+from ..noxfile._noxfile import BASE_NOX_COMMAND
 from .invoke_helpers import use_pty
 
 
@@ -25,7 +26,7 @@ def lock(ctx: Context) -> None:
 )
 def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     """Build the distributed format(s) and publish."""
-    ctx.run('poetry run nox --session build_dist build_check', echo=True, pty=use_pty())
+    ctx.run(f'{BASE_NOX_COMMAND} --session build_dist build_check', echo=True, pty=use_pty())
 
     cmd = 'poetry publish'
     if to_test_pypi:

@@ -78,6 +78,23 @@ def main(_ctx: Context) -> None:
     logger.info('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
 
 
+_OTHER_TASKS = [
+    lint.flake8,
+    lint.pylint,
+    pack.check_licenses,
+    test.step,
+    types.pyright,
+]
+
+
+@task(  # type: ignore[misc]
+    post=with_progress(_OTHER_TASKS),
+)
+def other(_ctx: Context) -> None:
+    """Run tasks that are otherwise not exercised in main."""
+    logger.info('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
+
+
 @task(  # type: ignore[misc]
     help=cl.bump.help,
     post=with_progress(
@@ -96,6 +113,7 @@ def release(ctx: Context, *, suffix: cl.SuffixT = None) -> None:
 
 
 ns.add_task(main)
+ns.add_task(other)
 ns.add_task(release)
 
 ns.configure(DEFAULTS)

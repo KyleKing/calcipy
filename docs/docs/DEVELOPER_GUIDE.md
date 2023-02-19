@@ -59,21 +59,21 @@ poetry config pypi-token.pypi ...
 | `calcipy/md_writer/__init__.py`                                 |            4 |         4 |          0 | 0.0%       |
 | `calcipy/md_writer/_writer.py`                                  |           95 |        95 |          0 | 0.0%       |
 | `calcipy/noxfile/__init__.py`                                   |            4 |         4 |          0 | 0.0%       |
-| `calcipy/noxfile/_noxfile.py`                                   |           71 |        71 |          2 | 0.0%       |
+| `calcipy/noxfile/_noxfile.py`                                   |           73 |        73 |          2 | 0.0%       |
 | `calcipy/tasks/__init__.py`                                     |            0 |         0 |          0 | 100.0%     |
-| `calcipy/tasks/all_tasks.py`                                    |           39 |        39 |          0 | 0.0%       |
+| `calcipy/tasks/all_tasks.py`                                    |           43 |        43 |          0 | 0.0%       |
 | `calcipy/tasks/cl.py`                                           |           28 |        28 |          0 | 0.0%       |
 | `calcipy/tasks/defaults.py`                                     |            9 |         3 |          0 | 66.7%      |
 | `calcipy/tasks/doc.py`                                          |           37 |        37 |          5 | 0.0%       |
 | `calcipy/tasks/invoke_helpers.py`                               |           10 |         1 |          0 | 90.0%      |
 | `calcipy/tasks/lint.py`                                         |           50 |        50 |          0 | 0.0%       |
-| `calcipy/tasks/nox.py`                                          |           12 |        12 |          0 | 0.0%       |
-| `calcipy/tasks/pack.py`                                         |           25 |        25 |          0 | 0.0%       |
+| `calcipy/tasks/nox.py`                                          |            8 |         8 |          0 | 0.0%       |
+| `calcipy/tasks/pack.py`                                         |           26 |        26 |          0 | 0.0%       |
 | `calcipy/tasks/stale.py`                                        |            7 |         7 |          0 | 0.0%       |
 | `calcipy/tasks/tags.py`                                         |           14 |        14 |          0 | 0.0%       |
 | `calcipy/tasks/test.py`                                         |           35 |         0 |          2 | 100.0%     |
 | `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
-| **Totals**                                                      |          881 |       749 |         17 | 15.0%      |
+| **Totals**                                                      |          884 |       752 |         17 | 14.9%      |
 
 Generated on: 2023-02-19
 <!-- {cte} -->

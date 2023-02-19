@@ -39,6 +39,7 @@
 
 ### Refactor
 
+- reorder main tasks
 - resolve flake8 warnings and better manage filenames
 - apply autopep8 to fix whitespace issues
 - import initialized logger directly
