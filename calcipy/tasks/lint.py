@@ -8,7 +8,7 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import read_package_name
-from .invoke_helpers import use_pty
+from ..invoke_helpers import use_pty
 
 # ==============================================================================
 # Ruff
@@ -28,8 +28,6 @@ def _inner_task(
         target = ' '.join([str(_a) for _a in file_args])
     elif target is None:
         target = f'./{read_package_name()} ./tests'
-    else:
-        target = ''
     ctx.run(
         f'poetry run {command} {target}{cli_args}',
         echo=True, pty=use_pty(),
@@ -86,10 +84,16 @@ def flake8(ctx: Context, *, target: Optional[str] = None) -> None:
     _inner_task(ctx, cli_args='', target=target, command='python -m flake8')
 
 
-@task(help=check.help)  # type: ignore[misc]
-def pylint(ctx: Context, *, target: Optional[str] = None) -> None:
+@task(  # type: ignore[misc]
+    help={
+        'report': 'if provided, show the pylint summary report',
+        **check.help,
+    },
+)
+def pylint(ctx: Context, *, report: bool = False, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
-    _inner_task(ctx, cli_args='', target=target, command='python -m pylint')
+    cli_args = ' --report=y' if report else ''
+    _inner_task(ctx, cli_args=cli_args, target=target, command='python -m pylint')
 
 
 # ==============================================================================

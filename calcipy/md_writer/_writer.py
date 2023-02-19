@@ -9,9 +9,9 @@ from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
 from transitions import Machine
 
+from .._log import logger
 from ..file_helpers import get_project_path, read_lines
 from ..file_search import find_project_files_by_suffix
-from ..log import logger
 
 HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
 """Handler Lookup."""

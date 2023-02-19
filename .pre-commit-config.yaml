@@ -65,6 +65,12 @@ repos:
           - prettier-plugin-sh
         exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml
         types: [yaml]
+  - repo: https://github.com/pappasam/toml-sort
+    rev: v0.22.3
+    hooks:
+      - id: toml-sort-fix
+        # TODO: https://github.com/pappasam/toml-sort/issues/42
+        exclude: poery.lock|pyproject\.toml
   - repo: local
     hooks:
       - id: copier-forbidden-files

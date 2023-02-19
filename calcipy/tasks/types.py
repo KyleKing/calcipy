@@ -5,7 +5,7 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import read_package_name
-from .invoke_helpers import use_pty
+from ..invoke_helpers import use_pty
 
 
 @beartype

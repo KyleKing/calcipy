@@ -5,7 +5,7 @@ from beartype.typing import List, Union
 from invoke import Call, Collection, Context, Task, call
 from shoal.cli import task
 
-from ..log import logger
+from .._log import logger
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
 

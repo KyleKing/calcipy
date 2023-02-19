@@ -7,9 +7,25 @@ Note: the calcipy imports are required for a nicer test HTML report
 from pathlib import Path
 
 import pytest
+from beartype.typing import Dict
 from invoke import MockContext
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
+
+
+@pytest.fixture(scope='module')
+def vcr_config() -> Dict:
+    """Global configuration (https://github.com/kiwicom/pytest-recording) for `pytest-recording` (vcr).
+
+    Returns:
+        Dict: `pytest-recording` options
+
+    """
+    return {
+        'filter_headers': ['authorization'],
+        'ignore_localhost': True,
+        'record_mode': 'once',
+    }
 
 
 @pytest.fixture()

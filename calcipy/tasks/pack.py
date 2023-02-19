@@ -4,10 +4,10 @@ from invoke import Context
 from shoal.can_skip import can_skip
 from shoal.cli import task
 
+from .._log import logger
 from ..file_helpers import LOCK, PROJECT_TOML
-from ..log import logger
+from ..invoke_helpers import use_pty
 from ..noxfile._noxfile import BASE_NOX_COMMAND
-from .invoke_helpers import use_pty
 
 
 @task()  # type: ignore[misc]

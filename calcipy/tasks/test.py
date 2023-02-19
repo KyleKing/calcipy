@@ -8,8 +8,8 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import open_in_browser, read_package_name
+from ..invoke_helpers import use_pty
 from .defaults import from_ctx
-from .invoke_helpers import use_pty
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 

@@ -1,7 +1,7 @@
 
 import pytest
 
-from calcipy.tasks.invoke_helpers import use_pty
+from calcipy.invoke_helpers import use_pty
 from calcipy.tasks.types import mypy, pyright
 
 

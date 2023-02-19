@@ -142,6 +142,7 @@ lint = [
 nox = ["nox-poetry"]
 pylint = ["pylint"]
 stale = [
+  "arrow",
   "bidict",
   "pyrate_limiter",
   "requests",
@@ -163,9 +164,17 @@ types = ["mypy"]
 types-pyyaml = ">=6.0.12.6"
 types-requests = ">=2.28.11.13"
 types-setuptools = ">=67.3.0.1"
+# matplotlib = "^3.5.2"
+# hypothesis = { extras = ["cli"], version = ">=6.58.0" }
+# # ^ Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
+# pytest-benchmark = ">=3.4.1"
+# pytest-cache-assert = ">=3.0.5"
+# pytest-recording = ">=0.12.0"
+# pytest-shell-utilities = ">=1.7.0"
+# pytest-subprocess = ">=1.4.1"
 
 [tool.poetry.scripts]
-calcipy = "calcipy.main:start"
+calcipy = "calcipy.scripts:start"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"

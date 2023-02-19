@@ -7,7 +7,7 @@ from beartype import beartype
 from beartype.typing import Dict, List
 from shoal.shell import capture_shell  # FIXME: Move to grouper (name tbd)
 
-from .log import logger
+from ._log import logger
 
 
 @beartype

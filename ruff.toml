@@ -32,6 +32,9 @@ inline-quotes = 'single'
 known-first-party = ['calcipy']
 
 [per-file-ignores]
+'*/check_imports.py' = [
+  'F401' # imported but unused; consider adding to __all__ or using a redundant alias
+]
 '*/__init__.py' = [
   'D104', # Missing docstring in public package
   'F401' # imported but unused; consider adding to __all__ or using a redundant alias

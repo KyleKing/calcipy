@@ -2,11 +2,21 @@
 
 ## `calcipy 1.0.0`
 
-calcipy `v1` was a rewrite for performance, both to reduce the number of dependencies and to make task loading lazy. Switching to invoke also meant the tasks could be vendored and run from anywhere without a `dodo.py` file. While refactoring, the global configuration was mostly removed along with a few tasks, but the main functionality is still present. The major loss with these changes was the highly readable output from doit, which I don't yet have a way of replicating with invoke.
+### Background
 
-calcipy `v0` was built on [doit](https://pypi.org/project/doit/) and required a `doit.py` file. With `doit`, each task was evaluated to get the list of tasks, but this became slower as the number of tasks grow.
+calcipy `v1` was a complete rewrite to switch from `doit` to `invoke`:
 
-The easiest way to migrate is to run `copier update` with [calcipy_template](https://github.com/KyleKing/calcipy_template)
+- with `invoke`, tasks can be run from anywhere without a `dodo.py` file
+- tasks can be loaded lazily, which means that some performance gains are possible
+- since there is no shared state file, tasks can be more easily run from pre-commit or generally in parallel
+
+`doit` excelled at clearly delineated task output and run summary, but `invoke` isn't designed that way. I would like to improve the CLI output, but the benefits are worth this tradeoff.
+
+calcipy `v0` was built on [doit](https://pypi.org/project/doit/) and thus required a `dodo.py` file. I began adding `cement` to support a separate CLI for `calcipy` installed with `pipx`, but that required a lot of boilerplate code. With `doit`, the string command needed to be complete at task evaluation rather than runtime, so globbing files couldn't be resolved lazily.
+
+### Migration
+
+While refactoring, the global configuration was mostly removed (`DoitGlobals`) along with a few tasks, but the main functionality is still present. Any project dependent on `calcipy` will need substantial changes. The easiest way to start migrating is to run `copier update` with [calcipy_template](https://github.com/KyleKing/calcipy_template)
 
 ### Speed Test
 
@@ -29,7 +39,7 @@ Benchmark 1: poetry run doit list
 
 ### doit output
 
-<!-- TODO: Look into running tasks from within other tasks -->
+<!-- TODO: Look into running tasks from within other tasks to support '--continue' and more readable logs -->
 
 I would like to restore the `doit` task summary and more readable task descriptions, but `invoke`'s architecture doesn't really make this possible. The `--continue` option was extremely useful, but that also might not be achievable.
 

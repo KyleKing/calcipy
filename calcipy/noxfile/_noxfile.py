@@ -44,8 +44,8 @@ from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
 
+from .._log import logger
 from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name, read_pyproject
-from ..log import logger
 
 BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
 """Reused base arguments to nox."""

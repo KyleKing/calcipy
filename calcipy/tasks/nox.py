@@ -3,8 +3,8 @@
 from invoke import Context
 from shoal.cli import task
 
+from ..invoke_helpers import use_pty
 from ..noxfile._noxfile import BASE_NOX_COMMAND
-from .invoke_helpers import use_pty
 
 
 @task(  # type: ignore[misc]
