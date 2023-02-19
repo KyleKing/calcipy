@@ -3,8 +3,8 @@ from unittest.mock import call
 import pytest
 
 from calcipy.invoke_helpers import use_pty
+from calcipy.tasks.test import coverage, step, watch
 from calcipy.tasks.test import pytest as task_pytest
-from calcipy.tasks.test import step, watch, write_json
 
 _COV = '--cov=calcipy --cov-report=term-missing'
 _MARKERS = 'mark1 and not mark 2'
@@ -35,8 +35,8 @@ def test_test(ctx, task, kwargs, command):
     ctx.run.assert_called_once_with(command, echo=True, pty=use_pty())
 
 
-def test_write_json(ctx):
-    write_json(ctx, out_dir='.cover')
+def test_coverage(ctx):
+    coverage(ctx, out_dir='.cover')
     ctx.run.assert_has_calls([
         call('poetry run coverage run --source=calcipy --module pytest ./tests', echo=True, pty=use_pty()),
         call('poetry run python -m coverage report --show-missing'),

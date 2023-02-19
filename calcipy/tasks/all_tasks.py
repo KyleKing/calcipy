@@ -67,7 +67,7 @@ _MAIN_TASKS = [
     tags.collect_code_tags,
     cl.write,
     pack.lock,
-    test.write_json,
+    test.coverage,
     doc.build,
     stale.check_for_stale_packages,
 ]

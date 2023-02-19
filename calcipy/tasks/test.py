@@ -70,7 +70,6 @@ def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')
 
 
-# TODO: Consider renaming/breaking up this task
 @task(  # type: ignore[misc]
     help={
         'min_cover': 'Fail if coverage less than threshold',
@@ -78,8 +77,12 @@ def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
         'view': 'If True, open the created files',
     },
 )
-def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None, view: bool = False) -> None:
-    """Create json coverage file."""
+def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None, view: bool = False) -> None:
+    """Generate useful coverage outputs after running pytest.
+
+    Creates `coverage.json` used in `doc.build`
+
+    """
     pkg_name = read_package_name()
     _inner_task(ctx, cli_args='', min_cover=min_cover, command=f'coverage run --source={pkg_name} --module pytest')
 
@@ -88,7 +91,7 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
     for cmd in (
         'poetry run python -m coverage report --show-missing',  # Write to STDOUT
         f'poetry run python -m coverage html --directory={cov_dir}',  # Write to HTML
-        'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
+        'poetry run python -m coverage json',  # Create coverage.json file for "_handle_coverage"
     ):
         ctx.run(cmd)
 

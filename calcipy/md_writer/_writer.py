@@ -205,7 +205,6 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
         _ParseSkipError: if the "coverage.json" file is not available
 
     """
-    # FIXME: Ensure that coverage is created (write-json - rename?)
     path_coverage = path_coverage or get_project_path() / 'coverage.json'
     if not path_coverage.is_file():
         msg = f'Could not locate: {path_coverage}'
