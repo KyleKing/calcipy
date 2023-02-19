@@ -1,5 +1,6 @@
 """Lint CLI."""
 
+from contextlib import suppress
 from pathlib import Path
 
 from beartype import beartype
@@ -24,7 +25,10 @@ def _inner_task(
     target: Optional[str] = None,
 ) -> None:
     """Shared task logic."""
-    if file_args := ctx.config.gto.file_args:
+    file_args = []
+    with suppress(AttributeError):
+        file_args = ctx.config.gto.file_args
+    if file_args:
         target = ' '.join([str(_a) for _a in file_args])
     elif target is None:
         target = f'./{read_package_name()} ./tests'
@@ -46,11 +50,11 @@ def check(ctx: Context, *, target: Optional[str] = None) -> None:
     _inner_task(ctx, cli_args='', target=target)
 
 
-@task()  # type: ignore[misc]
-def absolufy_imports(ctx: Context) -> None:
+@task(help=check.help)  # type: ignore[misc]
+def absolufy_imports(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run absolufy-imports."""
     paths = Path(read_package_name()).rglob('*.py')
-    target = ' '.join([str(_p) for _p in paths])
+    target = target or ' '.join([str(_p) for _p in paths])
     _inner_task(ctx, cli_args=' --never', target=target, command='absolufy-imports')
 
 
@@ -149,7 +153,7 @@ def security(ctx: Context) -> None:
 )
 def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     """Run pre-commit."""
-    ctx.run('pre-commit install')
+    ctx.run('pre-commit install', echo=True, pty=use_pty())
     if not no_update:
-        ctx.run('pre-commit autoupdate')
-    ctx.run('pre-commit run --all-files --hook-stage commit --hook-stage push')
+        ctx.run('pre-commit autoupdate', echo=True, pty=use_pty())
+    ctx.run('pre-commit run --all-files --hook-stage commit --hook-stage push', echo=True, pty=use_pty())

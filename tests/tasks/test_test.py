@@ -14,13 +14,19 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 # TODO: Is there an easier way to maintain pytest parameter IDs?
 #  https://github.com/pyinvoke/invocations/blob/8a277c304dd7aaad03888ee42d811c468e7fb37d/tests/checks.py#L49-L58
 @pytest.mark.parametrize(
-    ('task', 'kwargs', 'command'),
+    ('task', 'kwargs', 'commands'),
     [
-        (task_pytest, {}, f'poetry run python -m pytest ./tests {_COV}'),
-        (task_pytest, {'keyword': 'test'}, f'poetry run python -m pytest ./tests {_COV} -k "test"'),
-        (task_pytest, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests {_COV} -m "{_MARKERS}"'),
-        (step, {'marker': _MARKERS}, f'poetry run python -m pytest ./tests {_FAILFIRST} -m "{_MARKERS}"'),
-        (watch, {'marker': _MARKERS}, f'poetry run ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"'),
+        (task_pytest, {}, [f'poetry run python -m pytest ./tests {_COV}']),
+        (task_pytest, {'keyword': 'test'}, [f'poetry run python -m pytest ./tests {_COV} -k "test"']),
+        (task_pytest, {'marker': _MARKERS}, [f'poetry run python -m pytest ./tests {_COV} -m "{_MARKERS}"']),
+        (step, {'marker': _MARKERS}, [f'poetry run python -m pytest ./tests {_FAILFIRST} -m "{_MARKERS}"']),
+        (watch, {'marker': _MARKERS}, [f'poetry run ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
+        (coverage, {'out_dir': '.cover'}, [
+            'poetry run coverage run --source=calcipy --module pytest ./tests',
+            call('poetry run python -m coverage report --show-missing'),
+            call('poetry run python -m coverage html --directory=.cover'),
+            call('poetry run python -m coverage json'),
+        ]),
     ],
     ids=[
         'Default test',
@@ -28,18 +34,13 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
         'Default test with marker',
         'step',
         'watch',
+        'coverage',
     ],
 )
-def test_test(ctx, task, kwargs, command):
+def test_test(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
-    ctx.run.assert_called_once_with(command, echo=True, pty=use_pty())
 
-
-def test_coverage(ctx):
-    coverage(ctx, out_dir='.cover')
     ctx.run.assert_has_calls([
-        call('poetry run coverage run --source=calcipy --module pytest ./tests', echo=True, pty=use_pty()),
-        call('poetry run python -m coverage report --show-missing'),
-        call('poetry run python -m coverage html --directory=.cover'),
-        call('poetry run python -m coverage json'),
+        call(cmd, echo=True, pty=use_pty()) if isinstance(cmd, str) else cmd
+        for cmd in commands
     ])
