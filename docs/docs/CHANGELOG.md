@@ -2,6 +2,7 @@
 
 ### Feat
 
+- add tests for code tag collector
 - replace dg with user configuration file
 - better support min-cover
 - unit test write_autoformatted_md_sections
@@ -43,6 +44,7 @@
 
 ### Refactor
 
+- rename write-json to coverage
 - resolve pylint issues
 - reorder main tasks
 - resolve flake8 warnings and better manage filenames

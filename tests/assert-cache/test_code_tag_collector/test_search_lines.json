@@ -1,0 +1,41 @@
+{
+  "_info": [
+    {
+      "func_args": {},
+      "test_file": "test_code_tag_collector.py",
+      "test_name": "test_search_lines"
+    }
+  ],
+  "_json": [
+    {
+      "lineno": 2,
+      "tag": "FIXME",
+      "text": "Show README.md in the documentation (may need to update paths?)\")"
+    },
+    {
+      "lineno": 3,
+      "tag": "FYI",
+      "text": "Replace src_examples_dir and make more generic to specify code to include in documentation"
+    },
+    {
+      "lineno": 4,
+      "tag": "HACK",
+      "text": "Show table of contents in __init__.py file"
+    },
+    {
+      "lineno": 7,
+      "tag": "REVIEW",
+      "text": "Show table of contents in __init__.py file"
+    },
+    {
+      "lineno": 10,
+      "tag": "HACK",
+      "text": "Support unconventional dashed code tags"
+    },
+    {
+      "lineno": 13,
+      "tag": "FIXME",
+      "text": "and FYI: in the same line, but only match the first"
+    }
+  ]
+}

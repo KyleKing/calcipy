@@ -17,7 +17,7 @@ from shoal.shell import capture_shell  # FIXME: Move to grouper (name tbd)
 from .._log import logger
 from ..file_helpers import read_lines  # FIXME: Move to grouper (name tbd)
 
-SKIP_PHRASE = 'calcipy:skip_tags'
+SKIP_PHRASE = 'calcipy_skip_tags'
 """String that indicates the file should be excluded from the tag search."""
 
 COMMON_CODE_TAGS = ['FIXME', 'TODO', 'PLANNED', 'HACK', 'REVIEW', 'TBD', 'DEBUG']
@@ -61,7 +61,7 @@ class _Tags(BaseModel):
 @beartype
 def _search_lines(
     lines: List[str], regex_compiled: Pattern[str],
-    skip_phrase: str = 'calcipy:skip_tags',
+    skip_phrase: str = 'calcipy_skip_tags',
 ) -> List[_CodeTag]:
     """Search lines of text for matches to the compiled regular expression.
 

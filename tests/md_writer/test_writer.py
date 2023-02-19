@@ -53,7 +53,6 @@ _COVERAGE_SAMPLE_DATA = {
 
 
 def test_format_cov_table():
-    """Test _format_cov_table."""
     result = _format_cov_table(_COVERAGE_SAMPLE_DATA)
 
     assert result == [
@@ -68,7 +67,6 @@ def test_format_cov_table():
 
 
 def test_write_autoformatted_md_sections(fix_test_cache):
-    """Test write_autoformatted_md_sections."""
     path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
     path_new_readme = fix_test_cache / path_md_file.name
     shutil.copyfile(path_md_file, path_new_readme)
@@ -101,7 +99,6 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     ],
 )
 def test_parse_var_comment(line, match):
-    """Test _parse_var_comment."""
     result = _parse_var_comment(line)
 
     assert result == match
@@ -114,7 +111,6 @@ def _star_parser(line: str, path_md: Path) -> List[str]:  # noqa: ARG001
 
 
 def test_write_autoformatted_md_sections_custom(fix_test_cache):
-    """Test write_autoformatted_md_sections with custom handlers."""
     path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
     path_new_readme = fix_test_cache / path_md_file.name
     shutil.copyfile(path_md_file, path_new_readme)
