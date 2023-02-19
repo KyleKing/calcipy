@@ -2,6 +2,7 @@
 
 ### Feat
 
+- replace dg with user configuration file
 - better support min-cover
 - unit test write_autoformatted_md_sections
 - start using check_imports

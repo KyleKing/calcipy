@@ -1,23 +1,24 @@
-"""Invoke Defaults."""
+"""Calcipy-Invoke Defaults."""
 
 from contextlib import suppress
 
 from beartype import beartype
 from invoke import Context
 
-# Docs: https://docs.pyinvoke.org/en/stable/concepts/configuration.html#configuring-via-task-collection
-# 	Can be overriden in `invoke.yaml`: https://docs.pyinvoke.org/en/stable/concepts/configuration.html#config-hierarchy
-
-# FYI: reference with `ctx.tests.out_dir` or `from_ctx(ctx, 'tests', 'out_dir')`
 DEFAULTS = {
+    'doc': {
+        'auto_doc_path': 'docs/modules',
+        'doc_sub_dir': 'docs/docs',
+        'path_out': 'releases/site',
+    },
     'tags': {
         'filename': 'docs/docs/CODE_TAG_SUMMARY.md',
     },
-    'tests': {
+    'test': {
         'min_cover': '0',
         'out_dir': 'releases/tests',
     },
-    'types': {
+    'type': {
         'out_dir': 'releases/tests/mypy_html',
     },
 }
@@ -25,7 +26,11 @@ DEFAULTS = {
 
 @beartype
 def from_ctx(ctx: Context, group: str, key: str) -> str:
-    """Safely extract the value from the context or the defaults."""
-    with suppress(Exception):
-        return str(ctx.getattr(group).getattr(key))
+    """Safely extract the value from the context or the defaults.
+
+    Reference with `ctx.tests.out_dir` or `from_ctx(ctx, 'test', 'out_dir')`
+
+    """
+    with suppress(KeyError):
+        return str(ctx.config[group][key])
     return str(DEFAULTS[group][key])

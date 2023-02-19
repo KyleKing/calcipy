@@ -1,5 +1,8 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
+import json
+from pathlib import Path
+
 from beartype import beartype
 from beartype.typing import List, Union
 from invoke import Call, Collection, Context, Task, call
@@ -37,8 +40,10 @@ def progress(_ctx: Context, *, index: int, total: int) -> None:
 
 
 @beartype
-def with_progress(items: List[Union[Call, Task]],
-                  offset: int = 0) -> List[Union[Call, Task]]:
+def with_progress(
+    items: List[Union[Call, Task]],
+    offset: int = 0,
+) -> List[Union[Call, Task]]:
     """Inject intermediary 'progress' tasks.
 
     Args:
@@ -116,7 +121,11 @@ ns.add_task(main)
 ns.add_task(other)
 ns.add_task(release)
 
+# Merge default and user configuration
 ns.configure(DEFAULTS)
+config_path = Path('.calcipy.json')
+if config_path.is_file():
+    ns.configure(json.loads(config_path.read_text(encoding='utf-8')))
 
 # PLANNED: Review below examples for additional ideas
 # Great Expectations: https://github.com/great-expectations/great_expectations/blob/ddcd2da2689f13d82ccb88f7e9670b1c82e01765/tasks.py#L216-L218

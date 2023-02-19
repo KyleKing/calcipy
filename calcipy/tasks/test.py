@@ -29,7 +29,7 @@ def _inner_task(
         cli_args += f' -k "{keyword}"'
     if marker:
         cli_args += f' -m "{marker}"'
-    if fail_under := min_cover or int(from_ctx(ctx, 'tests', 'min_cover')):
+    if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
     ctx.run(
         f'poetry run {command} ./tests{cli_args}',
@@ -83,7 +83,7 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
     pkg_name = read_package_name()
     _inner_task(ctx, cli_args='', min_cover=min_cover, command=f'coverage run --source={pkg_name} --module pytest')
 
-    cov_dir = Path(out_dir or from_ctx(ctx, 'tests', 'out_dir'))
+    cov_dir = Path(out_dir or from_ctx(ctx, 'test', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)
     for cmd in (
         'poetry run python -m coverage report --show-missing',  # Write to STDOUT

@@ -8,7 +8,6 @@ from beartype import beartype
 from invoke import Context
 from shoal.cli import task
 
-from .._temp_dg import dg
 from ..file_helpers import (
     MKDOCS_CONFIG,
     ensure_dir,
@@ -19,6 +18,7 @@ from ..file_helpers import (
     trim_trailing_whitespace,
 )
 from ..md_writer import write_autoformatted_md_sections
+from .defaults import from_ctx
 
 
 @beartype
@@ -58,10 +58,17 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
     )
 
 
+@beartype
+def get_path_out() -> Path:
+    """Retrieve the mkdocs-specified site directory."""
+    mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
+    return Path(mkdocs_config.get('site_dir', 'releases/site'))
+
+
 @task()  # type: ignore[misc]
 def build(ctx: Context) -> None:
     """Build documentation with mkdocs."""
-    auto_doc_path = dg.doc.auto_doc_path
+    auto_doc_path = Path(from_ctx(ctx, 'doc', 'auto_doc_path'))
     write_autoformatted_md_sections()
     shutil.rmtree(auto_doc_path)
     _diagram_task(ctx, auto_doc_path)
@@ -70,7 +77,7 @@ def build(ctx: Context) -> None:
     for path_md in auto_doc_path.rglob('*.md'):
         trim_trailing_whitespace(path_md)
 
-    ctx.run(f'poetry run mkdocs build --site-dir {dg.doc.path_out}')
+    ctx.run(f'poetry run mkdocs build --site-dir {get_path_out()}')
 
 
 @beartype
@@ -93,7 +100,7 @@ def _is_mkdocs_local() -> bool:
 def watch(ctx: Context) -> None:
     """Serve local documentation for local editing."""
     if _is_mkdocs_local():  # pragma: no cover
-        path_doc_index = dg.doc.path_out / 'index.html'
+        path_doc_index = get_path_out() / 'index.html'
         open_in_browser(path_doc_index)
     else:
         webbrowser.open('http://localhost:8000')

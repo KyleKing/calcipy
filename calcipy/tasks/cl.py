@@ -1,12 +1,14 @@
 """Changelog CLI."""
 
+from pathlib import Path
+
 from beartype import beartype
 from beartype.typing import Literal, Optional
 from invoke import Context
 from shoal.cli import task
 
-from .._temp_dg import dg
 from ..file_helpers import get_project_path
+from .defaults import from_ctx
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
@@ -34,7 +36,7 @@ def write(ctx: Context) -> None:
     if not path_cl.is_file():
         msg = f'Could not locate the changelog at: {path_cl}'
         raise FileNotFoundError(msg)
-    path_cl.replace(dg.doc.doc_sub_dir / path_cl.name)
+    path_cl.replace(Path(from_ctx(ctx, 'doc', 'doc_sub_dir')) / path_cl.name)
 
 
 @beartype
