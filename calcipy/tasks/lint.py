@@ -24,11 +24,12 @@ def _inner_task(
     target: Optional[str] = None,
 ) -> None:
     """Shared task logic."""
-    file_args = ctx.config.gto.file_args
-    if file_args:
-        target = ' '.join(map(str, file_args))
+    if file_args := ctx.config.gto.file_args:
+        target = ' '.join([str(_a) for _a in file_args])
+    elif target is None:
+        target = f'./{read_package_name()} ./tests'
     else:
-        target = f'./{read_package_name()} ./tests' if target is None else target
+        target = ''
     ctx.run(
         f'poetry run {command} {target}{cli_args}',
         echo=True, pty=use_pty(),
@@ -51,7 +52,7 @@ def check(ctx: Context, *, target: Optional[str] = None) -> None:
 def absolufy_imports(ctx: Context) -> None:
     """Run absolufy-imports."""
     paths = Path(read_package_name()).rglob('*.py')
-    target = ' '.join(map(str, paths))
+    target = ' '.join([str(_p) for _p in paths])
     _inner_task(ctx, cli_args=' --never', target=target, command='absolufy-imports')
 
 

@@ -156,7 +156,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
 
     """
     cwd = file_path.parent
-    git_dir, repo_url = _git_info(cwd=cwd)
+    _git_dir, repo_url = _git_info(cwd=cwd)
     blame = None
     try:
         blame = capture_shell(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)

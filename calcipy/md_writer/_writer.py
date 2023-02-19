@@ -227,6 +227,5 @@ def write_autoformatted_md_sections(handler_loookup: Optional[HandlerLookupT] = 
     paths_by_suffix = find_project_files_by_suffix(get_project_path(), [])
     for path_md in paths_by_suffix.get('md', []):
         logger.debug('Processing', path_md=path_md)
-        md_lines = _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md)
-        if md_lines:
+        if md_lines := _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md):
             path_md.write_text('\n'.join(md_lines) + '\n')

@@ -63,8 +63,7 @@ def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-
     """Retrieve nested dictionary keys unless not found."""
     result = source
     for key in keys:
-        result = result.get(key)  # type: ignore[assignment]
-        if not result:
+        if not (result := result.get(key)):  # type: ignore[assignment]
             return {}
     return result
 

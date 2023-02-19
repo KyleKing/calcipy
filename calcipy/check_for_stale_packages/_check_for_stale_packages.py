@@ -69,8 +69,7 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     res = requests.get(json_url, timeout=30)  # nosem
     res.raise_for_status()
     res_json = res.json()
-    releases = res_json['releases']
-    if not releases:
+    if not (releases := res_json['releases']):
         msg = f'Failed to locate "releases" or "urls" from {json_url}: {res_json}'
         raise RuntimeError(msg)
 
@@ -98,8 +97,8 @@ def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPython
 
     """
     if not path_pack_lock.is_file():
-        path_pack_lock.write_text('{}')  # noqa: P103
-    old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text())
+        path_pack_lock.write_text('{}', encoding='utf-8')  # noqa: P103
+    old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text(encoding='utf-8'))
     return {
         package_name: _HostedPythonPackage(**meta_data)  # type: ignore[arg-type]
         for package_name, meta_data in old_cache.items()
@@ -130,8 +129,7 @@ def _collect_release_dates(
             cached_package = old_cache.get(package.name)
             cached_version = '' if cached_package is None else cached_package.version
             if package.version != cached_version:
-                package = _get_release_date(package)
-                updated_packages.append(package)
+                updated_packages.append(_get_release_date(package))
             elif cached_package:
                 updated_packages.append(cached_package)
         except requests.exceptions.HTTPError as exc:
@@ -150,7 +148,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
     """
     new_cache = {pack.name: json.loads(pack.json()) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
-    path_pack_lock.write_text(pretty_json + '\n')
+    path_pack_lock.write_text(pretty_json + '\n', encoding='utf-8')
 
 
 @beartype
@@ -201,7 +199,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
     stale_packages = [pack for pack in packages if not pack.datetime or pack.datetime < stale_cutoff]
     if stale_packages:
         pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
-        stale_list = '\n'.join(map(format_package, pkgs))
+        stale_list = '\n'.join([format_package(_p) for _p in pkgs])
         logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
         return True
     oldest_date = np.amin([pack.datetime for pack in packages])

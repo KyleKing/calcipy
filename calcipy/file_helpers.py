@@ -111,7 +111,7 @@ def read_pyproject(cwd: Optional[Path] = None) -> Any:
     """Read the 'pyproject.toml' file once."""
     toml_path = cwd / 'pyproject.toml' if cwd else Path('pyproject.toml')
     try:
-        pyproject_txt = toml_path.read_text()
+        pyproject_txt = toml_path.read_text(encoding='utf-8')
     except Exception as exc:
         msg = f'Could not locate: {toml_path}'
         raise RuntimeError(msg) from exc

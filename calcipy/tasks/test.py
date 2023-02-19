@@ -80,11 +80,11 @@ def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = Non
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'tests', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)
-    for cmd in [
+    for cmd in (
         'poetry run python -m coverage report --show-missing',  # Write to STDOUT
         f'poetry run python -m coverage html --directory={cov_dir}',  # Write to HTML
         'poetry run python -m coverage json',  # Create coverage.json file for "_write_coverage_to_md"
-    ]:
+    ):
         ctx.run(cmd)
 
     if view:  # pragma: no cover
