@@ -21,6 +21,7 @@ def _inner_task(
     cli_args: str,
     keyword: str = '',
     marker: str = '',
+    min_cover: int = 0,
     command: str = 'python -m pytest',
 ) -> None:
     """Shared task logic."""
@@ -28,33 +29,42 @@ def _inner_task(
         cli_args += f' -k "{keyword}"'
     if marker:
         cli_args += f' -m "{marker}"'
+    if fail_under := min_cover or int(from_ctx(ctx, 'tests', 'min_cover')):
+        cli_args += f' --cov-fail-under={fail_under}'
     ctx.run(
         f'poetry run {command} ./tests{cli_args}',
         echo=True, pty=use_pty(),
     )
 
 
+KM_HELP = {
+    # See: https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests
+    'keyword': 'Only run tests that match the string pattern',
+    'marker': 'Only run tests matching given mark expression',
+}
+
+
 @task(  # type: ignore[misc]
     default=True,
     help={
-        # See: https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests
-        'keyword': 'Only run tests that match the string pattern',
-        'marker': 'Only run tests matching given mark expression',
+        'min_cover': 'Fail if coverage less than threshold',
+        **KM_HELP,
     },
 )
-def pytest(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
+def pytest(ctx: Context, *, keyword: str = '', marker: str = '', min_cover: int = 0) -> None:
     """Run pytest with default arguments."""
     pkg_name = read_package_name()
-    _inner_task(ctx, cli_args=f' --cov={pkg_name} --cov-report=term-missing', keyword=keyword, marker=marker)
+    _inner_task(ctx, cli_args=f' --cov={pkg_name} --cov-report=term-missing',
+                keyword=keyword, marker=marker, min_cover=min_cover)
 
 
-@task(help=pytest.help)  # type: ignore[misc]
+@task(help=KM_HELP)  # type: ignore[misc]
 def step(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker)
 
 
-@task(help=pytest.help)  # type: ignore[misc]
+@task(help=KM_HELP)  # type: ignore[misc]
 def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with polling and optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')
@@ -70,13 +80,8 @@ def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
 )
 def write_json(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None, view: bool = False) -> None:
     """Create json coverage file."""
-    cover_args = f' --cov-fail-under={min_cover}' if min_cover else ''
-
     pkg_name = read_package_name()
-    ctx.run(
-        f'poetry run coverage run --source={pkg_name} --module pytest ./tests{cover_args}',
-        echo=True, pty=use_pty(),
-    )
+    _inner_task(ctx, cli_args='', min_cover=min_cover, command=f'coverage run --source={pkg_name} --module pytest')
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'tests', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)

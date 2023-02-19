@@ -2,6 +2,9 @@
 
 ### Feat
 
+- better support min-cover
+- unit test write_autoformatted_md_sections
+- start using check_imports
 - support prereleases and add autopep8
 - introduce cl namespace
 - run lint on file_args and use absolufy

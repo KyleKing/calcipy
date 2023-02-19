@@ -14,6 +14,7 @@ DEFAULTS = {
         'filename': 'docs/docs/CODE_TAG_SUMMARY.md',
     },
     'tests': {
+        'min_cover': '0',
         'out_dir': 'releases/tests',
     },
     'types': {
