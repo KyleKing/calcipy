@@ -8,7 +8,7 @@ from ..configuration import TEST_DATA_DIR
 TEST_PROJECT = TEST_DATA_DIR / 'test_project'
 
 
-def test_search_lines():
+def test__search_lines():
     lines = [
         '# DEBUG: Show dodo.py in the documentation',  # noqa: T001
         'print("FIXME: Show README.md in the documentation (may need to update paths?)")',  # noqa: T100
@@ -65,7 +65,7 @@ def test_search_lines():
     ]
 
 
-def test_format_report(fake_process):
+def test__format_report(fake_process):
     fake_process.pass_command([fake_process.any()])  # Allow "git blame" and other commands to run unregistered
     fake_process.keep_last_process(keep=True)
     lines = ['# DEBUG: Example 1', '# TODO: Example 2']  # noqa: T101

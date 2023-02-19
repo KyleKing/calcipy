@@ -44,8 +44,9 @@ from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
 
+from .. import file_helpers  # Required for mocking read_pyproject
 from .._log import logger
-from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name, read_pyproject
+from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name
 
 BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
 """Reused base arguments to nox."""
@@ -71,7 +72,7 @@ def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-
 @beartype
 def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
     """Return a dictionary of all dev-dependencies from the 'pyproject.toml'."""
-    poetry_config = read_pyproject()['tool']['poetry']
+    poetry_config = file_helpers.read_pyproject()['tool']['poetry']
 
     @beartype
     def normalize_dep(value: Union[str, Dict]) -> Dict:  # type: ignore[type-arg]
@@ -110,7 +111,7 @@ def _installable_dev_dependencies() -> List[str]:
 
 
 @beartype
-def _install_local(session: Session, extras: List[str]) -> None:
+def _install_local(session: Session, extras: List[str]) -> None:  # pragma: no cover
     """Ensure local dev-dependencies and calcipy extras are installed.
 
     See: https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855445920
@@ -118,14 +119,14 @@ def _install_local(session: Session, extras: List[str]) -> None:
     """
     if read_package_name() == 'calcipy':
         session.poetry.installroot(extras=extras)
-    else:  # pragma: no cover
+    else:
         session.install('.', f'calcipy[{",".join(extras)}]')
 
     session.install(*_installable_dev_dependencies())
 
 
 @nox_session(python=_get_pythons(), reuse_venv=True)
-def tests(session: Session) -> None:
+def tests(session: Session) -> None:  # pragma: no cover
     """Run doit test task for specified python versions.
 
     Args:
@@ -137,7 +138,7 @@ def tests(session: Session) -> None:
 
 
 @nox_session(python=_get_pythons()[-1:], reuse_venv=False)
-def build_dist(session: Session) -> None:
+def build_dist(session: Session) -> None:  # pragma: no cover
     """Build the project files within a controlled environment for repeatability.
 
     Args:
@@ -153,7 +154,7 @@ def build_dist(session: Session) -> None:
 
 
 @nox_session(python=_get_pythons()[-1:], reuse_venv=True)
-def build_check(session: Session) -> None:
+def build_check(session: Session) -> None:  # pragma: no cover
     """Check that the built output meets all checks.
 
     Args:

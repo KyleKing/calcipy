@@ -18,9 +18,12 @@ from .._log import logger
 from ..file_helpers import LOCK
 
 try:
-    import tomllib
-except ModuleNotFoundError:
+    import tomllib  # pyright: ignore[reportMissingImports]
+except ModuleNotFoundError:  # pragma: no cover
     import tomli as tomllib
+
+CALCIPY_CACHE = Path('.calcipy_packaging.lock')
+"""Path to the packaging lock file."""
 
 
 class _HostedPythonPackage(BaseModel):
@@ -42,9 +45,6 @@ class _HostedPythonPackage(BaseModel):
     def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: N805,RBT002
         return arrow.get(value)
 
-
-CALCIPY_CACHE = Path('.calcipy_packaging.lock')
-"""Path to the packaging lock file."""
 
 # Configure rate-limiter
 #   https://pypi.org/project/pyrate-limiter/
@@ -202,24 +202,24 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
         stale_list = '\n'.join([format_package(_p) for _p in pkgs])
         logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
         return True
-    oldest_date = np.amin([pack.datetime for pack in packages])
+    oldest_date = np.amin([pack.datetime for pack in packages])  # pyright: ignore[reportGeneralTypeIssues]
     logger.info('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
     return False
 
 
 @beartype
-def check_for_stale_packages(*, stale_months: int) -> bool:
+def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_cache: Path = CALCIPY_CACHE) -> bool:
     """Read the cached packaging information.
 
     Args:
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
     """
-    packages = _read_packages(LOCK)
-    cached_packages = _read_cache(CALCIPY_CACHE)
-    if can_skip(prerequisites=[LOCK], targets=[CALCIPY_CACHE]):
+    packages = _read_packages(path_lock)
+    cached_packages = _read_cache(path_cache)
+    if can_skip(prerequisites=[path_lock], targets=[path_cache]):
         packages = [*cached_packages.values()]
     else:
         packages = _collect_release_dates(packages, cached_packages)
-        _write_cache(packages, CALCIPY_CACHE)
+        _write_cache(packages, path_cache)
     return _packages_are_stale(packages, stale_months=stale_months)

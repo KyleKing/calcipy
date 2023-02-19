@@ -15,8 +15,8 @@ from beartype.typing import Any, Dict, List, Optional
 from ._log import logger
 
 try:
-    import tomllib
-except ModuleNotFoundError:
+    import tomllib  # pyright: ignore[reportMissingImports]
+except ModuleNotFoundError:  # pragma: no cover
     import tomli as tomllib
 
 LOCK = Path('poetry.lock')
