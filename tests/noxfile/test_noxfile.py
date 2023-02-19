@@ -11,7 +11,6 @@ def test__installable_dev_dependencies(monkeypatch):
                 'poetry': {
                     'dependencies': {
                         'python': '^3.8.12',
-                        'absolufy-imports': {'optional': True, 'version': '>=0.3.1'},
                     },
                     'dev': {
                         'dependencies': {

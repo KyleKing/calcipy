@@ -48,19 +48,19 @@ poetry config pypi-token.pypi ...
 |-----------------------------------------------------------------|--------------|-----------|------------|------------|
 | `calcipy/__init__.py`                                           |            2 |         0 |          0 | 100.0%     |
 | `calcipy/_log.py`                                               |            2 |         0 |          0 | 100.0%     |
-| `calcipy/check_for_stale_packages/__init__.py`                  |            4 |         4 |          0 | 0.0%       |
-| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          111 |       111 |          0 | 0.0%       |
+| `calcipy/check_for_stale_packages/__init__.py`                  |            4 |         2 |          0 | 50.0%      |
+| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          109 |         9 |          2 | 91.7%      |
 | `calcipy/code_tag_collector/__init__.py`                        |            4 |         2 |          0 | 50.0%      |
 | `calcipy/code_tag_collector/_collector.py`                      |          127 |        19 |          0 | 85.0%      |
-| `calcipy/dot_dict/__init__.py`                                  |            4 |         4 |          0 | 0.0%       |
-| `calcipy/dot_dict/_dot_dict.py`                                 |            8 |         8 |          0 | 0.0%       |
-| `calcipy/file_helpers.py`                                       |          116 |        46 |          6 | 60.3%      |
-| `calcipy/file_search.py`                                        |           37 |        21 |          2 | 43.2%      |
+| `calcipy/dot_dict/__init__.py`                                  |            4 |         2 |          0 | 50.0%      |
+| `calcipy/dot_dict/_dot_dict.py`                                 |            8 |         0 |          0 | 100.0%     |
+| `calcipy/file_helpers.py`                                       |          114 |        24 |          8 | 78.9%      |
+| `calcipy/file_search.py`                                        |           37 |         5 |          2 | 86.5%      |
 | `calcipy/invoke_helpers.py`                                     |           10 |         1 |          0 | 90.0%      |
 | `calcipy/md_writer/__init__.py`                                 |            4 |         2 |          0 | 50.0%      |
 | `calcipy/md_writer/_writer.py`                                  |           94 |         7 |          0 | 92.6%      |
-| `calcipy/noxfile/__init__.py`                                   |            4 |         4 |          0 | 0.0%       |
-| `calcipy/noxfile/_noxfile.py`                                   |           67 |        67 |          2 | 0.0%       |
+| `calcipy/noxfile/__init__.py`                                   |            4 |         2 |          0 | 50.0%      |
+| `calcipy/noxfile/_noxfile.py`                                   |           48 |         1 |         26 | 97.9%      |
 | `calcipy/scripts.py`                                            |            7 |         7 |          0 | 0.0%       |
 | `calcipy/tasks/__init__.py`                                     |            0 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/all_tasks.py`                                    |           49 |        49 |          0 | 0.0%       |
@@ -74,7 +74,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         |           14 |        14 |          0 | 0.0%       |
 | `calcipy/tasks/test.py`                                         |           37 |         1 |          2 | 97.3%      |
 | `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
-| **Totals**                                                      |          887 |       529 |         17 | 40.4%      |
+| **Totals**                                                      |          864 |       309 |         45 | 64.2%      |
 
 Generated on: 2023-02-19
 <!-- {cte} -->

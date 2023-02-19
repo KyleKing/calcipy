@@ -87,6 +87,14 @@
         "name": "bidict",
         "version": "0.22.1"
     },
+    "black": {
+        "datetime": "2023-02-01T03:09:22.755809+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2023-02-01T03:09:22.755809+00:00",
+        "latest_version": "23.1.0",
+        "name": "black",
+        "version": "23.1.0"
+    },
     "boltons": {
         "datetime": "2021-05-17T01:20:20.023620+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -439,6 +447,14 @@
         "name": "httplib2",
         "version": "0.21.0"
     },
+    "hypothesis": {
+        "datetime": "2023-02-17T07:54:28.768640+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2023-02-17T07:54:28.768640+00:00",
+        "latest_version": "6.68.2",
+        "name": "hypothesis",
+        "version": "6.68.2"
+    },
     "idna": {
         "datetime": "2022-09-14T00:24:23.220218+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -671,6 +687,14 @@
         "name": "mr-proper",
         "version": "0.0.7"
     },
+    "multidict": {
+        "datetime": "2022-12-24T02:29:29.594147+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2022-12-24T02:29:29.594147+00:00",
+        "latest_version": "6.0.4",
+        "name": "multidict",
+        "version": "6.0.4"
+    },
     "mypy": {
         "datetime": "2023-02-17T15:55:04.244933+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -726,6 +750,14 @@
         "latest_version": "1.5.3",
         "name": "pandas",
         "version": "1.5.3"
+    },
+    "pathspec": {
+        "datetime": "2023-01-25T04:05:12.254467+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2023-01-25T04:05:12.254467+00:00",
+        "latest_version": "0.11.0",
+        "name": "pathspec",
+        "version": "0.11.0"
     },
     "pbr": {
         "datetime": "2023-01-11T10:04:55.819486+00:00",
@@ -887,6 +919,14 @@
         "name": "pytest-randomly",
         "version": "3.12.0"
     },
+    "pytest-recording": {
+        "datetime": "2023-02-16T15:16:33.119931+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2023-02-16T15:16:33.119931+00:00",
+        "latest_version": "0.12.2",
+        "name": "pytest-recording",
+        "version": "0.12.2"
+    },
     "pytest-subprocess": {
         "datetime": "2023-01-28T10:18:40.487837+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -1047,6 +1087,14 @@
         "name": "smmap",
         "version": "5.0.0"
     },
+    "sortedcontainers": {
+        "datetime": "2021-05-16T22:03:41.177807+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2021-05-16T22:03:41.177807+00:00",
+        "latest_version": "2.4.0",
+        "name": "sortedcontainers",
+        "version": "2.4.0"
+    },
     "sqlparse": {
         "datetime": "2022-09-23T18:41:20.351878+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -1191,6 +1239,14 @@
         "name": "urllib3",
         "version": "1.26.14"
     },
+    "vcrpy": {
+        "datetime": "2022-08-31T19:18:15.869354+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2022-08-31T19:18:15.869354+00:00",
+        "latest_version": "4.2.1",
+        "name": "vcrpy",
+        "version": "4.2.1"
+    },
     "virtualenv": {
         "datetime": "2023-02-07T20:16:53.438046+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -1230,6 +1286,14 @@
         "latest_version": "1.15.0rc1",
         "name": "wrapt",
         "version": "1.14.1"
+    },
+    "yarl": {
+        "datetime": "2022-12-03T04:48:29.057103+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2022-12-03T04:48:29.057103+00:00",
+        "latest_version": "1.8.2",
+        "name": "yarl",
+        "version": "1.8.2"
     },
     "zipp": {
         "datetime": "2023-02-18T00:47:56.202058+00:00",

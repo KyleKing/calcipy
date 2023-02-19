@@ -19,6 +19,8 @@ from calcipy.md_writer._writer import (
 
 from ..configuration import TEST_DATA_DIR
 
+SAMPLE_README_PATH = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
+
 _COVERAGE_SAMPLE_DATA = {
     'meta': {'timestamp': '2021-06-03T19:37:11.980123'},
     'files': {
@@ -67,9 +69,8 @@ def test_format_cov_table():
 
 
 def test_write_autoformatted_md_sections(fix_test_cache):
-    path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
-    path_new_readme = fix_test_cache / path_md_file.name
-    shutil.copyfile(path_md_file, path_new_readme)
+    path_new_readme = fix_test_cache / SAMPLE_README_PATH.name
+    shutil.copyfile(SAMPLE_README_PATH, path_new_readme)
     path_cover = fix_test_cache / 'coverage.json'
     path_cover.write_text(json.dumps(_COVERAGE_SAMPLE_DATA))
     placeholder = '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->'
@@ -111,14 +112,13 @@ def _star_parser(line: str, path_md: Path) -> List[str]:  # noqa: ARG001
 
 
 def test_write_autoformatted_md_sections_custom(fix_test_cache):
-    path_md_file = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
-    path_new_readme = fix_test_cache / path_md_file.name
-    shutil.copyfile(path_md_file, path_new_readme)
+    path_new_readme = fix_test_cache / SAMPLE_README_PATH.name
+    shutil.copyfile(SAMPLE_README_PATH, path_new_readme)
 
     write_autoformatted_md_sections(handler_lookup={'rating': _star_parser}, paths_md=[path_new_readme])
 
     text = path_new_readme.read_text()
-    assert '\n<!-- {cts} rating=' in path_md_file.read_text()
+    assert '\n<!-- {cts} rating=' in SAMPLE_README_PATH.read_text()
     assert '\n<!-- {cts} rating=' not in text
     assert '\n\nRATING=4\n\n' in text
     assert """<!-- {cts} name_image=NA.png; (User can specify image name) -->
