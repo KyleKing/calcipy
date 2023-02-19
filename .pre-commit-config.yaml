@@ -69,6 +69,7 @@ repos:
     rev: v0.22.3
     hooks:
       - id: toml-sort-fix
+        args: [--in-place, --all, --trailing-comma-inline-array]
         # TODO: https://github.com/pappasam/toml-sort/issues/42
         exclude: poetry\.lock|pyproject\.toml
   - repo: local

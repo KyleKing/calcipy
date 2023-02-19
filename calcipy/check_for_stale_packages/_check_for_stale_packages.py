@@ -180,7 +180,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
 
 
 @beartype
-def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_months: int) -> bool:
+def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: int) -> bool:
     """Check for stale packages. Raise error and log all stale versions found.
 
     Args:
@@ -222,4 +222,4 @@ def check_for_stale_packages(*, stale_months: int) -> bool:
     else:
         packages = _collect_release_dates(packages, cached_packages)
         _write_cache(packages, CALCIPY_CACHE)
-    return _check_for_stale_packages(packages, stale_months=stale_months)
+    return _packages_are_stale(packages, stale_months=stale_months)

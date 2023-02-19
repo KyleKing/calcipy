@@ -161,13 +161,12 @@ test = [
 types = ["mypy"]
 
 [tool.poetry.group.dev.dependencies]
+hypothesis = {extras = ["cli"], version = ">=6.58.0"} # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
 pytest-subprocess = ">=1.4.1"
 types-pyyaml = ">=6.0.12.6"
 types-requests = ">=2.28.11.13"
 types-setuptools = ">=67.3.0.1"
 # matplotlib = "^3.5.2"
-# hypothesis = { extras = ["cli"], version = ">=6.58.0" }
-# # ^ Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
 # pytest-benchmark = ">=3.4.1"
 # pytest-cache-assert = ">=3.0.5"
 # pytest-recording = ">=0.12.0"

@@ -13,12 +13,12 @@ ignore = [
   'TCH002', # Move third-party import {} into a type-checking block
   'TCH003', # Move standard library import `pathlib.Path` into a type-checking block
   'TID252', # Relative imports from parent modules are banned
-  'TRY003' # Avoid specifying long messages outside the exception class
+  'TRY003', # Avoid specifying long messages outside the exception class
 ]
 line-length = 120
 select = ['ALL']
 unfixable = [
-  'ERA001' # Commented out code
+  'ERA001', # Commented out code
 ]
 
 [flake8-quotes]
@@ -32,12 +32,12 @@ inline-quotes = 'single'
 known-first-party = ['calcipy']
 
 [per-file-ignores]
-'*/check_imports.py' = [
-  'F401' # imported but unused; consider adding to __all__ or using a redundant alias
-]
 '*/__init__.py' = [
   'D104', # Missing docstring in public package
-  'F401' # imported but unused; consider adding to __all__ or using a redundant alias
+  'F401', # imported but unused; consider adding to __all__ or using a redundant alias
+]
+'*/check_imports.py' = [
+  'F401', # imported but unused; consider adding to __all__ or using a redundant alias
 ]
 '*tests/*.py' = [
   'ANN001', # Missing type annotation for function argument
@@ -45,7 +45,7 @@ known-first-party = ['calcipy']
   'D100', # Missing docstring in public module
   'D103', # Missing docstring in public function
   'PT004', # flake8-pytest-style: fixture does not return
-  'S101' # Matches 'assert'
+  'S101', # Use of `assert` detected
 ]
 
 [pylint]
