@@ -12,7 +12,7 @@ except ModuleNotFoundError:  # pragma: no cover
 
 
 def test_version():
-    """Check that PyProject and __version__ are equivalent."""
+    """Check that PyProject and package __version__ are equivalent."""
     data = Path('pyproject.toml').read_text(encoding='utf-8')
 
     result = tomllib.loads(data)['tool']['poetry']['version']

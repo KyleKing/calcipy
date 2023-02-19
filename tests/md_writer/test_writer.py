@@ -1,5 +1,3 @@
-"""Test doit_tasks/doc.py."""
-
 import json
 import shutil
 from functools import partial

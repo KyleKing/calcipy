@@ -17,7 +17,6 @@ from calcipy.dot_dict import ddict
     ],
 )
 def test_ddict(key, value):
-    """Test ddict."""
     result = ddict(**{key: value})
 
     assert getattr(result, key) == value
@@ -27,7 +26,7 @@ def test_ddict(key, value):
 
 
 _ST_ANY = st.booleans() | st.binary() | st.integers() | st.text()
-"""Broadest swatch of strategies for data input testing of dotdict."""
+"""Broadest swatch of strategies for data input testing of dot_dict."""
 
 
 @given(
@@ -35,7 +34,6 @@ _ST_ANY = st.booleans() | st.binary() | st.integers() | st.text()
     value=(_ST_ANY | st.dictionaries(keys=_ST_ANY, values=_ST_ANY, max_size=10)),
 )
 def test_ddict_with_hypothesis(key, value):
-    """Test ddict."""
     result = ddict(**{key: value})
 
     assert getattr(result, key) == value

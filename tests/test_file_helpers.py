@@ -6,14 +6,12 @@ from calcipy.file_helpers import delete_dir, ensure_dir, if_found_unlink, read_l
 
 
 def test_sanitize_filename():
-    """Test sanitize_filename."""
     result = sanitize_filename('_dash-09-ϑ//.// SUPER.py')
 
     assert result == '_dash-09-___.___SUPER.py'
 
 
 def test_read_lines():
-    """Test read_lines."""
     at_least_this_many_lines = 22
     result = read_lines(Path(__file__).resolve())
 
@@ -23,7 +21,6 @@ def test_read_lines():
 
 
 def test_tail_lines(fix_test_cache):
-    """Test tail_lines."""
     path_file = fix_test_cache / 'tmp.txt'
     path_file.write_text('line 1\nline 2\n')
 
@@ -35,10 +32,9 @@ def test_tail_lines(fix_test_cache):
 
 
 def test_if_found_unlink(fix_test_cache):
-    """Test if_found_unlink."""
     path_file = fix_test_cache / 'if_found_unlink-test_file.txt'
 
-    path_file.write_text('')  # act
+    path_file.write_text('')
 
     assert path_file.is_file()
     if_found_unlink(path_file)
@@ -46,13 +42,12 @@ def test_if_found_unlink(fix_test_cache):
 
 
 def test_dir_tools(fix_test_cache):
-    """Test delete_dir & ensure_dir."""
     tmp_dir = fix_test_cache / '.tmp-test_delete_dir'
     tmp_dir.mkdir(exist_ok=True)
     (tmp_dir / 'tmp.txt').write_text('Placeholder\n')
     tmp_subdir = tmp_dir / 'subdir'
 
-    ensure_dir(tmp_subdir)  # act
+    ensure_dir(tmp_subdir)
 
     assert tmp_subdir.is_dir()
     delete_dir(tmp_dir)

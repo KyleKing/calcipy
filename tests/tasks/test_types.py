@@ -1,4 +1,3 @@
-
 import pytest
 
 from calcipy.invoke_helpers import use_pty
