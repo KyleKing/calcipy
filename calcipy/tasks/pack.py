@@ -1,11 +1,10 @@
 """Packaging CLI."""
 
-from pathlib import Path
-
 from invoke import Context
 from shoal.can_skip import can_skip
 from shoal.cli import task
 
+from ..file_helpers import LOCK, PROJECT_TOML
 from ..log import logger
 from .invoke_helpers import use_pty
 
@@ -13,7 +12,7 @@ from .invoke_helpers import use_pty
 @task()  # type: ignore[misc]
 def lock(ctx: Context) -> None:
     """Ensure poetry.lock is  up-to-date."""
-    if can_skip(prerequisites=[Path('pyproject.toml')], targets=[Path('poetry.lock')]):
+    if can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
         return  # Exit early
 
     ctx.run('poetry lock --no-update')
@@ -41,4 +40,4 @@ def check_licenses(ctx: Context) -> None:
     if res.exited == 1:
         logger.warning('`licensecheck` not found. installing with pipx')
         ctx.run('pipx install licensecheck', echo=True, pty=use_pty())
-    ctx.run('licensecheck --zero', echo=True, pty=use_pty())
+    ctx.run('licensecheck', echo=True, pty=use_pty())

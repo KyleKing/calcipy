@@ -10,12 +10,12 @@ from shoal.cli import task
 
 from .._temp_dg import dg
 from ..file_helpers import (
-    _MKDOCS_CONFIG_NAME,
-    _read_yaml_file,
+    MKDOCS_CONFIG,
     ensure_dir,
     get_project_path,
     open_in_browser,
     read_package_name,
+    read_yaml_file,
     trim_trailing_whitespace,
 )
 from ..md_writer import write_autoformatted_md_sections
@@ -85,7 +85,7 @@ def _is_mkdocs_local() -> bool:
         bool: True if configured for local file output rather than hosted
 
     """
-    mkdocs_config = _read_yaml_file(get_project_path() / _MKDOCS_CONFIG_NAME)
+    mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
     return mkdocs_config.get('use_directory_urls') is False
 
 

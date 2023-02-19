@@ -19,6 +19,18 @@ try:
 except ModuleNotFoundError:
     import tomli as tomllib
 
+LOCK = Path('poetry.lock')
+"""poetry.lock Path."""
+
+PROJECT_TOML = Path('pyproject.toml')
+"""pyproject.toml Path."""
+
+COPIER_ANSWERS = Path('.copier-answers.yml')
+"""Copier Answer file name."""
+
+MKDOCS_CONFIG = Path('mkdocs.yml')
+"""mkdocs.yml Path."""
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Path Helpers
 
@@ -115,7 +127,7 @@ def read_package_name() -> str:
 
 
 @beartype
-def _read_yaml_file(path_yaml: Path) -> Any:
+def read_yaml_file(path_yaml: Path) -> Any:
     """Attempt to read the specified yaml file. Returns an empty dictionary if not found or a parser error occurs.
 
     > Note: suppresses all tags in the YAML file
@@ -171,13 +183,6 @@ def sanitize_filename(filename: str, repl_char: str = '_', allowed_chars: str = 
     return ''.join((char if char in allowed_chars else repl_char) for char in filename)
 
 
-_COPIER_ANSWERS_NAME = '.copier-answers.yml'
-"""Copier Answer file name."""
-
-_MKDOCS_CONFIG_NAME = 'mkdocs.yml'
-"""Copier Answer file name."""
-
-
 @beartype
 def get_doc_dir(path_project: Path) -> Path:
     """Retrieve the documentation directory from teh copier answer file.
@@ -191,8 +196,8 @@ def get_doc_dir(path_project: Path) -> Path:
         Path: to the source documentation directory
 
     """
-    path_copier = path_project / _COPIER_ANSWERS_NAME
-    return path_project / _read_yaml_file(path_copier).get('doc_dir', 'docs')  # type: ignore[no-any-return]
+    path_copier = path_project / COPIER_ANSWERS
+    return path_project / read_yaml_file(path_copier).get('doc_dir', 'docs')  # type: ignore[no-any-return]
 
 
 @beartype

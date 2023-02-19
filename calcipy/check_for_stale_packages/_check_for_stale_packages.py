@@ -14,6 +14,7 @@ from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
 from shoal.can_skip import can_skip
 
+from ..file_helpers import LOCK
 from ..log import logger
 
 try:
@@ -31,18 +32,18 @@ class _HostedPythonPackage(BaseModel):
     version: str
     datetime: Optional[Arrow] = Field(default=None)
     latest_version: str = Field(default='')
-    latest_datetime: Optional[Arrow] = Field(default=None)
+    latest_datetime: Optional[Arrow] = Field(default=None)  # noqa: CCE001
 
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {Arrow: str}
 
     @validator('datetime', 'latest_datetime', pre=True)
-    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: N805
+    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: N805,RBT002
         return arrow.get(value)
 
 
-PACK_LOCK_PATH = Path('.calcipy_packaging.lock')
+CALCIPY_CACHE = Path('.calcipy_packaging.lock')
 """Path to the packaging lock file."""
 
 # Configure rate-limiter
@@ -65,7 +66,7 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """
     # Retrieve the JSON summary for the specified package
     json_url = package.domain.format(name=package.name)
-    res = requests.get(json_url, timeout=30)
+    res = requests.get(json_url, timeout=30)  # nosem
     res.raise_for_status()
     res_json = res.json()
     releases = res_json['releases']
@@ -86,18 +87,18 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
 
 
 @beartype
-def _read_cache(path_pack_lock: Path = PACK_LOCK_PATH) -> Dict[str, _HostedPythonPackage]:
+def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPythonPackage]:
     """Read the cached packaging information.
 
     Args:
-        path_pack_lock: Path to the lock file. Default is `PACK_LOCK_PATH`
+        path_pack_lock: Path to the lock file. Default is `CALCIPY_CACHE`
 
     Returns:
         Dict[str, _HostedPythonPackage]: the cached packages
 
     """
     if not path_pack_lock.is_file():
-        path_pack_lock.write_text('{}')
+        path_pack_lock.write_text('{}')  # noqa: P103
     old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text())
     return {
         package_name: _HostedPythonPackage(**meta_data)  # type: ignore[arg-type]
@@ -139,12 +140,12 @@ def _collect_release_dates(
 
 
 @beartype
-def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: Path = PACK_LOCK_PATH) -> None:
+def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: Path = CALCIPY_CACHE) -> None:
     """Read the cached packaging information.
 
     Args:
         updated_packages: updated packages to store
-        path_pack_lock: Path to the lock file. Default is `PACK_LOCK_PATH`
+        path_pack_lock: Path to the lock file. Default is `CALCIPY_CACHE`
 
     """
     new_cache = {pack.name: json.loads(pack.json()) for pack in updated_packages}
@@ -166,8 +167,8 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
         NotImplementedError: if a lock file other that the poetry lock file is used
 
     """
-    if path_lock.name != 'poetry.lock':
-        msg = f'"{path_lock.name}" is not a currently supported lock type. Try "poetry.lock" instead'
+    if path_lock.name != LOCK.name:
+        msg = f'"{path_lock.name}" is not a currently supported lock type. Try "{LOCK.name}" instead'
         raise NotImplementedError(msg)
 
     lock = tomllib.loads(path_lock.read_text(errors='ignore'))
@@ -189,6 +190,7 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
     """
+    @beartype
     def format_package(pack: _HostedPythonPackage) -> str:
         delta = pack.datetime.humanize()  # type: ignore[union-attr]
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
@@ -208,22 +210,18 @@ def _check_for_stale_packages(packages: List[_HostedPythonPackage], *, stale_mon
 
 
 @beartype
-def check_for_stale_packages(
-    path_lock: Path, *, stale_months: int, path_pack_lock: Path = PACK_LOCK_PATH,
-) -> bool:
+def check_for_stale_packages(*, stale_months: int) -> bool:
     """Read the cached packaging information.
 
     Args:
-        path_lock: Path to the lock file to parse
-        path_pack_lock: Path to the lock file. Default is `PACK_LOCK_PATH`
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
     """
-    packages = _read_packages(path_lock)
-    cached_packages = _read_cache(path_pack_lock)
-    if can_skip(prerequisites=[path_lock], targets=[PACK_LOCK_PATH]):
+    packages = _read_packages(LOCK)
+    cached_packages = _read_cache(CALCIPY_CACHE)
+    if can_skip(prerequisites=[LOCK], targets=[CALCIPY_CACHE]):
         packages = [*cached_packages.values()]
     else:
         packages = _collect_release_dates(packages, cached_packages)
-        _write_cache(packages, path_pack_lock)
+        _write_cache(packages, CALCIPY_CACHE)
     return _check_for_stale_packages(packages, stale_months=stale_months)

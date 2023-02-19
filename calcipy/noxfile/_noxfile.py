@@ -55,9 +55,37 @@ def _get_pythons() -> List[str]:
     return get_tool_versions()['python']
 
 
+@beartype
+def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-arg]
+    """Retrieve nested dictionary keys unless not found."""
+    result = source
+    for key in keys:
+        result = result.get(key)
+        if not result:
+            return {}
+    return result
+
+
+@beartype
+def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
+    """Return a dictionary of all dev-dependencies from the 'pyproject.toml'."""
+    poetry_config = read_pyproject()['tool']['poetry']
+
+    @beartype
+    def normalize_dep(value: Union[str, Dict]) -> Dict:
+        return {'version': value} if isinstance(value, str) else value
+
+    return {
+        key: normalize_dep(value) for key, value in {
+            **_retrieve_keys(poetry_config, ['dev', 'dependencies']),
+            **_retrieve_keys(poetry_config, ['group', 'dev', 'dependencies']),
+        }.items()
+    }
+
+
 @lru_cache(maxsize=1)
 @beartype
-def _get_dev_deps() -> List[str]:
+def _installable_dev_dependencies() -> List[str]:
     """list of dependencies from pyproject.
 
     Returns:
@@ -65,23 +93,18 @@ def _get_dev_deps() -> List[str]:
 
     """
     @beartype
-    def to_package(key: str, value: Union[Dict, str]) -> str:  # type: ignore[type-arg]
-        extras = [] if isinstance(value, str) else value.get('extras', [])
-        if extras:
-            key += f'[{",".join(extras)}]'
-        return key
+    def to_package(key: str, value: Dict) -> str:  # type: ignore[type-arg]
+        extras = value.get('extras', [])
+        return f'{key}[{",".join(extras)}]' if extras else key
 
     @beartype
-    def to_constraint(value: Union[Dict, str]) -> str:  # type: ignore[type-arg]
-        version = value if isinstance(value, str) else value['version']
-        return str(version).replace('^', '==')
+    def to_constraint(value: Dict) -> str:  # type: ignore[type-arg]
+        return str(value['version']).replace('^', '==')
 
-    poetry_config = read_pyproject()['tool']['poetry']
-    dependencies = {
-        **poetry_config.get('dev', {}).get('dependencies', {}),
-        **poetry_config.get('group', {}).get('dev', {}).get('dependencies', {}),
-    }
-    return [f'{to_package(key, value)}{to_constraint(value)}' for key, value in dependencies.items()]
+    return [
+        f'{to_package(key, value)}{to_constraint(value)}'
+        for key, value in _get_poetry_dev_dependencies().items()
+    ]
 
 
 @beartype
@@ -96,7 +119,7 @@ def _install_local(session: Session, extras: List[str]) -> None:
     else:  # pragma: no cover
         session.install('.', f'calcipy[{",".join(extras)}]')
 
-    session.install(*_get_dev_deps())
+    session.install(*_installable_dev_dependencies())
 
 
 @nox_session(python=_get_pythons(), reuse_venv=True)

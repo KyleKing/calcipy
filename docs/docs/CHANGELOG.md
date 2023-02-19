@@ -2,6 +2,7 @@
 
 ### Feat
 
+- support prereleases and add autopep8
 - introduce cl namespace
 - run lint on file_args and use absolufy
 - add initial version of doc namespace
@@ -29,6 +30,7 @@
 
 ### Fix
 
+- get doc and cl tasks working
 - code tag summary and rename default tasks
 - properly map CLI arguments to code tag collector
 - show all URLs on the same line in CTC
@@ -37,6 +39,7 @@
 
 ### Refactor
 
+- apply autopep8 to fix whitespace issues
 - import initialized logger directly
 - try to wrap running tasks programmatically...
 - run prc main

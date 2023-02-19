@@ -8,7 +8,7 @@ class Doc(BaseModel):
     auto_doc_path: Path = Path('docs/docs').parent / 'modules'
 
     # FIXME: Read the mkdocs_config (move to file_helpers)
-    # > mkdocs_config = _read_yaml_file(self.path_project / _MKDOCS_CONFIG_NAME)
+    # > mkdocs_config = read_yaml_file(self.path_project / MKDOCS_CONFIG)
     # > path_out: Path = Path(mkdocs_config.get('site_dir', 'releases/site'))
     path_out: Path = Path('releases/site')
 

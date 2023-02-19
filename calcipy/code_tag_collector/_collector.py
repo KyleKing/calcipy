@@ -42,7 +42,7 @@ class _CodeTag(BaseModel):
 
     lineno: int
     tag: str
-    text: str
+    text: str  # noqa: CCE001
 
     class Config:
         frozen = True
@@ -52,7 +52,7 @@ class _Tags(BaseModel):
     """Collection of code tags with additional contextual information."""
 
     path_source: Path
-    code_tags: List[_CodeTag]
+    code_tags: List[_CodeTag]  # noqa: CCE001
 
     class Config:
         frozen = True
@@ -85,7 +85,7 @@ def _search_lines(
                 group = match.groupdict()
                 comments.append(_CodeTag(lineno=lineno + 1, tag=group['tag'], text=group['text']))
             else:
-                logger.debug('Skipping long line {lineno}: `{line}`', lineno=lineno, line=line[:200])
+                logger.debug('Skipping long line', lineno=lineno, line=line[:200])
     return comments
 
 
@@ -107,7 +107,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         try:
             lines = read_lines(path_source)
         except UnicodeDecodeError as err:
-            logger.debug('Could not parse: {path_source}', path_source=path_source, err=err)
+            logger.debug('Could not parse', path_source=path_source, err=err)
 
         if comments := _search_lines(lines, regex_compiled):
             matches.append(_Tags(path_source=path_source, code_tags=comments))
@@ -164,7 +164,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         handled_errors = (128,)
         if exc.returncode not in handled_errors:
             raise
-        logger.debug('Skipping blame of: {exc}', file_path=file_path, exc=exc)
+        logger.debug('Skipping blame', file_path=file_path, exc=exc)
 
     # Set fallback values if git logic doesn't work
     rel_path = file_path.relative_to(base_dir)
@@ -201,7 +201,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
 
 
 @beartype
-def _format_report(
+def _format_report(  # noqa: CAC001
     base_dir: Path, code_tags: List[_Tags], tag_order: List[str],
 ) -> str:
     """Pretty-format the code tags by file and line number.
@@ -231,10 +231,10 @@ def _format_report(
             if not line.startswith('/'):
                 output += '\n'
             output += line
-    logger.debug('counter={counter}', counter=counter)
+    logger.debug('counter', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}
-    logger.debug('sorted_counter={sorted_counter}', sorted_counter=sorted_counter)
+    logger.debug('sorted_counter', sorted_counter=sorted_counter)
     if formatted_summary := ', '.join(
         f'{tag} ({count})' for tag, count in sorted_counter.items()
     ):

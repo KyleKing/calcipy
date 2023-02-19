@@ -75,24 +75,6 @@ wrapt = [
 ]
 
 [[package]]
-name = "asttokens"
-version = "2.2.1"
-description = "Annotate AST trees with source code positions"
-category = "main"
-optional = true
-python-versions = "*"
-files = [
-    {file = "asttokens-2.2.1-py2.py3-none-any.whl", hash = "sha256:6b0ac9e93fb0335014d382b8fa9b3afa7df546984258005da0b9e7095b3deb1c"},
-    {file = "asttokens-2.2.1.tar.gz", hash = "sha256:4622110b2a6f30b77e1473affaa97e711bc2f07d3f10848420ff1898edbe94f3"},
-]
-
-[package.dependencies]
-six = "*"
-
-[package.extras]
-test = ["astroid", "pytest"]
-
-[[package]]
 name = "attrs"
 version = "22.2.0"
 description = "Classes Without Boilerplate"
@@ -286,17 +268,6 @@ Click = ">=7.0,<9"
 docs = ["Pallets-Sphinx-Themes", "m2r2", "sphinx (>=3.0,<6)"]
 tests = ["pytest"]
 tests-cov = ["coverage (<6)", "coveralls", "pytest", "pytest-cov"]
-
-[[package]]
-name = "cohesion"
-version = "1.0.0"
-description = "A tool for measuring Python class cohesion."
-category = "main"
-optional = true
-python-versions = "*"
-files = [
-    {file = "cohesion-1.0.0-py2.py3-none-any.whl", hash = "sha256:a33a526eb8922c7dbfef19257b3532d16e6246c4ece3ab3b492b290d9d3f2d4b"},
-]
 
 [[package]]
 name = "colorama"
@@ -549,35 +520,6 @@ pycodestyle = ">=2.10.0,<2.11.0"
 pyflakes = ">=3.0.0,<3.1.0"
 
 [[package]]
-name = "flake8-aaa"
-version = "0.13.0"
-description = "A Flake8 plugin that checks Python tests follow the Arrange-Act-Assert pattern"
-category = "main"
-optional = true
-python-versions = ">=3.7, <4"
-files = [
-    {file = "flake8-aaa-0.13.0.tar.gz", hash = "sha256:21cbd08b87a1af845c98df0ddf018e766e884878b9e8b47b5c1d326c733d6432"},
-    {file = "flake8_aaa-0.13.0-py3-none-any.whl", hash = "sha256:93c14d703de00a6617a207e5e0537a4fb53bffb94794dd64d5bd5f0d77e23834"},
-]
-
-[package.dependencies]
-asttokens = ">=2"
-
-[[package]]
-name = "flake8-absolute-import"
-version = "1.0.0.1"
-description = "flake8 plugin to require absolute imports"
-category = "main"
-optional = true
-python-versions = ">=3.4"
-files = [
-    {file = "flake8_absolute_import-1.0.0.1-py3-none-any.whl", hash = "sha256:d24f189bca52ffc0d13e8046606ea42d22a9ad9d409bf39e52b93493cf2ffd2c"},
-]
-
-[package.dependencies]
-flake8 = ">=3.7"
-
-[[package]]
 name = "flake8-adjustable-complexity"
 version = "0.0.6"
 description = "A flake8 extension that checks cyclomatic complexity and calculates max complexity limit in runtime"
@@ -655,33 +597,6 @@ astpretty = "*"
 flake8 = "*"
 
 [[package]]
-name = "flake8-fine-pytest"
-version = "1.0.3"
-description = "A flake8 extension that checks test extra style"
-category = "main"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8_fine_pytest-1.0.3-py3-none-any.whl", hash = "sha256:bca248612a4876a74d5bc6ebc935ef2d21abf2029e5067286161cac2c79275c7"},
-    {file = "flake8_fine_pytest-1.0.3.tar.gz", hash = "sha256:d3ae2696b8872848b4a4abca03e0af1da7cb0eaa835c3df6ef80b03dc1cfe479"},
-]
-
-[package.dependencies]
-flake8 = "*"
-
-[[package]]
-name = "flake8-fixme"
-version = "1.1.1"
-description = "Check for FIXME, TODO and other temporary developer notes. Plugin for flake8."
-category = "main"
-optional = true
-python-versions = "*"
-files = [
-    {file = "flake8-fixme-1.1.1.tar.gz", hash = "sha256:50cade07d27a4c30d4f12351478df87339e67640c83041b664724bda6d16f33a"},
-    {file = "flake8_fixme-1.1.1-py2.py3-none-any.whl", hash = "sha256:226a6f2ef916730899f29ac140bed5d4a17e5aba79f00a0e3ae1eff1997cb1ac"},
-]
-
-[[package]]
 name = "flake8-functions"
 version = "0.0.7"
 description = "A flake8 extension that checks functions"
@@ -696,40 +611,6 @@ files = [
 [package.dependencies]
 mr-proper = "*"
 setuptools = "*"
-
-[[package]]
-name = "flake8-isort"
-version = "6.0.0"
-description = "flake8 plugin that integrates isort ."
-category = "main"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8-isort-6.0.0.tar.gz", hash = "sha256:537f453a660d7e903f602ecfa36136b140de279df58d02eb1b6a0c84e83c528c"},
-    {file = "flake8_isort-6.0.0-py3-none-any.whl", hash = "sha256:aa0cac02a62c7739e370ce6b9c31743edac904bae4b157274511fc8a19c75bbc"},
-]
-
-[package.dependencies]
-flake8 = "*"
-isort = ">=5.0.0,<6"
-
-[package.extras]
-test = ["pytest"]
-
-[[package]]
-name = "flake8-logging-format"
-version = "0.9.0"
-description = ""
-category = "main"
-optional = true
-python-versions = "*"
-files = [
-    {file = "flake8-logging-format-0.9.0.tar.gz", hash = "sha256:e830cc49091e4b8ab9ea3da69a3da074bd631ce9a7db300e5c89fb48ba4a6986"},
-]
-
-[package.extras]
-lint = ["flake8"]
-test = ["PyHamcrest", "pytest", "pytest-cov"]
 
 [[package]]
 name = "flake8-pep3101"
@@ -924,17 +805,6 @@ python-versions = ">=3.7"
 files = [
     {file = "flake8_variables_names-0.0.5-py3-none-any.whl", hash = "sha256:e3277031696bbe10b5132b49938cde1d70fcae9561533b7bd7ab8e69cb27addb"},
     {file = "flake8_variables_names-0.0.5.tar.gz", hash = "sha256:30133e14ee2300e13a60393a00f74d98110c76070ac67d1ab91606f02824a7e1"},
-]
-
-[[package]]
-name = "future"
-version = "0.18.3"
-description = "Clean single-source support for Python 3 and 2"
-category = "main"
-optional = true
-python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
-files = [
-    {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
 ]
 
 [[package]]
@@ -1218,24 +1088,6 @@ files = [
 ]
 
 [[package]]
-name = "mando"
-version = "0.6.4"
-description = "Create Python CLI apps with little to no effort at all!"
-category = "main"
-optional = true
-python-versions = "*"
-files = [
-    {file = "mando-0.6.4-py2.py3-none-any.whl", hash = "sha256:4ce09faec7e5192ffc3c57830e26acba0fd6cd11e1ee81af0d4df0657463bd1c"},
-    {file = "mando-0.6.4.tar.gz", hash = "sha256:79feb19dc0f097daa64a1243db578e7674909b75f88ac2220f1c065c10a0d960"},
-]
-
-[package.dependencies]
-six = "*"
-
-[package.extras]
-restructuredtext = ["rst2ansi"]
-
-[[package]]
 name = "markdown"
 version = "3.3.7"
 description = "Python implementation of Markdown."
@@ -1484,19 +1336,15 @@ mkdocs = ">=1.0"
 
 [[package]]
 name = "mkdocs-include-markdown-plugin"
-version = "3.9.1"
+version = "4.0.3"
 description = "Mkdocs Markdown includer plugin."
 category = "main"
 optional = true
-python-versions = ">=3.6"
+python-versions = "<3.12,>=3.7"
 files = [
-    {file = "mkdocs_include_markdown_plugin-3.9.1-py3-none-any.whl", hash = "sha256:f33687e29ac66d045ba181ea50f054646b0090b42b0a4318f08e7f1d1235e6f6"},
-    {file = "mkdocs_include_markdown_plugin-3.9.1.tar.gz", hash = "sha256:5e5698e78d7fea111be9873a456089daa333497988405acaac8eba2924a19152"},
+    {file = "mkdocs_include_markdown_plugin-4.0.3-py3-none-any.whl", hash = "sha256:bea863f0f4773c2dba4524e629bed222b0ce4135bcd47fc2fc6f524384f21bd8"},
+    {file = "mkdocs_include_markdown_plugin-4.0.3.tar.gz", hash = "sha256:0b98f8877a6e262a91024dae0d40597b04ebe9175f5dfdfa5796a9068e24458a"},
 ]
-
-[package.extras]
-dev = ["bump2version (==1.0.1)", "mkdocs (==1.4.0)", "pre-commit", "pytest (==7.1.3)", "pytest-cov (==3.0.0)", "tox"]
-test = ["mkdocs (==1.4.0)", "pytest (==7.1.3)", "pytest-cov (==3.0.0)"]
 
 [[package]]
 name = "mkdocs-literate-nav"
@@ -1840,6 +1688,35 @@ python-versions = "*"
 files = [
     {file = "peewee-3.15.4.tar.gz", hash = "sha256:2581520c8dfbacd9d580c2719ae259f0637a9e46eda47dfc0ce01864c6366205"},
 ]
+
+[[package]]
+name = "pip"
+version = "23.0.1"
+description = "The PyPA recommended tool for installing Python packages."
+category = "main"
+optional = true
+python-versions = ">=3.7"
+files = [
+    {file = "pip-23.0.1-py3-none-any.whl", hash = "sha256:236bcb61156d76c4b8a05821b988c7b8c35bf0da28a4b614e8d6ab5212c25c6f"},
+    {file = "pip-23.0.1.tar.gz", hash = "sha256:cd015ea1bfb0fcef59d8a286c1f8bebcb983f6317719d415dc5351efb7cd7024"},
+]
+
+[[package]]
+name = "pip-check"
+version = "2.8.1"
+description = "Display installed pip packages and their update status.."
+category = "main"
+optional = true
+python-versions = ">=3.6"
+files = [
+    {file = "pip-check-2.8.1.tar.gz", hash = "sha256:76d6abd49b1cd4b2db8752da685c2fae2eae39349efc2adeccf49cb148264d3b"},
+    {file = "pip_check-2.8.1-py2.py3-none-any.whl", hash = "sha256:f0b0761bb4b321da6f8d108b0111c22087203fb9fde96c392afc4fe663246bff"},
+]
+
+[package.dependencies]
+packaging = "*"
+pip = ">=9"
+terminaltables = "*"
 
 [[package]]
 name = "pkgutil-resolve-name"
@@ -2354,23 +2231,6 @@ prompt_toolkit = ">=2.0,<4.0"
 docs = ["Sphinx (>=3.3,<4.0)", "sphinx-autobuild (>=2020.9.1,<2021.0.0)", "sphinx-autodoc-typehints (>=1.11.1,<2.0.0)", "sphinx-copybutton (>=0.3.1,<0.4.0)", "sphinx-rtd-theme (>=0.5.0,<0.6.0)"]
 
 [[package]]
-name = "radon"
-version = "5.1.0"
-description = "Code Metrics in Python"
-category = "main"
-optional = true
-python-versions = "*"
-files = [
-    {file = "radon-5.1.0-py2.py3-none-any.whl", hash = "sha256:fa74e018197f1fcb54578af0f675d8b8e2342bd8e0b72bef8197bc4c9e645f36"},
-    {file = "radon-5.1.0.tar.gz", hash = "sha256:cb1d8752e5f862fb9e20d82b5f758cbc4fb1237c92c9a66450ea0ea7bf29aeee"},
-]
-
-[package.dependencies]
-colorama = {version = ">=0.4.1", markers = "python_version > \"3.4\""}
-future = "*"
-mando = ">=0.6,<0.7"
-
-[[package]]
 name = "regex"
 version = "2022.10.31"
 description = "Alternative regular expression module, to replace re."
@@ -2657,14 +2517,14 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "shoal"
-version = "0.5.0"
+version = "0.5.1"
 description = "Lazy, Python-first, alternative to make, just, doit, and invoke"
 category = "main"
 optional = false
 python-versions = ">=3.7.12,<4.0.0"
 files = [
-    {file = "shoal-0.5.0-py3-none-any.whl", hash = "sha256:022809913cd5b945cf8175666f4df4b7ac07d593fb48922ba19ee59c99fca1b0"},
-    {file = "shoal-0.5.0.tar.gz", hash = "sha256:956fd592d1827b21c55a21233b5f00b4f807402af6250a33298bc6e265081e23"},
+    {file = "shoal-0.5.1-py3-none-any.whl", hash = "sha256:35471b8d2683a86a6e8828d6b39c1ec7d214b649240d548c723b943a4c273abd"},
+    {file = "shoal-0.5.1.tar.gz", hash = "sha256:eeba699cbde8621e2276dc5d82cfafc1729d8b7a5c1e3ffeacd71c7060914973"},
 ]
 
 [package.dependencies]
@@ -2770,15 +2630,15 @@ files = [
 tests = ["pytest", "pytest-cov"]
 
 [[package]]
-name = "toml"
-version = "0.10.2"
-description = "Python Library for Tom's Obvious, Minimal Language"
+name = "terminaltables"
+version = "3.1.10"
+description = "Generate simple tables in terminals from a nested list of strings."
 category = "main"
 optional = true
-python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+python-versions = ">=2.6"
 files = [
-    {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
-    {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
+    {file = "terminaltables-3.1.10-py2.py3-none-any.whl", hash = "sha256:e4fdc4179c9e4aab5f674d80f09d76fa436b96fdc698a8505e0a36bf0804a874"},
+    {file = "terminaltables-3.1.10.tar.gz", hash = "sha256:ba6eca5cb5ba02bba4c9f4f985af80c54ec3dccf94cfcd190154386255e47543"},
 ]
 
 [[package]]
@@ -2844,23 +2704,6 @@ six = "*"
 [package.extras]
 diagrams = ["pygraphviz"]
 test = ["pytest"]
-
-[[package]]
-name = "tryceratops"
-version = "1.1.0"
-description = "A linter to manage your exception like a PRO!"
-category = "main"
-optional = true
-python-versions = ">=3.8,<4.0"
-files = [
-    {file = "tryceratops-1.1.0-py3-none-any.whl", hash = "sha256:f4770960782a2ae87cad7a7fd1206476468d0f41383c9fd7a49c6d537534015e"},
-    {file = "tryceratops-1.1.0.tar.gz", hash = "sha256:58e56b33eeb7a9cfd643957069bb1872ebe26c1eeac7abb1877c9535b7e473db"},
-]
-
-[package.dependencies]
-click = ">=7"
-rich = ">=10.14.0"
-toml = ">=0.10.2"
 
 [[package]]
 name = "types-docutils"
@@ -3196,23 +3039,6 @@ files = [
 ]
 
 [[package]]
-name = "xenon"
-version = "0.9.0"
-description = "Monitor code metrics for Python on your CI server"
-category = "main"
-optional = true
-python-versions = "*"
-files = [
-    {file = "xenon-0.9.0-py2.py3-none-any.whl", hash = "sha256:994c80c7f1c6d40596b600b93734d85a5739208f31895ef99f1e4d362caf9e35"},
-    {file = "xenon-0.9.0.tar.gz", hash = "sha256:d2b9cb6c6260f771a432c1e588e51fddb17858f88f73ef641e7532f7a5f58fb8"},
-]
-
-[package.dependencies]
-PyYAML = ">=4.2b1,<7.0"
-radon = ">=4,<6"
-requests = ">=2.0,<3.0"
-
-[[package]]
 name = "zipp"
 version = "3.14.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -3231,8 +3057,8 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [extras]
 ddict = ["python-box"]
 doc = ["commitizen", "mdx_truly_sane_lists", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pyyaml", "transitions"]
-flake8 = ["autopep8", "cohesion", "dlint", "flake8", "flake8-aaa", "flake8-absolute-import", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-class-attributes-order", "flake8-executable", "flake8-expression-complexity", "flake8-fine-pytest", "flake8-fixme", "flake8-functions", "flake8-isort", "flake8-logging-format", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-require-beartype", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names", "tryceratops", "xenon"]
-lint = ["absolufy-imports", "bandit", "ruff", "semgrep"]
+flake8 = ["autopep8", "dlint", "flake8", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-class-attributes-order", "flake8-executable", "flake8-expression-complexity", "flake8-functions", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-require-beartype", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names"]
+lint = ["absolufy-imports", "bandit", "pip-check", "ruff", "semgrep"]
 nox = ["nox-poetry"]
 pylint = ["pylint"]
 stale = ["bidict", "pyrate_limiter", "requests"]
@@ -3243,4 +3069,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "a702696b9163a756127b3381ddbb38f910d727f82db8c08c2170736959c1ff35"
+content-hash = "e118666f9c91b05e396a1061fe65a379f89ea92e39ae738c73d41a4aa481d2a1"

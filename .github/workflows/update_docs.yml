@@ -35,4 +35,4 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Build and deploy documentation
-        run: ./run doc.deploy
+        run: ./run cl.write doc.build doc.deploy

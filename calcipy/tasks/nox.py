@@ -41,5 +41,5 @@ def _gen_task(task_name: str) -> None:
     globals()[task_name] = _task
 
 
-for name in ['test', 'coverage', 'build_check', 'build_dist']:
+for name in ['tests', 'coverage', 'build_check', 'build_dist']:
     _gen_task(name)

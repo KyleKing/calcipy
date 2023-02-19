@@ -97,9 +97,10 @@ def pylint(ctx: Context, *, target: Optional[str] = None) -> None:
 
 @task()  # type: ignore[misc]
 def security(ctx: Context) -> None:
-    """Attempt to identify possible security vulnerabilities, but use `# nosec` to selectively override checks."""
+    """Attempt to identify possible security vulnerabilities."""
+    # Selectively override bandit with '# nosec'
     pkg_name = read_package_name()
-    ctx.run(f'poetry run bandit --recursive {pkg_name}')
+    ctx.run(f'poetry run bandit --recursive {pkg_name}', echo=True, pty=use_pty())
 
     # PLANNED: Extend semgrep
     #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
@@ -128,7 +129,8 @@ def security(ctx: Context) -> None:
         # > dlukeomalley:flask-set-cookie
         # > clintgibler:no-exec
     ])
-    ctx.run(f'poetry run semgrep ci {semgrep_configs}')
+    # Selectively override semgrep with '# nosem'
+    ctx.run(f'poetry run semgrep ci --autofix {semgrep_configs} ', echo=True, pty=use_pty())
 
 
 # ==============================================================================

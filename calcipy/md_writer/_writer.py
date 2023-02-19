@@ -50,6 +50,27 @@ class _ReplacementMachine(Machine):
         )
 
     @beartype
+    def parse(
+        self, lines: List[str], handler_lookup: HandlerLookupT,
+        path_file: Path,
+    ) -> List[str]:
+        """Parse lines and insert new_text based on provided handler_lookup.
+
+        Args:
+            lines: list of string from source file
+            handler_lookup: Lookup dictionary for autoformatted sections
+            path_file: optional path to the file. Only useful for debugging
+
+        Returns:
+            List[str]: modified list of strings
+
+        """
+        updated_lines = []
+        for line in lines:
+            updated_lines.extend(self._parse_line(line, handler_lookup, path_file))
+        return updated_lines
+
+    @beartype
     def _parse_line(
         self, line: str, handler_lookup: HandlerLookupT, path_file: Path,
     ) -> List[str]:
@@ -77,34 +98,13 @@ class _ReplacementMachine(Machine):
                     lines.append(line)
                     self.end()
             else:
-                logger.error('Could not parse: {line}', line=line)
+                logger.error('Could not parse', line=line)
                 lines.append(line)
                 self.end()
         elif self.state == self.state_user:
             lines.append(line)
         # else: discard the lines in the auto-section
         return lines
-
-    @beartype
-    def parse(
-        self, lines: List[str], handler_lookup: HandlerLookupT,
-        path_file: Path,
-    ) -> List[str]:
-        """Parse lines and insert new_text based on provided handler_lookup.
-
-        Args:
-            lines: list of string from source file
-            handler_lookup: Lookup dictionary for autoformatted sections
-            path_file: optional path to the file. Only useful for debugging
-
-        Returns:
-            List[str]: modified list of strings
-
-        """
-        updated_lines = []
-        for line in lines:
-            updated_lines.extend(self._parse_line(line, handler_lookup, path_file))
-        return updated_lines
 
 
 _RE_VAR_COMMENT_HTML = re.compile(r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);')
@@ -228,4 +228,5 @@ def write_autoformatted_md_sections(handler_loookup: Optional[HandlerLookupT] = 
     for path_md in paths_by_suffix.get('md', []):
         logger.debug('Processing', path_md=path_md)
         md_lines = _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md)
-        path_md.write_text('\n'.join(md_lines))
+        if md_lines:
+            path_md.write_text('\n'.join(md_lines) + '\n')

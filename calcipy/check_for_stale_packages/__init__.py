@@ -1,4 +1,1 @@
-from ._check_for_stale_packages import (
-    PACK_LOCK_PATH,
-    check_for_stale_packages,
-)
+from ._check_for_stale_packages import check_for_stale_packages
