@@ -61,5 +61,4 @@ jobs:
       - name: Run typecheck
         run: ./run types.mypy
 
-      # TODO: Pass pyright type checks
-      # - uses: jakebailey/pyright-action@v1
+      - uses: jakebailey/pyright-action@v1

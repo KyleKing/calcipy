@@ -54,15 +54,15 @@ def with_progress(
     tasks = []
     total = len(items) + offset
     for ix, item in enumerate(items):
-        tasks.extend([call(progress, index=ix + offset, total=total), item])
+        tasks.extend([call(progress, index=ix + offset, total=total), item])  # pyright: ignore[reportGeneralTypeIssues]
     return tasks
 
 
 _MAIN_TASKS = [
     lint.fix,
     types.mypy,
-    call(nox.noxfile, session='tests'),
-    call(lint.pre_commit, no_update=True),
+    call(nox.noxfile, session='tests'),  # pyright: ignore[reportGeneralTypeIssues]
+    call(lint.pre_commit, no_update=True),  # pyright: ignore[reportGeneralTypeIssues]
     lint.security,
     tags.collect_code_tags,
     cl.write,
@@ -103,7 +103,7 @@ def other(_ctx: Context) -> None:
 @task(  # type: ignore[misc]
     help=cl.bump.help,
     post=with_progress(
-        [
+        [  # pyright: ignore[reportGeneralTypeIssues]
             pack.lock,
             doc.build,
             doc.deploy,
