@@ -39,6 +39,7 @@
 
 ### Refactor
 
+- resolve flake8 warnings and better manage filenames
 - apply autopep8 to fix whitespace issues
 - import initialized logger directly
 - try to wrap running tasks programmatically...

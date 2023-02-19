@@ -60,7 +60,7 @@ def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-
     """Retrieve nested dictionary keys unless not found."""
     result = source
     for key in keys:
-        result = result.get(key)
+        result = result.get(key)  # type: ignore[assignment]
         if not result:
             return {}
     return result
@@ -72,7 +72,7 @@ def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
     poetry_config = read_pyproject()['tool']['poetry']
 
     @beartype
-    def normalize_dep(value: Union[str, Dict]) -> Dict:
+    def normalize_dep(value: Union[str, Dict]) -> Dict:  # type: ignore[type-arg]
         return {'version': value} if isinstance(value, str) else value
 
     return {

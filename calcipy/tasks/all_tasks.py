@@ -54,16 +54,17 @@ def with_progress(items: List[Union[Call, Task]],
 
 
 _MAIN_TASKS = [
+    lint.fix,
+    types.mypy,
+    call(nox.noxfile, session='tests'),
+    call(lint.pre_commit, no_update=True),
+    lint.security,
     tags.collect_code_tags,
     cl.write,
     pack.lock,
-    nox.noxfile,
-    lint.fix,
+    test.write_json,
     doc.build,
     stale.check_for_stale_packages,
-    call(lint.pre_commit, no_update=True),
-    lint.security,
-    types.mypy,
 ]
 
 # TODO: Can the main tasks be extended? Maybe by adding a new 'main' task?'
