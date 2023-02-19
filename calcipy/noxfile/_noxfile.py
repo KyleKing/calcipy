@@ -6,12 +6,12 @@
 poetry run nox -l
 poetry run nox --list-sessions
 
-poetry run nox -s build_check-3.9 build_dist-3.9 coverage-3.9
-poetry run nox --session coverage-3.9
+poetry run nox -s build_check-3.8 build_dist-3.8 tests-3.8
+poetry run nox --session tests-3.11
 
 poetry run nox --python 3.8
 
-poetry run nox -k "not tests and not coverage"
+poetry run nox -k "not build_check and not build_dist"
 ```
 
 Useful nox snippets
@@ -132,24 +132,8 @@ def tests(session: Session) -> None:
         session: nox_poetry Session
 
     """
-    _install_local(session, ['dev', 'test'])
+    _install_local(session, ['ddict', 'doc', 'lint', 'nox', 'stale', 'tags', 'test'])
     session.run(*shlex.split('pytest ./tests'), stdout=True)
-
-
-@nox_session(python=_get_pythons()[-1:], reuse_venv=True)
-def coverage(session: Session) -> None:
-    """Run doit test task for specified python versions.
-
-    Args:
-        session: nox_poetry Session
-
-    """
-    _install_local(session, ['dev', 'test'])
-    pkg_name = read_package_name()
-    session.run(
-        *shlex.split(f'pytest ./tests --cov={pkg_name} --cov-report=term-missing'),
-        stdout=True,
-    )
 
 
 @nox_session(python=_get_pythons()[-1:], reuse_venv=False)

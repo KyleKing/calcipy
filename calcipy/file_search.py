@@ -4,7 +4,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from beartype import beartype
-from beartype.typing import Dict, List
+from beartype.typing import Dict, List, Optional
 from shoal.shell import capture_shell  # FIXME: Move to grouper (name tbd)
 
 from ._log import logger
@@ -80,7 +80,9 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
 
 
 @beartype
-def find_project_files_by_suffix(path_project: Path, ignore_patterns: List[str]) -> Dict[str, List[Path]]:
+def find_project_files_by_suffix(
+    path_project: Path, *, ignore_patterns: Optional[List[str]] = None,
+) -> Dict[str, List[Path]]:
     """Find project files in git version control.
 
     > Note: uses the relative project directory and verifies that each file exists
@@ -94,6 +96,6 @@ def find_project_files_by_suffix(path_project: Path, ignore_patterns: List[str])
 
     """
     file_lookup = defaultdict(list)
-    for path_file in find_project_files(path_project, ignore_patterns):
+    for path_file in find_project_files(path_project, ignore_patterns or []):
         file_lookup[path_file.suffix.lstrip('.')].append(path_file)
     return dict(file_lookup)

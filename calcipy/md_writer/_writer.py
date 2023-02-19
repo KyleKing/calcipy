@@ -191,7 +191,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
 
 
 @beartype
-def _handle_coverage(line: str, _path_file: Path) -> List[str]:
+def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] = None) -> List[str]:
     """Read the coverage.json file and write a Markdown table to the README file.
 
     Args:
@@ -205,7 +205,8 @@ def _handle_coverage(line: str, _path_file: Path) -> List[str]:
         _ParseSkipError: if the "coverage.json" file is not available
 
     """
-    path_coverage = get_project_path() / 'coverage.json'  # Created by "task_coverage"
+    # FIXME: Ensure that coverage is created (write-json - rename?)
+    path_coverage = path_coverage or get_project_path() / 'coverage.json'
     if not path_coverage.is_file():
         msg = f'Could not locate: {path_coverage}'
         raise _ParseSkipError(msg)
@@ -216,16 +217,18 @@ def _handle_coverage(line: str, _path_file: Path) -> List[str]:
 
 
 @beartype
-def write_autoformatted_md_sections(handler_loookup: Optional[HandlerLookupT] = None) -> None:
+def write_autoformatted_md_sections(
+    handler_lookup: Optional[HandlerLookupT] = None,
+    paths_md: Optional[List[Path]] = None,
+) -> None:
     """Populate the auto-formatted sections of markdown files with user-configured logic."""
-    _lookup: HandlerLookupT = handler_loookup or {
+    _lookup: HandlerLookupT = handler_lookup or {
         'COVERAGE ': _handle_coverage,
         'SOURCE_FILE=': _handle_source_file,
     }
 
-    # PLANNED: Could be more efficient?
-    paths_by_suffix = find_project_files_by_suffix(get_project_path(), [])
-    for path_md in paths_by_suffix.get('md', []):
+    paths = paths_md or find_project_files_by_suffix(get_project_path()).get('md') or []
+    for path_md in paths:
         logger.debug('Processing', path_md=path_md)
         if md_lines := _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md):
             path_md.write_text('\n'.join(md_lines) + '\n')

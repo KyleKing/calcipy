@@ -70,7 +70,7 @@ repos:
     hooks:
       - id: toml-sort-fix
         # TODO: https://github.com/pappasam/toml-sort/issues/42
-        exclude: poery.lock|pyproject\.toml
+        exclude: poetry\.lock|pyproject\.toml
   - repo: local
     hooks:
       - id: copier-forbidden-files

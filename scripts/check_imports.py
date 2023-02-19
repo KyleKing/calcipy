@@ -58,7 +58,7 @@ except RuntimeError as exc:
         raise
 
 try:
-    from calcipy.noxfile import build_check, build_dist, coverage, tests
+    from calcipy.noxfile import build_check, build_dist, tests
 except RuntimeError as exc:
     if 'extras' not in str(exc):
         raise
