@@ -1,6 +1,7 @@
 from unittest.mock import call
 
 import pytest
+from shoal import can_skip
 
 from calcipy.invoke_helpers import use_pty
 from calcipy.tasks.pack import check_licenses, lock, publish
@@ -17,7 +18,8 @@ from calcipy.tasks.pack import check_licenses, lock, publish
         (check_licenses, {}, ['licensecheck']),
     ],
 )
-def test_pack(ctx, task, kwargs, commands):
+def test_pack(ctx, task, kwargs, commands, monkeypatch):
+    monkeypatch.setattr(can_skip, 'can_skip', can_skip.dont_skip)
     task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([

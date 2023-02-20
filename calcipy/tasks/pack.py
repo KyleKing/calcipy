@@ -1,7 +1,7 @@
 """Packaging CLI."""
 
 from invoke import Context
-from shoal.can_skip import can_skip
+from shoal import can_skip  # Required for mocking can_skip.can_skip
 from shoal.cli import task
 
 from .._log import logger
@@ -13,7 +13,7 @@ from ..noxfile._noxfile import BASE_NOX_COMMAND
 @task()  # type: ignore[misc]
 def lock(ctx: Context) -> None:
     """Ensure poetry.lock is  up-to-date."""
-    if can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
+    if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
         return  # Exit early
 
     ctx.run('poetry lock --no-update')

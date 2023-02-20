@@ -12,7 +12,7 @@ from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
 from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
-from shoal.can_skip import can_skip
+from shoal import can_skip  # Required for mocking can_skip.can_skip
 
 from .._log import logger
 from ..file_helpers import LOCK
@@ -217,7 +217,7 @@ def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_
     """
     packages = _read_packages(path_lock)
     cached_packages = _read_cache(path_cache)
-    if can_skip(prerequisites=[path_lock], targets=[path_cache]):
+    if can_skip.can_skip(prerequisites=[path_lock], targets=[path_cache]):
         packages = [*cached_packages.values()]
     else:
         packages = _collect_release_dates(packages, cached_packages)
