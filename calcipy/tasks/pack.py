@@ -6,7 +6,6 @@ from shoal.cli import task
 
 from .._log import logger
 from ..file_helpers import LOCK, PROJECT_TOML
-from ..invoke_helpers import use_pty
 from ..noxfile._noxfile import BASE_NOX_COMMAND
 
 
@@ -26,12 +25,12 @@ def lock(ctx: Context) -> None:
 )
 def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     """Build the distributed format(s) and publish."""
-    ctx.run(f'{BASE_NOX_COMMAND} --session build_dist build_check', echo=True, pty=use_pty())
+    ctx.run(f'{BASE_NOX_COMMAND} --session build_dist build_check')
 
     cmd = 'poetry publish'
     if to_test_pypi:
         cmd += ' --repository testpypi'
-    ctx.run(cmd, echo=True, pty=use_pty())
+    ctx.run(cmd)
 
 
 @task()  # type: ignore[misc]
@@ -40,5 +39,5 @@ def check_licenses(ctx: Context) -> None:
     res = ctx.run('which licensecheck', warn=True, hide=True)
     if res.exited == 1:
         logger.warning('`licensecheck` not found. installing with pipx')
-        ctx.run('pipx install licensecheck', echo=True, pty=use_pty())
-    ctx.run('licensecheck', echo=True, pty=use_pty())
+        ctx.run('pipx install licensecheck')
+    ctx.run('licensecheck')

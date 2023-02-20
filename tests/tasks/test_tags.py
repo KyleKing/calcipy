@@ -3,7 +3,6 @@ from unittest.mock import call
 
 import pytest
 
-from calcipy.invoke_helpers import use_pty
 from calcipy.tasks.tags import collect_code_tags
 
 from ..configuration import TEST_DATA_DIR
@@ -30,7 +29,7 @@ def test_tags(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([
-        call(cmd, echo=True, pty=use_pty()) if isinstance(cmd, str) else cmd
+        call(cmd) if isinstance(cmd, str) else cmd
         for cmd in commands
     ])
 

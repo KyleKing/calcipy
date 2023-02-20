@@ -25,7 +25,6 @@ from calcipy.file_helpers import (
     tail_lines,
     trim_trailing_whitespace,
 )
-from calcipy.invoke_helpers import use_pty
 
 try:
     from calcipy.check_for_stale_packages import check_for_stale_packages

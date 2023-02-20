@@ -3,7 +3,6 @@ from unittest.mock import call
 import pytest
 from shoal import can_skip
 
-from calcipy.invoke_helpers import use_pty
 from calcipy.tasks.pack import check_licenses, lock, publish
 
 
@@ -23,6 +22,6 @@ def test_pack(ctx, task, kwargs, commands, monkeypatch):
     task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([
-        call(cmd, echo=True, pty=use_pty()) if isinstance(cmd, str) else cmd
+        call(cmd) if isinstance(cmd, str) else cmd
         for cmd in commands
     ])

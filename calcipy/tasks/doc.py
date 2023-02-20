@@ -18,7 +18,6 @@ from ..file_helpers import (
     read_yaml_file,
     trim_trailing_whitespace,
 )
-from ..invoke_helpers import use_pty
 from ..md_writer import write_autoformatted_md_sections
 
 
@@ -54,10 +53,7 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
     path_diagram = pdoc_out_path / pkg_name / '_code_diagrams.md'
     ensure_dir(path_diagram.parent)
     path_diagram.write_text(diagram_md)
-    ctx.run(
-        f'poetry run pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}',
-        echo=True, pty=use_pty(),
-    )
+    ctx.run(f'poetry run pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}')
 
 
 @beartype
@@ -106,7 +102,7 @@ def watch(ctx: Context) -> None:
         open_in_browser(path_doc_index)
     else:
         webbrowser.open('http://localhost:8000')
-        ctx.run('poetry run mkdocs serve --dirtyreload', echo=True, pty=use_pty())
+        ctx.run('poetry run mkdocs serve --dirtyreload')
 
 
 @task()  # type: ignore[misc]
@@ -115,4 +111,4 @@ def deploy(ctx: Context) -> None:
     if _is_mkdocs_local():  # pragma: no cover
         raise NotImplementedError('Not yet configured to deploy documentation without "use_directory_urls"')
 
-    ctx.run('poetry run mkdocs gh-deploy', echo=True, pty=use_pty())
+    ctx.run('poetry run mkdocs gh-deploy')

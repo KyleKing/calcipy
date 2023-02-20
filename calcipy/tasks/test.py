@@ -8,7 +8,6 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import open_in_browser, read_package_name
-from ..invoke_helpers import use_pty
 from .defaults import from_ctx
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
@@ -31,10 +30,7 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
-    ctx.run(
-        f'poetry run {command} ./tests{cli_args}',
-        echo=True, pty=use_pty(),
-    )
+    ctx.run(f'poetry run {command} ./tests{cli_args}')
 
 
 KM_HELP = {

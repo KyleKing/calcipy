@@ -5,17 +5,13 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import read_package_name
-from ..invoke_helpers import use_pty
 
 
 @beartype
 def _inner_task(ctx: Context, *, cli_args: str, command: str) -> None:
     """Shared task logic."""
     pkg_name = read_package_name()
-    ctx.run(
-        f'poetry run {command} {pkg_name}{cli_args}',
-        echo=True, pty=use_pty(),
-    )
+    ctx.run(f'poetry run {command} {pkg_name}{cli_args}')
 
 
 @task()  # type: ignore[misc]

@@ -8,7 +8,6 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import read_package_name
-from ..invoke_helpers import use_pty
 
 # ==============================================================================
 # Ruff
@@ -30,10 +29,7 @@ def _inner_task(
         target = ' '.join([str(_a) for _a in file_args])
     elif target is None:
         target = f'./{read_package_name()} ./tests'
-    ctx.run(
-        f'poetry run {command} {target}{cli_args}',
-        echo=True, pty=use_pty(),
-    )
+    ctx.run(f'poetry run {command} {target}{cli_args}')
 
 
 @task(  # type: ignore[misc]
@@ -99,7 +95,7 @@ def security(ctx: Context) -> None:
     """Attempt to identify possible security vulnerabilities."""
     # Selectively override bandit with '# nosec'
     pkg_name = read_package_name()
-    ctx.run(f'poetry run bandit --recursive {pkg_name}', echo=True, pty=use_pty())
+    ctx.run(f'poetry run bandit --recursive {pkg_name}')
 
     # PLANNED: Extend semgrep
     #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
@@ -129,7 +125,7 @@ def security(ctx: Context) -> None:
         # > clintgibler:no-exec
     ])
     # Selectively override semgrep with '# nosem'
-    ctx.run(f'poetry run semgrep ci --autofix {semgrep_configs} ', echo=True, pty=use_pty())
+    ctx.run(f'poetry run semgrep ci --autofix {semgrep_configs} ')
 
 
 # ==============================================================================
@@ -143,8 +139,8 @@ def security(ctx: Context) -> None:
 )
 def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     """Run pre-commit."""
-    ctx.run('pre-commit install', echo=True, pty=use_pty())
+    ctx.run('pre-commit install')
     if not no_update:
-        ctx.run('pre-commit autoupdate', echo=True, pty=use_pty())
+        ctx.run('pre-commit autoupdate')
     # PLANNED: Read hook-stages from 'default_install_hook_types'
-    ctx.run('pre-commit run --all-files --hook-stage commit --hook-stage push', echo=True, pty=use_pty())
+    ctx.run('pre-commit run --all-files --hook-stage commit --hook-stage push')

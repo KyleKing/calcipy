@@ -7,7 +7,6 @@ from invoke import Context
 from shoal.cli import task
 
 from ..file_helpers import get_doc_subdir, get_project_path
-from ..invoke_helpers import use_pty
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
@@ -41,16 +40,18 @@ def write(ctx: Context) -> None:
 @beartype
 def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     """Bumps project version based on commits & settings in pyproject.toml."""
-    ctx_kwargs = {'echo': True, 'pty': use_pty()}
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
-    ctx.run(f'poetry run cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign', **ctx_kwargs)
+    ctx.run(f'poetry run cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
+
     # Catch issues when commitizen breaks versions indirectly
-    ctx.run('poetry lock --check', **ctx_kwargs)
-    ctx.run('git push origin --tags --no-verify', **ctx_kwargs)
+    ctx.run('poetry lock --check')
+
+    ctx.run('git push origin --tags --no-verify')
+
     # TODO: Make "which $(..) >> /dev/null && " a function?
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     opt_gh_args = ' --prerelease' if suffix else ''
-    ctx.run(f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}){opt_gh_args}', **ctx_kwargs)
+    ctx.run(f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}){opt_gh_args}')
 
 
 @task(  # type: ignore[misc]
