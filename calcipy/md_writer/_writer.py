@@ -228,6 +228,6 @@ def write_autoformatted_md_sections(
 
     paths = paths_md or find_project_files_by_suffix(get_project_path()).get('md') or []
     for path_md in paths:
-        logger.debug('Processing', path_md=path_md)
+        logger.print_debug('Processing', path_md=path_md)
         if md_lines := _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md):
             path_md.write_text('\n'.join(md_lines) + '\n')

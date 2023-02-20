@@ -85,7 +85,7 @@ def _search_lines(
                 group = match.groupdict()
                 comments.append(_CodeTag(lineno=lineno + 1, tag=group['tag'], text=group['text']))
             else:
-                logger.debug('Skipping long line', lineno=lineno, line=line[:200])
+                logger.print_debug('Skipping long line', lineno=lineno, line=line[:200])
     return comments
 
 
@@ -107,7 +107,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         try:
             lines = read_lines(path_source)
         except UnicodeDecodeError as err:
-            logger.debug('Could not parse', path_source=path_source, err=err)
+            logger.print_debug('Could not parse', path_source=path_source, err=err)
 
         if comments := _search_lines(lines, regex_compiled):
             matches.append(_Tags(path_source=path_source, code_tags=comments))
@@ -164,7 +164,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         handled_errors = (128,)
         if exc.returncode not in handled_errors:
             raise
-        logger.debug('Skipping blame', file_path=file_path, exc=exc)
+        logger.print_debug('Skipping blame', file_path=file_path, exc=exc)
 
     # Set fallback values if git logic doesn't work
     rel_path = file_path.relative_to(base_dir)
@@ -231,10 +231,10 @@ def _format_report(  # noqa: CAC001
             if not line.startswith('/'):
                 output += '\n'
             output += line
-    logger.debug('counter', counter=counter)
+    logger.print_debug('counter', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}
-    logger.debug('sorted_counter', sorted_counter=sorted_counter)
+    logger.print_debug('sorted_counter', sorted_counter=sorted_counter)
     if formatted_summary := ', '.join(
         f'{tag} ({count})' for tag, count in sorted_counter.items()
     ):
@@ -271,6 +271,6 @@ def write_code_tag_file(
         base_dir, matches, tag_order=tag_order,
     ).strip():
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
-        logger.info('Created Code Tag Summary', path_tag_summary=path_tag_summary)
+        logger.print('Created Code Tag Summary', path_tag_summary=path_tag_summary)
     elif path_tag_summary.is_file():
         path_tag_summary.unlink()

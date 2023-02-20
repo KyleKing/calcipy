@@ -36,7 +36,7 @@ def progress(_ctx: Context, *, index: int, total: int) -> None:
     """Main task pipeline."""
     if index > 0:
         print('')  # noqa: T201
-    logger.info('Progress', index=index + 1, total=total)
+    logger.print('Progress', index=index + 1, total=total)
 
 
 @beartype
@@ -80,7 +80,7 @@ _MAIN_TASKS = [
 )
 def main(_ctx: Context) -> None:
     """Main task pipeline."""
-    logger.info('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
+    logger.print('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
 
 
 _OTHER_TASKS = [
@@ -97,7 +97,7 @@ _OTHER_TASKS = [
 )
 def other(_ctx: Context) -> None:
     """Run tasks that are otherwise not exercised in main."""
-    logger.info('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
+    logger.print('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
 
 
 @task(  # type: ignore[misc]
