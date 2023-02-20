@@ -11,7 +11,7 @@ from calcipy.file_helpers import (
     delete_dir,
     delete_old_files,
     ensure_dir,
-    get_doc_dir,
+    get_doc_subdir,
     get_project_path,
     get_relative,
     get_tool_versions,

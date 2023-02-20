@@ -35,6 +35,7 @@
 
 ### Fix
 
+- correct ignore pattern logic and expand task tests
 - get doc and cl tasks working
 - code tag summary and rename default tasks
 - properly map CLI arguments to code tag collector

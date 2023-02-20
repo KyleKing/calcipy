@@ -184,10 +184,8 @@ def sanitize_filename(filename: str, repl_char: str = '_', allowed_chars: str = 
 
 
 @beartype
-def get_doc_dir(path_project: Path) -> Path:
-    """Retrieve the documentation directory from teh copier answer file.
-
-    > Default directory is "docs" if not found. This is the main parent directory (not doc_sub_dir)
+def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
+    """Retrieve the documentation directory from the copier answer file.
 
     Args:
         path_project: Path to the project directory with contains `.copier-answers.yml`
@@ -196,8 +194,9 @@ def get_doc_dir(path_project: Path) -> Path:
         Path: to the source documentation directory
 
     """
-    path_copier = path_project / COPIER_ANSWERS
-    return path_project / read_yaml_file(path_copier).get('doc_dir', 'docs')  # type: ignore[no-any-return]
+    path_copier = (path_project or get_project_path()) / COPIER_ANSWERS
+    doc_dir = read_yaml_file(path_copier).get('doc_dir', 'docs')
+    return path_copier.parent / doc_dir / 'docs'  # type: ignore[no-any-return]
 
 
 @beartype

@@ -11,6 +11,7 @@ from shoal.cli import task
 from ..file_helpers import (
     MKDOCS_CONFIG,
     ensure_dir,
+    get_doc_subdir,
     get_project_path,
     open_in_browser,
     read_package_name,
@@ -19,7 +20,6 @@ from ..file_helpers import (
 )
 from ..invoke_helpers import use_pty
 from ..md_writer import write_autoformatted_md_sections
-from .defaults import from_ctx
 
 
 @beartype
@@ -61,7 +61,7 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
 
 
 @beartype
-def get_path_out() -> Path:
+def get_out_dir() -> Path:
     """Retrieve the mkdocs-specified site directory."""
     mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
     return Path(mkdocs_config.get('site_dir', 'releases/site'))
@@ -70,7 +70,7 @@ def get_path_out() -> Path:
 @task()  # type: ignore[misc]
 def build(ctx: Context) -> None:
     """Build documentation with mkdocs."""
-    auto_doc_path = Path(from_ctx(ctx, 'doc', 'auto_doc_path'))
+    auto_doc_path = get_doc_subdir().parent / 'modules'
     write_autoformatted_md_sections()
     shutil.rmtree(auto_doc_path)
     _diagram_task(ctx, auto_doc_path)
@@ -79,7 +79,7 @@ def build(ctx: Context) -> None:
     for path_md in auto_doc_path.rglob('*.md'):
         trim_trailing_whitespace(path_md)
 
-    ctx.run(f'poetry run mkdocs build --site-dir {get_path_out()}')
+    ctx.run(f'poetry run mkdocs build --site-dir {get_out_dir()}')
 
 
 @beartype
@@ -102,7 +102,7 @@ def _is_mkdocs_local() -> bool:
 def watch(ctx: Context) -> None:
     """Serve local documentation for local editing."""
     if _is_mkdocs_local():  # pragma: no cover
-        path_doc_index = get_path_out() / 'index.html'
+        path_doc_index = get_out_dir() / 'index.html'
         open_in_browser(path_doc_index)
     else:
         webbrowser.open('http://localhost:8000')

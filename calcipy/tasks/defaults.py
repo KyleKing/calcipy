@@ -6,13 +6,8 @@ from beartype import beartype
 from invoke import Context
 
 DEFAULTS = {
-    'doc': {
-        'auto_doc_path': 'docs/modules',
-        'doc_sub_dir': 'docs/docs',
-        'path_out': 'releases/site',
-    },
     'tags': {
-        'filename': 'docs/docs/CODE_TAG_SUMMARY.md',
+        'filename': 'CODE_TAG_SUMMARY.md',
     },
     'test': {
         'min_cover': '0',

@@ -7,6 +7,7 @@ from invoke import Context
 from shoal.cli import task
 
 from ..code_tag_collector import write_code_tag_file
+from ..file_helpers import get_doc_subdir
 from ..file_search import find_project_files
 from .defaults import from_ctx
 
@@ -31,7 +32,7 @@ def collect_code_tags(
 ) -> None:
     """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
     pth_base_dir = Path(base_dir).resolve()
-    path_tag_summary = Path(filename or from_ctx(ctx, 'tags', 'filename')).resolve()
+    path_tag_summary = get_doc_subdir() / (filename or from_ctx(ctx, 'tags', 'filename'))
     patterns = ignore_patterns.split(',') if ignore_patterns else []
     paths_source = find_project_files(pth_base_dir, ignore_patterns=patterns)
 
