@@ -2,7 +2,6 @@
 
 | Type    | Comment                                                                                            | Last Edit   | Source File                                                                                                                                                                                                                  |
 |---------|----------------------------------------------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TODO    | Pass pyright type checks                                                                           | 2023-02-18  | [.github/workflows/ci_pipeline.yml:64](https://github.com/KyleKing/calcipy/blame/1742c7d7bb447036c527d1a2e1d5d4679246a67b/.github/workflows/ci_pipeline.yml#L64)                                                             |
 | TODO    | https://github.com/pappasam/toml-sort/issues/42                                                    | 2023-02-19  | [.pre-commit-config.yaml:73](https://github.com/KyleKing/calcipy/blame/d95eb85ab7f6d45459ed7b3ff2dc99ae3c92fa61/.pre-commit-config.yaml#L72)                                                                                 |
 | TBD     | Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)                       | 2023-02-15  | [calcipy/check_for_stale_packages/_check_for_stale_packages.py:173](https://github.com/KyleKing/calcipy/blame/a77ee851ac5c6631b011e8a3239b804e1290eba6/calcipy/check_for_stale_packages/_check_for_stale_packages.py#L176)   |
 | FIXME   | Move to grouper (name tbd)                                                                         | 2023-02-18  | [calcipy/code_tag_collector/_collector.py:15](https://github.com/KyleKing/calcipy/blame/06d07104f0b3d65c62d6ea583600368e601ea511/calcipy/code_tag_collector/_collector.py#L15)                                               |
@@ -28,6 +27,6 @@
 | PLANNED | Convert to hypothesis test!                                                                        | 2023-02-19  | [tests/test_dot_dict.py:9](https://github.com/KyleKing/calcipy/blame/3f42ad855eb7024ff48af35d496633a87d4a14ac/tests/test_dot_dict.py#L9)                                                                                     |
 | PLANNED | Move to the shared package                                                                         | 2023-02-19  | [tests/test_zz_calcipy.py:7](https://github.com/KyleKing/calcipy/blame/a8b69e7b04d9b15eabff8897f2de7703898c2afc/tests/test_zz_calcipy.py#L7)                                                                                 |
 
-Found code tags for FIXME (4), TODO (11), PLANNED (8), HACK (1), TBD (1)
+Found code tags for FIXME (4), TODO (10), PLANNED (8), HACK (1), TBD (1)
 
 <!-- calcipy_skip_tags -->

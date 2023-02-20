@@ -6,17 +6,6 @@ from calcipy.invoke_helpers import use_pty
 from calcipy.tasks.lint import absolufy_imports, autopep8, check, fix, flake8, pre_commit, pylint, security, watch
 
 
-# check(ctx: Context, *, target: Optional[str] = None) -> None:
-# absolufy_imports(ctx: Context) -> None:
-# autopep8(ctx: Context) -> None:
-# fix(ctx: Context, *, target: Optional[str] = None) -> None:
-# watch(ctx: Context, *, target: Optional[str] = None) -> None:
-# flake8(ctx: Context, *, target: Optional[str] = None) -> None:
-# pylint(ctx: Context, *, report: bool = False, target: Optional[str] = None) -> None:
-# security(ctx: Context) -> None:
-# pre_commit(ctx: Context, *, no_update: bool = False) -> None:
-
-
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
@@ -41,7 +30,7 @@ from calcipy.tasks.lint import absolufy_imports, autopep8, check, fix, flake8, p
         ]),
     ],
 )
-def test_types(ctx, task, kwargs, commands):
+def test_lint(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([

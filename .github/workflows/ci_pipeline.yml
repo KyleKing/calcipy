@@ -27,7 +27,6 @@ jobs:
 
       - name: Run static linters
         run: ./run lint.check
-        # lint_project static_checks security_checks
 
   test:
     runs-on: ${{ matrix.os }}

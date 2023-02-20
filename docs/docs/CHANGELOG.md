@@ -44,6 +44,7 @@
 
 ### Refactor
 
+- fix remaining pyright and flake8 errors
 - rename write-json to coverage
 - resolve pylint issues
 - reorder main tasks
