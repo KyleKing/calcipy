@@ -2,6 +2,9 @@
 
 ### Feat
 
+- fully support working-dir by wrapping ctx.run
+- recursively find the tool versions file
+- add dont_skip for testing
 - add tests for code tag collector
 - replace dg with user configuration file
 - better support min-cover
@@ -45,6 +48,11 @@
 
 ### Refactor
 
+- extract use_pty to a default in shoal
+- generlize find_in_parents for pyproject.toml as well
+- introduce logger.print and print_debug
+- drop absolufy-imports task
+- simplify configuration
 - fix remaining pyright and flake8 errors
 - rename write-json to coverage
 - resolve pylint issues

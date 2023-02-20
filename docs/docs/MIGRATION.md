@@ -16,7 +16,7 @@ calcipy `v0` was built on [doit](https://pypi.org/project/doit/) and thus requir
 
 ### Migration
 
-While refactoring, the global configuration was mostly removed (`DoitGlobals`) along with a few tasks, but the main functionality is still present. Any project dependent on `calcipy` will need substantial changes. The easiest way to start migrating is to run `copier update` with [calcipy_template](https://github.com/KyleKing/calcipy_template)
+While refactoring, the global configuration was mostly removed (`DoitGlobals`) along with a few tasks, but the main functionality is still present. Any project dependent on `calcipy` will need substantial changes. The easiest way to start migrating is to run `copier copy gh:KyleKing/calcipy_template .` for [calcipy_template](https://github.com/KyleKing/calcipy_template)
 
 ### Speed Test
 

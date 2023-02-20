@@ -34,9 +34,9 @@ ns.add_collection(types)
 )
 def progress(_ctx: Context, *, index: int, total: int) -> None:
     """Main task pipeline."""
-    if index > 0:
-        print('')  # noqa: T201
-    logger.print('Progress', index=index + 1, total=total)
+    print('')  # noqa: T201
+    logger.print('Progress', is_header=True, index=index + 1, total=total)
+    print('')  # noqa: T201
 
 
 @beartype
