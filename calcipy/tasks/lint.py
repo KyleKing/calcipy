@@ -1,7 +1,6 @@
 """Lint CLI."""
 
 from contextlib import suppress
-from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Optional
@@ -20,7 +19,6 @@ def _inner_task(
     ctx: Context,
     *,
     cli_args: str,
-    # PLANNED: Consider `f'poetry run absolufy-imports {pkg_name} --never'`
     command: str = 'python -m ruff check',
     target: Optional[str] = None,
 ) -> None:
@@ -50,14 +48,6 @@ def check(ctx: Context, *, target: Optional[str] = None) -> None:
     _inner_task(ctx, cli_args='', target=target)
 
 
-@task(help=check.help)  # type: ignore[misc]
-def absolufy_imports(ctx: Context, *, target: Optional[str] = None) -> None:
-    """Run absolufy-imports."""
-    paths = Path(read_package_name()).rglob('*.py')
-    target = target or ' '.join([str(_p) for _p in paths])
-    _inner_task(ctx, cli_args=' --never', target=target, command='absolufy-imports')
-
-
 @task()  # type: ignore[misc]
 def autopep8(ctx: Context) -> None:
     """Run autopep8.
@@ -70,7 +60,7 @@ def autopep8(ctx: Context) -> None:
     _inner_task(ctx, cli_args=cli_args, command='python -m autopep8')
 
 
-@task(pre=[absolufy_imports, autopep8], help=check.help)  # type: ignore[misc]
+@task(pre=[autopep8], help=check.help)  # type: ignore[misc]
 def fix(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, cli_args=' --fix', target=target)
@@ -156,4 +146,5 @@ def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     ctx.run('pre-commit install', echo=True, pty=use_pty())
     if not no_update:
         ctx.run('pre-commit autoupdate', echo=True, pty=use_pty())
+    # PLANNED: Read hook-stages from 'default_install_hook_types'
     ctx.run('pre-commit run --all-files --hook-stage commit --hook-stage push', echo=True, pty=use_pty())

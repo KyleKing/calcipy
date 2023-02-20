@@ -3,15 +3,13 @@ from unittest.mock import call
 import pytest
 
 from calcipy.invoke_helpers import use_pty
-from calcipy.tasks.lint import absolufy_imports, autopep8, check, fix, flake8, pre_commit, pylint, security, watch
+from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint, security, watch
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
         (check, {}, ['poetry run python -m ruff check ./calcipy ./tests']),
-        (absolufy_imports, {'target': './calcipy/__init__.md'},
-         ['poetry run absolufy-imports ./calcipy/__init__.md --never']),
         (autopep8, {}, [
             'poetry run python -m autopep8 ./calcipy ./tests --aggressive --recursive --in-place --max-line-length=120',
         ]),
