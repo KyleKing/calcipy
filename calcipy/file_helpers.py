@@ -96,15 +96,22 @@ def tail_lines(path_file: Path, *, count: int) -> List[str]:
 
 
 @beartype
-def get_tool_versions(cwd: Optional[Path] = None) -> Dict[str, List[str]]:
-    """Parse a `.tool-versions` file."""
-    tv_path = (cwd or Path()) / '.tool-versions'
-    msg = f'Could not locate {tv_path.name} in {tv_path.parent} or in any parent directory'
+def find_in_parents(*, name: str, cwd: Optional[Path] = None) -> Path:
+    """Recursively locate the path to the file in the current directory or parents."""
+    msg = f'Could not locate {name} in {cwd} or in any parent directory'
+    start_path = (cwd or Path()).resolve() / name
     try:
-        while not tv_path.is_file():
-            tv_path = tv_path.parents[1] / tv_path.name
+        while not start_path.is_file():
+            start_path = start_path.parents[1] / name
     except IndexError:
         raise FileNotFoundError(msg) from None
+    return start_path
+
+
+@beartype
+def get_tool_versions(cwd: Optional[Path] = None) -> Dict[str, List[str]]:
+    """Parse a `.tool-versions` file."""
+    tv_path = find_in_parents(name='.tool-versions', cwd=cwd)
     return {
         line.split(' ')[0]: line.split(' ')[1:]
         for line in tv_path.read_text().splitlines()
@@ -115,7 +122,7 @@ def get_tool_versions(cwd: Optional[Path] = None) -> Dict[str, List[str]]:
 @beartype
 def read_pyproject(cwd: Optional[Path] = None) -> Any:
     """Read the 'pyproject.toml' file once."""
-    toml_path = cwd / 'pyproject.toml' if cwd else Path('pyproject.toml')
+    toml_path = find_in_parents(name='pyproject.toml', cwd=cwd)
     try:
         pyproject_txt = toml_path.read_text(encoding='utf-8')
     except Exception as exc:
