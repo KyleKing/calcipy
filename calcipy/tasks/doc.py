@@ -7,6 +7,7 @@ from pathlib import Path
 from beartype import beartype
 from invoke import Context
 from shoal.cli import task
+from shoal.invoke_helpers import run
 
 from ..file_helpers import (
     MKDOCS_CONFIG,
@@ -53,7 +54,7 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
     path_diagram = pdoc_out_path / pkg_name / '_code_diagrams.md'
     ensure_dir(path_diagram.parent)
     path_diagram.write_text(diagram_md)
-    ctx.run(f'poetry run pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}')
+    run(ctx, f'poetry run pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}')
 
 
 @beartype
@@ -75,7 +76,7 @@ def build(ctx: Context) -> None:
     for path_md in auto_doc_path.rglob('*.md'):
         trim_trailing_whitespace(path_md)
 
-    ctx.run(f'poetry run mkdocs build --site-dir {get_out_dir()}')
+    run(ctx, f'poetry run mkdocs build --site-dir {get_out_dir()}')
 
 
 @beartype
@@ -102,7 +103,7 @@ def watch(ctx: Context) -> None:
         open_in_browser(path_doc_index)
     else:
         webbrowser.open('http://localhost:8000')
-        ctx.run('poetry run mkdocs serve --dirtyreload')
+        run(ctx, 'poetry run mkdocs serve --dirtyreload')
 
 
 @task()  # type: ignore[misc]
@@ -111,4 +112,4 @@ def deploy(ctx: Context) -> None:
     if _is_mkdocs_local():  # pragma: no cover
         raise NotImplementedError('Not yet configured to deploy documentation without "use_directory_urls"')
 
-    ctx.run('poetry run mkdocs gh-deploy')
+    run(ctx, 'poetry run mkdocs gh-deploy')

@@ -2724,21 +2724,21 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 
 [[package]]
 name = "shoal"
-version = "0.5.1"
+version = "0.6.0"
 description = "Lazy, Python-first, alternative to make, just, doit, and invoke"
 category = "main"
 optional = false
-python-versions = ">=3.7.12,<4.0.0"
+python-versions = ">=3.8.12,<4.0.0"
 files = [
-    {file = "shoal-0.5.1-py3-none-any.whl", hash = "sha256:35471b8d2683a86a6e8828d6b39c1ec7d214b649240d548c723b943a4c273abd"},
-    {file = "shoal-0.5.1.tar.gz", hash = "sha256:eeba699cbde8621e2276dc5d82cfafc1729d8b7a5c1e3ffeacd71c7060914973"},
+    {file = "shoal-0.6.0-py3-none-any.whl", hash = "sha256:4a32794efa5cdb3bc624358c053f802b69e7be2c5d4231ab5e7c1ef684ea85f7"},
+    {file = "shoal-0.6.0.tar.gz", hash = "sha256:1ba15784fe89e0d858b75f8017f3412ee8d177b8fc504d0e926affec934efa50"},
 ]
 
 [package.dependencies]
 beartype = ">=0.12.0"
 invoke = ">=2.0.0"
 pydantic = ">=1.10.4"
-rich = ">=13.3.1"
+rich = ">=12.6.0"
 
 [[package]]
 name = "six"
@@ -3394,4 +3394,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "fc143aef5eb6d49f5753f059debb69180fd83e56a3f93439e7494ea3c80c589b"
+content-hash = "77ea3f4a2c4ea222473ed67d4bfeae53a2b970ef57541c74d4d234f9971f41c7"

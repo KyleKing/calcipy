@@ -6,6 +6,7 @@ from beartype import beartype
 from beartype.typing import Optional
 from invoke import Context
 from shoal.cli import task
+from shoal.invoke_helpers import run
 
 from ..file_helpers import open_in_browser, read_package_name
 from .defaults import from_ctx
@@ -30,7 +31,7 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
-    ctx.run(f'poetry run {command} ./tests{cli_args}')
+    run(ctx, f'poetry run {command} ./tests{cli_args}')
 
 
 KM_HELP = {
@@ -89,7 +90,7 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
         f'poetry run python -m coverage html --directory={cov_dir}',  # Write to HTML
         'poetry run python -m coverage json',  # Create coverage.json file for "_handle_coverage"
     ):
-        ctx.run(cmd)
+        run(ctx, cmd)
 
     if view:  # pragma: no cover
         open_in_browser(cov_dir / 'index.html')

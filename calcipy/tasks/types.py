@@ -3,6 +3,7 @@
 from beartype import beartype
 from invoke import Context
 from shoal.cli import task
+from shoal.invoke_helpers import run
 
 from ..file_helpers import read_package_name
 
@@ -11,7 +12,7 @@ from ..file_helpers import read_package_name
 def _inner_task(ctx: Context, *, cli_args: str, command: str) -> None:
     """Shared task logic."""
     pkg_name = read_package_name()
-    ctx.run(f'poetry run {command} {pkg_name}{cli_args}')
+    run(ctx, f'poetry run {command} {pkg_name}{cli_args}')
 
 
 @task()  # type: ignore[misc]

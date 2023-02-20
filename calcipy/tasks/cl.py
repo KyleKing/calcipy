@@ -5,6 +5,7 @@ from beartype import beartype
 from beartype.typing import Literal, Optional
 from invoke import Context
 from shoal.cli import task
+from shoal.invoke_helpers import run
 
 from ..file_helpers import get_doc_subdir, get_project_path
 
@@ -29,7 +30,7 @@ def write(ctx: Context) -> None:
         List[DoitAction]: doit actions
 
     """
-    ctx.run('poetry run cz changelog')
+    run(ctx, 'poetry run cz changelog')
     path_cl = get_project_path() / 'CHANGELOG.md'
     if not path_cl.is_file():
         msg = f'Could not locate the changelog at: {path_cl}'
@@ -41,17 +42,17 @@ def write(ctx: Context) -> None:
 def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     """Bumps project version based on commits & settings in pyproject.toml."""
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
-    ctx.run(f'poetry run cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
+    run(ctx, f'poetry run cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 
     # Catch issues when commitizen breaks versions indirectly
-    ctx.run('poetry lock --check')
+    run(ctx, 'poetry lock --check')
 
-    ctx.run('git push origin --tags --no-verify')
+    run(ctx, 'git push origin --tags --no-verify')
 
     # TODO: Make "which $(..) >> /dev/null && " a function?
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     opt_gh_args = ' --prerelease' if suffix else ''
-    ctx.run(f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}){opt_gh_args}')
+    run(ctx, f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}){opt_gh_args}')
 
 
 @task(  # type: ignore[misc]
