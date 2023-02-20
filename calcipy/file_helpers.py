@@ -98,10 +98,16 @@ def tail_lines(path_file: Path, *, count: int) -> List[str]:
 @beartype
 def get_tool_versions(cwd: Optional[Path] = None) -> Dict[str, List[str]]:
     """Parse a `.tool-versions` file."""
-    cwd = cwd or Path()
+    tv_path = (cwd or Path()) / '.tool-versions'
+    msg = f'Could not locate {tv_path.name} in {tv_path.parent} or in any parent directory'
+    try:
+        while not tv_path.is_file():
+            tv_path = tv_path.parents[1] / tv_path.name
+    except IndexError:
+        raise FileNotFoundError(msg) from None
     return {
         line.split(' ')[0]: line.split(' ')[1:]
-        for line in (cwd / '.tool-versions').read_text().splitlines()
+        for line in tv_path.read_text().splitlines()
     }
 
 
@@ -144,7 +150,8 @@ def read_yaml_file(path_yaml: Path) -> Any:
     except ImportError as exc:
         raise RuntimeError("The 'calcipy[docs]' extras are missing") from exc
 
-    # TODO: modify so that mkdocs.yml can be read, but Python won't be executed...
+    # PLANNED: Refactor so that unsafe_load isn't necessary:
+    #   read_text; remove any line containing ': !!python'; then yaml.loag
 
     # Based on: https://github.com/yaml/pyyaml/issues/86#issuecomment-380252434
     yaml.add_multi_constructor('', lambda _loader, _suffix, _node: None)

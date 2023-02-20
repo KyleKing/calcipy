@@ -55,7 +55,7 @@ BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
 @lru_cache(maxsize=1)
 @beartype
 def _get_pythons() -> List[str]:
-    """Read the `.tool-versions` file."""
+    """Get python versions from the `.tool-versions` file."""
     return get_tool_versions()['python']
 
 
