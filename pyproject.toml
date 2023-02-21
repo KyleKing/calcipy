@@ -177,5 +177,3 @@ calcipy = "calcipy.scripts:start"
 [tool.pyright]
 include = ["calcipy"]
 pythonVersion = "3.8"
-venv = ".venv"
-venvPath = "."
