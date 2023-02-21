@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 1.0.0rc0 (2023-02-20)
+
 ### Feat
 
 - fully support working-dir by wrapping ctx.run
@@ -48,6 +50,7 @@
 
 ### Refactor
 
+- update Progress task
 - extract use_pty to a default in shoal
 - generlize find_in_parents for pyproject.toml as well
 - introduce logger.print and print_debug

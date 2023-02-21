@@ -109,7 +109,6 @@ doc = [
   "transitions",
 ]
 flake8 = [
-  "autopep8",
   "dlint",
   "flake8",
   "flake8-adjustable-complexity",
@@ -132,6 +131,7 @@ flake8 = [
   "flake8-variables-names",
 ]
 lint = [
+  "autopep8",
   "bandit",
   "pip-check",
   "ruff",
