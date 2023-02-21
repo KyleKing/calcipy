@@ -8,12 +8,15 @@ on: # yamllint disable-line rule:truthy
     # First day of every month at 08:00 UTC
     - cron: 0 8 1 * *
 
+permissions:
+  pull-requests: write
+  # Repository contents, commits, branches, downloads, releases, and merges.
+  contents: write
+
 jobs:
   upgrade:
     name: Upgrade & Open Pull Request
     runs-on: ${{ matrix.os }}
-    permissions:
-      issues: write
     strategy:
       matrix:
         os: [ubuntu-22.04]
