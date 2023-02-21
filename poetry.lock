@@ -3381,7 +3381,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 
 [extras]
 ddict = ["python-box"]
-doc = ["commitizen", "mdx_truly_sane_lists", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pyyaml", "transitions"]
+doc = ["commitizen", "mdx_truly_sane_lists", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pylint", "pyyaml", "transitions"]
 flake8 = ["dlint", "flake8", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-class-attributes-order", "flake8-executable", "flake8-expression-complexity", "flake8-functions", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-require-beartype", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names"]
 lint = ["autopep8", "bandit", "pip-check", "ruff", "semgrep"]
 nox = ["nox-poetry"]
@@ -3394,4 +3394,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "4d95cc88c8a806eb881d76573b0862c0345c69bac29782af619079199fc23bd0"
+content-hash = "0c246eea3704b64bc930b9e26ed49f804978c2ae5daeca527f669165f80fdd72"
