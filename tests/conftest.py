@@ -1,22 +1,10 @@
-"""PyTest configuration.
+"""PyTest configuration."""
 
-Note: the calcipy imports are required for a nicer test HTML report
-
-"""
-
-import os
 from pathlib import Path
 
 import pytest
-from beartype.typing import Dict, Generator
-from decorator import contextmanager
-from doit.tools import CmdAction, Interactive
-from pytest_cache_assert import AssertConfig, Converter
-
-from calcipy.dev.conftest import pytest_configure  # noqa: F401
-from calcipy.dev.conftest import pytest_html_results_table_header  # noqa: F401
-from calcipy.dev.conftest import pytest_html_results_table_row  # noqa: F401
-from calcipy.dev.conftest import pytest_runtest_makereport  # noqa: F401
+from beartype.typing import Dict
+from invoke import MockContext
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
 
@@ -37,43 +25,6 @@ def vcr_config() -> Dict:
 
 
 @pytest.fixture()
-def cache_assert_config() -> AssertConfig:
-    """Configure pytest_cache_assert using `AssertConfig`.
-
-    Returns:
-        AssertConfig: Modified configuration
-
-    """
-    return AssertConfig(converters=[Converter(types=[CmdAction, Interactive], func=str)])
-
-
-@contextmanager
-def __temp_chdir(path_tmp: Path) -> Generator[None, None, None]:
-    """Temporarily change the working directory.
-
-    > Not currently used because setting `cwd` for a modified version of `_get_all_files` is more robust
-
-    ```python3
-    with _temp_chdir(get_dg().meta.path_project):
-        print(f'Current in: {Path.cwd()}')
-    ```
-
-    Args:
-        path_tmp: path to use as the working directory
-
-    Yields:
-        None: continues execution with the specified `path_tmp` working directory
-
-    """
-    path_cwd = Path.cwd()
-    try:
-        os.chdir(path_tmp)
-        yield
-    finally:
-        os.chdir(path_cwd)
-
-
-@pytest.fixture()
 def fix_test_cache() -> Path:
     """Fixture to clear and return the test cache directory for use.
 
@@ -83,3 +34,18 @@ def fix_test_cache() -> Path:
     """
     clear_test_cache()
     return TEST_TMP_CACHE
+
+
+@pytest.fixture()
+def ctx() -> MockContext:
+    """Mock Invoke Context.
+
+    Adapted from:
+
+    https://github.com/pyinvoke/invocations/blob/8a277c304dd7aaad03888ee42d811c468e7fb37d/tests/conftest.py#L5-L11
+
+    Documentation: https://docs.pyinvoke.org/en/stable/concepts/testing.html
+
+    """
+    MockContext.run_command = property(lambda self: self.run.call_args[0][0])
+    return MockContext(run=True)

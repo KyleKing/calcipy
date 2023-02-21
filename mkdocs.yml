@@ -8,6 +8,7 @@ repo_url: https://github.com/kyleking/calcipy
 edit_uri: edit/main/docs
 docs_dir: docs
 site_dir: releases/site
+
 theme:
   name: material
   palette:
@@ -15,13 +16,17 @@ theme:
       accent: green
   icon:
     repo: fontawesome/brands/github
-  features: [toc.autohide]
-watch: [calcipy]
+  features:
+    - toc.autohide
+
+watch:
+  - calcipy
+
 plugins:
   - build_plantuml:
-      render: server  # or "local"
-      bin_path: /usr/local/bin/plantuml  # ignored when render: server
-      server: http://www.plantuml.com/plantuml  # official plantuml server
+      render: server # or "local"
+      bin_path: /usr/local/bin/plantuml # ignored when render: server
+      server: http://www.plantuml.com/plantuml # official plantuml server
       output_format: svg
       diagram_root: docs/diagrams
       output_folder: out
@@ -29,7 +34,8 @@ plugins:
       input_extensions: puml
   - search
   - gen-files:
-      scripts: [docs/gen_ref_nav.py]
+      scripts:
+        - docs/gen_ref_nav.py
   - git-revision-date-localized:
       type: date
       fallback_to_build_date: true
@@ -45,6 +51,7 @@ plugins:
   - literate-nav:
       nav_file: SUMMARY.md
   - section-index
+
 markdown_extensions:
   - abbr
   - admonition
@@ -73,7 +80,10 @@ markdown_extensions:
   - toc:
       permalink: ⚓︎
       toc_depth: 5
-extra_css: [_styles/mkdocstrings.css]
+
+extra_css:
+  - _styles/mkdocstrings.css
+
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - _javascript/tables.js

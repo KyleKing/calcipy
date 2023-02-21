@@ -3,18 +3,22 @@
 name: github_labeler
 
 # Will only be run each push or PR merge to the main branch
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   push:
     branches: [main]
     paths: [.github/labels.yml, .github/workflows/labeler.yml]
+  workflow_dispatch: # For manual runs
+
 jobs:
   labeler:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - uses: actions/checkout@v3
       - name: Run Labeler
         if: success()
-        uses: crazy-max/ghaction-github-labeler@v3
+        uses: crazy-max/ghaction-github-labeler@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           yaml-file: .github/labels.yml

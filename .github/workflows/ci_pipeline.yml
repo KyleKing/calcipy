@@ -1,52 +1,63 @@
 ---
 name: CI Pipeline
-on:  # yamllint disable-line rule:truthy
+
+on: # yamllint disable-line rule:truthy
   push:
     branches: [main]
   pull_request:
     branches: [main]
-    paths: [calcipy/**, tests/**, pyproject.toml]
+    paths:
+      - calcipy/**
+      - tests/**
+      - pyproject.toml
+
 jobs:
   lint:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-22.04]
-        python-version: ['3.8']
+        python-version: ["3.8"]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-      - name: Run linters
-        run: poetry run doit run --continue lint_project static_checks security_checks
+
+      - name: Run static linters
+        run: ./run lint.check
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        python-version: ['3.8']
+        python-version: ["3.8"]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-      - name: Test with pytest
-        run: |-
-          poetry run doit run test_all
-  check_types:
+
+      - name: Run test
+        run: poetry run calcipy test.pytest
+
+  typecheck:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-22.04]
-        python-version: ['3.8']
+        python-version: ["3.8"]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
-      - name: Run linters
-        run: poetry run doit run check_types
+
+      - name: Run typecheck
+        run: ./run types.mypy
+
+      - uses: jakebailey/pyright-action@v1

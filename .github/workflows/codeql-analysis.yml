@@ -1,14 +1,16 @@
 ---
 # Based on the Github-recommended CodeQL Action
 name: CodeQL
-on:  # yamllint disable-line rule:truthy
+
+on: # yamllint disable-line rule:truthy
   push:
     branches: [main]
   pull_request:
     branches: [main]
   schedule:
     - cron: 34 21 * * 6
-  workflow_dispatch:  # For manual runs
+  workflow_dispatch: # For manual runs
+
 jobs:
   analyze:
     name: Analyze
@@ -17,13 +19,15 @@ jobs:
       actions: read
       contents: read
       security-events: write
+
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8']
+        python-version: ["3.8"]
         language: [python]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
@@ -41,6 +45,7 @@ jobs:
 
           # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
           queries: security-extended,security-and-quality
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:

@@ -2,6 +2,71 @@
 
 ### Feat
 
+- add tests for code tag collector
+- replace dg with user configuration file
+- better support min-cover
+- unit test write_autoformatted_md_sections
+- start using check_imports
+- support prereleases and add autopep8
+- introduce cl namespace
+- run lint on file_args and use absolufy
+- add initial version of doc namespace
+- remove pre-commit; add doc and ddict extras
+- add progress indicator to tasks
+- add lint.security
+- add ./run to generlize local entrypoint
+- add lint.pre-commit
+- restore most of noxfile
+- run mypy-silent and add main task
+- use can_skip for the package_lock file
+- start manually fixing lint issues
+- add linting
+- migrate over stale package logic
+- add pyright, mypy, and DEFAULTS
+- add write_json and cached pyproject reader
+- add pytest-based tasks and first unit tests
+- experiment with parallel processing
+- init placeholders for new namespaces
+- add can_skip
+- add initial nox task to invoke
+- switch to invoke
+- start restoring files and switching to shoal
+- add shoal
+
+### Fix
+
+- correct ignore pattern logic and expand task tests
+- get doc and cl tasks working
+- code tag summary and rename default tasks
+- properly map CLI arguments to code tag collector
+- show all URLs on the same line in CTC
+- write Code Tags to docs/docs
+- resolve issues with test.watch-json
+
+### Refactor
+
+- fix remaining pyright and flake8 errors
+- rename write-json to coverage
+- resolve pylint issues
+- reorder main tasks
+- resolve flake8 warnings and better manage filenames
+- apply autopep8 to fix whitespace issues
+- import initialized logger directly
+- try to wrap running tasks programmatically...
+- run prc main
+- move log configuration to shoal.cli.task
+- resolve typecheck errors
+- manually resolve additional linting errors
+- make lint.check default
+- extract start program to shoal
+- another round of manual lint corrections
+- move can_skip to shoal
+- nest invoke-specific code in tasks/
+
+## 0.21.6 (2023-01-31)
+
+### Feat
+
 - use the --now flag for ptw!
 
 ### Refactor
@@ -634,133 +699,8 @@
 - show STDOUT formatting in DoIt task
 - remove archived code
 
-### New (Old)
-
-- initialize new DIG for #7 (@WIP)
-- last version with dash_dev package name (#22)
-
-### Change (Old)
-
-- try skipcq above the line
-- suppress LGTM warnings
-- skip all DeepSource checks of wildcard import
-- make dev-dep an “Extra” Fix #19
-- test wildcard imports
-- remove temp files used to test DeepSource
-- rename doit_helpers folder to doit_tasks
-- register tasks in __init__ with __all__
-- WIP remove old DIG
-- restore documentation tasks from archive
-- remove pdoc3 documentation tasks
-- final changes to intialize calcipy. Fixes #22
-- move notes on typeguard to #28
-- rename folder to calcipy #22
-- rename source to calcipy for #22
-- remove pdoc3 & archive documentation tasks
-
-### Fix (Old)
-
-- remaining DS wilcard issue
-- try one more time to fix DeepSource * issues
-- attempt to resolve deepsource issues
-- circular import for tag_collector
-- breaking changes from DIG changes (#7)
-- refactor the missing keyword argument logic
-- bury attr exceptions for coverage table
-
 ## 0.0.3 (2020-12-10)
-
-### New (Old)
-
-- use the climate strike license (#22)
-- ADR template and notes
-
-### Change (Old)
-
-- remove sh for Windows support @WIP
-- try long running for pytest
-
-### Fix (Old)
-
-- make creating the log directory optional
 
 ## 0.0.2 (2020-11-14)
 
-### New (Old)
-
-- separate task_git_add_docs
-- archive watchcode task
-- move DIG to separate file
-- move tasks to use a wildcard import
-
-### Change (Old)
-
-- add skipcq & update version
-- update documentation
-- improve how tags are located
-- update documentation @WIP
-- minor type annotation fixes
-
 ## 0.0.1 (2020-11-14)
-
-### New (Old)
-
-- add logging. Fixes #5
-- intialized tag-finding logic @WIP
-- use a new DoItTask type for annotations
-- add type annotations
-- Loguru configuration for init @WIP
-- activate DeepSource
-- allow user-content in __init__. Fixes #1
-- indicate private functions. Fixes #4
-- add loguru!
-- add watchcode task for arbitrary files
-- flake8-ann & drop pur
-- show README contents in __init__
-- dump isort & flake8 settings in source path
-- improve linting & test tasks
-- vastly expanded test coverage
-- add ptw as a DoIt LongRunning task
-- initialize index.html as redirect
-- implement source code from dash_charts
-- initialize poetry project
-
-### Change (Old)
-
-- improve logging. Addresses #5
-- improve logger context manager
-- add task to summarize tags. Fixes #2
-- move watchcode to separate file
-- mark additional globals as private
-- sync local changes for branch and TODOs
-- loosen dependencies requirements
-- add WIP type checker configs
-- drop dash dependency
-- remove unused packages
-- drop interrogate
-- try to improve interrogate table
-- add interrogate to README
-- implement linting tasks in package
-- push local changes for linting
-- add DIG.test_path
-- incremental changes from local
-- apply and cleanup local changes
-- create the index.html with redirect
-- add the HTML documentation to git control
-- move gitchangelog to package
-- sync local improvements to coverage & linting
-- update dependencies and documentation
-- further improved commit_docs task
-- call out issues with task_commit_docs @wip
-- set Dash version & update whitelist
-
-### Fix (Old)
-
-- replace subprocess with sh
-- problems found by DeepSource
-- path to the .flake8 should be in source_path
-- remove DIG.gh_pages_dir & task_commit_docs
-- changelog creation
-- commit_docs task
-- add missing pystache dep for gitchangelog
-- document dash extras in README

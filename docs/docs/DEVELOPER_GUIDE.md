@@ -5,16 +5,18 @@
 ```sh
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
-poetry install -E dev -E lint -E test -E commitizen_legacy
+poetry install --sync -E ddict -E doc -E flake8 -E lint -E nox -E pylint -E stale -E tags -E test -E types
 
 # See the available tasks
-poetry run doit list
+poetry run calcipy
+# Or use a local 'run' file (so that 'calcipy' can be extended)
+./run
 
 # Run the default task list (lint, auto-format, test coverage, etc.)
-poetry run doit --continue
+./run main
 
 # Make code changes and run specific tasks as needed:
-poetry run doit run test
+./run lint.fix test
 ```
 
 ## Publishing
@@ -25,7 +27,7 @@ For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Rep
 poetry config repositories.testpypi https://test.pypi.org/legacy/
 poetry config pypi-token.testpypi ...
 
-poetry run doit run publish_test_pypi
+./run main pack.publish --to-test-pypi
 # If you didn't configure a token, you will need to provide your username and password to publish
 ```
 
@@ -33,49 +35,46 @@ To publish to the real PyPi
 
 ```sh
 poetry config pypi-token.pypi ...
-poetry run doit run publish
+./run release
 
-# For a full release, triple check the default tasks, increment the version, rebuild documentation (twice), and publish!
-poetry run doit run --continue
-poetry run doit run cl_bump lock document deploy_docs publish
-
-# For pre-releases use cl_bump_pre
-poetry run doit run cl_bump_pre -p rc
-poetry run doit run lock document deploy_docs publish
+# Or for a pre-release
+./run release --suffix=rc
 ```
 
 ## Current Status
 
 <!-- {cts} COVERAGE -->
-| File                                                       |   Statements |   Missing |   Excluded | Coverage   |
-|------------------------------------------------------------|--------------|-----------|------------|------------|
-| `calcipy/__init__.py`                                      |            6 |         0 |          0 | 100.0%     |
-| `calcipy/cli/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
-| `calcipy/cli/controllers/__init__.py`                      |            0 |         0 |          0 | 100.0%     |
-| `calcipy/cli/controllers/code_tag_collector_controller.py` |           27 |        12 |          0 | 55.6%      |
-| `calcipy/cli/core/__init__.py`                             |            0 |         0 |          0 | 100.0%     |
-| `calcipy/cli/core/exceptions.py`                           |            2 |         0 |          0 | 100.0%     |
-| `calcipy/cli/core/version.py`                              |            8 |         8 |          0 | 0.0%       |
-| `calcipy/cli/main.py`                                      |           38 |        19 |          0 | 50.0%      |
-| `calcipy/code_tag_collector.py`                            |          119 |        25 |          0 | 79.0%      |
-| `calcipy/dev/__init__.py`                                  |            0 |         0 |          0 | 100.0%     |
-| `calcipy/dev/conftest.py`                                  |           16 |         0 |         34 | 100.0%     |
-| `calcipy/dev/noxfile.py`                                   |           23 |         1 |         75 | 95.7%      |
-| `calcipy/doit_tasks/__init__.py`                           |           11 |         0 |          0 | 100.0%     |
-| `calcipy/doit_tasks/base.py`                               |           50 |        10 |          3 | 80.0%      |
-| `calcipy/doit_tasks/code_tags.py`                          |           11 |         0 |          0 | 100.0%     |
-| `calcipy/doit_tasks/doc.py`                                |          146 |        10 |          5 | 93.2%      |
-| `calcipy/doit_tasks/doit_globals.py`                       |          184 |         5 |          2 | 97.3%      |
-| `calcipy/doit_tasks/lint.py`                               |          105 |         9 |          0 | 91.4%      |
-| `calcipy/doit_tasks/packaging.py`                          |          135 |        12 |          0 | 91.1%      |
-| `calcipy/doit_tasks/summary_reporter.py`                   |           21 |         0 |         40 | 100.0%     |
-| `calcipy/doit_tasks/test.py`                               |           66 |         4 |          0 | 93.9%      |
-| `calcipy/dot_dict.py`                                      |            7 |         0 |          0 | 100.0%     |
-| `calcipy/file_helpers.py`                                  |           76 |         6 |          3 | 92.1%      |
-| `calcipy/file_search.py`                                   |           34 |         0 |          2 | 100.0%     |
-| `calcipy/log_helpers.py`                                   |           68 |         7 |          0 | 89.7%      |
-| `calcipy/proc_helpers.py`                                  |           20 |         1 |          0 | 95.0%      |
-| **Totals**                                                 |         1173 |       129 |        164 | 89.0%      |
+| File                                                            |   Statements |   Missing |   Excluded | Coverage   |
+|-----------------------------------------------------------------|--------------|-----------|------------|------------|
+| `calcipy/__init__.py`                                           |            2 |         0 |          0 | 100.0%     |
+| `calcipy/_log.py`                                               |            2 |         0 |          0 | 100.0%     |
+| `calcipy/check_for_stale_packages/__init__.py`                  |            4 |         2 |          0 | 50.0%      |
+| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          109 |         9 |          2 | 91.7%      |
+| `calcipy/code_tag_collector/__init__.py`                        |            4 |         2 |          0 | 50.0%      |
+| `calcipy/code_tag_collector/_collector.py`                      |          127 |        19 |          0 | 85.0%      |
+| `calcipy/dot_dict/__init__.py`                                  |            4 |         2 |          0 | 50.0%      |
+| `calcipy/dot_dict/_dot_dict.py`                                 |            8 |         0 |          0 | 100.0%     |
+| `calcipy/file_helpers.py`                                       |          115 |        15 |          8 | 87.0%      |
+| `calcipy/file_search.py`                                        |           38 |         0 |          2 | 100.0%     |
+| `calcipy/invoke_helpers.py`                                     |           10 |         1 |          0 | 90.0%      |
+| `calcipy/md_writer/__init__.py`                                 |            4 |         2 |          0 | 50.0%      |
+| `calcipy/md_writer/_writer.py`                                  |           94 |         7 |          0 | 92.6%      |
+| `calcipy/noxfile/__init__.py`                                   |            4 |         2 |          0 | 50.0%      |
+| `calcipy/noxfile/_noxfile.py`                                   |           48 |         1 |         26 | 97.9%      |
+| `calcipy/scripts.py`                                            |            7 |         7 |          0 | 0.0%       |
+| `calcipy/tasks/__init__.py`                                     |            0 |         0 |          0 | 100.0%     |
+| `calcipy/tasks/all_tasks.py`                                    |           49 |         3 |          0 | 93.9%      |
+| `calcipy/tasks/cl.py`                                           |           29 |         6 |          0 | 79.3%      |
+| `calcipy/tasks/defaults.py`                                     |            9 |         0 |          0 | 100.0%     |
+| `calcipy/tasks/doc.py`                                          |           41 |        17 |          5 | 58.5%      |
+| `calcipy/tasks/lint.py`                                         |           55 |         1 |          0 | 98.2%      |
+| `calcipy/tasks/nox.py`                                          |            8 |         0 |          0 | 100.0%     |
+| `calcipy/tasks/pack.py`                                         |           26 |         4 |          0 | 84.6%      |
+| `calcipy/tasks/stale.py`                                        |            7 |         2 |          0 | 71.4%      |
+| `calcipy/tasks/tags.py`                                         |           15 |         0 |          0 | 100.0%     |
+| `calcipy/tasks/test.py`                                         |           37 |         1 |          2 | 97.3%      |
+| `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
+| **Totals**                                                      |          871 |       103 |         45 | 88.2%      |
 
-Generated on: 2022-12-02
+Generated on: 2023-02-19
 <!-- {cte} -->

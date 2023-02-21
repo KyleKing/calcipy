@@ -4,13 +4,175 @@ import os
 import shutil
 import string
 import time
+import webbrowser
 from contextlib import suppress
+from functools import lru_cache
 from pathlib import Path
 
-import yaml
 from beartype import beartype
-from beartype.typing import Any, List, Optional
-from loguru import logger
+from beartype.typing import Any, Dict, List, Optional
+
+from ._log import logger
+
+try:
+    import tomllib  # pyright: ignore[reportMissingImports]
+except ModuleNotFoundError:  # pragma: no cover
+    import tomli as tomllib
+
+LOCK = Path('poetry.lock')
+"""poetry.lock Path."""
+
+PROJECT_TOML = Path('pyproject.toml')
+"""pyproject.toml Path."""
+
+COPIER_ANSWERS = Path('.copier-answers.yml')
+"""Copier Answer file name."""
+
+MKDOCS_CONFIG = Path('mkdocs.yml')
+"""mkdocs.yml Path."""
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Path Helpers
+
+
+@lru_cache(maxsize=1)
+@beartype
+def get_project_path() -> Path:
+    """Retrieve either the git directory or the `cwd`."""
+    # PLANNED: Consider using `Path(capture_shell('git ...'))`
+    return Path.cwd()
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Read General Text Files
+
+
+@beartype
+def read_lines(path_file: Path) -> List[str]:
+    """Read a file and split on newlines for later parsing.
+
+    Args:
+        path_file: path to the file
+
+    Returns:
+        List[str]: lines of text as list
+
+    """
+    return path_file.read_text().splitlines() if path_file.is_file() else []
+
+
+@beartype
+def tail_lines(path_file: Path, *, count: int) -> List[str]:
+    """Tail a file for up to the last count (or full file) lines.
+
+    Based on: https://stackoverflow.com/a/54278929
+
+    > Tip: `file_size = fh.tell()` -or- `os.fstat(fh.fileno()).st_size` -or- return from `fh.seek(0, os.SEEK_END)`
+
+    Args:
+        path_file: path to the file
+        count: maximum number of lines to return
+
+    Returns:
+        List[str]: lines of text as list
+
+    """
+    with path_file.open('rb') as f_h:
+        rem_bytes = f_h.seek(0, os.SEEK_END)
+        step_size = 1  # Initially set to 1 so that the last byte is read
+        found_lines = 0
+        while found_lines < count and rem_bytes >= step_size:
+            rem_bytes = f_h.seek(-1 * step_size, os.SEEK_CUR)
+            if f_h.read(1) == b'\n':
+                found_lines += 1
+            step_size = 2  # Increase so that repeats(read 1 / back 2)
+
+        if rem_bytes < step_size:
+            f_h.seek(0, os.SEEK_SET)
+        return [line.rstrip('\r') for line in f_h.read().decode().split('\n')]
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Read Specific File Types
+
+
+@beartype
+def find_in_parents(*, name: str, cwd: Optional[Path] = None) -> Path:
+    """Recursively locate the path to the file in the current directory or parents."""
+    msg = f'Could not locate {name} in {cwd} or in any parent directory'
+    start_path = (cwd or Path()).resolve() / name
+    try:
+        while not start_path.is_file():
+            start_path = start_path.parents[1] / name
+    except IndexError:
+        raise FileNotFoundError(msg) from None
+    return start_path
+
+
+@beartype
+def get_tool_versions(cwd: Optional[Path] = None) -> Dict[str, List[str]]:
+    """Parse a `.tool-versions` file."""
+    tv_path = find_in_parents(name='.tool-versions', cwd=cwd)
+    return {
+        line.split(' ')[0]: line.split(' ')[1:]
+        for line in tv_path.read_text().splitlines()
+    }
+
+
+@lru_cache(maxsize=5)
+@beartype
+def read_pyproject(cwd: Optional[Path] = None) -> Any:
+    """Read the 'pyproject.toml' file once."""
+    toml_path = find_in_parents(name='pyproject.toml', cwd=cwd)
+    try:
+        pyproject_txt = toml_path.read_text(encoding='utf-8')
+    except Exception as exc:
+        msg = f'Could not locate: {toml_path}'
+        raise RuntimeError(msg) from exc
+    return tomllib.loads(pyproject_txt)
+
+
+@lru_cache(maxsize=1)
+@beartype
+def read_package_name() -> str:
+    """Read the package name once."""
+    poetry_config = read_pyproject()
+    return str(poetry_config['tool']['poetry']['name'])
+
+
+@beartype
+def read_yaml_file(path_yaml: Path) -> Any:
+    """Attempt to read the specified yaml file. Returns an empty dictionary if not found or a parser error occurs.
+
+    > Note: suppresses all tags in the YAML file
+
+    Args:
+        path_yaml: path to the yaml file
+
+    Returns:
+        dictionary representation of the source file
+
+    """
+    try:
+        import yaml  # lazy-load the optional dependency
+    except ImportError as exc:
+        raise RuntimeError("The 'calcipy[docs]' extras are missing") from exc
+
+    # PLANNED: Refactor so that unsafe_load isn't necessary:
+    #   read_text; remove any line containing ': !!python'; then yaml.loag
+
+    # Based on: https://github.com/yaml/pyyaml/issues/86#issuecomment-380252434
+    yaml.add_multi_constructor('', lambda _loader, _suffix, _node: None)
+    yaml.add_multi_constructor('!', lambda _loader, _suffix, _node: None)
+    yaml.add_multi_constructor('!!', lambda _loader, _suffix, _node: None)
+    try:
+        return yaml.unsafe_load(path_yaml.read_text())  # nosemgrep
+    except (FileNotFoundError, KeyError) as exc:  # pragma: no cover
+        logger.warning('Unexpected read error', path_yaml=path_yaml, error=str(exc))
+        return {}
+    except yaml.constructor.ConstructorError:
+        logger.exception('Warning: burying poorly handled yaml error')
+        return {}
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General
@@ -35,47 +197,9 @@ def sanitize_filename(filename: str, repl_char: str = '_', allowed_chars: str = 
     return ''.join((char if char in allowed_chars else repl_char) for char in filename)
 
 
-_COPIER_ANSWERS_NAME = '.copier-answers.yml'
-"""Copier Answer file name."""
-
-_MKDOCS_CONFIG_NAME = 'mkdocs.yml'
-"""Copier Answer file name."""
-
-
 @beartype
-def _read_yaml_file(path_yaml: Path) -> Any:
-    """Attempt to read the specified yaml file. Returns an empty dictionary if not found or a parser error occurs.
-
-    > Note: suppresses all tags in the YAML file
-
-    Args:
-        path_yaml: path to the yaml file
-
-    Returns:
-        dictionary representation of the source file
-
-    """
-    # TODO: modify so that mkdocs.yml can be read, but Python won't be executed...
-
-    # Based on: https://github.com/yaml/pyyaml/issues/86#issuecomment-380252434
-    yaml.add_multi_constructor('', lambda _loader, _suffix, _node: None)
-    yaml.add_multi_constructor('!', lambda _loader, _suffix, _node: None)
-    yaml.add_multi_constructor('!!', lambda _loader, _suffix, _node: None)
-    try:
-        return yaml.unsafe_load(path_yaml.read_text())  # nosemgrep
-    except (FileNotFoundError, KeyError) as err:  # pragma: no cover
-        logger.warning(f'Unexpected error reading the {path_yaml.name} file ({path_yaml}): {err}')
-        return {}
-    except yaml.constructor.ConstructorError:
-        logger.exception('Warning: burying poorly handled yaml error')
-        return {}
-
-
-@beartype
-def get_doc_dir(path_project: Path) -> Path:
-    """Retrieve the documentation directory from teh copier answer file.
-
-    > Default directory is "docs" if not found. This is the main parent directory (not doc_sub_dir)
+def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
+    """Retrieve the documentation directory from the copier answer file.
 
     Args:
         path_project: Path to the project directory with contains `.copier-answers.yml`
@@ -84,8 +208,9 @@ def get_doc_dir(path_project: Path) -> Path:
         Path: to the source documentation directory
 
     """
-    path_copier = path_project / _COPIER_ANSWERS_NAME
-    return path_project / _read_yaml_file(path_copier).get('doc_dir', 'docs')  # type: ignore[no-any-return]
+    path_copier = (path_project or get_project_path()) / COPIER_ANSWERS
+    doc_dir = read_yaml_file(path_copier).get('doc_dir', 'docs')
+    return path_copier.parent / doc_dir / 'docs'  # type: ignore[no-any-return]
 
 
 @beartype
@@ -101,55 +226,6 @@ def trim_trailing_whitespace(pth: Path) -> None:
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Read Files
-
-
-@beartype
-def read_lines(path_file: Path) -> List[str]:
-    """Read a file and split on newlines for later parsing.
-
-    Args:
-        path_file: path to the file
-
-    Returns:
-        List[str]: lines of text as list
-
-    """
-    return path_file.read_text().split('\n') if path_file.is_file() else []
-
-
-@beartype
-def tail_lines(path_file: Path, *, count: int) -> List[str]:
-    """Tail a file for up to the last count (or full file) lines.
-
-    Based on: https://stackoverflow.com/a/54278929
-
-    > Tip: `file_size = fh.tell()` -or- `os.fstat(fh.fileno()).st_size` -or- return from `fh.seek(0, os.SEEK_END)`
-
-    Args:
-        path_file: path to the file
-        count: maximum number of lines to return
-
-    Returns:
-        List[str]: lines of text as list
-
-    """
-    with open(path_file, 'rb') as f_h:
-        rem_bytes = f_h.seek(0, os.SEEK_END)
-        step_size = 1  # Initially set to 1 so that the last byte is read
-        found_lines = 0
-        while found_lines < count and rem_bytes >= step_size:
-            rem_bytes = f_h.seek(-1 * step_size, os.SEEK_CUR)
-            if f_h.read(1) == b'\n':
-                found_lines += 1
-            step_size = 2  # Increase so that repeats(read 1 / back 2)
-
-        if rem_bytes < step_size:
-            f_h.seek(0, os.SEEK_SET)
-        return [line.rstrip('\r') for line in f_h.read().decode().split('\n')]
-
-
-# ----------------------------------------------------------------------------------------------------------------------
 # Manage Files and Directories
 
 
@@ -162,7 +238,7 @@ def if_found_unlink(path_file: Path) -> None:
 
     """
     if path_file.is_file():
-        logger.info(f'Deleting `{path_file}`', path_file=path_file)
+        logger.print('Deleting', path_file=path_file)
         path_file.unlink()
 
 
@@ -189,7 +265,7 @@ def delete_dir(dir_path: Path) -> None:
 
     """
     if dir_path.is_dir():
-        logger.info(f'Deleting `{dir_path}`', dir_path=dir_path)
+        logger.print('Deleting', dir_path=dir_path)
         shutil.rmtree(dir_path)
 
 
@@ -201,7 +277,7 @@ def ensure_dir(dir_path: Path) -> None:
         dir_path: Path to directory that needs to exists
 
     """
-    logger.info(f'Creating `{dir_path}`', dir_path=dir_path)
+    logger.print('Creating', dir_path=dir_path)
     dir_path.mkdir(parents=True, exist_ok=True)
 
 
@@ -220,3 +296,18 @@ def get_relative(full_path: Path, other_path: Path) -> Optional[Path]:
     with suppress(ValueError):
         return full_path.relative_to(other_path)
     return None
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Open Files
+
+
+@beartype
+def open_in_browser(path_file: Path) -> None:  # pragma: no cover
+    """Open the path in the default web browser.
+
+    Args:
+        path_file: Path to file
+
+    """
+    webbrowser.open(path_file.resolve().as_uri())

@@ -4,10 +4,16 @@ from collections import defaultdict
 from pathlib import Path
 
 from beartype import beartype
-from beartype.typing import Dict, List
-from loguru import logger
-from pre_commit.git import zsplit
-from pre_commit.util import cmd_output
+from beartype.typing import Dict, List, Optional
+from shoal.shell import capture_shell  # FIXME: Move to grouper (name tbd)
+
+from ._log import logger
+
+
+@beartype
+def _zsplit(stdout: str) -> List[str]:
+    """Split output from git when used with `-z`."""
+    return [item for item in stdout.split('\0') if item]
 
 
 @beartype
@@ -23,7 +29,7 @@ def _get_all_files(*, cwd: Path) -> List[str]:
         List[str]: list of all file paths relative to the `cwd`
 
     """
-    return zsplit(cmd_output('git', 'ls-files', '-z', cwd=cwd)[1])  # type: ignore[no-any-return]
+    return _zsplit(capture_shell('git ls-files -z', cwd=cwd))
 
 
 @beartype
@@ -40,9 +46,11 @@ def _filter_files(rel_filepaths: List[str], ignore_patterns: List[str]) -> List[
     """
     if ignore_patterns:
         matches = []
-        for pth in map(Path, rel_filepaths):
-            matches.extend([pth.as_posix() for pat in ignore_patterns if pth.match(pat)][:1])
-        return [rel for rel in rel_filepaths if rel not in matches]
+        for _fp in rel_filepaths:
+            pth = Path(_fp).resolve()
+            if not any(pth.match(pat) for pat in ignore_patterns):
+                matches.append(_fp)
+        return matches
     return rel_filepaths
 
 
@@ -53,7 +61,7 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
     > Note: uses the relative project directory and verifies that each file exists
 
     Args:
-        path_project: Path to the project directory. Typically `get_dg().meta.path_project`
+        path_project: Path to the project directory
         ignore_patterns: glob ignore patterns
 
     Returns:
@@ -68,18 +76,21 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
         if path_file.is_file():
             file_paths.append(path_file)
         else:  # pragma: no cover
-            logger.warning(f'Could not find {rel_file} in {path_project}')
+            logger.warning('Could not find the specified file', path_file=path_file)
     return file_paths
 
 
+# TODO: Consider adding a configuration item for ignore_patterns
 @beartype
-def find_project_files_by_suffix(path_project: Path, ignore_patterns: List[str]) -> Dict[str, List[Path]]:
+def find_project_files_by_suffix(
+    path_project: Path, *, ignore_patterns: Optional[List[str]] = None,
+) -> Dict[str, List[Path]]:
     """Find project files in git version control.
 
     > Note: uses the relative project directory and verifies that each file exists
 
     Args:
-        path_project: Path to the project directory. Typically `get_dg().meta.path_project`
+        path_project: Path to the project directory
         ignore_patterns: glob ignore patterns
 
     Returns:
@@ -87,6 +98,6 @@ def find_project_files_by_suffix(path_project: Path, ignore_patterns: List[str])
 
     """
     file_lookup = defaultdict(list)
-    for path_file in find_project_files(path_project, ignore_patterns):
+    for path_file in find_project_files(path_project, ignore_patterns or []):
         file_lookup[path_file.suffix.lstrip('.')].append(path_file)
     return dict(file_lookup)
