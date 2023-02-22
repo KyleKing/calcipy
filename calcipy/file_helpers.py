@@ -238,7 +238,7 @@ def if_found_unlink(path_file: Path) -> None:
 
     """
     if path_file.is_file():
-        logger.print('Deleting', path_file=path_file)
+        logger.text('Deleting', path_file=path_file)
         path_file.unlink()
 
 
@@ -265,7 +265,7 @@ def delete_dir(dir_path: Path) -> None:
 
     """
     if dir_path.is_dir():
-        logger.print('Deleting', dir_path=dir_path)
+        logger.text('Deleting', dir_path=dir_path)
         shutil.rmtree(dir_path)
 
 
@@ -277,7 +277,7 @@ def ensure_dir(dir_path: Path) -> None:
         dir_path: Path to directory that needs to exists
 
     """
-    logger.print('Creating', dir_path=dir_path)
+    logger.text('Creating', dir_path=dir_path)
     dir_path.mkdir(parents=True, exist_ok=True)
 
 

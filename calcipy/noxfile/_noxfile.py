@@ -147,7 +147,7 @@ def build_dist(session: Session) -> None:  # pragma: no cover
     """
     if_found_unlink(Path('dist'))
     path_wheel = session.poetry.build_package()
-    logger.print('Created wheel', path_wheel=path_wheel)
+    logger.text('Created wheel', path_wheel=path_wheel)
     # Install the wheel and check that imports without any of the optional dependencies
     session.install(path_wheel)
     session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
@@ -164,7 +164,7 @@ def build_check(session: Session) -> None:  # pragma: no cover
     # Build sdist and fix return URI, which will have file://...#egg=calcipy
     sdist_uri = session.poetry.build_package(distribution_format=DistributionFormat.SDIST)
     path_sdist = Path(url2pathname(urlparse(sdist_uri).path))
-    logger.print_debug('Fixed sdist URI', sdist_uri=sdist_uri, path_sdist=path_sdist)
+    logger.text_debug('Fixed sdist URI', sdist_uri=sdist_uri, path_sdist=path_sdist)
     # Check with pyroma
     session.install('pyroma>=4.0', '--upgrade')
     # required for "poetry.core.masonry.api" build backend

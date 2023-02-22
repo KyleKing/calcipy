@@ -28,14 +28,26 @@ ns.add_collection(types)
 
 @task(  # type: ignore[misc]
     help={
+        'message': 'String message to display',
+    },
+)
+def summary(_ctx: Context, *, message: str) -> None:
+    """Summary Task."""
+    print('')  # noqa: T201
+    logger.text(message, is_header=True)
+    print('')  # noqa: T201
+
+
+@task(  # type: ignore[misc]
+    help={
         'index': 'Current index (0-indexed)',
         'total': 'Total steps',
     },
 )
 def progress(_ctx: Context, *, index: int, total: int) -> None:
-    """Main task pipeline."""
+    """Progress Task."""
     print('')  # noqa: T201
-    logger.print('Progress', is_header=True, index=index + 1, total=total)
+    logger.text('Progress', is_header=True, index=index + 1, total=total)
     print('')  # noqa: T201
 
 
@@ -51,7 +63,8 @@ def with_progress(
         offset: Optional offset to shift counters
 
     """
-    tasks = []
+    message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in items])
+    tasks = [call(summary, message=message)]
     total = len(items) + offset
     for ix, item in enumerate(items):
         tasks.extend([call(progress, index=ix + offset, total=total), item])  # pyright: ignore[reportGeneralTypeIssues]
@@ -80,7 +93,7 @@ _MAIN_TASKS = [
 )
 def main(_ctx: Context) -> None:
     """Main task pipeline."""
-    logger.print('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
+    logger.text('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
 
 
 _OTHER_TASKS = [
@@ -97,7 +110,7 @@ _OTHER_TASKS = [
 )
 def other(_ctx: Context) -> None:
     """Run tasks that are otherwise not exercised in main."""
-    logger.print('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
+    logger.text('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
 
 
 @task(  # type: ignore[misc]

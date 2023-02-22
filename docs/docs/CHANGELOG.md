@@ -1,5 +1,10 @@
 ## Unreleased
 
+### Fix
+
+- add pylint to document
+- move autopep8 to the lint extras
+
 ## 1.0.0rc0 (2023-02-20)
 
 ### Feat
@@ -53,7 +58,7 @@
 - update Progress task
 - extract use_pty to a default in shoal
 - generlize find_in_parents for pyproject.toml as well
-- introduce logger.print and print_debug
+- introduce logger.text and print_debug
 - drop absolufy-imports task
 - simplify configuration
 - fix remaining pyright and flake8 errors

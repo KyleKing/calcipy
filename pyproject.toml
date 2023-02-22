@@ -4,7 +4,7 @@ requires = ["poetry-core"]
 
 [tool.commitizen]
 version = "1.0.0rc0"
-version_files = ["calcipy/__init__.py", "pyproject.toml"]
+version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.poetry]
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
@@ -38,7 +38,7 @@ arrow = {optional = true, version = ">=1.2.3"} # tags
 autopep8 = {optional = true, version = ">=2.0.1"} # flake8
 bandit = {optional = true, version = ">=1.7.4"} # lint
 bidict = {optional = true, version = ">=0.22.1"} # stale
-commitizen = {optional = true, version = ">=2.28.0"} # doc
+commitizen = {optional = true, version = ">=2.42.0"} # doc
 dlint = {optional = true, version = ">=0.14.0"} # flake8
 flake8 = {optional = true, version = ">=6.0.0"} # flake8
 flake8-adjustable-complexity = {optional = true, version = ">=0.0.6"} # flake8
@@ -85,7 +85,7 @@ pyyaml = {optional = true, version = ">=5.2"} # doc
 requests = {optional = true, version = ">=2.28.1"} # stale
 ruff = {optional = true, version = ">=0.0.248"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
-shoal = ">=0.6.0" # poetry run pip install -e ../shoal
+shoal = ">=1.0.0rc0" # poetry run pip install -e ../shoal
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 tomli = {markers = "python_version < '3.11'", version = ">=2.0.1"}
 transitions = {optional = true, version = ">=0.9.0"} # tags: docs
