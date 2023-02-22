@@ -5,9 +5,8 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Dict, List, Optional
-from shoal.shell import capture_shell  # FIXME: Move to grouper (name tbd)
-
-from ._log import logger
+from corallium.log import logger
+from corallium.shell import capture_shell
 
 
 @beartype

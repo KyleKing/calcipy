@@ -1,24 +1,22 @@
 """Document CLI."""
 
-import shutil
 import webbrowser
 from pathlib import Path
 
 from beartype import beartype
-from invoke import Context
-from shoal.cli import task
-from shoal.invoke_helpers import run
-
-from ..file_helpers import (
+from corallium.file_helpers import (
     MKDOCS_CONFIG,
+    delete_dir,
     ensure_dir,
-    get_doc_subdir,
-    get_project_path,
     open_in_browser,
     read_package_name,
     read_yaml_file,
     trim_trailing_whitespace,
 )
+from invoke import Context
+
+from ..cli import task
+from ..invoke_helpers import get_doc_subdir, get_project_path, run
 from ..md_writer import write_autoformatted_md_sections
 
 
@@ -64,12 +62,12 @@ def get_out_dir() -> Path:
     return Path(mkdocs_config.get('site_dir', 'releases/site'))
 
 
-@task()  # type: ignore[misc]
+@task()
 def build(ctx: Context) -> None:
     """Build documentation with mkdocs."""
     auto_doc_path = get_doc_subdir().parent / 'modules'
     write_autoformatted_md_sections()
-    shutil.rmtree(auto_doc_path)
+    delete_dir(auto_doc_path)
     _diagram_task(ctx, auto_doc_path)
 
     # Find and trim trailing whitespace
@@ -95,7 +93,7 @@ def _is_mkdocs_local() -> bool:
     return mkdocs_config.get('use_directory_urls') is False
 
 
-@task()  # type: ignore[misc]
+@task()
 def watch(ctx: Context) -> None:
     """Serve local documentation for local editing."""
     if _is_mkdocs_local():  # pragma: no cover
@@ -106,7 +104,7 @@ def watch(ctx: Context) -> None:
         run(ctx, 'poetry run mkdocs serve --dirtyreload')
 
 
-@task()  # type: ignore[misc]
+@task()
 def deploy(ctx: Context) -> None:
     """Deploy docs to the Github `gh-pages` branch."""
     if _is_mkdocs_local():  # pragma: no cover

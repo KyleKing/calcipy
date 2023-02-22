@@ -5,10 +5,10 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import List, Union
+from corallium.log import logger
 from invoke import Call, Collection, Context, Task, call
-from shoal.cli import task
 
-from .._log import logger
+from ..cli import task
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
 
@@ -26,7 +26,7 @@ ns.add_collection(test)
 ns.add_collection(types)
 
 
-@task(  # type: ignore[misc]
+@task(
     help={
         'message': 'String message to display',
     },
@@ -38,7 +38,7 @@ def summary(_ctx: Context, *, message: str) -> None:
     print('')  # noqa: T201
 
 
-@task(  # type: ignore[misc]
+@task(
     help={
         'index': 'Current index (0-indexed)',
         'total': 'Total steps',
@@ -88,7 +88,7 @@ _MAIN_TASKS = [
 # TODO: Can the main tasks be extended? Maybe by adding a new 'main' task?'
 
 
-@task(  # type: ignore[misc]
+@task(
     post=with_progress(_MAIN_TASKS),
 )
 def main(_ctx: Context) -> None:
@@ -105,7 +105,7 @@ _OTHER_TASKS = [
 ]
 
 
-@task(  # type: ignore[misc]
+@task(
     post=with_progress(_OTHER_TASKS),
 )
 def other(_ctx: Context) -> None:
@@ -113,7 +113,7 @@ def other(_ctx: Context) -> None:
     logger.text('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
 
 
-@task(  # type: ignore[misc]
+@task(
     help=cl.bump.help,
     post=with_progress(
         [  # pyright: ignore[reportGeneralTypeIssues]

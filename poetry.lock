@@ -2723,24 +2723,6 @@ testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8 (<5)", "flake8-202
 testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
 [[package]]
-name = "shoal"
-version = "1.0.0rc0"
-description = "Opinionated CLI Task Runner built on Invoke"
-category = "main"
-optional = false
-python-versions = ">=3.8.12,<4.0.0"
-files = [
-    {file = "shoal-1.0.0rc0-py3-none-any.whl", hash = "sha256:166f574a5d2b029e230c01e83583ba10763ce348ab9fd99a257e669a4b971cde"},
-    {file = "shoal-1.0.0rc0.tar.gz", hash = "sha256:73d0caa1fd5cb1aea64148b930bb83e142406dfc932302aef76f548d6ff98056"},
-]
-
-[package.dependencies]
-beartype = ">=0.12.0"
-invoke = ">=2.0.0"
-pydantic = ">=1.10.4"
-rich = ">=12.6.0"
-
-[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -2965,14 +2947,14 @@ types-urllib3 = "<1.27"
 
 [[package]]
 name = "types-setuptools"
-version = "67.3.0.2"
+version = "67.4.0.0"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-setuptools-67.3.0.2.tar.gz", hash = "sha256:18b27480bb48a405ab75e41506def1b9182d9f26521fb207de5f1a7908e06f51"},
-    {file = "types_setuptools-67.3.0.2-py3-none-any.whl", hash = "sha256:13ab419232fdaec8d9c33b31157577c7ea79ae013d693a53aed77292e8a44a0a"},
+    {file = "types-setuptools-67.4.0.0.tar.gz", hash = "sha256:ea461c79193e53814c1f544654ad19f976a3efc8b5a7dd5571bcd2906361d9f3"},
+    {file = "types_setuptools-67.4.0.0-py3-none-any.whl", hash = "sha256:bd3b44fa62c8a0bfe643610de653a889d284ff31e53667293c15723053c75776"},
 ]
 
 [package.dependencies]
@@ -3394,4 +3376,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "7d27625fd6d2e562ef4b48001b2cee1c65aff8a71b2967012e400af12afd268f"
+content-hash = "58585023f62c2a9dbb181bd1475425b28bf9e7cfb395f7b43ea14f96e0010f0c"

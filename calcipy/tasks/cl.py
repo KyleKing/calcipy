@@ -4,16 +4,15 @@
 from beartype import beartype
 from beartype.typing import Literal, Optional
 from invoke import Context
-from shoal.cli import task
-from shoal.invoke_helpers import run
 
-from ..file_helpers import get_doc_subdir, get_project_path
+from ..cli import task
+from ..invoke_helpers import get_doc_subdir, get_project_path, run
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
 
 
-@task()  # type: ignore[misc]
+@task()
 def write(ctx: Context) -> None:
     """Write a Changelog file with the raw Git history.
 
@@ -44,9 +43,6 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
     run(ctx, f'poetry run cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 
-    # Catch issues when commitizen breaks versions indirectly
-    run(ctx, 'poetry lock --check')
-
     run(ctx, 'git push origin --tags --no-verify')
 
     # TODO: Make "which $(..) >> /dev/null && " a function?
@@ -55,7 +51,7 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     run(ctx, f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}){opt_gh_args}')
 
 
-@task(  # type: ignore[misc]
+@task(
     pre=[write],
     help={
         'suffix': 'Specify prerelease suffix for version bump (alpha, beta, rc)',

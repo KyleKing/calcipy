@@ -1,16 +1,16 @@
 """Packaging CLI."""
 
+from corallium.file_helpers import LOCK, PROJECT_TOML
+from corallium.log import logger
 from invoke import Context
-from shoal import can_skip  # Required for mocking can_skip.can_skip
-from shoal.cli import task
-from shoal.invoke_helpers import run
 
-from .._log import logger
-from ..file_helpers import LOCK, PROJECT_TOML
+from .. import can_skip  # Required for mocking can_skip.can_skip
+from ..cli import task
+from ..invoke_helpers import run
 from ..noxfile._noxfile import BASE_NOX_COMMAND
 
 
-@task()  # type: ignore[misc]
+@task()
 def lock(ctx: Context) -> None:
     """Ensure poetry.lock is  up-to-date."""
     if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
@@ -19,7 +19,7 @@ def lock(ctx: Context) -> None:
     run(ctx, 'poetry lock --no-update')
 
 
-@task(  # type: ignore[misc]
+@task(
     help={
         'to_test_pypi': 'Publish to the TestPyPi repository',
     },
@@ -34,7 +34,7 @@ def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     run(ctx, cmd)
 
 
-@task()  # type: ignore[misc]
+@task()
 def check_licenses(ctx: Context) -> None:
     """Check licenses for compatibility with `licensecheck`."""
     res = run(ctx, 'which licensecheck', warn=True, hide=True)

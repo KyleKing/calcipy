@@ -10,17 +10,13 @@ from arrow import Arrow
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
+from corallium.file_helpers import LOCK
+from corallium.log import logger
+from corallium.tomllib import tomllib
 from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
-from shoal import can_skip  # Required for mocking can_skip.can_skip
 
-from .._log import logger
-from ..file_helpers import LOCK
-
-try:
-    import tomllib  # pyright: ignore[reportMissingImports]
-except ModuleNotFoundError:  # pragma: no cover
-    import tomli as tomllib
+from .. import can_skip  # Required for mocking can_skip.can_skip
 
 CALCIPY_CACHE = Path('.calcipy_packaging.lock')
 """Path to the packaging lock file."""

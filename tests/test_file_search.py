@@ -1,4 +1,5 @@
-from calcipy.file_helpers import get_relative
+from corallium.file_helpers import get_relative
+
 from calcipy.file_search import find_project_files_by_suffix
 
 from .configuration import TEST_DATA_DIR

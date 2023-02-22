@@ -40,13 +40,12 @@ from urllib.request import url2pathname
 
 from beartype import beartype
 from beartype.typing import Dict, List, Union
+from corallium import file_helpers  # Required for mocking read_pyproject
+from corallium.file_helpers import get_tool_versions, if_found_unlink, read_package_name
+from corallium.log import logger
 from nox_poetry import session as nox_session
 from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session
-
-from .. import file_helpers  # Required for mocking read_pyproject
-from .._log import logger
-from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name
 
 BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
 """Reused base arguments to nox."""
@@ -56,7 +55,7 @@ BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
 @beartype
 def _get_pythons() -> List[str]:
     """Get python versions from the `.tool-versions` file."""
-    return get_tool_versions()['python']
+    return [str(ver) for ver in get_tool_versions()['python']]
 
 
 @beartype
@@ -89,7 +88,7 @@ def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
 @lru_cache(maxsize=1)
 @beartype
 def _installable_dev_dependencies() -> List[str]:
-    """list of dependencies from pyproject.
+    """list of dependencies from pyproject, excluding calcipy.
 
     Returns:
         List[str]: `['Cerberus=>1.3.4', 'freezegun']`
@@ -107,6 +106,7 @@ def _installable_dev_dependencies() -> List[str]:
     return [
         f'{to_package(key, value)}{to_constraint(value)}'
         for key, value in _get_poetry_dev_dependencies().items()
+        if key != 'calcipy'
     ]
 
 

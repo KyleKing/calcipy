@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from calcipy.file_helpers import delete_dir, ensure_dir, if_found_unlink, read_lines, sanitize_filename, tail_lines
+from corallium.file_helpers import delete_dir, ensure_dir, if_found_unlink, read_lines, sanitize_filename, tail_lines
 
 
 def test_sanitize_filename():

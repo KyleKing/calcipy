@@ -1,8 +1,8 @@
 from unittest.mock import call
 
 import pytest
-from shoal import can_skip
 
+from calcipy import can_skip
 from calcipy.tasks.pack import check_licenses, lock, publish
 
 

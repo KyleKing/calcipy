@@ -4,11 +4,11 @@ from contextlib import suppress
 
 from beartype import beartype
 from beartype.typing import Optional
+from corallium.file_helpers import read_package_name
 from invoke import Context
-from shoal.cli import task
-from shoal.invoke_helpers import run
 
-from ..file_helpers import read_package_name
+from ..cli import task
+from ..invoke_helpers import run
 
 # ==============================================================================
 # Ruff
@@ -33,7 +33,7 @@ def _inner_task(
     run(ctx, f'poetry run {command} {target}{cli_args}')
 
 
-@task(  # type: ignore[misc]
+@task(
     default=True,
     help={
         # TODO: use file_args! 'ctx.config.gto.file_args'
@@ -45,7 +45,7 @@ def check(ctx: Context, *, target: Optional[str] = None) -> None:
     _inner_task(ctx, cli_args='', target=target)
 
 
-@task()  # type: ignore[misc]
+@task()
 def autopep8(ctx: Context) -> None:
     """Run autopep8.
 
@@ -57,25 +57,25 @@ def autopep8(ctx: Context) -> None:
     _inner_task(ctx, cli_args=cli_args, command='python -m autopep8')
 
 
-@task(pre=[autopep8], help=check.help)  # type: ignore[misc]
+@task(pre=[autopep8], help=check.help)
 def fix(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, cli_args=' --fix', target=target)
 
 
-@task(help=check.help)  # type: ignore[misc]
+@task(help=check.help)
 def watch(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, cli_args=' --watch --show-source', target=target)
 
 
-@task(help=check.help)  # type: ignore[misc]
+@task(help=check.help)
 def flake8(ctx: Context, *, target: Optional[str] = None) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, cli_args='', target=target, command='python -m flake8')
 
 
-@task(  # type: ignore[misc]
+@task(
     help={
         'report': 'if provided, show the pylint summary report',
         **check.help,
@@ -91,7 +91,7 @@ def pylint(ctx: Context, *, report: bool = False, target: Optional[str] = None) 
 # Security
 
 
-@task()  # type: ignore[misc]
+@task()
 def security(ctx: Context) -> None:
     """Attempt to identify possible security vulnerabilities."""
     # Selectively override bandit with '# nosec'
@@ -133,7 +133,7 @@ def security(ctx: Context) -> None:
 # Pre-Commit
 
 
-@task(  # type: ignore[misc]
+@task(
     help={
         'no_update': 'Skip updating the pre-commit hooks',
     },
