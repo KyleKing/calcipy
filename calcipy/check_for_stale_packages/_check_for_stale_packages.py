@@ -75,7 +75,11 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
         for version, release_data in releases.items()
         if release_data
     })
-    package.datetime = release_dates.inverse[package.version]
+    try:
+        package.datetime = release_dates.inverse[package.version]
+    except KeyError:  # pragma: no cover
+        msg = f'Could not locate {package} in {res_json}. Please wait and try again later'
+        raise RuntimeError(msg) from None
     package.latest_datetime = max([*release_dates])
     package.latest_version = release_dates[package.latest_datetime]
     return package
