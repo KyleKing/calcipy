@@ -1,7 +1,14 @@
-## Unreleased
+## 1.0.0rc2 (2023-02-21)
+
+### Feat
+
+- merge shoal source code into calcipy
+
+## 1.0.0rc1 (2023-02-21)
 
 ### Fix
 
+- upgrade shoal dependency and add summary
 - add pylint to document
 - move autopep8 to the lint extras
 
@@ -58,7 +65,7 @@
 - update Progress task
 - extract use_pty to a default in shoal
 - generlize find_in_parents for pyproject.toml as well
-- introduce logger.text and print_debug
+- introduce logger.print and print_debug
 - drop absolufy-imports task
 - simplify configuration
 - fix remaining pyright and flake8 errors

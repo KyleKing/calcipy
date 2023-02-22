@@ -159,6 +159,14 @@
         "name": "commitizen",
         "version": "2.42.0"
     },
+    "corallium": {
+        "datetime": "2023-02-22T04:19:12.978022+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2023-02-22T04:19:12.978022+00:00",
+        "latest_version": "0.1.0rc0",
+        "name": "corallium",
+        "version": "0.1.0rc0"
+    },
     "coverage": {
         "datetime": "2023-01-25T01:23:51.164157+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -1055,14 +1063,6 @@
         "name": "setuptools",
         "version": "67.4.0"
     },
-    "shoal": {
-        "datetime": "2023-02-21T23:58:05.332730+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-02-21T23:58:05.332730+00:00",
-        "latest_version": "1.0.0rc0",
-        "name": "shoal",
-        "version": "1.0.0rc0"
-    },
     "six": {
         "datetime": "2021-05-05T14:18:17.237677+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -1192,12 +1192,12 @@
         "version": "2.28.11.14"
     },
     "types-setuptools": {
-        "datetime": "2023-02-21T01:35:10.455459+00:00",
+        "datetime": "2023-02-22T01:22:09.754600+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-02-21T01:35:10.455459+00:00",
-        "latest_version": "67.3.0.2",
+        "latest_datetime": "2023-02-22T09:18:24.126344+00:00",
+        "latest_version": "67.4.0.1",
         "name": "types-setuptools",
-        "version": "67.3.0.2"
+        "version": "67.4.0.0"
     },
     "types-urllib3": {
         "datetime": "2023-02-21T01:28:58.684638+00:00",

@@ -363,6 +363,24 @@ tomlkit = ">=0.5.3,<1.0.0"
 typing-extensions = ">=4.0.1,<5.0.0"
 
 [[package]]
+name = "corallium"
+version = "0.1.0rc0"
+description = "Shared functionality for calcipy-ecosystem"
+category = "main"
+optional = false
+python-versions = ">=3.8.12,<4.0.0"
+files = [
+    {file = "corallium-0.1.0rc0-py3-none-any.whl", hash = "sha256:dabbc5dd8134181e4f572d9882fa49e15f18f93f9b7b27a31c74928c1bcd97c6"},
+    {file = "corallium-0.1.0rc0.tar.gz", hash = "sha256:88509fea525843be5e88cf569fb49730116ce6a823acf1e360c6522566f3807d"},
+]
+
+[package.dependencies]
+beartype = ">=0.12.0"
+pydantic = ">=1.10.4"
+rich = ">=12.6.0"
+tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
+
+[[package]]
 name = "coverage"
 version = "7.1.0"
 description = "Code coverage measurement for Python"
@@ -3376,4 +3394,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "58585023f62c2a9dbb181bd1475425b28bf9e7cfb395f7b43ea14f96e0010f0c"
+content-hash = "6131f18f7b560befc147a19bc6596c33bfc0b2e79eb868d68ddeef9ce9007e19"
