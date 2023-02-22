@@ -3,7 +3,7 @@ build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
 [tool.commitizen]
-version = "1.0.0rc2"
+version = "1.0.0rc3"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.poetry]
@@ -30,7 +30,7 @@ maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
 repository = "https://github.com/kyleking/calcipy"
-version = "1.0.0rc2"
+version = "1.0.0rc3"
 
 [tool.poetry.dependencies]
 python = "^3.8.12"
