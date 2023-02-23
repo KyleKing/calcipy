@@ -3,8 +3,8 @@ build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
 [tool.commitizen]
-version = "1.0.0"
-version_files = ["calcipy/__init__.py", "pyproject.toml"]
+version = "1.0.0rc4"
+version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.poetry]
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
@@ -30,20 +30,21 @@ maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
 repository = "https://github.com/kyleking/calcipy"
-version = "1.0.0"
+version = "1.0.0rc4"
 
 [tool.poetry.dependencies]
 python = "^3.8.12"
 arrow = {optional = true, version = ">=1.2.3"} # tags
 autopep8 = {optional = true, version = ">=2.0.1"} # flake8
 bandit = {optional = true, version = ">=1.7.4"} # lint
+beartype = ">=0.12.0"
 bidict = {optional = true, version = ">=0.22.1"} # stale
-commitizen = {optional = true, version = ">=2.28.0"} # doc
+commitizen = {optional = true, version = ">=2.42.0"} # doc
+corallium = ">=0.1.0rc0"
 dlint = {optional = true, version = ">=0.14.0"} # flake8
 flake8 = {optional = true, version = ">=6.0.0"} # flake8
 flake8-adjustable-complexity = {optional = true, version = ">=0.0.6"} # flake8
 flake8-annotations-complexity = {optional = true, version = ">=0.0.7"} # flake8
-flake8-class-attributes-order = {optional = true, version = ">=0.1.3"} # flake8
 flake8-executable = {optional = true, version = ">=2.1.3"} # flake8
 flake8-expression-complexity = {optional = true, version = ">=0.0.11"} # flake8
 flake8-functions = {optional = true, version = ">=0.0.7"} # flake8
@@ -74,7 +75,8 @@ mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.2"} # test
 pandas = {optional = true, version = ">=1.5.3"} # docs,tags
 pip-check = {optional = true, version = ">=2.8.1"} # lint
-pylint = {optional = true, version = ">=2.16.2"} # pylint
+pydantic = ">=1.10.5"
+pylint = {optional = true, version = ">=2.16.2"} # doc,pylint
 pyrate_limiter = {optional = true, version = ">=2.4"} # stale
 pytest = {optional = true, version = ">=7.2.1"} # test
 pytest-cov = {optional = true, version = ">=4.0.0"} # test
@@ -83,11 +85,9 @@ pytest-watcher = {optional = true, version = ">=0.2.6"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc
 requests = {optional = true, version = ">=2.28.1"} # stale
-ruff = {optional = true, version = ">=0.0.247"} # lint
+ruff = {optional = true, version = ">=0.0.248"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
-shoal = ">=0.6.0" # poetry run pip install -e ../shoal
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
-tomli = {markers = "python_version < '3.11'", version = ">=2.0.1"}
 transitions = {optional = true, version = ">=0.9.0"} # tags: docs
 
 [tool.poetry.extras]
@@ -105,16 +105,15 @@ doc = [
   "mkdocs-section-index",
   "mkdocstrings",
   "pandas",
+  "pylint", # for 'pyreverse'
   "pyyaml",
   "transitions",
 ]
 flake8 = [
-  "autopep8",
   "dlint",
   "flake8",
   "flake8-adjustable-complexity",
   "flake8-annotations-complexity",
-  "flake8-class-attributes-order",
   "flake8-executable",
   "flake8-expression-complexity",
   "flake8-functions",
@@ -132,6 +131,7 @@ flake8 = [
   "flake8-variables-names",
 ]
 lint = [
+  "autopep8",
   "bandit",
   "pip-check",
   "ruff",
@@ -177,5 +177,3 @@ calcipy = "calcipy.scripts:start"
 [tool.pyright]
 include = ["calcipy"]
 pythonVersion = "3.8"
-venv = ".venv"
-venvPath = "."

@@ -7,11 +7,12 @@ from pathlib import Path
 import pandas as pd
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
+from corallium.file_helpers import read_lines
+from corallium.log import logger
 from transitions import Machine
 
-from .._log import logger
-from ..file_helpers import get_project_path, read_lines
 from ..file_search import find_project_files_by_suffix
+from ..invoke_helpers import get_project_path
 
 HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
 """Handler Lookup."""
@@ -228,6 +229,6 @@ def write_autoformatted_md_sections(
 
     paths = paths_md or find_project_files_by_suffix(get_project_path()).get('md') or []
     for path_md in paths:
-        logger.print_debug('Processing', path_md=path_md)
+        logger.text_debug('Processing', path_md=path_md)
         if md_lines := _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md):
             path_md.write_text('\n'.join(md_lines) + '\n')

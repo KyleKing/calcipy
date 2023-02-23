@@ -18,16 +18,17 @@ Calcipy needs a few static files managed using copier and a template project: [k
 You can quickly use the template to create a new project or add calcipy to an existing one:
 
 ```sh
-# Install copier. Pipx is recommended
+# Install copier. pipx is recommended
 pipx install copier
 
 # To create a new project
 copier copy gh:KyleKing/calcipy_template new_project
 cd new_project
 
-# Or update an existing one
+# Or convert/update an existing one
 cd my_project
 copier copy gh:KyleKing/calcipy_template .
+copier update
 ```
 
 See [./Advanced_Configuration.md](./Advanced_Configuration.md) for documentation on the configurable aspects of `calcipy`
@@ -41,12 +42,49 @@ Quick Start:
 ```sh
 pipx install calcipy
 
-# Use the Collect Code Tags command to write all code tags to a single file
-calcipy collect-code-tags -h
-calcipy collect-code-tags -b=~/Some/Project
+# Use 'tags' to create a CODE_TAG_SUMMARY of the specified directory
+calcipy tags --help
+calcipy tags --base-dir=~/path/to/my_project
 
 # See additional documentation from the CLI help
-calcipy -h
+> calcipy
+
+Subcommands:
+
+  main                                     Main task pipeline.
+  other                                    Run tasks that are otherwise not exercised in main.
+  release                                  Release pipeline.
+  cl.bump                                  Bumps project version based on commits & settings in pyproject.toml.
+  cl.write                                 Write a Changelog file with the raw Git history.
+  doc.build                                Build documentation with mkdocs.
+  doc.deploy                               Deploy docs to the Github `gh-pages` branch.
+  doc.watch                                Serve local documentation for local editing.
+  lint.autopep8                            Run autopep8.
+  lint.check (lint)                        Run ruff as check-only.
+  lint.fix                                 Run ruff and apply fixes.
+  lint.flake8                              Run ruff and apply fixes.
+  lint.pre-commit                          Run pre-commit.
+  lint.pylint                              Run ruff and apply fixes.
+  lint.security                            Attempt to identify possible security vulnerabilities.
+  lint.watch                               Run ruff as check-only.
+  nox.noxfile (nox)                        Run nox from the local noxfile.
+  pack.check-licenses                      Check licenses for compatibility with `licensecheck`.
+  pack.lock                                Ensure poetry.lock is  up-to-date.
+  pack.publish                             Build the distributed format(s) and publish.
+  stale.check-for-stale-packages (stale)   Identify stale dependencies.
+  tags.collect-code-tags (tags)            Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
+  test.coverage                            Generate useful coverage outputs after running pytest.
+  test.pytest (test)                       Run pytest with default arguments.
+  test.step                                Run pytest optimized to stop on first error.
+  test.watch                               Run pytest with polling and optimized to stop on first error.
+  types.mypy                               Run mypy.
+  types.pyright                            Run pyright.
+
+Global Task Options:
+
+  working_dir   Set the cwd for the program. Example: "../run --working-dir .. lint test"
+  *file_args    List of Paths available globally to all tasks. Will resolve paths with working_dir
+  verbose       Globally configure logger verbosity (-vvv for most verbose)
 ```
 
 ### Calcipy Pre-Commit
@@ -58,56 +96,10 @@ repos:
   - repo: https://github.com/KyleKing/calcipy
     rev: main
     hooks:
-      - id: calcipy-code-tags
+      - id: tags
+      - id: lint-fix
+      - id: types
 ```
-
-## Calcipy Module Features
-
-The core functionality of calcipy is the rich set of tasks run with `doit`
-
-- `poetry run doit --continue`: runs all default tasks. On CI (AppVeyor), this is a shorter list that should PASS, while locally the list is longer that are much more strict for linting and quality analysis
-
-    - The local default tasks include:
-        - **collect_code_tags**: Create a summary file with all of the found code tags. (i.e. TODO/FIXME, default output is [./docs/CODE_TAG_SUMMARY.md](./docs/CODE_TAG_SUMMARY.md))
-        - **cl_write**: Auto-generate the changelog based on commit history and tags.
-        - **lock**: Ensure poetry.lock and requirements.txt are up-to-date.
-        - **nox_coverage**: Run the coverage session in nox.
-        - **auto_format**: Format code with isort, autopep8, and others.
-        - **document**: Build the HTML documentation. (along with creating code diagrams!)
-        - **check_for_stale_packages**: Check for stale packages.
-        - **pre_commit_hooks**: Run the pre-commit hooks on all files.
-        - **lint_project**: Lint all project files that can be checked. (py, yaml, json, etc.)
-        - **static_checks**: General static checkers (Inspection Tiger, etc.).
-        - **security_checks**: Use linting tools to identify possible security vulnerabilities.
-        - **check_types**: Run type annotation checks.
-
-- Additional tasks include:
-
-    - **nox**/**test**/**coverage**: Tasks for running nox sessions, pytest in the local environment, and pytest coverage
-    - **ptw\_\***: Variations of tasks to run pytest watch
-    - **cl_bump** (**cl_bump_pre**):Bumps project version based on commits & settings in pyproject.toml.
-    - **doc.deploy**: Deploy docs to the Github `gh-pages` branch.
-    - **publish**: Build the distributable format(s) and publish.
-    - **check_license**: Check licenses for compatibility.
-    - **lint_critical_only**: Suppress non-critical linting errors. Great for gating PRs/commits.
-    - **lint_python**: Lint all Python files and create summary of errors.
-    - **open_docs**: Open the documentation files in the default browser.
-    - **open_test_docs**: Open the test and coverage files in default browser.
-    - **zip_release**: Zip up important information in the releases directory.
-
-- **calcipy** also provides a few additional nice features
-
-    - **dev.conftest**: some additional pytest configuration logic that outputs better HTML reports. Automatically implemented (imported to `tests/conftest.py`) when using `calcipy_template`
-    - **dev.noxfile**: nox functions that can be imported and run with or without the associated doit tasks. Also automatically configured when using `calcipy_template`
-    - **file_helpers**: some nice utilities for working with files, such as `sanitize_filename`, `tail_lines`, `delete_old_files`, etc. See documentation for most up-to-date documentation
-    - **log_heleprs**: where the most common use will be for `activate_debug_logging` or the more customizable `build_logger_config`
-    - **dot_dict**: has one function `ddict`, which is a light-weight wrapper around whatever is the most [maintained dotted-dictionary package in Python](https://pypi.org/search/?q=dot+accessible+dictionary&o=). Dotted dictionaries can sometimes improve code readability, but they aren't a one-size fits all solution. Sometimes `attr.s` or `dataclass` are more appropriate.
-        - The benefit of this wrapper is that there is a stable interface and you don't need to rewrite code as packages are born and die (i.e. [Bunch](https://pypi.org/project/bunch/) > [Chunk](https://pypi.org/project/chunk/) > [Munch](https://pypi.org/project/munch/) > [flexible-dotdict](https://pypi.org/project/flexible-dotdict/) > [Python-Box](https://pypi.org/project/python-box/) > ...)
-        - Note: if you need nested dotted dictionaries, check out [classy-json](https://pypi.org/project/classy-json/)
-
-> NOTE
->
-> For the full list of available tasks, run `poetry run doit list`
 
 ## Project Status
 
@@ -141,4 +133,6 @@ If you have any security issue to report, please contact the project maintainers
 [contributor-covenant]: https://www.contributor-covenant.org
 [developer_guide]: ./docs/DEVELOPER_GUIDE.md
 [license]: https://github.com/kyleking/calcipy/LICENSE
+[scripts]: https://github.com/kyleking/calcipy/scripts
 [style_guide]: ./docs/STYLE_GUIDE.md
+[tests]: https://github.com/kyleking/calcipy/tests

@@ -2,13 +2,9 @@
 
 from pathlib import Path
 
-from calcipy import __version__
+from corallium.tomllib import tomllib
 
-# PLANNED: Move to the shared package
-try:
-    import tomllib  # pyright: ignore[reportMissingImports]
-except ModuleNotFoundError:  # pragma: no cover
-    import tomli as tomllib  # type: ignore[no-redef]
+from calcipy import __version__
 
 
 def test_version():

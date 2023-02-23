@@ -5,10 +5,10 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import List, Union
+from corallium.log import logger
 from invoke import Call, Collection, Context, Task, call
-from shoal.cli import task
 
-from .._log import logger
+from ..cli import task
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
 from .defaults import DEFAULTS
 
@@ -26,17 +26,29 @@ ns.add_collection(test)
 ns.add_collection(types)
 
 
-@task(  # type: ignore[misc]
+@task(
+    help={
+        'message': 'String message to display',
+    },
+)
+def summary(_ctx: Context, *, message: str) -> None:
+    """Summary Task."""
+    print('')  # noqa: T201
+    logger.text(message, is_header=True)
+    print('')  # noqa: T201
+
+
+@task(
     help={
         'index': 'Current index (0-indexed)',
         'total': 'Total steps',
     },
 )
 def progress(_ctx: Context, *, index: int, total: int) -> None:
-    """Main task pipeline."""
-    if index > 0:
-        print('')  # noqa: T201
-    logger.print('Progress', index=index + 1, total=total)
+    """Progress Task."""
+    print('')  # noqa: T201
+    logger.text('Progress', is_header=True, index=index + 1, total=total)
+    print('')  # noqa: T201
 
 
 @beartype
@@ -51,7 +63,8 @@ def with_progress(
         offset: Optional offset to shift counters
 
     """
-    tasks = []
+    message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in items])
+    tasks = [call(summary, message=message)]
     total = len(items) + offset
     for ix, item in enumerate(items):
         tasks.extend([call(progress, index=ix + offset, total=total), item])  # pyright: ignore[reportGeneralTypeIssues]
@@ -75,12 +88,12 @@ _MAIN_TASKS = [
 # TODO: Can the main tasks be extended? Maybe by adding a new 'main' task?'
 
 
-@task(  # type: ignore[misc]
+@task(
     post=with_progress(_MAIN_TASKS),
 )
 def main(_ctx: Context) -> None:
     """Main task pipeline."""
-    logger.print('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
+    logger.text('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
 
 
 _OTHER_TASKS = [
@@ -92,15 +105,15 @@ _OTHER_TASKS = [
 ]
 
 
-@task(  # type: ignore[misc]
+@task(
     post=with_progress(_OTHER_TASKS),
 )
 def other(_ctx: Context) -> None:
     """Run tasks that are otherwise not exercised in main."""
-    logger.print('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
+    logger.text('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
 
 
-@task(  # type: ignore[misc]
+@task(
     help=cl.bump.help,
     post=with_progress(
         [  # pyright: ignore[reportGeneralTypeIssues]

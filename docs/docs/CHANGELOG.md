@@ -1,7 +1,24 @@
-## Unreleased
+## 1.0.0rc2 (2023-02-21)
 
 ### Feat
 
+- merge shoal source code into calcipy
+
+## 1.0.0rc1 (2023-02-21)
+
+### Fix
+
+- upgrade shoal dependency and add summary
+- add pylint to document
+- move autopep8 to the lint extras
+
+## 1.0.0rc0 (2023-02-20)
+
+### Feat
+
+- fully support working-dir by wrapping ctx.run
+- recursively find the tool versions file
+- add dont_skip for testing
 - add tests for code tag collector
 - replace dg with user configuration file
 - better support min-cover
@@ -45,6 +62,12 @@
 
 ### Refactor
 
+- update Progress task
+- extract use_pty to a default in shoal
+- generlize find_in_parents for pyproject.toml as well
+- introduce logger.print and print_debug
+- drop absolufy-imports task
+- simplify configuration
 - fix remaining pyright and flake8 errors
 - rename write-json to coverage
 - resolve pylint issues

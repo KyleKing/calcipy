@@ -4,11 +4,11 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Optional
+from corallium.file_helpers import open_in_browser, read_package_name
 from invoke import Context
-from shoal.cli import task
-from shoal.invoke_helpers import run
 
-from ..file_helpers import open_in_browser, read_package_name
+from ..cli import task
+from ..invoke_helpers import run
 from .defaults import from_ctx
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
@@ -41,7 +41,7 @@ KM_HELP = {
 }
 
 
-@task(  # type: ignore[misc]
+@task(
     default=True,
     help={
         'min_cover': 'Fail if coverage less than threshold',
@@ -55,19 +55,19 @@ def pytest(ctx: Context, *, keyword: str = '', marker: str = '', min_cover: int 
                 keyword=keyword, marker=marker, min_cover=min_cover)
 
 
-@task(help=KM_HELP)  # type: ignore[misc]
+@task(help=KM_HELP)
 def step(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker)
 
 
-@task(help=KM_HELP)  # type: ignore[misc]
+@task(help=KM_HELP)
 def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with polling and optimized to stop on first error."""
     _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')
 
 
-@task(  # type: ignore[misc]
+@task(
     help={
         'min_cover': 'Fail if coverage less than threshold',
         'out_dir': 'Optional path to coverage directory. Typically ".cover" or "releases/tests"',

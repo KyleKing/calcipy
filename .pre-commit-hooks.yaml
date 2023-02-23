@@ -1,12 +1,28 @@
 ---
 # Docs: https://pre-commit.com/#new-hooks
 # Can be tested with:
-# pre-commit try-repo . calcipy-code-tags --verbose --all-files
-- id: calcipy-code-tags
-  args: [collect-code-tags]
-  description: "calcipy: Auto-Generate a Code Tag Summary"
+#   pre-commit try-repo . tags --verbose --all-files
+- id: tags
+  args: [tags]
+  description: "Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments"
   entry: calcipy
   language: python
   minimum_pre_commit_version: 2.9.2
-  name: calcipy-code-tags
+  name: Tags
   pass_filenames: false
+- id: lint-fix
+  args: [lint.fix]
+  description: "Run ruff and apply fixes"
+  entry: calcipy
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  name: Lint-Fix
+  pass_filenames: True
+- id: types
+  args: [types.mypy]
+  description: "Run mypy"
+  entry: calcipy
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  name: Types
+  pass_filenames: True

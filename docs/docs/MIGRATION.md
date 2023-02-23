@@ -16,7 +16,7 @@ calcipy `v0` was built on [doit](https://pypi.org/project/doit/) and thus requir
 
 ### Migration
 
-While refactoring, the global configuration was mostly removed (`DoitGlobals`) along with a few tasks, but the main functionality is still present. Any project dependent on `calcipy` will need substantial changes. The easiest way to start migrating is to run `copier update` with [calcipy_template](https://github.com/KyleKing/calcipy_template)
+While refactoring, the global configuration was mostly removed (`DoitGlobals`) along with a few tasks, but the main functionality is still present. Any project dependent on `calcipy` will need substantial changes. The easiest way to start migrating is to run `copier copy gh:KyleKing/calcipy_template .` for [calcipy_template](https://github.com/KyleKing/calcipy_template)
 
 ### Speed Test
 
@@ -37,11 +37,77 @@ Benchmark 1: poetry run doit list
   Range (min … max):    0.974 s …  1.023 s    20 runs
 ```
 
+Additionally, the major decrease in dependencies will make install and update actions much faster. With the recommended extras installed, `calcipy-v1` has 124 dependencies (with all extras, 164) vs. `calcipy-v0`'s 259. Counted with: `cat .calcipy_packaging.lock | jq 'keys' | wc -l`
+
+### Code Comparison
+
+Accounting for code extracted to `corallium`, the overall number of lines decreased from 1772 to 1550 or only 12%, while increasing the CLI and `pre-commit` capabilities.
+
+```sh
+~/calcipy-v0 > cloc calcipy
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Python                          26            942           1075           1772
+-------------------------------------------------------------------------------
+SUM:                            26            942           1075           1772
+-------------------------------------------------------------------------------
+~/calcipy > cloc calcipy
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Python                          27            454            438           1185
+-------------------------------------------------------------------------------
+SUM:                            27            454            438           1185
+-------------------------------------------------------------------------------
+~/corallium > cloc corallium
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Python                           7            176            149            365
+-------------------------------------------------------------------------------
+SUM:                             7            176            149            365
+-------------------------------------------------------------------------------
+
+~/calcipy > cloc tests
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+YAML                             2              0              0            580
+Python                          19            176             68            578
+JSON                             2              0              0             60
+Markdown                         3              9             10              8
+Text                             1              0              0              2
+-------------------------------------------------------------------------------
+SUM:                            27            185             78           1228
+-------------------------------------------------------------------------------
+~/calcipy-v0 > cloc tests
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+JSON                            30              0              0            762
+YAML                             2              0              0            580
+Python                          24            314            186            578
+Markdown                         3              9             10              8
+-------------------------------------------------------------------------------
+SUM:                            59            323            196           1928
+-------------------------------------------------------------------------------
+~/corallium > cloc tests
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Python                           6             36             15             69
+Markdown                         1              1              0              2
+-------------------------------------------------------------------------------
+SUM:                             7             37             15             71
+-------------------------------------------------------------------------------
+```
+
 ### doit output
 
 <!-- TODO: Look into running tasks from within other tasks to support '--continue' and more readable logs -->
 
-I would like to restore the `doit` task summary and more readable task descriptions, but `invoke`'s architecture doesn't really make this possible. The `--continue` option was extremely useful, but that also might not be achievable.
+I would like to restore the `doit` task summary, but `invoke`'s architecture doesn't really make this possible. The `--continue` option was extremely useful, but that also might not be achievable.
 
 ```sh
 > poetry run doit run

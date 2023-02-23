@@ -60,4 +60,6 @@ jobs:
       - name: Run typecheck
         run: ./run types.mypy
 
-      - uses: jakebailey/pyright-action@v1
+      # TODO: Resolve why the virtual environment isn't found
+      #   https://github.com/KyleKing/calcipy/actions/runs/4248735475/jobs/7388220270
+      # - uses: jakebailey/pyright-action@v1

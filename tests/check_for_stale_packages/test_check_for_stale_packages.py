@@ -2,6 +2,7 @@ import json
 
 import arrow
 import pytest
+from corallium.file_helpers import LOCK
 
 from calcipy.check_for_stale_packages import check_for_stale_packages
 from calcipy.check_for_stale_packages._check_for_stale_packages import (
@@ -10,7 +11,6 @@ from calcipy.check_for_stale_packages._check_for_stale_packages import (
     _HostedPythonPackage,
     _packages_are_stale,
 )
-from calcipy.file_helpers import LOCK
 
 
 @pytest.mark.vcr()

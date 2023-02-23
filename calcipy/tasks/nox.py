@@ -1,13 +1,13 @@
 """Nox CLI."""
 
 from invoke import Context
-from shoal.cli import task
-from shoal.invoke_helpers import run
 
+from ..cli import task
+from ..invoke_helpers import run
 from ..noxfile._noxfile import BASE_NOX_COMMAND
 
 
-@task(  # type: ignore[misc]
+@task(
     default=True,
     help={
         'session': 'Optional session to run',

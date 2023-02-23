@@ -1,6 +1,6 @@
 """Dotted dictionary for consistent interface."""
 
-# FIXME: Move ddict to grouper (name tbd)
+# TODO: Move ddict to corallium
 
 from beartype import beartype
 from beartype.typing import Any, Dict, Union

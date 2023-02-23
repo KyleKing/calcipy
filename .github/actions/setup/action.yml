@@ -38,7 +38,6 @@ runs:
       run: |-
         poetry debug info
         poetry config --list
-        poetry run which python
       shell: bash
 
     - name: Install Project and Dependencies

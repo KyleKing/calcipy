@@ -7,7 +7,7 @@ max-function-length = 55
 max-line-length = 120
 min-python-version = 3.8
 per-file-ignores=
-    # @shoal.cli.task provides a beartype wrapper
+    # @calcipy.cli.task provides a beartype wrapper
     */tasks/*.py:RBT001,
     # Enforcing beartype on @nox_session doesn't make sense
     *noxfile.py:RBT001,

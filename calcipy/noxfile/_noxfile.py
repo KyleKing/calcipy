@@ -40,13 +40,19 @@ from urllib.request import url2pathname
 
 from beartype import beartype
 from beartype.typing import Dict, List, Union
-from nox_poetry import session as nox_session
+from corallium import file_helpers  # Required for mocking read_pyproject
+from corallium.file_helpers import get_tool_versions, if_found_unlink, read_package_name
+from corallium.log import logger
+from nox import Session as NoxSession
+from nox_poetry import session as nox_poetry_session
 from nox_poetry.poetry import DistributionFormat
-from nox_poetry.sessions import Session
+from nox_poetry.sessions import Session as NPSession
 
-from .. import file_helpers  # Required for mocking read_pyproject
-from .._log import logger
-from ..file_helpers import get_tool_versions, if_found_unlink, read_package_name
+if read_package_name() == 'corallium':
+    # 'poetry export' will fail on circular dependencies, so use no instead of nox-poetry
+    from nox import session as nox_session
+else:
+    from nox_poetry import session as nox_session  # type: ignore[no-redef]
 
 BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
 """Reused base arguments to nox."""
@@ -56,7 +62,7 @@ BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
 @beartype
 def _get_pythons() -> List[str]:
     """Get python versions from the `.tool-versions` file."""
-    return get_tool_versions()['python']
+    return [str(ver) for ver in get_tool_versions()['python']]
 
 
 @beartype
@@ -89,7 +95,7 @@ def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
 @lru_cache(maxsize=1)
 @beartype
 def _installable_dev_dependencies() -> List[str]:
-    """list of dependencies from pyproject.
+    """list of dependencies from pyproject, excluding calcipy.
 
     Returns:
         List[str]: `['Cerberus=>1.3.4', 'freezegun']`
@@ -107,17 +113,19 @@ def _installable_dev_dependencies() -> List[str]:
     return [
         f'{to_package(key, value)}{to_constraint(value)}'
         for key, value in _get_poetry_dev_dependencies().items()
+        if key != 'calcipy'
     ]
 
 
 @beartype
-def _install_local(session: Session, extras: List[str]) -> None:  # pragma: no cover
+def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> None:  # pragma: no cover
     """Ensure local dev-dependencies and calcipy extras are installed.
 
     See: https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855445920
 
     """
     if read_package_name() == 'calcipy':
+        assert isinstance(session, NPSession)  # noqa: S101
         session.poetry.installroot(extras=extras)
     else:
         session.install('.', f'calcipy[{",".join(extras)}]')
@@ -126,45 +134,40 @@ def _install_local(session: Session, extras: List[str]) -> None:  # pragma: no c
 
 
 @nox_session(python=_get_pythons(), reuse_venv=True)
-def tests(session: Session) -> None:  # pragma: no cover
-    """Run doit test task for specified python versions.
-
-    Args:
-        session: nox_poetry Session
-
-    """
+def tests(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cover
+    """Run doit test task for specified python versions."""
     _install_local(session, ['ddict', 'doc', 'lint', 'nox', 'stale', 'tags', 'test'])
     session.run(*shlex.split('pytest ./tests'), stdout=True)
 
 
 @nox_session(python=_get_pythons()[-1:], reuse_venv=False)
-def build_dist(session: Session) -> None:  # pragma: no cover
-    """Build the project files within a controlled environment for repeatability.
+def build_dist(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cover
+    """Build and test the project files within a controlled environment for repeatability."""
+    dist_path = Path('dist')
+    if_found_unlink(dist_path)
 
-    Args:
-        session: nox_poetry Session
+    # Support 'corallium' by re-implementing "session.poetry.build_package()", from:
+    # https://github.com/cjolowicz/nox-poetry/blob/5772b66ebff8d5a3351a08ed402d3d31e48be5f8/src/nox_poetry/sessions.py#L233-L255
+    # https://github.com/cjolowicz/nox-poetry/blob/5772b66ebff8d5a3351a08ed402d3d31e48be5f8/src/nox_poetry/poetry.py#L111-L154
+    output = session.run(*shlex.split('poetry build --format=wheel --no-ansi'),
+                         external=True, silent=True, stderr=None)
+    assert isinstance(output, str)  # noqa: S101
+    wheel = dist_path / output.split()[-1]
+    path_wheel = wheel.resolve().as_uri()
 
-    """
-    if_found_unlink(Path('dist'))
-    path_wheel = session.poetry.build_package()
-    logger.print('Created wheel', path_wheel=path_wheel)
+    logger.text('Created wheel', path_wheel=path_wheel)
     # Install the wheel and check that imports without any of the optional dependencies
     session.install(path_wheel)
     session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
 
 
-@nox_session(python=_get_pythons()[-1:], reuse_venv=True)
-def build_check(session: Session) -> None:  # pragma: no cover
-    """Check that the built output meets all checks.
-
-    Args:
-        session: nox_poetry Session
-
-    """
+@nox_poetry_session(python=_get_pythons()[-1:], reuse_venv=True)
+def build_check(session: NPSession) -> None:  # pragma: no cover
+    """Check that the built output meets all checks."""
     # Build sdist and fix return URI, which will have file://...#egg=calcipy
     sdist_uri = session.poetry.build_package(distribution_format=DistributionFormat.SDIST)
     path_sdist = Path(url2pathname(urlparse(sdist_uri).path))
-    logger.print_debug('Fixed sdist URI', sdist_uri=sdist_uri, path_sdist=path_sdist)
+    logger.text_debug('Fixed sdist URI', sdist_uri=sdist_uri, path_sdist=path_sdist)
     # Check with pyroma
     session.install('pyroma>=4.0', '--upgrade')
     # required for "poetry.core.masonry.api" build backend

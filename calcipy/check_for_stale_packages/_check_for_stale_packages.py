@@ -10,17 +10,13 @@ from arrow import Arrow
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
+from corallium.file_helpers import LOCK
+from corallium.log import logger
+from corallium.tomllib import tomllib
 from pydantic import BaseModel, Field, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
-from shoal import can_skip  # Required for mocking can_skip.can_skip
 
-from .._log import logger
-from ..file_helpers import LOCK
-
-try:
-    import tomllib  # pyright: ignore[reportMissingImports]
-except ModuleNotFoundError:  # pragma: no cover
-    import tomli as tomllib
+from .. import can_skip  # Required for mocking can_skip.can_skip
 
 CALCIPY_CACHE = Path('.calcipy_packaging.lock')
 """Path to the packaging lock file."""
@@ -79,7 +75,11 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
         for version, release_data in releases.items()
         if release_data
     })
-    package.datetime = release_dates.inverse[package.version]
+    try:
+        package.datetime = release_dates.inverse[package.version]
+    except KeyError:  # pragma: no cover
+        msg = f'Could not locate {package} in {res_json}. Please wait and try again later'
+        raise RuntimeError(msg) from None
     package.latest_datetime = max([*release_dates])
     package.latest_version = release_dates[package.latest_datetime]
     return package
@@ -203,7 +203,7 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
         logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
         return True
     oldest_date = np.amin([pack.datetime for pack in packages])  # pyright: ignore[reportGeneralTypeIssues]
-    logger.print('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
+    logger.text('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
     return False
 
 

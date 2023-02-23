@@ -1,6 +1,6 @@
 from beartype.typing import Dict
+from corallium import file_helpers
 
-from calcipy import file_helpers
 from calcipy.noxfile._noxfile import _installable_dev_dependencies
 
 

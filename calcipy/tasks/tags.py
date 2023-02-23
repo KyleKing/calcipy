@@ -4,15 +4,15 @@ from pathlib import Path
 
 from beartype.typing import Optional
 from invoke import Context
-from shoal.cli import task
 
+from ..cli import task
 from ..code_tag_collector import write_code_tag_file
-from ..file_helpers import get_doc_subdir
 from ..file_search import find_project_files
+from ..invoke_helpers import get_doc_subdir
 from .defaults import from_ctx
 
 
-@task(  # type: ignore[misc]
+@task(
     default=True,
     help={
         'base_dir': 'Working Directory',

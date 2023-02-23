@@ -9,11 +9,14 @@ on: # yamllint disable-line rule:truthy
       - mkdocs.yml
   workflow_dispatch: # For manual runs
 
+# Docs: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
+permissions:
+  # Repository contents, commits, branches, downloads, releases, and merges.
+  contents: write
+
 jobs:
   docs:
     runs-on: ${{ matrix.os }}
-    permissions:
-      issues: write
     strategy:
       matrix:
         os: [ubuntu-22.04]
