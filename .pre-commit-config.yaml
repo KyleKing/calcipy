@@ -86,3 +86,4 @@ repos:
       - id: flake8
       - id: tags
       - id: types
+        additional_dependencies: ['.[types]', 'types-PyYaml', 'types-requests', 'types-setuptools']
