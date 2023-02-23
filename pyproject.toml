@@ -83,7 +83,7 @@ pytest-cov = {optional = true, version = ">=4.0.0"} # test
 pytest-randomly = {optional = true, version = ">=3.12.0"} # test
 pytest-watcher = {optional = true, version = ">=0.2.6"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
-pyyaml = {optional = true, version = ">=5.2"} # doc
+pyyaml = {optional = true, version = ">=5.2"} # doc,tags
 requests = {optional = true, version = ">=2.28.1"} # stale
 ruff = {optional = true, version = ">=0.0.248"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
@@ -148,6 +148,7 @@ stale = [
 tags = [
   "arrow",
   "pandas",
+  "pyyaml",
   "tabulate",
 ]
 test = [
@@ -169,6 +170,9 @@ types-setuptools = ">=67.3.0.1"
 
 [tool.poetry.scripts]
 calcipy = "calcipy.scripts:start"
+calcipy_lint = "calcipy.scripts:start_lint"
+calcipy_tags = "calcipy.scripts:start_tags"
+calcipy_types = "calcipy.scripts:start_types"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"

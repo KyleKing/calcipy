@@ -78,18 +78,11 @@ repos:
       - id: absolufy-imports
         args: [--never]
         files: calcipy/.*\.py
-  - repo: https://github.com/kyleking/calcipy
-    rev: main
-    hooks:
-      - id: lint-fix
-      - id: tags
-      - id: types
-  - repo: local
+  - repo: https://github.com/KyleKing/calcipy
+    rev: 1.0.0rc6
     hooks:
       - id: copier-forbidden-files
-        name: copier_forbidden_files
-        entry: |
-          Found copier update rejection files; review them and remove them
-          (https://copier.readthedocs.io/en/stable/updating/)
-        language: fail
-        files: \.rej$
+      - id: lint-fix
+      - id: flake8
+      - id: tags
+      - id: types

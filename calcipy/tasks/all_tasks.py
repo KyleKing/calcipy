@@ -1,20 +1,17 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
-import json
-from pathlib import Path
-
 from beartype import beartype
 from beartype.typing import List, Union
 from corallium.log import logger
-from invoke import Call, Collection, Context, Task, call
+from invoke import Call, Context, Task, call
 
 from ..cli import task
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
-from .defaults import DEFAULTS
+from .defaults import new_collection
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
 # https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module
-ns = Collection('')
+ns = new_collection()
 ns.add_collection(cl)
 ns.add_collection(doc)
 ns.add_collection(lint)
@@ -68,7 +65,7 @@ def with_progress(
     total = len(items) + offset
     for ix, item in enumerate(items):
         tasks.extend([call(progress, index=ix + offset, total=total), item])  # pyright: ignore[reportGeneralTypeIssues]
-    return tasks
+    return tasks  # pyright: ignore[reportGeneralTypeIssues]
 
 
 _MAIN_TASKS = [
@@ -106,7 +103,7 @@ _OTHER_TASKS = [
 
 
 @task(
-    post=with_progress(_OTHER_TASKS),
+    post=with_progress(_OTHER_TASKS),  # pyright: ignore[reportGeneralTypeIssues]
 )
 def other(_ctx: Context) -> None:
     """Run tasks that are otherwise not exercised in main."""
@@ -133,12 +130,6 @@ def release(ctx: Context, *, suffix: cl.SuffixT = None) -> None:
 ns.add_task(main)
 ns.add_task(other)
 ns.add_task(release)
-
-# Merge default and user configuration
-ns.configure(DEFAULTS)
-config_path = Path('.calcipy.json')
-if config_path.is_file():
-    ns.configure(json.loads(config_path.read_text(encoding='utf-8')))
 
 # PLANNED: Review below examples for additional ideas
 # Great Expectations: https://github.com/great-expectations/great_expectations/blob/ddcd2da2689f13d82ccb88f7e9670b1c82e01765/tasks.py#L216-L218

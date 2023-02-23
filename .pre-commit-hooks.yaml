@@ -1,28 +1,51 @@
 ---
 # Docs: https://pre-commit.com/#new-hooks
 # Can be tested with:
-#   pre-commit try-repo . tags --verbose --all-files
+#   pre-commit try-repo . --verbose --all-files --hook-stage push
+#   pre-commit try-repo . tags --verbose --all-files --hook-stage push
+#   pre-commit try-repo . lint-fix --verbose --all-files
+- id: copier-forbidden-files
+  name: Copier Forbidden Files
+  entry: |
+    Found copier update rejection files; review them and remove them
+    (https://copier.readthedocs.io/en/stable/updating/)
+  language: fail
+  files: \.rej$
+- id: lint-fix
+  additional_dependencies: ['.[lint]']
+  description: "Run ruff and apply fixes"
+  entry: calcipy_lint lint.fix
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  name: Lint-Fix
+  require_serial: true
+  types: [python]
+- id: flake8
+  additional_dependencies: ['.[flake8]']
+  description: "Legacy: lint with flake8 packages not yet in ruff"
+  entry: calcipy_lint lint.flake8
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  name: flake8
+  require_serial: true
+  types: [python]
 - id: tags
-  args: [tags]
+  additional_dependencies: ['.[tags]']
   description: "Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments"
-  entry: calcipy
+  entry: calcipy_tags tags
   language: python
   minimum_pre_commit_version: 2.9.2
   name: Tags
   pass_filenames: false
-- id: lint-fix
-  args: [lint.fix]
-  description: "Run ruff and apply fixes"
-  entry: calcipy
-  language: python
-  minimum_pre_commit_version: 2.9.2
-  name: Lint-Fix
-  pass_filenames: True
+  require_serial: true
+  stages: [push]
 - id: types
-  args: [types.mypy]
+  additional_dependencies: ['.[types]']
   description: "Run mypy"
-  entry: calcipy
+  entry: calcipy_types types.mypy
   language: python
   minimum_pre_commit_version: 2.9.2
   name: Types
-  pass_filenames: True
+  require_serial: true
+  stages: [push]
+  types: [python]
