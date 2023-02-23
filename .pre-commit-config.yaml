@@ -81,8 +81,8 @@ repos:
   - repo: https://github.com/kyleking/calcipy
     rev: main
     hooks:
-      - id: tags
       - id: lint-fix
+      - id: tags
       - id: types
   - repo: local
     hooks:

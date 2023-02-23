@@ -71,7 +71,7 @@ def watch(ctx: Context, *, target: Optional[str] = None) -> None:
 
 @task(help=check.help)
 def flake8(ctx: Context, *, target: Optional[str] = None) -> None:
-    """Run ruff and apply fixes."""
+    """Run flake8."""
     _inner_task(ctx, cli_args='', target=target, command='python -m flake8')
 
 
@@ -82,7 +82,7 @@ def flake8(ctx: Context, *, target: Optional[str] = None) -> None:
     },
 )
 def pylint(ctx: Context, *, report: bool = False, target: Optional[str] = None) -> None:
-    """Run ruff and apply fixes."""
+    """Run pylint."""
     cli_args = ' --report=y' if report else ''
     _inner_task(ctx, cli_args=cli_args, target=target, command='python -m pylint')
 
