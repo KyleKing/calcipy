@@ -25,16 +25,20 @@ It turns out that switching to `invoke` appears to have only saved 100ms
 ```sh
 > hyperfine -m 20 --warmup 5 "poetry run python -c 'print(1)'"
 Benchmark 1: poetry run python -c 'print(1)'
-  Time (mean ± σ):     377.9 ms ±   3.1 ms    [User: 235.0 ms, System: 61.8 ms]
-  Range (min … max):   372.7 ms … 384.0 ms    20 runs
+Time (mean ± σ):     377.9 ms ±   3.1 ms    [User: 235.0 ms, System: 61.8 ms]
+Range (min … max):   372.7 ms … 384.0 ms    20 runs
 > hyperfine -m 20 --warmup 5 ./run
 Benchmark 1: ./run
-  Time (mean ± σ):     936.0 ms ±  26.9 ms    [User: 1548.2 ms, System: 1687.7 ms]
-  Range (min … max):   896.4 ms … 1009.4 ms    20 runs
+Time (mean ± σ):     936.0 ms ±  26.9 ms    [User: 1548.2 ms, System: 1687.7 ms]
+Range (min … max):   896.4 ms … 1009.4 ms    20 runs
+> hyperfine -m 20 --warmup 5 "poetry run calcipy_tags"
+Benchmark 1: poetry run calcipy_tags
+Time (mean ± σ):     618.5 ms ±  29.7 ms    [User: 1536.8 ms, System: 1066.2 ms]
+Range (min … max):   578.2 ms … 694.9 ms    20 runs
 > hyperfine -m 20 --warmup 5 "poetry run doit list"
 Benchmark 1: poetry run doit list
-  Time (mean ± σ):      1.002 s ±  0.015 s    [User: 1.643 s, System: 1.682 s]
-  Range (min … max):    0.974 s …  1.023 s    20 runs
+Time (mean ± σ):      1.002 s ±  0.015 s    [User: 1.643 s, System: 1.682 s]
+Range (min … max):    0.974 s …  1.023 s    20 runs
 ```
 
 Additionally, the major decrease in dependencies will make install and update actions much faster. With the recommended extras installed, `calcipy-v1` has 124 dependencies (with all extras, 164) vs. `calcipy-v0`'s 259. Counted with: `cat .calcipy_packaging.lock | jq 'keys' | wc -l`

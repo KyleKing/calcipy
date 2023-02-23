@@ -364,14 +364,14 @@ typing-extensions = ">=4.0.1,<5.0.0"
 
 [[package]]
 name = "corallium"
-version = "0.1.0rc1"
+version = "0.1.0rc2"
 description = "Shared functionality for calcipy-ecosystem"
 category = "main"
 optional = false
 python-versions = ">=3.8.12,<4.0.0"
 files = [
-    {file = "corallium-0.1.0rc1-py3-none-any.whl", hash = "sha256:29b8a68a2a06e62374fd22189367b9021d4ed9dfcc8e9d249087aed9f1f34cea"},
-    {file = "corallium-0.1.0rc1.tar.gz", hash = "sha256:c9db2973ce1eda39f7f762af24839a062b125f6a99e195b951be8e7d4473caff"},
+    {file = "corallium-0.1.0rc2-py3-none-any.whl", hash = "sha256:7dcc6b528e1656cb5721ddcc314543cccda9649f507c0ad9774c33da45c32fa7"},
+    {file = "corallium-0.1.0rc2.tar.gz", hash = "sha256:e57653a416581ca564ab38ba259a80380a53bd534a61fa4e83b7459a50737c63"},
 ]
 
 [package.dependencies]
@@ -1439,14 +1439,14 @@ mkdocs = ">=1.0.3"
 
 [[package]]
 name = "mkdocs-material"
-version = "9.0.13"
+version = "9.0.14"
 description = "Documentation that simply works"
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "mkdocs_material-9.0.13-py3-none-any.whl", hash = "sha256:06e51eba6a090de070a3489890cf1e491d52c04c6ff2b06dd4586c6cdd974a3f"},
-    {file = "mkdocs_material-9.0.13.tar.gz", hash = "sha256:a62696610899d01df091b4d5ad23f9811f878a1f34307d7cea677baf4854c84f"},
+    {file = "mkdocs_material-9.0.14-py3-none-any.whl", hash = "sha256:e6b1abc3527ece8522abd8fd76bf30c535f3420b20e11095fc7a8818b31385e5"},
+    {file = "mkdocs_material-9.0.14.tar.gz", hash = "sha256:eff6c2c2ebe89bb99b8bf2167f546bdd35c8d5130694d1823361d6cf9c701c22"},
 ]
 
 [package.dependencies]
@@ -3367,4 +3367,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "9695bdf4b9148c9ff5e89292f55bb9939210f817d943b1d59b848db33cf137a3"
+content-hash = "477e4d1bec77e01a45cf22594b063078f60ac0b91b01433fa01286fb37630f57"

@@ -51,40 +51,40 @@ calcipy tags --base-dir=~/path/to/my_project
 
 Subcommands:
 
-  main                                     Main task pipeline.
-  other                                    Run tasks that are otherwise not exercised in main.
-  release                                  Release pipeline.
-  cl.bump                                  Bumps project version based on commits & settings in pyproject.toml.
-  cl.write                                 Write a Changelog file with the raw Git history.
-  doc.build                                Build documentation with mkdocs.
-  doc.deploy                               Deploy docs to the Github `gh-pages` branch.
-  doc.watch                                Serve local documentation for local editing.
-  lint.autopep8                            Run autopep8.
-  lint.check (lint)                        Run ruff as check-only.
-  lint.fix                                 Run ruff and apply fixes.
-  lint.flake8                              Run ruff and apply fixes.
-  lint.pre-commit                          Run pre-commit.
-  lint.pylint                              Run ruff and apply fixes.
-  lint.security                            Attempt to identify possible security vulnerabilities.
-  lint.watch                               Run ruff as check-only.
-  nox.noxfile (nox)                        Run nox from the local noxfile.
-  pack.check-licenses                      Check licenses for compatibility with `licensecheck`.
-  pack.lock                                Ensure poetry.lock is  up-to-date.
-  pack.publish                             Build the distributed format(s) and publish.
-  stale.check-for-stale-packages (stale)   Identify stale dependencies.
-  tags.collect-code-tags (tags)            Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
-  test.coverage                            Generate useful coverage outputs after running pytest.
-  test.pytest (test)                       Run pytest with default arguments.
-  test.step                                Run pytest optimized to stop on first error.
-  test.watch                               Run pytest with polling and optimized to stop on first error.
-  types.mypy                               Run mypy.
-  types.pyright                            Run pyright.
+main                                     Main task pipeline.
+other                                    Run tasks that are otherwise not exercised in main.
+release                                  Release pipeline.
+cl.bump                                  Bumps project version based on commits & settings in pyproject.toml.
+cl.write                                 Write a Changelog file with the raw Git history.
+doc.build                                Build documentation with mkdocs.
+doc.deploy                               Deploy docs to the Github `gh-pages` branch.
+doc.watch                                Serve local documentation for local editing.
+lint.autopep8                            Run autopep8.
+lint.check (lint)                        Run ruff as check-only.
+lint.fix                                 Run ruff and apply fixes.
+lint.flake8                              Run ruff and apply fixes.
+lint.pre-commit                          Run pre-commit.
+lint.pylint                              Run ruff and apply fixes.
+lint.security                            Attempt to identify possible security vulnerabilities.
+lint.watch                               Run ruff as check-only.
+nox.noxfile (nox)                        Run nox from the local noxfile.
+pack.check-licenses                      Check licenses for compatibility with `licensecheck`.
+pack.lock                                Ensure poetry.lock is  up-to-date.
+pack.publish                             Build the distributed format(s) and publish.
+stale.check-for-stale-packages (stale)   Identify stale dependencies.
+tags.collect-code-tags (tags)            Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
+test.coverage                            Generate useful coverage outputs after running pytest.
+test.pytest (test)                       Run pytest with default arguments.
+test.step                                Run pytest optimized to stop on first error.
+test.watch                               Run pytest with polling and optimized to stop on first error.
+types.mypy                               Run mypy.
+types.pyright                            Run pyright.
 
 Global Task Options:
 
-  working_dir   Set the cwd for the program. Example: "../run --working-dir .. lint test"
-  *file_args    List of Paths available globally to all tasks. Will resolve paths with working_dir
-  verbose       Globally configure logger verbosity (-vvv for most verbose)
+working_dir   Set the cwd for the program. Example: "../run --working-dir .. lint test"
+*file_args    List of Paths available globally to all tasks. Will resolve paths with working_dir
+verbose       Globally configure logger verbosity (-vvv for most verbose)
 ```
 
 ### Calcipy Pre-Commit
