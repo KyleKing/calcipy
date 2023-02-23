@@ -27,12 +27,11 @@ ns.add_collection(types)
     help={
         'message': 'String message to display',
     },
+    show_task_info=False,
 )
 def summary(_ctx: Context, *, message: str) -> None:
     """Summary Task."""
-    print('')  # noqa: T201
     logger.text(message, is_header=True)
-    print('')  # noqa: T201
 
 
 @task(
@@ -40,12 +39,11 @@ def summary(_ctx: Context, *, message: str) -> None:
         'index': 'Current index (0-indexed)',
         'total': 'Total steps',
     },
+    show_task_info=False,
 )
 def progress(_ctx: Context, *, index: int, total: int) -> None:
     """Progress Task."""
-    print('')  # noqa: T201
     logger.text('Progress', is_header=True, index=index + 1, total=total)
-    print('')  # noqa: T201
 
 
 @beartype

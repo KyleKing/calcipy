@@ -12,5 +12,6 @@ per-file-ignores=
     # Enforcing beartype on @nox_session doesn't make sense
     *noxfile.py:RBT001,
     __init__.py:F401,
+    check_imports.py:F401,
     test_*.py:RBT001
 select = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z

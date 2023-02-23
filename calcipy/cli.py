@@ -115,7 +115,33 @@ def start_program(
 
 
 @beartype
-def task(*task_args: Any, **task_kwargs: Any) -> Callable[[Any], Task]:
+def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwargs: Any) -> Any:
+    """Run the task function with optional logging."""
+    if show_task_info:
+        summary = func.__doc__.split('\n')[0]
+        logger.text(f'Running {func.__name__}', is_header=True, summary=summary)
+        logger.text_debug('With task arguments', args=args, kwargs=kwargs)
+
+    result = func(ctx, *args, **kwargs)
+
+    if show_task_info:
+        logger.text_debug(f'Completed {func.__name__}', result=result)
+
+    return result
+
+
+@beartype
+def _configure_logger(ctx: Context) -> None:
+    """Configure the logger based on task context."""
+    verbose = ctx.config.gto.verbose
+    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
+    raw_log_level = log_lookup.get(verbose)
+    log_level = logging.ERROR if raw_log_level is None else raw_log_level
+    configure_logger(log_level=log_level)
+
+
+@beartype
+def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Callable[[Any], Task]:
     """Wrapper to accept arguments for an invoke task."""
     @beartype
     def wrapper(func: Any) -> Task:  # noqa: ANN001
@@ -131,19 +157,8 @@ def task(*task_args: Any, **task_kwargs: Any) -> Callable[[Any], Task]:
                 ctx.config.gto = GlobalTaskOptions()
 
             os.chdir(ctx.config.gto.working_dir)
+            _configure_logger(ctx)
 
-            verbose = ctx.config.gto.verbose
-            log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
-            raw_log_level = log_lookup.get(verbose)
-            configure_logger(log_level=logging.ERROR if raw_log_level is None else raw_log_level)
-
-            summary = func.__doc__.split('\n')[0]
-            logger.text(f'Running {func.__name__}', is_header=True, summary=summary)
-            logger.text_debug('With task arguments', args=args, kwargs=kwargs)
-
-            result = func(ctx, *args, **kwargs)
-
-            logger.text_debug(f'Completed {func.__name__}', result=result)
-            return result
+            return _run_task(func, ctx, *args, show_task_info=show_task_info, **kwargs)
         return inner
     return wrapper

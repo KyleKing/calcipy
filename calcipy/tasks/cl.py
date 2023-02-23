@@ -45,7 +45,7 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
 
     run(ctx, 'git push origin --tags --no-verify')
 
-    # TODO: Make "which $(..) >> /dev/null && " a function?
+    # PLANNED: Make "which $(..) >> /dev/null && " a function?
     get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
     opt_gh_args = ' --prerelease' if suffix else ''
     run(ctx, f'which gh >> /dev/null && gh release create --generate-notes $({get_last_tag}){opt_gh_args}')
