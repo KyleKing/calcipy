@@ -1,3 +1,50 @@
+## Unreleased
+
+### Feat
+
+- add lint.security to pre-commit lint-fix hook
+
+### Fix
+
+- remove types hook, which doesn't work when not local
+
+### Refactor
+
+- make task summary optional
+- configure start program inline
+
+## 1.0.0rc6 (2023-02-22)
+
+### Fix
+
+- provide subcommands to support pre-commit
+
+## 1.0.0rc5 (2023-02-22)
+
+### Feat
+
+- add pre-commit hooks and update docs
+
+### Fix
+
+- handle KeyError when not yet on PyPi's JSON API
+
+### Refactor
+
+- sync with corallium ruff and remove flake8 class-attr-order
+
+## 1.0.0rc4 (2023-02-22)
+
+### Fix
+
+- fully support nox and corallium
+
+## 1.0.0rc3 (2023-02-22)
+
+### Fix
+
+- add depedency on corallium
+
 ## 1.0.0rc2 (2023-02-21)
 
 ### Feat

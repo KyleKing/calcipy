@@ -39,7 +39,7 @@ from urllib.parse import urlparse
 from urllib.request import url2pathname
 
 from beartype import beartype
-from beartype.typing import Dict, List, Union
+from beartype.typing import Dict, List, Union, cast
 from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import get_tool_versions, if_found_unlink, read_package_name
 from corallium.log import logger
@@ -125,7 +125,7 @@ def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> 
 
     """
     if read_package_name() == 'calcipy':
-        assert isinstance(session, NPSession)  # noqa: S101
+        session = cast(NPSession, session)
         session.poetry.installroot(extras=extras)
     else:
         session.install('.', f'calcipy[{",".join(extras)}]')
@@ -151,7 +151,7 @@ def build_dist(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cov
     # https://github.com/cjolowicz/nox-poetry/blob/5772b66ebff8d5a3351a08ed402d3d31e48be5f8/src/nox_poetry/poetry.py#L111-L154
     output = session.run(*shlex.split('poetry build --format=wheel --no-ansi'),
                          external=True, silent=True, stderr=None)
-    assert isinstance(output, str)  # noqa: S101
+    output = cast(str, output)
     wheel = dist_path / output.split()[-1]
     path_wheel = wheel.resolve().as_uri()
 

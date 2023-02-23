@@ -39,13 +39,3 @@
   pass_filenames: false
   require_serial: true
   stages: [push]
-- id: types
-  additional_dependencies: ['.[types]']
-  description: "Run mypy"
-  entry: calcipy_types types.mypy
-  language: python
-  minimum_pre_commit_version: 2.9.2
-  name: Types
-  require_serial: true
-  stages: [push]
-  types: [python]
