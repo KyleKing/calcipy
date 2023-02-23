@@ -78,6 +78,12 @@ repos:
       - id: absolufy-imports
         args: [--never]
         files: calcipy/.*\.py
+  - repo: https://github.com/kyleking/calcipy
+    rev: main
+    hooks:
+      - id: tags
+      - id: lint-fix
+      - id: types
   - repo: local
     hooks:
       - id: copier-forbidden-files
@@ -87,9 +93,3 @@ repos:
           (https://copier.readthedocs.io/en/stable/updating/)
         language: fail
         files: \.rej$
-      - id: python-formatter
-        name: Python Auto-Formatter
-        description: Apply calcipy formatting
-        language: system
-        entry: ./run lint.fix
-        types: [python]
