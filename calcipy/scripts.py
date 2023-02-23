@@ -1,34 +1,49 @@
 """Start the command line program."""
 
+from types import ModuleType
+
 from beartype import beartype
+from beartype.typing import List
 
 from . import __pkg_name__, __version__
 from .cli import start_program
 
 
 @beartype
-def start() -> None:
+def start() -> None:  # pragma: no cover
     """Run the customized Invoke Program."""
     from .tasks import all_tasks
     start_program(__pkg_name__, __version__, all_tasks)
 
 
 @beartype
-def start_lint() -> None:
-    """Run the specified subset of tasks."""
-    from .tasks import only_lint
-    start_program(__pkg_name__, __version__, only_lint)
+def _start_subset(modules: List[ModuleType]) -> None:  # pragma: no cover
+    """Run the specified subset."""
+    from .tasks.defaults import new_collection
+
+    ns = new_collection()
+    for module in modules:
+        ns.add_collection(module)
+
+    start_program(__pkg_name__, __version__, collection=ns)
 
 
 @beartype
-def start_tags() -> None:
-    """Run the specified subset of tasks."""
-    from .tasks import only_tags
-    start_program(__pkg_name__, __version__, only_tags)
+def start_lint() -> None:  # pragma: no cover
+    """Run CLI with only the lint namespace."""
+    from .tasks import lint
+    _start_subset([lint])
 
 
 @beartype
-def start_types() -> None:
-    """Run the specified subset of tasks."""
-    from .tasks import only_types
-    start_program(__pkg_name__, __version__, only_types)
+def start_tags() -> None:  # pragma: no cover
+    """Run CLI with only the tags namespace."""
+    from .tasks import tags
+    _start_subset([tags])
+
+
+@beartype
+def start_types() -> None:  # pragma: no cover
+    """Run CLI with only the types namespace."""
+    from .tasks import types
+    _start_subset([types])

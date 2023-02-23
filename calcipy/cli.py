@@ -8,7 +8,7 @@ from pathlib import Path
 from types import ModuleType
 
 from beartype import beartype
-from beartype.typing import Any, Callable, Dict, List
+from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.log import configure_logger, logger
 from invoke import Collection, Config, Context, Program, Task
 from invoke import task as invoke_task  # noqa: TID251
@@ -70,7 +70,12 @@ class CalcipyConfig(Config):  # type: ignore[misc]
 
 
 @beartype
-def start_program(pkg_name: str, pkg_version: str, module: ModuleType) -> None:
+def start_program(
+    pkg_name: str,
+    pkg_version: str,
+    module: Optional[ModuleType] = None,
+    collection: Optional[Collection] = None,
+) -> None:
     """Run the customized Invoke Program.
 
     FYI: recommendation is to extend the `core_args` method, but this won't parse positional arguments:
@@ -104,7 +109,7 @@ def start_program(pkg_name: str, pkg_version: str, module: ModuleType) -> None:
     _CalcipyProgram(
         name=pkg_name,
         version=pkg_version,
-        namespace=Collection.from_module(module),
+        namespace=Collection.from_module(module) if module else collection,
         config_class=_CalcipyConfig,
     ).run()
 
