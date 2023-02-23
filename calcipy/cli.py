@@ -27,7 +27,7 @@ class GlobalTaskOptions(BaseModel):
     file_args: List[Path] = Field(default_factory=list)
     """List of Paths to modify."""
 
-    verbose: PositiveInt = Field(default=1, lte=3)
+    verbose: PositiveInt = Field(default=0, lte=3)
     """Verbosity level."""
 
 
@@ -125,6 +125,7 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
     result = func(ctx, *args, **kwargs)
 
     if show_task_info:
+        logger.text('')
         logger.text_debug(f'Completed {func.__name__}', result=result)
 
     return result
