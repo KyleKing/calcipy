@@ -110,4 +110,4 @@ def deploy(ctx: Context) -> None:
     if _is_mkdocs_local():  # pragma: no cover
         raise NotImplementedError('Not yet configured to deploy documentation without "use_directory_urls"')
 
-    run(ctx, 'poetry run mkdocs gh-deploy')
+    run(ctx, 'poetry run mkdocs gh-deploy --force')

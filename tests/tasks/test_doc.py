@@ -8,7 +8,7 @@ from calcipy.tasks.doc import deploy
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (deploy, {}, ['poetry run mkdocs gh-deploy']),
+        (deploy, {}, ['poetry run mkdocs gh-deploy --force']),
     ],
 )
 def test_doc(ctx, task, kwargs, commands):

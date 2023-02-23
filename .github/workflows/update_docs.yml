@@ -1,4 +1,5 @@
 ---
+# Based on: https://squidfunk.github.io/mkdocs-material/publishing-your-site/#with-github-actions
 name: Update Docs
 
 on: # yamllint disable-line rule:truthy
@@ -7,11 +8,11 @@ on: # yamllint disable-line rule:truthy
     paths:
       - docs/**
       - mkdocs.yml
+      - pyproject.toml
   workflow_dispatch: # For manual runs
 
 # Docs: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
 permissions:
-  # Repository contents, commits, branches, downloads, releases, and merges.
   contents: write
 
 jobs:
@@ -23,8 +24,6 @@ jobs:
         python-version: ["3.8"]
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # For git-revision-date-localized-plugin
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
