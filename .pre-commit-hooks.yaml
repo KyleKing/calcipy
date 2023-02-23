@@ -14,7 +14,7 @@
 - id: lint-fix
   additional_dependencies: ['.[lint]']
   description: "Run ruff and apply fixes"
-  entry: calcipy_lint lint.fix
+  entry: calcipy_lint lint.fix lint.security
   language: python
   minimum_pre_commit_version: 2.9.2
   name: Lint-Fix

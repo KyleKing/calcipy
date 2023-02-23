@@ -3360,11 +3360,11 @@ lint = ["autopep8", "bandit", "pip-check", "ruff", "semgrep"]
 nox = ["nox-poetry"]
 pylint = ["pylint"]
 stale = ["arrow", "bidict", "pyrate_limiter", "requests"]
-tags = ["arrow", "pandas", "tabulate"]
+tags = ["arrow", "pandas", "pyyaml", "tabulate"]
 test = ["pytest", "pytest-cov", "pytest-randomly", "pytest-watcher"]
 types = ["mypy"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "7347e431d514af27dc52f2a925f7246486617ae504797b020afbf3d5fe99c296"
+content-hash = "9695bdf4b9148c9ff5e89292f55bb9939210f817d943b1d59b848db33cf137a3"

@@ -5,6 +5,7 @@ from contextlib import suppress
 from beartype import beartype
 from beartype.typing import Optional
 from corallium.file_helpers import read_package_name
+from corallium.log import logger
 from invoke import Context
 
 from ..cli import task
@@ -94,7 +95,7 @@ def pylint(ctx: Context, *, report: bool = False, target: Optional[str] = None) 
 @task()
 def security(ctx: Context) -> None:
     """Attempt to identify possible security vulnerabilities."""
-    # Selectively override bandit with '# nosec'
+    logger.text('Note: Selectively override bandit with "# nosec"')
     pkg_name = read_package_name()
     run(ctx, f'poetry run bandit --recursive {pkg_name}')
 
