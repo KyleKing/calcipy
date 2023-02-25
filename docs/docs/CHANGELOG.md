@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- lower default logging level
+
+## 1.0.0rc7 (2023-02-23)
+
 ### Feat
 
 - add lint.security to pre-commit lint-fix hook

@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from calcipy.can_skip import can_skip
@@ -17,6 +19,7 @@ from calcipy.can_skip import can_skip
 def test_skip(fix_test_cache, create_order, prerequisites, targets, expected):
     for sub_pth in create_order:
         (fix_test_cache / sub_pth).write_text('')
+        time.sleep(0.25)  # Reduces flakiness on Windows
 
     result = can_skip(
         prerequisites=[fix_test_cache / sub_pth for sub_pth in prerequisites],
