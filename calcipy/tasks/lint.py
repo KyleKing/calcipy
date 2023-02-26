@@ -34,16 +34,10 @@ def _inner_task(
     run(ctx, f'poetry run {command} {target}{cli_args}')
 
 
-@task(
-    default=True,
-    help={
-        # TODO: use file_args! 'ctx.config.gto.file_args'
-        'target': 'Optional path to directory or file to lint',
-    },
-)
-def check(ctx: Context, *, target: Optional[str] = None) -> None:
+@task(default=True)
+def check(ctx: Context) -> None:
     """Run ruff as check-only."""
-    _inner_task(ctx, cli_args='', target=target)
+    _inner_task(ctx, cli_args='')
 
 
 @task()
@@ -58,34 +52,33 @@ def autopep8(ctx: Context) -> None:
     _inner_task(ctx, cli_args=cli_args, command='python -m autopep8')
 
 
-@task(pre=[autopep8], help=check.help)
-def fix(ctx: Context, *, target: Optional[str] = None) -> None:
+@task(pre=[autopep8])
+def fix(ctx: Context) -> None:
     """Run ruff and apply fixes."""
-    _inner_task(ctx, cli_args=' --fix', target=target)
+    _inner_task(ctx, cli_args=' --fix')
 
 
-@task(help=check.help)
-def watch(ctx: Context, *, target: Optional[str] = None) -> None:
+@task()
+def watch(ctx: Context) -> None:
     """Run ruff as check-only."""
-    _inner_task(ctx, cli_args=' --watch --show-source', target=target)
+    _inner_task(ctx, cli_args=' --watch --show-source')
 
 
-@task(help=check.help)
-def flake8(ctx: Context, *, target: Optional[str] = None) -> None:
+@task()
+def flake8(ctx: Context) -> None:
     """Run flake8."""
-    _inner_task(ctx, cli_args='', target=target, command='python -m flake8')
+    _inner_task(ctx, cli_args='', command='python -m flake8')
 
 
 @task(
     help={
         'report': 'if provided, show the pylint summary report',
-        **check.help,
     },
 )
-def pylint(ctx: Context, *, report: bool = False, target: Optional[str] = None) -> None:
+def pylint(ctx: Context, *, report: bool = False) -> None:
     """Run pylint."""
     cli_args = ' --report=y' if report else ''
-    _inner_task(ctx, cli_args=cli_args, target=target, command='python -m pylint')
+    _inner_task(ctx, cli_args=cli_args, command='python -m pylint')
 
 
 # ==============================================================================
@@ -95,39 +88,29 @@ def pylint(ctx: Context, *, report: bool = False, target: Optional[str] = None) 
 @task()
 def security(ctx: Context) -> None:
     """Attempt to identify possible security vulnerabilities."""
-    logger.text('Note: Selectively override bandit with "# nosec"')
+    logger.text('Note: Selectively override bandit with "# nosec"', is_header=True)
     pkg_name = read_package_name()
     run(ctx, f'poetry run bandit --recursive {pkg_name}')
 
-    # PLANNED: Extend semgrep
+    # See additional semgrep rules at:
+    #   https://semgrep.dev/explore
     #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
     #   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45
     semgrep_configs = ' '.join([
-        # See more at: https://semgrep.dev/explore
         '--config=p/ci',
+        '--config=p/default',
         '--config=p/security-audit',
-        '--config=r/python.airflow',
-        '--config=r/python.attr',
-        '--config=r/python.click',
-        '--config=r/python.cryptography',
-        '--config=r/python.distributed',
-        '--config=r/python.docker',
-        '--config=r/python.flask',
-        '--config=r/python.jinja2',
-        '--config=r/python.jwt',
-        '--config=r/python.lang',
-        '--config=r/python.pycryptodome',
-        '--config=r/python.requests',
-        '--config=r/python.security',
-        '--config=r/python.sh',
-        '--config=r/python.sqlalchemy',
-        # > dlukeomalley:unchecked-subprocess-call
-        # > dlukeomalley:use-assertEqual-for-equality
-        # > dlukeomalley:flask-set-cookie
-        # > clintgibler:no-exec
+        '--config=r/bash',
+        '--config=r/contrib',
+        '--config=r/fingerprints',
+        '--config=r/generic',
+        '--config=r/json',
+        '--config=r/python',
+        '--config=r/terraform',
+        '--config=r/yaml',
     ])
-    # Selectively override semgrep with '# nosem'
-    run(ctx, f'poetry run semgrep ci --autofix {semgrep_configs} ')
+    logger.text('Note: Selectively override semgrep with "# nosem"', is_header=True)
+    run(ctx, f'poetry run semgrep ci --autofix {semgrep_configs}')
 
 
 # ==============================================================================
@@ -144,5 +127,10 @@ def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     run(ctx, 'pre-commit install')
     if not no_update:
         run(ctx, 'pre-commit autoupdate')
-    # PLANNED: Read hook-stages from 'default_install_hook_types'
-    run(ctx, 'pre-commit run --all-files --hook-stage commit --hook-stage push')
+
+    all_hook_stages = [
+        'commit', 'merge-commit', 'push', 'prepare-commit-msg', 'commit-msg', 'post-checkout',
+        'post-commit', 'post-merge', 'post-rewrite', 'manual',
+    ]
+    stages_cli = ' '.join(f'--hook-stage {stg}' for stg in all_hook_stages)
+    run(ctx, f'pre-commit run --all-files {stages_cli}')

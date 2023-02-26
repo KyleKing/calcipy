@@ -1,6 +1,8 @@
-"""Dotted dictionary for consistent interface."""
+"""Dotted dictionary for consistent interface.
 
-# TODO: Move ddict to corallium
+Consider moving to Corallium, but I don't have any uses for it yet.
+
+"""
 
 from beartype import beartype
 from beartype.typing import Any, Dict, Union

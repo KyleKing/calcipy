@@ -170,8 +170,6 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
         raise NotImplementedError(msg)
 
     lock = tomllib.loads(path_lock.read_text(errors='ignore'))
-    # TBD: Handle non-pypi domains and format the URL accordingly (i.e. TestPyPi, etc.)
-    # > domain=dependency['source']['url'] + '{name}/json'
     return [
         _HostedPythonPackage(
             name=dependency['name'], version=dependency['version'],

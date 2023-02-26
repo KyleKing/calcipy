@@ -187,7 +187,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
         ts = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
         # Filename may not be present if uncommitted. Use local path as fallback
         remote_file_path = blame_dict.get('filename', rel_path.as_posix())
-        # PLANNED: Consider making "blame" configurable
+        # Assumes Github
         git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
         source_file = f'[{source_file}]({git_url})'
 
@@ -224,7 +224,7 @@ def _format_report(  # noqa: CAC001
                 counter[comment.tag] += 1
     if records:
         df_tags = pd.DataFrame(records)
-        # HACK: Prevent URLs from appearing on multiple lines
+        # Prevent URLs from appearing on multiple lines
         content = df_tags.to_markdown(index=False, tablefmt='github', maxcolwidths=None) or ''
         for line in content.split('\n'):
             if not line.startswith('/'):

@@ -60,7 +60,6 @@ class CalcipyConfig(Config):  # type: ignore[misc]
         invoke_defaults = Config.global_defaults()
         calcipy_defaults = {
             'run': {
-                'asynchronous': False,  # PLANNED: When can this be True?
                 'echo': True,
                 'echo_format': '\033[2;3;37mRunning: {command}\033[0m',
                 'pty': use_pty(),

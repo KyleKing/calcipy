@@ -79,18 +79,6 @@ _MAIN_TASKS = [
     doc.build,
     stale.check_for_stale_packages,
 ]
-
-# TODO: Can the main tasks be extended? Maybe by adding a new 'main' task?'
-
-
-@task(
-    post=with_progress(_MAIN_TASKS),
-)
-def main(_ctx: Context) -> None:
-    """Main task pipeline."""
-    logger.text('Starting', tasks=[_t.__name__ for _t in _MAIN_TASKS])
-
-
 _OTHER_TASKS = [
     lint.flake8,
     lint.pylint,
@@ -100,12 +88,14 @@ _OTHER_TASKS = [
 ]
 
 
-@task(
-    post=with_progress(_OTHER_TASKS),  # pyright: ignore[reportGeneralTypeIssues]
-)
+@task(post=with_progress(_MAIN_TASKS))
+def main(_ctx: Context) -> None:
+    """Main task pipeline."""
+
+
+@task(post=with_progress(_OTHER_TASKS))  # pyright: ignore[reportGeneralTypeIssues]
 def other(_ctx: Context) -> None:
     """Run tasks that are otherwise not exercised in main."""
-    logger.text('Starting', tasks=[_t.__name__ for _t in _OTHER_TASKS])
 
 
 @task(
@@ -128,9 +118,3 @@ def release(ctx: Context, *, suffix: cl.SuffixT = None) -> None:
 ns.add_task(main)
 ns.add_task(other)
 ns.add_task(release)
-
-# PLANNED: Review below examples for additional ideas
-# Great Expectations: https://github.com/great-expectations/great_expectations/blob/ddcd2da2689f13d82ccb88f7e9670b1c82e01765/tasks.py#L216-L218
-# Official: https://github.com/pyinvoke/invocations/blob/main/invocations/testing.py
-# Getting git top-level directory: https://github.com/Neoxelox/superinvoke/blob/c0b96dab095e260cd3cb2d492183f1a6d64321b4/superinvoke/extensions/context.py#LL75-L77C60
-# Another: https://github.com/neozenith/invoke-common-tasks

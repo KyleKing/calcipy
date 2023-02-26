@@ -42,8 +42,7 @@ def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Result:
 @lru_cache(maxsize=1)
 @beartype
 def get_project_path() -> Path:
-    """Retrieve either the git directory or the `cwd`."""
-    # PLANNED: Consider using `Path(capture_shell('git ...'))`
+    """Retrieve the `cwd`."""
     return Path.cwd()
 
 

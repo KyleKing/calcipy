@@ -11,7 +11,7 @@ from calcipy.tasks.cl import bump
         (bump, {}, [
             'poetry run cz bump --annotated-tag --no-verify --gpg-sign',
             'git push origin --tags --no-verify',
-            'which gh >> /dev/null && gh release create --generate-notes $(git tag --list --sort=-creatordate | head -n 1)',  # noqa: E501
+            'gh release create --generate-notes $(git tag --list --sort=-creatordate | head -n 1)',
         ]),
     ],
 )

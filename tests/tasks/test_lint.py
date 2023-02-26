@@ -18,12 +18,27 @@ from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint,
         (pylint, {}, ['poetry run python -m pylint ./calcipy ./tests']),
         (security, {}, [
             'poetry run bandit --recursive calcipy',
-            'poetry run semgrep ci --autofix --config=p/ci --config=p/security-audit --config=r/python.airflow --config=r/python.attr --config=r/python.click --config=r/python.cryptography --config=r/python.distributed --config=r/python.docker --config=r/python.flask --config=r/python.jinja2 --config=r/python.jwt --config=r/python.lang --config=r/python.pycryptodome --config=r/python.requests --config=r/python.security --config=r/python.sh --config=r/python.sqlalchemy ',  # noqa: E501
+            'poetry run semgrep ci --autofix ' + ' '.join([
+                '--config=p/ci',
+                '--config=p/default',
+                '--config=p/security-audit',
+                '--config=r/bash',
+                '--config=r/contrib',
+                '--config=r/fingerprints',
+                '--config=r/generic',
+                '--config=r/json',
+                '--config=r/python',
+                '--config=r/terraform',
+                '--config=r/yaml',
+            ]),
         ]),
         (pre_commit, {}, [
             'pre-commit install',
             'pre-commit autoupdate',
-            'pre-commit run --all-files --hook-stage commit --hook-stage push',
+            'pre-commit run --all-files ' + ' '.join(f'--hook-stage {stg}' for stg in [
+                'commit', 'merge-commit', 'push', 'prepare-commit-msg', 'commit-msg', 'post-checkout',
+                'post-commit', 'post-merge', 'post-rewrite', 'manual',
+            ]),
         ]),
     ],
 )
