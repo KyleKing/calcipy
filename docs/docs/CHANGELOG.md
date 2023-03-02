@@ -2,6 +2,18 @@
 
 ### Fix
 
+- skip pre-commit on doc.deploy
+
+## 1.0.1 (2023-03-01)
+
+### Fix
+
+- bump minimum ruff version
+
+## 1.0.0 (2023-02-25)
+
+### Fix
+
 - lower default logging level
 
 ## 1.0.0rc7 (2023-02-23)

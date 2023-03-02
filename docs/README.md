@@ -133,6 +133,4 @@ If you have any security issue to report, please contact the project maintainers
 [contributor-covenant]: https://www.contributor-covenant.org
 [developer_guide]: https://calcipy.kyleking.me/docs/DEVELOPER_GUIDE
 [license]: https://github.com/kyleking/calcipy/blob/main/LICENSE
-[scripts]: https://github.com/kyleking/calcipy/blob/main/scripts
 [style_guide]: https://calcipy.kyleking.me/docs/STYLE_GUIDE
-[tests]: https://github.com/kyleking/calcipy/blob/main/tests
