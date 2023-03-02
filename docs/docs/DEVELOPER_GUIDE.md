@@ -63,18 +63,18 @@ poetry config pypi-token.pypi ...
 | `calcipy/noxfile/_noxfile.py`                                   |           52 |         2 |         31 | 96.2%      |
 | `calcipy/scripts.py`                                            |           10 |        10 |         23 | 0.0%       |
 | `calcipy/tasks/__init__.py`                                     |            0 |         0 |          0 | 100.0%     |
-| `calcipy/tasks/all_tasks.py`                                    |           45 |         2 |          0 | 95.6%      |
+| `calcipy/tasks/all_tasks.py`                                    |           43 |         2 |          0 | 95.3%      |
 | `calcipy/tasks/cl.py`                                           |           26 |         6 |          0 | 76.9%      |
 | `calcipy/tasks/defaults.py`                                     |           19 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/doc.py`                                          |           40 |        17 |          5 | 57.5%      |
-| `calcipy/tasks/lint.py`                                         |           51 |         1 |          0 | 98.0%      |
+| `calcipy/tasks/lint.py`                                         |           54 |         1 |          0 | 98.1%      |
 | `calcipy/tasks/nox.py`                                          |            8 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/pack.py`                                         |           26 |         4 |          0 | 84.6%      |
 | `calcipy/tasks/stale.py`                                        |            8 |         2 |          0 | 75.0%      |
 | `calcipy/tasks/tags.py`                                         |           15 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/test.py`                                         |           37 |         1 |          2 | 97.3%      |
 | `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
-| **Totals**                                                      |          889 |       120 |         66 | 86.5%      |
+| **Totals**                                                      |          890 |       120 |         66 | 86.5%      |
 
-Generated on: 2023-02-23
+Generated on: 2023-02-25
 <!-- {cte} -->
