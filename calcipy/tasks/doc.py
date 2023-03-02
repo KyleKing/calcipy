@@ -110,6 +110,6 @@ def deploy(ctx: Context) -> None:
     if _is_mkdocs_local():  # pragma: no cover
         raise NotImplementedError('Not yet configured to deploy documentation without "use_directory_urls"')
 
-    run(ctx, 'pre-commit uninstall')  # To prevent pre-commit failures when mkdocs calls push
+    run(ctx, 'pre-commit uninstall || true')  # To prevent pre-commit failures when mkdocs calls push
     run(ctx, 'poetry run mkdocs gh-deploy --force')
-    run(ctx, 'pre-commit install')  # Restore pre-commit
+    run(ctx, 'pre-commit install || true')  # Restore pre-commit
