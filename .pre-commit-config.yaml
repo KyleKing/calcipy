@@ -66,7 +66,7 @@ repos:
         exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml|tests/.*assert-cache.*/.+\.json
         types: [html, javascript, shell, yaml]
   - repo: https://github.com/pappasam/toml-sort
-    rev: v0.22.3
+    rev: v0.22.4
     hooks:
       - id: toml-sort-fix
         args: [--in-place, --all, --trailing-comma-inline-array]
@@ -79,7 +79,7 @@ repos:
         args: [--never]
         files: calcipy/.*\.py
   - repo: https://github.com/KyleKing/calcipy
-    rev: 1.0.0rc7
+    rev: 1.0.0
     hooks:
       - id: copier-forbidden-files
       - id: lint-fix
