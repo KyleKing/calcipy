@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import pytest
+from beartype import beartype
 from beartype.typing import Dict
 from invoke import MockContext
 
@@ -25,6 +26,7 @@ def vcr_config() -> Dict:
 
 
 @pytest.fixture()
+@beartype
 def fix_test_cache() -> Path:
     """Fixture to clear and return the test cache directory for use.
 

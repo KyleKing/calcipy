@@ -23,7 +23,7 @@ classifiers = [
 ] # https://pypi.org/classifiers/
 description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
 documentation = "https://calcipy.kyleking.me"
-include = ["LICENSE.md"]
+include = ["LICENSE"]
 keywords = ["nox", "python-poetry"]
 license = "MIT"
 maintainers = []

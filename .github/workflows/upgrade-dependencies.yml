@@ -37,6 +37,6 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           title: "build: automated dependency upgrades"
-          body: "Full log: https://github.com/${{ github.repository }}/actions/runs/${{github.run_id }}"
+          body: "Full log: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           branch: auto-dependency-upgrades
           delete-branch: true

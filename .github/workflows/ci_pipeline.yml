@@ -11,6 +11,9 @@ on: # yamllint disable-line rule:truthy
       - tests/**
       - pyproject.toml
 
+env:
+  COLUMNS: 120
+
 jobs:
   lint:
     runs-on: ${{ matrix.os }}
