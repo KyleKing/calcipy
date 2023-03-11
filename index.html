@@ -1,0 +1,1401 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="calcipy project documentation">
+      
+      
+        <meta name="author" content="Kyle King">
+      
+      
+        <link rel="canonical" href="https://calcipy.kyleking.me/">
+      
+      
+      
+        <link rel="next" href="docs/Advanced_Documentation/">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.15">
+    
+    
+      
+        <title>calcipy</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.113286f1.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="_styles/mkdocstrings.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#calcipy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            calcipy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              calcipy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    calcipy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          calcipy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        calcipy
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calcipy-cli" class="md-nav__link">
+    Calcipy CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calcipy-pre-commit" class="md-nav__link">
+    Calcipy Pre-Commit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-status" class="md-nav__link">
+    Project Status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    Code of Conduct
+  </a>
+  
+    <nav class="md-nav" aria-label="Code of Conduct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-source-status" class="md-nav__link">
+    Open Source Status
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsible-disclosure" class="md-nav__link">
+    Responsible Disclosure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="docs/Advanced_Documentation/">Docs</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docs/CHANGELOG/" class="md-nav__link">
+        CHANGELOG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docs/CODE_TAG_SUMMARY/" class="md-nav__link">
+        Collected Code Tags
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docs/DEVELOPER_GUIDE/" class="md-nav__link">
+        Developer Notes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docs/MIGRATION/" class="md-nav__link">
+        Migration Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="docs/STYLE_GUIDE/" class="md-nav__link">
+        Personal Style Guides
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Modules
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Modules
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modules/calcipy/_code_diagrams/" class="md-nav__link">
+        Calcipy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="reference/calcipy/">calcipy</a>
+          
+            <label for="__nav_4_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          calcipy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/can_skip/" class="md-nav__link">
+        can_skip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_2" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="reference/calcipy/check_for_stale_packages/">check_for_stale_packages</a>
+          
+            <label for="__nav_4_1_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          check_for_stale_packages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/check_for_stale_packages/_check_for_stale_packages/" class="md-nav__link">
+        _check_for_stale_packages
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/cli/" class="md-nav__link">
+        cli
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_4" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="reference/calcipy/code_tag_collector/">code_tag_collector</a>
+          
+            <label for="__nav_4_1_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          code_tag_collector
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/code_tag_collector/_collector/" class="md-nav__link">
+        _collector
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_5" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="reference/calcipy/dot_dict/">dot_dict</a>
+          
+            <label for="__nav_4_1_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          dot_dict
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/dot_dict/_dot_dict/" class="md-nav__link">
+        _dot_dict
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/file_search/" class="md-nav__link">
+        file_search
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/invoke_helpers/" class="md-nav__link">
+        invoke_helpers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_8" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="reference/calcipy/md_writer/">md_writer</a>
+          
+            <label for="__nav_4_1_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          md_writer
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/md_writer/_writer/" class="md-nav__link">
+        _writer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_9" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="reference/calcipy/noxfile/">noxfile</a>
+          
+            <label for="__nav_4_1_9">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          noxfile
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/noxfile/_noxfile/" class="md-nav__link">
+        _noxfile
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/scripts/" class="md-nav__link">
+        scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_11" >
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="reference/calcipy/tasks/">tasks</a>
+          
+            <label for="__nav_4_1_11">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_1_11">
+          <span class="md-nav__icon md-icon"></span>
+          tasks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/all_tasks/" class="md-nav__link">
+        all_tasks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/cl/" class="md-nav__link">
+        cl
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/defaults/" class="md-nav__link">
+        defaults
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/doc/" class="md-nav__link">
+        doc
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/lint/" class="md-nav__link">
+        lint
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/nox/" class="md-nav__link">
+        nox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/pack/" class="md-nav__link">
+        pack
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/stale/" class="md-nav__link">
+        stale
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/tags/" class="md-nav__link">
+        tags
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/test/" class="md-nav__link">
+        test
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/calcipy/tasks/types/" class="md-nav__link">
+        types
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calcipy-cli" class="md-nav__link">
+    Calcipy CLI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calcipy-pre-commit" class="md-nav__link">
+    Calcipy Pre-Commit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-status" class="md-nav__link">
+    Project Status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    Code of Conduct
+  </a>
+  
+    <nav class="md-nav" aria-label="Code of Conduct">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-source-status" class="md-nav__link">
+    Open Source Status
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsible-disclosure" class="md-nav__link">
+    Responsible Disclosure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="calcipy">calcipy<a class="headerlink" href="#calcipy" title="Permanent link">⚓︎</a></h1>
+<p><img alt="./calcipy-banner-wide.svg" src="https://raw.githubusercontent.com/KyleKing/calcipy/main/docs/calcipy-banner-wide.svg" /></p>
+<p><code>calcipy</code> is a Python package that implements best practices such as code style (linting, auto-fixes), documentation, CI/CD, and logging. Like the calcium carbonate in hard coral, packages can be built on the <code>calcipy</code> foundation.</p>
+<p><code>calcipy</code> has some configurability, but is tailored for my particular use cases. If you want the same sort of functionality, there are a number of alternatives to consider:</p>
+<ul>
+<li><a href="https://github.com/pyscaffold/pyscaffold">pyscaffold</a> is a much more mature project that aims for the same goals, but with a slightly different approach and tech stack (tox vs. nox, cookiecutter vs. copier, etc.)</li>
+<li><a href="https://github.com/jayclassless/tidypy#features">tidypy</a>, <a href="https://github.com/klen/pylama">pylama</a>, and <a href="https://pypi.org/project/codecheck/">codecheck</a> offer similar functionality of bundling and running static checkers, but makes far fewer assumptions</li>
+<li><a href="https://github.com/FollowTheProcess/pytoil">pytoil</a> is a general CLI tool for developer automation</li>
+<li>And many more such as <a href="https://github.com/pyta-uoft/pyta">pyta</a>, <a href="https://github.com/PyCQA/prospector">prospector</a>, <a href="https://github.com/wemake-services/wemake-python-styleguide">wemake-python-styleguide</a> / <a href="https://github.com/cjolowicz/cookiecutter-hypermodern-python">cjolowicz/cookiecutter-hypermodern-python</a>, <a href="https://github.com/python-formate/formate">formate</a>, <a href="https://github.com/johnthagen/python-blueprint">johnthagen/python-blueprint</a>, <a href="https://github.com/oxsecurity/megalinter">oxsecurity/megalinter</a>, etc.</li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">⚓︎</a></h2>
+<p>Calcipy needs a few static files managed using copier and a template project: <a href="https://github.com/KyleKing/calcipy_template/">kyleking/calcipy_template</a></p>
+<p>You can quickly use the template to create a new project or add calcipy to an existing one:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Install copier. pipx is recommended</span>
+<span class="linenos" data-linenos=" 2 "></span>pipx<span class="w"> </span>install<span class="w"> </span>copier
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="c1"># To create a new project</span>
+<span class="linenos" data-linenos=" 5 "></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>new_project
+<span class="linenos" data-linenos=" 6 "></span><span class="nb">cd</span><span class="w"> </span>new_project
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Or convert/update an existing one</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="nb">cd</span><span class="w"> </span>my_project
+<span class="linenos" data-linenos="10 "></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>.
+<span class="linenos" data-linenos="11 "></span>copier<span class="w"> </span>update
+</code></pre></div>
+<p>See <a href="./Advanced_Configuration.md">./Advanced_Configuration.md</a> for documentation on the configurable aspects of <code>calcipy</code></p>
+<h3 id="calcipy-cli">Calcipy CLI<a class="headerlink" href="#calcipy-cli" title="Permanent link">⚓︎</a></h3>
+<p>Additionally, <code>calcipy</code> can be run as a CLI application without adding the package as a dependency.</p>
+<p>Quick Start:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>pipx<span class="w"> </span>install<span class="w"> </span>calcipy
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="c1"># Use &#39;tags&#39; to create a CODE_TAG_SUMMARY of the specified directory</span>
+<span class="linenos" data-linenos=" 4 "></span>calcipy<span class="w"> </span>tags<span class="w"> </span>--help
+<span class="linenos" data-linenos=" 5 "></span>calcipy<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
+<span class="linenos" data-linenos=" 6 "></span>
+<span class="linenos" data-linenos=" 7 "></span><span class="c1"># See additional documentation from the CLI help</span>
+<span class="linenos" data-linenos=" 8 "></span>&gt;<span class="w"> </span>calcipy
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span>Subcommands:
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span>main<span class="w">                                     </span>Main<span class="w"> </span>task<span class="w"> </span>pipeline.
+<span class="linenos" data-linenos="13 "></span>other<span class="w">                                    </span>Run<span class="w"> </span>tasks<span class="w"> </span>that<span class="w"> </span>are<span class="w"> </span>otherwise<span class="w"> </span>not<span class="w"> </span>exercised<span class="w"> </span><span class="k">in</span><span class="w"> </span>main.
+<span class="linenos" data-linenos="14 "></span>release<span class="w">                                  </span>Release<span class="w"> </span>pipeline.
+<span class="linenos" data-linenos="15 "></span>cl.bump<span class="w">                                  </span>Bumps<span class="w"> </span>project<span class="w"> </span>version<span class="w"> </span>based<span class="w"> </span>on<span class="w"> </span>commits<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>settings<span class="w"> </span><span class="k">in</span><span class="w"> </span>pyproject.toml.
+<span class="linenos" data-linenos="16 "></span>cl.write<span class="w">                                 </span>Write<span class="w"> </span>a<span class="w"> </span>Changelog<span class="w"> </span>file<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>raw<span class="w"> </span>Git<span class="w"> </span>history.
+<span class="linenos" data-linenos="17 "></span>doc.build<span class="w">                                </span>Build<span class="w"> </span>documentation<span class="w"> </span>with<span class="w"> </span>mkdocs.
+<span class="linenos" data-linenos="18 "></span>doc.deploy<span class="w">                               </span>Deploy<span class="w"> </span>docs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>Github<span class="w"> </span><span class="sb">`</span>gh-pages<span class="sb">`</span><span class="w"> </span>branch.
+<span class="linenos" data-linenos="19 "></span>doc.watch<span class="w">                                </span>Serve<span class="w"> </span><span class="nb">local</span><span class="w"> </span>documentation<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span>editing.
+<span class="linenos" data-linenos="20 "></span>lint.autopep8<span class="w">                            </span>Run<span class="w"> </span>autopep8.
+<span class="linenos" data-linenos="21 "></span>lint.check<span class="w"> </span><span class="o">(</span>lint<span class="o">)</span><span class="w">                        </span>Run<span class="w"> </span>ruff<span class="w"> </span>as<span class="w"> </span>check-only.
+<span class="linenos" data-linenos="22 "></span>lint.fix<span class="w">                                 </span>Run<span class="w"> </span>ruff<span class="w"> </span>and<span class="w"> </span>apply<span class="w"> </span>fixes.
+<span class="linenos" data-linenos="23 "></span>lint.flake8<span class="w">                              </span>Run<span class="w"> </span>ruff<span class="w"> </span>and<span class="w"> </span>apply<span class="w"> </span>fixes.
+<span class="linenos" data-linenos="24 "></span>lint.pre-commit<span class="w">                          </span>Run<span class="w"> </span>pre-commit.
+<span class="linenos" data-linenos="25 "></span>lint.pylint<span class="w">                              </span>Run<span class="w"> </span>ruff<span class="w"> </span>and<span class="w"> </span>apply<span class="w"> </span>fixes.
+<span class="linenos" data-linenos="26 "></span>lint.security<span class="w">                            </span>Attempt<span class="w"> </span>to<span class="w"> </span>identify<span class="w"> </span>possible<span class="w"> </span>security<span class="w"> </span>vulnerabilities.
+<span class="linenos" data-linenos="27 "></span>lint.watch<span class="w">                               </span>Run<span class="w"> </span>ruff<span class="w"> </span>as<span class="w"> </span>check-only.
+<span class="linenos" data-linenos="28 "></span>nox.noxfile<span class="w"> </span><span class="o">(</span>nox<span class="o">)</span><span class="w">                        </span>Run<span class="w"> </span>nox<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span><span class="nb">local</span><span class="w"> </span>noxfile.
+<span class="linenos" data-linenos="29 "></span>pack.check-licenses<span class="w">                      </span>Check<span class="w"> </span>licenses<span class="w"> </span><span class="k">for</span><span class="w"> </span>compatibility<span class="w"> </span>with<span class="w"> </span><span class="sb">`</span>licensecheck<span class="sb">`</span>.
+<span class="linenos" data-linenos="30 "></span>pack.lock<span class="w">                                </span>Ensure<span class="w"> </span>poetry.lock<span class="w"> </span>is<span class="w">  </span>up-to-date.
+<span class="linenos" data-linenos="31 "></span>pack.publish<span class="w">                             </span>Build<span class="w"> </span>the<span class="w"> </span>distributed<span class="w"> </span>format<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>and<span class="w"> </span>publish.
+<span class="linenos" data-linenos="32 "></span>stale.check-for-stale-packages<span class="w"> </span><span class="o">(</span>stale<span class="o">)</span><span class="w">   </span>Identify<span class="w"> </span>stale<span class="w"> </span>dependencies.
+<span class="linenos" data-linenos="33 "></span>tags.collect-code-tags<span class="w"> </span><span class="o">(</span>tags<span class="o">)</span><span class="w">            </span>Create<span class="w"> </span>a<span class="w"> </span><span class="sb">`</span>CODE_TAG_SUMMARY.md<span class="sb">`</span><span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span>table<span class="w"> </span><span class="k">for</span><span class="w"> </span>TODO-<span class="w"> </span>and<span class="w"> </span>FIXME-style<span class="w"> </span>code<span class="w"> </span>comments.
+<span class="linenos" data-linenos="34 "></span>test.coverage<span class="w">                            </span>Generate<span class="w"> </span>useful<span class="w"> </span>coverage<span class="w"> </span>outputs<span class="w"> </span>after<span class="w"> </span>running<span class="w"> </span>pytest.
+<span class="linenos" data-linenos="35 "></span>test.pytest<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="o">)</span><span class="w">                       </span>Run<span class="w"> </span>pytest<span class="w"> </span>with<span class="w"> </span>default<span class="w"> </span>arguments.
+<span class="linenos" data-linenos="36 "></span>test.step<span class="w">                                </span>Run<span class="w"> </span>pytest<span class="w"> </span>optimized<span class="w"> </span>to<span class="w"> </span>stop<span class="w"> </span>on<span class="w"> </span>first<span class="w"> </span>error.
+<span class="linenos" data-linenos="37 "></span>test.watch<span class="w">                               </span>Run<span class="w"> </span>pytest<span class="w"> </span>with<span class="w"> </span>polling<span class="w"> </span>and<span class="w"> </span>optimized<span class="w"> </span>to<span class="w"> </span>stop<span class="w"> </span>on<span class="w"> </span>first<span class="w"> </span>error.
+<span class="linenos" data-linenos="38 "></span>types.mypy<span class="w">                               </span>Run<span class="w"> </span>mypy.
+<span class="linenos" data-linenos="39 "></span>types.pyright<span class="w">                            </span>Run<span class="w"> </span>pyright.
+<span class="linenos" data-linenos="40 "></span>
+<span class="linenos" data-linenos="41 "></span>Global<span class="w"> </span>Task<span class="w"> </span>Options:
+<span class="linenos" data-linenos="42 "></span>
+<span class="linenos" data-linenos="43 "></span>working_dir<span class="w">   </span>Set<span class="w"> </span>the<span class="w"> </span>cwd<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>program.<span class="w"> </span>Example:<span class="w"> </span><span class="s2">&quot;../run --working-dir .. lint test&quot;</span>
+<span class="linenos" data-linenos="44 "></span>*file_args<span class="w">    </span>List<span class="w"> </span>of<span class="w"> </span>Paths<span class="w"> </span>available<span class="w"> </span>globally<span class="w"> </span>to<span class="w"> </span>all<span class="w"> </span>tasks.<span class="w"> </span>Will<span class="w"> </span>resolve<span class="w"> </span>paths<span class="w"> </span>with<span class="w"> </span>working_dir
+<span class="linenos" data-linenos="45 "></span>verbose<span class="w">       </span>Globally<span class="w"> </span>configure<span class="w"> </span>logger<span class="w"> </span>verbosity<span class="w"> </span><span class="o">(</span>-vvv<span class="w"> </span><span class="k">for</span><span class="w"> </span>most<span class="w"> </span>verbose<span class="o">)</span>
+</code></pre></div>
+<h3 id="calcipy-pre-commit">Calcipy Pre-Commit<a class="headerlink" href="#calcipy-pre-commit" title="Permanent link">⚓︎</a></h3>
+<p><code>calcipy</code> can also be used as a <code>pre-commit</code> task by adding the below snippet to your <code>pre-commit</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">repos</span><span class="p">:</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/KyleKing/calcipy</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="linenos" data-linenos="5 "></span><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tags</span>
+<span class="linenos" data-linenos="6 "></span><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lint-fix</span>
+<span class="linenos" data-linenos="7 "></span><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">types</span>
+</code></pre></div>
+<h2 id="project-status">Project Status<a class="headerlink" href="#project-status" title="Permanent link">⚓︎</a></h2>
+<p>See the <code>Open Issues</code> and/or the <a href="https://calcipy.kyleking.me/docs/CODE_TAG_SUMMARY">CODE_TAG_SUMMARY</a>. For release history, see the <a href="https://calcipy.kyleking.me/docs/CHANGELOG">CHANGELOG</a>.</p>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">⚓︎</a></h2>
+<p>We welcome pull requests! For your pull request to be accepted smoothly, we suggest that you first open a GitHub issue to discuss your idea. For resources on getting started with the code base, see the below documentation:</p>
+<ul>
+<li><a href="https://calcipy.kyleking.me/docs/DEVELOPER_GUIDE">DEVELOPER_GUIDE</a></li>
+<li><a href="https://calcipy.kyleking.me/docs/STYLE_GUIDE">STYLE_GUIDE</a></li>
+</ul>
+<h2 id="code-of-conduct">Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permanent link">⚓︎</a></h2>
+<p>We follow the <a href="https://www.contributor-covenant.org">Contributor Covenant Code of Conduct</a>.</p>
+<h3 id="open-source-status">Open Source Status<a class="headerlink" href="#open-source-status" title="Permanent link">⚓︎</a></h3>
+<p>We try to reasonably meet most aspects of the &ldquo;OpenSSF scorecard&rdquo; from <a href="https://deps.dev/pypi/calcipy">Open Source Insights</a></p>
+<h2 id="responsible-disclosure">Responsible Disclosure<a class="headerlink" href="#responsible-disclosure" title="Permanent link">⚓︎</a></h2>
+<p>If you have any security issue to report, please contact the project maintainers privately. You can reach us at <a href="mailto:dev.act.kyle@gmail.com">dev.act.kyle@gmail.com</a>.</p>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">⚓︎</a></h2>
+<p><a href="https://github.com/kyleking/calcipy/blob/main/LICENSE">LICENSE</a></p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 11, 2023</span>
+      
+        <br>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 11, 2023</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["toc.autohide"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.2a6f1dda.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="_javascript/tables.js"></script>
+      
+    
+  </body>
+</html>
