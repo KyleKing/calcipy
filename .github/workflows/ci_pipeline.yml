@@ -67,6 +67,3 @@ jobs:
       - name: Add Poetry Python to Path
         run: echo "$(poetry env info --path)/bin" >> $GITHUB_PATH
       - uses: jakebailey/pyright-action@v1
-        with:
-          verify-types: calcipy
-          ignore-external: true
