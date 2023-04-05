@@ -152,7 +152,7 @@ def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Ca
         def inner(ctx: Context, *args: Any, **kwargs: Any) -> Task:
             """Wrap the task with settings configured in `gto` for working_dir and logging."""
             try:
-                ctx.config.gto
+                ctx.config.gto  # noqa: B018
             except AttributeError:
                 ctx.config.gto = GlobalTaskOptions()
 
