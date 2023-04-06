@@ -1,6 +1,5 @@
 """Changelog CLI."""
 
-
 from beartype import beartype
 from beartype.typing import Literal, Optional
 from invoke import Context
