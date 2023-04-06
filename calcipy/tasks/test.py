@@ -8,9 +8,9 @@ from corallium.file_helpers import open_in_browser, read_package_name
 from invoke import Context
 
 from ..cli import task
+from ..experiments import check_duplicate_test_names
 from ..invoke_helpers import run
 from .defaults import from_ctx
-from ..experiments import check_duplicate_test_names
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 
@@ -33,6 +33,13 @@ def _inner_task(
     if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
     run(ctx, f'poetry run {command} ./tests{cli_args}')
+
+
+@task()
+def check(_ctx: Context) -> None:
+    """Run pytest checks, such as identifying ."""
+    if duplciates := check_duplicate_test_names.run(Path('tests')):
+        raise RuntimeError(f'Duplicate test names found ({duplciates}). See above for details.')  # noqa: EM102
 
 
 KM_HELP = {
@@ -92,9 +99,6 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
         'poetry run python -m coverage json',  # Create coverage.json file for "_handle_coverage"
     ):
         run(ctx, cmd)
-
-    if check_duplicate_test_names.run(Path('tests')):
-        raise RuntimeError('Duplicate test names found. See above for details.')
 
     if view:  # pragma: no cover
         open_in_browser(cov_dir / 'index.html')

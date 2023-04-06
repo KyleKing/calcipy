@@ -4,9 +4,14 @@ from calcipy.experiments.check_duplicate_test_names import run
 
 
 class ClassTest:
+    """Test check_duplicate_test_names for searching by Class."""
 
     def method_test(self) -> None:
-        """Code located by `run`."""
+        """Test check_duplicate_test_names for searching by method."""
+
+
+def intentional_duplicate():
+    """Intentional duplicate, but should be ignored."""
 
 
 def test_intentional_duplicate():

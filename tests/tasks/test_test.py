@@ -1,9 +1,8 @@
-from contextlib import nullcontext as does_not_raise
 from unittest.mock import call
 
 import pytest
 
-from calcipy.tasks.test import coverage, step, watch
+from calcipy.tasks.test import check, coverage, step, watch
 from calcipy.tasks.test import pytest as task_pytest
 
 _COV = '--cov=calcipy --cov-report=term-missing'
@@ -38,14 +37,14 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
     ],
 )
 def test_test(ctx, task, kwargs, commands):
-    with (
-        pytest.raises(RuntimeError, match=r'Duplicate test names.*')
-        if 'coverage' in str(task) else
-        does_not_raise()
-    ):
-        task(ctx, **kwargs)
+    task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([
         call(cmd) if isinstance(cmd, str) else cmd
         for cmd in commands
     ])
+
+
+def test_test_check(ctx):
+    with pytest.raises(RuntimeError, match=r'Duplicate test names.+test_intentional_duplicate.+'):
+        check(ctx)

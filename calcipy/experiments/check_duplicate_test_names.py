@@ -32,7 +32,7 @@ def run(test_path: Path) -> List[str]:  # noqa: C901,CAC001
 
         for node in parsed_ast.body:
             if isinstance(node, ast.FunctionDef):
-                if node.name in summary:
+                if node.name in summary and node.name.startswith('test_'):
                     duplicates.append(node.name)
                 summary.add(node.name)
                 _show_info(node)
