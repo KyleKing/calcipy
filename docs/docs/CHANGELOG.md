@@ -2,6 +2,18 @@
 
 ### Fix
 
+- use copier copy
+
+## 1.1.0 (2023-04-06)
+
+### Feat
+
+- add experimental check duplicate test names
+
+### Fix
+
+- suppress unexpected exit errors in update docs
+- skip pre-commit uninstall for doc.deploy when pre-commit not available
 - skip pre-commit on doc.deploy
 
 ## 1.0.1 (2023-03-01)
