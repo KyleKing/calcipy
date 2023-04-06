@@ -56,5 +56,5 @@ def run(test_path: Path) -> List[str]:  # noqa: C901,CAC001
     return duplicates
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     run(Path('tests'))

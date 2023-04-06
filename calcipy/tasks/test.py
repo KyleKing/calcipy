@@ -10,6 +10,7 @@ from invoke import Context
 from ..cli import task
 from ..invoke_helpers import run
 from .defaults import from_ctx
+from ..experiments import check_duplicate_test_names
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 
@@ -91,6 +92,9 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
         'poetry run python -m coverage json',  # Create coverage.json file for "_handle_coverage"
     ):
         run(ctx, cmd)
+
+    if check_duplicate_test_names.run(Path('tests')):
+        raise RuntimeError('Duplicate test names found. See above for details.')
 
     if view:  # pragma: no cover
         open_in_browser(cov_dir / 'index.html')

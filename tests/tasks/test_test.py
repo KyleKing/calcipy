@@ -1,3 +1,4 @@
+from contextlib import nullcontext as does_not_raise
 from unittest.mock import call
 
 import pytest
@@ -37,7 +38,12 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
     ],
 )
 def test_test(ctx, task, kwargs, commands):
-    task(ctx, **kwargs)
+    with (
+        pytest.raises(RuntimeError, match=r'Duplicate test names.*')
+        if 'coverage' in str(task) else
+        does_not_raise()
+    ):
+        task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([
         call(cmd) if isinstance(cmd, str) else cmd
