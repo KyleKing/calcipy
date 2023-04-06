@@ -9,6 +9,7 @@ on: # yamllint disable-line rule:truthy
     paths:
       - calcipy/**
       - tests/**
+      - poetry.lock
       - pyproject.toml
 
 env:

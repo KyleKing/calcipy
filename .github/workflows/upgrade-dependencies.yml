@@ -13,6 +13,9 @@ permissions:
   # Repository contents, commits, branches, downloads, releases, and merges.
   contents: write
 
+env:
+  COLUMNS: 120
+
 jobs:
   upgrade:
     name: Upgrade & Open Pull Request

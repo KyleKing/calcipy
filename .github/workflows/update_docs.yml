@@ -15,6 +15,9 @@ on: # yamllint disable-line rule:truthy
 permissions:
   contents: write
 
+env:
+  COLUMNS: 120
+
 jobs:
   docs:
     runs-on: ${{ matrix.os }}
