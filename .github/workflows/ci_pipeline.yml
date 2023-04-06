@@ -20,8 +20,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.11"]
+        os: [ubuntu-22.04]
+        python-version: ["3.8"]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
@@ -52,8 +52,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.11"]
+        os: [ubuntu-22.04]
+        python-version: ["3.8"]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup

@@ -21,7 +21,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries",
   "Topic :: Utilities",
 ] # https://pypi.org/classifiers/
-description = "Python package to simplify development. Includes functionality for task running, testing, linting, documenting, and more"
+description = "Python package to simplify development"
 documentation = "https://calcipy.kyleking.me"
 include = ["LICENSE"]
 keywords = ["nox", "python-poetry"]
