@@ -1533,7 +1533,7 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 <span class="linenos" data-linenos=" 90 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Attempt to identify possible security vulnerabilities.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos=" 91 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override bandit with &quot;# nosec&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="linenos" data-linenos=" 92 "></span>    <span class="n">pkg_name</span> <span class="o">=</span> <span class="n">read_package_name</span><span class="p">()</span>
-<span class="linenos" data-linenos=" 93 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;poetry run bandit --recursive </span><span class="si">{</span><span class="n">pkg_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 93 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;poetry run bandit --recursive </span><span class="si">{</span><span class="n">pkg_name</span><span class="si">}</span><span class="s1"> -s B101&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos=" 94 "></span>
 <span class="linenos" data-linenos=" 95 "></span>    <span class="c1"># See additional semgrep rules at:</span>
 <span class="linenos" data-linenos=" 96 "></span>    <span class="c1">#   https://semgrep.dev/explore</span>
@@ -1601,11 +1601,11 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 6, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 7, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 6, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 7, 2023</span>
       
     
   </small>
