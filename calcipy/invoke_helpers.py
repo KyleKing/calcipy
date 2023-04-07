@@ -39,6 +39,7 @@ def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Result:
 # Invoke Task Helpers
 
 
+@lru_cache(maxsize=1)
 @beartype
 def get_project_path() -> Path:
     """Retrieve the `cwd`."""
