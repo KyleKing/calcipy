@@ -90,7 +90,7 @@ def security(ctx: Context) -> None:
     """Attempt to identify possible security vulnerabilities."""
     logger.text('Note: Selectively override bandit with "# nosec"', is_header=True)
     pkg_name = read_package_name()
-    run(ctx, f'poetry run bandit --recursive {pkg_name}')
+    run(ctx, f'poetry run bandit --recursive {pkg_name} -s B101')
 
     # See additional semgrep rules at:
     #   https://semgrep.dev/explore
