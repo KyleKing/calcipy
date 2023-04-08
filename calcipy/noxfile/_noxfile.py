@@ -130,7 +130,8 @@ def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> 
     else:
         session.install('.', f'calcipy[{",".join(extras)}]')
 
-    session.install(*_installable_dev_dependencies())
+    if dev_deps := _installable_dev_dependencies():
+        session.install(*dev_deps)
 
 
 @nox_session(python=_get_pythons(), reuse_venv=True)
