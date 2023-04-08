@@ -56,7 +56,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/dot_dict/__init__.py`                                  |            4 |         2 |          0 | 50.0%      |
 | `calcipy/dot_dict/_dot_dict.py`                                 |            8 |         0 |          0 | 100.0%     |
 | `calcipy/experiments/__init__.py`                               |            0 |         0 |          0 | 100.0%     |
-| `calcipy/experiments/check_duplicate_test_names.py`             |           38 |        38 |          0 | 0.0%       |
+| `calcipy/experiments/check_duplicate_test_names.py`             |           36 |         0 |          2 | 100.0%     |
 | `calcipy/file_search.py`                                        |           38 |         0 |          2 | 100.0%     |
 | `calcipy/invoke_helpers.py`                                     |           31 |         3 |          0 | 90.3%      |
 | `calcipy/md_writer/__init__.py`                                 |            4 |         2 |          0 | 50.0%      |
@@ -74,9 +74,9 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/pack.py`                                         |           26 |         4 |          0 | 84.6%      |
 | `calcipy/tasks/stale.py`                                        |            8 |         2 |          0 | 75.0%      |
 | `calcipy/tasks/tags.py`                                         |           15 |         0 |          0 | 100.0%     |
-| `calcipy/tasks/test.py`                                         |           37 |         1 |          2 | 97.3%      |
+| `calcipy/tasks/test.py`                                         |           40 |         1 |          2 | 97.5%      |
 | `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
-| **Totals**                                                      |          934 |       158 |         66 | 83.1%      |
+| **Totals**                                                      |          935 |       120 |         68 | 87.2%      |
 
 Generated on: 2023-04-06
 <!-- {cte} -->

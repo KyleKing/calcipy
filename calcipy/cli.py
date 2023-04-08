@@ -30,6 +30,9 @@ class GlobalTaskOptions(BaseModel):
     verbose: PositiveInt = Field(default=0, lte=3)
     """Verbosity level."""
 
+    keep_going: bool = False
+    """Continue task execution regardless of failure."""
+
 
 class _CalcipyProgram(Program):  # type: ignore[misc]
     """Customized version of Invoke's `Program`."""
@@ -88,8 +91,12 @@ def start_program(
     for argv in sys.argv[1:]:
         if not last_argv.startswith('-') and Path(argv).is_file():
             _gto.file_args.append(Path(argv))
+        # Check for CLI flags
         elif argv in {'-v', '-vv', '-vvv', '--verbose'}:
             _gto.verbose = argv.count('v')
+        elif argv == '--keep-going':
+            _gto.keep_going = True
+        # Check for CLI arguments with values
         elif last_argv in {'--working-dir'}:
             _gto.working_dir = Path(argv).resolve()
         elif argv not in {'--working-dir'}:
@@ -156,9 +163,16 @@ def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Ca
             except AttributeError:
                 ctx.config.gto = GlobalTaskOptions()
 
+            # Begin utilizing Global Task Options
             os.chdir(ctx.config.gto.working_dir)
             _configure_logger(ctx)
 
-            return _run_task(func, ctx, *args, show_task_info=show_task_info, **kwargs)
+            try:
+                return _run_task(func, ctx, *args, show_task_info=show_task_info, **kwargs)
+            except Exception:
+                if not ctx.config.gto.keep_going:
+                    raise
+                logger.exception('Task Failed', func=str(func), args=args, kwargs=kwargs)
+
         return inner
     return wrapper
