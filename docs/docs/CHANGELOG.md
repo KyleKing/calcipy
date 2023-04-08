@@ -2,6 +2,39 @@
 
 ### Fix
 
+- handle dev installs when only calcipy
+
+## 1.2.2 (2023-04-08)
+
+### Fix
+
+- add preview of --keep-going
+
+### Refactor
+
+- extract task logic from wrapper
+
+## 1.2.1 (2023-04-07)
+
+### Fix
+
+- skip assert_used in bandit
+
+## 1.2.0 (2023-04-06)
+
+### Feat
+
+- add test.check with duplicate name logic
+
+### Fix
+
+- remove lru_cache, which was causing mypy errors
+
+## 1.1.1 (2023-04-06)
+
+### Fix
+
+- resolve linting errors
 - use copier copy
 
 ## 1.1.0 (2023-04-06)
