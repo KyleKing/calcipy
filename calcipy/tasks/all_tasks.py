@@ -69,6 +69,7 @@ def with_progress(
 _MAIN_TASKS = [
     lint.fix,
     types.mypy,
+    types.pyright,
     call(nox.noxfile, session='tests'),  # pyright: ignore[reportGeneralTypeIssues]
     call(lint.pre_commit, no_update=True),  # pyright: ignore[reportGeneralTypeIssues]
     lint.security,
@@ -80,11 +81,11 @@ _MAIN_TASKS = [
     stale.check_for_stale_packages,
 ]
 _OTHER_TASKS = [
+    test.check,
     lint.flake8,
     lint.pylint,
     pack.check_licenses,
     test.step,
-    types.pyright,
 ]
 
 
