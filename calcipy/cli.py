@@ -121,6 +121,16 @@ def start_program(
 
 
 @beartype
+def _configure_logger(ctx: Context) -> None:
+    """Configure the logger based on task context."""
+    verbose = ctx.config.gto.verbose
+    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
+    raw_log_level = log_lookup.get(verbose)
+    log_level = logging.ERROR if raw_log_level is None else raw_log_level
+    configure_logger(log_level=log_level)
+
+
+@beartype
 def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwargs: Any) -> Any:
     """Run the task function with optional logging."""
     if show_task_info:
@@ -138,13 +148,22 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
 
 
 @beartype
-def _configure_logger(ctx: Context) -> None:
-    """Configure the logger based on task context."""
-    verbose = ctx.config.gto.verbose
-    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
-    raw_log_level = log_lookup.get(verbose)
-    log_level = logging.ERROR if raw_log_level is None else raw_log_level
-    configure_logger(log_level=log_level)
+def _inner_runner(*, func: Any, ctx: Context, show_task_info: bool, args: Any, kwargs: Any) -> Any:
+    try:
+        ctx.config.gto  # noqa: B018
+    except AttributeError:
+        ctx.config.gto = GlobalTaskOptions()
+
+    # Begin utilizing Global Task Options
+    os.chdir(ctx.config.gto.working_dir)
+    _configure_logger(ctx)
+
+    try:
+        return _run_task(func, ctx, *args, show_task_info=show_task_info, **kwargs)
+    except Exception:
+        if not ctx.config.gto.keep_going:
+            raise
+        logger.exception('Task Failed', func=str(func), args=args, kwargs=kwargs)
 
 
 @beartype
@@ -158,21 +177,6 @@ def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Ca
         @wraps(func)
         def inner(ctx: Context, *args: Any, **kwargs: Any) -> Task:
             """Wrap the task with settings configured in `gto` for working_dir and logging."""
-            try:
-                ctx.config.gto  # noqa: B018
-            except AttributeError:
-                ctx.config.gto = GlobalTaskOptions()
-
-            # Begin utilizing Global Task Options
-            os.chdir(ctx.config.gto.working_dir)
-            _configure_logger(ctx)
-
-            try:
-                return _run_task(func, ctx, *args, show_task_info=show_task_info, **kwargs)
-            except Exception:
-                if not ctx.config.gto.keep_going:
-                    raise
-                logger.exception('Task Failed', func=str(func), args=args, kwargs=kwargs)
-
+            return _inner_runner(func=func, ctx=ctx, show_task_info=show_task_info, args=args, kwargs=kwargs)
         return inner
     return wrapper
