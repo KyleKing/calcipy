@@ -2,7 +2,6 @@
 
 | Type    | Comment                                                                                            | Last Edit   | Source File                                                                                                                                                                                                                  |
 |---------|----------------------------------------------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TODO    | https://github.com/pappasam/toml-sort/issues/42                                                    | 2023-02-19  | [.pre-commit-config.yaml:73](https://github.com/KyleKing/calcipy/blame/d95eb85ab7f6d45459ed7b3ff2dc99ae3c92fa61/.pre-commit-config.yaml#L72)                                                                                 |
 | TODO    | Consider adding a configuration item for ignore_patterns                                           | 2023-02-19  | [calcipy/file_search.py:82](https://github.com/KyleKing/calcipy/blame/e6bc0415e3bf6a6df5a9d808ce0e89d0f2c5df9e/calcipy/file_search.py#L82)                                                                                   |
 | TODO    | Look into running tasks from within other tasks to support '--continue' and more readable logs --> | 2023-02-19  | [docs/docs/MIGRATION.md:112](https://github.com/KyleKing/calcipy/blame/d95eb85ab7f6d45459ed7b3ff2dc99ae3c92fa61/docs/docs/MIGRATION.md#L42)                                                                                  |
 | TODO    | Capture logging output and check...                                                                | 2023-02-19  | [tests/check_for_stale_packages/test_check_for_stale_packages.py:63](https://github.com/KyleKing/calcipy/blame/a8b69e7b04d9b15eabff8897f2de7703898c2afc/tests/check_for_stale_packages/test_check_for_stale_packages.py#L63) |
@@ -10,6 +9,6 @@
 | TODO    | Is there an easier way to maintain pytest parameter IDs?                                           | 2023-02-17  | [tests/tasks/test_test.py:13](https://github.com/KyleKing/calcipy/blame/785b9d1c3afda6fc5a2e46f2bc7d41ed2614da09/tests/tasks/test_test.py#L11)                                                                               |
 | PLANNED | Convert to hypothesis test!                                                                        | 2023-02-19  | [tests/test_dot_dict.py:9](https://github.com/KyleKing/calcipy/blame/3f42ad855eb7024ff48af35d496633a87d4a14ac/tests/test_dot_dict.py#L9)                                                                                     |
 
-Found code tags for TODO (6), PLANNED (1)
+Found code tags for TODO (5), PLANNED (1)
 
 <!-- calcipy_skip_tags -->
