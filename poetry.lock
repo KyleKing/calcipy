@@ -45,14 +45,14 @@ files = [
 
 [[package]]
 name = "astroid"
-version = "2.15.2"
+version = "2.15.3"
 description = "An abstract syntax tree for Python with inference support."
 category = "main"
 optional = true
 python-versions = ">=3.7.2"
 files = [
-    {file = "astroid-2.15.2-py3-none-any.whl", hash = "sha256:dea89d9f99f491c66ac9c04ebddf91e4acf8bd711722175fe6245c0725cc19bb"},
-    {file = "astroid-2.15.2.tar.gz", hash = "sha256:6e61b85c891ec53b07471aec5878f4ac6446a41e590ede0f2ce095f39f7d49dd"},
+    {file = "astroid-2.15.3-py3-none-any.whl", hash = "sha256:f11e74658da0f2a14a8d19776a8647900870a63de71db83713a8e77a6af52662"},
+    {file = "astroid-2.15.3.tar.gz", hash = "sha256:44224ad27c54d770233751315fa7f74c46fa3ee0fab7beef1065f99f09897efe"},
 ]
 
 [package.dependencies]
@@ -65,22 +65,22 @@ wrapt = [
 
 [[package]]
 name = "attrs"
-version = "22.2.0"
+version = "23.1.0"
 description = "Classes Without Boilerplate"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "attrs-22.2.0-py3-none-any.whl", hash = "sha256:29e95c7f6778868dbd49170f98f8818f78f3dc5e0e37c0b1f474e3561b240836"},
-    {file = "attrs-22.2.0.tar.gz", hash = "sha256:c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99"},
+    {file = "attrs-23.1.0-py3-none-any.whl", hash = "sha256:1f28b4522cdc2fb4256ac1a020c78acf9cba2c6b461ccd2c126f3aa8e8335d04"},
+    {file = "attrs-23.1.0.tar.gz", hash = "sha256:6279836d581513a26f1bf235f9acd333bc9115683f14f7e8fae46c98fc50e015"},
 ]
 
 [package.extras]
-cov = ["attrs[tests]", "coverage-enable-subprocess", "coverage[toml] (>=5.3)"]
-dev = ["attrs[docs,tests]"]
-docs = ["furo", "myst-parser", "sphinx", "sphinx-notfound-page", "sphinxcontrib-towncrier", "towncrier", "zope.interface"]
-tests = ["attrs[tests-no-zope]", "zope.interface"]
-tests-no-zope = ["cloudpickle", "cloudpickle", "hypothesis", "hypothesis", "mypy (>=0.971,<0.990)", "mypy (>=0.971,<0.990)", "pympler", "pympler", "pytest (>=4.3.0)", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-mypy-plugins", "pytest-xdist[psutil]", "pytest-xdist[psutil]"]
+cov = ["attrs[tests]", "coverage[toml] (>=5.3)"]
+dev = ["attrs[docs,tests]", "pre-commit"]
+docs = ["furo", "myst-parser", "sphinx", "sphinx-notfound-page", "sphinxcontrib-towncrier", "towncrier", "zope-interface"]
+tests = ["attrs[tests-no-zope]", "zope-interface"]
+tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "pytest-xdist[psutil]"]
 
 [[package]]
 name = "autopep8"
@@ -139,21 +139,21 @@ yaml = ["PyYAML"]
 
 [[package]]
 name = "beartype"
-version = "0.12.0"
+version = "0.13.1"
 description = "Unbearably fast runtime type checking in pure Python."
 category = "main"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "beartype-0.12.0-py3-none-any.whl", hash = "sha256:3d9d5bec198bcf965c000d7b5120bebdd19a444ef6e39e97d0e93eb8832e10c8"},
-    {file = "beartype-0.12.0.tar.gz", hash = "sha256:3b7545b3f333a6b07042b68b102141554c9add2e979dab7b0f8ed6378f7af7d7"},
+    {file = "beartype-0.13.1-py3-none-any.whl", hash = "sha256:c3097b487e57bc278f1b55da8863b704b2a786c46483a6d3df39ab6fe2523d80"},
+    {file = "beartype-0.13.1.tar.gz", hash = "sha256:2903947a8a1eb6030264e30108aa72cb1a805cfc9050c0f4014c4aed3a17a00b"},
 ]
 
 [package.extras]
 all = ["typing-extensions (>=3.10.0.0)"]
-dev = ["autoapi (>=0.9.0)", "coverage (>=5.5)", "mypy (>=0.800)", "numpy", "pytest (>=4.0.0)", "sphinx", "sphinx (>=4.1.0)", "tox (>=3.20.1)", "typing-extensions"]
-doc-rtd = ["furo (==2022.6.21)", "sphinx (==4.1.0)"]
-test-tox = ["mypy (>=0.800)", "numpy", "pytest (>=4.0.0)", "sphinx", "typing-extensions"]
+dev = ["autoapi (>=0.9.0)", "coverage (>=5.5)", "mypy (>=0.800)", "numpy", "pandera", "pydata-sphinx-theme (<=0.7.2)", "pytest (>=4.0.0)", "sphinx", "sphinx (>=4.2.0,<6.0.0)", "sphinxext-opengraph (>=0.7.5)", "tox (>=3.20.1)", "typing-extensions"]
+doc-rtd = ["autoapi (>=0.9.0)", "pydata-sphinx-theme (<=0.7.2)", "sphinx (>=4.2.0,<6.0.0)", "sphinxext-opengraph (>=0.7.5)"]
+test-tox = ["mypy (>=0.800)", "numpy", "pandera", "pytest (>=4.0.0)", "sphinx", "typing-extensions"]
 test-tox-coverage = ["coverage (>=5.5)"]
 
 [[package]]
@@ -502,13 +502,13 @@ files = [
 
 [[package]]
 name = "dlint"
-version = "0.14.0"
+version = "0.14.1"
 description = "Dlint is a tool for encouraging best coding practices and helping ensure Python code is secure."
 category = "main"
 optional = true
 python-versions = "*"
 files = [
-    {file = "dlint-0.14.0-py3-none-any.whl", hash = "sha256:3b40e353a2fdb531253973bb53be51d2218ccd97647e14754ddd20fc1ce62a38"},
+    {file = "dlint-0.14.1-py3-none-any.whl", hash = "sha256:8caa4271ab6f69bba2785bb565b636eeb40baffd446c85380f848fb4abd6aa2d"},
 ]
 
 [package.dependencies]
@@ -546,19 +546,19 @@ boltons = ">=20.0.0"
 
 [[package]]
 name = "filelock"
-version = "3.11.0"
+version = "3.12.0"
 description = "A platform independent file lock."
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "filelock-3.11.0-py3-none-any.whl", hash = "sha256:f08a52314748335c6460fc8fe40cd5638b85001225db78c2aa01c8c0db83b318"},
-    {file = "filelock-3.11.0.tar.gz", hash = "sha256:3618c0da67adcc0506b015fd11ef7faf1b493f0b40d87728e19986b536890c37"},
+    {file = "filelock-3.12.0-py3-none-any.whl", hash = "sha256:ad98852315c2ab702aeb628412cbf7e95b7ce8c3bf9565670b4eaecf1db370a9"},
+    {file = "filelock-3.12.0.tar.gz", hash = "sha256:fc03ae43288c013d2ea83c8597001b1129db351aad9c57fe2409327916b8e718"},
 ]
 
 [package.extras]
-docs = ["furo (>=2023.3.27)", "sphinx (>=6.1.3)", "sphinx-autodoc-typehints (>=1.22,!=1.23.4)"]
-testing = ["covdefaults (>=2.3)", "coverage (>=7.2.2)", "diff-cover (>=7.5)", "pytest (>=7.2.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest-timeout (>=2.1)"]
+docs = ["furo (>=2023.3.27)", "sphinx (>=6.1.3)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
+testing = ["covdefaults (>=2.3)", "coverage (>=7.2.3)", "diff-cover (>=7.5)", "pytest (>=7.3.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest-timeout (>=2.1)"]
 
 [[package]]
 name = "flake8"
@@ -640,14 +640,14 @@ flake8 = "*"
 
 [[package]]
 name = "flake8-functions"
-version = "0.0.7"
+version = "0.0.8"
 description = "A flake8 extension that checks functions"
 category = "main"
 optional = true
 python-versions = "*"
 files = [
-    {file = "flake8_functions-0.0.7-py3-none-any.whl", hash = "sha256:f2f75545c2b0df9eeba0ad316e2ac38c101676970b4441300fc07af3226a44f6"},
-    {file = "flake8_functions-0.0.7.tar.gz", hash = "sha256:40584b05d57e5ab185545bcfa08aa0edca52b04646d0df266e2b1667d6437184"},
+    {file = "flake8_functions-0.0.8-py3-none-any.whl", hash = "sha256:e1a88aa634d1aff6973f8c9dd64f30ab2beaac661e52eea96929ccc7ee7f64df"},
+    {file = "flake8_functions-0.0.8.tar.gz", hash = "sha256:5446626673a9faecbf389fb411b90bdc87b002c387b72dc097b208e7a58f2a1c"},
 ]
 
 [package.dependencies]
@@ -919,14 +919,14 @@ yaml = ["PyYAML"]
 
 [[package]]
 name = "griffe"
-version = "0.26.0"
+version = "0.27.1"
 description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "griffe-0.26.0-py3-none-any.whl", hash = "sha256:38f3f6bbe834501cc199a07b7b7e0e2550aaf19a9d1ee27acf879027e47c9b9e"},
-    {file = "griffe-0.26.0.tar.gz", hash = "sha256:08675ffe8c17139e7769e950dd21f8e98a2e76205cbbd2911d5dec26d2cbf1be"},
+    {file = "griffe-0.27.1-py3-none-any.whl", hash = "sha256:867008786a17532ec529cbf58cee7c4f131b85d61f38691c2046b1883f7be253"},
+    {file = "griffe-0.27.1.tar.gz", hash = "sha256:f213e87f99bf3b76d2d4da999d5a38c2ec01b9a6ce3660c5ab52b663d785edba"},
 ]
 
 [package.dependencies]
@@ -952,14 +952,14 @@ pyparsing = {version = ">=2.4.2,<3.0.0 || >3.0.0,<3.0.1 || >3.0.1,<3.0.2 || >3.0
 
 [[package]]
 name = "hypothesis"
-version = "6.71.0"
+version = "6.72.0"
 description = "A library for property-based testing"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "hypothesis-6.71.0-py3-none-any.whl", hash = "sha256:06235b8ab3c4090bec96b07dfc2347611c1392e5b4ffa48c069f2c1337968725"},
-    {file = "hypothesis-6.71.0.tar.gz", hash = "sha256:b2c3bbead72189c0bba6e12848b484ceafadb6e872ac31e40013228239366221"},
+    {file = "hypothesis-6.72.0-py3-none-any.whl", hash = "sha256:12d2a7d72eed477701f66ca48e5b212ea49e2e57ad63903d9bc36f08a5ca2bdb"},
+    {file = "hypothesis-6.72.0.tar.gz", hash = "sha256:1fb102fe1fdf5c00206507e2719ddfa118d84cf4b9799ef5c28e4aff020964e0"},
 ]
 
 [package.dependencies]
@@ -1000,14 +1000,14 @@ files = [
 
 [[package]]
 name = "importlib-metadata"
-version = "6.2.0"
+version = "6.5.0"
 description = "Read metadata from Python packages"
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "importlib_metadata-6.2.0-py3-none-any.whl", hash = "sha256:8388b74023a138c605fddd0d47cb81dd706232569f56c9aca7d9c7fdb54caeba"},
-    {file = "importlib_metadata-6.2.0.tar.gz", hash = "sha256:9127aad2f49d7203e7112098c12b92e4fd1061ccd18548cdfdc49171a8c073cc"},
+    {file = "importlib_metadata-6.5.0-py3-none-any.whl", hash = "sha256:03ba783c3a2c69d751b109fc0c94a62c51f581b3d6acf8ed1331b6d5729321ff"},
+    {file = "importlib_metadata-6.5.0.tar.gz", hash = "sha256:7a8bdf1bc3a726297f5cfbc999e6e7ff6b4fa41b26bba4afc580448624460045"},
 ]
 
 [package.dependencies]
@@ -1756,14 +1756,14 @@ files = [
 
 [[package]]
 name = "packaging"
-version = "23.0"
+version = "23.1"
 description = "Core utilities for Python packages"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
-    {file = "packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
+    {file = "packaging-23.1-py3-none-any.whl", hash = "sha256:994793af429502c4ea2ebf6bf664629d07c1a9fe974af92966e4b8d2df7edc61"},
+    {file = "packaging-23.1.tar.gz", hash = "sha256:a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"},
 ]
 
 [[package]]
@@ -1860,25 +1860,25 @@ files = [
 
 [[package]]
 name = "peewee"
-version = "3.16.0"
+version = "3.16.1"
 description = "a little orm"
 category = "main"
 optional = true
 python-versions = "*"
 files = [
-    {file = "peewee-3.16.0.tar.gz", hash = "sha256:1800c0a04962ee99d161c07f5a12fc49549caf5cfcda426a9103e34e37f854ba"},
+    {file = "peewee-3.16.1.tar.gz", hash = "sha256:03ba808b96bb3366fc7e949d669804d79059e01d472f0dfaddc2da5fa1614ee7"},
 ]
 
 [[package]]
 name = "pip"
-version = "23.0.1"
+version = "23.1"
 description = "The PyPA recommended tool for installing Python packages."
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "pip-23.0.1-py3-none-any.whl", hash = "sha256:236bcb61156d76c4b8a05821b988c7b8c35bf0da28a4b614e8d6ab5212c25c6f"},
-    {file = "pip-23.0.1.tar.gz", hash = "sha256:cd015ea1bfb0fcef59d8a286c1f8bebcb983f6317719d415dc5351efb7cd7024"},
+    {file = "pip-23.1-py3-none-any.whl", hash = "sha256:64b1d4528e491aa835ec6ece0c1ac40ce6ab6d886e60740f6519db44b2e9634d"},
+    {file = "pip-23.1.tar.gz", hash = "sha256:408539897ee535dbfb83a153f7bc4d620f990d8bd44a52a986efc0b4d330d34a"},
 ]
 
 [[package]]
@@ -2036,14 +2036,14 @@ files = [
 
 [[package]]
 name = "pygments"
-version = "2.14.0"
+version = "2.15.1"
 description = "Pygments is a syntax highlighting package written in Python."
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "Pygments-2.14.0-py3-none-any.whl", hash = "sha256:fa7bd7bd2771287c0de303af8bfdfc731f51bd2c6a47ab69d117138893b82717"},
-    {file = "Pygments-2.14.0.tar.gz", hash = "sha256:b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297"},
+    {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
+    {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
 ]
 
 [package.extras]
@@ -2165,18 +2165,17 @@ files = [
 
 [[package]]
 name = "pytest"
-version = "7.2.2"
+version = "7.3.1"
 description = "pytest: simple powerful testing with Python"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pytest-7.2.2-py3-none-any.whl", hash = "sha256:130328f552dcfac0b1cec75c12e3f005619dc5f874f0a06e8ff7263f0ee6225e"},
-    {file = "pytest-7.2.2.tar.gz", hash = "sha256:c99ab0c73aceb050f68929bc93af19ab6db0558791c6a0715723abe9d0ade9d4"},
+    {file = "pytest-7.3.1-py3-none-any.whl", hash = "sha256:3799fa815351fea3a5e96ac7e503a96fa51cc9942c3753cda7651b93c1cfa362"},
+    {file = "pytest-7.3.1.tar.gz", hash = "sha256:434afafd78b1d78ed0addf160ad2b77a30d35d4bdf8af234fe621919d9ed15e3"},
 ]
 
 [package.dependencies]
-attrs = ">=19.2.0"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
 exceptiongroup = {version = ">=1.0.0rc8", markers = "python_version < \"3.11\""}
 iniconfig = "*"
@@ -2185,7 +2184,7 @@ pluggy = ">=0.12,<2.0"
 tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 
 [package.extras]
-testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
+testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
 [[package]]
 name = "pytest-cov"
@@ -2531,14 +2530,14 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "rich"
-version = "13.3.3"
+version = "13.3.4"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "main"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "rich-13.3.3-py3-none-any.whl", hash = "sha256:540c7d6d26a1178e8e8b37e9ba44573a3cd1464ff6348b99ee7061b95d1c6333"},
-    {file = "rich-13.3.3.tar.gz", hash = "sha256:dc84400a9d842b3a9c5ff74addd8eb798d155f36c1c91303888e0a66850d2a15"},
+    {file = "rich-13.3.4-py3-none-any.whl", hash = "sha256:22b74cae0278fd5086ff44144d3813be1cedc9115bdfabbfefd86400cb88b20a"},
+    {file = "rich-13.3.4.tar.gz", hash = "sha256:b5d573e13605423ec80bdd0cd5f8541f7844a0e71a13f74cf454ccb2f490708b"},
 ]
 
 [package.dependencies]
@@ -2643,16 +2642,16 @@ files = [
 
 [[package]]
 name = "semgrep"
-version = "1.17.1"
+version = "1.18.0"
 description = "Lightweight static analysis for many languages. Find bug variants with patterns that look like source code."
 category = "main"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "semgrep-1.17.1-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:f3baa5fe8f55c8e92d1e6b577bde34e5e014a96019a38fd26ee23fde397ae4ae"},
-    {file = "semgrep-1.17.1-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:e3048ed452e46e47ddedfbbc60af3e7a5e5a6d5ee09df970c570e4b625896167"},
-    {file = "semgrep-1.17.1-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:bcedebd65a914cd593f3649fa52fbb935333c955c445aa58114e16076f184ca8"},
-    {file = "semgrep-1.17.1.tar.gz", hash = "sha256:eb87ea9266bbabccaacac6975e5f084198a54db57f5c255acb3c5921d6a7a66d"},
+    {file = "semgrep-1.18.0-cp37.cp38.cp39.py37.py38.py39-none-any.whl", hash = "sha256:5fd51ef4f9878e979278ade357e429cc3dcd13990d2d41506371bd60386c6219"},
+    {file = "semgrep-1.18.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_10_14_x86_64.whl", hash = "sha256:a7ee92223c498528a43ca6364272fe984ed9457a69d3d616ce2edd9ca154b174"},
+    {file = "semgrep-1.18.0-cp37.cp38.cp39.py37.py38.py39-none-macosx_11_0_arm64.whl", hash = "sha256:a9692a0103bec4c4d525b045ebbd06b7114a6fa400cd38efbc8a1c0d9f336e04"},
+    {file = "semgrep-1.18.0.tar.gz", hash = "sha256:30763d1d553b71c0aa448a03be49cd7ed8664002c4e718759ac58f69aa5b3eb0"},
 ]
 
 [package.dependencies]
@@ -2733,15 +2732,20 @@ files = [
 
 [[package]]
 name = "sqlparse"
-version = "0.4.3"
+version = "0.4.4"
 description = "A non-validating SQL parser."
 category = "main"
 optional = true
 python-versions = ">=3.5"
 files = [
-    {file = "sqlparse-0.4.3-py3-none-any.whl", hash = "sha256:0323c0ec29cd52bceabc1b4d9d579e311f3e4961b98d174201d5622a23b85e34"},
-    {file = "sqlparse-0.4.3.tar.gz", hash = "sha256:69ca804846bb114d2ec380e4360a8a340db83f0ccf3afceeb1404df028f57268"},
+    {file = "sqlparse-0.4.4-py3-none-any.whl", hash = "sha256:5430a4fe2ac7d0f93e66f1efc6e1338a41884b7ddf2a350cedd20ccc4d9d28f3"},
+    {file = "sqlparse-0.4.4.tar.gz", hash = "sha256:d446183e84b8349fa3061f0fe7f06ca94ba65b426946ffebe6e3e8295332420c"},
 ]
+
+[package.extras]
+dev = ["build", "flake8"]
+doc = ["sphinx"]
+test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "stdlib-list"
@@ -2887,14 +2891,14 @@ types-urllib3 = "<1.27"
 
 [[package]]
 name = "types-setuptools"
-version = "67.6.0.7"
+version = "67.6.0.8"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-setuptools-67.6.0.7.tar.gz", hash = "sha256:f46b11773b1aeddbd2ef32fd6a6091ef33aa9b32daa124f6ce63f616de59ae51"},
-    {file = "types_setuptools-67.6.0.7-py3-none-any.whl", hash = "sha256:ea2873dc8dd9e8421929dc50617ac7c2054c9a873942c5b5b606e2effef5db12"},
+    {file = "types-setuptools-67.6.0.8.tar.gz", hash = "sha256:df3e084c3b5af782cb81bd516f40213b572d932fa2f1272aef307d15643736f8"},
+    {file = "types_setuptools-67.6.0.8-py3-none-any.whl", hash = "sha256:0b178cab1d5a7487cd410d1b5448d1a85d9da1bf44aa7be7c0d4f33d65041e5a"},
 ]
 
 [[package]]

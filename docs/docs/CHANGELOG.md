@@ -1,3 +1,9 @@
+## Unreleased
+
+### Fix
+
+- move pyright to 'main' tasks
+
 ## 1.2.3 (2023-04-08)
 
 ### Fix

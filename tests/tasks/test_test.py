@@ -5,7 +5,7 @@ import pytest
 from calcipy.tasks.test import check, coverage, step, watch
 from calcipy.tasks.test import pytest as task_pytest
 
-_COV = '--cov=calcipy --cov-report=term-missing'
+_COV = '--cov=calcipy --cov-branch --cov-report=term-missing --durations=25 --durations-min="0.1"'
 _MARKERS = 'mark1 and not mark 2'
 _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 
@@ -21,7 +21,7 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
         (step, {'marker': _MARKERS}, [f'poetry run python -m pytest ./tests {_FAILFIRST} -m "{_MARKERS}"']),
         (watch, {'marker': _MARKERS}, [f'poetry run ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
         (coverage, {'out_dir': '.cover'}, [
-            'poetry run coverage run --source=calcipy --module pytest ./tests',
+            'poetry run coverage run --branch --source=calcipy --module pytest ./tests',
             call('poetry run python -m coverage report --show-missing'),
             call('poetry run python -m coverage html --directory=.cover'),
             call('poetry run python -m coverage json'),

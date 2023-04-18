@@ -59,7 +59,9 @@ KM_HELP = {
 def pytest(ctx: Context, *, keyword: str = '', marker: str = '', min_cover: int = 0) -> None:
     """Run pytest with default arguments."""
     pkg_name = read_package_name()
-    _inner_task(ctx, cli_args=f' --cov={pkg_name} --cov-report=term-missing',
+    durations = '--durations=25 --durations-min="0.1"'
+    _inner_task(ctx,
+                cli_args=f' --cov={pkg_name} --cov-branch --cov-report=term-missing {durations}',
                 keyword=keyword, marker=marker, min_cover=min_cover)
 
 
@@ -89,10 +91,12 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
 
     """
     pkg_name = read_package_name()
-    _inner_task(ctx, cli_args='', min_cover=min_cover, command=f'coverage run --source={pkg_name} --module pytest')
+    _inner_task(ctx, cli_args='', min_cover=min_cover,
+                command=f'coverage run --branch --source={pkg_name} --module pytest')
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'test', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)
+    print('')  # noqa: T201
     for cmd in (
         'poetry run python -m coverage report --show-missing',  # Write to STDOUT
         f'poetry run python -m coverage html --directory={cov_dir}',  # Write to HTML
