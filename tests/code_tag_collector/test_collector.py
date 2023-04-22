@@ -92,6 +92,7 @@ def test__format_report(fake_process):
 
 def test_write_code_tag_file_when_no_matches(fix_test_cache):
     path_tag_summary = fix_test_cache / 'code_tags.md'
+    path_tag_summary.write_text('Should be removed.')
     tmp_code_file = fix_test_cache / 'tmp.code'
     tmp_code_file.write_text('No FIXMES or TODOS here')
 

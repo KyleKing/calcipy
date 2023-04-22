@@ -2,7 +2,7 @@
 # Answer file maintained by Copier for: https://github.com/KyleKing/calcipy_template
 # DO NOT MODIFY THIS FILE. Edit by re-running copier and changing responses to the questions
 # Check into version control.
-_commit: 1.6.2
+_commit: 1.6.3
 _src_path: gh:KyleKing/calcipy_template
 author_email: dev.act.kyle@gmail.com
 author_name: Kyle King
@@ -12,7 +12,6 @@ copyright_date: '2023'
 development_branch: main
 doc_dir: docs
 extends_calcipy: true
-include_adrs: false
 install_extras: -E ddict -E doc -E flake8 -E lint -E nox -E pylint -E stale -E tags
     -E test -E types
 minimum_python: 3.8.12

@@ -2,12 +2,13 @@ from unittest.mock import call
 
 import pytest
 
-from calcipy.tasks.doc import deploy
+from calcipy.tasks.doc import build, deploy, get_out_dir
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
+        (build, {}, [f'poetry run mkdocs build --site-dir {get_out_dir()}']),
         (deploy, {}, ['poetry run mkdocs gh-deploy --force']),
     ],
 )

@@ -37,7 +37,7 @@ class GlobalTaskOptions(BaseModel):
 class _CalcipyProgram(Program):  # type: ignore[misc]
     """Customized version of Invoke's `Program`."""
 
-    def print_help(self) -> None:
+    def print_help(self) -> None:  # pragma: no cover
         """Extend print_help with calcipy-specific global configuration.
 
         https://github.com/pyinvoke/invoke/blob/0bcee75e4a26ad33b13831719c00340ca12af2f0/invoke/program.py#L657-L667
@@ -59,7 +59,7 @@ class CalcipyConfig(Config):  # type: ignore[misc]
     """Opinionated Config with better defaults."""
 
     @staticmethod
-    def global_defaults() -> Dict:  # type: ignore[type-arg]
+    def global_defaults() -> Dict:  # type: ignore[type-arg]  # pragma: no cover
         """Override the global defaults."""
         invoke_defaults = Config.global_defaults()
         calcipy_defaults = {
@@ -73,7 +73,7 @@ class CalcipyConfig(Config):  # type: ignore[misc]
 
 
 @beartype
-def start_program(
+def start_program(  # pragma: no cover
     pkg_name: str,
     pkg_version: str,
     module: Optional[ModuleType] = None,

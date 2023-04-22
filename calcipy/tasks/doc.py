@@ -101,7 +101,7 @@ def watch(ctx: Context) -> None:
     if _is_mkdocs_local():  # pragma: no cover
         path_doc_index = get_out_dir() / 'index.html'
         open_in_browser(path_doc_index)
-    else:
+    else:  # pragma: no cover
         webbrowser.open('http://localhost:8000')
         run(ctx, 'poetry run mkdocs serve --dirtyreload')
 
