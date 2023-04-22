@@ -47,9 +47,10 @@ class _CalcipyProgram(Program):  # type: ignore[misc]
         print('Global Task Options:')  # noqa: T201
         print('')  # noqa: T201
         self.print_columns([
-            ('working_dir', 'Set the cwd for the program. Example: "../run --working-dir .. lint test"'),
             ('*file_args', 'List of Paths available globally to all tasks. Will resolve paths with working_dir'),
-            ('verbose', 'Globally configure logger verbosity (-vvv for most verbose)'),
+            ('--keep-going', 'Continue running tasks even on failure'),
+            ('--working_dir=STRING', 'Set the cwd for the program. Example: "../run --working-dir .. lint test"'),
+            ('-v,-vv,-vvv', 'Globally configure logger verbosity (-vvv for most verbose)'),
         ])
         print('')  # noqa: T201
 
