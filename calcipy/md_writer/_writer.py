@@ -231,4 +231,4 @@ def write_autoformatted_md_sections(
     for path_md in paths:
         logger.text_debug('Processing', path_md=path_md)
         if md_lines := _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md):
-            path_md.write_text('\n'.join(md_lines) + '\n')
+            path_md.write_text('\n'.join(md_lines) + '\n', encoding='utf-8')
