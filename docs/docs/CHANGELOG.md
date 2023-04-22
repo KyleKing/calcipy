@@ -2,6 +2,8 @@
 
 ### Fix
 
+- update the help string to include --keep-going
+- support branch coverage
 - move pyright to 'main' tasks
 
 ## 1.2.3 (2023-04-08)

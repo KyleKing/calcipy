@@ -366,14 +366,14 @@ typing-extensions = ">=4.0.1,<5.0.0"
 
 [[package]]
 name = "corallium"
-version = "0.2.0"
+version = "0.2.1"
 description = "Shared functionality for calcipy-ecosystem"
 category = "main"
 optional = false
 python-versions = ">=3.8.12,<4.0.0"
 files = [
-    {file = "corallium-0.2.0-py3-none-any.whl", hash = "sha256:6b93de9484d3cee55dc0c05e83eb644d299f014181fe49738ae6908fb2d3d4ff"},
-    {file = "corallium-0.2.0.tar.gz", hash = "sha256:62973c138ac2d2a86df44dafbe3d258f19e595aa23783bd4ae1d2f687dd8821a"},
+    {file = "corallium-0.2.1-py3-none-any.whl", hash = "sha256:544d6adade5e66d3e4c7e66accc0bdec0671c5320ffbde19468d49c39e4d3478"},
+    {file = "corallium-0.2.1.tar.gz", hash = "sha256:64b3d33c999fb4c0af89a71aa3874c7ac9c9b6395bdf820f1966b904ab3ac627"},
 ]
 
 [package.dependencies]
@@ -3339,4 +3339,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "2d31971b00c8171df48937de2356f26d517f05b9f909ffa2f4caa6e9f91dc0d3"
+content-hash = "165c163c83669eea932a1cc6d415fede610a69482b97410117e108cbf4e99a10"
