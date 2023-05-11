@@ -60,7 +60,7 @@ flake8-tuple = {optional = true, version = ">=0.4.1"} # flake8
 flake8-typing-imports = {optional = true, version = ">=1.14.0"} # flake8
 flake8-use-pathlib = {optional = true, version = ">=0.3.0"} # flake8
 flake8-variables-names = {optional = true, version = ">=0.0.5"} # flake8
-invoke = ">=2.0.0"
+invoke = ">=2.1.0"
 mkdocs = {optional = true, version = ">=1.4.1"} # doc
 mkdocs-build-plantuml-plugin = {optional = true, version = ">=1.7.4"} # doc
 mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # doc
@@ -69,7 +69,7 @@ mkdocs-include-markdown-plugin = {markers = "python_version < '3.12'", optional 
 mkdocs-literate-nav = {optional = true, version = ">=0.5.0"} # doc
 mkdocs-material = {optional = true, version = ">=8.2.16"} # doc
 mkdocs-section-index = {optional = true, version = ">=0.3.4"} # doc
-mkdocstrings = {extras = ["python"], optional = true, version = ">=0.18.1"} # doc
+mkdocstrings = {extras = ["python"], optional = true, version = ">=0.21.1"} # doc
 mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.2"} # test
 pandas = {optional = true, version = ">=1.5.3"} # docs,tags
