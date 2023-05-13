@@ -165,6 +165,7 @@ def _inner_runner(*, func: Any, ctx: Context, show_task_info: bool, args: Any, k
         if not ctx.config.gto.keep_going:
             raise
         logger.exception('Task Failed', func=str(func), args=args, kwargs=kwargs)
+    return None
 
 
 @beartype

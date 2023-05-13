@@ -14,7 +14,7 @@ from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from corallium.file_helpers import read_lines
 from corallium.log import logger
 from corallium.shell import capture_shell
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 SKIP_PHRASE = 'calcipy_skip_tags'
 """String that indicates the file should be excluded from the tag search."""
@@ -141,6 +141,56 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
     return git_dir, repo_url
 
 
+class _CollectorRow(BaseModel):
+    """Each row of the Code Tag table."""
+
+    tag_name: str = Field(alias='Type')
+    comment: str = Field(alias='Comment')
+    last_edit: str = Field(alias='Last Edit')
+    source_file: str = Field(alias='Source File')
+
+    @classmethod
+    @beartype
+    def from_code_tag(cls, code_tag: _CodeTag, last_edit: str, source_file: str) -> '_CollectorRow':
+        return cls(
+            tag_name=f'{code_tag.tag:>7}',
+            comment=code_tag.text,
+            last_edit=last_edit,
+            source_file=source_file,
+        )
+
+
+@beartype
+def _format_from_blame(
+    *, collector_row: _CollectorRow, blame: str, repo_url: str, cwd: Path, rel_path: Path,
+) -> _CollectorRow:
+    """Parse the git blame for useful timestamps and author when available."""
+    # Note: line number may be different in older blame (and relative path)
+    revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
+    # If the change has not yet been committed, use the branch name as best guess
+    if all(_c == '0' for _c in revision):
+        revision = capture_shell('git branch --show-current', cwd=cwd)
+    # Format a nice timestamp of the last edit to the line
+    blame_dict = {
+        line.split(' ')[0]: ' '.join(line.split(' ')[1:])
+        for line in blame.split('\n')
+    }
+
+    # Handle uncommitted files that only have author-time and author-tz
+    user = 'committer' if 'committer-tz' in blame_dict else 'author'
+    dt = arrow.get(int(blame_dict[f'{user}-time']))
+    tz = blame_dict[f'{user}-tz'][:3] + ':' + blame_dict[f'{user}-tz'][-2:]
+    collector_row.ts = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
+
+    # Filename may not be present if uncommitted. Use local path as fallback
+    remote_file_path = blame_dict.get('filename', rel_path.as_posix())
+    # Assumes Github format
+    git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
+    collector_row.source_file = f'[{collector_row.source_file}]({git_url})'
+
+    return collector_row
+
+
 @beartype
 def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[str, str]:
     """Format each table row for the code tag summary file. Include git permalink.
@@ -156,47 +206,27 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
     """
     cwd = file_path.parent
     _git_dir, repo_url = _git_info(cwd=cwd)
-    blame = None
+
+    # Set fallback values if git logic doesn't work
+    rel_path = file_path.relative_to(base_dir)
+    collector_row = _CollectorRow.from_code_tag(
+        code_tag=comment,
+        last_edit='N/A',
+        source_file=f'{rel_path.as_posix()}:{comment.lineno}',
+    )
+
     try:
         blame = capture_shell(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)
+        collector_row = _format_from_blame(
+            collector_row=collector_row, blame=blame, repo_url=repo_url, cwd=cwd, rel_path=rel_path,
+        )
     except CalledProcessError as exc:
         handled_errors = (128,)
         if exc.returncode not in handled_errors:
             raise
         logger.text_debug('Skipping blame', file_path=file_path, exc=exc)
 
-    # Set fallback values if git logic doesn't work
-    rel_path = file_path.relative_to(base_dir)
-    source_file = f'{rel_path.as_posix()}:{comment.lineno}'
-    ts = 'N/A'
-    if blame:
-        # Note: line number may be different in older blame (and relative path)
-        revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
-        # If the change has not yet been committed, use the branch name as best guess
-        if all(_c == '0' for _c in revision):
-            revision = capture_shell('git branch --show-current', cwd=cwd)
-        # Format a nice timestamp of the last edit to the line
-        blame_dict = {
-            line.split(' ')[0]: ' '.join(line.split(' ')[1:])
-            for line in blame.split('\n')
-        }
-        # Handle uncommitted files that only have author-time and author-tz
-        user = 'committer' if 'committer-tz' in blame_dict else 'author'
-        dt = arrow.get(int(blame_dict[f'{user}-time']))
-        tz = blame_dict[f'{user}-tz'][:3] + ':' + blame_dict[f'{user}-tz'][-2:]
-        ts = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
-        # Filename may not be present if uncommitted. Use local path as fallback
-        remote_file_path = blame_dict.get('filename', rel_path.as_posix())
-        # Assumes Github
-        git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
-        source_file = f'[{source_file}]({git_url})'
-
-    return {
-        'Type': f'{comment.tag:>7}',
-        'Comment': comment.text,
-        'Last Edit': ts,
-        'Source File': source_file,
-    }
+    return collector_row.dict(by_alias=True)
 
 
 @beartype
@@ -256,9 +286,9 @@ def write_code_tag_file(
         path_tag_summary: Path to the output file
         paths_source: list of source files to parse
         base_dir: base directory relative to the searched files
-        regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`.
+        regex: compiled regular expression. Expected to have matching groups `(tag, text)`.
             Default is CODE_TAG_RE with tags from tag_order
-        tag_order: subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS
+        tags: subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS
         header: header text
 
     """

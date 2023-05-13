@@ -23,8 +23,7 @@ def can_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
     ```
 
     """
-    ts_prerequisites = [pth.stat().st_mtime for pth in prerequisites]
-    if not ts_prerequisites:
+    if not (ts_prerequisites := [pth.stat().st_mtime for pth in prerequisites]):
         raise ValueError('Required files do not exist', prerequisites)
 
     ts_targets = [pth.stat().st_mtime for pth in targets]

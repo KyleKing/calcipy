@@ -195,6 +195,7 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
     now = arrow.utcnow()
     stale_cutoff = now.shift(months=-1 * stale_months)
     stale_packages = [pack for pack in packages if not pack.datetime or pack.datetime < stale_cutoff]
+    # TODO: If no stale, write out five oldest?
     if stale_packages:
         pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
         stale_list = '\n'.join([format_package(_p) for _p in pkgs])

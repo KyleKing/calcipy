@@ -17,7 +17,7 @@ def _show_info(function: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> None:
 
 
 @beartype
-def run(test_path: Path) -> List[str]:  # noqa: C901,CAC001
+def run(test_path: Path) -> List[str]:  # noqa: C901,CAC001  # pylint: disable=too-complex
     """Check for duplicates in the test suite.
 
     Inspired by: https://stackoverflow.com/a/67840804/3219667
@@ -26,7 +26,7 @@ def run(test_path: Path) -> List[str]:  # noqa: C901,CAC001
     summary = set()
     duplicates = []
 
-    for path_test in test_path.rglob('test_*.py'):
+    for path_test in test_path.rglob('test_*.py'):  # pylint: disable=too-many-nested-blocks
         logger.info(path_test.as_posix())
         parsed_ast = ast.parse(path_test.read_text())
 
