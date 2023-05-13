@@ -14,7 +14,7 @@ from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from corallium.file_helpers import read_lines
 from corallium.log import logger
 from corallium.shell import capture_shell
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 SKIP_PHRASE = 'calcipy_skip_tags'
 """String that indicates the file should be excluded from the tag search."""
@@ -144,10 +144,10 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
 class _CollectorRow(BaseModel):
     """Each row of the Code Tag table."""
 
-    tag_name: str = Field(alias='Type')
-    comment: str = Field(alias='Comment')
-    last_edit: str = Field(alias='Last Edit')
-    source_file: str = Field(alias='Source File')
+    tag_name: str
+    comment: str
+    last_edit: str
+    source_file: str
 
     @classmethod
     @beartype
@@ -180,7 +180,7 @@ def _format_from_blame(
     user = 'committer' if 'committer-tz' in blame_dict else 'author'
     dt = arrow.get(int(blame_dict[f'{user}-time']))
     tz = blame_dict[f'{user}-tz'][:3] + ':' + blame_dict[f'{user}-tz'][-2:]
-    collector_row.ts = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
+    collector_row.last_edit = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
 
     # Filename may not be present if uncommitted. Use local path as fallback
     remote_file_path = blame_dict.get('filename', rel_path.as_posix())
@@ -192,7 +192,7 @@ def _format_from_blame(
 
 
 @beartype
-def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[str, str]:
+def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _CollectorRow:
     """Format each table row for the code tag summary file. Include git permalink.
 
     Args:
@@ -226,7 +226,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> Dict[s
             raise
         logger.text_debug('Skipping blame', file_path=file_path, exc=exc)
 
-    return collector_row.dict(by_alias=True)
+    return collector_row
 
 
 @beartype
@@ -250,7 +250,13 @@ def _format_report(  # noqa: CAC001
     for comments in sorted(code_tags, key=lambda tc: tc.path_source, reverse=False):
         for comment in comments.code_tags:
             if comment.tag in tag_order:
-                records.append(_format_record(base_dir, comments.path_source, comment))
+                collector_row = _format_record(base_dir, comments.path_source, comment)
+                records.append({
+                    'Type': collector_row.tag_name,
+                    'Comment': collector_row.comment,
+                    'Last Edit': collector_row.last_edit,
+                    'Source File': collector_row.source_file,
+                })
                 counter[comment.tag] += 1
     if records:
         df_tags = pd.DataFrame(records)
