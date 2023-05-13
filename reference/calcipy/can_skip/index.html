@@ -21,7 +21,7 @@
         <link rel="next" href="../check_for_stale_packages/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.7">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ded33207.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.85bb2934.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a6bdf11c.min.css">
       
       
 
@@ -123,15 +123,17 @@
       </div>
     </div>
     
-      <form class="md-header__option" data-md-component="palette">
-        
+      
+        <form class="md-header__option" data-md-component="palette">
           
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+            
           
-          
-          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
-          
-        
-      </form>
+        </form>
+      
     
     
     
@@ -1274,15 +1276,14 @@
 <span class="linenos" data-linenos="23 "></span><span class="sd">    ```</span>
 <span class="linenos" data-linenos="24 "></span>
 <span class="linenos" data-linenos="25 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="26 "></span>    <span class="n">ts_prerequisites</span> <span class="o">=</span> <span class="p">[</span><span class="n">pth</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span> <span class="k">for</span> <span class="n">pth</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">]</span>
-<span class="linenos" data-linenos="27 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">ts_prerequisites</span><span class="p">:</span>
-<span class="linenos" data-linenos="28 "></span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Required files do not exist&#39;</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">)</span>
-<span class="linenos" data-linenos="29 "></span>
-<span class="linenos" data-linenos="30 "></span>    <span class="n">ts_targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">pth</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span> <span class="k">for</span> <span class="n">pth</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">]</span>
-<span class="linenos" data-linenos="31 "></span>    <span class="k">if</span> <span class="n">ts_targets</span> <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">ts_targets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">ts_prerequisites</span><span class="p">):</span>
-<span class="linenos" data-linenos="32 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Skipping because targets are newer&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
-<span class="linenos" data-linenos="33 "></span>        <span class="k">return</span> <span class="kc">True</span>
-<span class="linenos" data-linenos="34 "></span>    <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos" data-linenos="26 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">ts_prerequisites</span> <span class="o">:=</span> <span class="p">[</span><span class="n">pth</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span> <span class="k">for</span> <span class="n">pth</span> <span class="ow">in</span> <span class="n">prerequisites</span><span class="p">]):</span>
+<span class="linenos" data-linenos="27 "></span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Required files do not exist&#39;</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">)</span>
+<span class="linenos" data-linenos="28 "></span>
+<span class="linenos" data-linenos="29 "></span>    <span class="n">ts_targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">pth</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span> <span class="k">for</span> <span class="n">pth</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">]</span>
+<span class="linenos" data-linenos="30 "></span>    <span class="k">if</span> <span class="n">ts_targets</span> <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">ts_targets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">ts_prerequisites</span><span class="p">):</span>
+<span class="linenos" data-linenos="31 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Skipping because targets are newer&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
+<span class="linenos" data-linenos="32 "></span>        <span class="k">return</span> <span class="kc">True</span>
+<span class="linenos" data-linenos="33 "></span>    <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
       </details>
   </div>
@@ -1307,11 +1308,11 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/can_skip.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="37 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="38 "></span><span class="k">def</span> <span class="nf">dont_skip</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos" data-linenos="39 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;To use for testing with mock; always returns False.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="40 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Mocking can_skip&#39;</span><span class="p">,</span> <span class="n">prerequisites</span><span class="o">=</span><span class="n">prerequisites</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
-<span class="linenos" data-linenos="41 "></span>    <span class="k">return</span> <span class="kc">False</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="36 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="37 "></span><span class="k">def</span> <span class="nf">dont_skip</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos" data-linenos="38 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;To use for testing with mock; always returns False.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="39 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Mocking can_skip&#39;</span><span class="p">,</span> <span class="n">prerequisites</span><span class="o">=</span><span class="n">prerequisites</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
+<span class="linenos" data-linenos="40 "></span>    <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
       </details>
   </div>
@@ -1331,11 +1332,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 22, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2023</span>
       
     
   </small>
@@ -1380,7 +1381,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.fac441b0.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
