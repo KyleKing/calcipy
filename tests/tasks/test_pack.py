@@ -3,12 +3,16 @@ from unittest.mock import call
 import pytest
 
 from calcipy import can_skip
-from calcipy.tasks.pack import check_licenses, lock, publish
+from calcipy.tasks.pack import check_licenses, install_extras, lock, publish
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
+        (install_extras, {}, [call(
+            'poetry install --sync --extras=ddict --extras=doc --extras=flake8 --extras=lint'
+            ' --extras=nox --extras=pylint --extras=stale --extras=tags --extras=test --extras=types',
+        )]),
         (lock, {}, [call('poetry lock --no-update')]),
         (publish, {}, [
             'poetry run nox --error-on-missing-interpreters --session build_dist build_check',

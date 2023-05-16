@@ -1,5 +1,6 @@
 """Packaging CLI."""
 
+from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import LOCK, PROJECT_TOML
 from corallium.log import logger
 from invoke import Context
@@ -8,6 +9,14 @@ from .. import can_skip  # Required for mocking can_skip.can_skip
 from ..cli import task
 from ..invoke_helpers import run
 from ..noxfile._noxfile import BASE_NOX_COMMAND
+
+
+@task()
+def install_extras(ctx: Context) -> None:
+    """Run poetry install with all extras."""
+    poetry_config = file_helpers.read_pyproject()['tool']['poetry']
+    extras = (poetry_config.get('extras') or {}).keys()
+    run(ctx, ' '.join(['poetry install --sync', *[f'--extras={ex}' for ex in extras]]))
 
 
 @task()
