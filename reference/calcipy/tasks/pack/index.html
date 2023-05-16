@@ -1049,6 +1049,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#calcipy.tasks.pack.install_extras" class="md-nav__link">
+    install_extras()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#calcipy.tasks.pack.lock" class="md-nav__link">
     lock()
   </a>
@@ -1206,6 +1213,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#calcipy.tasks.pack.install_extras" class="md-nav__link">
+    install_extras()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#calcipy.tasks.pack.lock" class="md-nav__link">
     lock()
   </a>
@@ -1282,14 +1296,44 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="37 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="38 "></span><span class="k">def</span> <span class="nf">check_licenses</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="39 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check licenses for compatibility with `licensecheck`.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="40 "></span>    <span class="n">res</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;which licensecheck&#39;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="41 "></span>    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos" data-linenos="42 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;`licensecheck` not found. installing with pipx&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="43 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pipx install licensecheck&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="44 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;licensecheck&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">check_licenses</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check licenses for compatibility with `licensecheck`.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="49 "></span>    <span class="n">res</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;which licensecheck&#39;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos" data-linenos="51 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;`licensecheck` not found. installing with pipx&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="52 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pipx install licensecheck&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="53 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;licensecheck&#39;</span><span class="p">)</span>
+</code></pre></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="calcipy.tasks.pack.install_extras" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">install_extras</span>
+
+
+<a href="#calcipy.tasks.pack.install_extras" class="headerlink" title="Permanent link">⚓︎</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">install_extras</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Run poetry install with all extras.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="14 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="15 "></span><span class="k">def</span> <span class="nf">install_extras</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="16 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run poetry install with all extras.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="17 "></span>    <span class="n">poetry_config</span> <span class="o">=</span> <span class="n">file_helpers</span><span class="o">.</span><span class="n">read_pyproject</span><span class="p">()[</span><span class="s1">&#39;tool&#39;</span><span class="p">][</span><span class="s1">&#39;poetry&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos="18 "></span>    <span class="n">extras</span> <span class="o">=</span> <span class="p">(</span><span class="n">poetry_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extras&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="linenos" data-linenos="19 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;poetry install --sync&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;--extras=</span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">extras</span><span class="p">]]))</span>
 </code></pre></div>
       </details>
   </div>
@@ -1314,13 +1358,13 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="13 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="14 "></span><span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="15 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure poetry.lock is  up-to-date.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="16 "></span>    <span class="k">if</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">PROJECT_TOML</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">LOCK</span><span class="p">]):</span>
-<span class="linenos" data-linenos="17 "></span>        <span class="k">return</span>  <span class="c1"># Exit early</span>
-<span class="linenos" data-linenos="18 "></span>
-<span class="linenos" data-linenos="19 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;poetry lock --no-update&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="22 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="23 "></span><span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="24 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure poetry.lock is  up-to-date.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="k">if</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">PROJECT_TOML</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">LOCK</span><span class="p">]):</span>
+<span class="linenos" data-linenos="26 "></span>        <span class="k">return</span>  <span class="c1"># Exit early</span>
+<span class="linenos" data-linenos="27 "></span>
+<span class="linenos" data-linenos="28 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;poetry lock --no-update&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1345,19 +1389,19 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="22 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="23 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="24 "></span>        <span class="s1">&#39;to_test_pypi&#39;</span><span class="p">:</span> <span class="s1">&#39;Publish to the TestPyPi repository&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="25 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="26 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="27 "></span><span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">to_test_pypi</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="28 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the distributed format(s) and publish.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="29 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BASE_NOX_COMMAND</span><span class="si">}</span><span class="s1"> --session build_dist build_check&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="30 "></span>
-<span class="linenos" data-linenos="31 "></span>    <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;poetry publish&#39;</span>
-<span class="linenos" data-linenos="32 "></span>    <span class="k">if</span> <span class="n">to_test_pypi</span><span class="p">:</span>
-<span class="linenos" data-linenos="33 "></span>        <span class="n">cmd</span> <span class="o">+=</span> <span class="s1">&#39; --repository testpypi&#39;</span>
-<span class="linenos" data-linenos="34 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="31 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="33 "></span>        <span class="s1">&#39;to_test_pypi&#39;</span><span class="p">:</span> <span class="s1">&#39;Publish to the TestPyPi repository&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="34 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="35 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="36 "></span><span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">to_test_pypi</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="37 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the distributed format(s) and publish.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="38 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BASE_NOX_COMMAND</span><span class="si">}</span><span class="s1"> --session build_dist build_check&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="39 "></span>
+<span class="linenos" data-linenos="40 "></span>    <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;poetry publish&#39;</span>
+<span class="linenos" data-linenos="41 "></span>    <span class="k">if</span> <span class="n">to_test_pypi</span><span class="p">:</span>
+<span class="linenos" data-linenos="42 "></span>        <span class="n">cmd</span> <span class="o">+=</span> <span class="s1">&#39; --repository testpypi&#39;</span>
+<span class="linenos" data-linenos="43 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1377,11 +1421,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 13, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2023</span>
       
     
   </small>
