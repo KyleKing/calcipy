@@ -2,6 +2,10 @@
 
 ### Fix
 
+- add pack.install-extras
+- bump minimum pymdown dependency
+- pydantic alias doesn't work like that
+- refactor for higher pylint quality
 - update the help string to include --keep-going
 - support branch coverage
 - move pyright to 'main' tasks
@@ -204,6 +208,9 @@
 - move can_skip to shoal
 - nest invoke-specific code in tasks/
 
+
+- drop pytest-html and conftest completely
+
 ## 0.21.6 (2023-01-31)
 
 ### Feat
@@ -392,6 +399,9 @@
 - handle prefix of "*"
 - improve error message when "releases" not present
 - use sqlite3 for pre-commit concurrent doit access
+
+
+- bump Python to 3.8.4 and drop 3.7
 
 ## 0.14.5 (2022-03-05)
 
