@@ -96,7 +96,7 @@ def security(ctx: Context) -> None:
     #   https://semgrep.dev/explore
     #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
     #   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45
-    semgrep_configs = ' '.join([
+    semgrep_configs = ' '.join([  # noqa: FLY002
         '--config=p/ci',
         '--config=p/default',
         '--config=p/security-audit',

@@ -18,7 +18,7 @@ from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint,
         (pylint, {}, ['poetry run python -m pylint ./calcipy ./tests']),
         (security, {}, [
             'poetry run bandit --recursive calcipy -s B101',
-            'poetry run semgrep ci --autofix ' + ' '.join([
+            'poetry run semgrep ci --autofix ' + ' '.join([  # noqa: FLY002
                 '--config=p/ci',
                 '--config=p/default',
                 '--config=p/security-audit',
