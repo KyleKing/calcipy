@@ -50,7 +50,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/can_skip.py`                                           |           17 |         1 |          0 | 92.9%      |
 | `calcipy/check_for_stale_packages/__init__.py`                  |            4 |         2 |          0 | 50.0%      |
 | `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          109 |         9 |          3 | 90.9%      |
-| `calcipy/cli.py`                                                |           91 |        22 |         13 | 69.8%      |
+| `calcipy/cli.py`                                                |           93 |        22 |         13 | 70.2%      |
 | `calcipy/code_tag_collector/__init__.py`                        |            4 |         2 |          0 | 50.0%      |
 | `calcipy/code_tag_collector/_collector.py`                      |          138 |         2 |          0 | 97.1%      |
 | `calcipy/dot_dict/__init__.py`                                  |            4 |         2 |          0 | 50.0%      |
@@ -58,16 +58,16 @@ poetry config pypi-token.pypi ...
 | `calcipy/experiments/__init__.py`                               |            0 |         0 |          0 | 100.0%     |
 | `calcipy/experiments/check_duplicate_test_names.py`             |           36 |         0 |          2 | 98.3%      |
 | `calcipy/file_search.py`                                        |           38 |         0 |          2 | 100.0%     |
-| `calcipy/invoke_helpers.py`                                     |           31 |         3 |          0 | 90.6%      |
+| `calcipy/invoke_helpers.py`                                     |           35 |         4 |          0 | 88.1%      |
 | `calcipy/md_writer/__init__.py`                                 |            4 |         2 |          0 | 50.0%      |
 | `calcipy/md_writer/_writer.py`                                  |           95 |         7 |          0 | 91.9%      |
 | `calcipy/noxfile/__init__.py`                                   |            4 |         2 |          0 | 50.0%      |
 | `calcipy/noxfile/_noxfile.py`                                   |           52 |         2 |         32 | 95.3%      |
-| `calcipy/scripts.py`                                            |           10 |         0 |         23 | 100.0%     |
+| `calcipy/scripts.py`                                            |           11 |         0 |         23 | 100.0%     |
 | `calcipy/tasks/__init__.py`                                     |            0 |         0 |          0 | 100.0%     |
-| `calcipy/tasks/all_tasks.py`                                    |           43 |         2 |          0 | 96.6%      |
+| `calcipy/tasks/all_tasks.py`                                    |           47 |         2 |          0 | 96.8%      |
 | `calcipy/tasks/cl.py`                                           |           26 |         6 |          0 | 76.5%      |
-| `calcipy/tasks/defaults.py`                                     |           19 |         0 |          0 | 92.6%      |
+| `calcipy/tasks/defaults.py`                                     |           20 |         0 |          0 | 92.9%      |
 | `calcipy/tasks/doc.py`                                          |           44 |         0 |          8 | 100.0%     |
 | `calcipy/tasks/lint.py`                                         |           54 |         1 |          0 | 92.9%      |
 | `calcipy/tasks/nox.py`                                          |            8 |         0 |          0 | 100.0%     |
@@ -76,7 +76,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         |           15 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/test.py`                                         |           44 |         1 |          2 | 95.3%      |
 | `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
-| **Totals**                                                      |          955 |        72 |         85 | 91.2%      |
+| **Totals**                                                      |          967 |        73 |         85 | 91.2%      |
 
-Generated on: 2023-05-16
+Generated on: 2023-05-17
 <!-- {cte} -->

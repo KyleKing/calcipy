@@ -2,6 +2,17 @@
 
 ### Fix
 
+- resolve typing and import errors
+- upgrade to invoke 2.1.2
+
+### Refactor
+
+- suppress ruff autofix
+
+## 1.2.4 (2023-05-16)
+
+### Fix
+
 - add pack.install-extras
 - bump minimum pymdown dependency
 - pydantic alias doesn't work like that
