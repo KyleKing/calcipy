@@ -1,6 +1,6 @@
 """Stale Packages CLI."""
 
-from invoke import Context
+from invoke.context import Context
 
 from ..check_for_stale_packages import check_for_stale_packages as cfsp
 from ..cli import task

@@ -3,7 +3,7 @@
 from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import LOCK, PROJECT_TOML
 from corallium.log import logger
-from invoke import Context
+from invoke.context import Context
 
 from .. import can_skip  # Required for mocking can_skip.can_skip
 from ..cli import task

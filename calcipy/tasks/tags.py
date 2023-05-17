@@ -3,7 +3,7 @@
 from pathlib import Path
 
 from beartype.typing import Optional
-from invoke import Context
+from invoke.context import Context
 
 from ..cli import task
 from ..code_tag_collector import write_code_tag_file

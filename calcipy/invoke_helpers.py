@@ -9,7 +9,7 @@ from pathlib import Path
 from beartype import beartype
 from beartype.typing import Any, Optional
 from corallium.file_helpers import COPIER_ANSWERS, read_yaml_file
-from invoke import Context, Result
+from invoke.context import Context, Result
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General Invoke

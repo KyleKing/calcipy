@@ -2,7 +2,7 @@
 
 from beartype import beartype
 from corallium.file_helpers import read_package_name
-from invoke import Context
+from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import run

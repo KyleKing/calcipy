@@ -5,7 +5,7 @@ from pathlib import Path
 from beartype import beartype
 from beartype.typing import Optional
 from corallium.file_helpers import open_in_browser, read_package_name
-from invoke import Context
+from invoke.context import Context
 
 from ..cli import task
 from ..experiments import check_duplicate_test_names

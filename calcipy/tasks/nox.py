@@ -1,6 +1,6 @@
 """Nox CLI."""
 
-from invoke import Context
+from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import run

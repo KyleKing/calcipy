@@ -2,7 +2,7 @@
 
 from beartype import beartype
 from beartype.typing import Literal, Optional
-from invoke import Context
+from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import get_doc_subdir, get_project_path, run

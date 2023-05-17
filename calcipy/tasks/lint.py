@@ -6,7 +6,7 @@ from beartype import beartype
 from beartype.typing import Optional
 from corallium.file_helpers import read_package_name
 from corallium.log import logger
-from invoke import Context
+from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import run

@@ -14,7 +14,7 @@ from corallium.file_helpers import (
     read_yaml_file,
     trim_trailing_whitespace,
 )
-from invoke import Context
+from invoke.context import Context
 from invoke.exceptions import UnexpectedExit
 
 from ..cli import task
