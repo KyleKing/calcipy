@@ -5,7 +5,8 @@ from contextlib import suppress
 from pathlib import Path
 
 from beartype import beartype
-from invoke import Collection, Context
+from invoke.collection import Collection
+from invoke.context import Context
 
 DEFAULTS = {
     'tags': {

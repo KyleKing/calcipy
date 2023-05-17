@@ -4,6 +4,7 @@ from types import ModuleType
 
 from beartype import beartype
 from beartype.typing import List
+from invoke.collection import Collection
 
 from . import __pkg_name__, __version__
 from .cli import start_program
@@ -23,7 +24,7 @@ def _start_subset(modules: List[ModuleType]) -> None:  # pragma: no cover
 
     ns = new_collection()
     for module in modules:
-        ns.add_collection(module)
+        ns.add_collection(Collection.from_module(module))
 
     start_program(__pkg_name__, __version__, collection=ns)
 

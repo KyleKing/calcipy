@@ -10,9 +10,11 @@ from types import ModuleType
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.log import configure_logger, logger
-from invoke import Collection, Config, Context, Program, Task
-from invoke import task as invoke_task  # noqa: TID251
-from invoke.config import merge_dicts
+from invoke.collection import Collection
+from invoke.config import Config, merge_dicts
+from invoke.context import Context
+from invoke.program import Program
+from invoke.tasks import task as invoke_task  # noqa: TID251
 from pydantic import BaseModel, Field, PositiveInt
 
 from .invoke_helpers import use_pty
@@ -34,7 +36,7 @@ class GlobalTaskOptions(BaseModel):
     """Continue task execution regardless of failure."""
 
 
-class _CalcipyProgram(Program):  # type: ignore[misc]
+class _CalcipyProgram(Program):
     """Customized version of Invoke's `Program`."""
 
     def print_help(self) -> None:  # pragma: no cover
@@ -55,7 +57,7 @@ class _CalcipyProgram(Program):  # type: ignore[misc]
         print('')  # noqa: T201
 
 
-class CalcipyConfig(Config):  # type: ignore[misc]
+class CalcipyConfig(Config):
     """Opinionated Config with better defaults."""
 
     @staticmethod
@@ -69,7 +71,7 @@ class CalcipyConfig(Config):  # type: ignore[misc]
                 'pty': use_pty(),
             },
         }
-        return merge_dicts(invoke_defaults, calcipy_defaults)  # type: ignore[no-any-return]
+        return merge_dicts(invoke_defaults, calcipy_defaults)
 
 
 @beartype
@@ -168,16 +170,17 @@ def _inner_runner(*, func: Any, ctx: Context, show_task_info: bool, args: Any, k
     return None
 
 
+# TODO: Can I type this function with fewer Any's?
 @beartype
-def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Callable[[Any], Task]:
+def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Callable[[Any], Any]:
     """Wrapper to accept arguments for an invoke task."""
     @beartype
-    def wrapper(func: Any) -> Task:  # noqa: ANN001
+    def wrapper(func: Any) -> Any:  # noqa: ANN001
         """Wraps the decorated task."""
-        @invoke_task(*task_args, **task_kwargs)  # type: ignore[misc]
+        @invoke_task(*task_args, **task_kwargs)
         @beartype
         @wraps(func)
-        def inner(ctx: Context, *args: Any, **kwargs: Any) -> Task:
+        def inner(ctx: Context, *args: Any, **kwargs: Any) -> Any:
             """Wrap the task with settings configured in `gto` for working_dir and logging."""
             return _inner_runner(func=func, ctx=ctx, show_task_info=show_task_info, args=args, kwargs=kwargs)
         return inner

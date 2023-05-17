@@ -9,7 +9,8 @@ from pathlib import Path
 from beartype import beartype
 from beartype.typing import Any, Optional
 from corallium.file_helpers import COPIER_ANSWERS, read_yaml_file
-from invoke.context import Context, Result
+from invoke.context import Context
+from invoke.runners import Result
 
 # ----------------------------------------------------------------------------------------------------------------------
 # General Invoke
@@ -32,7 +33,10 @@ def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Result:
         working_dir = ctx.config.gto.working_dir
 
     with ctx.cd(working_dir):
-        return ctx.run(*run_args, **run_kwargs)
+        res = ctx.run(*run_args, **run_kwargs)
+    if not res:
+        raise NotImplementedError('No response from `ctx.run`')
+    return res
 
 
 # ----------------------------------------------------------------------------------------------------------------------

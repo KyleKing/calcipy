@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from beartype import beartype
 from beartype.typing import Dict
-from invoke import MockContext
+from invoke.context import MockContext
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
 

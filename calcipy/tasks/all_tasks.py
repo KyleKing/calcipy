@@ -1,9 +1,11 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
 from beartype import beartype
-from beartype.typing import List, Union
+from beartype.typing import Any, List, Union
 from corallium.log import logger
-from invoke import Call, Context, Task, call
+from invoke.collection import Collection
+from invoke.context import Context
+from invoke.tasks import Call, Task, call
 
 from ..cli import task
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
@@ -12,15 +14,15 @@ from .defaults import new_collection
 # "ns" will be recognized by Collection.from_module(all_tasks)
 # https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module
 ns = new_collection()
-ns.add_collection(cl)
-ns.add_collection(doc)
-ns.add_collection(lint)
-ns.add_collection(nox)
-ns.add_collection(pack)
-ns.add_collection(stale)
-ns.add_collection(tags)
-ns.add_collection(test)
-ns.add_collection(types)
+ns.add_collection(Collection.from_module(cl))
+ns.add_collection(Collection.from_module(doc))
+ns.add_collection(Collection.from_module(lint))
+ns.add_collection(Collection.from_module(nox))
+ns.add_collection(Collection.from_module(pack))
+ns.add_collection(Collection.from_module(stale))
+ns.add_collection(Collection.from_module(tags))
+ns.add_collection(Collection.from_module(test))
+ns.add_collection(Collection.from_module(types))
 
 
 @task(
@@ -46,11 +48,15 @@ def progress(_ctx: Context, *, index: int, total: int) -> None:
     logger.text('Progress', is_header=True, index=index + 1, total=total)
 
 
+TaskListT = List[Union[Call, Task[Any]]]
+"""List of wrapped or normal task functions."""
+
+
 @beartype
 def with_progress(
-    items: List[Union[Call, Task]],
+    items: TaskListT,
     offset: int = 0,
-) -> List[Union[Call, Task]]:
+) -> TaskListT:
     """Inject intermediary 'progress' tasks.
 
     Args:
@@ -59,7 +65,7 @@ def with_progress(
 
     """
     message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in items])
-    tasks = [call(summary, message=message)]
+    tasks: TaskListT = [call(summary, message=message)]
     total = len(items) + offset
     for ix, item in enumerate(items):
         tasks.extend([call(progress, index=ix + offset, total=total), item])  # pyright: ignore[reportGeneralTypeIssues]
