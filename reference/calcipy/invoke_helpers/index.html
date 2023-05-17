@@ -21,7 +21,7 @@
         <link rel="next" href="../md_writer/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.13">
     
     
       
@@ -1332,20 +1332,20 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="49 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="50 "></span><span class="k">def</span> <span class="nf">get_doc_subdir</span><span class="p">(</span><span class="n">path_project</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="linenos" data-linenos="51 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the documentation directory from the copier answer file.</span>
-<span class="linenos" data-linenos="52 "></span>
-<span class="linenos" data-linenos="53 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="54 "></span><span class="sd">        path_project: Path to the project directory with contains `.copier-answers.yml`</span>
-<span class="linenos" data-linenos="55 "></span>
-<span class="linenos" data-linenos="56 "></span><span class="sd">    Returns:</span>
-<span class="linenos" data-linenos="57 "></span><span class="sd">        Path: to the source documentation directory</span>
-<span class="linenos" data-linenos="58 "></span>
-<span class="linenos" data-linenos="59 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="60 "></span>    <span class="n">path_copier</span> <span class="o">=</span> <span class="p">(</span><span class="n">path_project</span> <span class="ow">or</span> <span class="n">get_project_path</span><span class="p">())</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
-<span class="linenos" data-linenos="61 "></span>    <span class="n">doc_dir</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">path_copier</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doc_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;docs&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="62 "></span>    <span class="k">return</span> <span class="n">path_copier</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">doc_dir</span> <span class="o">/</span> <span class="s1">&#39;docs&#39;</span>  <span class="c1"># type: ignore[no-any-return]</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="53 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="54 "></span><span class="k">def</span> <span class="nf">get_doc_subdir</span><span class="p">(</span><span class="n">path_project</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="linenos" data-linenos="55 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the documentation directory from the copier answer file.</span>
+<span class="linenos" data-linenos="56 "></span>
+<span class="linenos" data-linenos="57 "></span><span class="sd">    Args:</span>
+<span class="linenos" data-linenos="58 "></span><span class="sd">        path_project: Path to the project directory with contains `.copier-answers.yml`</span>
+<span class="linenos" data-linenos="59 "></span>
+<span class="linenos" data-linenos="60 "></span><span class="sd">    Returns:</span>
+<span class="linenos" data-linenos="61 "></span><span class="sd">        Path: to the source documentation directory</span>
+<span class="linenos" data-linenos="62 "></span>
+<span class="linenos" data-linenos="63 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="64 "></span>    <span class="n">path_copier</span> <span class="o">=</span> <span class="p">(</span><span class="n">path_project</span> <span class="ow">or</span> <span class="n">get_project_path</span><span class="p">())</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
+<span class="linenos" data-linenos="65 "></span>    <span class="n">doc_dir</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">path_copier</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doc_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;docs&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="66 "></span>    <span class="k">return</span> <span class="n">path_copier</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">doc_dir</span> <span class="o">/</span> <span class="s1">&#39;docs&#39;</span>  <span class="c1"># type: ignore[no-any-return]</span>
 </code></pre></div>
       </details>
   </div>
@@ -1374,11 +1374,11 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="42 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos" data-linenos="43 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="44 "></span><span class="k">def</span> <span class="nf">get_project_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="linenos" data-linenos="45 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the `cwd`.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="46 "></span>    <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos" data-linenos="47 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="48 "></span><span class="k">def</span> <span class="nf">get_project_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="linenos" data-linenos="49 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the `cwd`.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 </code></pre></div>
       </details>
   </div>
@@ -1403,15 +1403,18 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="27 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="28 "></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="n">run_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
-<span class="linenos" data-linenos="29 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrap invoke.run to run within the `working_dir`.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="30 "></span>    <span class="n">working_dir</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
-<span class="linenos" data-linenos="31 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
-<span class="linenos" data-linenos="32 "></span>        <span class="n">working_dir</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">working_dir</span>
-<span class="linenos" data-linenos="33 "></span>
-<span class="linenos" data-linenos="34 "></span>    <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="n">working_dir</span><span class="p">):</span>
-<span class="linenos" data-linenos="35 "></span>        <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">run_args</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="28 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="29 "></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="n">run_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
+<span class="linenos" data-linenos="30 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrap invoke.run to run within the `working_dir`.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="31 "></span>    <span class="n">working_dir</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+<span class="linenos" data-linenos="33 "></span>        <span class="n">working_dir</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">working_dir</span>
+<span class="linenos" data-linenos="34 "></span>
+<span class="linenos" data-linenos="35 "></span>    <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="n">working_dir</span><span class="p">):</span>
+<span class="linenos" data-linenos="36 "></span>        <span class="n">res</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">run_args</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">)</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="p">:</span>
+<span class="linenos" data-linenos="38 "></span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;No response from `ctx.run`&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="39 "></span>    <span class="k">return</span> <span class="n">res</span>
 </code></pre></div>
       </details>
   </div>
@@ -1440,13 +1443,13 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="18 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos" data-linenos="19 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="20 "></span><span class="k">def</span> <span class="nf">use_pty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos" data-linenos="21 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns False on Windows and some CI environments.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="22 "></span>    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
-<span class="linenos" data-linenos="23 "></span>        <span class="k">return</span> <span class="kc">False</span>
-<span class="linenos" data-linenos="24 "></span>    <span class="k">return</span> <span class="ow">not</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GITHUB_ACTION&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="19 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos" data-linenos="20 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="21 "></span><span class="k">def</span> <span class="nf">use_pty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos" data-linenos="22 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns False on Windows and some CI environments.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="23 "></span>    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+<span class="linenos" data-linenos="24 "></span>        <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="k">return</span> <span class="ow">not</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GITHUB_ACTION&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1466,11 +1469,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 17, 2023</span>
       
     
   </small>
@@ -1515,7 +1518,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
