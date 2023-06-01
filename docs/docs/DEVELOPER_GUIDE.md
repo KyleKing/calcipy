@@ -78,5 +78,5 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
 | **Totals**                                                      |          967 |        73 |         85 | 91.2%      |
 
-Generated on: 2023-05-23
+Generated on: 2023-05-31
 <!-- {cte} -->

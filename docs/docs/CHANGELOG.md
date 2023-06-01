@@ -2,6 +2,12 @@
 
 ### Fix
 
+- ignore new TD002 & TD003 linting rules
+
+## 1.2.5 (2023-05-23)
+
+### Fix
+
 - resolve typing and import errors
 - upgrade to invoke 2.1.2
 

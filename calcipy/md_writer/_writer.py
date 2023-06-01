@@ -152,7 +152,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
 
     line_start = f'<!-- {{cts}} {key}={path_rel}; -->'
     line_end = '<!-- {cte} -->'
-    return [line_start, *lines_source] + [line_end]
+    return [line_start, *lines_source, line_end]
 
 
 @beartype
@@ -213,7 +213,7 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
     coverage_data = json.loads(path_coverage.read_text())
     lines_cov = _format_cov_table(coverage_data)
     line_end = '<!-- {cte} -->'
-    return [line, *lines_cov] + [line_end]
+    return [line, *lines_cov, line_end]
 
 
 @beartype

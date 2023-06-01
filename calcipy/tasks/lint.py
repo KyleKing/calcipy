@@ -12,7 +12,7 @@ from ..cli import task
 from ..invoke_helpers import run
 
 # ==============================================================================
-# Ruff
+# Linting
 
 
 @beartype
