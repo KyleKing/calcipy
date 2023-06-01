@@ -18,36 +18,36 @@
 <polyline fill="none" stroke="black" points="0,-356.5 173,-356.5 "/>
 <text text-anchor="start" x="8" y="-341.3" font-family="Times,serif" font-size="14.00">global_defaults(): Dict</text>
 </g>
-<!-- calcipy.code_tag_collector._collector._CodeTag.Config -->
+<!-- calcipy.check_for_stale_packages._check_for_stale_packages._HostedPythonPackage.Config -->
 <g id="node2" class="node">
+<title>calcipy.check_for_stale_packages._check_for_stale_packages._HostedPythonPackage.Config</title>
+<polygon fill="none" stroke="black" points="184.5,-45.5 184.5,-129.5 416.5,-129.5 416.5,-45.5 184.5,-45.5"/>
+<text text-anchor="start" x="277.5" y="-114.3" font-family="Times,serif" font-size="14.00">Config</text>
+<polyline fill="none" stroke="black" points="184.5,-106.5 416.5,-106.5 "/>
+<text text-anchor="start" x="192.5" y="-91.3" font-family="Times,serif" font-size="14.00">arbitrary_types_allowed : bool</text>
+<text text-anchor="start" x="192.5" y="-76.3" font-family="Times,serif" font-size="14.00">json_encoders : dict</text>
+<polyline fill="none" stroke="black" points="184.5,-68.5 416.5,-68.5 "/>
+<text text-anchor="start" x="298" y="-53.3" font-family="Times,serif" font-size="14.00"> </text>
+</g>
+<!-- calcipy.code_tag_collector._collector._CodeTag.Config -->
+<g id="node3" class="node">
 <title>calcipy.code_tag_collector._collector._CodeTag.Config</title>
-<polygon fill="none" stroke="black" points="185,-53 185,-122 290,-122 290,-53 185,-53"/>
-<text text-anchor="start" x="214.5" y="-106.8" font-family="Times,serif" font-size="14.00">Config</text>
-<polyline fill="none" stroke="black" points="185,-99 290,-99 "/>
-<text text-anchor="start" x="193" y="-83.8" font-family="Times,serif" font-size="14.00">frozen : bool</text>
-<polyline fill="none" stroke="black" points="185,-76 290,-76 "/>
-<text text-anchor="start" x="235" y="-60.8" font-family="Times,serif" font-size="14.00"> </text>
+<polygon fill="none" stroke="black" points="435,-53 435,-122 540,-122 540,-53 435,-53"/>
+<text text-anchor="start" x="464.5" y="-106.8" font-family="Times,serif" font-size="14.00">Config</text>
+<polyline fill="none" stroke="black" points="435,-99 540,-99 "/>
+<text text-anchor="start" x="443" y="-83.8" font-family="Times,serif" font-size="14.00">frozen : bool</text>
+<polyline fill="none" stroke="black" points="435,-76 540,-76 "/>
+<text text-anchor="start" x="485" y="-60.8" font-family="Times,serif" font-size="14.00"> </text>
 </g>
 <!-- calcipy.code_tag_collector._collector._Tags.Config -->
-<g id="node3" class="node">
-<title>calcipy.code_tag_collector._collector._Tags.Config</title>
-<polygon fill="none" stroke="black" points="308,-53 308,-122 413,-122 413,-53 308,-53"/>
-<text text-anchor="start" x="337.5" y="-106.8" font-family="Times,serif" font-size="14.00">Config</text>
-<polyline fill="none" stroke="black" points="308,-99 413,-99 "/>
-<text text-anchor="start" x="316" y="-83.8" font-family="Times,serif" font-size="14.00">frozen : bool</text>
-<polyline fill="none" stroke="black" points="308,-76 413,-76 "/>
-<text text-anchor="start" x="358" y="-60.8" font-family="Times,serif" font-size="14.00"> </text>
-</g>
-<!-- calcipy.check_for_stale_packages._check_for_stale_packages._HostedPythonPackage.Config -->
 <g id="node4" class="node">
-<title>calcipy.check_for_stale_packages._check_for_stale_packages._HostedPythonPackage.Config</title>
-<polygon fill="none" stroke="black" points="431.5,-45.5 431.5,-129.5 663.5,-129.5 663.5,-45.5 431.5,-45.5"/>
-<text text-anchor="start" x="524.5" y="-114.3" font-family="Times,serif" font-size="14.00">Config</text>
-<polyline fill="none" stroke="black" points="431.5,-106.5 663.5,-106.5 "/>
-<text text-anchor="start" x="439.5" y="-91.3" font-family="Times,serif" font-size="14.00">arbitrary_types_allowed : bool</text>
-<text text-anchor="start" x="439.5" y="-76.3" font-family="Times,serif" font-size="14.00">json_encoders : dict</text>
-<polyline fill="none" stroke="black" points="431.5,-68.5 663.5,-68.5 "/>
-<text text-anchor="start" x="545" y="-53.3" font-family="Times,serif" font-size="14.00"> </text>
+<title>calcipy.code_tag_collector._collector._Tags.Config</title>
+<polygon fill="none" stroke="black" points="558,-53 558,-122 663,-122 663,-53 558,-53"/>
+<text text-anchor="start" x="587.5" y="-106.8" font-family="Times,serif" font-size="14.00">Config</text>
+<polyline fill="none" stroke="black" points="558,-99 663,-99 "/>
+<text text-anchor="start" x="566" y="-83.8" font-family="Times,serif" font-size="14.00">frozen : bool</text>
+<polyline fill="none" stroke="black" points="558,-76 663,-76 "/>
+<text text-anchor="start" x="608" y="-60.8" font-family="Times,serif" font-size="14.00"> </text>
 </g>
 <!-- calcipy.cli.GlobalTaskOptions -->
 <g id="node5" class="node">
