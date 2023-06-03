@@ -12,7 +12,7 @@
   language: fail
   files: \.rej$
 - id: lint-fix
-  additional_dependencies: ['.[lint]']
+  additional_dependencies: [".[lint]"]
   description: "Run ruff and apply fixes"
   entry: calcipy_lint lint.fix
   language: python
@@ -21,7 +21,7 @@
   require_serial: true
   types: [python]
 - id: flake8
-  additional_dependencies: ['.[flake8]']
+  additional_dependencies: [".[flake8]"]
   description: "Legacy: lint with flake8 packages not yet in ruff"
   entry: calcipy_lint lint.flake8
   language: python
@@ -30,7 +30,7 @@
   require_serial: true
   types: [python]
 - id: tags
-  additional_dependencies: ['.[tags]']
+  additional_dependencies: [".[tags]"]
   description: "Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments"
   entry: calcipy_tags tags
   language: python
