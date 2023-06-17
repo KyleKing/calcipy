@@ -2,7 +2,13 @@
 
 ### Fix
 
+- handle missing git remotes in code tag collection
+- always re-cache packages if empty
 - ignore new TD002 & TD003 linting rules
+
+### Refactor
+
+- try to handle exceptions when no git origin URL
 
 ## 1.2.5 (2023-05-23)
 

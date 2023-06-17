@@ -1,11 +1,33 @@
 import re
 
+import pytest
+
 from calcipy.code_tag_collector import write_code_tag_file
-from calcipy.code_tag_collector._collector import CODE_TAG_RE, _CodeTag, _format_report, _search_lines, _Tags
+from calcipy.code_tag_collector._collector import (
+    CODE_TAG_RE,
+    _CodeTag,
+    _format_report,
+    _search_lines,
+    _Tags,
+    github_blame_url,
+)
 
 from ..configuration import TEST_DATA_DIR
 
 TEST_PROJECT = TEST_DATA_DIR / 'test_project'
+
+
+@pytest.mark.parametrize(
+    ('clone_uri', 'expected'),
+    [
+        ('https://github.com/KyleKing/calcipy.git', 'https://github.com/KyleKing/calcipy'),
+        ('git@github.com:KyleKing/calcipy.git', 'https://github.com/KyleKing/calcipy'),
+        ('unknown/repo.svn', ''),
+        ('', ''),
+    ],
+)
+def test_github_blame_url(clone_uri: str, expected: str):
+    assert github_blame_url(clone_uri) == expected
 
 
 def test__search_lines():

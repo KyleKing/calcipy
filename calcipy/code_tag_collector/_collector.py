@@ -114,6 +114,27 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     return matches
 
 
+@beartype
+def github_blame_url(clone_uri: str) -> str:
+    """Format the blame URL.
+
+    Args:
+        clone_uri: git remote URI
+
+    Returns:
+       str: `repo_url`
+
+    """
+    github_url = 'https://github.com/'
+    # Could be ssh or http (with or without .git)
+    # > git@github.com:KyleKing/calcipy.git
+    # > https://github.com/KyleKing/calcipy.git
+    matches = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)
+    with suppress(IndexError):
+        return f'{github_url}{matches[0]}'
+    return ''
+
+
 @lru_cache(maxsize=128)
 @beartype
 def _git_info(cwd: Path) -> Tuple[Path, str]:
@@ -130,17 +151,10 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
 
     """
     git_dir = Path(capture_shell('git rev-parse --show-toplevel', cwd=cwd))
-    clone_uri = 'https://github.com/'
+    clone_uri = ''
     with suppress(CalledProcessError):
         clone_uri = capture_shell('git remote get-url origin', cwd=cwd)
-    # Could be ssh or http (with or without .git)
-    # > git@github.com:KyleKing/calcipy.git
-    # > https://github.com/KyleKing/calcipy.git
-    repo_url = ''
-    with suppress(IndexError):
-        url_suffix = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)[0]
-        repo_url = f'{clone_uri}{url_suffix}'
-    return git_dir, repo_url
+    return git_dir, github_blame_url(clone_uri)
 
 
 class _CollectorRow(BaseModel):
