@@ -136,8 +136,10 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
     # Could be ssh or http (with or without .git)
     # > git@github.com:KyleKing/calcipy.git
     # > https://github.com/KyleKing/calcipy.git
-    sub_url = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)[0]
-    repo_url = f'https://github.com/{sub_url}'
+    repo_url = ''
+    with suppress(IndexError):
+        url_suffix = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)[0]
+        repo_url = f'{clone_uri}{url_suffix}'
     return git_dir, repo_url
 
 
@@ -182,11 +184,12 @@ def _format_from_blame(
     tz = blame_dict[f'{user}-tz'][:3] + ':' + blame_dict[f'{user}-tz'][-2:]
     collector_row.last_edit = arrow.get(dt.isoformat()[:-6] + tz).format('YYYY-MM-DD')
 
-    # Filename may not be present if uncommitted. Use local path as fallback
-    remote_file_path = blame_dict.get('filename', rel_path.as_posix())
-    # Assumes Github format
-    git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
-    collector_row.source_file = f'[{collector_row.source_file}]({git_url})'
+    if repo_url:
+        # Filename may not be present if uncommitted. Use local path as fallback
+        remote_file_path = blame_dict.get('filename', rel_path.as_posix())
+        # Assumes Github format
+        git_url = f'{repo_url}/blame/{revision}/{remote_file_path}#L{old_line_number}'
+        collector_row.source_file = f'[{collector_row.source_file}]({git_url})'
 
     return collector_row
 
