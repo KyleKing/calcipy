@@ -21,7 +21,7 @@
         <link rel="next" href="../../dot_dict/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
     
     
       
@@ -673,6 +673,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#calcipy.code_tag_collector._collector.github_blame_url" class="md-nav__link">
+    github_blame_url()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#calcipy.code_tag_collector._collector.write_code_tag_file" class="md-nav__link">
     write_code_tag_file()
   </a>
@@ -1239,6 +1246,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#calcipy.code_tag_collector._collector.github_blame_url" class="md-nav__link">
+    github_blame_url()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#calcipy.code_tag_collector._collector.write_code_tag_file" class="md-nav__link">
     write_code_tag_file()
   </a>
@@ -1366,6 +1380,101 @@
 
 
 
+<h3 id="calcipy.code_tag_collector._collector.github_blame_url" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">github_blame_url</span>
+
+
+<a href="#calcipy.code_tag_collector._collector.github_blame_url" class="headerlink" title="Permanent link">⚓︎</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">github_blame_url</span><span class="p">(</span><span class="n">clone_uri</span><span class="p">)</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Format the blame URL.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>clone_uri</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>git remote URI</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <code>str</code>
+          </td>
+          <td class="doc-returns-details">
+            <div class="doc-md-description">
+              <p><code>repo_url</code></p>
+            </div>
+              <p>
+                <span class="doc-returns-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+              </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>calcipy/code_tag_collector/_collector.py</code></summary>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="117 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="118 "></span><span class="k">def</span> <span class="nf">github_blame_url</span><span class="p">(</span><span class="n">clone_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos" data-linenos="119 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Format the blame URL.</span>
+<span class="linenos" data-linenos="120 "></span>
+<span class="linenos" data-linenos="121 "></span><span class="sd">    Args:</span>
+<span class="linenos" data-linenos="122 "></span><span class="sd">        clone_uri: git remote URI</span>
+<span class="linenos" data-linenos="123 "></span>
+<span class="linenos" data-linenos="124 "></span><span class="sd">    Returns:</span>
+<span class="linenos" data-linenos="125 "></span><span class="sd">       str: `repo_url`</span>
+<span class="linenos" data-linenos="126 "></span>
+<span class="linenos" data-linenos="127 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="128 "></span>    <span class="n">github_url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/&#39;</span>
+<span class="linenos" data-linenos="129 "></span>    <span class="c1"># Could be ssh or http (with or without .git)</span>
+<span class="linenos" data-linenos="130 "></span>    <span class="c1"># &gt; git@github.com:KyleKing/calcipy.git</span>
+<span class="linenos" data-linenos="131 "></span>    <span class="c1"># &gt; https://github.com/KyleKing/calcipy.git</span>
+<span class="linenos" data-linenos="132 "></span>    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^.+github.com[:/]([^.]+)(?:\.git)?$&#39;</span><span class="p">,</span> <span class="n">clone_uri</span><span class="p">)</span>
+<span class="linenos" data-linenos="133 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">):</span>
+<span class="linenos" data-linenos="134 "></span>        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">github_url</span><span class="si">}{</span><span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos" data-linenos="135 "></span>    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+</code></pre></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
 <h3 id="calcipy.code_tag_collector._collector.write_code_tag_file" class="doc doc-heading">
         <span class="doc doc-object-name doc-function-name">write_code_tag_file</span>
 
@@ -1391,7 +1500,9 @@
         <tr>
           <td><code>path_tag_summary</code></td>
           <td class="doc-param-details">
-            <p>Path to the output file</p>
+            <div class="doc-md-description">
+              <p>Path to the output file</p>
+            </div>
             <p>
                 <span class="doc-param-annotation">
                   <b>TYPE:</b>
@@ -1403,7 +1514,9 @@
         <tr>
           <td><code>paths_source</code></td>
           <td class="doc-param-details">
-            <p>list of source files to parse</p>
+            <div class="doc-md-description">
+              <p>list of source files to parse</p>
+            </div>
             <p>
                 <span class="doc-param-annotation">
                   <b>TYPE:</b>
@@ -1415,7 +1528,9 @@
         <tr>
           <td><code>base_dir</code></td>
           <td class="doc-param-details">
-            <p>base directory relative to the searched files</p>
+            <div class="doc-md-description">
+              <p>base directory relative to the searched files</p>
+            </div>
             <p>
                 <span class="doc-param-annotation">
                   <b>TYPE:</b>
@@ -1427,8 +1542,10 @@
         <tr>
           <td><code>regex</code></td>
           <td class="doc-param-details">
-            <p>compiled regular expression. Expected to have matching groups <code>(tag, text)</code>.
+            <div class="doc-md-description">
+              <p>compiled regular expression. Expected to have matching groups <code>(tag, text)</code>.
 Default is CODE_TAG_RE with tags from tag_order</p>
+            </div>
             <p>
                 <span class="doc-param-annotation">
                   <b>TYPE:</b>
@@ -1444,7 +1561,9 @@ Default is CODE_TAG_RE with tags from tag_order</p>
         <tr>
           <td><code>tags</code></td>
           <td class="doc-param-details">
-            <p>subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS</p>
+            <div class="doc-md-description">
+              <p>subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS</p>
+            </div>
             <p>
                 <span class="doc-param-annotation">
                   <b>TYPE:</b>
@@ -1460,7 +1579,9 @@ Default is CODE_TAG_RE with tags from tag_order</p>
         <tr>
           <td><code>header</code></td>
           <td class="doc-param-details">
-            <p>header text</p>
+            <div class="doc-md-description">
+              <p>header text</p>
+            </div>
             <p>
                 <span class="doc-param-annotation">
                   <b>TYPE:</b>
@@ -1478,38 +1599,38 @@ Default is CODE_TAG_RE with tags from tag_order</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/code_tag_collector/_collector.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="280 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="281 "></span><span class="k">def</span> <span class="nf">write_code_tag_file</span><span class="p">(</span>
-<span class="linenos" data-linenos="282 "></span>    <span class="n">path_tag_summary</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
-<span class="linenos" data-linenos="283 "></span>    <span class="n">paths_source</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
-<span class="linenos" data-linenos="284 "></span>    <span class="n">base_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
-<span class="linenos" data-linenos="285 "></span>    <span class="n">regex</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="286 "></span>    <span class="n">tags</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="287 "></span>    <span class="n">header</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;# Task Summary</span><span class="se">\n\n</span><span class="s1">Auto-Generated by `calcipy`&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="288 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="289 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the code tag summary file.</span>
-<span class="linenos" data-linenos="290 "></span>
-<span class="linenos" data-linenos="291 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="292 "></span><span class="sd">        path_tag_summary: Path to the output file</span>
-<span class="linenos" data-linenos="293 "></span><span class="sd">        paths_source: list of source files to parse</span>
-<span class="linenos" data-linenos="294 "></span><span class="sd">        base_dir: base directory relative to the searched files</span>
-<span class="linenos" data-linenos="295 "></span><span class="sd">        regex: compiled regular expression. Expected to have matching groups `(tag, text)`.</span>
-<span class="linenos" data-linenos="296 "></span><span class="sd">            Default is CODE_TAG_RE with tags from tag_order</span>
-<span class="linenos" data-linenos="297 "></span><span class="sd">        tags: subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS</span>
-<span class="linenos" data-linenos="298 "></span><span class="sd">        header: header text</span>
-<span class="linenos" data-linenos="299 "></span>
-<span class="linenos" data-linenos="300 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="301 "></span>    <span class="n">tag_order</span> <span class="o">=</span> <span class="p">[</span><span class="n">_t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">tags</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">_t</span><span class="p">]</span> <span class="ow">or</span> <span class="n">COMMON_CODE_TAGS</span>
-<span class="linenos" data-linenos="302 "></span>    <span class="n">regex_compiled</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">((</span><span class="n">regex</span> <span class="ow">or</span> <span class="n">CODE_TAG_RE</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tag_order</span><span class="p">)))</span>
-<span class="linenos" data-linenos="303 "></span>
-<span class="linenos" data-linenos="304 "></span>    <span class="n">matches</span> <span class="o">=</span> <span class="n">_search_files</span><span class="p">(</span><span class="n">paths_source</span><span class="p">,</span> <span class="n">regex_compiled</span><span class="p">)</span>
-<span class="linenos" data-linenos="305 "></span>    <span class="k">if</span> <span class="n">report</span> <span class="o">:=</span> <span class="n">_format_report</span><span class="p">(</span>
-<span class="linenos" data-linenos="306 "></span>        <span class="n">base_dir</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">tag_order</span><span class="o">=</span><span class="n">tag_order</span><span class="p">,</span>
-<span class="linenos" data-linenos="307 "></span>    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-<span class="linenos" data-linenos="308 "></span>        <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">report</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">&lt;!-- </span><span class="si">{</span><span class="n">SKIP_PHRASE</span><span class="si">}</span><span class="s1"> --&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="309 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Created Code Tag Summary&#39;</span><span class="p">,</span> <span class="n">path_tag_summary</span><span class="o">=</span><span class="n">path_tag_summary</span><span class="p">)</span>
-<span class="linenos" data-linenos="310 "></span>    <span class="k">elif</span> <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-<span class="linenos" data-linenos="311 "></span>        <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="297 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="298 "></span><span class="k">def</span> <span class="nf">write_code_tag_file</span><span class="p">(</span>
+<span class="linenos" data-linenos="299 "></span>    <span class="n">path_tag_summary</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+<span class="linenos" data-linenos="300 "></span>    <span class="n">paths_source</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
+<span class="linenos" data-linenos="301 "></span>    <span class="n">base_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+<span class="linenos" data-linenos="302 "></span>    <span class="n">regex</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="303 "></span>    <span class="n">tags</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="304 "></span>    <span class="n">header</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;# Task Summary</span><span class="se">\n\n</span><span class="s1">Auto-Generated by `calcipy`&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="305 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="306 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the code tag summary file.</span>
+<span class="linenos" data-linenos="307 "></span>
+<span class="linenos" data-linenos="308 "></span><span class="sd">    Args:</span>
+<span class="linenos" data-linenos="309 "></span><span class="sd">        path_tag_summary: Path to the output file</span>
+<span class="linenos" data-linenos="310 "></span><span class="sd">        paths_source: list of source files to parse</span>
+<span class="linenos" data-linenos="311 "></span><span class="sd">        base_dir: base directory relative to the searched files</span>
+<span class="linenos" data-linenos="312 "></span><span class="sd">        regex: compiled regular expression. Expected to have matching groups `(tag, text)`.</span>
+<span class="linenos" data-linenos="313 "></span><span class="sd">            Default is CODE_TAG_RE with tags from tag_order</span>
+<span class="linenos" data-linenos="314 "></span><span class="sd">        tags: subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS</span>
+<span class="linenos" data-linenos="315 "></span><span class="sd">        header: header text</span>
+<span class="linenos" data-linenos="316 "></span>
+<span class="linenos" data-linenos="317 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="318 "></span>    <span class="n">tag_order</span> <span class="o">=</span> <span class="p">[</span><span class="n">_t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">tags</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">_t</span><span class="p">]</span> <span class="ow">or</span> <span class="n">COMMON_CODE_TAGS</span>
+<span class="linenos" data-linenos="319 "></span>    <span class="n">regex_compiled</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">((</span><span class="n">regex</span> <span class="ow">or</span> <span class="n">CODE_TAG_RE</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tag_order</span><span class="p">)))</span>
+<span class="linenos" data-linenos="320 "></span>
+<span class="linenos" data-linenos="321 "></span>    <span class="n">matches</span> <span class="o">=</span> <span class="n">_search_files</span><span class="p">(</span><span class="n">paths_source</span><span class="p">,</span> <span class="n">regex_compiled</span><span class="p">)</span>
+<span class="linenos" data-linenos="322 "></span>    <span class="k">if</span> <span class="n">report</span> <span class="o">:=</span> <span class="n">_format_report</span><span class="p">(</span>
+<span class="linenos" data-linenos="323 "></span>        <span class="n">base_dir</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">tag_order</span><span class="o">=</span><span class="n">tag_order</span><span class="p">,</span>
+<span class="linenos" data-linenos="324 "></span>    <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+<span class="linenos" data-linenos="325 "></span>        <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">report</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">&lt;!-- </span><span class="si">{</span><span class="n">SKIP_PHRASE</span><span class="si">}</span><span class="s1"> --&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="326 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Created Code Tag Summary&#39;</span><span class="p">,</span> <span class="n">path_tag_summary</span><span class="o">=</span><span class="n">path_tag_summary</span><span class="p">)</span>
+<span class="linenos" data-linenos="327 "></span>    <span class="k">elif</span> <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+<span class="linenos" data-linenos="328 "></span>        <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 </code></pre></div>
       </details>
   </div>
@@ -1529,11 +1650,11 @@ Default is CODE_TAG_RE with tags from tag_order</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 1, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 1, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 17, 2023</span>
       
     
   </small>
@@ -1578,11 +1699,15 @@ Default is CODE_TAG_RE with tags from tag_order</p>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+        
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+        
       
-        <script src="../../../../_javascript/tables.js"></script>
+        
+          <script src="../../../../_javascript/tables.js"></script>
+        
       
     
   </body>
