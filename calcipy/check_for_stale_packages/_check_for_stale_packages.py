@@ -201,8 +201,9 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
         stale_list = '\n'.join([format_package(_p) for _p in pkgs])
         logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
         return True
-    oldest_date = np.amin([pack.datetime for pack in packages])  # pyright: ignore[reportGeneralTypeIssues]
-    logger.text('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
+    if packages:
+        oldest_date = np.amin([pack.datetime for pack in packages])  # pyright: ignore[reportGeneralTypeIssues]
+        logger.text('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
     return False
 
 
@@ -216,7 +217,7 @@ def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_
     """
     packages = _read_packages(path_lock)
     cached_packages = _read_cache(path_cache)
-    if can_skip.can_skip(prerequisites=[path_lock], targets=[path_cache]):
+    if cached_packages and can_skip.can_skip(prerequisites=[path_lock], targets=[path_cache]):
         packages = [*cached_packages.values()]
     else:
         packages = _collect_release_dates(packages, cached_packages)
