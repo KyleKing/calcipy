@@ -85,7 +85,7 @@ pytest-watcher = {optional = true, version = ">=0.2.6"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc,tags
 requests = {optional = true, version = ">=2.31.0"} # stale
-ruff = {optional = true, version = ">=0.0.253"} # lint
+ruff = {optional = true, version = ">=0.0.272"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 transitions = {optional = true, version = ">=0.9.0"} # tags: docs

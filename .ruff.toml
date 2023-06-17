@@ -12,6 +12,9 @@ ignore = [
   'D4', # Numpy-Style Docstrings (e.g. "Section name should end with a newline ("Returns")")
   'EM101', # Exception must not use a string literal, assign to variable first
   'FBT002', # Boolean default value in function definition
+  'FIX001', # Line contains FIXME
+  'FIX002', # Line contains TODO
+  'FIX004', # Line contains HACK
   'N999', # Invalid module name: '_noxfile'
   'RUF100', # Unused noqa directive (remove once flake8 is fully replaced)
   'TCH001', # Move application import `{}` into a type-checking block

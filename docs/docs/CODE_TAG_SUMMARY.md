@@ -1,15 +1,23 @@
 # Collected Code Tags
 
-| Type    | Comment                                                                                            | Last Edit   | Source File                                                                                                                                                                                                                  |
-|---------|----------------------------------------------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TODO    | If no stale, write out five oldest?                                                                | 2023-05-13  | [calcipy/check_for_stale_packages/_check_for_stale_packages.py:198](https://github.com/KyleKing/calcipy/blame/86c37cc4f24911db5562ef6fc8263102dbbcf5c5/calcipy/check_for_stale_packages/_check_for_stale_packages.py#L198)   |
-| TODO    | Can I type this function with fewer Any's?                                                         | 2023-05-17  | [calcipy/cli.py:173](https://github.com/KyleKing/calcipy/blame/efaaa73193296e1fa7e82f1e9a40253c5a26da2d/calcipy/cli.py#L173)                                                                                                 |
-| TODO    | Consider adding a configuration item for ignore_patterns                                           | 2023-02-19  | [calcipy/file_search.py:82](https://github.com/KyleKing/calcipy/blame/e6bc0415e3bf6a6df5a9d808ce0e89d0f2c5df9e/calcipy/file_search.py#L82)                                                                                   |
-| TODO    | Look into running tasks from within other tasks to support '--continue' and more readable logs --> | 2023-02-19  | [docs/docs/MIGRATION.md:112](https://github.com/KyleKing/calcipy/blame/d95eb85ab7f6d45459ed7b3ff2dc99ae3c92fa61/docs/docs/MIGRATION.md#L42)                                                                                  |
-| TODO    | Capture logging output and check...                                                                | 2023-02-19  | [tests/check_for_stale_packages/test_check_for_stale_packages.py:63](https://github.com/KyleKing/calcipy/blame/a8b69e7b04d9b15eabff8897f2de7703898c2afc/tests/check_for_stale_packages/test_check_for_stale_packages.py#L63) |
-| TODO    | Capture logging output and check...                                                                | 2023-02-19  | [tests/check_for_stale_packages/test_check_for_stale_packages.py:87](https://github.com/KyleKing/calcipy/blame/3f42ad855eb7024ff48af35d496633a87d4a14ac/tests/check_for_stale_packages/test_check_for_stale_packages.py#L26) |
-| TODO    | Is there an easier way to maintain pytest parameter IDs?                                           | 2023-02-17  | [tests/tasks/test_test.py:13](https://github.com/KyleKing/calcipy/blame/785b9d1c3afda6fc5a2e46f2bc7d41ed2614da09/tests/tasks/test_test.py#L11)                                                                               |
-| PLANNED | Convert to hypothesis test!                                                                        | 2023-02-19  | [tests/test_dot_dict.py:9](https://github.com/KyleKing/calcipy/blame/3f42ad855eb7024ff48af35d496633a87d4a14ac/tests/test_dot_dict.py#L9)                                                                                     |
+| Type    | Comment                                                                                            | Last Edit   | Source File   |
+|---------|----------------------------------------------------------------------------------------------------|-------------|---------------|
+| TODO    | If no stale, write out five oldest?                                                                | 2023-05-13  | [calcipy/check_for_stale_packages/_check_for_stale_packages.py:198](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/86c37cc4f24911db5562ef6fc8263102dbbcf5c5/calcipy/check_for_stale_packages/_check_for_stale_packages.py#L198)               |
+| TODO    | Can I type this function with fewer Any's?                                                         | 2023-05-17  | [calcipy/cli.py:173](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/efaaa73193296e1fa7e82f1e9a40253c5a26da2d/calcipy/cli.py#L173)               |
+| TODO    | Consider adding a configuration item for ignore_patterns                                           | 2023-02-19  | [calcipy/file_search.py:82](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/e6bc0415e3bf6a6df5a9d808ce0e89d0f2c5df9e/calcipy/file_search.py#L82)               |
+| TODO    | Look into running tasks from within other tasks to support '--continue' and more readable logs --> | 2023-02-19  | [docs/docs/MIGRATION.md:112](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/d95eb85ab7f6d45459ed7b3ff2dc99ae3c92fa61/docs/docs/MIGRATION.md#L42)               |
+| TODO    | Capture logging output and check...                                                                | 2023-02-19  | [tests/check_for_stale_packages/test_check_for_stale_packages.py:63](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/a8b69e7b04d9b15eabff8897f2de7703898c2afc/tests/check_for_stale_packages/test_check_for_stale_packages.py#L63)               |
+| TODO    | Capture logging output and check...                                                                | 2023-02-19  | [tests/check_for_stale_packages/test_check_for_stale_packages.py:87](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/3f42ad855eb7024ff48af35d496633a87d4a14ac/tests/check_for_stale_packages/test_check_for_stale_packages.py#L26)               |
+| TODO    | Is there an easier way to maintain pytest parameter IDs?                                           | 2023-02-17  | [tests/tasks/test_test.py:13](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/785b9d1c3afda6fc5a2e46f2bc7d41ed2614da09/tests/tasks/test_test.py#L11)               |
+| PLANNED | Convert to hypothesis test!                                                                        | 2023-02-19  | [tests/test_dot_dict.py:9](git@github.com:KyleKing/calcipy.git
+KyleKing/calcipy/blame/3f42ad855eb7024ff48af35d496633a87d4a14ac/tests/test_dot_dict.py#L9)               |
 
 Found code tags for TODO (7), PLANNED (1)
 
