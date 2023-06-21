@@ -1,135 +1,186 @@
 interactions:
 - request:
-    body: null
+    body: ''
     headers:
-      Accept:
+      accept:
       - '*/*'
-      Accept-Encoding:
+      accept-encoding:
       - gzip, deflate
-      Connection:
+      connection:
       - keep-alive
-      User-Agent:
-      - python-requests/2.28.1
+      host:
+      - test.pypi.org
+      user-agent:
+      - python-httpx/0.24.1
     method: GET
     uri: https://test.pypi.org/pypi/twine/json
   response:
-    body:
-      string: !!binary |
-        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
-        v/zT/wBDsnQJ5VwAAA==
+    content: '{"info":{"author":"Donald Stufft and individual contributors","author_email":"donald@stufft.io","bugtrack_url":null,"classifiers":["Intended
+      Audience :: Developers","License :: OSI Approved :: Apache Software License","Natural
+      Language :: English","Operating System :: MacOS :: MacOS X","Operating System
+      :: Microsoft :: Windows","Operating System :: POSIX","Operating System :: POSIX
+      :: BSD","Operating System :: POSIX :: Linux","Programming Language :: Python","Programming
+      Language :: Python :: 2","Programming Language :: Python :: 2.7","Programming
+      Language :: Python :: 3","Programming Language :: Python :: 3.3","Programming
+      Language :: Python :: 3.4","Programming Language :: Python :: 3.5","Programming
+      Language :: Python :: 3.6","Programming Language :: Python :: Implementation
+      :: CPython","Programming Language :: Python :: Implementation :: PyPy"],"description":"twine\n=====\n\n..
+      rtd-inclusion-marker-do-not-remove\n\nTwine is `a utility`_ for `publishing`_
+      packages on `PyPI`_.\n\nCurrently it only supports registering `projects`_ and
+      uploading `distributions`_.\n\n\nWhy Should I Use This?\n----------------------\n\nThe
+      goal of ``twine`` is to improve PyPI interaction by improving\nsecurity and
+      testability.\n\nThe biggest reason to use ``twine`` is that it securely authenticates\nyou
+      to `PyPI`_ over HTTPS using a verified connection, while ``python\nsetup.py
+      upload`` `only recently stopped using HTTP\n<https://bugs.python.org/issue12226>`_
+      in Python 2.7.9+ and Python\n3.2+. This means anytime you use ``python setup.py
+      upload`` with an\nolder Python version, you expose your username and password
+      to being\neasily sniffed. Twine uses only verified TLS to upload to PyPI,\nprotecting
+      your credentials from theft.\n\nSecondly, it allows you to precreate your distribution
+      files.\n``python setup.py upload`` only allows you to upload something that
+      you''ve\ncreated in the same command invocation. This means that you cannot
+      test the\nexact file you''re going to upload to PyPI to ensure that it works
+      before\nuploading it.\n\nFinally, ``twine`` allows you to pre-sign your files
+      and pass the\n``.asc`` files into the command line invocation (``twine upload\nmyproject-1.0.1.tar.gz
+      myproject-1.0.1.tar.gz.asc``). This enables you\nto be assured that you''re
+      typing your ``gpg`` passphrase into ``gpg``\nitself and not anything else, since
+      *you* will be the one directly\nexecuting ``gpg --detach-sign -a <filename>``.\n\n\nFeatures\n--------\n\n-
+      Verified HTTPS connections\n- Uploading doesn''t require executing ``setup.py``\n-
+      Uploading files that have already been created, allowing testing of\n  distributions
+      before release\n- Supports uploading any packaging format (including `wheels`_)\n\n\nInstallation\n------------\n\n..
+      code-block:: console\n\n    $ pip install twine\n\n\nUsing Twine\n-----------\n\n1.
+      Create some distributions in the normal way:\n\n   .. code-block:: console\n\n       $
+      python setup.py sdist bdist_wheel\n\n2. Upload with ``twine`` to `Test PyPI`_
+      and verify things look right. Twine will automatically prompt for your username
+      and password:\n\n   .. code-block:: console\n\n       $ twine upload --repository-url
+      https://test.pypi.org/legacy/ dist/*\n       username: ...\n       password:\n       ...\n\n3.
+      Upload to `PyPI`_:\n\n   .. code-block:: console\n\n       $ twine upload dist/*\n\n4.
+      Done!\n\nMore documentation on using ``twine`` to upload packages to PyPI is
+      in\nthe `Python Packaging User Guide`_.\n\nKeyring Support\n---------------\n\nInstead
+      of typing in your password every time you upload a distribution, Twine\nallows
+      you to store your username and password securely using `keyring`_.\n\nTo use
+      the keyring, you must first install the keyring packages:\n\n- On Windows and
+      MacOS you just need to install ``keyring``, for example,\n  ``pip install --user
+      keyring``.\n- On Linux, in addition to the ``keyring`` package you also need
+      to ensure the\n  ``python3-dbus`` system package is installed. For example,
+      ``apt install\n  python3-dbus``. See `Keyring''s installation instructions`_
+      for more details.\n\nOnce keyring is installed you can use the ``keyring`` program
+      to set your\nusername and password to use for each package index (repository)
+      you want to\nupload to using Twine.\n\nTo set your username and password for
+      test PyPI run the following command.\n``keyring`` will prompt you for your password:\n\n..
+      code-block:: console\n\n    $ keyring set https://test.pypi.org/legacy/ your-username\n    #
+      or\n    $ python3 -m keyring set https://test.pypi.org/legacy/ your-username\n\nTo
+      set your username and password for PyPI run this command, again, ``keyring``\nwill
+      prompt for the password:\n\n.. code-block:: console\n\n    $ keyring set https://upload.pypi.org/legacy/
+      your-username\n    # or\n    $ python3 -m keyring set https://upload.pypi.org/legacy/
+      your-username\n\n\nThe next time you run ``twine`` it will prompt you for a
+      username and will grab the appropriate password from the keyring.\n\n.. Note::
+      If you are using Linux in a headless environment (such as on a\n    server)
+      you''ll need to do some additional steps to ensure that Keyring can\n    store
+      secrets securely. See `Using Keyring on headless systems`_.\n\n.. _`keyring`:
+      https://pypi.org/project/keyring/\n.. _`Keyring''s installation instructions`:\n    https://keyring.readthedocs.io/en/latest#installation-instructions\n..
+      _`Using Keyring on headless systems`:\n    https://keyring.readthedocs.io/en/latest/#using-keyring-on-headless-linux-systems\n\n\nOptions\n-------\n\n..
+      code-block:: console\n\n    $ twine upload -h\n\n    usage: twine upload [-h]
+      [-r REPOSITORY] [--repository-url REPOSITORY_URL]\n                        [-s]
+      [--sign-with SIGN_WITH] [-i IDENTITY] [-u USERNAME]\n                        [-p
+      PASSWORD] [-c COMMENT] [--config-file CONFIG_FILE]\n                        [--skip-existing]
+      [--cert path] [--client-cert path]\n                        dist [dist ...]\n\n    positional
+      arguments:\n      dist                  The distribution files to upload to
+      the repository\n                            (package index). Usually dist/*
+      . May additionally\n                            contain a .asc file to include
+      an existing signature\n                            with the file upload.\n\n    optional
+      arguments:\n      -h, --help            show this help message and exit\n      -r
+      REPOSITORY, --repository REPOSITORY\n                            The repository
+      (package index) to upload the package\n                            to. Should
+      be a section in the config file (default:\n                            pypi).
+      (Can also be set via TWINE_REPOSITORY\n                            environment
+      variable.)\n      --repository-url REPOSITORY_URL\n                            The
+      repository (package index) URL to upload the\n                            package
+      to. This overrides --repository. (Can also be\n                            set
+      via TWINE_REPOSITORY_URL environment variable.)\n      -s, --sign            Sign
+      files to upload using GPG.\n      --sign-with SIGN_WITH\n                            GPG
+      program used to sign uploads (default: gpg).\n      -i IDENTITY, --identity
+      IDENTITY\n                            GPG identity used to sign files.\n      -u
+      USERNAME, --username USERNAME\n                            The username to authenticate
+      to the repository\n                            (package index) as. (Can also
+      be set via\n                            TWINE_USERNAME environment variable.)\n      -p
+      PASSWORD, --password PASSWORD\n                            The password to authenticate
+      to the repository\n                            (package index) with. (Can also
+      be set via\n                            TWINE_PASSWORD environment variable.)\n      -c
+      COMMENT, --comment COMMENT\n                            The comment to include
+      with the distribution file.\n      --config-file CONFIG_FILE\n                            The
+      .pypirc config file to use.\n      --skip-existing       Continue uploading
+      files if one already exists. (Only\n                            valid when uploading
+      to PyPI. Other implementations\n                            may not support
+      this.)\n      --cert path           Path to alternate CA bundle (can also be
+      set via\n                            TWINE_CERT environment variable).\n      --client-cert
+      path    Path to SSL client certificate, a single file\n                            containing
+      the private key and the certificate in PEM\n                            format.\n\nTwine
+      also includes a ``register`` command.\n\n.. WARNING::\n   ``register`` is `no
+      longer necessary if you are\n   uploading to pypi.org\n   <https://packaging.python.org/guides/migrating-to-pypi-org/#registering-package-names-metadata>`_.
+      As\n   such, it is `no longer supported\n   <https://github.com/pypa/warehouse/issues/1627>`_
+      in `Warehouse`_\n   (the new PyPI software running on pypi.org). However, you
+      may need\n   this if you are using a different package index.\n\nFor completeness,
+      its usage:\n\n.. code-block:: console\n\n    $ twine register -h\n\n    usage:
+      twine register [-h] -r REPOSITORY [--repository-url REPOSITORY_URL]\n                          [-u
+      USERNAME] [-p PASSWORD] [-c COMMENT]\n                          [--config-file
+      CONFIG_FILE] [--cert path]\n                          [--client-cert path]\n                          package\n\n    positional
+      arguments:\n      package               File from which we read the package
+      metadata.\n\n    optional arguments:\n      -h, --help            show this
+      help message and exit\n      -r REPOSITORY, --repository REPOSITORY\n                            The
+      repository (package index) to register the package\n                            to.
+      Should be a section in the config file. (Can also\n                            be
+      set via TWINE_REPOSITORY environment variable.)\n                            Initial
+      package registration no longer necessary on\n                            pypi.org:\n                            https://packaging.python.org/guides/migrating-to-pypi-\n                            org/\n      --repository-url
+      REPOSITORY_URL\n                            The repository (package index) URL
+      to register the\n                            package to. This overrides --repository.
+      (Can also be\n                            set via TWINE_REPOSITORY_URL environment
+      variable.)\n      -u USERNAME, --username USERNAME\n                            The
+      username to authenticate to the repository\n                            (package
+      index) as. (Can also be set via\n                            TWINE_USERNAME
+      environment variable.)\n      -p PASSWORD, --password PASSWORD\n                            The
+      password to authenticate to the repository\n                            (package
+      index) with. (Can also be set via\n                            TWINE_PASSWORD
+      environment variable.)\n      -c COMMENT, --comment COMMENT\n                            The
+      comment to include with the distribution file.\n      --config-file CONFIG_FILE\n                            The
+      .pypirc config file to use.\n      --cert path           Path to alternate CA
+      bundle (can also be set via\n                            TWINE_CERT environment
+      variable).\n      --client-cert path    Path to SSL client certificate, a single
+      file\n                            containing the private key and the certificate
+      in PEM\n                            format.\n\nEnvironment Variables\n^^^^^^^^^^^^^^^^^^^^^\n\nTwine
+      also supports configuration via environment variables. Options passed on\nthe
+      command line will take precedence over options set via environment\nvariables.
+      Definition via environment variable is helpful in environments where\nit is
+      not convenient to create a `.pypirc` file, such as a CI/build server, for\nexample.\n\n*
+      ``TWINE_USERNAME`` - the username to use for authentication to the repository.\n*
+      ``TWINE_PASSWORD`` - the password to use for authentication to the repository.\n*
+      ``TWINE_REPOSITORY`` - the repository configuration, either defined as a\n  section
+      in `.pypirc` or provided as a full URL.\n* ``TWINE_REPOSITORY_URL`` - the repository
+      URL to use.\n* ``TWINE_CERT`` - custom CA certificate to use for repositories
+      with\n  self-signed or untrusted certificates.\n\nResources\n---------\n\n*
+      `IRC <https://webchat.freenode.net/?channels=%23pypa>`_\n  (``#pypa`` - irc.freenode.net)\n*
+      `GitHub repository <https://github.com/pypa/twine>`_\n* User and developer `documentation`_\n*
+      `Python Packaging User Guide`_\n\nContributing\n------------\n\nSee our `developer
+      documentation`_ for how to get started, an\narchitectural overview, and our
+      future development plans.\n\nCode of Conduct\n---------------\n\nEveryone interacting
+      in the ``twine`` project''s codebases, issue\ntrackers, chat rooms, and mailing
+      lists is expected to follow the\n`PyPA Code of Conduct`_.\n\n.. _`a utility`:
+      https://pypi.org/project/twine/\n.. _`publishing`: https://packaging.python.org/tutorials/distributing-packages/\n..
+      _`PyPI`: https://pypi.org\n.. _`Test PyPI`: https://packaging.python.org/guides/using-testpypi/\n..
+      _`Python Packaging User Guide`: https://packaging.python.org/tutorials/distributing-packages/\n..
+      _`documentation`: https://twine.readthedocs.io/\n.. _`developer documentation`:
+      https://twine.readthedocs.io/en/latest/contributing.html\n.. _`projects`: https://packaging.python.org/glossary/#term-project\n..
+      _`distributions`: https://packaging.python.org/glossary/#term-distribution-package\n..
+      _`PyPA Code of Conduct`: https://www.pypa.io/en/latest/code-of-conduct/\n..
+      _`Warehouse`: https://github.com/pypa/warehouse\n.. _`wheels`: https://packaging.python.org/glossary/#term-wheel\n\n\n","description_content_type":"","docs_url":null,"download_url":"","downloads":{"last_day":-1,"last_month":-1,"last_week":-1},"home_page":"https://twine.readthedocs.io/","keywords":"","license":"Apache
+      License, Version 2.0","maintainer":"","maintainer_email":"","name":"twine","package_url":"https://test.pypi.org/project/twine/","platform":"","project_url":"https://test.pypi.org/project/twine/","project_urls":{"Homepage":"https://twine.readthedocs.io/","Packaging
+      tutorial":"https://packaging.python.org/tutorials/distributing-packages/","Twine
+      documentation":"https://twine.readthedocs.io/en/latest/","Twine source":"https://github.com/pypa/twine/"},"release_url":"https://test.pypi.org/project/twine/1.11.0/","requires_dist":["tqdm
+      >= 4.14","requests >= 2.5.0, != 2.15, != 2.16","requests-toolbelt >= 0.8.0","pkginfo
+      >= 1.4.2","setuptools >= 0.7.0","argparse; python_version == ''2.6''","pyblake2;
+      extra == ''with-blake2'' and python_version < ''3.6''","keyring; extra == ''keyring''"],"requires_python":"","summary":"Collection
+      of utilities for publishing packages on PyPI","version":"1.11.0","yanked":false,"yanked_reason":null},"last_serial":2478047,"releases":{"0.0.0":[],"1.10.0rc1":[{"comment_text":"","digests":{"blake2b_256":"193852b3e4c546987106d7bcc49d82adbe1651f0e15dac007d21f0eb05fdd384","md5":"52d39570e72a02f528b70fc755564776","sha256":"afad33fd3edac363e81d21e32aea53aa66e054c7e420fd829f438c85a57ddd3e"},"downloads":-1,"filename":"twine-1.10.0rc1-py2.py3-none-any.whl","has_sig":false,"md5_digest":"52d39570e72a02f528b70fc755564776","packagetype":"bdist_wheel","python_version":"py2.py3","requires_python":null,"size":28357,"upload_time":"2018-03-02T20:51:40","upload_time_iso_8601":"2018-03-02T20:51:40.891686Z","url":"https://test-files.pythonhosted.org/packages/19/38/52b3e4c546987106d7bcc49d82adbe1651f0e15dac007d21f0eb05fdd384/twine-1.10.0rc1-py2.py3-none-any.whl","yanked":false,"yanked_reason":null},{"comment_text":"","digests":{"blake2b_256":"d9aa44f2a22e4aae9707df12dd763233756a1ea8c56520226f6d1370dd2971e3","md5":"d9f0ac00926de1a8c8937b32d2249398","sha256":"58c77398d570163cab66a30a40da63e827f626c892a5b663a508a9dfc57dffb0"},"downloads":-1,"filename":"twine-1.10.0rc1.tar.gz","has_sig":false,"md5_digest":"d9f0ac00926de1a8c8937b32d2249398","packagetype":"sdist","python_version":"source","requires_python":null,"size":39359,"upload_time":"2018-03-02T20:51:42","upload_time_iso_8601":"2018-03-02T20:51:42.462580Z","url":"https://test-files.pythonhosted.org/packages/d9/aa/44f2a22e4aae9707df12dd763233756a1ea8c56520226f6d1370dd2971e3/twine-1.10.0rc1.tar.gz","yanked":false,"yanked_reason":null}],"1.11.0":[{"comment_text":"","digests":{"blake2b_256":"65ae9cfdff186dd4812c59bad890435538858f13fe43dbe6923e0fb20f0adfc8","md5":"5a884e2b30230ef8340d175288433a1d","sha256":"08eb132bbaec40c6d25b358f546ec1dc96ebd2638a86eea68769d9e67fe2b129"},"downloads":-1,"filename":"twine-1.11.0-py2.py3-none-any.whl","has_sig":false,"md5_digest":"5a884e2b30230ef8340d175288433a1d","packagetype":"bdist_wheel","python_version":"py2.py3","requires_python":null,"size":30402,"upload_time":"2018-03-19T23:31:52","upload_time_iso_8601":"2018-03-19T23:31:52.040031Z","url":"https://test-files.pythonhosted.org/packages/65/ae/9cfdff186dd4812c59bad890435538858f13fe43dbe6923e0fb20f0adfc8/twine-1.11.0-py2.py3-none-any.whl","yanked":false,"yanked_reason":null},{"comment_text":"","digests":{"blake2b_256":"9e892971f240b9fc102b2e56ee8b0a9d7c9c3a7cf081b851eb02d85891de20d1","md5":"1b4de33b45225a30f5f04b118f92c09b","sha256":"2fd9a4d9ff0bcacf41fdc40c8cb0cfaef1f1859457c9653fd1b92237cc4e9f25"},"downloads":-1,"filename":"twine-1.11.0.tar.gz","has_sig":false,"md5_digest":"1b4de33b45225a30f5f04b118f92c09b","packagetype":"sdist","python_version":"source","requires_python":null,"size":44683,"upload_time":"2018-03-19T23:31:53","upload_time_iso_8601":"2018-03-19T23:31:53.188770Z","url":"https://test-files.pythonhosted.org/packages/9e/89/2971f240b9fc102b2e56ee8b0a9d7c9c3a7cf081b851eb02d85891de20d1/twine-1.11.0.tar.gz","yanked":false,"yanked_reason":null}],"1.11.0rc1":[{"comment_text":"","digests":{"blake2b_256":"bd3a70351943be872be505a5f4c0405cb589e587e0f559f05bc2bdaa5b52f971","md5":"d1666f72bc8dc62f53d6a7867577a91e","sha256":"b427ada3df5335fb6cd097e22da77da3955948f43334db474eadff846e46544c"},"downloads":-1,"filename":"twine-1.11.0rc1-py2.py3-none-any.whl","has_sig":false,"md5_digest":"d1666f72bc8dc62f53d6a7867577a91e","packagetype":"bdist_wheel","python_version":"py2.py3","requires_python":null,"size":28789,"upload_time":"2018-03-16T00:20:07","upload_time_iso_8601":"2018-03-16T00:20:07.180224Z","url":"https://test-files.pythonhosted.org/packages/bd/3a/70351943be872be505a5f4c0405cb589e587e0f559f05bc2bdaa5b52f971/twine-1.11.0rc1-py2.py3-none-any.whl","yanked":false,"yanked_reason":null},{"comment_text":"","digests":{"blake2b_256":"13207a97309658f4e7f9ba1c2b043b2233ee46542d206039890002e2d30f6776","md5":"df3ad56c5759a1f7acb11158e3186e73","sha256":"32ba026d3f4aeed93f14ea2277ed96295b82d9781709e947b6e8a9b225cc2954"},"downloads":-1,"filename":"twine-1.11.0rc1.tar.gz","has_sig":false,"md5_digest":"df3ad56c5759a1f7acb11158e3186e73","packagetype":"sdist","python_version":"source","requires_python":null,"size":40895,"upload_time":"2018-03-16T00:20:08","upload_time_iso_8601":"2018-03-16T00:20:08.343471Z","url":"https://test-files.pythonhosted.org/packages/13/20/7a97309658f4e7f9ba1c2b043b2233ee46542d206039890002e2d30f6776/twine-1.11.0rc1.tar.gz","yanked":false,"yanked_reason":null}],"1.4.0a1":[{"comment_text":"","digests":{"blake2b_256":"584d511b76a1143d22ec20aca2c28cb62d12af71ebd460d9806c71dce6bdf4a2","md5":"b5ac61ef8b28a669230236af5dfe20ca","sha256":"e2bf8d3b604fadc16f3427817ff511096fbfa0deb3788bc8bb37d534a145fd7a"},"downloads":-1,"filename":"twine-1.4.0a1.tar.gz","has_sig":false,"md5_digest":"b5ac61ef8b28a669230236af5dfe20ca","packagetype":"sdist","python_version":"source","requires_python":null,"size":20276,"upload_time":"2014-12-10T22:43:23","upload_time_iso_8601":"2014-12-10T22:43:23.483093Z","url":"https://test-files.pythonhosted.org/packages/58/4d/511b76a1143d22ec20aca2c28cb62d12af71ebd460d9806c71dce6bdf4a2/twine-1.4.0a1.tar.gz","yanked":false,"yanked_reason":null}],"1.4.1":[{"comment_text":"","digests":{"blake2b_256":"fa2b35ec81864ca3f526bf2b2956a34c11282877d56e7dc7878948db75a0122f","md5":"1d2193b30e42550b049550deb43cfab0","sha256":"6ab1a0b4a55fc634ba70919ef3e284936bcbc923e1bbc43039e801beca46ba5d"},"downloads":-1,"filename":"twine-1.4.1-py2.py3-none-any.whl","has_sig":false,"md5_digest":"1d2193b30e42550b049550deb43cfab0","packagetype":"bdist_wheel","python_version":"py2.py3","requires_python":null,"size":15837,"upload_time":"2015-01-31T03:02:00","upload_time_iso_8601":"2015-01-31T03:02:00.621298Z","url":"https://test-files.pythonhosted.org/packages/fa/2b/35ec81864ca3f526bf2b2956a34c11282877d56e7dc7878948db75a0122f/twine-1.4.1-py2.py3-none-any.whl","yanked":false,"yanked_reason":null},{"comment_text":"","digests":{"blake2b_256":"8501ca22aaea4f2e9241e344ce1d988135c974534b821be23d2503a10e6c30e3","md5":"c45a1fabf26cf12a4b97a7f997c306f4","sha256":"3b9807f6ad566da3980aea6c11ee9f04aeb1892f555ea8da5b4efb24552b3c09"},"downloads":-1,"filename":"twine-1.4.1.tar.gz","has_sig":false,"md5_digest":"c45a1fabf26cf12a4b97a7f997c306f4","packagetype":"sdist","python_version":"source","requires_python":null,"size":20966,"upload_time":"2015-01-31T03:03:18","upload_time_iso_8601":"2015-01-31T03:03:18.189219Z","url":"https://test-files.pythonhosted.org/packages/85/01/ca22aaea4f2e9241e344ce1d988135c974534b821be23d2503a10e6c30e3/twine-1.4.1.tar.gz","yanked":false,"yanked_reason":null}],"1.5.0":[{"comment_text":"","digests":{"blake2b_256":"b657a4148d05bd0098c1d6d8cc4e14e766dbe93c3a5ab6723b969da27a87bac0","md5":"1919f967e990bee7413e2a4bc35fd5d1","sha256":"d86b0f33f0c7df49e888b11c43b417da5520cbdbce9f20618b1494b600061e67"},"downloads":-1,"filename":"twine-1.5.0-py2.py3-none-any.whl","has_sig":false,"md5_digest":"1919f967e990bee7413e2a4bc35fd5d1","packagetype":"bdist_wheel","python_version":"py2.py3","requires_python":null,"size":15816,"upload_time":"2015-03-27T02:41:48","upload_time_iso_8601":"2015-03-27T02:41:48.113237Z","url":"https://test-files.pythonhosted.org/packages/b6/57/a4148d05bd0098c1d6d8cc4e14e766dbe93c3a5ab6723b969da27a87bac0/twine-1.5.0-py2.py3-none-any.whl","yanked":false,"yanked_reason":null},{"comment_text":"","digests":{"blake2b_256":"138281ab55a64a2e08e9f970b28699b621d07c2627867b9992ce437add58deab","md5":"12948245aeb59acf32f663e1d81fed34","sha256":"5825a3cc72fc42148c697779397d2e5b39f3e5224c5b1e26e7461d1a38404268"},"downloads":-1,"filename":"twine-1.5.0.tar.gz","has_sig":false,"md5_digest":"12948245aeb59acf32f663e1d81fed34","packagetype":"sdist","python_version":"source","requires_python":null,"size":21271,"upload_time":"2015-03-27T02:41:50","upload_time_iso_8601":"2015-03-27T02:41:50.338187Z","url":"https://test-files.pythonhosted.org/packages/13/82/81ab55a64a2e08e9f970b28699b621d07c2627867b9992ce437add58deab/twine-1.5.0.tar.gz","yanked":false,"yanked_reason":null}],"1.6.2":[{"comment_text":"","digests":{"blake2b_256":"aa2633253779822e82789fbc752cfe1027338718447fa724ae047cd2449ed8fd","md5":"1be267ac5e8b34cd9a21dd3f4b8bf96a","sha256":"2e12bf052d9d52682de7012dfce2007cb7c014709f3719b06ab2c2cc8d7eac71"},"downloads":-1,"filename":"twine-1.6.2-py2.py3-none-any.whl","has_sig":false,"md5_digest":"1be267ac5e8b34cd9a21dd3f4b8bf96a","packagetype":"bdist_wheel","python_version":"py2.py3","requires_python":null,"size":22325,"upload_time":"2015-10-04T16:28:52","upload_time_iso_8601":"2015-10-04T16:28:52.839593Z","url":"https://test-files.pythonhosted.org/packages/aa/26/33253779822e82789fbc752cfe1027338718447fa724ae047cd2449ed8fd/twine-1.6.2-py2.py3-none-any.whl","yanked":false,"yanked_reason":null}]},"urls":[{"comment_text":"","digests":{"blake2b_256":"65ae9cfdff186dd4812c59bad890435538858f13fe43dbe6923e0fb20f0adfc8","md5":"5a884e2b30230ef8340d175288433a1d","sha256":"08eb132bbaec40c6d25b358f546ec1dc96ebd2638a86eea68769d9e67fe2b129"},"downloads":-1,"filename":"twine-1.11.0-py2.py3-none-any.whl","has_sig":false,"md5_digest":"5a884e2b30230ef8340d175288433a1d","packagetype":"bdist_wheel","python_version":"py2.py3","requires_python":null,"size":30402,"upload_time":"2018-03-19T23:31:52","upload_time_iso_8601":"2018-03-19T23:31:52.040031Z","url":"https://test-files.pythonhosted.org/packages/65/ae/9cfdff186dd4812c59bad890435538858f13fe43dbe6923e0fb20f0adfc8/twine-1.11.0-py2.py3-none-any.whl","yanked":false,"yanked_reason":null},{"comment_text":"","digests":{"blake2b_256":"9e892971f240b9fc102b2e56ee8b0a9d7c9c3a7cf081b851eb02d85891de20d1","md5":"1b4de33b45225a30f5f04b118f92c09b","sha256":"2fd9a4d9ff0bcacf41fdc40c8cb0cfaef1f1859457c9653fd1b92237cc4e9f25"},"downloads":-1,"filename":"twine-1.11.0.tar.gz","has_sig":false,"md5_digest":"1b4de33b45225a30f5f04b118f92c09b","packagetype":"sdist","python_version":"source","requires_python":null,"size":44683,"upload_time":"2018-03-19T23:31:53","upload_time_iso_8601":"2018-03-19T23:31:53.188770Z","url":"https://test-files.pythonhosted.org/packages/9e/89/2971f240b9fc102b2e56ee8b0a9d7c9c3a7cf081b851eb02d85891de20d1/twine-1.11.0.tar.gz","yanked":false,"yanked_reason":null}],"vulnerabilities":[]}
+
+      '
     headers:
       Accept-Ranges:
       - bytes
@@ -143,8 +194,6 @@ interactions:
       - X-PyPI-Last-Serial
       Access-Control-Max-Age:
       - '86400'
-      Age:
-      - '2061'
       Cache-Control:
       - max-age=900, public
       Connection:
@@ -152,23 +201,30 @@ interactions:
       Content-Encoding:
       - gzip
       Content-Length:
-      - '6511'
+      - '6604'
       Content-Security-Policy:
       - base-uri 'self'; block-all-mixed-content; connect-src 'self' https://api.github.com/repos/
-        fastly-insights.com *.fastly-insights.com *.ethicalads.io https://api.pwnedpasswords.com;
-        default-src 'none'; font-src 'self' fonts.gstatic.com; form-action 'self';
-        frame-ancestors 'none'; frame-src 'none'; img-src 'self' https://warehouse-test-camo.ingress.cmh1.psfhosted.org/
-        www.google-analytics.com *.fastly-insights.com *.ethicalads.io; script-src
-        'self' www.googletagmanager.com www.google-analytics.com *.fastly-insights.com
-        *.ethicalads.io 'sha256-U3hKDidudIaxBDEzwGJApJgPEf2mWk6cfMWghrAa6i0='; style-src
-        'self' fonts.googleapis.com *.ethicalads.io 'sha256-2YHqZokjiizkHi1Zt+6ar0XJ0OeEy/egBnlm+MDMtrM='
-        'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='; worker-src *.fastly-insights.com
+        https://api.github.com/search/issues https://*.google-analytics.com https://*.analytics.google.com
+        https://*.googletagmanager.com fastly-insights.com *.fastly-insights.com *.ethicalads.io
+        https://api.pwnedpasswords.com https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/sre/mathmaps/;
+        default-src 'none'; font-src 'self' fonts.gstatic.com; form-action 'self'
+        https://checkout.stripe.com; frame-ancestors 'none'; frame-src 'none'; img-src
+        'self' https://warehouse-test-camo.ingress.cmh1.psfhosted.org/ https://*.google-analytics.com
+        https://*.googletagmanager.com *.fastly-insights.com *.ethicalads.io; script-src
+        'self' https://*.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com
+        *.fastly-insights.com *.ethicalads.io 'sha256-U3hKDidudIaxBDEzwGJApJgPEf2mWk6cfMWghrAa6i0='
+        https://cdn.jsdelivr.net/npm/mathjax@3.2.2/ 'sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII='
+        'sha256-0POaN8stWYQxhzjKS+/eOfbbJ/u4YHO5ZagJvLpMypo='; style-src 'self' fonts.googleapis.com
+        *.ethicalads.io 'sha256-2YHqZokjiizkHi1Zt+6ar0XJ0OeEy/egBnlm+MDMtrM=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='
+        'sha256-JLEjeN9e5dGsz5475WyRaoA4eQOdNPxDIeUhclnJDCE=' 'sha256-mQyxHEuwZJqpxCw3SLmc4YOySNKXunyu2Oiz1r3/wAE='
+        'sha256-OCf+kv5Asiwp++8PIevKBYSgnNLNUZvxAp4a7wMLuKA=' 'sha256-h5LOiLhk6wiJrGsG5ItM0KimwzWQH/yAcmoJDJL//bY=';
+        worker-src *.fastly-insights.com
       Content-Type:
       - application/json
       Date:
-      - Sun, 24 Jul 2022 22:44:24 GMT
+      - Wed, 21 Jun 2023 12:39:20 GMT
       ETag:
-      - '"+OzybcCYrgo8v9ezfBfF6g"'
+      - '"UNY5Wt4w/oxUEs5UxbOVYg"'
       Referrer-Policy:
       - origin-when-cross-origin
       Server:
@@ -178,9 +234,9 @@ interactions:
       Vary:
       - Accept-Encoding
       X-Cache:
-      - HIT
+      - MISS
       X-Cache-Hits:
-      - '1'
+      - '0'
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -189,15 +245,12 @@ interactions:
       - none
       X-PyPI-Last-Serial:
       - '2478047'
-      X-Robots-Header:
-      - noindex
       X-Served-By:
-      - cache-iad-kcgs7200105-IAD
+      - cache-iad-kcgs7200125-IAD
       X-Timer:
-      - S1658702664.991655,VS0,VE23
+      - S1687351159.926138,VS0,VE1696
       X-XSS-Protection:
       - 1; mode=block
-    status:
-      code: 200
-      message: OK
+    http_version: HTTP/1.1
+    status_code: 200
 version: 1

@@ -49,10 +49,10 @@ poetry config pypi-token.pypi ...
 | `calcipy/__init__.py`                                           |            2 |         0 |          0 | 100.0%     |
 | `calcipy/can_skip.py`                                           |           17 |         1 |          0 | 92.9%      |
 | `calcipy/check_for_stale_packages/__init__.py`                  |            4 |         2 |          0 | 50.0%      |
-| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          110 |         9 |          3 | 90.5%      |
+| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          112 |         8 |          3 | 90.7%      |
 | `calcipy/cli.py`                                                |           93 |        22 |         13 | 70.2%      |
 | `calcipy/code_tag_collector/__init__.py`                        |            4 |         2 |          0 | 50.0%      |
-| `calcipy/code_tag_collector/_collector.py`                      |          144 |         2 |          0 | 96.8%      |
+| `calcipy/code_tag_collector/_collector.py`                      |          146 |         2 |          0 | 96.9%      |
 | `calcipy/dot_dict/__init__.py`                                  |            4 |         2 |          0 | 50.0%      |
 | `calcipy/dot_dict/_dot_dict.py`                                 |            8 |         0 |          0 | 100.0%     |
 | `calcipy/experiments/__init__.py`                               |            0 |         0 |          0 | 100.0%     |
@@ -76,7 +76,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         |           15 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/test.py`                                         |           44 |         1 |          2 | 95.3%      |
 | `calcipy/tasks/types.py`                                        |           15 |         0 |          0 | 100.0%     |
-| **Totals**                                                      |          974 |        73 |         85 | 91.1%      |
+| **Totals**                                                      |          978 |        72 |         85 | 91.2%      |
 
-Generated on: 2023-06-17
+Generated on: 2023-06-21
 <!-- {cte} -->

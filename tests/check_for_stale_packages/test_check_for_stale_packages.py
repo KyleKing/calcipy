@@ -13,15 +13,16 @@ from calcipy.check_for_stale_packages._check_for_stale_packages import (
 )
 
 
+@pytest.mark.asyncio()
 @pytest.mark.vcr()
-def test__get_release_date():
+async def test__get_release_date():
     release_year = 2018
     package = _HostedPythonPackage(
         domain='https://test.pypi.org/pypi/{name}/json',
         name='twine', version='1.11.0rc1',
     )
 
-    result = _get_release_date(package)
+    result = await _get_release_date(package)
 
     assert isinstance(result, _HostedPythonPackage)
     assert result.domain == package.domain
