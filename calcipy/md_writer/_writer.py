@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 from beartype import beartype
-from beartype.typing import Any, Callable, Dict, List, Optional, Pattern
+from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
 from corallium.log import logger
 from transitions import Machine
@@ -108,23 +108,23 @@ class _ReplacementMachine(Machine):
         return lines
 
 
-_RE_VAR_COMMENT_HTML = re.compile(r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);')
-"""Regex for extracting the vairable from an HTML code comment."""
+_VAR_COMMENT_HTML = r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);'
+"""Regex for extracting the variable from an HTML code comment."""
 
 
 @beartype
-def _parse_var_comment(line: str, matcher: Pattern = _RE_VAR_COMMENT_HTML) -> Dict[str, str]:  # type: ignore[type-arg]
+def _parse_var_comment(line: str, matcher: str = _VAR_COMMENT_HTML) -> Dict[str, str]:
     """Parse the variable from a matching comment.
 
     Args:
         line: string from source file
-        matcher: regex pattern to match. Default is `_RE_VAR_COMMENT_HTML`
+        matcher: string regex pattern to match. Default is `_RE_VAR_COMMENT_HTML`
 
     Returns:
         Dict[str, str]: single key and value pair based on the parsed comment
 
     """
-    if match := matcher.match(line.strip()):
+    if match := re.compile(matcher).match(line.strip()):
         matches = match.groupdict()
         return {matches['key']: matches['value']}
     return {}

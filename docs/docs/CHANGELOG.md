@@ -1,5 +1,15 @@
 ## Unreleased
 
+### Feat
+
+- switch to httpx for async requests
+
+### Perf
+
+- lazy cache compiling the regex
+
+## 1.2.6 (2023-06-17)
+
 ### Fix
 
 - handle missing git remotes in code tag collection

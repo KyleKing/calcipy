@@ -114,6 +114,10 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     return matches
 
 
+_GITHUB_ORIGIN = r'^.+github.com[:/](?P<owner>[^/]+)/(?P<repository>[^.]+)(?:\.git)?$'
+"""Match owner and repository from a GitHub git origin URI."""
+
+
 @beartype
 def github_blame_url(clone_uri: str) -> str:
     """Format the blame URL.
@@ -125,13 +129,13 @@ def github_blame_url(clone_uri: str) -> str:
        str: `repo_url`
 
     """
-    github_url = 'https://github.com/'
     # Could be ssh or http (with or without .git)
     # > git@github.com:KyleKing/calcipy.git
     # > https://github.com/KyleKing/calcipy.git
-    matches = re.findall(r'^.+github.com[:/]([^.]+)(?:\.git)?$', clone_uri)
-    with suppress(IndexError):
-        return f'{github_url}{matches[0]}'
+    matches = re.compile(_GITHUB_ORIGIN).match(clone_uri)
+    if matches:
+        github_url = 'https://github.com/'
+        return f"{github_url}{matches['owner']}/{matches['repository']}"
     return ''
 
 
@@ -316,9 +320,9 @@ def write_code_tag_file(
 
     """
     tag_order = [_t.strip() for _t in tags.split(',') if _t] or COMMON_CODE_TAGS
-    regex_compiled = re.compile((regex or CODE_TAG_RE).format(tag='|'.join(tag_order)))
+    matcher = (regex or CODE_TAG_RE).format(tag='|'.join(tag_order))
 
-    matches = _search_files(paths_source, regex_compiled)
+    matches = _search_files(paths_source, re.compile(matcher))
     if report := _format_report(
         base_dir, matches, tag_order=tag_order,
     ).strip():

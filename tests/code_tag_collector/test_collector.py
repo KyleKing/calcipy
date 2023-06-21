@@ -48,9 +48,9 @@ def test__search_lines():
         '# FIXME: ' + 'For a long line is ignored ...' * 14,  # noqa: T100,T101
     ]
     tag_order = ['FIXME', 'FYI', 'HACK', 'REVIEW']  # noqa: T100
-    regex_compiled = re.compile(CODE_TAG_RE.format(tag='|'.join(tag_order)))
+    matcher = CODE_TAG_RE.format(tag='|'.join(tag_order))
 
-    comments = _search_lines(lines, regex_compiled)
+    comments = _search_lines(lines, re.compile(matcher))
 
     # TODO: assert_against_cache(comments)
     assert [_c.dict() for _c in comments] == [
