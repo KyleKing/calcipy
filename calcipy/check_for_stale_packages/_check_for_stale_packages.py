@@ -1,11 +1,12 @@
 """Check for stale packages."""
 
+import asyncio
 import json
 from pathlib import Path
 
 import arrow
+import httpx
 import numpy as np
-import requests
 from arrow import Arrow
 from beartype import beartype
 from beartype.typing import Dict, List, Optional, Union
@@ -50,7 +51,7 @@ _LIMITER = Limiter(_RATE)
 
 @beartype
 @_LIMITER.ratelimit('pypi', delay=True, max_delay=10)  # type: ignore[misc]
-def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
+async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
 
     Args:
@@ -62,12 +63,13 @@ def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """
     # Retrieve the JSON summary for the specified package
     json_url = package.domain.format(name=package.name)
-    res = requests.get(json_url, timeout=30)  # nosem
-    res.raise_for_status()
-    res_json = res.json()
-    if not (releases := res_json['releases']):
-        msg = f'Failed to locate "releases" or "urls" from {json_url}: {res_json}'
-        raise RuntimeError(msg)
+    async with httpx.AsyncClient() as client:
+        res = await client.get(json_url, timeout=30)   # nosem
+        res.raise_for_status()
+        res_json = res.json()
+        if not (releases := res_json['releases']):
+            msg = f'Failed to locate "releases" or "urls" from {json_url}: {res_json}'
+            raise RuntimeError(msg)
 
     # Also retrieve the latest release date of the package looking through all releases
     release_dates = bidict({
@@ -129,10 +131,10 @@ def _collect_release_dates(
             cached_package = old_cache.get(package.name)
             cached_version = '' if cached_package is None else cached_package.version
             if package.version != cached_version:
-                updated_packages.append(_get_release_date(package))
+                updated_packages.append(asyncio.run(_get_release_date(package)))
             elif cached_package:
                 updated_packages.append(cached_package)
-        except requests.exceptions.HTTPError as exc:
+        except httpx.HTTPError as exc:
             logger.warning('Could not lock package', package=package, error=str(exc))
     return updated_packages
 

@@ -60,6 +60,7 @@ flake8-tuple = {optional = true, version = ">=0.4.1"} # flake8
 flake8-typing-imports = {optional = true, version = ">=1.14.0"} # flake8
 flake8-use-pathlib = {optional = true, version = ">=0.3.0"} # flake8
 flake8-variables-names = {optional = true, version = ">=0.0.5"} # flake8
+httpx = {optional = true, version = ">=0.24.1"} # stale
 invoke = ">=2.1.2"
 mkdocs = {optional = true, version = ">=1.4.1"} # doc
 mkdocs-build-plantuml-plugin = {optional = true, version = ">=1.7.4"} # doc
@@ -84,7 +85,6 @@ pytest-randomly = {optional = true, version = ">=3.12.0"} # test
 pytest-watcher = {optional = true, version = ">=0.2.6"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc,tags
-requests = {optional = true, version = ">=2.31.0"} # stale
 ruff = {optional = true, version = ">=0.0.272"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
@@ -142,8 +142,8 @@ pylint = ["pylint"]
 stale = [
   "arrow",
   "bidict",
+  "httpx",
   "pyrate_limiter",
-  "requests",
 ]
 tags = [
   "arrow",
@@ -165,7 +165,6 @@ hypothesis = {extras = ["cli"], version = ">=6.58.0"} # Use CLI with: "poetry ru
 pytest-recording = ">=0.12.0"
 pytest-subprocess = ">=1.4.1"
 types-pyyaml = ">=6.0.12.6"
-types-requests = ">=2.28.11.13"
 types-setuptools = ">=67.3.0.1"
 
 [tool.poetry.scripts]
