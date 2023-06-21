@@ -96,7 +96,7 @@ def find_project_files_by_suffix(
         Dict[str, List[Path]]: where keys are the suffix (without leading dot) and values the list of paths
 
     """
-    file_lookup = defaultdict(list)
+    file_lookup: Dict[str, List[Path]] = defaultdict(list)
     for path_file in find_project_files(path_project, ignore_patterns or []):
         file_lookup[path_file.suffix.lstrip('.')].append(path_file)
     return dict(file_lookup)
