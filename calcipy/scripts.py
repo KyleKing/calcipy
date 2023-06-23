@@ -37,6 +37,13 @@ def start_lint() -> None:  # pragma: no cover
 
 
 @beartype
+def start_pack() -> None:  # pragma: no cover
+    """Run CLI with only the pack namespace."""
+    from .tasks import pack
+    _start_subset([pack])
+
+
+@beartype
 def start_tags() -> None:  # pragma: no cover
     """Run CLI with only the tags namespace."""
     from .tasks import tags

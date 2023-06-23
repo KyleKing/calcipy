@@ -8,7 +8,6 @@ from invoke.context import Context
 from .. import can_skip  # Required for mocking can_skip.can_skip
 from ..cli import task
 from ..invoke_helpers import run
-from ..noxfile._noxfile import BASE_NOX_COMMAND
 
 
 @task()
@@ -35,6 +34,7 @@ def lock(ctx: Context) -> None:
 )
 def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     """Build the distributed format(s) and publish."""
+    from ..noxfile._noxfile import BASE_NOX_COMMAND
     run(ctx, f'{BASE_NOX_COMMAND} --session build_dist build_check')
 
     cmd = 'poetry publish'

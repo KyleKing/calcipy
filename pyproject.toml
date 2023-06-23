@@ -170,9 +170,10 @@ types-setuptools = ">=67.3.0.1"
 
 [tool.poetry.scripts]
 calcipy = "calcipy.scripts:start"
-calcipy_lint = "calcipy.scripts:start_lint"
-calcipy_tags = "calcipy.scripts:start_tags"
-calcipy_types = "calcipy.scripts:start_types"
+calcipy-lint = "calcipy.scripts:start_lint"
+calcipy-pack = "calcipy.scripts:start_pack"
+calcipy-tags = "calcipy.scripts:start_tags"
+calcipy-types = "calcipy.scripts:start_types"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
