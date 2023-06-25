@@ -2,14 +2,15 @@ from unittest.mock import call
 
 import pytest
 
+from calcipy.tasks.executable_utils import python_dir
 from calcipy.tasks.types import mypy, pyright
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (pyright, {}, ['poetry run pyright calcipy']),
-        (mypy, {}, ['poetry run python -m mypy calcipy']),
+        (pyright, {}, ['pyright calcipy']),
+        (mypy, {}, [f'{python_dir()}/mypy calcipy']),
     ],
 )
 def test_types(ctx, task, kwargs, commands):

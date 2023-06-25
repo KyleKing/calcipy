@@ -2,23 +2,24 @@ from unittest.mock import call
 
 import pytest
 
+from calcipy.tasks.executable_utils import python_dir, python_m
 from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint, security, watch
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (check, {}, ['poetry run python -m ruff check ./calcipy ./tests']),
+        (check, {}, [f'{python_m()} ruff check ./calcipy ./tests']),
         (autopep8, {}, [
-            'poetry run python -m autopep8 ./calcipy ./tests --aggressive --recursive --in-place --max-line-length=120',
+            f'{python_m()} autopep8 ./calcipy ./tests --aggressive --recursive --in-place --max-line-length=120',
         ]),
-        (fix, {}, ['poetry run python -m ruff check ./calcipy ./tests --fix']),
-        (watch, {}, ['poetry run python -m ruff check ./calcipy ./tests --watch --show-source']),
-        (flake8, {}, ['poetry run python -m flake8 ./calcipy ./tests']),
-        (pylint, {}, ['poetry run python -m pylint ./calcipy ./tests']),
+        (fix, {}, [f'{python_m()} ruff check ./calcipy ./tests --fix']),
+        (watch, {}, [f'{python_m()} ruff check ./calcipy ./tests --watch --show-source']),
+        (flake8, {}, [f'{python_dir()}/flake8 ./calcipy ./tests']),
+        (pylint, {}, [f'{python_m()} pylint ./calcipy ./tests']),
         (security, {}, [
-            'poetry run bandit --recursive calcipy -s B101',
-            'poetry run semgrep ci --autofix ' + ' '.join([  # noqa: FLY002
+            f'{python_dir()}/bandit --recursive calcipy -s B101',
+            f'{python_dir()}/semgrep ci --autofix ' + ' '.join([  # noqa: FLY002
                 '--config=p/ci',
                 '--config=p/default',
                 '--config=p/security-audit',

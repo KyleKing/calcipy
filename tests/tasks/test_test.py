@@ -2,6 +2,7 @@ from unittest.mock import call
 
 import pytest
 
+from calcipy.tasks.executable_utils import python_dir
 from calcipy.tasks.test import check, coverage, step, watch
 from calcipy.tasks.test import pytest as task_pytest
 
@@ -15,16 +16,16 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (task_pytest, {}, [f'poetry run python -m pytest ./tests {_COV}']),
-        (task_pytest, {'keyword': 'test'}, [f'poetry run python -m pytest ./tests {_COV} -k "test"']),
-        (task_pytest, {'marker': _MARKERS}, [f'poetry run python -m pytest ./tests {_COV} -m "{_MARKERS}"']),
-        (step, {'marker': _MARKERS}, [f'poetry run python -m pytest ./tests {_FAILFIRST} -m "{_MARKERS}"']),
-        (watch, {'marker': _MARKERS}, [f'poetry run ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
+        (task_pytest, {}, [f'{python_dir()}/pytest ./tests {_COV}']),
+        (task_pytest, {'keyword': 'test'}, [f'{python_dir()}/pytest ./tests {_COV} -k "test"']),
+        (task_pytest, {'marker': _MARKERS}, [f'{python_dir()}/pytest ./tests {_COV} -m "{_MARKERS}"']),
+        (step, {'marker': _MARKERS}, [f'{python_dir()}/pytest ./tests {_FAILFIRST} -m "{_MARKERS}"']),
+        (watch, {'marker': _MARKERS}, [f'{python_dir()}/ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
         (coverage, {'out_dir': '.cover'}, [
-            'poetry run coverage run --branch --source=calcipy --module pytest ./tests',
-            call('poetry run python -m coverage report --show-missing'),
-            call('poetry run python -m coverage html --directory=.cover'),
-            call('poetry run python -m coverage json'),
+            f'{python_dir()}/coverage run --branch --source=calcipy --module pytest ./tests',
+            call(f'{python_dir()}/coverage report --show-missing'),
+            call(f'{python_dir()}/coverage html --directory=.cover'),
+            call(f'{python_dir()}/coverage json'),
         ]),
     ],
     ids=[

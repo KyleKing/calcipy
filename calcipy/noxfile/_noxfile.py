@@ -54,9 +54,6 @@ if read_package_name() == 'corallium':
 else:
     from nox_poetry import session as nox_session  # type: ignore[no-redef]
 
-BASE_NOX_COMMAND = 'poetry run nox --error-on-missing-interpreters'
-"""Reused base arguments to nox."""
-
 
 @lru_cache(maxsize=1)
 @beartype

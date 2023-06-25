@@ -20,6 +20,7 @@ from invoke.exceptions import UnexpectedExit
 from ..cli import task
 from ..invoke_helpers import get_doc_subdir, get_project_path, run
 from ..md_writer import write_autoformatted_md_sections
+from .executable_utils import python_dir
 
 
 @beartype
@@ -54,7 +55,7 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
     path_diagram = pdoc_out_path / pkg_name / '_code_diagrams.md'
     ensure_dir(path_diagram.parent)
     path_diagram.write_text(diagram_md)
-    run(ctx, f'poetry run pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}')
+    run(ctx, f'{python_dir()}/pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}')
 
 
 @beartype
@@ -76,7 +77,7 @@ def build(ctx: Context) -> None:
     for path_md in auto_doc_path.rglob('*.md'):
         trim_trailing_whitespace(path_md)
 
-    run(ctx, f'poetry run mkdocs build --site-dir {get_out_dir()}')
+    run(ctx, f'{python_dir()}/mkdocs build --site-dir {get_out_dir()}')
 
 
 @beartype
@@ -103,7 +104,7 @@ def watch(ctx: Context) -> None:
         open_in_browser(path_doc_index)
     else:  # pragma: no cover
         webbrowser.open('http://localhost:8000')
-        run(ctx, 'poetry run mkdocs serve --dirtyreload')
+        run(ctx, f'{python_dir()}/mkdocs serve --dirtyreload')
 
 
 @task()
@@ -114,6 +115,6 @@ def deploy(ctx: Context) -> None:
 
     with suppress(UnexpectedExit):
         run(ctx, 'pre-commit uninstall')  # To prevent pre-commit failures when mkdocs calls push
-    run(ctx, 'poetry run mkdocs gh-deploy --force')
+    run(ctx, f'{python_dir()}/mkdocs gh-deploy --force')
     with suppress(UnexpectedExit):
         run(ctx, 'pre-commit install')  # Restore pre-commit

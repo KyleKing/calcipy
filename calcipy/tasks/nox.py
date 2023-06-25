@@ -4,7 +4,7 @@ from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import run
-from ..noxfile._noxfile import BASE_NOX_COMMAND
+from .executable_utils import python_dir
 
 
 @task(
@@ -16,4 +16,4 @@ from ..noxfile._noxfile import BASE_NOX_COMMAND
 def noxfile(ctx: Context, *, session: str = '') -> None:
     """Run nox from the local noxfile."""
     cli_args = ['--session', session] if session else []
-    run(ctx, f'{BASE_NOX_COMMAND} {" ".join(cli_args)}')
+    run(ctx, f'{python_dir()}/nox --error-on-missing-interpreters {" ".join(cli_args)}')

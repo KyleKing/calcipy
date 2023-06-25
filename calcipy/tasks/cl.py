@@ -6,6 +6,7 @@ from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import get_doc_subdir, get_project_path, run
+from .executable_utils import python_dir
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
@@ -28,7 +29,7 @@ def write(ctx: Context) -> None:
         List[DoitAction]: doit actions
 
     """
-    run(ctx, 'poetry run cz changelog')
+    run(ctx, f'{python_dir()}/cz changelog')
     path_cl = get_project_path() / 'CHANGELOG.md'
     if not path_cl.is_file():
         msg = f'Could not locate the changelog at: {path_cl}'
@@ -40,7 +41,7 @@ def write(ctx: Context) -> None:
 def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     """Bumps project version based on commits & settings in pyproject.toml."""
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
-    run(ctx, f'poetry run cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
+    run(ctx, f'{python_dir()}/cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 
     run(ctx, 'git push origin --tags --no-verify')
 

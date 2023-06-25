@@ -11,6 +11,7 @@ from ..cli import task
 from ..experiments import check_duplicate_test_names
 from ..invoke_helpers import run
 from .defaults import from_ctx
+from .executable_utils import python_dir
 
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 
@@ -19,11 +20,11 @@ _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 def _inner_task(
     ctx: Context,
     *,
-    cli_args: str,
+    command: str = 'pytest',
+    cli_args: str = '',
     keyword: str = '',
     marker: str = '',
     min_cover: int = 0,
-    command: str = 'python -m pytest',
 ) -> None:
     """Shared task logic."""
     if keyword:
@@ -32,7 +33,7 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
-    run(ctx, f'poetry run {command} ./tests{cli_args}')
+    run(ctx, f'{python_dir()}/{command} ./tests{cli_args}')
 
 
 @task()
@@ -97,12 +98,12 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
     cov_dir = Path(out_dir or from_ctx(ctx, 'test', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)
     print('')  # noqa: T201
-    for cmd in (
-        'poetry run python -m coverage report --show-missing',  # Write to STDOUT
-        f'poetry run python -m coverage html --directory={cov_dir}',  # Write to HTML
-        'poetry run python -m coverage json',  # Create coverage.json file for "_handle_coverage"
+    for cli_args in (
+        'report --show-missing',  # Write to STDOUT
+        f'html --directory={cov_dir}',  # Write to HTML
+        'json',  # Create coverage.json file for "_handle_coverage"
     ):
-        run(ctx, cmd)
+        run(ctx, f'{python_dir()}/coverage {cli_args}')
 
     if view:  # pragma: no cover
         open_in_browser(cov_dir / 'index.html')

@@ -3,6 +3,7 @@ from unittest.mock import call
 import pytest
 
 from calcipy import can_skip
+from calcipy.tasks.executable_utils import python_dir
 from calcipy.tasks.pack import check_licenses, install_extras, lock, publish
 
 
@@ -15,7 +16,7 @@ from calcipy.tasks.pack import check_licenses, install_extras, lock, publish
         )]),
         (lock, {}, [call('poetry lock --no-update')]),
         (publish, {}, [
-            'poetry run nox --error-on-missing-interpreters --session build_dist build_check',
+            f'{python_dir()}/nox --error-on-missing-interpreters --session build_dist build_check',
             'poetry publish',
         ]),
         (check_licenses, {}, ['licensecheck']),

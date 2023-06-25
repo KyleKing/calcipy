@@ -2,13 +2,14 @@ from unittest.mock import call
 
 import pytest
 
+from calcipy.tasks.executable_utils import python_dir
 from calcipy.tasks.nox import noxfile
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (noxfile, {}, ['poetry run nox --error-on-missing-interpreters ']),
+        (noxfile, {}, [f'{python_dir()}/nox --error-on-missing-interpreters ']),
     ],
 )
 def test_nox(ctx, task, kwargs, commands):

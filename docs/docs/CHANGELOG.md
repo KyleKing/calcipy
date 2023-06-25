@@ -2,6 +2,12 @@
 
 ### Feat
 
+- add calcipy-pack to use install-extras without the extras
+
+## 1.3.0 (2023-06-21)
+
+### Feat
+
 - switch to httpx for async requests
 
 ### Perf
