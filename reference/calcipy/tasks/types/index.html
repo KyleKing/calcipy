@@ -960,6 +960,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../executable_utils/" class="md-nav__link">
+        executable_utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../lint/" class="md-nav__link">
         lint
       </a>
@@ -1252,10 +1266,10 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/types.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="24 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="25 "></span><span class="k">def</span> <span class="nf">mypy</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="26 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run mypy.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="27 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;python -m mypy&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="26 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="27 "></span><span class="k">def</span> <span class="nf">mypy</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="28 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run mypy.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="29 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/mypy&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1280,10 +1294,11 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/types.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="18 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="19 "></span><span class="k">def</span> <span class="nf">pyright</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="20 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pyright.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="21 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;pyright&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="19 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="20 "></span><span class="k">def</span> <span class="nf">pyright</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="21 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pyright.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="22 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;pyright&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PYRIGHT_MESSAGE</span><span class="p">)</span>
+<span class="linenos" data-linenos="23 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;pyright&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1303,11 +1318,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>

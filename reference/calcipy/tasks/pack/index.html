@@ -962,6 +962,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../executable_utils/" class="md-nav__link">
+        executable_utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../lint/" class="md-nav__link">
         lint
       </a>
@@ -1022,13 +1036,6 @@
         <li class="md-nav__item">
   <a href="#calcipy.tasks.pack" class="md-nav__link">
     calcipy.tasks.pack
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#calcipy.tasks.pack-attributes" class="md-nav__link">
-    Attributes
   </a>
   
 </li>
@@ -1191,13 +1198,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#calcipy.tasks.pack-attributes" class="md-nav__link">
-    Attributes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#calcipy.tasks.pack-functions" class="md-nav__link">
     Functions
   </a>
@@ -1274,7 +1274,7 @@
 
 
 
-<h2 id="calcipy.tasks.pack-attributes">Attributes<a href="#calcipy.tasks.pack-attributes" class="headerlink" title="Permanent link">⚓︎</a></h2>
+
 
 <h2 id="calcipy.tasks.pack-functions">Functions<a href="#calcipy.tasks.pack-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
@@ -1300,7 +1300,7 @@
 <span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">check_licenses</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check licenses for compatibility with `licensecheck`.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="49 "></span>    <span class="n">res</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;which licensecheck&#39;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="50 "></span>    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
 <span class="linenos" data-linenos="51 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;`licensecheck` not found. installing with pipx&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="52 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pipx install licensecheck&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="53 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;licensecheck&#39;</span><span class="p">)</span>
@@ -1396,7 +1396,7 @@
 <span class="linenos" data-linenos="35 "></span><span class="p">)</span>
 <span class="linenos" data-linenos="36 "></span><span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">to_test_pypi</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="37 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the distributed format(s) and publish.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="38 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BASE_NOX_COMMAND</span><span class="si">}</span><span class="s1"> --session build_dist build_check&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="38 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/nox --error-on-missing-interpreters --session build_dist build_check&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="39 "></span>
 <span class="linenos" data-linenos="40 "></span>    <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;poetry publish&#39;</span>
 <span class="linenos" data-linenos="41 "></span>    <span class="k">if</span> <span class="n">to_test_pypi</span><span class="p">:</span>
@@ -1421,11 +1421,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>

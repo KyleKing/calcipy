@@ -962,6 +962,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../executable_utils/" class="md-nav__link">
+        executable_utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../lint/" class="md-nav__link">
         lint
       </a>
@@ -1008,13 +1022,6 @@
         <li class="md-nav__item">
   <a href="#calcipy.tasks.nox" class="md-nav__link">
     calcipy.tasks.nox
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#calcipy.tasks.nox-attributes" class="md-nav__link">
-    Attributes
   </a>
   
 </li>
@@ -1170,13 +1177,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#calcipy.tasks.nox-attributes" class="md-nav__link">
-    Attributes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#calcipy.tasks.nox-functions" class="md-nav__link">
     Functions
   </a>
@@ -1232,7 +1232,7 @@
 
 
 
-<h2 id="calcipy.tasks.nox-attributes">Attributes<a href="#calcipy.tasks.nox-attributes" class="headerlink" title="Permanent link">⚓︎</a></h2>
+
 
 <h2 id="calcipy.tasks.nox-functions">Functions<a href="#calcipy.tasks.nox-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
@@ -1263,7 +1263,7 @@
 <span class="linenos" data-linenos="16 "></span><span class="k">def</span> <span class="nf">noxfile</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run nox from the local noxfile.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="18 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;--session&#39;</span><span class="p">,</span> <span class="n">session</span><span class="p">]</span> <span class="k">if</span> <span class="n">session</span> <span class="k">else</span> <span class="p">[]</span>
-<span class="linenos" data-linenos="19 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">BASE_NOX_COMMAND</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_args</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="19 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/nox --error-on-missing-interpreters </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_args</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1283,11 +1283,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>

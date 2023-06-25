@@ -916,6 +916,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#calcipy.scripts.start_pack" class="md-nav__link">
+    start_pack()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#calcipy.scripts.start_tags" class="md-nav__link">
     start_tags()
   </a>
@@ -1026,6 +1033,20 @@
     <li class="md-nav__item">
       <a href="../tasks/doc/" class="md-nav__link">
         doc
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/executable_utils/" class="md-nav__link">
+        executable_utils
       </a>
     </li>
   
@@ -1204,6 +1225,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#calcipy.scripts.start_pack" class="md-nav__link">
+    start_pack()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#calcipy.scripts.start_tags" class="md-nav__link">
     start_tags()
   </a>
@@ -1324,6 +1352,35 @@
 
 
 
+<h3 id="calcipy.scripts.start_pack" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">start_pack</span>
+
+
+<a href="#calcipy.scripts.start_pack" class="headerlink" title="Permanent link">⚓︎</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">start_pack</span><span class="p">()</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Run CLI with only the pack namespace.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>calcipy/scripts.py</code></summary>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="40 "></span><span class="k">def</span> <span class="nf">start_pack</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="41 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the pack namespace.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="42 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">pack</span>
+<span class="linenos" data-linenos="43 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">pack</span><span class="p">])</span>
+</code></pre></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
 <h3 id="calcipy.scripts.start_tags" class="doc doc-heading">
         <span class="doc doc-object-name doc-function-name">start_tags</span>
 
@@ -1338,11 +1395,11 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/scripts.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="40 "></span><span class="k">def</span> <span class="nf">start_tags</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="41 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the tags namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="42 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">tags</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">tags</span><span class="p">])</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">start_tags</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the tags namespace.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="49 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">tags</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">tags</span><span class="p">])</span>
 </code></pre></div>
       </details>
   </div>
@@ -1367,11 +1424,11 @@
 
       <details class="quote">
         <summary>Source code in <code>calcipy/scripts.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">start_types</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the types namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="49 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">types</span>
-<span class="linenos" data-linenos="50 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">types</span><span class="p">])</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="53 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="54 "></span><span class="k">def</span> <span class="nf">start_types</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="55 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the types namespace.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="56 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">types</span>
+<span class="linenos" data-linenos="57 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">types</span><span class="p">])</span>
 </code></pre></div>
       </details>
   </div>
@@ -1391,11 +1448,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>

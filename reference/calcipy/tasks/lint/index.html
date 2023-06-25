@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://calcipy.kyleking.me/reference/calcipy/tasks/lint/">
       
       
-        <link rel="prev" href="../doc/">
+        <link rel="prev" href="../executable_utils/">
       
       
         <link rel="next" href="../nox/">
@@ -960,6 +960,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../executable_utils/" class="md-nav__link">
+        executable_utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -1340,16 +1354,16 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="43 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="44 "></span><span class="k">def</span> <span class="nf">autopep8</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="45 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run autopep8.</span>
-<span class="linenos" data-linenos="46 "></span>
-<span class="linenos" data-linenos="47 "></span><span class="sd">    FYI: This is temporary until ruff implements white space rules</span>
-<span class="linenos" data-linenos="48 "></span><span class="sd">    https://github.com/charliermarsh/ruff/issues/970</span>
-<span class="linenos" data-linenos="49 "></span>
-<span class="linenos" data-linenos="50 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="51 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39; --aggressive --recursive --in-place --max-line-length=120&#39;</span>
-<span class="linenos" data-linenos="52 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;python -m autopep8&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="48 "></span><span class="k">def</span> <span class="nf">autopep8</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="49 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run autopep8.</span>
+<span class="linenos" data-linenos="50 "></span>
+<span class="linenos" data-linenos="51 "></span><span class="sd">    FYI: This is temporary until ruff implements white space rules</span>
+<span class="linenos" data-linenos="52 "></span><span class="sd">    https://github.com/charliermarsh/ruff/issues/970</span>
+<span class="linenos" data-linenos="53 "></span>
+<span class="linenos" data-linenos="54 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="55 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39;--aggressive --recursive --in-place --max-line-length=120&#39;</span>
+<span class="linenos" data-linenos="56 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;autopep8&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1374,10 +1388,10 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="37 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="38 "></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="39 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="40 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="41 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos="42 "></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="43 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="44 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1402,10 +1416,10 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="55 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">autopep8</span><span class="p">])</span>
-<span class="linenos" data-linenos="56 "></span><span class="k">def</span> <span class="nf">fix</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="57 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff and apply fixes.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="58 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39; --fix&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="59 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">autopep8</span><span class="p">])</span>
+<span class="linenos" data-linenos="60 "></span><span class="k">def</span> <span class="nf">fix</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="61 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff and apply fixes.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="62 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;--fix&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1430,10 +1444,10 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="67 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="68 "></span><span class="k">def</span> <span class="nf">flake8</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="69 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run flake8.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="70 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;python -m flake8&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="71 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="72 "></span><span class="k">def</span> <span class="nf">flake8</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="73 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run flake8.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="74 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;flake8&#39;</span><span class="p">,</span> <span class="n">run_as_module</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1458,23 +1472,25 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="120 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="121 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="122 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the pre-commit hooks&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="123 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="124 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="125 "></span><span class="k">def</span> <span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="126 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pre-commit.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="127 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit install&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="128 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
-<span class="linenos" data-linenos="129 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit autoupdate&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="130 "></span>
-<span class="linenos" data-linenos="131 "></span>    <span class="n">all_hook_stages</span> <span class="o">=</span> <span class="p">[</span>
-<span class="linenos" data-linenos="132 "></span>        <span class="s1">&#39;commit&#39;</span><span class="p">,</span> <span class="s1">&#39;merge-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="s1">&#39;prepare-commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;post-checkout&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="133 "></span>        <span class="s1">&#39;post-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;post-merge&#39;</span><span class="p">,</span> <span class="s1">&#39;post-rewrite&#39;</span><span class="p">,</span> <span class="s1">&#39;manual&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="134 "></span>    <span class="p">]</span>
-<span class="linenos" data-linenos="135 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">all_hook_stages</span><span class="p">)</span>
-<span class="linenos" data-linenos="136 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;pre-commit run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="124 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="125 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="126 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the pre-commit hooks&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="127 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="128 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="129 "></span><span class="k">def</span> <span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="130 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pre-commit.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="131 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;pre-commit&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PRE_COMMIT_MESSAGE</span><span class="p">)</span>
+<span class="linenos" data-linenos="132 "></span>
+<span class="linenos" data-linenos="133 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit install&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="134 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
+<span class="linenos" data-linenos="135 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit autoupdate&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="136 "></span>
+<span class="linenos" data-linenos="137 "></span>    <span class="n">all_hook_stages</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos" data-linenos="138 "></span>        <span class="s1">&#39;commit&#39;</span><span class="p">,</span> <span class="s1">&#39;merge-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="s1">&#39;prepare-commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;post-checkout&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="139 "></span>        <span class="s1">&#39;post-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;post-merge&#39;</span><span class="p">,</span> <span class="s1">&#39;post-rewrite&#39;</span><span class="p">,</span> <span class="s1">&#39;manual&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="140 "></span>    <span class="p">]</span>
+<span class="linenos" data-linenos="141 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">all_hook_stages</span><span class="p">)</span>
+<span class="linenos" data-linenos="142 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;pre-commit run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1499,15 +1515,15 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="73 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="74 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="75 "></span>        <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="s1">&#39;if provided, show the pylint summary report&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="76 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="77 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="78 "></span><span class="k">def</span> <span class="nf">pylint</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="79 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pylint.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="80 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39; --report=y&#39;</span> <span class="k">if</span> <span class="n">report</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-<span class="linenos" data-linenos="81 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;python -m pylint&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="77 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="78 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="79 "></span>        <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="s1">&#39;if provided, show the pylint summary report&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="80 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="81 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="82 "></span><span class="k">def</span> <span class="nf">pylint</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="83 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pylint.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="84 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39;--report=y&#39;</span> <span class="k">if</span> <span class="n">report</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+<span class="linenos" data-linenos="85 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;pylint&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1532,32 +1548,32 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 88 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos=" 89 "></span><span class="k">def</span> <span class="nf">security</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos=" 90 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Attempt to identify possible security vulnerabilities.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos=" 91 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override bandit with &quot;# nosec&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 92 "></span>    <span class="n">pkg_name</span> <span class="o">=</span> <span class="n">read_package_name</span><span class="p">()</span>
-<span class="linenos" data-linenos=" 93 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;poetry run bandit --recursive </span><span class="si">{</span><span class="n">pkg_name</span><span class="si">}</span><span class="s1"> -s B101&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 94 "></span>
-<span class="linenos" data-linenos=" 95 "></span>    <span class="c1"># See additional semgrep rules at:</span>
-<span class="linenos" data-linenos=" 96 "></span>    <span class="c1">#   https://semgrep.dev/explore</span>
-<span class="linenos" data-linenos=" 97 "></span>    <span class="c1">#   https://github.com/returntocorp/semgrep-rules/tree/develop/python</span>
-<span class="linenos" data-linenos=" 98 "></span>    <span class="c1">#   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45</span>
-<span class="linenos" data-linenos=" 99 "></span>    <span class="n">semgrep_configs</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>  <span class="c1"># noqa: FLY002</span>
-<span class="linenos" data-linenos="100 "></span>        <span class="s1">&#39;--config=p/ci&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="101 "></span>        <span class="s1">&#39;--config=p/default&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="102 "></span>        <span class="s1">&#39;--config=p/security-audit&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="103 "></span>        <span class="s1">&#39;--config=r/bash&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="104 "></span>        <span class="s1">&#39;--config=r/contrib&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="105 "></span>        <span class="s1">&#39;--config=r/fingerprints&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="106 "></span>        <span class="s1">&#39;--config=r/generic&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="107 "></span>        <span class="s1">&#39;--config=r/json&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="108 "></span>        <span class="s1">&#39;--config=r/python&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="109 "></span>        <span class="s1">&#39;--config=r/terraform&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="110 "></span>        <span class="s1">&#39;--config=r/yaml&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="111 "></span>    <span class="p">])</span>
-<span class="linenos" data-linenos="112 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override semgrep with &quot;# nosem&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="113 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;poetry run semgrep ci --autofix </span><span class="si">{</span><span class="n">semgrep_configs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 92 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 93 "></span><span class="k">def</span> <span class="nf">security</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 94 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Attempt to identify possible security vulnerabilities.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos=" 95 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override bandit with &quot;# nosec&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 96 "></span>    <span class="n">pkg_name</span> <span class="o">=</span> <span class="n">read_package_name</span><span class="p">()</span>
+<span class="linenos" data-linenos=" 97 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/bandit --recursive </span><span class="si">{</span><span class="n">pkg_name</span><span class="si">}</span><span class="s1"> -s B101&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 98 "></span>
+<span class="linenos" data-linenos=" 99 "></span>    <span class="c1"># See additional semgrep rules at:</span>
+<span class="linenos" data-linenos="100 "></span>    <span class="c1">#   https://semgrep.dev/explore</span>
+<span class="linenos" data-linenos="101 "></span>    <span class="c1">#   https://github.com/returntocorp/semgrep-rules/tree/develop/python</span>
+<span class="linenos" data-linenos="102 "></span>    <span class="c1">#   https://awesomeopensource.com/project/returntocorp/semgrep-rules?categorypage=45</span>
+<span class="linenos" data-linenos="103 "></span>    <span class="n">semgrep_configs</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>  <span class="c1"># noqa: FLY002</span>
+<span class="linenos" data-linenos="104 "></span>        <span class="s1">&#39;--config=p/ci&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="105 "></span>        <span class="s1">&#39;--config=p/default&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="106 "></span>        <span class="s1">&#39;--config=p/security-audit&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="107 "></span>        <span class="s1">&#39;--config=r/bash&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="108 "></span>        <span class="s1">&#39;--config=r/contrib&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="109 "></span>        <span class="s1">&#39;--config=r/fingerprints&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="110 "></span>        <span class="s1">&#39;--config=r/generic&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="111 "></span>        <span class="s1">&#39;--config=r/json&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="112 "></span>        <span class="s1">&#39;--config=r/python&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="113 "></span>        <span class="s1">&#39;--config=r/terraform&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="114 "></span>        <span class="s1">&#39;--config=r/yaml&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="115 "></span>    <span class="p">])</span>
+<span class="linenos" data-linenos="116 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override semgrep with &quot;# nosem&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos="117 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/semgrep ci --autofix </span><span class="si">{</span><span class="n">semgrep_configs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1582,10 +1598,10 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 
       <details class="quote">
         <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="61 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="62 "></span><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="63 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="64 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39; --watch --show-source&#39;</span><span class="p">)</span>
+        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="65 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="66 "></span><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="67 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="68 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;--watch --show-source&#39;</span><span class="p">)</span>
 </code></pre></div>
       </details>
   </div>
@@ -1605,11 +1621,11 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 21, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2023</span>
       
     
   </small>
