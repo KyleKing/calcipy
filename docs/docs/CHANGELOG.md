@@ -4,6 +4,10 @@
 
 - add calcipy-pack to use install-extras without the extras
 
+### Fix
+
+- use calcipy's python environment when installed with pipx
+
 ## 1.3.0 (2023-06-21)
 
 ### Feat

@@ -47,7 +47,7 @@ def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
 def check_licenses(ctx: Context) -> None:
     """Check licenses for compatibility with `licensecheck`."""
     res = run(ctx, 'which licensecheck', warn=True, hide=True)
-    if res.exited == 1:
+    if not res or res.exited == 1:
         logger.warning('`licensecheck` not found. installing with pipx')
         run(ctx, 'pipx install licensecheck')
     run(ctx, 'licensecheck')

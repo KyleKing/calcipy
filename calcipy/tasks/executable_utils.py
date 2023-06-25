@@ -6,6 +6,9 @@ from functools import lru_cache
 from pathlib import Path
 
 from beartype import beartype
+from invoke.context import Context
+
+from ..invoke_helpers import run
 
 
 @lru_cache(maxsize=1)
@@ -30,3 +33,25 @@ def python_dir() -> str:
 def python_m() -> str:
     """Return the active python path and `-m` flag."""
     return f'{resolve_python()} -m'
+
+
+PYRIGHT_MESSAGE = """
+`pyright` was not found and must be installed separately (such as 'brew install pyright' on Mac).
+    See the online documentation for your system: https://microsoft.github.io/pyright/#/installation
+"""
+PRE_COMMIT_MESSAGE = """
+`pre-commit` was not found and must be installed separately (such as 'brew install pre-commit' on Mac).
+    See the online documentation for your system: https://pre-commit.com/#install
+"""
+GH_MESSAGE = """
+`gh` was not found and must be installed separately (such as 'brew install gh' on Mac).
+    See the online documentation for your system: https://cli.github.com/
+"""
+
+
+@beartype
+def check_installed(ctx: Context, executable: str, message: str) -> None:
+    """If the required executable isn't present, raise a clear user error."""
+    res = run(ctx, f'which {executable}', warn=True, hide=True)
+    if not res or res.exited == 1:
+        raise RuntimeError(message)

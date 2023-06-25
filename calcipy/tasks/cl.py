@@ -6,7 +6,7 @@ from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import get_doc_subdir, get_project_path, run
-from .executable_utils import python_dir
+from .executable_utils import GH_MESSAGE, check_installed, python_dir
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
@@ -40,6 +40,8 @@ def write(ctx: Context) -> None:
 @beartype
 def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     """Bumps project version based on commits & settings in pyproject.toml."""
+    check_installed(ctx, executable='gh', message=GH_MESSAGE)
+
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
     run(ctx, f'{python_dir()}/cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 

@@ -26,17 +26,14 @@ def use_pty() -> bool:
 
 
 @beartype
-def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Result:
+def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Optional[Result]:
     """Wrap invoke.run to run within the `working_dir`."""
     working_dir = '.'
     with suppress(AttributeError):
         working_dir = ctx.config.gto.working_dir
 
     with ctx.cd(working_dir):
-        res = ctx.run(*run_args, **run_kwargs)
-    if not res:
-        raise NotImplementedError('No response from `ctx.run`')
-    return res
+        return ctx.run(*run_args, **run_kwargs)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

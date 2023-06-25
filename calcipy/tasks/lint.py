@@ -10,7 +10,7 @@ from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import run
-from .executable_utils import python_dir, python_m
+from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir, python_m
 
 # ==============================================================================
 # Linting
@@ -128,6 +128,8 @@ def security(ctx: Context) -> None:
 )
 def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     """Run pre-commit."""
+    check_installed(ctx, executable='pre-commit', message=PRE_COMMIT_MESSAGE)
+
     run(ctx, 'pre-commit install')
     if not no_update:
         run(ctx, 'pre-commit autoupdate')
