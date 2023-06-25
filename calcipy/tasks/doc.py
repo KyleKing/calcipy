@@ -20,7 +20,7 @@ from invoke.exceptions import UnexpectedExit
 from ..cli import task
 from ..invoke_helpers import get_doc_subdir, get_project_path, run
 from ..md_writer import write_autoformatted_md_sections
-from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir
+from .executable_utils import python_dir
 
 
 @beartype
@@ -112,8 +112,6 @@ def deploy(ctx: Context) -> None:
     """Deploy docs to the Github `gh-pages` branch."""
     if _is_mkdocs_local():  # pragma: no cover
         raise NotImplementedError('Not yet configured to deploy documentation without "use_directory_urls"')
-
-    check_installed(ctx, executable='pre-commit', message=PRE_COMMIT_MESSAGE)
 
     with suppress(UnexpectedExit):
         run(ctx, 'pre-commit uninstall')  # To prevent pre-commit failures when mkdocs calls push

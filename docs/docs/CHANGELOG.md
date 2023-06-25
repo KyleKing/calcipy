@@ -6,6 +6,7 @@
 
 ### Fix
 
+- show a readable warning when gh, pyright, and/or pre-commit are not installed
 - use calcipy's python environment when installed with pipx
 
 ## 1.3.0 (2023-06-21)
