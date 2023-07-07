@@ -40,51 +40,93 @@ Additionally, `calcipy` can be run as a CLI application without adding the packa
 Quick Start:
 
 ```sh
-pipx install calcipy
+# For the CLI, only install a few of the extras which can be used from a few different CLI commands
+pipx install 'calcipy[flake8,lint,tags]'
 
 # Use 'tags' to create a CODE_TAG_SUMMARY of the specified directory
-calcipy tags --help
-calcipy tags --base-dir=~/path/to/my_project
+calcipy-tags tags --help
+calcipy-tags tags --base-dir=~/path/to/my_project
 
-# See additional documentation from the CLI help
-> calcipy
+# You can list all provided CLI commands with
+pipx list
+```
+
+```txt
+venvs are in ~/.local/pipx/venvs
+apps are exposed on your $PATH at ~/.local/bin
+   package calcipy 1.4.0, installed using Python 3.11.4
+    - calcipy
+    - calcipy-lint
+    - calcipy-pack
+    - calcipy-tags
+    - calcipy-types
+```
+
+Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The "Usage", "Core options", and "Global Task Options" are the same for each subsequent command, so they are excluded for brevity.
+
+```txt
+> calcipy-lint
+Usage: calcipy-lint [--core-opts] <subcommand> [--subcommand-opts] ...
+
+Core options:
+
+  --complete                         Print tab-completion candidates for given parse remainder.
+  --hide=STRING                      Set default value of run()'s 'hide' kwarg.
+  --print-completion-script=STRING   Print the tab-completion script for your preferred shell (bash|zsh|fish).
+  --prompt-for-sudo-password         Prompt user at start of session for the sudo.password config value.
+  --write-pyc                        Enable creation of .pyc files.
+  -d, --debug                        Enable debug output.
+  -D INT, --list-depth=INT           When listing tasks, only show the first INT levels.
+  -e, --echo                         Echo executed commands before running.
+  -f STRING, --config=STRING         Runtime configuration file to use.
+  -F STRING, --list-format=STRING    Change the display format used when listing tasks. Should be one of: flat (default), nested, json.
+  -h [STRING], --help[=STRING]       Show core or per-task help and exit.
+  -l [STRING], --list[=STRING]       List available tasks, optionally limited to a namespace.
+  -p, --pty                          Use a pty when executing shell commands.
+  -R, --dry                          Echo commands instead of running.
+  -T INT, --command-timeout=INT      Specify a global command execution timeout, in seconds.
+  -V, --version                      Show version and exit.
+  -w, --warn-only                    Warn, instead of failing, when shell commands fail.
 
 Subcommands:
 
-main                                     Main task pipeline.
-other                                    Run tasks that are otherwise not exercised in main.
-release                                  Release pipeline.
-cl.bump                                  Bumps project version based on commits & settings in pyproject.toml.
-cl.write                                 Write a Changelog file with the raw Git history.
-doc.build                                Build documentation with mkdocs.
-doc.deploy                               Deploy docs to the Github `gh-pages` branch.
-doc.watch                                Serve local documentation for local editing.
-lint.autopep8                            Run autopep8.
-lint.check (lint)                        Run ruff as check-only.
-lint.fix                                 Run ruff and apply fixes.
-lint.flake8                              Run ruff and apply fixes.
-lint.pre-commit                          Run pre-commit.
-lint.pylint                              Run ruff and apply fixes.
-lint.security                            Attempt to identify possible security vulnerabilities.
-lint.watch                               Run ruff as check-only.
-nox.noxfile (nox)                        Run nox from the local noxfile.
-pack.check-licenses                      Check licenses for compatibility with `licensecheck`.
-pack.lock                                Ensure poetry.lock is  up-to-date.
-pack.publish                             Build the distributed format(s) and publish.
-stale.check-for-stale-packages (stale)   Identify stale dependencies.
-tags.collect-code-tags (tags)            Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
-test.coverage                            Generate useful coverage outputs after running pytest.
-test.pytest (test)                       Run pytest with default arguments.
-test.step                                Run pytest optimized to stop on first error.
-test.watch                               Run pytest with polling and optimized to stop on first error.
-types.mypy                               Run mypy.
-types.pyright                            Run pyright.
+  lint.autopep8       Run autopep8.
+  lint.check (lint)   Run ruff as check-only.
+  lint.fix            Run ruff and apply fixes.
+  lint.flake8         Run flake8.
+  lint.pre-commit     Run pre-commit.
+  lint.pylint         Run pylint.
+  lint.security       Attempt to identify possible security vulnerabilities.
+  lint.watch          Run ruff as check-only.
 
 Global Task Options:
 
-working_dir   Set the cwd for the program. Example: "../run --working-dir .. lint test"
-*file_args    List of Paths available globally to all tasks. Will resolve paths with working_dir
-verbose       Globally configure logger verbosity (-vvv for most verbose)
+  *file_args             List of Paths available globally to all tasks. Will resolve paths with working_dir
+  --keep-going           Continue running tasks even on failure
+  --working_dir=STRING   Set the cwd for the program. Example: "../run --working-dir .. lint test"
+  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most verbose)
+
+> calcipy-pack
+
+Subcommands:
+
+  pack.check-licenses   Check licenses for compatibility with `licensecheck`.
+  pack.install-extras   Run poetry install with all extras.
+  pack.lock             Ensure poetry.lock is  up-to-date.
+  pack.publish          Build the distributed format(s) and publish.
+
+> calcipy-tags
+
+Subcommands:
+
+  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table          for TODO- and FIXME-style code comments.
+
+> calcipy-types
+
+Subcommands:
+
+  types.mypy      Run mypy.
+  types.pyright   Run pyright.
 ```
 
 ### Calcipy Pre-Commit
