@@ -59,7 +59,7 @@ else:
 @beartype
 def _get_pythons() -> List[str]:
     """Get python versions from the `.tool-versions` file."""
-    return [str(ver) for ver in get_tool_versions()['python']]
+    return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
 @beartype
