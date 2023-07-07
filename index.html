@@ -1337,51 +1337,88 @@
 <h3 id="calcipy-cli">Calcipy CLI<a class="headerlink" href="#calcipy-cli" title="Permanent link">⚓︎</a></h3>
 <p>Additionally, <code>calcipy</code> can be run as a CLI application without adding the package as a dependency.</p>
 <p>Quick Start:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>pipx<span class="w"> </span>install<span class="w"> </span>calcipy
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="c1"># Use &#39;tags&#39; to create a CODE_TAG_SUMMARY of the specified directory</span>
-<span class="linenos" data-linenos=" 4 "></span>calcipy<span class="w"> </span>tags<span class="w"> </span>--help
-<span class="linenos" data-linenos=" 5 "></span>calcipy<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="c1"># See additional documentation from the CLI help</span>
-<span class="linenos" data-linenos=" 8 "></span>&gt;<span class="w"> </span>calcipy
-<span class="linenos" data-linenos=" 9 "></span>
-<span class="linenos" data-linenos="10 "></span>Subcommands:
-<span class="linenos" data-linenos="11 "></span>
-<span class="linenos" data-linenos="12 "></span>main<span class="w">                                     </span>Main<span class="w"> </span>task<span class="w"> </span>pipeline.
-<span class="linenos" data-linenos="13 "></span>other<span class="w">                                    </span>Run<span class="w"> </span>tasks<span class="w"> </span>that<span class="w"> </span>are<span class="w"> </span>otherwise<span class="w"> </span>not<span class="w"> </span>exercised<span class="w"> </span><span class="k">in</span><span class="w"> </span>main.
-<span class="linenos" data-linenos="14 "></span>release<span class="w">                                  </span>Release<span class="w"> </span>pipeline.
-<span class="linenos" data-linenos="15 "></span>cl.bump<span class="w">                                  </span>Bumps<span class="w"> </span>project<span class="w"> </span>version<span class="w"> </span>based<span class="w"> </span>on<span class="w"> </span>commits<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>settings<span class="w"> </span><span class="k">in</span><span class="w"> </span>pyproject.toml.
-<span class="linenos" data-linenos="16 "></span>cl.write<span class="w">                                 </span>Write<span class="w"> </span>a<span class="w"> </span>Changelog<span class="w"> </span>file<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>raw<span class="w"> </span>Git<span class="w"> </span>history.
-<span class="linenos" data-linenos="17 "></span>doc.build<span class="w">                                </span>Build<span class="w"> </span>documentation<span class="w"> </span>with<span class="w"> </span>mkdocs.
-<span class="linenos" data-linenos="18 "></span>doc.deploy<span class="w">                               </span>Deploy<span class="w"> </span>docs<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>Github<span class="w"> </span><span class="sb">`</span>gh-pages<span class="sb">`</span><span class="w"> </span>branch.
-<span class="linenos" data-linenos="19 "></span>doc.watch<span class="w">                                </span>Serve<span class="w"> </span><span class="nb">local</span><span class="w"> </span>documentation<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span>editing.
-<span class="linenos" data-linenos="20 "></span>lint.autopep8<span class="w">                            </span>Run<span class="w"> </span>autopep8.
-<span class="linenos" data-linenos="21 "></span>lint.check<span class="w"> </span><span class="o">(</span>lint<span class="o">)</span><span class="w">                        </span>Run<span class="w"> </span>ruff<span class="w"> </span>as<span class="w"> </span>check-only.
-<span class="linenos" data-linenos="22 "></span>lint.fix<span class="w">                                 </span>Run<span class="w"> </span>ruff<span class="w"> </span>and<span class="w"> </span>apply<span class="w"> </span>fixes.
-<span class="linenos" data-linenos="23 "></span>lint.flake8<span class="w">                              </span>Run<span class="w"> </span>ruff<span class="w"> </span>and<span class="w"> </span>apply<span class="w"> </span>fixes.
-<span class="linenos" data-linenos="24 "></span>lint.pre-commit<span class="w">                          </span>Run<span class="w"> </span>pre-commit.
-<span class="linenos" data-linenos="25 "></span>lint.pylint<span class="w">                              </span>Run<span class="w"> </span>ruff<span class="w"> </span>and<span class="w"> </span>apply<span class="w"> </span>fixes.
-<span class="linenos" data-linenos="26 "></span>lint.security<span class="w">                            </span>Attempt<span class="w"> </span>to<span class="w"> </span>identify<span class="w"> </span>possible<span class="w"> </span>security<span class="w"> </span>vulnerabilities.
-<span class="linenos" data-linenos="27 "></span>lint.watch<span class="w">                               </span>Run<span class="w"> </span>ruff<span class="w"> </span>as<span class="w"> </span>check-only.
-<span class="linenos" data-linenos="28 "></span>nox.noxfile<span class="w"> </span><span class="o">(</span>nox<span class="o">)</span><span class="w">                        </span>Run<span class="w"> </span>nox<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span><span class="nb">local</span><span class="w"> </span>noxfile.
-<span class="linenos" data-linenos="29 "></span>pack.check-licenses<span class="w">                      </span>Check<span class="w"> </span>licenses<span class="w"> </span><span class="k">for</span><span class="w"> </span>compatibility<span class="w"> </span>with<span class="w"> </span><span class="sb">`</span>licensecheck<span class="sb">`</span>.
-<span class="linenos" data-linenos="30 "></span>pack.lock<span class="w">                                </span>Ensure<span class="w"> </span>poetry.lock<span class="w"> </span>is<span class="w">  </span>up-to-date.
-<span class="linenos" data-linenos="31 "></span>pack.publish<span class="w">                             </span>Build<span class="w"> </span>the<span class="w"> </span>distributed<span class="w"> </span>format<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>and<span class="w"> </span>publish.
-<span class="linenos" data-linenos="32 "></span>stale.check-for-stale-packages<span class="w"> </span><span class="o">(</span>stale<span class="o">)</span><span class="w">   </span>Identify<span class="w"> </span>stale<span class="w"> </span>dependencies.
-<span class="linenos" data-linenos="33 "></span>tags.collect-code-tags<span class="w"> </span><span class="o">(</span>tags<span class="o">)</span><span class="w">            </span>Create<span class="w"> </span>a<span class="w"> </span><span class="sb">`</span>CODE_TAG_SUMMARY.md<span class="sb">`</span><span class="w"> </span>with<span class="w"> </span>a<span class="w"> </span>table<span class="w"> </span><span class="k">for</span><span class="w"> </span>TODO-<span class="w"> </span>and<span class="w"> </span>FIXME-style<span class="w"> </span>code<span class="w"> </span>comments.
-<span class="linenos" data-linenos="34 "></span>test.coverage<span class="w">                            </span>Generate<span class="w"> </span>useful<span class="w"> </span>coverage<span class="w"> </span>outputs<span class="w"> </span>after<span class="w"> </span>running<span class="w"> </span>pytest.
-<span class="linenos" data-linenos="35 "></span>test.pytest<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="o">)</span><span class="w">                       </span>Run<span class="w"> </span>pytest<span class="w"> </span>with<span class="w"> </span>default<span class="w"> </span>arguments.
-<span class="linenos" data-linenos="36 "></span>test.step<span class="w">                                </span>Run<span class="w"> </span>pytest<span class="w"> </span>optimized<span class="w"> </span>to<span class="w"> </span>stop<span class="w"> </span>on<span class="w"> </span>first<span class="w"> </span>error.
-<span class="linenos" data-linenos="37 "></span>test.watch<span class="w">                               </span>Run<span class="w"> </span>pytest<span class="w"> </span>with<span class="w"> </span>polling<span class="w"> </span>and<span class="w"> </span>optimized<span class="w"> </span>to<span class="w"> </span>stop<span class="w"> </span>on<span class="w"> </span>first<span class="w"> </span>error.
-<span class="linenos" data-linenos="38 "></span>types.mypy<span class="w">                               </span>Run<span class="w"> </span>mypy.
-<span class="linenos" data-linenos="39 "></span>types.pyright<span class="w">                            </span>Run<span class="w"> </span>pyright.
-<span class="linenos" data-linenos="40 "></span>
-<span class="linenos" data-linenos="41 "></span>Global<span class="w"> </span>Task<span class="w"> </span>Options:
-<span class="linenos" data-linenos="42 "></span>
-<span class="linenos" data-linenos="43 "></span>working_dir<span class="w">   </span>Set<span class="w"> </span>the<span class="w"> </span>cwd<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>program.<span class="w"> </span>Example:<span class="w"> </span><span class="s2">&quot;../run --working-dir .. lint test&quot;</span>
-<span class="linenos" data-linenos="44 "></span>*file_args<span class="w">    </span>List<span class="w"> </span>of<span class="w"> </span>Paths<span class="w"> </span>available<span class="w"> </span>globally<span class="w"> </span>to<span class="w"> </span>all<span class="w"> </span>tasks.<span class="w"> </span>Will<span class="w"> </span>resolve<span class="w"> </span>paths<span class="w"> </span>with<span class="w"> </span>working_dir
-<span class="linenos" data-linenos="45 "></span>verbose<span class="w">       </span>Globally<span class="w"> </span>configure<span class="w"> </span>logger<span class="w"> </span>verbosity<span class="w"> </span><span class="o">(</span>-vvv<span class="w"> </span><span class="k">for</span><span class="w"> </span>most<span class="w"> </span>verbose<span class="o">)</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># For the CLI, only install a few of the extras which can be used from a few different CLI commands</span>
+<span class="linenos" data-linenos="2 "></span>pipx<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[flake8,lint,tags]&#39;</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Use &#39;tags&#39; to create a CODE_TAG_SUMMARY of the specified directory</span>
+<span class="linenos" data-linenos="5 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
+<span class="linenos" data-linenos="6 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
+<span class="linenos" data-linenos="7 "></span>
+<span class="linenos" data-linenos="8 "></span><span class="c1"># You can list all provided CLI commands with</span>
+<span class="linenos" data-linenos="9 "></span>pipx<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>venvs are in ~/.local/pipx/venvs
+<span class="linenos" data-linenos="2 "></span>apps are exposed on your $PATH at ~/.local/bin
+<span class="linenos" data-linenos="3 "></span>   package calcipy 1.4.0, installed using Python 3.11.4
+<span class="linenos" data-linenos="4 "></span>    - calcipy
+<span class="linenos" data-linenos="5 "></span>    - calcipy-lint
+<span class="linenos" data-linenos="6 "></span>    - calcipy-pack
+<span class="linenos" data-linenos="7 "></span>    - calcipy-tags
+<span class="linenos" data-linenos="8 "></span>    - calcipy-types
+</code></pre></div>
+<p>Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The &ldquo;Usage&rdquo;, &ldquo;Core options&rdquo;, and &ldquo;Global Task Options&rdquo; are the same for each subsequent command, so they are excluded for brevity.</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt; calcipy-lint
+<span class="linenos" data-linenos=" 2 "></span>Usage: calcipy-lint [--core-opts] &lt;subcommand&gt; [--subcommand-opts] ...
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span>Core options:
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span>  --complete                         Print tab-completion candidates for given parse remainder.
+<span class="linenos" data-linenos=" 7 "></span>  --hide=STRING                      Set default value of run()&#39;s &#39;hide&#39; kwarg.
+<span class="linenos" data-linenos=" 8 "></span>  --print-completion-script=STRING   Print the tab-completion script for your preferred shell (bash|zsh|fish).
+<span class="linenos" data-linenos=" 9 "></span>  --prompt-for-sudo-password         Prompt user at start of session for the sudo.password config value.
+<span class="linenos" data-linenos="10 "></span>  --write-pyc                        Enable creation of .pyc files.
+<span class="linenos" data-linenos="11 "></span>  -d, --debug                        Enable debug output.
+<span class="linenos" data-linenos="12 "></span>  -D INT, --list-depth=INT           When listing tasks, only show the first INT levels.
+<span class="linenos" data-linenos="13 "></span>  -e, --echo                         Echo executed commands before running.
+<span class="linenos" data-linenos="14 "></span>  -f STRING, --config=STRING         Runtime configuration file to use.
+<span class="linenos" data-linenos="15 "></span>  -F STRING, --list-format=STRING    Change the display format used when listing tasks. Should be one of: flat (default), nested, json.
+<span class="linenos" data-linenos="16 "></span>  -h [STRING], --help[=STRING]       Show core or per-task help and exit.
+<span class="linenos" data-linenos="17 "></span>  -l [STRING], --list[=STRING]       List available tasks, optionally limited to a namespace.
+<span class="linenos" data-linenos="18 "></span>  -p, --pty                          Use a pty when executing shell commands.
+<span class="linenos" data-linenos="19 "></span>  -R, --dry                          Echo commands instead of running.
+<span class="linenos" data-linenos="20 "></span>  -T INT, --command-timeout=INT      Specify a global command execution timeout, in seconds.
+<span class="linenos" data-linenos="21 "></span>  -V, --version                      Show version and exit.
+<span class="linenos" data-linenos="22 "></span>  -w, --warn-only                    Warn, instead of failing, when shell commands fail.
+<span class="linenos" data-linenos="23 "></span>
+<span class="linenos" data-linenos="24 "></span>Subcommands:
+<span class="linenos" data-linenos="25 "></span>
+<span class="linenos" data-linenos="26 "></span>  lint.autopep8       Run autopep8.
+<span class="linenos" data-linenos="27 "></span>  lint.check (lint)   Run ruff as check-only.
+<span class="linenos" data-linenos="28 "></span>  lint.fix            Run ruff and apply fixes.
+<span class="linenos" data-linenos="29 "></span>  lint.flake8         Run flake8.
+<span class="linenos" data-linenos="30 "></span>  lint.pre-commit     Run pre-commit.
+<span class="linenos" data-linenos="31 "></span>  lint.pylint         Run pylint.
+<span class="linenos" data-linenos="32 "></span>  lint.security       Attempt to identify possible security vulnerabilities.
+<span class="linenos" data-linenos="33 "></span>  lint.watch          Run ruff as check-only.
+<span class="linenos" data-linenos="34 "></span>
+<span class="linenos" data-linenos="35 "></span>Global Task Options:
+<span class="linenos" data-linenos="36 "></span>
+<span class="linenos" data-linenos="37 "></span>  *file_args             List of Paths available globally to all tasks. Will resolve paths with working_dir
+<span class="linenos" data-linenos="38 "></span>  --keep-going           Continue running tasks even on failure
+<span class="linenos" data-linenos="39 "></span>  --working_dir=STRING   Set the cwd for the program. Example: &quot;../run --working-dir .. lint test&quot;
+<span class="linenos" data-linenos="40 "></span>  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most verbose)
+<span class="linenos" data-linenos="41 "></span>
+<span class="linenos" data-linenos="42 "></span>&gt; calcipy-pack
+<span class="linenos" data-linenos="43 "></span>
+<span class="linenos" data-linenos="44 "></span>Subcommands:
+<span class="linenos" data-linenos="45 "></span>
+<span class="linenos" data-linenos="46 "></span>  pack.check-licenses   Check licenses for compatibility with `licensecheck`.
+<span class="linenos" data-linenos="47 "></span>  pack.install-extras   Run poetry install with all extras.
+<span class="linenos" data-linenos="48 "></span>  pack.lock             Ensure poetry.lock is  up-to-date.
+<span class="linenos" data-linenos="49 "></span>  pack.publish          Build the distributed format(s) and publish.
+<span class="linenos" data-linenos="50 "></span>
+<span class="linenos" data-linenos="51 "></span>&gt; calcipy-tags
+<span class="linenos" data-linenos="52 "></span>
+<span class="linenos" data-linenos="53 "></span>Subcommands:
+<span class="linenos" data-linenos="54 "></span>
+<span class="linenos" data-linenos="55 "></span>  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table          for TODO- and FIXME-style code comments.
+<span class="linenos" data-linenos="56 "></span>
+<span class="linenos" data-linenos="57 "></span>&gt; calcipy-types
+<span class="linenos" data-linenos="58 "></span>
+<span class="linenos" data-linenos="59 "></span>Subcommands:
+<span class="linenos" data-linenos="60 "></span>
+<span class="linenos" data-linenos="61 "></span>  types.mypy      Run mypy.
+<span class="linenos" data-linenos="62 "></span>  types.pyright   Run pyright.
 </code></pre></div>
 <h3 id="calcipy-pre-commit">Calcipy Pre-Commit<a class="headerlink" href="#calcipy-pre-commit" title="Permanent link">⚓︎</a></h3>
 <p><code>calcipy</code> can also be used as a <code>pre-commit</code> task by adding the below snippet to your <code>pre-commit</code> file:</p>
@@ -1415,7 +1452,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 2, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
       
         <br>
         Created:
