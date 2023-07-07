@@ -68,7 +68,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/all_tasks.py`                                    |           47 |         2 |          0 | 96.8%      |
 | `calcipy/tasks/cl.py`                                           |           28 |         6 |          0 | 77.8%      |
 | `calcipy/tasks/defaults.py`                                     |           20 |         0 |          0 | 92.9%      |
-| `calcipy/tasks/doc.py`                                          |           46 |         0 |          8 | 100.0%     |
+| `calcipy/tasks/doc.py`                                          |           45 |         0 |          8 | 100.0%     |
 | `calcipy/tasks/executable_utils.py`                             |           30 |         2 |          0 | 94.4%      |
 | `calcipy/tasks/lint.py`                                         |           57 |         1 |          0 | 93.1%      |
 | `calcipy/tasks/nox.py`                                          |            8 |         0 |          0 | 100.0%     |
@@ -77,7 +77,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         |           15 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/test.py`                                         |           45 |         1 |          2 | 95.4%      |
 | `calcipy/tasks/types.py`                                        |           17 |         0 |          0 | 100.0%     |
-| **Totals**                                                      |         1015 |        73 |         89 | 91.5%      |
+| **Totals**                                                      |         1014 |        73 |         89 | 91.4%      |
 
-Generated on: 2023-06-25
+Generated on: 2023-07-07
 <!-- {cte} -->

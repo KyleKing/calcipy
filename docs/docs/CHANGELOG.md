@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- retrieve only unique python versions from .tool-versions
+
+## 1.4.0 (2023-06-25)
+
 ### Feat
 
 - add calcipy-pack to use install-extras without the extras
