@@ -112,7 +112,7 @@ def security(ctx: Context) -> None:
         '--config=r/python',
         '--config=r/terraform',
         '--config=r/yaml',
-        '--exclude-rule=third-party-action-not-pinned-to-commit-sha',
+        '--exclude-rule=yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha',
     ])
     logger.text('Note: Selectively override semgrep with "# nosem"', is_header=True)
     run(ctx, f'{python_dir()}/semgrep ci --autofix {semgrep_configs}')

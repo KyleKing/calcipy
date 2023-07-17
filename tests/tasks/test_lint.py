@@ -31,7 +31,7 @@ from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint,
                 '--config=r/python',
                 '--config=r/terraform',
                 '--config=r/yaml',
-                '--exclude-rule=third-party-action-not-pinned-to-commit-sha',
+                '--exclude-rule=yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha',
             ]),
         ]),
         (pre_commit, {}, [
