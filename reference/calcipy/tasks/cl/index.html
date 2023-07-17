@@ -21,7 +21,7 @@
         <link rel="next" href="../defaults/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1307,7 +1307,7 @@
 
 
 <h3 id="calcipy.tasks.cl.SuffixT" class="doc doc-heading">
-        <span class="doc doc-object-name doc-attribute-name">SuffixT</span>
+          <span class="doc doc-object-name doc-attribute-name">SuffixT</span>
 
   
   <span class="doc doc-labels">
@@ -1327,12 +1327,13 @@
 
 <h2 id="calcipy.tasks.cl-functions">Functions<a href="#calcipy.tasks.cl-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.cl.bump" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">bump</span>
+          <span class="doc doc-object-name doc-function-name">bump</span>
 
 
 <a href="#calcipy.tasks.cl.bump" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1343,9 +1344,9 @@
   
       <p>Bumps project version based on commits &amp; settings in pyproject.toml.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="55 "></span><span class="nd">@task</span><span class="p">(</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="55 "></span><span class="nd">@task</span><span class="p">(</span>
 <span class="linenos" data-linenos="56 "></span>    <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">write</span><span class="p">],</span>
 <span class="linenos" data-linenos="57 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos="58 "></span>        <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;Specify prerelease suffix for version bump (alpha, beta, rc)&#39;</span><span class="p">,</span>
@@ -1355,17 +1356,18 @@
 <span class="linenos" data-linenos="62 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="63 "></span>    <span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.cl.bumpz" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">bumpz</span>
+          <span class="doc doc-object-name doc-function-name">bumpz</span>
 
 
 <a href="#calcipy.tasks.cl.bumpz" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1376,9 +1378,9 @@
   
       <p>Bumps project version based on commits &amp; settings in pyproject.toml.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="40 "></span><span class="nd">@beartype</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="40 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="41 "></span><span class="k">def</span> <span class="nf">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="42 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="43 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;gh&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">GH_MESSAGE</span><span class="p">)</span>
@@ -1392,17 +1394,18 @@
 <span class="linenos" data-linenos="51 "></span>    <span class="n">opt_gh_args</span> <span class="o">=</span> <span class="s1">&#39; --prerelease&#39;</span> <span class="k">if</span> <span class="n">suffix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 <span class="linenos" data-linenos="52 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;gh release create --generate-notes $(</span><span class="si">{</span><span class="n">get_last_tag</span><span class="si">}</span><span class="s1">)</span><span class="si">{</span><span class="n">opt_gh_args</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.cl.write" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">write</span>
+          <span class="doc doc-object-name doc-function-name">write</span>
 
 
 <a href="#calcipy.tasks.cl.write" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1421,6 +1424,8 @@
 <li>https://semver.org/</li>
 <li>https://calver.org/</li>
 </ul>
+
+
 
   <table>
     <thead>
@@ -1445,9 +1450,9 @@
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="15 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="15 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="16 "></span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Write a Changelog file with the raw Git history.</span>
 <span class="linenos" data-linenos="18 "></span>
@@ -1471,7 +1476,7 @@
 <span class="linenos" data-linenos="36 "></span>        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 <span class="linenos" data-linenos="37 "></span>    <span class="n">path_cl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">get_doc_subdir</span><span class="p">()</span> <span class="o">/</span> <span class="n">path_cl</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1489,11 +1494,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1535,10 +1540,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>

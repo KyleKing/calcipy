@@ -21,7 +21,7 @@
         <link rel="next" href="../../scripts/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1288,12 +1288,13 @@
 
 <h2 id="calcipy.noxfile._noxfile-functions">Functions<a href="#calcipy.noxfile._noxfile-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.noxfile._noxfile.build_check" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">build_check</span>
+          <span class="doc doc-object-name doc-function-name">build_check</span>
 
 
 <a href="#calcipy.noxfile._noxfile.build_check" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1304,9 +1305,9 @@
   
       <p>Check that the built output meets all checks.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/noxfile/_noxfile.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="162 "></span><span class="nd">@nox_poetry_session</span><span class="p">(</span><span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/noxfile/_noxfile.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="162 "></span><span class="nd">@nox_poetry_session</span><span class="p">(</span><span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="linenos" data-linenos="163 "></span><span class="k">def</span> <span class="nf">build_check</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">NPSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="164 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check that the built output meets all checks.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="165 "></span>    <span class="c1"># Build sdist and fix return URI, which will have file://...#egg=calcipy</span>
@@ -1319,17 +1320,18 @@
 <span class="linenos" data-linenos="172 "></span>    <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;pip&#39;</span><span class="p">,</span> <span class="s1">&#39;install&#39;</span><span class="p">,</span> <span class="s1">&#39;poetry&gt;=1.3&#39;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="linenos" data-linenos="173 "></span>    <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;pyroma&#39;</span><span class="p">,</span> <span class="s1">&#39;--file&#39;</span><span class="p">,</span> <span class="n">path_sdist</span><span class="o">.</span><span class="n">as_posix</span><span class="p">(),</span> <span class="s1">&#39;--min=9&#39;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.noxfile._noxfile.build_dist" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">build_dist</span>
+          <span class="doc doc-object-name doc-function-name">build_dist</span>
 
 
 <a href="#calcipy.noxfile._noxfile.build_dist" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1340,9 +1342,9 @@
   
       <p>Build and test the project files within a controlled environment for repeatability.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/noxfile/_noxfile.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="141 "></span><span class="nd">@nox_session</span><span class="p">(</span><span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/noxfile/_noxfile.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="141 "></span><span class="nd">@nox_session</span><span class="p">(</span><span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="linenos" data-linenos="142 "></span><span class="k">def</span> <span class="nf">build_dist</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NoxSession</span><span class="p">,</span> <span class="n">NPSession</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="143 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build and test the project files within a controlled environment for repeatability.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="144 "></span>    <span class="n">dist_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;dist&#39;</span><span class="p">)</span>
@@ -1362,17 +1364,18 @@
 <span class="linenos" data-linenos="158 "></span>    <span class="n">session</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">path_wheel</span><span class="p">)</span>
 <span class="linenos" data-linenos="159 "></span>    <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;python scripts/check_imports.py&#39;</span><span class="p">),</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.noxfile._noxfile.tests" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">tests</span>
+          <span class="doc doc-object-name doc-function-name">tests</span>
 
 
 <a href="#calcipy.noxfile._noxfile.tests" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1383,15 +1386,15 @@
   
       <p>Run doit test task for specified python versions.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/noxfile/_noxfile.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="134 "></span><span class="nd">@nox_session</span><span class="p">(</span><span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">(),</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/noxfile/_noxfile.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="134 "></span><span class="nd">@nox_session</span><span class="p">(</span><span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">(),</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="linenos" data-linenos="135 "></span><span class="k">def</span> <span class="nf">tests</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NoxSession</span><span class="p">,</span> <span class="n">NPSession</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="136 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run doit test task for specified python versions.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="137 "></span>    <span class="n">_install_local</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ddict&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">,</span> <span class="s1">&#39;lint&#39;</span><span class="p">,</span> <span class="s1">&#39;nox&#39;</span><span class="p">,</span> <span class="s1">&#39;stale&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">])</span>
 <span class="linenos" data-linenos="138 "></span>    <span class="n">session</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;pytest ./tests&#39;</span><span class="p">),</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1409,11 +1412,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1455,10 +1458,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>

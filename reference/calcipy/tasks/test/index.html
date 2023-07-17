@@ -21,7 +21,7 @@
         <link rel="next" href="../types/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1292,12 +1292,13 @@
 
 <h2 id="calcipy.tasks.test-functions">Functions<a href="#calcipy.tasks.test-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.test.check" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">check</span>
+          <span class="doc doc-object-name doc-function-name">check</span>
 
 
 <a href="#calcipy.tasks.test.check" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1308,25 +1309,26 @@
   
       <p>Run pytest checks, such as identifying .</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="40 "></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="41 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pytest checks, such as identifying .&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="42 "></span>    <span class="k">if</span> <span class="n">duplciates</span> <span class="o">:=</span> <span class="n">check_duplicate_test_names</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;tests&#39;</span><span class="p">)):</span>
 <span class="linenos" data-linenos="43 "></span>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Duplicate test names found (</span><span class="si">{</span><span class="n">duplciates</span><span class="si">}</span><span class="s1">). See above for details.&#39;</span><span class="p">)</span>  <span class="c1"># noqa: EM102</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.test.coverage" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">coverage</span>
+          <span class="doc doc-object-name doc-function-name">coverage</span>
 
 
 <a href="#calcipy.tasks.test.coverage" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1338,9 +1340,9 @@
       <p>Generate useful coverage outputs after running pytest.</p>
 <p>Creates <code>coverage.json</code> used in <code>doc.build</code></p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 81 "></span><span class="nd">@task</span><span class="p">(</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 81 "></span><span class="nd">@task</span><span class="p">(</span>
 <span class="linenos" data-linenos=" 82 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos=" 83 "></span>        <span class="s1">&#39;min_cover&#39;</span><span class="p">:</span> <span class="s1">&#39;Fail if coverage less than threshold&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 84 "></span>        <span class="s1">&#39;out_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional path to coverage directory. Typically &quot;.cover&quot; or &quot;releases/tests&quot;&#39;</span><span class="p">,</span>
@@ -1370,17 +1372,18 @@
 <span class="linenos" data-linenos="108 "></span>    <span class="k">if</span> <span class="n">view</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="109 "></span>        <span class="n">open_in_browser</span><span class="p">(</span><span class="n">cov_dir</span> <span class="o">/</span> <span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.test.pytest" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">pytest</span>
+          <span class="doc doc-object-name doc-function-name">pytest</span>
 
 
 <a href="#calcipy.tasks.test.pytest" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1391,9 +1394,9 @@
   
       <p>Run pytest with default arguments.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="53 "></span><span class="nd">@task</span><span class="p">(</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="53 "></span><span class="nd">@task</span><span class="p">(</span>
 <span class="linenos" data-linenos="54 "></span>    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="linenos" data-linenos="55 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos="56 "></span>        <span class="s1">&#39;min_cover&#39;</span><span class="p">:</span> <span class="s1">&#39;Fail if coverage less than threshold&#39;</span><span class="p">,</span>
@@ -1408,17 +1411,18 @@
 <span class="linenos" data-linenos="65 "></span>                <span class="n">cli_args</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39; --cov=</span><span class="si">{</span><span class="n">pkg_name</span><span class="si">}</span><span class="s1"> --cov-branch --cov-report=term-missing </span><span class="si">{</span><span class="n">durations</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="66 "></span>                <span class="n">keyword</span><span class="o">=</span><span class="n">keyword</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">min_cover</span><span class="o">=</span><span class="n">min_cover</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.test.step" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">step</span>
+          <span class="doc doc-object-name doc-function-name">step</span>
 
 
 <a href="#calcipy.tasks.test.step" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1429,24 +1433,25 @@
   
       <p>Run pytest optimized to stop on first error.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="69 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="n">KM_HELP</span><span class="p">)</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="69 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="n">KM_HELP</span><span class="p">)</span>
 <span class="linenos" data-linenos="70 "></span><span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="71 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pytest optimized to stop on first error.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="72 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">_STEPWISE_ARGS</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="n">keyword</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.test.watch" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">watch</span>
+          <span class="doc doc-object-name doc-function-name">watch</span>
 
 
 <a href="#calcipy.tasks.test.watch" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1457,14 +1462,14 @@
   
       <p>Run pytest with polling and optimized to stop on first error.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="75 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="n">KM_HELP</span><span class="p">)</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/test.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="75 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="n">KM_HELP</span><span class="p">)</span>
 <span class="linenos" data-linenos="76 "></span><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="77 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pytest with polling and optimized to stop on first error.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="78 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">_STEPWISE_ARGS</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="n">keyword</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ptw . --now&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1482,11 +1487,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1528,10 +1533,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>

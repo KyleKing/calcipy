@@ -21,7 +21,7 @@
         <link rel="next" href="../executable_utils/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1278,12 +1278,13 @@
 
 <h2 id="calcipy.tasks.doc-functions">Functions<a href="#calcipy.tasks.doc-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.doc.build" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">build</span>
+          <span class="doc doc-object-name doc-function-name">build</span>
 
 
 <a href="#calcipy.tasks.doc.build" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1294,9 +1295,9 @@
   
       <p>Build documentation with mkdocs.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="68 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="68 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="69 "></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="70 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build documentation with mkdocs.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="71 "></span>    <span class="n">auto_doc_path</span> <span class="o">=</span> <span class="n">get_doc_subdir</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;modules&#39;</span>
@@ -1310,17 +1311,18 @@
 <span class="linenos" data-linenos="79 "></span>
 <span class="linenos" data-linenos="80 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/mkdocs build --site-dir </span><span class="si">{</span><span class="n">get_out_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.doc.deploy" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">deploy</span>
+          <span class="doc doc-object-name doc-function-name">deploy</span>
 
 
 <a href="#calcipy.tasks.doc.deploy" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1331,9 +1333,9 @@
   
       <p>Deploy docs to the Github <code>gh-pages</code> branch.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="110 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="110 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="111 "></span><span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="112 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Deploy docs to the Github `gh-pages` branch.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="113 "></span>    <span class="k">if</span> <span class="n">_is_mkdocs_local</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
@@ -1345,17 +1347,18 @@
 <span class="linenos" data-linenos="119 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">UnexpectedExit</span><span class="p">):</span>
 <span class="linenos" data-linenos="120 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit install&#39;</span><span class="p">)</span>  <span class="c1"># Restore pre-commit</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.doc.get_out_dir" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">get_out_dir</span>
+          <span class="doc doc-object-name doc-function-name">get_out_dir</span>
 
 
 <a href="#calcipy.tasks.doc.get_out_dir" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1366,25 +1369,26 @@
   
       <p>Retrieve the mkdocs-specified site directory.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="61 "></span><span class="nd">@beartype</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="61 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="62 "></span><span class="k">def</span> <span class="nf">get_out_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="linenos" data-linenos="63 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the mkdocs-specified site directory.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="64 "></span>    <span class="n">mkdocs_config</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">get_project_path</span><span class="p">()</span> <span class="o">/</span> <span class="n">MKDOCS_CONFIG</span><span class="p">)</span>
 <span class="linenos" data-linenos="65 "></span>    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">mkdocs_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;releases/site&#39;</span><span class="p">))</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.doc.watch" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">watch</span>
+          <span class="doc doc-object-name doc-function-name">watch</span>
 
 
 <a href="#calcipy.tasks.doc.watch" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1395,9 +1399,9 @@
   
       <p>Serve local documentation for local editing.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 99 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 99 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="100 "></span><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="101 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Serve local documentation for local editing.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="102 "></span>    <span class="k">if</span> <span class="n">_is_mkdocs_local</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
@@ -1407,7 +1411,7 @@
 <span class="linenos" data-linenos="106 "></span>        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;http://localhost:8000&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="107 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/mkdocs serve --dirtyreload&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1425,11 +1429,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1471,10 +1475,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>

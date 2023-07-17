@@ -21,7 +21,7 @@
         <link rel="next" href="../code_tag_collector/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1452,23 +1452,22 @@
 
 
 <h3 id="calcipy.cli.CalcipyConfig" class="doc doc-heading">
-        <span class="doc doc-object-name doc-class-name">CalcipyConfig</span>
+          <span class="doc doc-object-name doc-class-name">CalcipyConfig</span>
 
 
 <a href="#calcipy.cli.CalcipyConfig" class="headerlink" title="Permanent link">⚓︎</a></h3>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="invoke.config.Config">Config</span></code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="invoke.config.Config">Config</span></code></p>
 
   
       <p>Opinionated Config with better defaults.</p>
 
-
-        <details class="quote">
-          <summary>Source code in <code>calcipy/cli.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="60 "></span><span class="k">class</span> <span class="nc">CalcipyConfig</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
+            <details class="quote">
+              <summary>Source code in <code>calcipy/cli.py</code></summary>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="60 "></span><span class="k">class</span> <span class="nc">CalcipyConfig</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
 <span class="linenos" data-linenos="61 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Opinionated Config with better defaults.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="62 "></span>
 <span class="linenos" data-linenos="63 "></span>    <span class="nd">@staticmethod</span>
@@ -1484,7 +1483,7 @@
 <span class="linenos" data-linenos="73 "></span>        <span class="p">}</span>
 <span class="linenos" data-linenos="74 "></span>        <span class="k">return</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">invoke_defaults</span><span class="p">,</span> <span class="n">calcipy_defaults</span><span class="p">)</span>
 </code></pre></div>
-        </details>
+            </details>
 
   
 
@@ -1498,12 +1497,13 @@
 
 <h4 id="calcipy.cli.CalcipyConfig-functions">Functions<a href="#calcipy.cli.CalcipyConfig-functions" class="headerlink" title="Permanent link">⚓︎</a></h4>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h5 id="calcipy.cli.CalcipyConfig.global_defaults" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">global_defaults</span>
+          <span class="doc doc-object-name doc-function-name">global_defaults</span>
 
   
   <span class="doc doc-labels">
@@ -1518,9 +1518,9 @@
   
       <p>Override the global defaults.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/cli.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="63 "></span><span class="nd">@staticmethod</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/cli.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="63 "></span><span class="nd">@staticmethod</span>
 <span class="linenos" data-linenos="64 "></span><span class="k">def</span> <span class="nf">global_defaults</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg]  # pragma: no cover</span>
 <span class="linenos" data-linenos="65 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Override the global defaults.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="66 "></span>    <span class="n">invoke_defaults</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">global_defaults</span><span class="p">()</span>
@@ -1533,7 +1533,7 @@
 <span class="linenos" data-linenos="73 "></span>    <span class="p">}</span>
 <span class="linenos" data-linenos="74 "></span>    <span class="k">return</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">invoke_defaults</span><span class="p">,</span> <span class="n">calcipy_defaults</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1551,23 +1551,22 @@
 
 
 <h3 id="calcipy.cli.GlobalTaskOptions" class="doc doc-heading">
-        <span class="doc doc-object-name doc-class-name">GlobalTaskOptions</span>
+          <span class="doc doc-object-name doc-class-name">GlobalTaskOptions</span>
 
 
 <a href="#calcipy.cli.GlobalTaskOptions" class="headerlink" title="Permanent link">⚓︎</a></h3>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
   
       <p>Global Task Options.</p>
 
-
-        <details class="quote">
-          <summary>Source code in <code>calcipy/cli.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="23 "></span><span class="k">class</span> <span class="nc">GlobalTaskOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+            <details class="quote">
+              <summary>Source code in <code>calcipy/cli.py</code></summary>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="23 "></span><span class="k">class</span> <span class="nc">GlobalTaskOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="linenos" data-linenos="24 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Global Task Options.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="25 "></span>
 <span class="linenos" data-linenos="26 "></span>    <span class="n">working_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
@@ -1576,13 +1575,13 @@
 <span class="linenos" data-linenos="29 "></span>    <span class="n">file_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
 <span class="linenos" data-linenos="30 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;List of Paths to modify.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="31 "></span>
-<span class="linenos" data-linenos="32 "></span>    <span class="n">verbose</span><span class="p">:</span> <span class="n">PositiveInt</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lte</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="n">verbose</span><span class="p">:</span> <span class="n">PositiveInt</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="linenos" data-linenos="33 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Verbosity level.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="34 "></span>
 <span class="linenos" data-linenos="35 "></span>    <span class="n">keep_going</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="linenos" data-linenos="36 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Continue task execution regardless of failure.&quot;&quot;&quot;</span>
 </code></pre></div>
-        </details>
+            </details>
 
   
 
@@ -1599,7 +1598,7 @@
 
 
 <h5 id="calcipy.cli.GlobalTaskOptions.file_args" class="doc doc-heading">
-        <span class="doc doc-object-name doc-attribute-name">file_args</span>
+          <span class="doc doc-object-name doc-attribute-name">file_args</span>
 
   
   <span class="doc doc-labels">
@@ -1623,7 +1622,7 @@
 
 
 <h5 id="calcipy.cli.GlobalTaskOptions.keep_going" class="doc doc-heading">
-        <span class="doc doc-object-name doc-attribute-name">keep_going</span>
+          <span class="doc doc-object-name doc-attribute-name">keep_going</span>
 
   
   <span class="doc doc-labels">
@@ -1647,7 +1646,7 @@
 
 
 <h5 id="calcipy.cli.GlobalTaskOptions.verbose" class="doc doc-heading">
-        <span class="doc doc-object-name doc-attribute-name">verbose</span>
+          <span class="doc doc-object-name doc-attribute-name">verbose</span>
 
   
   <span class="doc doc-labels">
@@ -1656,7 +1655,7 @@
   </span>
 
 <a href="#calcipy.cli.GlobalTaskOptions.verbose" class="headerlink" title="Permanent link">⚓︎</a></h5>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">verbose</span><span class="p">:</span> <span class="n">PositiveInt</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lte</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">verbose</span><span class="p">:</span> <span class="n">PositiveInt</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -1671,7 +1670,7 @@
 
 
 <h5 id="calcipy.cli.GlobalTaskOptions.working_dir" class="doc doc-heading">
-        <span class="doc doc-object-name doc-attribute-name">working_dir</span>
+          <span class="doc doc-object-name doc-attribute-name">working_dir</span>
 
   
   <span class="doc doc-labels">
@@ -1701,12 +1700,13 @@
 </div>
 <h2 id="calcipy.cli-functions">Functions<a href="#calcipy.cli-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.cli.start_program" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">start_program</span>
+          <span class="doc doc-object-name doc-function-name">start_program</span>
 
 
 <a href="#calcipy.cli.start_program" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1719,9 +1719,9 @@
 <p>FYI: recommendation is to extend the <code>core_args</code> method, but this won&rsquo;t parse positional arguments:
 https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-arguments</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/cli.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 77 "></span><span class="nd">@beartype</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/cli.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 77 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos=" 78 "></span><span class="k">def</span> <span class="nf">start_program</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos=" 79 "></span>    <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 80 "></span>    <span class="n">pkg_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1769,17 +1769,18 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
 <span class="linenos" data-linenos="122 "></span>        <span class="n">config_class</span><span class="o">=</span><span class="n">_CalcipyConfig</span><span class="p">,</span>
 <span class="linenos" data-linenos="123 "></span>    <span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.cli.task" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">task</span>
+          <span class="doc doc-object-name doc-function-name">task</span>
 
 
 <a href="#calcipy.cli.task" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1790,9 +1791,9 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
   
       <p>Wrapper to accept arguments for an invoke task.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/cli.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="174 "></span><span class="nd">@beartype</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/cli.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="174 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="175 "></span><span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="o">*</span><span class="n">task_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">show_task_info</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">task_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="linenos" data-linenos="176 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper to accept arguments for an invoke task.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="177 "></span>    <span class="nd">@beartype</span>
@@ -1807,7 +1808,7 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
 <span class="linenos" data-linenos="186 "></span>        <span class="k">return</span> <span class="n">inner</span>
 <span class="linenos" data-linenos="187 "></span>    <span class="k">return</span> <span class="n">wrapper</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1825,11 +1826,11 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1871,10 +1872,10 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>

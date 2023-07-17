@@ -21,7 +21,7 @@
         <link rel="next" href="../doc/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1250,12 +1250,13 @@
 
 <h2 id="calcipy.tasks.defaults-functions">Functions<a href="#calcipy.tasks.defaults-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.defaults.from_ctx" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">from_ctx</span>
+          <span class="doc doc-object-name doc-function-name">from_ctx</span>
 
 
 <a href="#calcipy.tasks.defaults.from_ctx" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1267,9 +1268,9 @@
       <p>Safely extract the value from the context or the defaults.</p>
 <p>Reference with <code>ctx.tests.out_dir</code> or <code>from_ctx(ctx, 'test', 'out_dir')</code></p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/defaults.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="25 "></span><span class="nd">@beartype</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/defaults.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="25 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="26 "></span><span class="k">def</span> <span class="nf">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos" data-linenos="27 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Safely extract the value from the context or the defaults.</span>
 <span class="linenos" data-linenos="28 "></span>
@@ -1280,17 +1281,18 @@
 <span class="linenos" data-linenos="33 "></span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
 <span class="linenos" data-linenos="34 "></span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">DEFAULTS</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.defaults.new_collection" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">new_collection</span>
+          <span class="doc doc-object-name doc-function-name">new_collection</span>
 
 
 <a href="#calcipy.tasks.defaults.new_collection" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1301,9 +1303,9 @@
   
       <p>Initialize a collection with the combination of merged and project-specific defaults.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/defaults.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="37 "></span><span class="nd">@beartype</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/defaults.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="37 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="38 "></span><span class="k">def</span> <span class="nf">new_collection</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Collection</span><span class="p">:</span>
 <span class="linenos" data-linenos="39 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize a collection with the combination of merged and project-specific defaults.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="40 "></span>    <span class="n">ns</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -1316,7 +1318,7 @@
 <span class="linenos" data-linenos="47 "></span>
 <span class="linenos" data-linenos="48 "></span>    <span class="k">return</span> <span class="n">ns</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1334,11 +1336,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1380,10 +1382,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>

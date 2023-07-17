@@ -21,7 +21,7 @@
         <link rel="next" href="../cl/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1349,7 +1349,7 @@
 
 
 <h3 id="calcipy.tasks.all_tasks.TaskListT" class="doc doc-heading">
-        <span class="doc doc-object-name doc-attribute-name">TaskListT</span>
+          <span class="doc doc-object-name doc-attribute-name">TaskListT</span>
 
   
   <span class="doc doc-labels">
@@ -1369,12 +1369,13 @@
 
 <h2 id="calcipy.tasks.all_tasks-functions">Functions<a href="#calcipy.tasks.all_tasks-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.all_tasks.main" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">main</span>
+          <span class="doc doc-object-name doc-function-name">main</span>
 
 
 <a href="#calcipy.tasks.all_tasks.main" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1385,23 +1386,24 @@
   
       <p>Main task pipeline.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 98 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_MAIN_TASKS</span><span class="p">))</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 98 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_MAIN_TASKS</span><span class="p">))</span>
 <span class="linenos" data-linenos=" 99 "></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="100 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Main task pipeline.&quot;&quot;&quot;</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.all_tasks.other" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">other</span>
+          <span class="doc doc-object-name doc-function-name">other</span>
 
 
 <a href="#calcipy.tasks.all_tasks.other" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1412,23 +1414,24 @@
   
       <p>Run tasks that are otherwise not exercised in main.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="103 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_OTHER_TASKS</span><span class="p">))</span>  <span class="c1"># pyright: ignore[reportGeneralTypeIssues]</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="103 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_OTHER_TASKS</span><span class="p">))</span>  <span class="c1"># pyright: ignore[reportGeneralTypeIssues]</span>
 <span class="linenos" data-linenos="104 "></span><span class="k">def</span> <span class="nf">other</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="105 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tasks that are otherwise not exercised in main.&quot;&quot;&quot;</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.all_tasks.progress" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">progress</span>
+          <span class="doc doc-object-name doc-function-name">progress</span>
 
 
 <a href="#calcipy.tasks.all_tasks.progress" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1439,9 +1442,9 @@
   
       <p>Progress Task.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@task</span><span class="p">(</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@task</span><span class="p">(</span>
 <span class="linenos" data-linenos="40 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos="41 "></span>        <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Current index (0-indexed)&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="42 "></span>        <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="s1">&#39;Total steps&#39;</span><span class="p">,</span>
@@ -1452,17 +1455,18 @@
 <span class="linenos" data-linenos="47 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Progress Task.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="48 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Progress&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.all_tasks.release" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">release</span>
+          <span class="doc doc-object-name doc-function-name">release</span>
 
 
 <a href="#calcipy.tasks.all_tasks.release" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1473,9 +1477,9 @@
   
       <p>Release pipeline.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="108 "></span><span class="nd">@task</span><span class="p">(</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="108 "></span><span class="nd">@task</span><span class="p">(</span>
 <span class="linenos" data-linenos="109 "></span>    <span class="n">help</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bump</span><span class="o">.</span><span class="n">help</span><span class="p">,</span>
 <span class="linenos" data-linenos="110 "></span>    <span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span>
 <span class="linenos" data-linenos="111 "></span>        <span class="p">[</span>  <span class="c1"># pyright: ignore[reportGeneralTypeIssues]</span>
@@ -1491,17 +1495,18 @@
 <span class="linenos" data-linenos="121 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Release pipeline.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="122 "></span>    <span class="n">cl</span><span class="o">.</span><span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.all_tasks.summary" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">summary</span>
+          <span class="doc doc-object-name doc-function-name">summary</span>
 
 
 <a href="#calcipy.tasks.all_tasks.summary" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1512,9 +1517,9 @@
   
       <p>Summary Task.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="28 "></span><span class="nd">@task</span><span class="p">(</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="28 "></span><span class="nd">@task</span><span class="p">(</span>
 <span class="linenos" data-linenos="29 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos="30 "></span>        <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;String message to display&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="31 "></span>    <span class="p">},</span>
@@ -1524,17 +1529,18 @@
 <span class="linenos" data-linenos="35 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Summary Task.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="36 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.all_tasks.with_progress" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">with_progress</span>
+          <span class="doc doc-object-name doc-function-name">with_progress</span>
 
 
 <a href="#calcipy.tasks.all_tasks.with_progress" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1545,11 +1551,13 @@
   
       <p>Inject intermediary &lsquo;progress&rsquo; tasks.</p>
 
+
+
   <table>
     <thead>
       <tr>
         <th><b>PARAMETER</b></th>
-        <th><b>DESCRIPTION</b></th>
+        <th><b> DESCRIPTION</b></th>
       </tr>
     </thead>
     <tbody>
@@ -1588,9 +1596,9 @@
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="55 "></span><span class="nd">@beartype</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="55 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="56 "></span><span class="k">def</span> <span class="nf">with_progress</span><span class="p">(</span>
 <span class="linenos" data-linenos="57 "></span>    <span class="n">items</span><span class="p">:</span> <span class="n">TaskListT</span><span class="p">,</span>
 <span class="linenos" data-linenos="58 "></span>    <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -1609,7 +1617,7 @@
 <span class="linenos" data-linenos="71 "></span>        <span class="n">tasks</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">call</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">ix</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">),</span> <span class="n">item</span><span class="p">])</span>  <span class="c1"># pyright: ignore[reportGeneralTypeIssues]</span>
 <span class="linenos" data-linenos="72 "></span>    <span class="k">return</span> <span class="n">tasks</span>  <span class="c1"># pyright: ignore[reportGeneralTypeIssues]</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1627,11 +1635,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1673,10 +1681,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>

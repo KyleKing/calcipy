@@ -21,7 +21,7 @@
         <link rel="next" href="../nox/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
     
     
       
@@ -1334,12 +1334,13 @@
 
 <h2 id="calcipy.tasks.lint-functions">Functions<a href="#calcipy.tasks.lint-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
+
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.autopep8" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">autopep8</span>
+          <span class="doc doc-object-name doc-function-name">autopep8</span>
 
 
 <a href="#calcipy.tasks.lint.autopep8" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1352,9 +1353,9 @@
 <p>FYI: This is temporary until ruff implements white space rules
 https://github.com/charliermarsh/ruff/issues/970</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="48 "></span><span class="k">def</span> <span class="nf">autopep8</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="49 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run autopep8.</span>
 <span class="linenos" data-linenos="50 "></span>
@@ -1365,17 +1366,18 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 <span class="linenos" data-linenos="55 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39;--aggressive --recursive --in-place --max-line-length=120&#39;</span>
 <span class="linenos" data-linenos="56 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;autopep8&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.check" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">check</span>
+          <span class="doc doc-object-name doc-function-name">check</span>
 
 
 <a href="#calcipy.tasks.lint.check" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1386,24 +1388,25 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   
       <p>Run ruff as check-only.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="41 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="41 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="linenos" data-linenos="42 "></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="43 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="44 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.fix" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">fix</span>
+          <span class="doc doc-object-name doc-function-name">fix</span>
 
 
 <a href="#calcipy.tasks.lint.fix" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1414,24 +1417,25 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   
       <p>Run ruff and apply fixes.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="59 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">autopep8</span><span class="p">])</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="59 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">autopep8</span><span class="p">])</span>
 <span class="linenos" data-linenos="60 "></span><span class="k">def</span> <span class="nf">fix</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="61 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff and apply fixes.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="62 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;--fix&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.flake8" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">flake8</span>
+          <span class="doc doc-object-name doc-function-name">flake8</span>
 
 
 <a href="#calcipy.tasks.lint.flake8" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1442,24 +1446,25 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   
       <p>Run flake8.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="71 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="71 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="72 "></span><span class="k">def</span> <span class="nf">flake8</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="73 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run flake8.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="74 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;flake8&#39;</span><span class="p">,</span> <span class="n">run_as_module</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.pre_commit" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">pre_commit</span>
+          <span class="doc doc-object-name doc-function-name">pre_commit</span>
 
 
 <a href="#calcipy.tasks.lint.pre_commit" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1470,39 +1475,40 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   
       <p>Run pre-commit.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="124 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="125 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="126 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the pre-commit hooks&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="127 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="128 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="129 "></span><span class="k">def</span> <span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="130 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pre-commit.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="131 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;pre-commit&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PRE_COMMIT_MESSAGE</span><span class="p">)</span>
-<span class="linenos" data-linenos="132 "></span>
-<span class="linenos" data-linenos="133 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit install&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="134 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
-<span class="linenos" data-linenos="135 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit autoupdate&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="136 "></span>
-<span class="linenos" data-linenos="137 "></span>    <span class="n">all_hook_stages</span> <span class="o">=</span> <span class="p">[</span>
-<span class="linenos" data-linenos="138 "></span>        <span class="s1">&#39;commit&#39;</span><span class="p">,</span> <span class="s1">&#39;merge-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="s1">&#39;prepare-commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;post-checkout&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="139 "></span>        <span class="s1">&#39;post-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;post-merge&#39;</span><span class="p">,</span> <span class="s1">&#39;post-rewrite&#39;</span><span class="p">,</span> <span class="s1">&#39;manual&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="140 "></span>    <span class="p">]</span>
-<span class="linenos" data-linenos="141 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">all_hook_stages</span><span class="p">)</span>
-<span class="linenos" data-linenos="142 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;pre-commit run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="125 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="126 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="127 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the pre-commit hooks&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="128 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="129 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="130 "></span><span class="k">def</span> <span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="131 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pre-commit.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="132 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;pre-commit&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PRE_COMMIT_MESSAGE</span><span class="p">)</span>
+<span class="linenos" data-linenos="133 "></span>
+<span class="linenos" data-linenos="134 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit install&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="135 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
+<span class="linenos" data-linenos="136 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit autoupdate&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="137 "></span>
+<span class="linenos" data-linenos="138 "></span>    <span class="n">all_hook_stages</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos" data-linenos="139 "></span>        <span class="s1">&#39;commit&#39;</span><span class="p">,</span> <span class="s1">&#39;merge-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="s1">&#39;prepare-commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;commit-msg&#39;</span><span class="p">,</span> <span class="s1">&#39;post-checkout&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="140 "></span>        <span class="s1">&#39;post-commit&#39;</span><span class="p">,</span> <span class="s1">&#39;post-merge&#39;</span><span class="p">,</span> <span class="s1">&#39;post-rewrite&#39;</span><span class="p">,</span> <span class="s1">&#39;manual&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="141 "></span>    <span class="p">]</span>
+<span class="linenos" data-linenos="142 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">all_hook_stages</span><span class="p">)</span>
+<span class="linenos" data-linenos="143 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;pre-commit run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.pylint" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">pylint</span>
+          <span class="doc doc-object-name doc-function-name">pylint</span>
 
 
 <a href="#calcipy.tasks.lint.pylint" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1513,9 +1519,9 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   
       <p>Run pylint.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="77 "></span><span class="nd">@task</span><span class="p">(</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="77 "></span><span class="nd">@task</span><span class="p">(</span>
 <span class="linenos" data-linenos="78 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos="79 "></span>        <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="s1">&#39;if provided, show the pylint summary report&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="80 "></span>    <span class="p">},</span>
@@ -1525,17 +1531,18 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 <span class="linenos" data-linenos="84 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39;--report=y&#39;</span> <span class="k">if</span> <span class="n">report</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
 <span class="linenos" data-linenos="85 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;pylint&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.security" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">security</span>
+          <span class="doc doc-object-name doc-function-name">security</span>
 
 
 <a href="#calcipy.tasks.lint.security" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1546,9 +1553,9 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   
       <p>Attempt to identify possible security vulnerabilities.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 92 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 92 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos=" 93 "></span><span class="k">def</span> <span class="nf">security</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos=" 94 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Attempt to identify possible security vulnerabilities.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos=" 95 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override bandit with &quot;# nosec&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1571,21 +1578,23 @@ https://github.com/charliermarsh/ruff/issues/970</p>
 <span class="linenos" data-linenos="112 "></span>        <span class="s1">&#39;--config=r/python&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="113 "></span>        <span class="s1">&#39;--config=r/terraform&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="114 "></span>        <span class="s1">&#39;--config=r/yaml&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="115 "></span>    <span class="p">])</span>
-<span class="linenos" data-linenos="116 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override semgrep with &quot;# nosem&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="117 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/semgrep ci --autofix </span><span class="si">{</span><span class="n">semgrep_configs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="115 "></span>        <span class="s1">&#39;--exclude-rule=yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="116 "></span>    <span class="p">])</span>
+<span class="linenos" data-linenos="117 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Note: Selectively override semgrep with &quot;# nosem&quot;&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos="118 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/semgrep ci --autofix </span><span class="si">{</span><span class="n">semgrep_configs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
 <h3 id="calcipy.tasks.lint.watch" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">watch</span>
+          <span class="doc doc-object-name doc-function-name">watch</span>
 
 
 <a href="#calcipy.tasks.lint.watch" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1596,14 +1605,14 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   
       <p>Run ruff as check-only.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-        <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="65 "></span><span class="nd">@task</span><span class="p">()</span>
+          <details class="quote">
+            <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="65 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="66 "></span><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="67 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="68 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;--watch --show-source&#39;</span><span class="p">)</span>
 </code></pre></div>
-      </details>
+          </details>
   </div>
 
 </div>
@@ -1621,11 +1630,11 @@ https://github.com/charliermarsh/ruff/issues/970</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 7, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
       
     
   </small>
@@ -1667,10 +1676,10 @@ https://github.com/charliermarsh/ruff/issues/970</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.a51614de.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
           <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
