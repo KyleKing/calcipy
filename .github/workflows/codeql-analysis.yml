@@ -2,7 +2,7 @@
 # Based on the Github-recommended CodeQL Action
 name: CodeQL
 
-on:
+"on":
   push:
     branches: [main]
   pull_request:

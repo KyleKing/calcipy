@@ -64,12 +64,13 @@ repos:
           # Note: this version must be the same as the hook revision
           - "prettier@3.0.0"
           - "prettier-plugin-sh"
-        exclude: \.copier-answers\.yml|.*/cassettes/.*\.yaml|tests/.*assert-cache.*/.+\.json
+        exclude: \.copier-answers\.yml|tests/.*/cassettes/.*\.yaml|tests/.*assert-cache.*/.+\.json
         types_or: [html, javascript, json, shell, yaml]
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.32.0
     hooks:
       - id: yamllint
+        exclude: tests/.*/cassettes/.*\.yaml
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.23.1
     hooks:
