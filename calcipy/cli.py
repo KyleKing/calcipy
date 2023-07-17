@@ -29,7 +29,7 @@ class GlobalTaskOptions(BaseModel):
     file_args: List[Path] = Field(default_factory=list)
     """List of Paths to modify."""
 
-    verbose: PositiveInt = Field(default=0, lte=3)
+    verbose: PositiveInt = Field(default=0, le=3)
     """Verbosity level."""
 
     keep_going: bool = False

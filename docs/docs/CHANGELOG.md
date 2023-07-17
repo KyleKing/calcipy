@@ -1,3 +1,10 @@
+## Unreleased
+
+### Fix
+
+- support pydantic v2 serialization
+- skip SemGrep rule to pin GitHub Actions to commit IDs
+
 ## 1.4.1 (2023-07-07)
 
 ### Fix

@@ -105,7 +105,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         lines = []
         try:
             lines = read_lines(path_source)
-        except UnicodeDecodeError as err:
+        except UnicodeDecodeError as err:  # noqa: PERF203
             logger.text_debug('Could not parse', path_source=path_source, err=err)
 
         if comments := _search_lines(lines, regex_compiled):

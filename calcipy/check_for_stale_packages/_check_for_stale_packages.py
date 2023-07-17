@@ -137,7 +137,7 @@ def _collect_release_dates(
                 updated_packages.append(asyncio.run(_get_release_date(package)))
             elif cached_package:
                 updated_packages.append(cached_package)
-        except httpx.HTTPError as exc:
+        except httpx.HTTPError as exc:  # noqa: PERF203
             logger.warning('Could not lock package', package=package, error=str(exc))
     return updated_packages
 
