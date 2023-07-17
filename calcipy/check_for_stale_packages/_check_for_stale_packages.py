@@ -14,7 +14,7 @@ from bidict import bidict
 from corallium.file_helpers import LOCK
 from corallium.log import logger
 from corallium.tomllib import tomllib
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_serializer, validator
 from pyrate_limiter import Duration, Limiter, RequestRate
 
 from .. import can_skip  # Required for mocking can_skip.can_skip
@@ -36,7 +36,10 @@ class _HostedPythonPackage(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
-        json_encoders = {Arrow: str}
+
+    @field_serializer('datetime', 'latest_datetime')
+    def serialize_datetime(self, value: Optional[Arrow]) -> Optional[str]:  # noqa: RBT002
+        return str(value) if value else None
 
     @validator('datetime', 'latest_datetime', pre=True)
     def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: N805,RBT002
