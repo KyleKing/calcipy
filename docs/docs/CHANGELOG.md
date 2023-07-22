@@ -1,7 +1,19 @@
 ## Unreleased
 
+### Feat
+
+- add configurable ignore patterns for tags
+
+### Refactor
+
+- resolve pylint warnings
+- run bump-pydantic
+
+## 1.4.2 (2023-07-16)
+
 ### Fix
 
+- use the correct exclude rule for semgrep
 - support pydantic v2 serialization
 - skip SemGrep rule to pin GitHub Actions to commit IDs
 
