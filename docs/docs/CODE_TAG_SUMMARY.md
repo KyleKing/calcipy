@@ -2,6 +2,7 @@
 
 | Type    | Comment                                                                                            | Last Edit   | Source File                                                                                                                                                                                                                  |
 |---------|----------------------------------------------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PLANNED | Appease mypy and pyright, but this is a private import                                             | 2023-07-22  | [calcipy/__init__.py:39](https://github.com/KyleKing/calcipy/blame/a3246338308947f5403be94392bae6e3029f50d1/calcipy/__init__.py#L39)                                                                                         |
 | TODO    | If no stale, write out five oldest?                                                                | 2023-05-13  | [calcipy/check_for_stale_packages/_check_for_stale_packages.py:202](https://github.com/KyleKing/calcipy/blame/86c37cc4f24911db5562ef6fc8263102dbbcf5c5/calcipy/check_for_stale_packages/_check_for_stale_packages.py#L198)   |
 | TODO    | Can I type this function with fewer Any's?                                                         | 2023-05-17  | [calcipy/cli.py:173](https://github.com/KyleKing/calcipy/blame/efaaa73193296e1fa7e82f1e9a40253c5a26da2d/calcipy/cli.py#L173)                                                                                                 |
 | TODO    | Consider adding a configuration item for ignore_patterns                                           | 2023-02-19  | [calcipy/file_search.py:82](https://github.com/KyleKing/calcipy/blame/e6bc0415e3bf6a6df5a9d808ce0e89d0f2c5df9e/calcipy/file_search.py#L82)                                                                                   |
@@ -11,6 +12,6 @@
 | TODO    | Is there an easier way to maintain pytest parameter IDs?                                           | 2023-02-17  | [tests/tasks/test_test.py:14](https://github.com/KyleKing/calcipy/blame/785b9d1c3afda6fc5a2e46f2bc7d41ed2614da09/tests/tasks/test_test.py#L11)                                                                               |
 | PLANNED | Convert to hypothesis test!                                                                        | 2023-02-19  | [tests/test_dot_dict.py:9](https://github.com/KyleKing/calcipy/blame/3f42ad855eb7024ff48af35d496633a87d4a14ac/tests/test_dot_dict.py#L9)                                                                                     |
 
-Found code tags for TODO (7), PLANNED (1)
+Found code tags for TODO (7), PLANNED (2)
 
 <!-- calcipy_skip_tags -->

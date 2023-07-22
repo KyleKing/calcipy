@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- remove dependency on flake8-beartype
+
+## 1.5.0 (2023-07-22)
+
 ### Feat
 
 - add configurable ignore patterns for tags
