@@ -14,7 +14,7 @@ from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from corallium.file_helpers import read_lines
 from corallium.log import logger
 from corallium.shell import capture_shell
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 SKIP_PHRASE = 'calcipy_skip_tags'
 """String that indicates the file should be excluded from the tag search."""
@@ -42,9 +42,7 @@ class _CodeTag(BaseModel):
     lineno: int
     tag: str
     text: str  # noqa: CCE001
-
-    class Config:
-        frozen = True
+    model_config = ConfigDict(frozen=True)
 
 
 class _Tags(BaseModel):
@@ -52,9 +50,7 @@ class _Tags(BaseModel):
 
     path_source: Path
     code_tags: List[_CodeTag]  # noqa: CCE001
-
-    class Config:
-        frozen = True
+    model_config = ConfigDict(frozen=True)
 
 
 @beartype
