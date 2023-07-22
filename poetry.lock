@@ -799,20 +799,6 @@ files = [
 flake8 = ">=3.2.0"
 
 [[package]]
-name = "flake8-require-beartype"
-version = "0.1.1"
-description = "flake8 plugin which checks for use of @beartype decorator."
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8_require_beartype-0.1.1-py2.py3-none-any.whl", hash = "sha256:c767b2408301e3d9ebb01c134ba8a9fc77f827aa224bfef200f3aaaf821cc227"},
-    {file = "flake8_require_beartype-0.1.1.tar.gz", hash = "sha256:7521e5faeb27dc756fc4f2e946cc3dc6bafdeabc21a4449ab2beb9607f2c1a00"},
-]
-
-[package.dependencies]
-flake8 = ">=3.7"
-
-[[package]]
 name = "flake8-sql"
 version = "0.4.1"
 description = "Flake8 plugin that checks SQL code against opinionated style rules"
@@ -3582,7 +3568,7 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [extras]
 ddict = ["python-box"]
 doc = ["commitizen", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pylint", "pymdown-extensions", "pyyaml", "transitions"]
-flake8 = ["dlint", "flake8", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-executable", "flake8-expression-complexity", "flake8-functions", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-require-beartype", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names"]
+flake8 = ["dlint", "flake8", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-executable", "flake8-expression-complexity", "flake8-functions", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names"]
 lint = ["autopep8", "bandit", "pip-check", "ruff", "semgrep"]
 nox = ["nox-poetry"]
 pylint = ["pylint"]
@@ -3594,4 +3580,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.12"
-content-hash = "d85b419604365176ccb52159d8bd3d523a04e795508e35b2a3975bf49adbc9e0"
+content-hash = "e74b7ac0d217203f99ac1bc1a591bfd234dbff6483fea64f1c9fcb2ac99bda67"
