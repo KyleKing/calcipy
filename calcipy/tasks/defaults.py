@@ -11,6 +11,7 @@ from invoke.context import Context
 DEFAULTS = {
     'tags': {
         'filename': 'CODE_TAG_SUMMARY.md',
+        'ignore_patterns': '',
     },
     'test': {
         'min_cover': '0',
@@ -26,7 +27,7 @@ DEFAULTS = {
 def from_ctx(ctx: Context, group: str, key: str) -> str:
     """Safely extract the value from the context or the defaults.
 
-    Reference with `ctx.tests.out_dir` or `from_ctx(ctx, 'test', 'out_dir')`
+    Instead of `ctx.tests.out_dir` use `from_ctx(ctx, 'test', 'out_dir')`
 
     """
     with suppress(KeyError):

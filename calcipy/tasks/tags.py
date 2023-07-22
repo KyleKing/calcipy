@@ -33,8 +33,8 @@ def collect_code_tags(
     """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
     pth_base_dir = Path(base_dir).resolve()
     path_tag_summary = get_doc_subdir() / (filename or from_ctx(ctx, 'tags', 'filename'))
-    patterns = ignore_patterns.split(',') if ignore_patterns else []
-    paths_source = find_project_files(pth_base_dir, ignore_patterns=patterns)
+    patterns = (ignore_patterns or from_ctx(ctx, 'tags', 'ignore_patterns')).split(',')
+    paths_source = find_project_files(pth_base_dir, ignore_patterns=[*filter(lambda item: item, patterns)])
 
     write_code_tag_file(
         path_tag_summary=path_tag_summary,
