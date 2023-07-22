@@ -99,7 +99,7 @@ class _ReplacementMachine(Machine):
                     lines.append(line)
                     self.end()
             else:
-                logger.error('Could not parse', line=line)
+                logger.warning('Could not parse. Skipping:', line=line)
                 lines.append(line)
                 self.end()
         elif self.state == self.state_user:
