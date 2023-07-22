@@ -5,7 +5,7 @@ from os import getenv
 
 from beartype import BeartypeConf
 from beartype.claw import beartype_this_package
-from beartype.typing import Self
+from typing_extensions import Self  # noqa: UP035
 
 __version__ = '1.5.0'
 __pkg_name__ = 'calcipy'
