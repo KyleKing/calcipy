@@ -21,7 +21,7 @@
         <link rel="next" href="../test/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.19">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ecc896b0.min.css">
@@ -1276,8 +1276,8 @@
 <span class="linenos" data-linenos="33 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="34 "></span>    <span class="n">pth_base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
 <span class="linenos" data-linenos="35 "></span>    <span class="n">path_tag_summary</span> <span class="o">=</span> <span class="n">get_doc_subdir</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">filename</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">))</span>
-<span class="linenos" data-linenos="36 "></span>    <span class="n">patterns</span> <span class="o">=</span> <span class="n">ignore_patterns</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">ignore_patterns</span> <span class="k">else</span> <span class="p">[]</span>
-<span class="linenos" data-linenos="37 "></span>    <span class="n">paths_source</span> <span class="o">=</span> <span class="n">find_project_files</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="n">patterns</span><span class="p">)</span>
+<span class="linenos" data-linenos="36 "></span>    <span class="n">patterns</span> <span class="o">=</span> <span class="p">(</span><span class="n">ignore_patterns</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="n">paths_source</span> <span class="o">=</span> <span class="n">find_project_files</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)])</span>
 <span class="linenos" data-linenos="38 "></span>
 <span class="linenos" data-linenos="39 "></span>    <span class="n">write_code_tag_file</span><span class="p">(</span>
 <span class="linenos" data-linenos="40 "></span>        <span class="n">path_tag_summary</span><span class="o">=</span><span class="n">path_tag_summary</span><span class="p">,</span>
@@ -1306,11 +1306,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 22, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 22, 2023</span>
       
     
   </small>

@@ -21,7 +21,7 @@
         <link rel="next" href="../../experiments/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.19">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ecc896b0.min.css">
@@ -693,8 +693,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#calcipy.dot_dict._dot_dict.DDICT_TYPE" class="md-nav__link">
-    DDICT_TYPE
+  <a href="#calcipy.dot_dict._dot_dict.DdictType" class="md-nav__link">
+    DdictType
   </a>
   
 </li>
@@ -1205,8 +1205,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#calcipy.dot_dict._dot_dict.DDICT_TYPE" class="md-nav__link">
-    DDICT_TYPE
+  <a href="#calcipy.dot_dict._dot_dict.DdictType" class="md-nav__link">
+    DdictType
   </a>
   
 </li>
@@ -1279,16 +1279,16 @@
 
 
 
-<h3 id="calcipy.dot_dict._dot_dict.DDICT_TYPE" class="doc doc-heading">
-          <span class="doc doc-object-name doc-attribute-name">DDICT_TYPE</span>
+<h3 id="calcipy.dot_dict._dot_dict.DdictType" class="doc doc-heading">
+          <span class="doc doc-object-name doc-attribute-name">DdictType</span>
 
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
   </span>
 
-<a href="#calcipy.dot_dict._dot_dict.DDICT_TYPE" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">DDICT_TYPE</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Box</span><span class="p">]</span>
+<a href="#calcipy.dot_dict._dot_dict.DdictType" class="headerlink" title="Permanent link">⚓︎</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">DdictType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Box</span><span class="p">]</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -1318,7 +1318,7 @@
       <p>Return a dotted dictionary that can also be accessed normally.</p>
 <ul>
 <li>Currently uses <code>python-box</code></li>
-<li>Could consider <code>cleveridct</code> which had updates as recently as 2022</li>
+<li>Could consider <code>cleverdict</code> which had updates as recently as 2022</li>
 <li>There are numerous other variations that haven&rsquo;t been updated since 2020, such as <code>munch</code>, <code>bunch</code>, <code>ddict</code></li>
 </ul>
 
@@ -1365,7 +1365,7 @@
     <tbody>
         <tr>
           <td>
-              <code>DDICT_TYPE</code>
+              <code>DdictType</code>
           </td>
           <td class="doc-returns-details">
             <div class="doc-md-description">
@@ -1374,7 +1374,7 @@
               <p>
                 <span class="doc-returns-annotation">
                   <b>TYPE:</b>
-                    <code><a class="autorefs autorefs-internal" title="calcipy.dot_dict._dot_dict.DDICT_TYPE" href="#calcipy.dot_dict._dot_dict.DDICT_TYPE">DDICT_TYPE</a></code>
+                    <code><a class="autorefs autorefs-internal" title="calcipy.dot_dict._dot_dict.DdictType" href="#calcipy.dot_dict._dot_dict.DdictType">DdictType</a></code>
                 </span>
               </p>
           </td>
@@ -1385,18 +1385,18 @@
           <details class="quote">
             <summary>Source code in <code>calcipy/dot_dict/_dot_dict.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="15 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="16 "></span><span class="k">def</span> <span class="nf">ddict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DDICT_TYPE</span><span class="p">:</span>
+<span class="linenos" data-linenos="16 "></span><span class="k">def</span> <span class="nf">ddict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DdictType</span><span class="p">:</span>
 <span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dotted dictionary that can also be accessed normally.</span>
 <span class="linenos" data-linenos="18 "></span>
 <span class="linenos" data-linenos="19 "></span><span class="sd">    - Currently uses `python-box`</span>
-<span class="linenos" data-linenos="20 "></span><span class="sd">    - Could consider `cleveridct` which had updates as recently as 2022</span>
+<span class="linenos" data-linenos="20 "></span><span class="sd">    - Could consider `cleverdict` which had updates as recently as 2022</span>
 <span class="linenos" data-linenos="21 "></span><span class="sd">    - There are numerous other variations that haven&#39;t been updated since 2020, such as `munch`, `bunch`, `ddict`</span>
 <span class="linenos" data-linenos="22 "></span>
 <span class="linenos" data-linenos="23 "></span><span class="sd">    Args:</span>
 <span class="linenos" data-linenos="24 "></span><span class="sd">        **kwargs: keyword arguments formatted into dictionary</span>
 <span class="linenos" data-linenos="25 "></span>
 <span class="linenos" data-linenos="26 "></span><span class="sd">    Returns:</span>
-<span class="linenos" data-linenos="27 "></span><span class="sd">        DDICT_TYPE: dotted dictionary</span>
+<span class="linenos" data-linenos="27 "></span><span class="sd">        DdictType: dotted dictionary</span>
 <span class="linenos" data-linenos="28 "></span>
 <span class="linenos" data-linenos="29 "></span><span class="sd">    &quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="30 "></span>    <span class="k">return</span> <span class="n">Box</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1419,11 +1419,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 22, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 22, 2023</span>
       
     
   </small>

@@ -21,7 +21,7 @@
         <link rel="next" href="../doc/">
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.19">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.eebd395e.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ecc896b0.min.css">
@@ -1266,20 +1266,20 @@
   <div class="doc doc-contents ">
   
       <p>Safely extract the value from the context or the defaults.</p>
-<p>Reference with <code>ctx.tests.out_dir</code> or <code>from_ctx(ctx, 'test', 'out_dir')</code></p>
+<p>Instead of <code>ctx.tests.out_dir</code> use <code>from_ctx(ctx, 'test', 'out_dir')</code></p>
 
           <details class="quote">
             <summary>Source code in <code>calcipy/tasks/defaults.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="25 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="26 "></span><span class="k">def</span> <span class="nf">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="linenos" data-linenos="27 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Safely extract the value from the context or the defaults.</span>
-<span class="linenos" data-linenos="28 "></span>
-<span class="linenos" data-linenos="29 "></span><span class="sd">    Reference with `ctx.tests.out_dir` or `from_ctx(ctx, &#39;test&#39;, &#39;out_dir&#39;)`</span>
-<span class="linenos" data-linenos="30 "></span>
-<span class="linenos" data-linenos="31 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="32 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
-<span class="linenos" data-linenos="33 "></span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
-<span class="linenos" data-linenos="34 "></span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">DEFAULTS</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="26 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="27 "></span><span class="k">def</span> <span class="nf">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">group</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="linenos" data-linenos="28 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Safely extract the value from the context or the defaults.</span>
+<span class="linenos" data-linenos="29 "></span>
+<span class="linenos" data-linenos="30 "></span><span class="sd">    Instead of `ctx.tests.out_dir` use `from_ctx(ctx, &#39;test&#39;, &#39;out_dir&#39;)`</span>
+<span class="linenos" data-linenos="31 "></span>
+<span class="linenos" data-linenos="32 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="33 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">):</span>
+<span class="linenos" data-linenos="34 "></span>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
+<span class="linenos" data-linenos="35 "></span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">DEFAULTS</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
 </code></pre></div>
           </details>
   </div>
@@ -1305,18 +1305,18 @@
 
           <details class="quote">
             <summary>Source code in <code>calcipy/tasks/defaults.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="37 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="38 "></span><span class="k">def</span> <span class="nf">new_collection</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Collection</span><span class="p">:</span>
-<span class="linenos" data-linenos="39 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize a collection with the combination of merged and project-specific defaults.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="40 "></span>    <span class="n">ns</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="41 "></span>
-<span class="linenos" data-linenos="42 "></span>    <span class="c1"># Merge default and user configuration</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="n">ns</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">DEFAULTS</span><span class="p">)</span>
-<span class="linenos" data-linenos="44 "></span>    <span class="n">config_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;.calcipy.json&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="45 "></span>    <span class="k">if</span> <span class="n">config_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-<span class="linenos" data-linenos="46 "></span>        <span class="n">ns</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)))</span>
-<span class="linenos" data-linenos="47 "></span>
-<span class="linenos" data-linenos="48 "></span>    <span class="k">return</span> <span class="n">ns</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="38 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="39 "></span><span class="k">def</span> <span class="nf">new_collection</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Collection</span><span class="p">:</span>
+<span class="linenos" data-linenos="40 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize a collection with the combination of merged and project-specific defaults.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="41 "></span>    <span class="n">ns</span> <span class="o">=</span> <span class="n">Collection</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="42 "></span>
+<span class="linenos" data-linenos="43 "></span>    <span class="c1"># Merge default and user configuration</span>
+<span class="linenos" data-linenos="44 "></span>    <span class="n">ns</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">DEFAULTS</span><span class="p">)</span>
+<span class="linenos" data-linenos="45 "></span>    <span class="n">config_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;.calcipy.json&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="46 "></span>    <span class="k">if</span> <span class="n">config_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+<span class="linenos" data-linenos="47 "></span>        <span class="n">ns</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">config_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)))</span>
+<span class="linenos" data-linenos="48 "></span>
+<span class="linenos" data-linenos="49 "></span>    <span class="k">return</span> <span class="n">ns</span>
 </code></pre></div>
           </details>
   </div>
@@ -1336,11 +1336,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 22, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 17, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 22, 2023</span>
       
     
   </small>
