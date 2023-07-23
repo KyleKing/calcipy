@@ -343,14 +343,6 @@
         "name": "flake8-raise",
         "version": "0.0.5"
     },
-    "flake8-require-beartype": {
-        "datetime": "2022-05-22T20:04:15.193807+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-05-22T20:04:15.193807+00:00",
-        "latest_version": "0.1.1",
-        "name": "flake8-require-beartype",
-        "version": "0.1.1"
-    },
     "flake8-sql": {
         "datetime": "2020-06-27T20:18:47.766579+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -1110,6 +1102,14 @@
         "latest_version": "1.33.2",
         "name": "semgrep",
         "version": "1.33.2"
+    },
+    "semver": {
+        "datetime": "2023-06-14T11:43:20.066631+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2023-06-14T11:43:20.066631+00:00",
+        "latest_version": "3.0.1",
+        "name": "semver",
+        "version": "3.0.1"
     },
     "setuptools": {
         "datetime": "2023-06-19T15:53:03.089995+00:00",

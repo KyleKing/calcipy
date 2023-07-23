@@ -59,6 +59,7 @@ flake8-tuple = {optional = true, version = ">=0.4.1"} # flake8
 flake8-typing-imports = {optional = true, version = ">=1.14.0"} # flake8
 flake8-use-pathlib = {optional = true, version = ">=0.3.0"} # flake8
 flake8-variables-names = {optional = true, version = ">=0.0.5"} # flake8
+griffe = ">=0.32.3" # experimental
 httpx = {optional = true, version = ">=0.24.1"} # stale
 invoke = ">=2.1.2"
 mkdocs = {optional = true, version = ">=1.4.1"} # doc
@@ -86,6 +87,7 @@ python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc,tags
 ruff = {optional = true, version = ">=0.0.280"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
+semver = ">=3.0.1" # experimental
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 transitions = {optional = true, version = ">=0.9.0"} # tags: docs
 

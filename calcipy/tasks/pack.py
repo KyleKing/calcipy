@@ -7,6 +7,7 @@ from invoke.context import Context
 
 from .. import can_skip  # Required for mocking can_skip.can_skip
 from ..cli import task
+from ..experiments import bump_programmatically
 from ..invoke_helpers import run
 from .executable_utils import python_dir
 
@@ -51,3 +52,24 @@ def check_licenses(ctx: Context) -> None:
         logger.warning('`licensecheck` not found. installing with pipx')
         run(ctx, 'pipx install licensecheck')
     run(ctx, 'licensecheck')
+
+
+@task(
+    help={
+        'tag': 'Last tag, can be provided with `--tag=$(git tag -l "v*" | sort | head -n 1)`',
+        'tag_prefix': 'Optional tag prefix, such as "v"',
+        'pkg_name': 'Optional package name. If not provided, will read the poetry pyproject.toml file',
+    },
+)
+def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = '') -> None:  # noqa: ARG001
+    """Experiment with bumping the git tag using `griffe`."""
+    if not pkg_name:
+        poetry_config = file_helpers.read_pyproject()['tool']['poetry']
+        pkg_name = poetry_config['name']
+
+    new_version = bump_programmatically.bump_tag(
+        pkg_name=pkg_name,
+        tag=tag,
+        tag_prefix=tag_prefix,
+    )
+    logger.info(new_version)

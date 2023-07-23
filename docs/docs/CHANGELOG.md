@@ -4,6 +4,10 @@
 
 - remove dependency on flake8-beartype
 
+### Refactor
+
+- downgrade replacement machine error to warning
+
 ## 1.5.0 (2023-07-22)
 
 ### Feat
