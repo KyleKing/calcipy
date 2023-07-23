@@ -1,7 +1,12 @@
 ## Unreleased
 
+### Feat
+
+- experiment with griffe for version bumping
+
 ### Fix
 
+- resolve minor bugs in griffe experiment
 - remove dependency on flake8-beartype
 
 ### Refactor

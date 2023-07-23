@@ -56,13 +56,23 @@ def check_licenses(ctx: Context) -> None:
 
 @task(
     help={
-        'tag': 'Last tag, can be provided with `--tag=$(git tag -l "v*" | sort | head -n 1)`',
+        'tag': 'Last tag, can be provided with `--tag="$(git tag -l "v*" | sort | tail -n 1)"`',
         'tag_prefix': 'Optional tag prefix, such as "v"',
         'pkg_name': 'Optional package name. If not provided, will read the poetry pyproject.toml file',
     },
 )
 def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = '') -> None:  # noqa: ARG001
-    """Experiment with bumping the git tag using `griffe`."""
+    """Experiment with bumping the git tag using `griffe`.
+
+    Example for `calcipy`:
+
+    ```sh
+    ./run pack.bump-tag --tag="$(git tag -l "*" | sort | head -n 5 | tail -n 1)" --tag-prefix=""
+    ```
+
+    """
+    if not tag:
+        raise ValueError('tag must not be empty')
     if not pkg_name:
         poetry_config = file_helpers.read_pyproject()['tool']['poetry']
         pkg_name = poetry_config['name']
@@ -72,4 +82,4 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
         tag=tag,
         tag_prefix=tag_prefix,
     )
-    logger.info(new_version)
+    logger.text(new_version)
