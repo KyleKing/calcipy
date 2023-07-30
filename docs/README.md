@@ -31,8 +31,6 @@ copier copy gh:KyleKing/calcipy_template .
 copier update
 ```
 
-See [./Advanced_Configuration.md](./Advanced_Configuration.md) for documentation on the configurable aspects of `calcipy`
-
 ### Calcipy CLI
 
 Additionally, `calcipy` can be run as a CLI application without adding the package as a dependency.
