@@ -21,7 +21,7 @@
         <link rel="next" href="../STYLE_GUIDE/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.19">
+      <meta name="generator" content="mkdocs-1.5.1, mkdocs-material-9.1.21">
     
     
       
@@ -267,7 +267,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../Advanced_Documentation/">Docs</a>
+          <a href="../CHANGELOG/">Docs</a>
           
             <label for="__nav_2">
               <span class="md-nav__icon md-icon"></span>
@@ -281,20 +281,6 @@
           Docs
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../CHANGELOG/" class="md-nav__link">
-        CHANGELOG
-      </a>
-    </li>
-  
-
-            
           
             
               
@@ -1304,7 +1290,7 @@
 <span class="linenos" data-linenos="15 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">      </span><span class="m">1</span>.002<span class="w"> </span>s<span class="w"> </span>±<span class="w">  </span><span class="m">0</span>.015<span class="w"> </span>s<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">1</span>.643<span class="w"> </span>s,<span class="w"> </span>System:<span class="w"> </span><span class="m">1</span>.682<span class="w"> </span>s<span class="o">]</span>
 <span class="linenos" data-linenos="16 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">    </span><span class="m">0</span>.974<span class="w"> </span>s<span class="w"> </span>…<span class="w">  </span><span class="m">1</span>.023<span class="w"> </span>s<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
 </code></pre></div>
-<p>Additionally, the major decrease in dependencies will make install and update actions much faster. With the recommended extras installed, <code>calcipy-v1</code> has 124 dependencies (with all extras, 164) vs. <code>calcipy-v0</code>&lsquo;s 259. Counted with: <code>cat .calcipy_packaging.lock | jq 'keys' | wc -l</code></p>
+<p>Additionally, the major decrease in dependencies will make install and update actions much faster. With the recommended extras installed, <code>calcipy-v1</code> has 124 dependencies (with all extras, 164) vs. <code>calcipy-v0</code>&rsquo;s 259. Counted with: <code>cat .calcipy_packaging.lock | jq 'keys' | wc -l</code></p>
 <h3 id="code-comparison">Code Comparison<a class="headerlink" href="#code-comparison" title="Permanent link">⚓︎</a></h3>
 <p>Accounting for code extracted to <code>corallium</code>, the overall number of lines decreased from 1772 to 1550 or only 12%, while increasing the CLI and <code>pre-commit</code> capabilities.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>~/calcipy-v0<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>calcipy
@@ -1368,7 +1354,7 @@
 <h3 id="doit-output">doit output<a class="headerlink" href="#doit-output" title="Permanent link">⚓︎</a></h3>
 <!-- TODO: Look into running tasks from within other tasks to support '--continue' and more readable logs -->
 
-<p>I would like to restore the <code>doit</code> task summary, but <code>invoke</code>&lsquo;s architecture doesn&rsquo;t really make this possible. The <code>--continue</code> option was extremely useful, but that also might not be achievable.</p>
+<p>I would like to restore the <code>doit</code> task summary, but <code>invoke</code>&rsquo;s architecture doesn&rsquo;t really make this possible. The <code>--continue</code> option was extremely useful, but that also might not be achievable.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt;<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>doit<span class="w"> </span>run
 <span class="linenos" data-linenos=" 2 "></span>.<span class="w">  </span>format_recipes<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="w">        </span>Python:<span class="w"> </span><span class="k">function</span><span class="w"> </span>format_recipes
