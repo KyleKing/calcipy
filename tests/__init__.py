@@ -1,3 +1,3 @@
 from os import environ
 
-environ['BEARTYPE_SHOW_WARNINGS'] = 'yes'
+environ['CALCIPY_RUNTIME_TYPE_CHECKING_MODE'] = 'WARNING'

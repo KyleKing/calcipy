@@ -11,8 +11,8 @@ __version__ = '1.6.0'
 __pkg_name__ = 'calcipy'
 
 
-class _BeartypeModes(Enum):
-    """Supported global beartype modes."""
+class _RuntimeTypeCheckingModes(Enum):
+    """Supported global runtime type checking modes."""
 
     ERROR = 'ERROR'
     WARNING = 'WARNING'
@@ -21,36 +21,29 @@ class _BeartypeModes(Enum):
     @classmethod
     def from_environment(cls) -> Self:
         """Return the configured mode."""
-        beartype_mode = getenv('BEARTYPE_MODE') or None
+        rtc_mode = getenv('CALCIPY_RUNTIME_TYPE_CHECKING_MODE') or None
         try:
-            return cls(beartype_mode)
+            return cls(rtc_mode)
         except ValueError:
-            msg = f"'BEARTYPE_MODE={beartype_mode}' is not an allowed mode from {[_e.value for _e in cls]}"
-            raise ValueError(
-                msg,
-            ) from None
+            modes = [_e.value for _e in cls]
+            msg = f"'CALCIPY_RUNTIME_TYPE_CHECKING_MODE={rtc_mode}' is not an allowed mode from {modes}"
+            raise ValueError(msg) from None
 
 
-def configure_beartype() -> None:
-    """Optionally configure beartype globally."""
-    beartype_mode = _BeartypeModes.from_environment()
+def configure_runtime_type_checking_mode() -> None:
+    """Optionally configure runtime type checking mode globally."""
+    rtc_mode = _RuntimeTypeCheckingModes.from_environment()
 
-    if beartype_mode != _BeartypeModes.OFF:
-        # PLANNED: Appease mypy and pyright, but this is a private import
-        from beartype.roar._roarwarn import _BeartypeConfReduceDecoratorExceptionToWarningDefault
-        beartype_warning_default = _BeartypeConfReduceDecoratorExceptionToWarningDefault
+    if rtc_mode != _RuntimeTypeCheckingModes.OFF:
+        from beartype.roar import BeartypeClawDecorWarning
 
         beartype_this_package(conf=BeartypeConf(
             warning_cls_on_decorator_exception=(
-                None if beartype_mode == _BeartypeModes.ERROR else beartype_warning_default
+                None if rtc_mode is _RuntimeTypeCheckingModes.ERROR else BeartypeClawDecorWarning
             ),
-            is_color=getenv('BEARTYPE_NO_COLOR') is not None),
-        )
+        ))
 
 
-configure_beartype()
-
-# ====== Above is the recommended code from calcipy_template and may be updated on new releases ======
-
+configure_runtime_type_checking_mode()
 
 # ====== Above is the recommended code from calcipy_template and may be updated on new releases ======
