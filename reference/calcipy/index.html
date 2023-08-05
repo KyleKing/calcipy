@@ -1126,8 +1126,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#calcipy.configure_beartype" class="md-nav__link">
-    configure_beartype()
+  <a href="#calcipy.configure_runtime_type_checking_mode" class="md-nav__link">
+    configure_runtime_type_checking_mode()
   </a>
   
 </li>
@@ -1182,35 +1182,32 @@
 
 
 
-<h3 id="calcipy.configure_beartype" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">configure_beartype</span>
+<h3 id="calcipy.configure_runtime_type_checking_mode" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">configure_runtime_type_checking_mode</span>
 
 
-<a href="#calcipy.configure_beartype" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">configure_beartype</span><span class="p">()</span>
+<a href="#calcipy.configure_runtime_type_checking_mode" class="headerlink" title="Permanent link">⚓︎</a></h3>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">configure_runtime_type_checking_mode</span><span class="p">()</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
   
-      <p>Optionally configure beartype globally.</p>
+      <p>Optionally configure runtime type checking mode globally.</p>
 
           <details class="quote">
             <summary>Source code in <code>calcipy/__init__.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="34 "></span><span class="k">def</span> <span class="nf">configure_beartype</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="35 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optionally configure beartype globally.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="36 "></span>    <span class="n">beartype_mode</span> <span class="o">=</span> <span class="n">_BeartypeModes</span><span class="o">.</span><span class="n">from_environment</span><span class="p">()</span>
-<span class="linenos" data-linenos="37 "></span>
-<span class="linenos" data-linenos="38 "></span>    <span class="k">if</span> <span class="n">beartype_mode</span> <span class="o">!=</span> <span class="n">_BeartypeModes</span><span class="o">.</span><span class="n">OFF</span><span class="p">:</span>
-<span class="linenos" data-linenos="39 "></span>        <span class="c1"># PLANNED: Appease mypy and pyright, but this is a private import</span>
-<span class="linenos" data-linenos="40 "></span>        <span class="kn">from</span> <span class="nn">beartype.roar._roarwarn</span> <span class="kn">import</span> <span class="n">_BeartypeConfReduceDecoratorExceptionToWarningDefault</span>
-<span class="linenos" data-linenos="41 "></span>        <span class="n">beartype_warning_default</span> <span class="o">=</span> <span class="n">_BeartypeConfReduceDecoratorExceptionToWarningDefault</span>
-<span class="linenos" data-linenos="42 "></span>
-<span class="linenos" data-linenos="43 "></span>        <span class="n">beartype_this_package</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">BeartypeConf</span><span class="p">(</span>
-<span class="linenos" data-linenos="44 "></span>            <span class="n">warning_cls_on_decorator_exception</span><span class="o">=</span><span class="p">(</span>
-<span class="linenos" data-linenos="45 "></span>                <span class="kc">None</span> <span class="k">if</span> <span class="n">beartype_mode</span> <span class="o">==</span> <span class="n">_BeartypeModes</span><span class="o">.</span><span class="n">ERROR</span> <span class="k">else</span> <span class="n">beartype_warning_default</span>
-<span class="linenos" data-linenos="46 "></span>            <span class="p">),</span>
-<span class="linenos" data-linenos="47 "></span>            <span class="n">is_color</span><span class="o">=</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;BEARTYPE_NO_COLOR&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span>
-<span class="linenos" data-linenos="48 "></span>        <span class="p">)</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="33 "></span><span class="k">def</span> <span class="nf">configure_runtime_type_checking_mode</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="34 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optionally configure runtime type checking mode globally.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="35 "></span>    <span class="n">rtc_mode</span> <span class="o">=</span> <span class="n">_RuntimeTypeCheckingModes</span><span class="o">.</span><span class="n">from_environment</span><span class="p">()</span>
+<span class="linenos" data-linenos="36 "></span>
+<span class="linenos" data-linenos="37 "></span>    <span class="k">if</span> <span class="n">rtc_mode</span> <span class="o">!=</span> <span class="n">_RuntimeTypeCheckingModes</span><span class="o">.</span><span class="n">OFF</span><span class="p">:</span>
+<span class="linenos" data-linenos="38 "></span>        <span class="kn">from</span> <span class="nn">beartype.roar</span> <span class="kn">import</span> <span class="n">BeartypeClawDecorWarning</span>
+<span class="linenos" data-linenos="39 "></span>
+<span class="linenos" data-linenos="40 "></span>        <span class="n">beartype_this_package</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">BeartypeConf</span><span class="p">(</span>
+<span class="linenos" data-linenos="41 "></span>            <span class="n">warning_cls_on_decorator_exception</span><span class="o">=</span><span class="p">(</span>
+<span class="linenos" data-linenos="42 "></span>                <span class="kc">None</span> <span class="k">if</span> <span class="n">rtc_mode</span> <span class="ow">is</span> <span class="n">_RuntimeTypeCheckingModes</span><span class="o">.</span><span class="n">ERROR</span> <span class="k">else</span> <span class="n">BeartypeClawDecorWarning</span>
+<span class="linenos" data-linenos="43 "></span>            <span class="p">),</span>
+<span class="linenos" data-linenos="44 "></span>        <span class="p">))</span>
 </code></pre></div>
           </details>
   </div>
@@ -1230,11 +1227,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 30, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 5, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 30, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 5, 2023</span>
       
     
   </small>
