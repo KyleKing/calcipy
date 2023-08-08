@@ -6,7 +6,6 @@ import sys
 from functools import wraps
 from pathlib import Path
 from types import ModuleType
-
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.log import configure_logger, logger
@@ -133,7 +132,6 @@ def _configure_logger(ctx: Context) -> None:
     configure_logger(log_level=log_level)
 
 
-@beartype
 def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwargs: Any) -> Any:
     """Run the task function with optional logging."""
     if show_task_info:
@@ -150,7 +148,6 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
     return result
 
 
-@beartype
 def _inner_runner(*, func: Any, ctx: Context, show_task_info: bool, args: Any, kwargs: Any) -> Any:
     try:
         ctx.config.gto  # noqa: B018
@@ -171,14 +168,11 @@ def _inner_runner(*, func: Any, ctx: Context, show_task_info: bool, args: Any, k
 
 
 # TODO: Can I type this function with fewer Any's?
-@beartype
 def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Callable[[Any], Any]:
     """Wrapper to accept arguments for an invoke task."""
-    @beartype
     def wrapper(func: Any) -> Any:  # noqa: ANN001
         """Wraps the decorated task."""
         @invoke_task(*task_args, **task_kwargs)
-        @beartype
         @wraps(func)
         def inner(ctx: Context, *args: Any, **kwargs: Any) -> Any:
             """Wrap the task with settings configured in `gto` for working_dir and logging."""

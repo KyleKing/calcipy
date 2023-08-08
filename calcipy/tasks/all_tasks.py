@@ -80,7 +80,7 @@ _MAIN_TASKS = [
     call(lint.pre_commit, no_update=True),  # pyright: ignore[reportGeneralTypeIssues]
     lint.security,
     tags.collect_code_tags,
-    cl.write,
+    # cl.write,
     pack.lock,
     test.coverage,
     doc.build,

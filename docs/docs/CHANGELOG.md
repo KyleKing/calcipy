@@ -1,3 +1,9 @@
+## Unreleased
+
+### Refactor
+
+- update copier for a more generic environment variable
+
 ## 1.6.0 (2023-07-23)
 
 ### Feat

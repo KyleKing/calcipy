@@ -12,29 +12,29 @@ SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
 
 
-@task()
-def write(ctx: Context) -> None:
-    """Write a Changelog file with the raw Git history.
+# @task()
+# def write(ctx: Context) -> None:
+#     """Write a Changelog file with the raw Git history.
 
-    Resources:
+#     Resources:
 
-    - https://keepachangelog.com/en/1.0.0/
-    - https://www.conventionalcommits.org/en/v1.0.0/
-    - https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message
-    - https://chris.beams.io/posts/git-commit/
-    - https://semver.org/
-    - https://calver.org/
+#     - https://keepachangelog.com/en/1.0.0/
+#     - https://www.conventionalcommits.org/en/v1.0.0/
+#     - https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message
+#     - https://chris.beams.io/posts/git-commit/
+#     - https://semver.org/
+#     - https://calver.org/
 
-    Returns:
-        List[DoitAction]: doit actions
+#     Returns:
+#         List[DoitAction]: doit actions
 
-    """
-    run(ctx, f'{python_dir()}/cz changelog')
-    path_cl = get_project_path() / 'CHANGELOG.md'
-    if not path_cl.is_file():
-        msg = f'Could not locate the changelog at: {path_cl}'
-        raise FileNotFoundError(msg)
-    path_cl.replace(get_doc_subdir() / path_cl.name)
+#     """
+#     run(ctx, f'{python_dir()}/cz changelog')
+#     path_cl = get_project_path() / 'CHANGELOG.md'
+#     if not path_cl.is_file():
+#         msg = f'Could not locate the changelog at: {path_cl}'
+#         raise FileNotFoundError(msg)
+#     path_cl.replace(get_doc_subdir() / path_cl.name)
 
 
 @beartype
@@ -53,7 +53,7 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
 
 
 @task(
-    pre=[write],
+    # pre=[write],
     help={
         'suffix': 'Specify prerelease suffix for version bump (alpha, beta, rc)',
     },
