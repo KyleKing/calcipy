@@ -37,10 +37,10 @@ from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint,
         (pre_commit, {}, [
             'pre-commit install',
             'pre-commit autoupdate',
-            'pre-commit run --all-files ' + ' '.join(f'--hook-stage {stg}' for stg in [
+            'pre-commit run --all-files ' + ' '.join(f'--hook-stage {stg}' for stg in (
                 'commit', 'merge-commit', 'push', 'prepare-commit-msg', 'commit-msg', 'post-checkout',
                 'post-commit', 'post-merge', 'post-rewrite', 'manual',
-            ]),
+            )),
         ]),
     ],
 )
