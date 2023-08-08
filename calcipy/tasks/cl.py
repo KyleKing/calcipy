@@ -29,6 +29,8 @@ def write(ctx: Context) -> None:
         List[DoitAction]: doit actions
 
     """
+    raise RuntimeError("Task 'write' was run")
+
     run(ctx, f'{python_dir()}/cz changelog')
     path_cl = get_project_path() / 'CHANGELOG.md'
     if not path_cl.is_file():
