@@ -34,7 +34,7 @@ def configure_runtime_type_checking_mode() -> None:
     """Optionally configure runtime type checking mode globally."""
     rtc_mode = _RuntimeTypeCheckingModes.from_environment()
 
-    if rtc_mode != _RuntimeTypeCheckingModes.OFF:
+    if rtc_mode is not _RuntimeTypeCheckingModes.OFF:
         from beartype.roar import BeartypeClawDecorWarning
 
         beartype_this_package(conf=BeartypeConf(

@@ -3,12 +3,12 @@
 from beartype import beartype
 from beartype.typing import Any, List, Union
 from corallium.log import logger
-from invoke.collection import Collection
 from invoke.context import Context
 from invoke.tasks import Call, Task, call
 
 from ..cli import task
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
+from ._invoke import Collection
 from .defaults import new_collection
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
@@ -54,9 +54,9 @@ TaskListT = List[Union[Call, Task[Any]]]
 
 @beartype
 def with_progress(
-    items: TaskListT,
+    items: Any,  # PLANNED: TaskListT,
     offset: int = 0,
-) -> TaskListT:
+) -> List:  # PLANNED: TaskListT:
     """Inject intermediary 'progress' tasks.
 
     Args:
@@ -65,10 +65,13 @@ def with_progress(
 
     """
     message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in items])
-    tasks: TaskListT = [call(summary, message=message)]
+    # TODO: tasks: TaskListT = [call(summary, message=message)]
+    tasks = [call(summary, message=message)]
+
     total = len(items) + offset
-    for ix, item in enumerate(items):
-        tasks.extend([call(progress, index=ix + offset, total=total), item])  # pyright: ignore[reportGeneralTypeIssues]
+    for idx, item in enumerate(items):
+        # pyright: ignore[reportGeneralTypeIssues]
+        tasks.extend([call(progress, index=idx + offset, total=total), item])
     return tasks  # pyright: ignore[reportGeneralTypeIssues]
 
 

@@ -6,14 +6,13 @@ from pathlib import Path
 from types import ModuleType
 
 from beartype import beartype
-from beartype.typing import Any, Callable, Dict, List, Optional
-from invoke.collection import Collection
+from beartype.typing import Any, Callable, Dict, List, Optional, Union
+from invoke.collection import Collection as InvokeCollection  # noqa: TID251
 from invoke.config import Config, merge_dicts
-from invoke.context import Context
 from invoke.program import Program
-from invoke.tasks import task as invoke_task  # noqa: TID251
 
 from .invoke_helpers import use_pty
+from .tasks._invoke import TASK_ARGS_ATTR, TASK_KWARGS_ATTR, Collection, GlobalTaskOptions
 
 
 class _CalcipyProgram(Program):
@@ -55,11 +54,11 @@ class CalcipyConfig(Config):
 
 
 @beartype
-def start_program(  # pragma: no cover
+def start_program(  # pragma: no cover # noqa: CAC001
     pkg_name: str,
     pkg_version: str,
     module: Optional[ModuleType] = None,
-    collection: Optional[Collection] = None,
+    collection: Optional[Union[Collection, InvokeCollection]] = None,
 ) -> None:
     """Run the customized Invoke Program.
 
@@ -95,6 +94,9 @@ def start_program(  # pragma: no cover
 
         gto: GlobalTaskOptions = _gto
 
+    if module and collection:
+        raise ValueError('Only one of collection or module can be specified')
+
     _CalcipyProgram(
         name=pkg_name,
         version=pkg_version,
@@ -103,18 +105,27 @@ def start_program(  # pragma: no cover
     ).run()
 
 
-# TODO: Can I type this function with fewer Any's?
-@beartype
-def task(*task_args: Any, show_task_info: bool = True, **task_kwargs: Any) -> Callable[[Any], Any]:
-    """Wrapper to accept arguments for an invoke task."""
-    @beartype
-    def wrapper(func: Any) -> Any:  # noqa: ANN001
-        """Wraps the decorated task."""
-        @invoke_task(*task_args, **task_kwargs)
-        @beartype
+def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # noqa: CFQ004
+    """Marks wrapped callable object as a valid Invoke task."""
+    def wrapper(func: Any) -> Callable:
+        # Attach arguments for Task
+        setattr(func, TASK_ARGS_ATTR, dec_args)
+        setattr(func, TASK_KWARGS_ATTR, dec_kwargs)
+        # Attach public attributes from invoke that are expected
+        func.help = dec_kwargs.pop('help', {})
+
         @wraps(func)
-        def inner(ctx: Context, *args: Any, **kwargs: Any) -> Any:
-            """Wrap the task with settings configured in `gto` for working_dir and logging."""
-            return _inner_runner(func=func, ctx=ctx, show_task_info=show_task_info, args=args, kwargs=kwargs)
+        def inner(*args: Any, **kwargs: Any) -> Any:
+            return func(*args, **kwargs)
+
         return inner
+
+    # Handle the case when the decorator is called without arguments
+    if (
+        len(dec_args) == 1
+        and callable(dec_args[0])
+        and not hasattr(dec_args[0], TASK_ARGS_ATTR)
+    ):
+        return wrapper(dec_args[0])
+
     return wrapper

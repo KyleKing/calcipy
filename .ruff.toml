@@ -39,7 +39,8 @@ unfixable = [
 inline-quotes = 'single'
 
 [flake8-tidy-imports.banned-api]
-'invoke.task'.msg = 'Use shoal.cli.task instead.'
+'invoke.collection.Collection'.msg = 'Use calcipy.cli.Collection instead.'
+'invoke.tasks.task'.msg = 'Use calcipy.cli.task instead.'
 'typing.Callable'.msg = 'Use beartype.typing.* instead.'
 'typing.Dict'.msg = 'Use beartype.typing.* instead.'
 'typing.List'.msg = 'Use beartype.typing.* instead.'
