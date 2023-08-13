@@ -1,3 +1,16 @@
+## Unreleased
+
+### Fix
+
+- support partial kwargs for pre/post
+- defer Task to support decorator chaining
+
+### Refactor
+
+- setup for deferred task refactor
+- update dependency versions
+- update copier for a more generic environment variable
+
 ## 1.6.0 (2023-07-23)
 
 ### Feat

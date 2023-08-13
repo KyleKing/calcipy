@@ -1,4 +1,3 @@
-from os import environ
+from os import environ, getenv
 
-# FIXME: Global beartype causes invoke failures
-# environ['CALCIPY_RUNTIME_TYPE_CHECKING_MODE'] = 'WARNING'  # noqa: ERA001
+environ['RUNTIME_TYPE_CHECKING_MODE'] = getenv('RUNTIME_TYPE_CHECKING_MODE', 'ERROR')

@@ -4,11 +4,11 @@ from beartype import beartype
 from beartype.typing import Any, List, Union
 from corallium.log import logger
 from invoke.context import Context
-from invoke.tasks import Call, Task
+from invoke.tasks import Call
 
 from ..cli import task
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
-from ._invoke import Collection, _build_task
+from ._invoke import Collection, DeferedTask, _build_task
 from .defaults import new_collection
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
@@ -48,15 +48,15 @@ def progress(_ctx: Context, *, index: int, total: int) -> None:
     logger.text('Progress', is_header=True, index=index + 1, total=total)
 
 
-TaskListT = List[Union[Call, Task[Any]]]
+TaskList = List[Union[Call, DeferedTask]]
 """List of wrapped or normal task functions."""
 
 
 @beartype
 def with_progress(
-    items: Any,  # PLANNED: TaskListT,
+    items: Any,  # PLANNED: TaskList,
     offset: int = 0,
-) -> List:  # PLANNED: TaskListT:
+) -> TaskList:
     """Inject intermediary 'progress' tasks.
 
     Args:
@@ -66,7 +66,7 @@ def with_progress(
     """
     task_items = [_build_task(_t) for _t in items]
     message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in task_items])
-    # FIXME: tasks: TaskListT = [summary.with_kwargs(message=message)]
+    # FIXME: tasks: TaskList = [summary.with_kwargs(message=message)]
     tasks = [summary.with_kwargs(message=message)]
 
     total = len(task_items) + offset

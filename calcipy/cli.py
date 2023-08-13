@@ -105,29 +105,29 @@ def start_program(  # pragma: no cover # noqa: CAC001
     ).run()
 
 
-def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # noqa: CFQ004
+def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-arg] # noqa: CFQ004
     """Marks wrapped callable object as a valid Invoke task."""
-    def wrapper(func: Any) -> Callable:
+    def wrapper(func: Any) -> Callable:  # type: ignore[type-arg] # noqa: CFQ004
         # Attach arguments for Task
         setattr(func, TASK_ARGS_ATTR, dec_args)
         setattr(func, TASK_KWARGS_ATTR, dec_kwargs)
         # Attach public attributes from invoke that are expected
         func.help = dec_kwargs.pop('help', {})
 
-        def with_kwargs(**extra_kwargs) -> Callable:
+        def _with_kwargs(**extra_kwargs: Any) -> Callable:  # type: ignore[type-arg] # nosem
             """Support building partial tasks."""
-            @wraps(func)
+            @wraps(func) # nosem
             def _with_kwargs_inner(*args: Any, **kwargs: Any) -> Any:
                 return func(*args, **kwargs, **extra_kwargs)
             return _with_kwargs_inner
 
-        func.with_kwargs = with_kwargs
+        func.with_kwargs = _with_kwargs
 
-        @wraps(func)
-        def inner(*args: Any, **kwargs: Any) -> Any:
+        @wraps(func) # nosem
+        def _inner(*args: Any, **kwargs: Any) -> Any:
             return func(*args, **kwargs)
 
-        return inner
+        return _inner
 
     # Handle the case when the decorator is called without arguments
     if (

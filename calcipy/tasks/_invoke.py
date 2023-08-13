@@ -2,20 +2,22 @@
 
 import logging
 import os
-from contextlib import wraps
+from functools import wraps
 from pathlib import Path
 from types import ModuleType
 
 from beartype import beartype
-from beartype.typing import Any, Dict, List, Optional, Tuple, Union
+from beartype.typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from corallium.log import configure_logger, logger
 from invoke.collection import Collection as InvokeCollection  # noqa: TID251
 from invoke.context import Context
-from invoke.tasks import Call, Task
+from invoke.tasks import Task
 from pydantic import BaseModel, Field, PositiveInt
 
 TASK_ARGS_ATTR = 'dev_args'
 TASK_KWARGS_ATTR = 'dev_kwargs'
+
+DeferedTask = Union[Callable, Task]  # type: ignore[type-arg]
 
 
 class GlobalTaskOptions(BaseModel):
@@ -82,20 +84,19 @@ def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **k
     return None
 
 
-def _build_task(task: Any) -> Union[Task, Call]:
+def _build_task(task: DeferedTask) -> Task:  # type: ignore[type-arg]
     """Defer creation of the Task."""
-
-    @wraps(task)
-    def inner(*args: Any, **kwargs: Any) -> Any:
-        return _wrapped_task(*args, func=task, show_task_info=show_task_info, **kwargs)
-
     if hasattr(task, TASK_ARGS_ATTR):
+        @wraps(task)
+        def inner(*args: Any, **kwargs: Any) -> Any:
+            return _wrapped_task(*args, func=task, show_task_info=show_task_info, **kwargs)
+
         kwargs = getattr(task, TASK_KWARGS_ATTR)
         show_task_info = kwargs.pop('show_task_info', None) or False
         pre = [_build_task(pre) for pre in kwargs.pop('pre', None) or []]
         post = [_build_task(post) for post in kwargs.pop('post', None) or []]
-        return Task(inner, *getattr(task, TASK_ARGS_ATTR), pre=pre, post=post, **kwargs)
-    return task
+        return Task(inner, *getattr(task, TASK_ARGS_ATTR), pre=pre, post=post, **kwargs)  # type: ignore[misc,arg-type]
+    return task  # type: ignore[return-value]
 
 
 class Collection(InvokeCollection):
@@ -132,7 +133,7 @@ class Collection(InvokeCollection):
 
     def add_task(
         self,
-        task: 'Task',
+        task: DeferedTask,
         name: Optional[str] = None,
         aliases: Optional[Tuple[str, ...]] = None,
         default: Optional[bool] = None,
