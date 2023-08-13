@@ -4,11 +4,11 @@ from beartype import beartype
 from beartype.typing import Any, List, Union
 from corallium.log import logger
 from invoke.context import Context
-from invoke.tasks import Call, Task, call
+from invoke.tasks import Call, Task
 
 from ..cli import task
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
-from ._invoke import Collection
+from ._invoke import Collection, _build_task
 from .defaults import new_collection
 
 # "ns" will be recognized by Collection.from_module(all_tasks)
@@ -64,14 +64,15 @@ def with_progress(
         offset: Optional offset to shift counters
 
     """
-    message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in items])
-    # TODO: tasks: TaskListT = [call(summary, message=message)]
-    tasks = [call(summary, message=message)]
+    task_items = [_build_task(_t) for _t in items]
+    message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in task_items])
+    # FIXME: tasks: TaskListT = [summary.with_kwargs(message=message)]
+    tasks = [summary.with_kwargs(message=message)]
 
-    total = len(items) + offset
-    for idx, item in enumerate(items):
+    total = len(task_items) + offset
+    for idx, item in enumerate(task_items):
         # pyright: ignore[reportGeneralTypeIssues]
-        tasks.extend([call(progress, index=idx + offset, total=total), item])
+        tasks.extend([progress.with_kwargs(index=idx + offset, total=total), item])
     return tasks  # pyright: ignore[reportGeneralTypeIssues]
 
 
@@ -79,8 +80,8 @@ _MAIN_TASKS = [
     lint.fix,
     types.mypy,
     types.pyright,
-    call(nox.noxfile, session='tests'),  # pyright: ignore[reportGeneralTypeIssues]
-    call(lint.pre_commit, no_update=True),  # pyright: ignore[reportGeneralTypeIssues]
+    nox.noxfile.with_kwargs(session='tests'),  # pyright: ignore[reportGeneralTypeIssues]
+    lint.pre_commit.with_kwargs(no_update=True),  # pyright: ignore[reportGeneralTypeIssues]
     lint.security,
     tags.collect_code_tags,
     cl.write,

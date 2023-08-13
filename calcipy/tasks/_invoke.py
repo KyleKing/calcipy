@@ -7,11 +7,11 @@ from pathlib import Path
 from types import ModuleType
 
 from beartype import beartype
-from beartype.typing import Any, Dict, List, Optional, Tuple
+from beartype.typing import Any, Dict, List, Optional, Tuple, Union
 from corallium.log import configure_logger, logger
 from invoke.collection import Collection as InvokeCollection  # noqa: TID251
 from invoke.context import Context
-from invoke.tasks import Task
+from invoke.tasks import Call, Task
 from pydantic import BaseModel, Field, PositiveInt
 
 TASK_ARGS_ATTR = 'dev_args'
@@ -82,7 +82,7 @@ def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **k
     return None
 
 
-def _build_task(task: Any) -> 'Task':
+def _build_task(task: Any) -> Union[Task, Call]:
     """Defer creation of the Task."""
 
     @wraps(task)
@@ -92,7 +92,9 @@ def _build_task(task: Any) -> 'Task':
     if hasattr(task, TASK_ARGS_ATTR):
         kwargs = getattr(task, TASK_KWARGS_ATTR)
         show_task_info = kwargs.pop('show_task_info', None) or False
-        return Task(inner, *getattr(task, TASK_ARGS_ATTR), **kwargs)
+        pre = [_build_task(pre) for pre in kwargs.pop('pre', None) or []]
+        post = [_build_task(post) for post in kwargs.pop('post', None) or []]
+        return Task(inner, *getattr(task, TASK_ARGS_ATTR), pre=pre, post=post, **kwargs)
     return task
 
 
@@ -117,7 +119,8 @@ class Collection(InvokeCollection):
             name=name,
             config=config,
             loaded_from=loaded_from,
-            auto_dash_names=auto_dash_names)
+            auto_dash_names=auto_dash_names,
+        )
 
         # If tasks were not loaded from a namespace or otherwise found
         if not collection.task_names:

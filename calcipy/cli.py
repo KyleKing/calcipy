@@ -114,6 +114,15 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # noqa: CFQ004
         # Attach public attributes from invoke that are expected
         func.help = dec_kwargs.pop('help', {})
 
+        def with_kwargs(**extra_kwargs) -> Callable:
+            """Support building partial tasks."""
+            @wraps(func)
+            def _with_kwargs_inner(*args: Any, **kwargs: Any) -> Any:
+                return func(*args, **kwargs, **extra_kwargs)
+            return _with_kwargs_inner
+
+        func.with_kwargs = with_kwargs
+
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
             return func(*args, **kwargs)
