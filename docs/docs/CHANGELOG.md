@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 1.6.1rc0 (2023-08-12)
+
 ### Fix
 
 - support partial kwargs for pre/post
