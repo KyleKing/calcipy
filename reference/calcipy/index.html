@@ -21,7 +21,7 @@
         <link rel="next" href="can_skip/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.1, mkdocs-material-9.1.21">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
@@ -904,6 +904,20 @@
   
   
     <li class="md-nav__item">
+      <a href="tasks/_invoke/" class="md-nav__link">
+        _invoke
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tasks/all_tasks/" class="md-nav__link">
         all_tasks
       </a>
@@ -1200,7 +1214,7 @@
 <span class="linenos" data-linenos="34 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Optionally configure runtime type checking mode globally.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="35 "></span>    <span class="n">rtc_mode</span> <span class="o">=</span> <span class="n">_RuntimeTypeCheckingModes</span><span class="o">.</span><span class="n">from_environment</span><span class="p">()</span>
 <span class="linenos" data-linenos="36 "></span>
-<span class="linenos" data-linenos="37 "></span>    <span class="k">if</span> <span class="n">rtc_mode</span> <span class="o">!=</span> <span class="n">_RuntimeTypeCheckingModes</span><span class="o">.</span><span class="n">OFF</span><span class="p">:</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="k">if</span> <span class="n">rtc_mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_RuntimeTypeCheckingModes</span><span class="o">.</span><span class="n">OFF</span><span class="p">:</span>
 <span class="linenos" data-linenos="38 "></span>        <span class="kn">from</span> <span class="nn">beartype.roar</span> <span class="kn">import</span> <span class="n">BeartypeClawDecorWarning</span>
 <span class="linenos" data-linenos="39 "></span>
 <span class="linenos" data-linenos="40 "></span>        <span class="n">beartype_this_package</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">BeartypeConf</span><span class="p">(</span>
@@ -1227,11 +1241,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 5, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 13, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 5, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 13, 2023</span>
       
     
   </small>
