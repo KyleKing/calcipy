@@ -40,7 +40,7 @@ bandit = {optional = true, version = ">=1.7.4"} # lint
 beartype = ">=0.15.0"
 bidict = {optional = true, version = ">=0.22.1"} # stale
 commitizen = {optional = true, version = ">=2.42.0"} # doc
-corallium = ">=0.3.0"
+corallium = ">=0.3.1"
 dlint = {optional = true, version = ">=0.14.0"} # flake8
 flake8 = {optional = true, version = ">=6.0.0"} # flake8
 flake8-adjustable-complexity = {optional = true, version = ">=0.0.6"} # flake8
@@ -61,7 +61,7 @@ flake8-use-pathlib = {optional = true, version = ">=0.3.0"} # flake8
 flake8-variables-names = {optional = true, version = ">=0.0.5"} # flake8
 griffe = ">=0.32.3" # experimental
 httpx = {optional = true, version = ">=0.24.1"} # stale
-invoke = ">=2.1.2"
+invoke = ">=2.2.0"
 mkdocs = {optional = true, version = ">=1.4.1"} # doc
 mkdocs-build-plantuml-plugin = {optional = true, version = ">=1.7.4"} # doc
 mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # doc
@@ -75,7 +75,7 @@ mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.2"} # test
 pandas = {optional = true, version = ">=1.5.3"} # docs,tags
 pip-check = {optional = true, version = ">=2.8.1"} # lint
-pydantic = ">=2.0.2"
+pydantic = ">=2.1.1"
 pylint = {optional = true, version = ">=2.16.2"} # doc,pylint
 pymdown-extensions = {optional = true, version = ">=10.0.1"} # docs
 pyrate_limiter = {optional = true, version = ">=2.4"} # stale
@@ -85,7 +85,7 @@ pytest-randomly = {optional = true, version = ">=3.12.0"} # test
 pytest-watcher = {optional = true, version = ">=0.2.6"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc,tags
-ruff = {optional = true, version = ">=0.0.280"} # lint
+ruff = {optional = true, version = ">=0.0.284"} # lint
 semgrep = {optional = true, version = ">=1.12.1"} # lint
 semver = ">=3.0.1" # experimental
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown

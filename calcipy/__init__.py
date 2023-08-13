@@ -21,12 +21,12 @@ class _RuntimeTypeCheckingModes(Enum):
     @classmethod
     def from_environment(cls) -> Self:
         """Return the configured mode."""
-        rtc_mode = getenv('CALCIPY_RUNTIME_TYPE_CHECKING_MODE') or None
+        rtc_mode = getenv('RUNTIME_TYPE_CHECKING_MODE') or None
         try:
             return cls(rtc_mode)
         except ValueError:
             modes = [_e.value for _e in cls]
-            msg = f"'CALCIPY_RUNTIME_TYPE_CHECKING_MODE={rtc_mode}' is not an allowed mode from {modes}"
+            msg = f"'RUNTIME_TYPE_CHECKING_MODE={rtc_mode}' is not an allowed mode from {modes}"
             raise ValueError(msg) from None
 
 
