@@ -116,14 +116,14 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-ar
 
         def _with_kwargs(**extra_kwargs: Any) -> Callable:  # type: ignore[type-arg] # nosem
             """Support building partial tasks."""
-            @wraps(func) # nosem
+            @wraps(func)  # nosem
             def _with_kwargs_inner(*args: Any, **kwargs: Any) -> Any:
                 return func(*args, **kwargs, **extra_kwargs)
             return _with_kwargs_inner
 
         func.with_kwargs = _with_kwargs
 
-        @wraps(func) # nosem
+        @wraps(func)  # nosem
         def _inner(*args: Any, **kwargs: Any) -> Any:
             return func(*args, **kwargs)
 
