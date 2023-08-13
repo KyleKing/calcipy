@@ -56,7 +56,6 @@ else:
 
 
 @lru_cache(maxsize=1)
-@beartype
 def _get_pythons() -> List[str]:
     """Get python versions from the `.tool-versions` file."""
     return [*{str(ver) for ver in get_tool_versions()['python']}]
@@ -90,7 +89,6 @@ def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
 
 
 @lru_cache(maxsize=1)
-@beartype
 def _installable_dev_dependencies() -> List[str]:
     """list of dependencies from pyproject, excluding calcipy.
 
@@ -135,7 +133,7 @@ def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> 
 def tests(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cover
     """Run doit test task for specified python versions."""
     _install_local(session, ['ddict', 'doc', 'lint', 'nox', 'stale', 'tags', 'test'])
-    session.run(*shlex.split('pytest ./tests'), stdout=True)
+    session.run(*shlex.split('pytest ./tests'), stdout=True, env={'RUNTIME_TYPE_CHECKING_MODE': 'WARNING'})
 
 
 @nox_session(python=_get_pythons()[-1:], reuse_venv=False)

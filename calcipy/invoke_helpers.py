@@ -17,7 +17,6 @@ from invoke.runners import Result
 
 
 @lru_cache(maxsize=1)
-@beartype
 def use_pty() -> bool:
     """Returns False on Windows and some CI environments."""
     if platform.system() == 'Windows':
@@ -41,7 +40,6 @@ def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Optional[Result]:
 
 
 @lru_cache(maxsize=1)
-@beartype
 def get_project_path() -> Path:
     """Retrieve the `cwd`."""
     return Path.cwd()

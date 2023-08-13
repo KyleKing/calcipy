@@ -12,7 +12,6 @@ from ..invoke_helpers import run
 
 
 @lru_cache(maxsize=1)
-@beartype
 def resolve_python() -> Path:
     """Resolve the user's Python path based on `sys`."""
     python_path = Path(sys.executable)
@@ -22,14 +21,12 @@ def resolve_python() -> Path:
 
 
 @lru_cache(maxsize=1)
-@beartype
 def python_dir() -> str:
     """Runs an executable from the currently active Python directory."""
     return str(resolve_python().parent)
 
 
 @lru_cache(maxsize=1)
-@beartype
 def python_m() -> str:
     """Return the active python path and `-m` flag."""
     return f'{resolve_python()} -m'
