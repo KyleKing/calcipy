@@ -54,12 +54,12 @@ class CalcipyConfig(Config):
 
 
 @beartype
-def start_program(  # pragma: no cover # noqa: CAC001
+def start_program(  # noqa: CAC001
     pkg_name: str,
     pkg_version: str,
     module: Optional[ModuleType] = None,
     collection: Optional[Union[Collection, InvokeCollection]] = None,
-) -> None:
+) -> None:  # pragma: no cover
     """Run the customized Invoke Program.
 
     FYI: recommendation is to extend the `core_args` method, but this won't parse positional arguments:

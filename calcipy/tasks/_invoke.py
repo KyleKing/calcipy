@@ -37,7 +37,7 @@ class GlobalTaskOptions(BaseModel):
 
 
 @beartype
-def _configure_task_logger(ctx: Context) -> None:
+def _configure_task_logger(ctx: Context) -> None:  # pragma: no cover
     """Configure the logger based on task context."""
     verbose = ctx.config.gto.verbose
     log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
@@ -47,7 +47,7 @@ def _configure_task_logger(ctx: Context) -> None:
 
 
 @beartype
-def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwargs: Any) -> Any:
+def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwargs: Any) -> Any:  # pragma: no cover
     """Run the task function with optional logging."""
     if show_task_info:
         summary = func.__doc__.split('\n')[0]
@@ -64,7 +64,7 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
 
 
 @beartype
-def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **kwargs: Any) -> Any:
+def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **kwargs: Any) -> Any:  # pragma: no cover
     """Extended task logic."""
     try:
         ctx.config.gto  # noqa: B018
@@ -84,7 +84,7 @@ def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **k
     return None
 
 
-def _build_task(task: DeferedTask) -> Task:  # type: ignore[type-arg]
+def _build_task(task: DeferedTask) -> Task:  # type: ignore[type-arg]  # pragma: no cover
     """Defer creation of the Task."""
     if hasattr(task, TASK_ARGS_ATTR):
         @wraps(task)
@@ -100,10 +100,6 @@ def _build_task(task: DeferedTask) -> Task:  # type: ignore[type-arg]
 
 
 class Collection(InvokeCollection):
-
-    def __repr__(self) -> str:
-        """Update the representation to indicate the difference."""
-        return super().__repr__().replace('Collection', 'Calcipy:Collection')
 
     @classmethod
     def from_module(
