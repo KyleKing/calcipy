@@ -1337,11 +1337,10 @@
 
           <details class="quote">
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="13 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="14 "></span><span class="k">def</span> <span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="15 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the customized Invoke Program.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="16 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">all_tasks</span>
-<span class="linenos" data-linenos="17 "></span>    <span class="n">start_program</span><span class="p">(</span><span class="n">__pkg_name__</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="n">all_tasks</span><span class="p">)</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="12 "></span><span class="k">def</span> <span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="13 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the customized Invoke Program.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">all_tasks</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="n">start_program</span><span class="p">(</span><span class="n">__pkg_name__</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="n">all_tasks</span><span class="p">)</span>
 </code></pre></div>
           </details>
   </div>
@@ -1367,11 +1366,10 @@
 
           <details class="quote">
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="32 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="33 "></span><span class="k">def</span> <span class="nf">start_lint</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="34 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the lint namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="35 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">lint</span>
-<span class="linenos" data-linenos="36 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">lint</span><span class="p">])</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="29 "></span><span class="k">def</span> <span class="nf">start_lint</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="30 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the lint namespace.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="31 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">lint</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">lint</span><span class="p">])</span>
 </code></pre></div>
           </details>
   </div>
@@ -1397,11 +1395,10 @@
 
           <details class="quote">
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="40 "></span><span class="k">def</span> <span class="nf">start_pack</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="41 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the pack namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="42 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">pack</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">pack</span><span class="p">])</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="35 "></span><span class="k">def</span> <span class="nf">start_pack</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="36 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the pack namespace.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">pack</span>
+<span class="linenos" data-linenos="38 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">pack</span><span class="p">])</span>
 </code></pre></div>
           </details>
   </div>
@@ -1427,11 +1424,10 @@
 
           <details class="quote">
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">start_tags</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the tags namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="49 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">tags</span>
-<span class="linenos" data-linenos="50 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">tags</span><span class="p">])</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="41 "></span><span class="k">def</span> <span class="nf">start_tags</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="42 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the tags namespace.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="43 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">tags</span>
+<span class="linenos" data-linenos="44 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">tags</span><span class="p">])</span>
 </code></pre></div>
           </details>
   </div>
@@ -1457,11 +1453,10 @@
 
           <details class="quote">
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="53 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="54 "></span><span class="k">def</span> <span class="nf">start_types</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="55 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the types namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="56 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">types</span>
-<span class="linenos" data-linenos="57 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">types</span><span class="p">])</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">start_types</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the types namespace.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="49 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">types</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">types</span><span class="p">])</span>
 </code></pre></div>
           </details>
   </div>

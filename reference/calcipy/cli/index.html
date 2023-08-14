@@ -1475,12 +1475,12 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
           <details class="quote">
             <summary>Source code in <code>calcipy/cli.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 56 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos=" 57 "></span><span class="k">def</span> <span class="nf">start_program</span><span class="p">(</span>  <span class="c1"># pragma: no cover # noqa: CAC001</span>
+<span class="linenos" data-linenos=" 57 "></span><span class="k">def</span> <span class="nf">start_program</span><span class="p">(</span>  <span class="c1"># noqa: CAC001</span>
 <span class="linenos" data-linenos=" 58 "></span>    <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 59 "></span>    <span class="n">pkg_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 60 "></span>    <span class="n">module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ModuleType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 61 "></span>    <span class="n">collection</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Collection</span><span class="p">,</span> <span class="n">InvokeCollection</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 62 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 62 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos=" 63 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the customized Invoke Program.</span>
 <span class="linenos" data-linenos=" 64 "></span>
 <span class="linenos" data-linenos=" 65 "></span><span class="sd">    FYI: recommendation is to extend the `core_args` method, but this won&#39;t parse positional arguments:</span>
