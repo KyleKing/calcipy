@@ -1,5 +1,16 @@
 ## Unreleased
 
+### Fix
+
+- remove redundant beartype to lru_cache
+
+### Refactor
+
+- resolve asdf
+- tried get_env_vars
+
+## 1.6.2 (2023-08-12)
+
 ## 1.6.1rc0 (2023-08-12)
 
 ### Fix
