@@ -66,14 +66,12 @@ def with_progress(
     """
     task_items = [_build_task(_t) for _t in items]
     message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in task_items])
-    # FIXME: tasks: TaskList = [summary.with_kwargs(message=message)]
-    tasks = [summary.with_kwargs(message=message)]
+    tasks: TaskList = [summary.with_kwargs(message=message)]
 
     total = len(task_items) + offset
     for idx, item in enumerate(task_items):
-        # pyright: ignore[reportGeneralTypeIssues]
         tasks.extend([progress.with_kwargs(index=idx + offset, total=total), item])
-    return tasks  # pyright: ignore[reportGeneralTypeIssues]
+    return tasks
 
 
 _MAIN_TASKS = [

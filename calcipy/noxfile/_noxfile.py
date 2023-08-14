@@ -49,7 +49,7 @@ from nox_poetry.poetry import DistributionFormat
 from nox_poetry.sessions import Session as NPSession
 
 if read_package_name() == 'corallium':
-    # 'poetry export' will fail on circular dependencies, so use no instead of nox-poetry
+    # 'poetry export' will fail on circular dependencies, so use nox instead of nox-poetry
     from nox import session as nox_session
 else:
     from nox_poetry import session as nox_session  # type: ignore[no-redef]
