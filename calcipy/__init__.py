@@ -1,10 +1,13 @@
 """calcipy."""
 
+from datetime import datetime, timezone
 from enum import Enum
 from os import getenv
+from warnings import filterwarnings
 
 from beartype import BeartypeConf
 from beartype.claw import beartype_this_package
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 from typing_extensions import Self  # noqa: UP035
 
 __version__ = '1.6.2'
@@ -44,6 +47,9 @@ def configure_runtime_type_checking_mode() -> None:
         ))
 
 
+_PEP585_DATE = 2025
+if datetime.now(tz=timezone.utc).year <= _PEP585_DATE:
+    filterwarnings('ignore', category=BeartypeDecorHintPep585DeprecationWarning)
 configure_runtime_type_checking_mode()
 
 # ====== Above is the recommended code from calcipy_template and may be updated on new releases ======
