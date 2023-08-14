@@ -34,7 +34,6 @@ with open(path_stdout, 'w') as out:
 
 import shlex
 from functools import lru_cache
-from os import getenv
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import url2pathname
@@ -54,19 +53,6 @@ if read_package_name() == 'corallium':
     from nox import session as nox_session
 else:
     from nox_poetry import session as nox_session  # type: ignore[no-redef]
-
-
-@lru_cache(maxsize=1)
-def _get_env_vars() -> Dict[str, str]:
-    """Retrieve environment variables to pass to Nox."""
-    environment = {}
-    # FIXME: Make this configurable in the invoke/calcipy configuration
-    # settings with a default for RUNTIME set to warning?
-    if env_var_names := getenv('CALCIPY_NOX_ENV_VAR_NAMES'):
-        for var_name in env_var_names.split(','):
-            if var_value := getenv(var_name):
-                environment[var_name] = var_value
-    return environment
 
 
 @lru_cache(maxsize=1)
@@ -147,8 +133,7 @@ def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> 
 def tests(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cover
     """Run doit test task for specified python versions."""
     _install_local(session, ['ddict', 'doc', 'lint', 'nox', 'stale', 'tags', 'test'])
-    session.run(*shlex.split('pytest ./tests'), stdout=True, env=_get_env_vars())
-    # FIXME: {'RUNTIME_TYPE_CHECKING_MODE': 'WARNING'}
+    session.run(*shlex.split('pytest ./tests'), stdout=True, env={'RUNTIME_TYPE_CHECKING_MODE': 'WARNING'})
 
 
 @nox_session(python=_get_pythons()[-1:], reuse_venv=False)
@@ -169,7 +154,7 @@ def build_dist(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cov
     logger.text('Created wheel', path_wheel=path_wheel)
     # Install the wheel and check that imports without any of the optional dependencies
     session.install(path_wheel)
-    session.run(*shlex.split('python scripts/check_imports.py'), stdout=True, env=_get_env_vars())
+    session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
 
 
 @nox_poetry_session(python=_get_pythons()[-1:], reuse_venv=True)
@@ -182,5 +167,5 @@ def build_check(session: NPSession) -> None:  # pragma: no cover
     # Check with pyroma
     session.install('pyroma>=4.0', '--upgrade')
     # required for "poetry.core.masonry.api" build backend
-    session.run('python', '-m', 'pip', 'install', 'poetry>=1.3', stdout=True, env=_get_env_vars())
-    session.run('pyroma', '--file', path_sdist.as_posix(), '--min=9', stdout=True, env=_get_env_vars())
+    session.run('python', '-m', 'pip', 'install', 'poetry>=1.3', stdout=True)
+    session.run('pyroma', '--file', path_sdist.as_posix(), '--min=9', stdout=True)
