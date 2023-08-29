@@ -10,7 +10,7 @@ from beartype.claw import beartype_this_package
 from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 from typing_extensions import Self  # noqa: UP035
 
-__version__ = '1.6.3'
+__version__ = '1.6.4'
 __pkg_name__ = 'calcipy'
 
 
