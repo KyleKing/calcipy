@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+from functools import lru_cache
 from pathlib import Path
 
 import arrow
@@ -15,7 +16,7 @@ from corallium.file_helpers import LOCK
 from corallium.log import logger
 from corallium.tomllib import tomllib
 from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
-from pyrate_limiter import Duration, Limiter, RequestRate
+from pyrate_limiter import Limiter, Rate
 
 from .. import can_skip  # Required for mocking can_skip.can_skip
 
@@ -45,14 +46,17 @@ class _HostedPythonPackage(BaseModel):
         return arrow.get(value)
 
 
-# Configure rate-limiter
-#   https://pypi.org/project/pyrate-limiter/
-_RATE = RequestRate(3, 5 * Duration.SECOND)
-_LIMITER = Limiter(_RATE)
+@lru_cache(maxsize=1)
+def _limiter() -> Limiter:
+    """Configure rate-limiter.
+
+    https://pypi.org/project/pyrate-limiter
+
+    """
+    rate = Rate(limit=3, interval=5)  # Duration.seconds
+    return Limiter(rate, max_delay=600)
 
 
-@beartype
-@_LIMITER.ratelimit('pypi', delay=True, max_delay=10)  # type: ignore[misc]
 async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
 
@@ -63,6 +67,8 @@ async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPacka
         _HostedPythonPackage: updated with release date metadata from API
 
     """
+    _limiter().try_acquire('pypi')
+
     # Retrieve the JSON summary for the specified package
     json_url = package.domain.format(name=package.name)
     async with httpx.AsyncClient() as client:

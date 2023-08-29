@@ -1,3 +1,9 @@
+## Unreleased
+
+### Fix
+
+- update pyrate-limiter
+
 ## 1.6.3 (2023-08-13)
 
 ### Fix
