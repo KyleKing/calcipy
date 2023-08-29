@@ -16,7 +16,8 @@ from corallium.file_helpers import LOCK
 from corallium.log import logger
 from corallium.tomllib import tomllib
 from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
-from pyrate_limiter import Limiter, Rate  # type: ignore[reportPrivateImportUsage]
+from pyrate_limiter import Rate
+from pyrate_limiter.limiter import Limiter
 
 from .. import can_skip  # Required for mocking can_skip.can_skip
 
