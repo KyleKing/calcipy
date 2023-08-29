@@ -156,7 +156,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
         path_pack_lock: Path to the lock file. Default is `CALCIPY_CACHE`
 
     """
-    new_cache = {pack.name: json.loads(pack.json()) for pack in updated_packages}
+    new_cache = {pack.name: json.loads(pack.model_dump_json()) for pack in updated_packages}
     pretty_json = json.dumps(new_cache, indent=4, separators=(',', ': '), sort_keys=True)
     path_pack_lock.write_text(pretty_json + '\n', encoding='utf-8')
 

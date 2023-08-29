@@ -53,7 +53,7 @@ def test__search_lines():
     comments = _search_lines(lines, re.compile(matcher))
 
     # TODO: assert_against_cache(comments)
-    assert [_c.dict() for _c in comments] == [
+    assert [_c.model_dump() for _c in comments] == [
         {
             'lineno': 2,
             'tag': 'FIXME',
