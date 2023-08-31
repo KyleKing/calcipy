@@ -1,8 +1,14 @@
 ## Unreleased
 
+## 1.6.4 (2023-08-28)
+
 ### Fix
 
 - update pyrate-limiter
+
+### Refactor
+
+- address pydantic v2 migration warnings
 
 ## 1.6.3 (2023-08-13)
 
