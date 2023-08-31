@@ -30,7 +30,7 @@ def test_github_blame_url(clone_uri: str, expected: str):
     assert github_blame_url(clone_uri) == expected
 
 
-def test__search_lines():
+def test__search_lines(snapshot):
     lines = [
         '# DEBUG: Show dodo.py in the documentation',  # noqa: T001
         'print("FIXME: Show README.md in the documentation (may need to update paths?)")',  # noqa: T100
@@ -52,42 +52,10 @@ def test__search_lines():
 
     comments = _search_lines(lines, re.compile(matcher))
 
-    # TODO: assert_against_cache(comments)
-    assert [_c.model_dump() for _c in comments] == [
-        {
-            'lineno': 2,
-            'tag': 'FIXME',
-            'text': 'Show README.md in the documentation (may need to update paths?)\")',
-        },
-        {
-            'lineno': 3,
-            'tag': 'FYI',
-            'text': 'Replace src_examples_dir and make more generic to specify code to include in documentation',
-        },
-        {
-            'lineno': 4,
-            'tag': 'HACK',
-            'text': 'Show table of contents in __init__.py file',
-        },
-        {
-            'lineno': 7,
-            'tag': 'REVIEW',
-            'text': 'Show table of contents in __init__.py file',
-        },
-        {
-            'lineno': 10,
-            'tag': 'HACK',
-            'text': 'Support unconventional dashed code tags',
-        },
-        {
-            'lineno': 13,
-            'tag': 'FIXME',
-            'text': 'and FYI: in the same line, but only match the first',
-        },
-    ]
+    assert comments == snapshot
 
 
-def test__format_report(fake_process):
+def test__format_report(fake_process, snapshot):
     fake_process.pass_command([fake_process.any()])  # Allow "git blame" and other commands to run unregistered
     fake_process.keep_last_process(keep=True)
     lines = ['# DEBUG: Example 1', '# TODO: Example 2']  # noqa: T101
@@ -100,16 +68,7 @@ def test__format_report(fake_process):
 
     output = _format_report(TEST_DATA_DIR.parent, tagged_collection, tag_order=tag_order)
 
-    # TODO: assert_against_cache({'output': output.split('\n')})
-    assert output.split('\n') == [
-        '',
-        '| Type   | Comment   | Last Edit   | Source File         |',
-        '|--------|-----------|-------------|---------------------|',
-        '| TODO   | Example 2 | N/A         | data/test_project:1 |',
-        '',
-        'Found code tags for TODO (1)',
-        '',
-    ]
+    assert output == snapshot
 
 
 def test_write_code_tag_file_when_no_matches(fix_test_cache):

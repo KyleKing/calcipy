@@ -32,7 +32,7 @@ repos:
       - id: detect-private-key
       - id: double-quote-string-fixer
       - id: end-of-file-fixer
-        exclude: \.copier-answers\.yml
+        exclude: \.copier-answers\.yml|__snapshots__/.*\.ambr
       - id: fix-byte-order-marker
       - id: fix-encoding-pragma
         args: [--remove]
@@ -40,6 +40,7 @@ repos:
       - id: mixed-line-ending
         args: [--fix=auto]
       - id: trailing-whitespace
+        exclude: __snapshots__/.*\.ambr
   - repo: https://github.com/commitizen-tools/commitizen
     rev: 3.6.0
     hooks:
@@ -64,7 +65,7 @@ repos:
           # Note: this version must be the same as the hook revision
           - "prettier@3.0.0"
           - "prettier-plugin-sh"
-        exclude: \.copier-answers\.yml|tests/.*/cassettes/.*\.yaml|tests/.*assert-cache.*/.+\.json
+        exclude: \.copier-answers\.yml|tests/.*/cassettes/.*\.yaml
         types_or: [html, javascript, json, shell, yaml]
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.32.0
