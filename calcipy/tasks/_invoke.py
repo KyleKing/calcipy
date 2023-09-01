@@ -86,7 +86,7 @@ def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **k
 
 def _build_task(task: DeferedTask) -> Task:  # type: ignore[type-arg]  # pragma: no cover
     """Defer creation of the Task."""
-    if hasattr(task, TASK_ARGS_ATTR):
+    if hasattr(task, TASK_ARGS_ATTR) or hasattr(task, TASK_KWARGS_ATTR):
         @wraps(task)
         def inner(*args: Any, **kwargs: Any) -> Any:
             return _wrapped_task(*args, func=task, show_task_info=show_task_info, **kwargs)

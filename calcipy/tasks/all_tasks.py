@@ -53,10 +53,7 @@ TaskList = List[Union[Call, DeferedTask]]
 
 
 @beartype
-def with_progress(
-    items: Any,  # PLANNED: TaskList,
-    offset: int = 0,
-) -> TaskList:
+def with_progress(items: Any, offset: int = 0) -> TaskList:
     """Inject intermediary 'progress' tasks.
 
     Args:
@@ -70,7 +67,7 @@ def with_progress(
 
     total = len(task_items) + offset
     for idx, item in enumerate(task_items):
-        tasks.extend([progress.with_kwargs(index=idx + offset, total=total), item])
+        tasks += [progress.with_kwargs(index=idx + offset, total=total), item]
     return tasks
 
 
@@ -89,11 +86,11 @@ _MAIN_TASKS = [
     stale.check_for_stale_packages,
 ]
 _OTHER_TASKS = [
-    test.check,
     lint.flake8,
     lint.pylint,
     pack.check_licenses,
     test.step,
+    test.check,  # Expected to fail for calcipy
 ]
 
 

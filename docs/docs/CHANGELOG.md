@@ -4,6 +4,10 @@
 
 - drop Python 3.8
 
+### Fix
+
+- specify a unique name when binding new kwargs
+
 ## 1.6.4 (2023-08-28)
 
 ### Fix
