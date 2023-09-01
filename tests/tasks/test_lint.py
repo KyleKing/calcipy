@@ -19,7 +19,8 @@ from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint,
         (pylint, {}, [f'{python_m()} pylint ./calcipy ./tests']),
         (security, {}, [
             f'{python_dir()}/bandit --recursive calcipy -s B101',
-            f'{python_dir()}/semgrep ci --autofix ' + ' '.join([  # noqa: FLY002
+            call('which semgrep', warn=True, hide=True),
+            'semgrep ci --autofix ' + ' '.join([  # noqa: FLY002
                 '--config=p/ci',
                 '--config=p/default',
                 '--config=p/security-audit',
@@ -35,6 +36,7 @@ from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint,
             ]),
         ]),
         (pre_commit, {}, [
+            call('which pre-commit', warn=True, hide=True),
             'pre-commit install',
             'pre-commit autoupdate',
             'pre-commit run --all-files ' + ' '.join(f'--hook-stage {stg}' for stg in (

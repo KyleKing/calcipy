@@ -9,7 +9,10 @@ from calcipy.tasks.types import mypy, pyright
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (pyright, {}, ['pyright calcipy']),
+        (pyright, {}, [
+            call('which pyright', warn=True, hide=True),
+            'pyright calcipy',
+        ]),
         (mypy, {}, [f'{python_dir()}/mypy calcipy']),
     ],
 )
