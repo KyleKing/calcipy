@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Feat
+
+- drop Python 3.8
+
 ## 1.6.4 (2023-08-28)
 
 ### Fix

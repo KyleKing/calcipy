@@ -703,20 +703,6 @@ files = [
 flake8 = "*"
 
 [[package]]
-name = "flake8-executable"
-version = "2.1.3"
-description = "A Flake8 plugin for checking executable permissions and shebangs."
-optional = true
-python-versions = ">=3.6"
-files = [
-    {file = "flake8-executable-2.1.3.tar.gz", hash = "sha256:619fe023e00c3d8e5113521d7200e1ebb04587c12d157f9a2fb167feb8cae66b"},
-    {file = "flake8_executable-2.1.3-py3-none-any.whl", hash = "sha256:f0a66c97c3b99ce63bc1f01ce602d6bd048e4fc5dc0d7a13be2bfa3deb023a34"},
-]
-
-[package.dependencies]
-flake8 = ">=3.0.0"
-
-[[package]]
 name = "flake8-expression-complexity"
 version = "0.0.11"
 description = "A flake8 extension that checks expressions complexity"
@@ -732,63 +718,6 @@ astpretty = "*"
 flake8 = "*"
 
 [[package]]
-name = "flake8-functions"
-version = "0.0.8"
-description = "A flake8 extension that checks functions"
-optional = true
-python-versions = "*"
-files = [
-    {file = "flake8_functions-0.0.8-py3-none-any.whl", hash = "sha256:e1a88aa634d1aff6973f8c9dd64f30ab2beaac661e52eea96929ccc7ee7f64df"},
-    {file = "flake8_functions-0.0.8.tar.gz", hash = "sha256:5446626673a9faecbf389fb411b90bdc87b002c387b72dc097b208e7a58f2a1c"},
-]
-
-[package.dependencies]
-mr-proper = "*"
-setuptools = "*"
-
-[[package]]
-name = "flake8-pep3101"
-version = "2.0.0"
-description = "Checks for old string formatting."
-optional = true
-python-versions = "*"
-files = [
-    {file = "flake8-pep3101-2.0.0.tar.gz", hash = "sha256:ae2ee1758734a473ca971b4bf9ff09c961b6099916db91fdb6b9718328dfcacb"},
-    {file = "flake8_pep3101-2.0.0-py3-none-any.whl", hash = "sha256:1d818e1f53c6d26e875714f2f041ec15fbb23c17e2268dbbb024e9c3383541cd"},
-]
-
-[package.dependencies]
-flake8 = "*"
-
-[package.extras]
-test = ["pytest"]
-
-[[package]]
-name = "flake8-pie"
-version = "0.16.0"
-description = "A flake8 extension that implements misc. lints"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8-pie-0.16.0.tar.gz", hash = "sha256:b8dcb7b92706fa33d05d92a4b3e49b7a9fd3f0041849166275b646ba50e515ba"},
-    {file = "flake8_pie-0.16.0-py3-none-any.whl", hash = "sha256:24cd7849b0eee22e2328b9e9d2a1dea40013b0a3106864bbadd06a4b05dbb71f"},
-]
-
-[package.dependencies]
-typing_extensions = "*"
-
-[[package]]
-name = "flake8-plugin-utils"
-version = "1.3.3"
-description = "The package provides base classes and utils for flake8 plugin writing"
-optional = true
-python-versions = ">=3.6,<4.0"
-files = [
-    {file = "flake8-plugin-utils-1.3.3.tar.gz", hash = "sha256:39f6f338d038b301c6fd344b06f2e81e382b68fa03c0560dff0d9b1791a11a2c"},
-    {file = "flake8_plugin_utils-1.3.3-py3-none-any.whl", hash = "sha256:e4848c57d9d50f19100c2d75fa794b72df068666a9041b4b0409be923356a3ed"},
-]
-
-[[package]]
 name = "flake8-printf-formatting"
 version = "1.1.2"
 description = "flake8 plugin which forbids printf-style string formatting"
@@ -801,20 +730,6 @@ files = [
 
 [package.dependencies]
 flake8 = "*"
-
-[[package]]
-name = "flake8-raise"
-version = "0.0.5"
-description = "A flake8 plugin that finds that finds improvements for raise statements."
-optional = true
-python-versions = ">=3.5"
-files = [
-    {file = "flake8-raise-0.0.5.tar.gz", hash = "sha256:0a9890e16b851402d9b0d4fafe6c34890eab73835a2c2079c3850a25be575623"},
-    {file = "flake8_raise-0.0.5-py3-none-any.whl", hash = "sha256:df26e5c542a58c8f8786d978e18ad7e54126a0ef5c6241c35dafaca7e2bbb808"},
-]
-
-[package.dependencies]
-flake8 = ">=3.2.0"
 
 [[package]]
 name = "flake8-sql"
@@ -845,74 +760,6 @@ files = [
 
 [package.dependencies]
 flake8 = "*"
-
-[[package]]
-name = "flake8-super"
-version = "0.1.3"
-description = "Python 3 super() check for flake8"
-optional = true
-python-versions = "*"
-files = [
-    {file = "flake8_super-0.1.3-py3-none-any.whl", hash = "sha256:595cd65af908574867accfaa3ea2b3e4790637711859306550dc433d9105cbba"},
-]
-
-[package.dependencies]
-flake8 = ">3.0.0"
-flake8-plugin-utils = ">=1.3.2,<1.4.0"
-
-[[package]]
-name = "flake8-tuple"
-version = "0.4.1"
-description = "Check code for 1 element tuple."
-optional = true
-python-versions = "*"
-files = [
-    {file = "flake8_tuple-0.4.1-py2.py3-none-any.whl", hash = "sha256:d828cc8e461c50cacca116e9abb0c9e3be565e8451d3f5c00578c63670aae680"},
-    {file = "flake8_tuple-0.4.1.tar.gz", hash = "sha256:8a1b42aab134ef4c3fef13c6a8f383363f158b19fbc165bd91aed9c51851a61d"},
-]
-
-[package.dependencies]
-flake8 = "*"
-six = "*"
-
-[[package]]
-name = "flake8-typing-imports"
-version = "1.14.0"
-description = "flake8 plugin which checks that typing imports are properly guarded"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8_typing_imports-1.14.0-py2.py3-none-any.whl", hash = "sha256:3008214280cd96092e7ebbad87dc62bb0e03020c12e8c342f6565cbddfdd67c7"},
-    {file = "flake8_typing_imports-1.14.0.tar.gz", hash = "sha256:0612976976f1e90bd4588a03d9be5a9c408411e5dc46b29cc6b052e5de42277c"},
-]
-
-[package.dependencies]
-flake8 = ">=5.0"
-
-[[package]]
-name = "flake8-use-pathlib"
-version = "0.3.0"
-description = "A plugin for flake8 finding use of functions that can be replaced by pathlib module."
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8-use-pathlib-0.3.0.tar.gz", hash = "sha256:0ef19f255a51601bcf04ff54f25ef8a466dff68210cd95b4f1db36a78ace5223"},
-    {file = "flake8_use_pathlib-0.3.0-py3-none-any.whl", hash = "sha256:c7b6d71575b575f7d70ebf3f1d7f2dd6685e401d3280208f1db9dbb6bfa32608"},
-]
-
-[package.dependencies]
-flake8 = ">=3.6"
-
-[[package]]
-name = "flake8-variables-names"
-version = "0.0.6"
-description = "A flake8 extension that helps to make more readable variables names"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "flake8_variables_names-0.0.6-py3-none-any.whl", hash = "sha256:4aff935d54b3f7afcd026b4dae55029877bd05a7c507b294b45bc7bf577d7b47"},
-    {file = "flake8_variables_names-0.0.6.tar.gz", hash = "sha256:292c50e4813d632aa3adcd02c185e7bb583f5fc8ebe02e70f13c958bfe46ad91"},
-]
 
 [[package]]
 name = "ghp-import"
@@ -1734,22 +1581,6 @@ files = [
 [package.dependencies]
 griffe = ">=0.35"
 mkdocstrings = ">=0.20"
-
-[[package]]
-name = "mr-proper"
-version = "0.0.7"
-description = "Static Python code analyzer, that tries to check if functions in code are pure or not and why."
-optional = true
-python-versions = "*"
-files = [
-    {file = "mr_proper-0.0.7-py3-none-any.whl", hash = "sha256:74a1b60240c46f10ba518707ef72811a01e5c270da0a78b5dd2dd923d99fdb14"},
-    {file = "mr_proper-0.0.7.tar.gz", hash = "sha256:03b517b19e617537f711ce418b125e5f2efd82ec881539cdee83195c78c14a02"},
-]
-
-[package.dependencies]
-click = ">=7.1.2"
-setuptools = "*"
-stdlib-list = ">=0.5.0"
 
 [[package]]
 name = "multidict"
@@ -3190,24 +3021,6 @@ doc = ["sphinx"]
 test = ["pytest", "pytest-cov"]
 
 [[package]]
-name = "stdlib-list"
-version = "0.9.0"
-description = "A list of Python Standard Libraries (2.7 through 3.9)."
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "stdlib_list-0.9.0-py3-none-any.whl", hash = "sha256:f79957d59e41930d44afcd81e465f740b9a7a9828707a40e24ab1092b12bd423"},
-    {file = "stdlib_list-0.9.0.tar.gz", hash = "sha256:98eb66135976c96b4ee3f4c0ef0552ebb5a9977ce3028433db79f4738b02af26"},
-]
-
-[package.extras]
-dev = ["build", "stdlib-list[doc,lint,test]"]
-doc = ["furo", "sphinx"]
-lint = ["black", "mypy", "ruff"]
-support = ["sphobjinv"]
-test = ["coverage[toml]", "pytest", "pytest-cov"]
-
-[[package]]
 name = "stevedore"
 version = "5.1.0"
 description = "Manage dynamic plugins for Python applications"
@@ -3734,7 +3547,7 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [extras]
 ddict = ["python-box"]
 doc = ["commitizen", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pylint", "pymdown-extensions", "pyyaml", "transitions"]
-flake8 = ["dlint", "flake8", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-executable", "flake8-expression-complexity", "flake8-functions", "flake8-pep3101", "flake8-pie", "flake8-printf-formatting", "flake8-raise", "flake8-sql", "flake8-string-format", "flake8-super", "flake8-tuple", "flake8-typing-imports", "flake8-use-pathlib", "flake8-variables-names"]
+flake8 = ["dlint", "flake8", "flake8-adjustable-complexity", "flake8-annotations-complexity", "flake8-expression-complexity", "flake8-printf-formatting", "flake8-sql", "flake8-string-format"]
 lint = ["autopep8", "bandit", "pip-check", "ruff", "semgrep"]
 nox = ["nox-poetry"]
 pylint = ["pylint"]
@@ -3746,4 +3559,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "5387b7ea1f72942c06db08c07c2c328662a0d5d2415d0762be9316ac87bc3a07"
+content-hash = "ca8624d89636c3338d744ff5610bcb4430519d062f11e2e11fcb7b80589b9842"
