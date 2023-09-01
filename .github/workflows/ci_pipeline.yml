@@ -29,6 +29,9 @@ jobs:
           os: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
 
+      - name: Install pipx dependencies
+        run: pipx install semgrep
+        shell: bash
       - name: Run static linters
         run: ./run lint.check
 

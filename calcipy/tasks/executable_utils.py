@@ -32,17 +32,21 @@ def python_m() -> str:
     return f'{resolve_python()} -m'
 
 
-PYRIGHT_MESSAGE = """
-`pyright` was not found and must be installed separately (such as 'brew install pyright' on Mac).
-    See the online documentation for your system: https://microsoft.github.io/pyright/#/installation
+GH_MESSAGE = """
+`gh` was not found and must be installed separately (such as 'brew install gh' on Mac).
+    See the online documentation for your system: https://cli.github.com/
 """
 PRE_COMMIT_MESSAGE = """
 `pre-commit` was not found and must be installed separately (such as 'brew install pre-commit' on Mac).
     See the online documentation for your system: https://pre-commit.com/#install
 """
-GH_MESSAGE = """
-`gh` was not found and must be installed separately (such as 'brew install gh' on Mac).
-    See the online documentation for your system: https://cli.github.com/
+PYRIGHT_MESSAGE = """
+`pyright` was not found and must be installed separately (such as 'brew install pyright' on Mac).
+    See the online documentation for your system: https://microsoft.github.io/pyright/#/installation
+"""
+SEMGREP_MESSAGE = """
+`semgrep` was not found and must be installed separately (such as 'pipx install semgrep').
+    See the online documentation for your system: https://github.com/returntocorp/semgrep
 """
 
 

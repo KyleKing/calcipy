@@ -10,7 +10,7 @@ from invoke.context import Context
 
 from ..cli import task
 from ..invoke_helpers import run
-from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir, python_m
+from .executable_utils import PRE_COMMIT_MESSAGE, SEMGREP_MESSAGE, check_installed, python_dir, python_m
 
 # ==============================================================================
 # Linting
@@ -92,10 +92,12 @@ def pylint(ctx: Context, *, report: bool = False) -> None:
 @task()
 def security(ctx: Context) -> None:
     """Attempt to identify possible security vulnerabilities."""
-    logger.text('Note: Selectively override bandit with "# nosec"', is_header=True)
+    logger.warning('Note: Selectively override bandit with "# nosec"', is_header=True)
     pkg_name = read_package_name()
     run(ctx, f'{python_dir()}/bandit --recursive {pkg_name} -s B101')
 
+    check_installed(ctx, executable='semgrep', message=SEMGREP_MESSAGE)
+    logger.warning('Note: Selectively override semgrep with "# nosem"', is_header=True)
     # See additional semgrep rules at:
     #   https://semgrep.dev/explore
     #   https://github.com/returntocorp/semgrep-rules/tree/develop/python
@@ -114,8 +116,7 @@ def security(ctx: Context) -> None:
         '--config=r/yaml',
         '--exclude-rule=yaml.github-actions.security.third-party-action-not-pinned-to-commit-sha.third-party-action-not-pinned-to-commit-sha',
     ])
-    logger.text('Note: Selectively override semgrep with "# nosem"', is_header=True)
-    run(ctx, f'{python_dir()}/semgrep ci --autofix {semgrep_configs}')
+    run(ctx, f'semgrep ci --autofix {semgrep_configs}')
 
 
 # ==============================================================================
