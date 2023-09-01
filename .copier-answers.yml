@@ -14,8 +14,8 @@ doc_dir: docs
 extends_calcipy: true
 install_extras: -E ddict -E doc -E flake8 -E lint -E nox -E pylint -E stale -E tags
     -E test -E types
-minimum_python: 3.8.12
-minimum_python_short: '3.8'
+minimum_python: 3.9.13
+minimum_python_short: '3.9'
 package_name_py: calcipy
 project_description: Python package to simplify development
 project_name: calcipy

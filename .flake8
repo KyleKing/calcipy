@@ -6,7 +6,7 @@
 ignore = E501,PIE786,W503
 max-function-length = 55
 max-line-length = 120
-min-python-version = 3.8
+min-python-version = 3.9
 per-file-ignores=
     # @calcipy.cli.task provides a beartype wrapper
     */tasks/*.py:RBT001,

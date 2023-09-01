@@ -30,7 +30,7 @@ ignore = [
 ]
 line-length = 120
 select = ['ALL']
-target-version = 'py38'
+target-version = 'py39'
 unfixable = [
   'ERA001', # Commented out code
 ]

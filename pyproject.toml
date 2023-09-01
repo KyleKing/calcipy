@@ -16,7 +16,6 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Topic :: Software Development :: Libraries",
   "Topic :: Utilities",
@@ -33,7 +32,7 @@ repository = "https://github.com/kyleking/calcipy"
 version = "1.6.4"
 
 [tool.poetry.dependencies]
-python = "^3.8.12"
+python = "^3.9.13"
 arrow = {optional = true, version = ">=1.2.3"} # tags
 autopep8 = {optional = true, version = ">=2.0.1"} # lint
 bandit = {optional = true, version = ">=1.7.4"} # lint
@@ -182,4 +181,4 @@ calcipy-types = "calcipy.scripts:start_types"
 
 [tool.pyright]
 include = ["calcipy"]
-pythonVersion = "3.8"
+pythonVersion = "3.9"
