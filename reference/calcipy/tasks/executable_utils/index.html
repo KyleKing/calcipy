@@ -1613,12 +1613,12 @@
 
           <details class="quote">
             <summary>Source code in <code>calcipy/tasks/executable_utils.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="49 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="50 "></span><span class="k">def</span> <span class="nf">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">executable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="51 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;If the required executable isn&#39;t present, raise a clear user error.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="52 "></span>    <span class="n">res</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;which </span><span class="si">{</span><span class="n">executable</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="53 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos" data-linenos="54 "></span>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="53 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="54 "></span><span class="k">def</span> <span class="nf">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">executable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="55 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;If the required executable isn&#39;t present, raise a clear user error.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="56 "></span>    <span class="n">res</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;which </span><span class="si">{</span><span class="n">executable</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos="57 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos" data-linenos="58 "></span>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 </code></pre></div>
           </details>
   </div>
@@ -1743,11 +1743,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 1, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2023</span>
       
     
   </small>
