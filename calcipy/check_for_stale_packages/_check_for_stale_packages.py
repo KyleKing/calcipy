@@ -34,16 +34,16 @@ class _HostedPythonPackage(BaseModel):
     version: str
     datetime: Optional[Arrow] = Field(default=None)
     latest_version: str = Field(default='')
-    latest_datetime: Optional[Arrow] = Field(default=None)  # noqa: CCE001
+    latest_datetime: Optional[Arrow] = Field(default=None)
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     @field_serializer('datetime', 'latest_datetime')
-    def serialize_datetime(self, value: Optional[Arrow]) -> Optional[str]:  # noqa: RBT002
+    def serialize_datetime(self, value: Optional[Arrow]) -> Optional[str]:
         return str(value) if value else None
 
     @field_validator('datetime', 'latest_datetime', mode='before')
     @classmethod
-    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:  # noqa: N805,RBT002
+    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:
         return arrow.get(value)
 
 

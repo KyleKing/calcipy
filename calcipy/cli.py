@@ -106,9 +106,9 @@ def start_program(  # noqa: CAC001
     ).run()
 
 
-def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-arg] # noqa: CFQ004
+def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-arg]
     """Marks wrapped callable object as a valid Invoke task."""
-    def wrapper(func: Any) -> Callable:  # type: ignore[type-arg] # noqa: CFQ004
+    def wrapper(func: Any) -> Callable:  # type: ignore[type-arg]
         # Attach arguments for Task
         setattr(func, TASK_ARGS_ATTR, dec_args)
         setattr(func, TASK_KWARGS_ATTR, dec_kwargs)

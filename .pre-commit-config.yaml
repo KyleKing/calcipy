@@ -42,11 +42,11 @@ repos:
       - id: trailing-whitespace
         exclude: __snapshots__/.*\.ambr
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: 3.6.0
+    rev: 3.8.0
     hooks:
       - id: commitizen
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.16
+    rev: 0.7.17
     hooks:
       - id: mdformat
         additional_dependencies: ["mdformat-mkdocs[recommended]"]
@@ -58,7 +58,7 @@ repos:
       - id: shellcheck
         args: [--severity=warning]
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v3.0.1"
+    rev: "v3.0.3"
     hooks:
       - id: prettier
         additional_dependencies:
@@ -91,7 +91,7 @@ repos:
         args: [--never]
         files: calcipy/.*\.py
   - repo: https://github.com/KyleKing/calcipy
-    rev: 1.6.2
+    rev: 2.0.0
     hooks:
       - id: copier-forbidden-files
       - id: lint-fix

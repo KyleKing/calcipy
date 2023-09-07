@@ -1,6 +1,11 @@
 # Docs: https://github.com/charliermarsh/ruff
 # Tip: poetry run python -m ruff --explain RUF100
 
+external = [
+  'CAC001', # <func> is too complex (8 > 7)
+  'ECE001', # Expression is too complex (8 > 7)
+  'P103', # other string does contain unindexed parameters
+]
 ignore = [
   'ANN002', # Missing type annotation for `*args`
   'ANN003', # Missing type annotation for `**kwargs`
@@ -18,7 +23,6 @@ ignore = [
   'FIX004', # Line contains HACK
   'N999', # Invalid module name: '_noxfile'
   'RUF013', # PEP 484 prohibits implicit `Optional`
-  'RUF100', # Unused noqa directive (remove once flake8 is fully replaced)
   'TCH001', # Move application import `{}` into a type-checking block
   'TCH002', # Move third-party import `{}` into a type-checking block
   'TCH003', # Move standard library import `pathlib.Path` into a type-checking block
