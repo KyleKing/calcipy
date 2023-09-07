@@ -56,7 +56,10 @@ inline-quotes = 'single'
 known-first-party = ['calcipy']
 
 [per-file-ignores]
-'*/__init__.py' = [
+'./calcipy/../*.py' = [
+  'INP001', # File `/<>.py` is part of an implicit namespace package. Add an `__init__.py`.
+]
+'__init__.py' = [
   'D104', # Missing docstring in public package
   'F401', # imported but unused; consider adding to __all__ or using a redundant alias
 ]

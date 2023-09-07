@@ -164,6 +164,7 @@ Personal Guide
     - [https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-1010.md](https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-1010.md)
     - [https://docs-v1.prefect.io/core/pins/pin-01-introduce-pins.html](https://docs-v1.prefect.io/core/pins/pin-01-introduce-pins.html)
     - [https://peps.python.org/pep-0387/](https://peps.python.org/pep-0387)
+    - <https://github.com/AICoE/aicoe-ci/blob/39de02af86a0d1f9dcd395fa88b858f1c6880411/docs/adr/0000-use-markdown-architectural-decision-records.md>
     - And many others!
 
 <-- Links -->
