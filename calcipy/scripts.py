@@ -44,6 +44,12 @@ def start_tags() -> None:  # pragma: no cover
     _start_subset([tags])
 
 
+def start_test() -> None:  # pragma: no cover
+    """Run CLI with only the test namespace."""
+    from .tasks import test
+    _start_subset([test])
+
+
 def start_types() -> None:  # pragma: no cover
     """Run CLI with only the types namespace."""
     from .tasks import types
