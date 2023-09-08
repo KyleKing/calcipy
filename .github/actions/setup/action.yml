@@ -11,8 +11,6 @@ inputs:
     default: 1.6.1
   python-version:
     required: true
-  uses-nox:
-    default: ""
 
 env:
   POETRY_VIRTUALENVS_IN_PROJECT: true
@@ -26,12 +24,10 @@ runs:
       run: |
         echo "pipx-home=$PIPX_HOME" >> $GITHUB_OUTPUT
         echo "pipx-bin-dir=$PIPX_BIN_DIR" >> $GITHUB_OUTPUT
-        echo "nox-dir=$PWD/.nox" >> $GITHUB_OUTPUT
 
         export OS_PYTHON=${{ inputs.os }}-${{ inputs.python-version }}
         export BASE64_PIPX_ID=$(echo 'poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}' | base64)
         echo "cache-key-pipx=pipx-$OS_PYTHON-$BASE64_PIPX_ID" >> $GITHUB_OUTPUT
-        echo "cache-key-nox=nox-$OS_PYTHON" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Cache pipx
@@ -56,13 +52,6 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
         cache: poetry
-
-    - name: Cache .nox
-      if: ${{ inputs.uses-nox == 'true' }}
-      uses: actions/cache@v3
-      with:
-        path: ${{ steps.variable-setup.outputs.nox-dir }}
-        key: ${{ steps.variable-setup.outputs.cache-key-nox }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Poetry Debug Info
       run: |-
