@@ -11,6 +11,8 @@ inputs:
     default: 1.6.1
   python-version:
     required: true
+  uses-nox:
+    default: ""
 
 env:
   POETRY_VIRTUALENVS_IN_PROJECT: true
@@ -43,7 +45,7 @@ runs:
           ${{ steps.variable-setup.outputs.pipx-bin-dir }}
         key: ${{ steps.variable-setup.outputs.cache-key-pipx }}
     - name: Install Poetry ${{ inputs.poetry-version }} and '${{ inputs.pipx-packages }}'
-      if: steps.cache-pipx.outputs.cache-hit != 'true'
+      if: ${{ steps.cache-pipx.outputs.cache-hit != 'true' }}
       run: pipx install poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}
       shell: bash
 
@@ -54,6 +56,7 @@ runs:
         cache: poetry
 
     - name: Cache .nox
+      if: ${{ inputs.uses-nox == 'true' }}
       uses: actions/cache@v3
       with:
         path: ${{ steps.variable-setup.outputs.nox-dir }}
