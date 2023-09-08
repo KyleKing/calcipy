@@ -17,11 +17,13 @@ env:
 runs:
   using: composite
   steps:
-    - id: variable-setup
+    - name: Setup Local Variables
+      id: variable-setup
       run: |
         echo "pipx-home=$PIPX_HOME" >> $GITHUB_OUTPUT
         echo "pipx-bin-dir=$PIPX_BIN_DIR" >> $GITHUB_OUTPUT
         echo "python-version=$(echo '${{ inputs.python-version }}' | awk -F. '{print $1"."$2}')" >> $GITHUB_OUTPUT
+      shell: bash
 
     # https://pypa.github.io/pipx/how-pipx-works
     - name: Cache pipx
