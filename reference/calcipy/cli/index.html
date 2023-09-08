@@ -1854,9 +1854,9 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
 
           <details class="quote">
             <summary>Source code in <code>calcipy/cli.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="109 "></span><span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="o">*</span><span class="n">dec_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">dec_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg] # noqa: CFQ004</span>
+            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="109 "></span><span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="o">*</span><span class="n">dec_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">dec_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg]</span>
 <span class="linenos" data-linenos="110 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Marks wrapped callable object as a valid Invoke task.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="111 "></span>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg] # noqa: CFQ004</span>
+<span class="linenos" data-linenos="111 "></span>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg]</span>
 <span class="linenos" data-linenos="112 "></span>        <span class="c1"># Attach arguments for Task</span>
 <span class="linenos" data-linenos="113 "></span>        <span class="nb">setattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">TASK_ARGS_ATTR</span><span class="p">,</span> <span class="n">dec_args</span><span class="p">)</span>
 <span class="linenos" data-linenos="114 "></span>        <span class="nb">setattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">TASK_KWARGS_ATTR</span><span class="p">,</span> <span class="n">dec_kwargs</span><span class="p">)</span>
@@ -1912,11 +1912,11 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 8, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 8, 2023</span>
       
     
   </small>
