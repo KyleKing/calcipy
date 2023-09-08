@@ -76,7 +76,6 @@ python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc,tags
 ruff = {optional = true, version = ">=0.0.284"} # lint
 semver = ">=3.0.1" # experimental
-setuptools = {optional = true, version = ">=68.2.0"} # docs: required for readtime
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 transitions = {optional = true, version = ">=0.9.0"} # tags: docs
 
@@ -97,7 +96,6 @@ doc = [
   "pylint", # for 'pyreverse'
   "pymdown-extensions",
   "pyyaml",
-  "setuptools",
   "transitions",
 ]
 flake8 = [
