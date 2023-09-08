@@ -17,21 +17,26 @@ env:
 runs:
   using: composite
   steps:
+    - id: variable-setup
+      run: |
+        echo "pipx-home=$PIPX_HOME" >> $GITHUB_OUTPUT
+        echo "pipx-bin-dir=$PIPX_BIN_DIR" >> $GITHUB_OUTPUT
+        echo "python-version=$(echo '${{ inputs.python-version }}' | awk -F. '{print $1"."$2}')" >> $GITHUB_OUTPUT
+
     # https://pypa.github.io/pipx/how-pipx-works
     - name: Cache pipx
       id: cache-pipx
       uses: actions/cache@v3
       with:
         path: |
-          ${{ env.PIPX_HOME }}
-          ${{ env.PIPX_BIN_DIR }}
+          ${{ steps.variable-setup.outputs.pipx-home }}
+          ${{ steps.variable-setup.outputs.pipx-bin-dir }}
         key: pipx-poetry-${{ inputs.poetry-version }}
     - name: Install Poetry ${{ inputs.poetry-version }}
       if: steps.cache-pipx.outputs.cache-hit != 'true'
       run: pipx install poetry==${{ inputs.poetry-version }}
       shell: bash
 
-    # PLANNED: Strip minor version?
     - name: Setup Python ${{ inputs.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -42,7 +47,7 @@ runs:
       uses: actions/cache@v3
       with:
         path: ${{ github.workspace }}/.nox
-        key: nox-${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        key: nox-${{ inputs.os }}-${{ steps.variable-setup.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Poetry Debug Info
       run: |-
