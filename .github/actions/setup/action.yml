@@ -1,6 +1,6 @@
 ---
 name: Setup Action
-description: Run "poetry install"
+description: Install requested pipx dependencies, configure the system python, and install poetry and the package dependencies
 
 inputs:
   os:
@@ -47,6 +47,7 @@ runs:
         for tool in "poetry==${{ inputs.poetry-version }}" ${{ inputs.pipx-packages }}; do
           pipx install $tool
         done
+        pipx inject poetry setuptools==68.1.2
       shell: bash
 
     - name: Debug pipx
