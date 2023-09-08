@@ -26,6 +26,12 @@ def _start_subset(modules: List[ModuleType]) -> None:  # pragma: no cover
     start_program(__pkg_name__, __version__, collection=ns)
 
 
+def start_docs() -> None:  # pragma: no cover
+    """Run CLI with only the cl and doc namespaces."""
+    from .tasks import cl, doc
+    _start_subset([cl, doc])
+
+
 def start_lint() -> None:  # pragma: no cover
     """Run CLI with only the lint namespace."""
     from .tasks import lint

@@ -148,6 +148,7 @@ types-setuptools = ">=67.3.0.1"
 
 [tool.poetry.scripts]
 calcipy = "calcipy.scripts:start"
+calcipy-docs = "calcipy.scripts:start_docs"
 calcipy-lint = "calcipy.scripts:start_lint"
 calcipy-pack = "calcipy.scripts:start_pack"
 calcipy-tags = "calcipy.scripts:start_tags"

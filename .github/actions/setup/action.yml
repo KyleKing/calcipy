@@ -67,7 +67,7 @@ runs:
         poetry config --list
       shell: bash
 
-    - name: Install Project and Dependencies
+    - name: Install Project and Minimum Subset of Dependencies
       run: |-
-        poetry install -E ddict -E doc -E lint -E tags -E test -E types
+        poetry install -E ddict -E doc -E lint -E nox -E stale -E tags -E test -E types
       shell: bash
