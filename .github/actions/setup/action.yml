@@ -23,7 +23,6 @@ runs:
       id: variable-setup
       run: |
         echo "pipx-home=$PIPX_HOME" >> $GITHUB_OUTPUT
-        echo "pipx-bin-dir=$PIPX_BIN_DIR" >> $GITHUB_OUTPUT
 
         export OS_PYTHON=${{ inputs.os }}-${{ inputs.python-version }}
         export BASE64_PIPX_ID=$(echo 'poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}' | base64)
@@ -35,9 +34,7 @@ runs:
       uses: actions/cache@v3
       with:
         # https://pypa.github.io/pipx/how-pipx-works
-        path: |
-          ${{ steps.variable-setup.outputs.pipx-home }}
-          ${{ steps.variable-setup.outputs.pipx-bin-dir }}
+        path: ${{ steps.variable-setup.outputs.pipx-home }}
         key: ${{ steps.variable-setup.outputs.cache-key-pipx }}
 
     - name: Install Poetry ${{ inputs.poetry-version }} and '${{ inputs.pipx-packages }}'
