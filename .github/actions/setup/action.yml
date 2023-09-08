@@ -31,6 +31,8 @@ runs:
 
     - name: Cache pipx
       id: cache-pipx
+      # cache doesn't have permission to extract to "opt/"
+      if: ${{ inputs.os != 'macos-latest' }}
       uses: actions/cache@v3
       with:
         # https://pypa.github.io/pipx/how-pipx-works
