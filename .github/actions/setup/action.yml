@@ -23,10 +23,10 @@ runs:
       id: variable-setup
       run: |
         echo "pipx-home=$PIPX_HOME" >> $GITHUB_OUTPUT
+        echo "pipx-bin-dir=$PIPX_BIN_DIR" >> $GITHUB_OUTPUT
 
-        export OS_PYTHON=${{ inputs.os }}-${{ inputs.python-version }}
-        export BASE64_PIPX_ID=$(echo 'poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}' | base64)
-        echo "cache-key-pipx=pipx-$OS_PYTHON-$BASE64_PIPX_ID" >> $GITHUB_OUTPUT
+        export BASE64_PIPX_ID=$(echo -n 'poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}' | base64)
+        echo "cache-key-pipx=pipx-${{ inputs.os }}-${{ inputs.python-version }}-$BASE64_PIPX_ID" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Cache pipx
@@ -34,14 +34,23 @@ runs:
       uses: actions/cache@v3
       with:
         # https://pypa.github.io/pipx/how-pipx-works
-        path: ${{ steps.variable-setup.outputs.pipx-home }}
+        path: |
+          ${{ steps.variable-setup.outputs.pipx-home }}
+          ${{ steps.variable-setup.outputs.pipx-bin-dir }}
         key: ${{ steps.variable-setup.outputs.cache-key-pipx }}
 
     - name: Install Poetry ${{ inputs.poetry-version }} and '${{ inputs.pipx-packages }}'
+      if: ${{ steps.cache-pipx.outputs.cache-hit != 'true' }}
       run: |
         for tool in "poetry==${{ inputs.poetry-version }}" ${{ inputs.pipx-packages }}; do
           pipx install $tool
         done
+      shell: bash
+
+    - name: Debug pipx
+      run: |
+        pipx ensurepath
+        pipx list
       shell: bash
 
     - name: Setup Python ${{ inputs.python-version }}
