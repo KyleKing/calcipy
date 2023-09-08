@@ -1522,18 +1522,19 @@
 <h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permanent link">⚓︎</a></h2>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kyleking/calcipy.git
 <span class="linenos" data-linenos=" 2 "></span><span class="nb">cd</span><span class="w"> </span>calcipy
-<span class="linenos" data-linenos=" 3 "></span>poetry<span class="w"> </span>install<span class="w"> </span>--sync<span class="w"> </span>-E<span class="w"> </span>ddict<span class="w"> </span>-E<span class="w"> </span>doc<span class="w"> </span>-E<span class="w"> </span>flake8<span class="w"> </span>-E<span class="w"> </span>lint<span class="w"> </span>-E<span class="w"> </span>nox<span class="w"> </span>-E<span class="w"> </span>pylint<span class="w"> </span>-E<span class="w"> </span>stale<span class="w"> </span>-E<span class="w"> </span>tags<span class="w"> </span>-E<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-E<span class="w"> </span>types
-<span class="linenos" data-linenos=" 4 "></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="c1"># See the available tasks</span>
-<span class="linenos" data-linenos=" 6 "></span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy
-<span class="linenos" data-linenos=" 7 "></span><span class="c1"># Or use a local &#39;run&#39; file (so that &#39;calcipy&#39; can be extended)</span>
-<span class="linenos" data-linenos=" 8 "></span>./run
-<span class="linenos" data-linenos=" 9 "></span>
-<span class="linenos" data-linenos="10 "></span><span class="c1"># Run the default task list (lint, auto-format, test coverage, etc.)</span>
-<span class="linenos" data-linenos="11 "></span>./run<span class="w"> </span>main
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span><span class="c1"># Make code changes and run specific tasks as needed:</span>
-<span class="linenos" data-linenos="14 "></span>./run<span class="w"> </span>lint.fix<span class="w"> </span><span class="nb">test</span>
+<span class="linenos" data-linenos=" 3 "></span>poetry<span class="w"> </span>install<span class="w"> </span>--sync
+<span class="linenos" data-linenos=" 4 "></span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy-pack<span class="w"> </span>pack.install-extras
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span><span class="c1"># See the available tasks</span>
+<span class="linenos" data-linenos=" 7 "></span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Or use a local &#39;run&#39; file (so that &#39;calcipy&#39; can be extended)</span>
+<span class="linenos" data-linenos=" 9 "></span>./run
+<span class="linenos" data-linenos="10 "></span>
+<span class="linenos" data-linenos="11 "></span><span class="c1"># Run the default task list (lint, auto-format, test coverage, etc.)</span>
+<span class="linenos" data-linenos="12 "></span>./run<span class="w"> </span>main
+<span class="linenos" data-linenos="13 "></span>
+<span class="linenos" data-linenos="14 "></span><span class="c1"># Make code changes and run specific tasks as needed:</span>
+<span class="linenos" data-linenos="15 "></span>./run<span class="w"> </span>lint.fix<span class="w"> </span><span class="nb">test</span>
 </code></pre></div>
 <h2 id="publishing">Publishing<a class="headerlink" href="#publishing" title="Permanent link">⚓︎</a></h2>
 <p>For testing, create an account on <a href="https://test.pypi.org/legacy/">TestPyPi</a>. Replace <code>...</code> with the API token generated on TestPyPi or PyPi respectively</p>
@@ -1811,7 +1812,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 2, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 8, 2023</span>
       
         <br>
         Created:
