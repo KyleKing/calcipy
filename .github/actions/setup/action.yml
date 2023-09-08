@@ -23,27 +23,26 @@ runs:
       uses: actions/cache@v3
       with:
         path: |
-          ~/.local/pipx
-          ~/.local/bin
+          ${{ env.PIPX_HOME }}
+          ${{ env.PIPX_BIN_DIR }}
         key: pipx-poetry-${{ inputs.poetry-version }}
     - name: Install Poetry ${{ inputs.poetry-version }}
       if: steps.cache-pipx.outputs.cache-hit != 'true'
       run: pipx install poetry==${{ inputs.poetry-version }}
       shell: bash
 
+    # PLANNED: Strip minor version?
     - name: Setup Python ${{ inputs.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ inputs.python-version }}
         cache: poetry
 
-    - name: Cache environments
+    - name: Cache .nox
       uses: actions/cache@v3
       with:
-        path: |
-          .nox
-          .venv
-        key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        path: ${{ github.workspace }}/.nox
+        key: nox-${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Poetry Debug Info
       run: |-
