@@ -30,7 +30,6 @@ jobs:
           pipx-packages: semgrep==1.39.0
           python-version: ${{ matrix.python-version }}
 
-        shell: bash
       - name: Run static linters
         run: ./run lint.check
 
