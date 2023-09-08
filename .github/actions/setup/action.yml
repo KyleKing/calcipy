@@ -17,7 +17,17 @@ env:
 runs:
   using: composite
   steps:
+    # https://pypa.github.io/pipx/how-pipx-works
+    - name: Cache pipx
+      id: cache-pipx
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.local/pipx
+          ~/.local/bin
+        key: pipx-poetry-${{ inputs.poetry-version }}
     - name: Install Poetry ${{ inputs.poetry-version }}
+      if: steps.cache-pipx.outputs.cache-hit != 'true'
       run: pipx install poetry==${{ inputs.poetry-version }}
       shell: bash
 
@@ -27,11 +37,12 @@ runs:
         python-version: ${{ inputs.python-version }}
         cache: poetry
 
-    - name: Cache Nox
+    - name: Cache environments
       uses: actions/cache@v3
-      id: cache
       with:
-        path: .nox
+        path: |
+          .nox
+          .venv
         key: ${{ inputs.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Poetry Debug Info
