@@ -29,10 +29,9 @@ runs:
         echo "nox-dir=$PWD/.nox" >> $GITHUB_OUTPUT
 
         export SHORT_PYTHON_VERSION=$(echo '${{ inputs.python-version }}' | awk -F. '{print $1"."$2}')
-        export CACHE_KEY_OS=${{ inputs.os }}-$SHORT_PYTHON_VERSION
         export BASE64_PIPX_ID=$(echo 'poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}' | base64)
-        echo "cache-key-pipx=pipx-$CACHE_KEY_OS-$BASE64_PIPX_ID" >> $GITHUB_OUTPUT
-        echo "cache-key-nox=nox-$CACHE_KEY_OS" >> $GITHUB_OUTPUT
+        echo "cache-key-pipx=pipx-${{ inputs.os }}--$SHORT_PYTHON_VERSION-$BASE64_PIPX_ID" >> $GITHUB_OUTPUT
+        echo "cache-key-nox=nox-${{ inputs.os }}-$SHORT_PYTHON_VERSION" >> $GITHUB_OUTPUT
       shell: bash
 
     # https://pypa.github.io/pipx/how-pipx-works
@@ -46,7 +45,10 @@ runs:
         key: ${{ steps.variable-setup.outputs.cache-key-pipx }}
     - name: Install Poetry ${{ inputs.poetry-version }} and '${{ inputs.pipx-packages }}'
       if: ${{ steps.cache-pipx.outputs.cache-hit != 'true' }}
-      run: pipx install poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}
+      run: |
+        for tool in "poetry==${{ inputs.poetry-version }}" ${{ inputs.pipx-packages }}; do
+          pipx install $tool
+        done
       shell: bash
 
     - name: Setup Python ${{ inputs.python-version }}
