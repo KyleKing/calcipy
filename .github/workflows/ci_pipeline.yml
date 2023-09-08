@@ -27,10 +27,9 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
+          pipx-packages: semgrep==1.39.0
           python-version: ${{ matrix.python-version }}
 
-      - name: Install pipx dependencies
-        run: pipx install semgrep
         shell: bash
       - name: Run static linters
         run: ./run lint.check

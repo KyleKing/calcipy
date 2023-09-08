@@ -5,6 +5,8 @@ description: Run "poetry install"
 inputs:
   os:
     default: ubuntu-22.04
+  pipx-packages:
+    default: ""
   poetry-version:
     default: 1.6.1
   python-version:
@@ -22,7 +24,13 @@ runs:
       run: |
         echo "pipx-home=$PIPX_HOME" >> $GITHUB_OUTPUT
         echo "pipx-bin-dir=$PIPX_BIN_DIR" >> $GITHUB_OUTPUT
-        echo "python-version=$(echo '${{ inputs.python-version }}' | awk -F. '{print $1"."$2}')" >> $GITHUB_OUTPUT
+        echo "nox-dir=$PWD/.nox" >> $GITHUB_OUTPUT
+
+        export SHORT_PYTHON_VERSION=$(echo '${{ inputs.python-version }}' | awk -F. '{print $1"."$2}')
+        export CACHE_KEY_OS=${{ inputs.os }}-$SHORT_PYTHON_VERSION
+        export BASE64_PIPX_ID=$(echo 'poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}' | base64)
+        echo "cache-key-pipx=pipx-$CACHE_KEY_OS-$BASE64_PIPX_ID" >> $GITHUB_OUTPUT
+        echo "cache-key-nox=nox-$CACHE_KEY_OS" >> $GITHUB_OUTPUT
       shell: bash
 
     # https://pypa.github.io/pipx/how-pipx-works
@@ -33,10 +41,10 @@ runs:
         path: |
           ${{ steps.variable-setup.outputs.pipx-home }}
           ${{ steps.variable-setup.outputs.pipx-bin-dir }}
-        key: pipx-poetry-${{ inputs.poetry-version }}
-    - name: Install Poetry ${{ inputs.poetry-version }}
+        key: ${{ steps.variable-setup.outputs.cache-key-pipx }}
+    - name: Install Poetry ${{ inputs.poetry-version }} and '${{ inputs.pipx-packages }}'
       if: steps.cache-pipx.outputs.cache-hit != 'true'
-      run: pipx install poetry==${{ inputs.poetry-version }}
+      run: pipx install poetry==${{ inputs.poetry-version }} ${{ inputs.pipx-packages }}
       shell: bash
 
     - name: Setup Python ${{ inputs.python-version }}
@@ -48,8 +56,8 @@ runs:
     - name: Cache .nox
       uses: actions/cache@v3
       with:
-        path: ${{ github.workspace }}/.nox
-        key: nox-${{ inputs.os }}-${{ steps.variable-setup.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        path: ${{ steps.variable-setup.outputs.nox-dir }}
+        key: ${{ steps.variable-setup.outputs.cache-key-nox }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Poetry Debug Info
       run: |-
