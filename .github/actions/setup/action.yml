@@ -58,5 +58,5 @@ runs:
 
     - name: Install Project and Dependencies
       run: |-
-        poetry install -E ddict -E doc -E flake8 -E lint -E pylint -E stale -E tags -E test -E types
+        poetry install -E ddict -E doc -E lint -E tags -E test -E types
       shell: bash

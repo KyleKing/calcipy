@@ -5,7 +5,7 @@
 ```sh
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
-poetry install --sync -E ddict -E doc -E flake8 -E lint -E pylint -E stale -E tags -E test -E types
+poetry install --sync -E ddict -E doc -E lint -E tags -E test -E types
 
 # See the available tasks
 poetry run calcipy
