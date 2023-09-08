@@ -12,7 +12,7 @@ copyright_date: '2023'
 development_branch: main
 doc_dir: docs
 extends_calcipy: true
-install_extras: -E ddict -E doc -E flake8 -E lint -E nox -E pylint -E stale -E tags
+install_extras: -E ddict -E doc -E flake8 -E lint -E pylint -E stale -E tags
     -E test -E types
 minimum_python: 3.9.13
 minimum_python_short: '3.9'
