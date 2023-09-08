@@ -64,12 +64,12 @@ runs:
         cache: poetry
 
     - name: Poetry Debug Info
-      run: |-
+      run: |
         poetry debug info
         poetry config --list
       shell: bash
 
     - name: Install Project and Minimum Subset of Dependencies
-      run: |-
+      run: |
         poetry install -E ddict -E doc -E lint -E nox -E stale -E tags -E test -E types
       shell: bash

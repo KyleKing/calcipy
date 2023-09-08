@@ -58,7 +58,7 @@ Personal Guide
 <details>
 <summary>Research</summary>
 <ul>
-<li>[Sane Github Labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63) and see [sensible-github-labels](https://github.com/Relequestual/sensible-github-labels) for full descriptions of each</li>
+<li>[Sane GitHub Labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63) and see [sensible-github-labels](https://github.com/Relequestual/sensible-github-labels) for full descriptions of each</li>
     <ul>
         <li>“it is much more helpful to see the status and type of all issues at a glance.”</li>
         <li>One of each:</li>
@@ -129,7 +129,7 @@ Personal Guide
 
 - [Git: The Simple Guide][simple_git]
 - [Commit Messages][gcmsg] and [why use the present tense](https://news.ycombinator.com/item?id=8874177)
-- [Github's Advice on Github](https://github.com/erlang/otp/wiki/Writing-good-commit-messages)
+- [GitHub's Advice on GitHub](https://github.com/erlang/otp/wiki/Writing-good-commit-messages)
 - [Most Comprehensive Guide](https://chris.beams.io/posts/git-commit/)
 - [Git Pro Book (free)](https://git-scm.com/book/en/v2)
   - [Bash Tab-Completion Snippet](https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash)
