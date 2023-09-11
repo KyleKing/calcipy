@@ -25,7 +25,7 @@ jobs:
         os: [ubuntu-22.04]
         python-version: ["3.9"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # For git-revision-date-localized-plugin
       - uses: ./.github/actions/setup
