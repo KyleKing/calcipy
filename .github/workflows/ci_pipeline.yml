@@ -23,7 +23,7 @@ jobs:
         os: [ubuntu-22.04]
         python-version: ["3.9"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
@@ -39,7 +39,7 @@ jobs:
         os: [macos-latest, windows-latest]
         python-version: ["3.9"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
@@ -55,7 +55,7 @@ jobs:
         os: [ubuntu-22.04]
         python-version: ["3.9"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           os: ${{ matrix.os }}
