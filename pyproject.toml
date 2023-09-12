@@ -145,7 +145,7 @@ pytest-subprocess = ">=1.4.1"
 syrupy = ">=4.4.0"
 types-pyyaml = ">=6.0.12.6"
 types-setuptools = ">=67.3.0.1"
-urllib3 = "^1.26.16" # FIXME: Blocked by support for pytest-recording/vcr
+vcrpy = ">=5.1.0" # FYI: Pinned to indirectly manage the urllib3 version
 
 [tool.poetry.scripts]
 calcipy = "calcipy.scripts:start"
