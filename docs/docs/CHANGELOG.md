@@ -1,5 +1,24 @@
 ## Unreleased
 
+### Refactor
+
+- copier-auto-update
+
+## 2.0.1 (2023-09-08)
+
+### Fix
+
+- add missing setuptools for some mkdocs dependencies
+- add calcipy-docs and restore missing extras for type checking
+- add scoped 'calcipy-test'
+
+### Refactor
+
+- really move nox
+- use ruff.external to allow list flake8 rules
+
+## 2.0.0 (2023-09-02)
+
 ### Feat
 
 - drop Python 3.8
