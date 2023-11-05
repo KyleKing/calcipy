@@ -142,7 +142,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
         List[str]: list of auto-formatted text
 
     """
-    key, path_rel = [*_parse_var_comment(line).items()][0]
+    key, path_rel = next(iter(_parse_var_comment(line).items()))
     path_base = get_project_path() if path_rel.startswith('/') else path_file.resolve().parent
     path_source = path_base / path_rel.lstrip('/')
     language = path_source.suffix.lstrip('.')
