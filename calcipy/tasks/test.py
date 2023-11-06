@@ -101,7 +101,7 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'test', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)
-    print('')  # noqa: T201
+    print()  # noqa: T201
     for cli_args in (
         'report --show-missing',  # Write to STDOUT
         f'html --directory={cov_dir}',  # Write to HTML

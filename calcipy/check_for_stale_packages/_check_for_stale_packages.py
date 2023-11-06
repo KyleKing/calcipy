@@ -38,7 +38,7 @@ class _HostedPythonPackage(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     @field_serializer('datetime', 'latest_datetime')
-    def serialize_datetime(self, value: Optional[Arrow]) -> Optional[str]:
+    def serialize_datetime(self, value: Optional[Arrow]) -> Optional[str]:  # noqa: PLR6301
         return str(value) if value else None
 
     @field_validator('datetime', 'latest_datetime', mode='before')

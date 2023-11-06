@@ -27,14 +27,14 @@ class _CalcipyProgram(Program):
         """
         super().print_help()
         print('Global Task Options:')  # noqa: T201
-        print('')  # noqa: T201
+        print()  # noqa: T201
         self.print_columns([
             ('*file_args', 'List of Paths available globally to all tasks. Will resolve paths with working_dir'),
             ('--keep-going', 'Continue running tasks even on failure'),
             ('--working_dir=STRING', 'Set the cwd for the program. Example: "../run --working-dir .. lint test"'),
             ('-v,-vv,-vvv', 'Globally configure logger verbosity (-vvv for most verbose)'),
         ])
-        print('')  # noqa: T201
+        print()  # noqa: T201
 
 
 class CalcipyConfig(Config):
@@ -80,9 +80,9 @@ def start_program(  # noqa: CAC001
         elif argv == '--keep-going':
             _gto.keep_going = True
         # Check for CLI arguments with values
-        elif last_argv in {'--working-dir'}:
+        elif last_argv == '--working-dir':
             _gto.working_dir = Path(argv).resolve()
-        elif argv not in {'--working-dir'}:
+        elif argv != '--working-dir':
             sys_argv.append(argv)
         last_argv = argv
     _gto.file_args = [
@@ -121,7 +121,7 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-ar
                 # Set a unique name when 'extra_kwargs' was provided
                 # https://github.com/pyinvoke/invoke/blob/07b836f2663bb073a7bcef3d6c454e1dc6b867ae/invoke/tasks.py#L81-L104
                 encoded = b64encode(str(extra_kwargs).encode())
-                func.__name__ = f'{func.__name__}_{encoded.decode().rstrip("=")}'
+                func.__name__ = f'{func.__name__}_{encoded.decode().rstrip('=')}'
 
             @wraps(func)  # nosem
             def _with_kwargs_inner(*args: Any, **kwargs: Any) -> Any:
