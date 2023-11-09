@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.8">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.35e1ed30.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4b4a2bd9.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
@@ -1691,7 +1691,7 @@
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="12 "></span><span class="k">def</span> <span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="13 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the customized Invoke Program.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="14 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">all_tasks</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">all_tasks</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="15 "></span>    <span class="n">start_program</span><span class="p">(</span><span class="n">__pkg_name__</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="n">all_tasks</span><span class="p">)</span>
 </code></pre></div>
           </details>
@@ -1721,7 +1721,7 @@
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="29 "></span><span class="k">def</span> <span class="nf">start_docs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="30 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the cl and doc namespaces.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="31 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">cl</span><span class="p">,</span> <span class="n">doc</span>
+<span class="linenos" data-linenos="31 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">cl</span><span class="p">,</span> <span class="n">doc</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="32 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">cl</span><span class="p">,</span> <span class="n">doc</span><span class="p">])</span>
 </code></pre></div>
           </details>
@@ -1751,7 +1751,7 @@
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="35 "></span><span class="k">def</span> <span class="nf">start_lint</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="36 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the lint namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="37 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">lint</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">lint</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="38 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">lint</span><span class="p">])</span>
 </code></pre></div>
           </details>
@@ -1781,7 +1781,7 @@
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="41 "></span><span class="k">def</span> <span class="nf">start_pack</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="42 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the pack namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">pack</span>
+<span class="linenos" data-linenos="43 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">pack</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="44 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">pack</span><span class="p">])</span>
 </code></pre></div>
           </details>
@@ -1811,7 +1811,7 @@
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">start_tags</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the tags namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="49 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">tags</span>
+<span class="linenos" data-linenos="49 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">tags</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="50 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">tags</span><span class="p">])</span>
 </code></pre></div>
           </details>
@@ -1841,7 +1841,7 @@
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="53 "></span><span class="k">def</span> <span class="nf">start_test</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="54 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the test namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="55 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">test</span>
+<span class="linenos" data-linenos="55 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">test</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="56 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">test</span><span class="p">])</span>
 </code></pre></div>
           </details>
@@ -1871,7 +1871,7 @@
             <summary>Source code in <code>calcipy/scripts.py</code></summary>
             <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="59 "></span><span class="k">def</span> <span class="nf">start_types</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="60 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run CLI with only the types namespace.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="61 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">types</span>
+<span class="linenos" data-linenos="61 "></span>    <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">types</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="62 "></span>    <span class="n">_start_subset</span><span class="p">([</span><span class="n">types</span><span class="p">])</span>
 </code></pre></div>
           </details>
@@ -1892,11 +1892,11 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 14, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 14, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2023</span>
       
     
   </small>
@@ -1942,7 +1942,7 @@
     <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.81fa17fe.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
