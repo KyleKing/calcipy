@@ -78,6 +78,7 @@ ruff = {optional = true, version = ">=0.1.5"} # lint
 semver = ">=3.0.1" # experimental
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 transitions = {optional = true, version = ">=0.9.0"} # tags: docs
+virtualenv = {optional = true, version = ">=20.24.0"} # tags: nox. PRevents 'scripts' KeyError with Python 3.12
 
 [tool.poetry.extras]
 ddict = ["python-box"]
@@ -114,7 +115,7 @@ lint = [
   "pip-check",
   "ruff",
 ]
-nox = ["nox-poetry"]
+nox = ["nox-poetry", "virtualenv"]
 pylint = ["pylint"]
 stale = [
   "arrow",
