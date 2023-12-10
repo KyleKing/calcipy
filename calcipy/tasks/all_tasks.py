@@ -63,11 +63,14 @@ def with_progress(items: Any, offset: int = 0) -> TaskList:
     """
     task_items = [_build_task(_t) for _t in items]
     message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in task_items])
-    tasks: TaskList = [summary.with_kwargs(message=message)]
+    tasks: TaskList = [summary.with_kwargs(message=message)]  # pyright: ignore[reportFunctionMemberAccess]
 
     total = len(task_items) + offset
     for idx, item in enumerate(task_items):
-        tasks += [progress.with_kwargs(index=idx + offset, total=total), item]
+        tasks += [
+            progress.with_kwargs(index=idx + offset, total=total),  # pyright: ignore[reportFunctionMemberAccess]
+            item,
+        ]
     return tasks
 
 
@@ -75,8 +78,8 @@ _MAIN_TASKS = [
     lint.fix,
     types.mypy,
     types.pyright,
-    nox.noxfile.with_kwargs(session='tests'),  # pyright: ignore[reportGeneralTypeIssues]
-    lint.pre_commit.with_kwargs(no_update=True),  # pyright: ignore[reportGeneralTypeIssues]
+    nox.noxfile.with_kwargs(session='tests'),    # pyright: ignore[reportFunctionMemberAccess]
+    lint.pre_commit.with_kwargs(no_update=True),    # pyright: ignore[reportFunctionMemberAccess]
     lint.security,
     tags.collect_code_tags,
     cl.write,
@@ -99,15 +102,15 @@ def main(_ctx: Context) -> None:
     """Main task pipeline."""
 
 
-@task(post=with_progress(_OTHER_TASKS))  # pyright: ignore[reportGeneralTypeIssues]
+@task(post=with_progress(_OTHER_TASKS))
 def other(_ctx: Context) -> None:
     """Run tasks that are otherwise not exercised in main."""
 
 
 @task(
-    help=cl.bump.help,
+    help=cl.bump.help,  # pyright: ignore[reportFunctionMemberAccess]
     post=with_progress(
-        [  # pyright: ignore[reportGeneralTypeIssues]
+        [
             pack.lock,
             doc.build,
             doc.deploy,

@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fix
+
+- create the code tag summary directory if it doesn't already exist
+
 ## 2.0.3 (2023-11-21)
 
 ### Fix
