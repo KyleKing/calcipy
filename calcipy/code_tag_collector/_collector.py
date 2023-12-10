@@ -320,6 +320,7 @@ def write_code_tag_file(
     if report := _format_report(
         base_dir, matches, tag_order=tag_order,
     ).strip():
+        path_tag_summary.parent.mkdir(exist_ok=True, parents=True)
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
         logger.text('Created Code Tag Summary', path_tag_summary=path_tag_summary)
     elif path_tag_summary.is_file():
