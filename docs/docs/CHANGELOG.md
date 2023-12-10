@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 2.0.3 (2023-11-21)
+
 ### Fix
 
 - pin a recent version of virtualenv for Python 3.12 + Nox
