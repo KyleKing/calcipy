@@ -78,6 +78,7 @@ known-first-party = ['calcipy']
   'D100', # Missing docstring in public module
   'D103', # Missing docstring in public function
   'EM102', # Exception must not use an f-string literal, assign to variable first
+  'PLC2701', # Private name import `_collector` from external module `calcipy.code_tag_collector`
   'PT004', # flake8-pytest-style: fixture does not return
   'S101', # Use of `assert` detected
 ]

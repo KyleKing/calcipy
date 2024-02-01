@@ -77,10 +77,10 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/nox.py`                                          |            8 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/pack.py`                                         |           42 |        10 |          0 | 65.6%      |
 | `calcipy/tasks/stale.py`                                        |            9 |         1 |          0 | 90.9%      |
-| `calcipy/tasks/tags.py`                                         |           15 |         0 |          0 | 100.0%     |
+| `calcipy/tasks/tags.py`                                         |           18 |         1 |          0 | 91.7%      |
 | `calcipy/tasks/test.py`                                         |           45 |         1 |          2 | 89.2%      |
 | `calcipy/tasks/types.py`                                        |           17 |         0 |          0 | 91.3%      |
-| **Totals**                                                      |         1035 |        66 |        182 | 87.3%      |
+| **Totals**                                                      |         1038 |        67 |        182 | 87.2%      |
 
-Generated on: 2023-12-31
+Generated on: 2024-01-31
 <!-- {cte} -->

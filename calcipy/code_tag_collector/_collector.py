@@ -5,7 +5,7 @@ from collections import defaultdict
 from contextlib import suppress
 from functools import lru_cache
 from pathlib import Path
-from subprocess import CalledProcessError  # nosec
+from subprocess import CalledProcessError  # nosec  # noqa: S404
 
 import arrow
 import pandas as pd

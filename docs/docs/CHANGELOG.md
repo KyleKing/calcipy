@@ -2,6 +2,7 @@
 
 ### Fix
 
+- add --doc-sub-dir for Code Tag generation without copier-answers
 - create the code tag summary directory if it doesn't already exist
 
 ## 2.0.3 (2023-11-21)
