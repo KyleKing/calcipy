@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.1">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.6">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.45e1311d.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.50c56a3b.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1444,7 +1444,7 @@
           <li class="md-nav__item">
   <a href="#calcipy.tasks.tags.collect_code_tags" class="md-nav__link">
     <span class="md-ellipsis">
-      collect_code_tags()
+      collect_code_tags
     </span>
   </a>
   
@@ -1575,7 +1575,7 @@
           <li class="md-nav__item">
   <a href="#calcipy.tasks.tags.collect_code_tags" class="md-nav__link">
     <span class="md-ellipsis">
-      collect_code_tags()
+      collect_code_tags
     </span>
   </a>
   
@@ -1632,13 +1632,12 @@
 
 
 
-
 <h3 id="calcipy.tasks.tags.collect_code_tags" class="doc doc-heading">
           <span class="doc doc-object-name doc-function-name">collect_code_tags</span>
 
 
 <a href="#calcipy.tasks.tags.collect_code_tags" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">collect_code_tags</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag_order</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">collect_code_tags</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">doc_sub_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag_order</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </code></pre></div>
 
   <div class="doc doc-contents ">
@@ -1651,34 +1650,39 @@
 <span class="linenos" data-linenos="16 "></span>    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="linenos" data-linenos="17 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos="18 "></span>        <span class="s1">&#39;base_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;Working Directory&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="19 "></span>        <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;Code Tag Summary Filename&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="20 "></span>        <span class="s1">&#39;tag_order&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordered list of code tags to locate (Comma-separated)&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="21 "></span>        <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="s1">&#39;Custom Code Tag Regex. Must contain &quot;</span><span class="si">{tag}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="22 "></span>        <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">:</span> <span class="s1">&#39;Glob patterns to ignore files and directories when searching (Comma-separated)&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="23 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="24 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="25 "></span><span class="k">def</span> <span class="nf">collect_code_tags</span><span class="p">(</span>
-<span class="linenos" data-linenos="26 "></span>    <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span>
-<span class="linenos" data-linenos="27 "></span>    <span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="28 "></span>    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="29 "></span>    <span class="n">tag_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="30 "></span>    <span class="n">regex</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="31 "></span>    <span class="n">ignore_patterns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="32 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="33 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="34 "></span>    <span class="n">pth_base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-<span class="linenos" data-linenos="35 "></span>    <span class="n">path_tag_summary</span> <span class="o">=</span> <span class="n">get_doc_subdir</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">filename</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">))</span>
-<span class="linenos" data-linenos="36 "></span>    <span class="n">patterns</span> <span class="o">=</span> <span class="p">(</span><span class="n">ignore_patterns</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="37 "></span>    <span class="n">paths_source</span> <span class="o">=</span> <span class="n">find_project_files</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)])</span>
-<span class="linenos" data-linenos="38 "></span>
-<span class="linenos" data-linenos="39 "></span>    <span class="n">write_code_tag_file</span><span class="p">(</span>
-<span class="linenos" data-linenos="40 "></span>        <span class="n">path_tag_summary</span><span class="o">=</span><span class="n">path_tag_summary</span><span class="p">,</span>
-<span class="linenos" data-linenos="41 "></span>        <span class="n">paths_source</span><span class="o">=</span><span class="n">paths_source</span><span class="p">,</span>
-<span class="linenos" data-linenos="42 "></span>        <span class="n">base_dir</span><span class="o">=</span><span class="n">pth_base_dir</span><span class="p">,</span>
-<span class="linenos" data-linenos="43 "></span>        <span class="n">regex</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span>
-<span class="linenos" data-linenos="44 "></span>        <span class="n">tags</span><span class="o">=</span><span class="n">tag_order</span><span class="p">,</span>
-<span class="linenos" data-linenos="45 "></span>        <span class="n">header</span><span class="o">=</span><span class="s1">&#39;# Collected Code Tags&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="46 "></span>    <span class="p">)</span>
+<span class="linenos" data-linenos="19 "></span>        <span class="s1">&#39;doc_sub_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;Subdirectory for output of the code tag summary file&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="20 "></span>        <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;Code Tag Summary Filename&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="21 "></span>        <span class="s1">&#39;tag_order&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordered list of code tags to locate (Comma-separated)&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="22 "></span>        <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="s1">&#39;Custom Code Tag Regex. Must contain &quot;</span><span class="si">{tag}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="23 "></span>        <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">:</span> <span class="s1">&#39;Glob patterns to ignore files and directories when searching (Comma-separated)&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="24 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="25 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="26 "></span><span class="k">def</span> <span class="nf">collect_code_tags</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913,PLR0917</span>
+<span class="linenos" data-linenos="27 "></span>    <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span>
+<span class="linenos" data-linenos="28 "></span>    <span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="29 "></span>    <span class="n">doc_sub_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="30 "></span>    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="31 "></span>    <span class="n">tag_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="n">regex</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="33 "></span>    <span class="n">ignore_patterns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="34 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="35 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="36 "></span>    <span class="n">pth_base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="n">pth_docs</span> <span class="o">=</span> <span class="n">pth_base_dir</span> <span class="o">/</span> <span class="n">doc_sub_dir</span> <span class="k">if</span> <span class="n">doc_sub_dir</span> <span class="k">else</span> <span class="n">get_doc_subdir</span><span class="p">()</span>
+<span class="linenos" data-linenos="38 "></span>    <span class="k">if</span> <span class="n">filename</span> <span class="ow">and</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+<span class="linenos" data-linenos="39 "></span>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unexpected slash in filename. You should consider setting `--doc-sub-dir` instead&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="40 "></span>    <span class="n">path_tag_summary</span> <span class="o">=</span> <span class="n">pth_docs</span> <span class="o">/</span> <span class="p">(</span><span class="n">filename</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">))</span>
+<span class="linenos" data-linenos="41 "></span>    <span class="n">patterns</span> <span class="o">=</span> <span class="p">(</span><span class="n">ignore_patterns</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="42 "></span>    <span class="n">paths_source</span> <span class="o">=</span> <span class="n">find_project_files</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)])</span>
+<span class="linenos" data-linenos="43 "></span>
+<span class="linenos" data-linenos="44 "></span>    <span class="n">write_code_tag_file</span><span class="p">(</span>
+<span class="linenos" data-linenos="45 "></span>        <span class="n">path_tag_summary</span><span class="o">=</span><span class="n">path_tag_summary</span><span class="p">,</span>
+<span class="linenos" data-linenos="46 "></span>        <span class="n">paths_source</span><span class="o">=</span><span class="n">paths_source</span><span class="p">,</span>
+<span class="linenos" data-linenos="47 "></span>        <span class="n">base_dir</span><span class="o">=</span><span class="n">pth_base_dir</span><span class="p">,</span>
+<span class="linenos" data-linenos="48 "></span>        <span class="n">regex</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span>
+<span class="linenos" data-linenos="49 "></span>        <span class="n">tags</span><span class="o">=</span><span class="n">tag_order</span><span class="p">,</span>
+<span class="linenos" data-linenos="50 "></span>        <span class="n">header</span><span class="o">=</span><span class="s1">&#39;# Collected Code Tags&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="51 "></span>    <span class="p">)</span>
 </code></pre></div>
           </details>
   </div>
@@ -1714,7 +1718,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 31, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 1, 2024</span>
   </span>
 
     
@@ -1724,7 +1728,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 31, 2023</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 1, 2024</span>
   </span>
 
     
@@ -1770,10 +1774,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.e1c3ead8.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
