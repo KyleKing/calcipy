@@ -11,13 +11,18 @@ from ..configuration import APP_DIR, TEST_DATA_DIR
 
 
 @beartype
+def _merge_path_kwargs(kwargs: Dict) -> Path:
+    return Path(f"{kwargs['doc_sub_dir']}/{kwargs['filename']}")
+
+
+@beartype
 def _check_no_write(kwargs: Dict) -> None:
-    assert not Path(kwargs['filename']).is_file()
+    assert not _merge_path_kwargs(kwargs).is_file()
 
 
 @beartype
 def _check_output(kwargs: Dict) -> None:
-    path_tag_summary = Path(kwargs['filename'])
+    path_tag_summary = _merge_path_kwargs(kwargs)
     assert path_tag_summary.is_file()
     content = path_tag_summary.read_text()
     path_tag_summary.unlink()
@@ -29,14 +34,16 @@ def _check_output(kwargs: Dict) -> None:
     [
         (collect_code_tags, {
             'base_dir': APP_DIR.as_posix(),
-            'filename': (TEST_DATA_DIR / 'test_tags.md.rej').as_posix(),
+            'doc_sub_dir': TEST_DATA_DIR.as_posix(),
+            'filename': 'test_tags.md.rej',
             'tag_order': 'FIXME,TODO',
             'regex': '',
             'ignore_patterns': '*.py,*.yaml,docs/docs/*.md',
         }, [], _check_no_write),
         (collect_code_tags, {
             'base_dir': APP_DIR.as_posix(),
-            'filename': (TEST_DATA_DIR / 'test_tags.md.rej').as_posix(),
+            'doc_sub_dir': TEST_DATA_DIR.as_posix(),
+            'filename': 'test_tags.md.rej',
         }, [], _check_output),
     ],
     ids=[

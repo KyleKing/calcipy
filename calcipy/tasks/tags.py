@@ -16,15 +16,17 @@ from .defaults import from_ctx
     default=True,
     help={
         'base_dir': 'Working Directory',
+        'doc_sub_dir': 'Subdirectory for output of the code tag summary file',
         'filename': 'Code Tag Summary Filename',
         'tag_order': 'Ordered list of code tags to locate (Comma-separated)',
         'regex': 'Custom Code Tag Regex. Must contain "{tag}"',
         'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated)',
     },
 )
-def collect_code_tags(
+def collect_code_tags(  # noqa: PLR0913,PLR0917
     ctx: Context,
     base_dir: str = '.',
+    doc_sub_dir: str = '',
     filename: Optional[str] = None,
     tag_order: str = '',
     regex: str = '',
@@ -32,7 +34,10 @@ def collect_code_tags(
 ) -> None:
     """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
     pth_base_dir = Path(base_dir).resolve()
-    path_tag_summary = get_doc_subdir() / (filename or from_ctx(ctx, 'tags', 'filename'))
+    pth_docs = pth_base_dir / doc_sub_dir if doc_sub_dir else get_doc_subdir()
+    if filename and '/' in filename:
+        raise RuntimeError('Unexpected slash in filename. You should consider setting `--doc-sub-dir` instead')
+    path_tag_summary = pth_docs / (filename or from_ctx(ctx, 'tags', 'filename'))
     patterns = (ignore_patterns or from_ctx(ctx, 'tags', 'ignore_patterns')).split(',')
     paths_source = find_project_files(pth_base_dir, ignore_patterns=[*filter(lambda item: item, patterns)])
 
