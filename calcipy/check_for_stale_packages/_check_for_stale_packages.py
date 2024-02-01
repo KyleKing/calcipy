@@ -213,7 +213,8 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
         logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
         return True
     if packages:
-        oldest_date = np.amin([pack.datetime for pack in packages])  # pyright: ignore[reportGeneralTypeIssues]
+        datetime_array = np.asarray([pack.datetime for pack in packages])
+        oldest_date = np.amin(datetime_array)
         logger.text('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
     return False
 
