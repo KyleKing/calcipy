@@ -39,7 +39,7 @@ def collect_code_tags(  # noqa: PLR0913,PLR0917
         raise RuntimeError('Unexpected slash in filename. You should consider setting `--doc-sub-dir` instead')
     path_tag_summary = pth_docs / (filename or from_ctx(ctx, 'tags', 'filename'))
     patterns = (ignore_patterns or from_ctx(ctx, 'tags', 'ignore_patterns')).split(',')
-    paths_source = find_project_files(pth_base_dir, ignore_patterns=[*filter(lambda item: item, patterns)])
+    paths_source = find_project_files(pth_base_dir, ignore_patterns=[pattern for pattern in patterns if pattern])
 
     write_code_tag_file(
         path_tag_summary=path_tag_summary,
