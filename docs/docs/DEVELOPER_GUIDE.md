@@ -50,7 +50,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/__init__.py`                                           |           17 |         0 |         17 | 100.0%     |
 | `calcipy/can_skip.py`                                           |           17 |         1 |          0 | 89.3%      |
 | `calcipy/check_for_stale_packages/__init__.py`                  |            4 |         2 |          0 | 50.0%      |
-| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          117 |         8 |          3 | 87.2%      |
+| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` |          118 |         8 |          3 | 87.2%      |
 | `calcipy/cli.py`                                                |           37 |         1 |         36 | 93.3%      |
 | `calcipy/code_tag_collector/__init__.py`                        |            4 |         2 |          0 | 50.0%      |
 | `calcipy/code_tag_collector/_collector.py`                      |          143 |         2 |          0 | 94.0%      |
@@ -79,8 +79,8 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/stale.py`                                        |            9 |         1 |          0 | 90.9%      |
 | `calcipy/tasks/tags.py`                                         |           18 |         1 |          0 | 91.7%      |
 | `calcipy/tasks/test.py`                                         |           45 |         1 |          2 | 89.2%      |
-| `calcipy/tasks/types.py`                                        |           17 |         0 |          0 | 91.3%      |
-| **Totals**                                                      |         1038 |        67 |        182 | 87.2%      |
+| `calcipy/tasks/types.py`                                        |           20 |         0 |          0 | 89.3%      |
+| **Totals**                                                      |         1042 |        67 |        182 | 87.2%      |
 
-Generated on: 2024-01-31
+Generated on: 2024-03-18
 <!-- {cte} -->

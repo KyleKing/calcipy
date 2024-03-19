@@ -36,6 +36,7 @@ python = "^3.9.13"
 arrow = {optional = true, version = ">=1.2.3"} # tags
 autopep8 = {optional = true, version = ">=2.0.1"} # lint
 bandit = {optional = true, version = ">=1.7.4"} # lint
+basedpyright = {optional = true, version = ">=1.6.0"} # types
 beartype = ">=0.16.4"
 bidict = {optional = true, version = ">=0.22.1"} # stale
 commitizen = {optional = true, version = ">=2.42.0"} # doc
@@ -135,7 +136,10 @@ test = [
   "pytest-randomly",
   "pytest-watcher",
 ]
-types = ["mypy"]
+types = [
+  "basedpyright",
+  "mypy",
+]
 
 [tool.poetry.group.dev.dependencies]
 # pytest-benchmark = ">=3.4.1"  # Provides the benchmark fixture

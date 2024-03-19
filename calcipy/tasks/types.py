@@ -17,6 +17,12 @@ def _inner_task(ctx: Context, *, command: str, cli_args: str = '') -> None:
 
 
 @task()
+def basedpyright(ctx: Context) -> None:
+    """Run basedpyright."""
+    _inner_task(ctx, command=f'{python_dir()}/basedpyright')
+
+
+@task()
 def pyright(ctx: Context) -> None:
     """Run pyright."""
     check_installed(ctx, executable='pyright', message=PYRIGHT_MESSAGE)

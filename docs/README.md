@@ -123,6 +123,7 @@ Subcommands:
 
 Subcommands:
 
+  types.basedpyright   Run basedpyright.
   types.mypy      Run mypy.
   types.pyright   Run pyright.
 ```
