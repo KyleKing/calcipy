@@ -168,3 +168,9 @@ calcipy-types = "calcipy.scripts:start_types"
 [tool.pyright]
 include = ["calcipy"]
 pythonVersion = "3.9"
+
+[tool.tomlsort]
+all = true
+in_place = true
+sort_first = ["python"]
+trailing_comma_inline_array = true
