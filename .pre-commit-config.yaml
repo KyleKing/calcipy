@@ -42,7 +42,7 @@ repos:
       - id: trailing-whitespace
         exclude: __snapshots__/.*\.ambr
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.13.0
+    rev: v3.20.0
     hooks:
       - id: commitizen
   - repo: https://github.com/executablebooks/mdformat
@@ -50,12 +50,11 @@ repos:
     hooks:
       - id: mdformat
         additional_dependencies:
-          - "mdformat-mkdocs[recommended]>=2.0.4"
-          - "mdformat-wikilink"
+          - "mdformat-mkdocs[recommended]>=2.0.6"
         args: [--wrap=no]
         exclude: _.+\.md|CHANGELOG\.md|CODE_TAG_SUMMARY\.md
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.6
+    rev: v0.10.0.1
     hooks:
       - id: shellcheck
         args: [--severity=warning]
@@ -70,7 +69,7 @@ repos:
         exclude: \.copier-answers\.yml|tests/.*/cassettes/.*\.yaml
         types_or: [html, javascript, json, shell, yaml]
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.33.0
+    rev: v1.35.1
     hooks:
       - id: yamllint
         exclude: tests/.*/cassettes/.*\.yaml
