@@ -1,5 +1,19 @@
 ## Unreleased
 
+### Feat
+
+- add basedpyright
+
+### Fix
+
+- exclude plantuml package 1.10.0
+
+### Refactor
+
+- replace filter with iterator
+
+## 2.0.4 (2024-01-31)
+
 ### Fix
 
 - add --doc-sub-dir for Code Tag generation without copier-answers
