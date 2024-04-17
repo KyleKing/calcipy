@@ -146,7 +146,7 @@ def build_dist(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cov
     # https://github.com/cjolowicz/nox-poetry/blob/5772b66ebff8d5a3351a08ed402d3d31e48be5f8/src/nox_poetry/sessions.py#L233-L255
     # https://github.com/cjolowicz/nox-poetry/blob/5772b66ebff8d5a3351a08ed402d3d31e48be5f8/src/nox_poetry/poetry.py#L111-L154
     output = session.run(*shlex.split('poetry build --format=wheel --no-ansi'),
-                         external=True, silent=True, stderr=None)
+                         external=True, silent=True)
     output = cast(str, output)
     wheel = dist_path / output.split()[-1]
     path_wheel = wheel.resolve().as_uri()

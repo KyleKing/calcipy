@@ -62,7 +62,7 @@ mkdocs-material = {optional = true, version = ">=9.4.8"} # doc
 mkdocs-section-index = {optional = true, version = ">=0.3.4"} # doc
 mkdocstrings = {extras = ["python"], optional = true, version = ">=0.24.2"} # doc
 mypy = {optional = true, version = ">=1.0.0"} # types
-nox-poetry = {optional = true, version = ">=1.0.2"} # test
+nox-poetry = {optional = true, version = ">=1.0.3"} # test
 pandas = {optional = true, version = ">=1.5.3"} # docs,tags
 pip-check = {optional = true, version = ">=2.8.1"} # lint
 pydantic = ">=2.7.0"
