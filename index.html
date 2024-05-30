@@ -1729,7 +1729,7 @@
 <p>Additionally, <code>calcipy</code> can be run as a CLI application without adding the package as a dependency.</p>
 <p>Quick Start:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># For the CLI, only install a few of the extras which can be used from a few different CLI commands</span>
-<span class="linenos" data-linenos="2 "></span>pipx<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[flake8,lint,tags]&#39;</span>
+<span class="linenos" data-linenos="2 "></span>pipx<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[lint,tags]&#39;</span>
 <span class="linenos" data-linenos="3 "></span>
 <span class="linenos" data-linenos="4 "></span><span class="c1"># Use &#39;tags&#39; to create a CODE_TAG_SUMMARY of the specified directory</span>
 <span class="linenos" data-linenos="5 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
@@ -1776,41 +1776,40 @@
 <span class="linenos" data-linenos="26 "></span>  lint.autopep8       Run autopep8.
 <span class="linenos" data-linenos="27 "></span>  lint.check (lint)   Run ruff as check-only.
 <span class="linenos" data-linenos="28 "></span>  lint.fix            Run ruff and apply fixes.
-<span class="linenos" data-linenos="29 "></span>  lint.flake8         Run flake8.
-<span class="linenos" data-linenos="30 "></span>  lint.pre-commit     Run pre-commit.
-<span class="linenos" data-linenos="31 "></span>  lint.pylint         Run pylint.
-<span class="linenos" data-linenos="32 "></span>  lint.security       Attempt to identify possible security vulnerabilities.
-<span class="linenos" data-linenos="33 "></span>  lint.watch          Run ruff as check-only.
-<span class="linenos" data-linenos="34 "></span>
-<span class="linenos" data-linenos="35 "></span>Global Task Options:
-<span class="linenos" data-linenos="36 "></span>
-<span class="linenos" data-linenos="37 "></span>  *file_args             List of Paths available globally to all tasks. Will resolve paths with working_dir
-<span class="linenos" data-linenos="38 "></span>  --keep-going           Continue running tasks even on failure
-<span class="linenos" data-linenos="39 "></span>  --working_dir=STRING   Set the cwd for the program. Example: &quot;../run --working-dir .. lint test&quot;
-<span class="linenos" data-linenos="40 "></span>  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most verbose)
-<span class="linenos" data-linenos="41 "></span>
-<span class="linenos" data-linenos="42 "></span>&gt; calcipy-pack
-<span class="linenos" data-linenos="43 "></span>
-<span class="linenos" data-linenos="44 "></span>Subcommands:
-<span class="linenos" data-linenos="45 "></span>
-<span class="linenos" data-linenos="46 "></span>  pack.check-licenses   Check licenses for compatibility with `licensecheck`.
-<span class="linenos" data-linenos="47 "></span>  pack.install-extras   Run poetry install with all extras.
-<span class="linenos" data-linenos="48 "></span>  pack.lock             Ensure poetry.lock is  up-to-date.
-<span class="linenos" data-linenos="49 "></span>  pack.publish          Build the distributed format(s) and publish.
-<span class="linenos" data-linenos="50 "></span>
-<span class="linenos" data-linenos="51 "></span>&gt; calcipy-tags
-<span class="linenos" data-linenos="52 "></span>
-<span class="linenos" data-linenos="53 "></span>Subcommands:
-<span class="linenos" data-linenos="54 "></span>
-<span class="linenos" data-linenos="55 "></span>  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table          for TODO- and FIXME-style code comments.
-<span class="linenos" data-linenos="56 "></span>
-<span class="linenos" data-linenos="57 "></span>&gt; calcipy-types
-<span class="linenos" data-linenos="58 "></span>
-<span class="linenos" data-linenos="59 "></span>Subcommands:
-<span class="linenos" data-linenos="60 "></span>
-<span class="linenos" data-linenos="61 "></span>  types.basedpyright   Run basedpyright.
-<span class="linenos" data-linenos="62 "></span>  types.mypy      Run mypy.
-<span class="linenos" data-linenos="63 "></span>  types.pyright   Run pyright.
+<span class="linenos" data-linenos="29 "></span>  lint.pre-commit     Run pre-commit.
+<span class="linenos" data-linenos="30 "></span>  lint.pylint         Run pylint.
+<span class="linenos" data-linenos="31 "></span>  lint.security       Attempt to identify possible security vulnerabilities.
+<span class="linenos" data-linenos="32 "></span>  lint.watch          Run ruff as check-only.
+<span class="linenos" data-linenos="33 "></span>
+<span class="linenos" data-linenos="34 "></span>Global Task Options:
+<span class="linenos" data-linenos="35 "></span>
+<span class="linenos" data-linenos="36 "></span>  *file_args             List of Paths available globally to all tasks. Will resolve paths with working_dir
+<span class="linenos" data-linenos="37 "></span>  --keep-going           Continue running tasks even on failure
+<span class="linenos" data-linenos="38 "></span>  --working_dir=STRING   Set the cwd for the program. Example: &quot;../run --working-dir .. lint test&quot;
+<span class="linenos" data-linenos="39 "></span>  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most verbose)
+<span class="linenos" data-linenos="40 "></span>
+<span class="linenos" data-linenos="41 "></span>&gt; calcipy-pack
+<span class="linenos" data-linenos="42 "></span>
+<span class="linenos" data-linenos="43 "></span>Subcommands:
+<span class="linenos" data-linenos="44 "></span>
+<span class="linenos" data-linenos="45 "></span>  pack.check-licenses   Check licenses for compatibility with `licensecheck`.
+<span class="linenos" data-linenos="46 "></span>  pack.install-extras   Run poetry install with all extras.
+<span class="linenos" data-linenos="47 "></span>  pack.lock             Ensure poetry.lock is  up-to-date.
+<span class="linenos" data-linenos="48 "></span>  pack.publish          Build the distributed format(s) and publish.
+<span class="linenos" data-linenos="49 "></span>
+<span class="linenos" data-linenos="50 "></span>&gt; calcipy-tags
+<span class="linenos" data-linenos="51 "></span>
+<span class="linenos" data-linenos="52 "></span>Subcommands:
+<span class="linenos" data-linenos="53 "></span>
+<span class="linenos" data-linenos="54 "></span>  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table          for TODO- and FIXME-style code comments.
+<span class="linenos" data-linenos="55 "></span>
+<span class="linenos" data-linenos="56 "></span>&gt; calcipy-types
+<span class="linenos" data-linenos="57 "></span>
+<span class="linenos" data-linenos="58 "></span>Subcommands:
+<span class="linenos" data-linenos="59 "></span>
+<span class="linenos" data-linenos="60 "></span>  types.basedpyright   Run basedpyright.
+<span class="linenos" data-linenos="61 "></span>  types.mypy      Run mypy.
+<span class="linenos" data-linenos="62 "></span>  types.pyright   Run pyright.
 </code></pre></div>
 <h3 id="calcipy-pre-commit">Calcipy Pre-Commit<a class="headerlink" href="#calcipy-pre-commit" title="Permanent link">⚓︎</a></h3>
 <p><code>calcipy</code> can also be used as a <code>pre-commit</code> task by adding the below snippet to your <code>pre-commit</code> file:</p>
@@ -1860,7 +1859,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 19, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 30, 2024</span>
   </span>
 
     
