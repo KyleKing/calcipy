@@ -89,7 +89,6 @@ _MAIN_TASKS = [
     stale.check_for_stale_packages,
 ]
 _OTHER_TASKS = [
-    lint.flake8,
     lint.pylint,
     pack.check_licenses,
     test.step,

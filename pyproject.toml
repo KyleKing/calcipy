@@ -41,14 +41,6 @@ beartype = ">=0.18.2"
 bidict = {optional = true, version = ">=0.22.1"} # stale
 commitizen = {optional = true, version = ">=3.22.0"} # doc
 corallium = ">=1.0.2"
-dlint = {optional = true, version = ">=0.14.0"} # flake8
-flake8 = {optional = true, version = ">=6.0.0"} # flake8
-flake8-adjustable-complexity = {optional = true, version = ">=0.0.6"} # flake8
-flake8-annotations-complexity = {optional = true, version = ">=0.0.7"} # flake8
-flake8-expression-complexity = {optional = true, version = ">=0.0.11"} # flake8
-flake8-printf-formatting = {optional = true, version = ">=1.1.2"} # flake8
-flake8-sql = {optional = true, version = ">=0.4.1"} # flake8
-flake8-string-format = {optional = true, version = ">=0.3.0"} # flake8
 griffe = ">=0.32.3" # experimental
 httpx = {optional = true, version = ">=0.24.1"} # stale
 invoke = ">=2.2.0"
@@ -99,16 +91,6 @@ doc = [
   "pymdown-extensions",
   "pyyaml",
   "transitions",
-]
-flake8 = [
-  "dlint",
-  "flake8",
-  "flake8-adjustable-complexity",
-  "flake8-annotations-complexity",
-  "flake8-expression-complexity",
-  "flake8-printf-formatting",
-  "flake8-sql",
-  "flake8-string-format",
 ]
 lint = [
   "autopep8",

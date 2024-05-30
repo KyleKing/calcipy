@@ -11,7 +11,7 @@ from calcipy.tasks.pack import check_licenses, install_extras, lock, publish
     ('task', 'kwargs', 'commands'),
     [
         (install_extras, {}, [call(
-            'poetry install --sync --extras=ddict --extras=doc --extras=flake8 --extras=lint'
+            'poetry install --sync --extras=ddict --extras=doc --extras=lint'
             ' --extras=nox --extras=pylint --extras=stale --extras=tags --extras=test --extras=types',
         )]),
         (lock, {}, [call('poetry lock --no-update')]),

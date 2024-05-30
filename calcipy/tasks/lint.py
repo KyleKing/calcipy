@@ -68,12 +68,6 @@ def watch(ctx: Context) -> None:
     _inner_task(ctx, command='ruff check', cli_args='--watch --show-source')
 
 
-@task()
-def flake8(ctx: Context) -> None:
-    """Run flake8."""
-    _inner_task(ctx, command='flake8', run_as_module=False)
-
-
 @task(
     help={
         'report': 'if provided, show the pylint summary report',

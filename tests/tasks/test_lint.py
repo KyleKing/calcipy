@@ -3,7 +3,7 @@ from unittest.mock import call
 import pytest
 
 from calcipy.tasks.executable_utils import python_dir, python_m
-from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint, security, watch
+from calcipy.tasks.lint import autopep8, check, fix, pre_commit, pylint, security, watch
 
 
 @pytest.mark.parametrize(
@@ -15,7 +15,6 @@ from calcipy.tasks.lint import autopep8, check, fix, flake8, pre_commit, pylint,
         ]),
         (fix, {}, [f'{python_m()} ruff check ./calcipy ./tests --fix']),
         (watch, {}, [f'{python_m()} ruff check ./calcipy ./tests --watch --show-source']),
-        (flake8, {}, [f'{python_dir()}/flake8 ./calcipy ./tests']),
         (pylint, {}, [f'{python_m()} pylint ./calcipy ./tests']),
         (security, {}, [
             f'{python_dir()}/bandit --recursive calcipy -s B101',

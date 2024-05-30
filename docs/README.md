@@ -39,7 +39,7 @@ Quick Start:
 
 ```sh
 # For the CLI, only install a few of the extras which can be used from a few different CLI commands
-pipx install 'calcipy[flake8,lint,tags]'
+pipx install 'calcipy[lint,tags]'
 
 # Use 'tags' to create a CODE_TAG_SUMMARY of the specified directory
 calcipy-tags tags --help
@@ -91,7 +91,6 @@ Subcommands:
   lint.autopep8       Run autopep8.
   lint.check (lint)   Run ruff as check-only.
   lint.fix            Run ruff and apply fixes.
-  lint.flake8         Run flake8.
   lint.pre-commit     Run pre-commit.
   lint.pylint         Run pylint.
   lint.security       Attempt to identify possible security vulnerabilities.
