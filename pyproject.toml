@@ -35,7 +35,6 @@ version = "2.1.0"
 python = "^3.9.13"
 arrow = {optional = true, version = ">=1.2.3"} # tags
 autopep8 = {optional = true, version = ">=2.0.1"} # lint
-bandit = {optional = true, version = ">=1.7.4"} # lint
 basedpyright = {optional = true, version = ">=1.6.0"} # types
 beartype = ">=0.18.2"
 bidict = {optional = true, version = ">=0.22.1"} # stale
@@ -94,7 +93,6 @@ doc = [
 ]
 lint = [
   "autopep8",
-  "bandit",
   "pip-check",
   "ruff",
 ]

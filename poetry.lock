@@ -129,30 +129,6 @@ files = [
 dev = ["freezegun (>=1.0,<2.0)", "pytest (>=6.0)", "pytest-cov"]
 
 [[package]]
-name = "bandit"
-version = "1.7.8"
-description = "Security oriented static analyser for python code."
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "bandit-1.7.8-py3-none-any.whl", hash = "sha256:509f7af645bc0cd8fd4587abc1a038fc795636671ee8204d502b933aee44f381"},
-    {file = "bandit-1.7.8.tar.gz", hash = "sha256:36de50f720856ab24a24dbaa5fee2c66050ed97c1477e0a1159deab1775eab6b"},
-]
-
-[package.dependencies]
-colorama = {version = ">=0.3.9", markers = "platform_system == \"Windows\""}
-PyYAML = ">=5.3.1"
-rich = "*"
-stevedore = ">=1.20.0"
-
-[package.extras]
-baseline = ["GitPython (>=3.1.30)"]
-sarif = ["jschema-to-python (>=1.2.3)", "sarif-om (>=1.0.4)"]
-test = ["beautifulsoup4 (>=4.8.0)", "coverage (>=4.5.4)", "fixtures (>=3.0.0)", "flake8 (>=4.0.0)", "pylint (==1.9.4)", "stestr (>=2.5.0)", "testscenarios (>=0.5.0)", "testtools (>=2.3.0)"]
-toml = ["tomli (>=1.1.0)"]
-yaml = ["PyYAML"]
-
-[[package]]
 name = "basedpyright"
 version = "1.12.4"
 description = "static type checking for Python (but based)"
@@ -1577,17 +1553,6 @@ files = [
 ]
 
 [[package]]
-name = "pbr"
-version = "6.0.0"
-description = "Python Build Reasonableness"
-optional = true
-python-versions = ">=2.6"
-files = [
-    {file = "pbr-6.0.0-py2.py3-none-any.whl", hash = "sha256:4a7317d5e3b17a3dccb6a8cfe67dab65b20551404c52c8ed41279fa4f0cb4cda"},
-    {file = "pbr-6.0.0.tar.gz", hash = "sha256:d1377122a5a00e2f940ee482999518efe16d745d423a670c27773dfbc3c9a7d9"},
-]
-
-[[package]]
 name = "pip"
 version = "24.0"
 description = "The PyPA recommended tool for installing Python packages."
@@ -2340,20 +2305,6 @@ files = [
 ]
 
 [[package]]
-name = "stevedore"
-version = "5.2.0"
-description = "Manage dynamic plugins for Python applications"
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "stevedore-5.2.0-py3-none-any.whl", hash = "sha256:1c15d95766ca0569cad14cb6272d4d31dae66b011a929d7c18219c176ea1b5c9"},
-    {file = "stevedore-5.2.0.tar.gz", hash = "sha256:46b93ca40e1114cea93d738a6c1e365396981bb6bb78c27045b7587c9473544d"},
-]
-
-[package.dependencies]
-pbr = ">=2.0.0,<2.1.0 || >2.1.0"
-
-[[package]]
 name = "syrupy"
 version = "4.6.1"
 description = "Pytest Snapshot Test Utility"
@@ -2842,7 +2793,7 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more
 [extras]
 ddict = ["python-box"]
 doc = ["commitizen", "mkdocs", "mkdocs-build-plantuml-plugin", "mkdocs-gen-files", "mkdocs-git-revision-date-localized-plugin", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pylint", "pymdown-extensions", "pyyaml", "transitions"]
-lint = ["autopep8", "bandit", "pip-check", "ruff"]
+lint = ["autopep8", "pip-check", "ruff"]
 nox = ["nox-poetry", "virtualenv"]
 pylint = ["pylint"]
 stale = ["arrow", "bidict", "httpx", "pyrate_limiter"]
@@ -2853,4 +2804,4 @@ types = ["basedpyright", "mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "7f5a59ac72ddbbba202e29c9ddf77f9c91beef883856db66a6411afaa52e681b"
+content-hash = "24e2ad98b562101bfaf07f42d2ad340d2b373722a4974eb094cf6927bfefe473"

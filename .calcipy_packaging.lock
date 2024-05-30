@@ -63,14 +63,6 @@
         "name": "babel",
         "version": "2.15.0"
     },
-    "bandit": {
-        "datetime": "2024-03-08T19:25:54.618041+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-03-08T19:25:54.618041+00:00",
-        "latest_version": "1.7.8",
-        "name": "bandit",
-        "version": "1.7.8"
-    },
     "basedpyright": {
         "datetime": "2024-05-29T13:03:04.128263+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -575,14 +567,6 @@
         "name": "pathspec",
         "version": "0.12.1"
     },
-    "pbr": {
-        "datetime": "2023-11-07T18:32:21.527935+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-11-07T18:32:21.527935+00:00",
-        "latest_version": "6.0.0",
-        "name": "pbr",
-        "version": "6.0.0"
-    },
     "pip": {
         "datetime": "2024-02-03T09:53:09.575683+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -862,14 +846,6 @@
         "latest_version": "2.4.0",
         "name": "sortedcontainers",
         "version": "2.4.0"
-    },
-    "stevedore": {
-        "datetime": "2024-02-22T20:56:55.149691+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-02-22T20:56:55.149691+00:00",
-        "latest_version": "5.2.0",
-        "name": "stevedore",
-        "version": "5.2.0"
     },
     "syrupy": {
         "datetime": "2024-02-07T05:58:03.481215+00:00",

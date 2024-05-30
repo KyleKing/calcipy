@@ -2,8 +2,8 @@ from unittest.mock import call
 
 import pytest
 
-from calcipy.tasks.executable_utils import python_dir, python_m
-from calcipy.tasks.lint import autopep8, check, fix, pre_commit, pylint, security, watch
+from calcipy.tasks.executable_utils import python_m
+from calcipy.tasks.lint import autopep8, check, fix, pre_commit, pylint, watch
 
 
 @pytest.mark.parametrize(
@@ -16,9 +16,6 @@ from calcipy.tasks.lint import autopep8, check, fix, pre_commit, pylint, securit
         (fix, {}, [f'{python_m()} ruff check ./calcipy ./tests --fix']),
         (watch, {}, [f'{python_m()} ruff check ./calcipy ./tests --watch --show-source']),
         (pylint, {}, [f'{python_m()} pylint ./calcipy ./tests']),
-        (security, {}, [
-            f'{python_dir()}/bandit --recursive calcipy -s B101',
-        ]),
         (pre_commit, {}, [
             call('which pre-commit', warn=True, hide=True),
             'pre-commit install',

@@ -80,7 +80,6 @@ _MAIN_TASKS = [
     types.basedpyright,
     nox.noxfile.with_kwargs(session='tests'),    # pyright: ignore[reportFunctionMemberAccess]
     lint.pre_commit.with_kwargs(no_update=True),    # pyright: ignore[reportFunctionMemberAccess]
-    lint.security,
     tags.collect_code_tags,
     cl.write,
     pack.lock,

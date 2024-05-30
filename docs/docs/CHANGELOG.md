@@ -1,5 +1,10 @@
 ## Unreleased
 
+### Feat
+
+- remove bandit/security task
+- remove flake8
+
 ### Fix
 
 - remove semgrep
