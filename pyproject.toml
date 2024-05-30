@@ -40,7 +40,7 @@ basedpyright = {optional = true, version = ">=1.6.0"} # types
 beartype = ">=0.18.2"
 bidict = {optional = true, version = ">=0.22.1"} # stale
 commitizen = {optional = true, version = ">=3.22.0"} # doc
-corallium = ">=1.0.0"
+corallium = ">=1.0.2"
 dlint = {optional = true, version = ">=0.14.0"} # flake8
 flake8 = {optional = true, version = ">=6.0.0"} # flake8
 flake8-adjustable-complexity = {optional = true, version = ">=0.0.6"} # flake8
