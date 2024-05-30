@@ -44,10 +44,6 @@ PYRIGHT_MESSAGE = """
 `pyright` was not found and must be installed separately (such as 'brew install pyright' on Mac).
     See the online documentation for your system: https://microsoft.github.io/pyright/#/installation
 """
-SEMGREP_MESSAGE = """
-`semgrep` was not found and must be installed separately (such as 'pipx install semgrep').
-    See the online documentation for your system: https://github.com/returntocorp/semgrep
-"""
 
 
 @beartype
