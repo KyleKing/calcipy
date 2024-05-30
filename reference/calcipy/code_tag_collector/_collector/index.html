@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.6543a935.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1691,11 +1691,11 @@
 
 
 <a id="calcipy.code_tag_collector._collector"></a>
-  <div class="doc doc-contents first">
-  
+    <div class="doc doc-contents first">
+
       <p>Collect code tags and output for review in a single location.</p>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1710,9 +1710,9 @@
 
 
 <h3 id="calcipy.code_tag_collector._collector.CODE_TAG_RE" class="doc doc-heading">
-          <span class="doc doc-object-name doc-attribute-name">CODE_TAG_RE</span>
+            <span class="doc doc-object-name doc-attribute-name">CODE_TAG_RE</span>
 
-  
+
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
   </span>
@@ -1721,12 +1721,12 @@
 <div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">CODE_TAG_RE</span> <span class="o">=</span> <span class="s1">&#39;((^|</span><span class="se">\\</span><span class="s1">s|</span><span class="se">\\</span><span class="s1">(|&quot;|</span><span class="se">\\\&#39;</span><span class="s1">)(?P&lt;tag&gt;</span><span class="si">{tag}</span><span class="s1">)(:| -)([^</span><span class="se">\\</span><span class="s1">r</span><span class="se">\\</span><span class="s1">n]))(?P&lt;text&gt;.+)&#39;</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Default code tag regex with <code>tag</code> and <code>text</code> matching groups.</p>
 <p>Requires formatting with list of tags: <code>CODE_TAG_RE.format(tag='|'.join(tag_list))</code></p>
 <p>Commonly, the <code>tag_list</code> could be <code>COMMON_CODE_TAGS</code></p>
-  </div>
+    </div>
 
 </div>
 
@@ -1735,9 +1735,9 @@
 
 
 <h3 id="calcipy.code_tag_collector._collector.COMMON_CODE_TAGS" class="doc doc-heading">
-          <span class="doc doc-object-name doc-attribute-name">COMMON_CODE_TAGS</span>
+            <span class="doc doc-object-name doc-attribute-name">COMMON_CODE_TAGS</span>
 
-  
+
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
   </span>
@@ -1746,11 +1746,11 @@
 <div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">COMMON_CODE_TAGS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FIXME&#39;</span><span class="p">,</span> <span class="s1">&#39;TODO&#39;</span><span class="p">,</span> <span class="s1">&#39;PLANNED&#39;</span><span class="p">,</span> <span class="s1">&#39;HACK&#39;</span><span class="p">,</span> <span class="s1">&#39;REVIEW&#39;</span><span class="p">,</span> <span class="s1">&#39;TBD&#39;</span><span class="p">,</span> <span class="s1">&#39;DEBUG&#39;</span><span class="p">]</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Most common code tags.</p>
 <p>FYI and NOTE are excluded to not be tracked in the Code Summary.</p>
-  </div>
+    </div>
 
 </div>
 
@@ -1759,9 +1759,9 @@
 
 
 <h3 id="calcipy.code_tag_collector._collector.SKIP_PHRASE" class="doc doc-heading">
-          <span class="doc doc-object-name doc-attribute-name">SKIP_PHRASE</span>
+            <span class="doc doc-object-name doc-attribute-name">SKIP_PHRASE</span>
 
-  
+
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
   </span>
@@ -1770,91 +1770,87 @@
 <div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">SKIP_PHRASE</span> <span class="o">=</span> <span class="s1">&#39;calcipy_skip_tags&#39;</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>String that indicates the file should be excluded from the tag search.</p>
-  </div>
+    </div>
 
 </div>
 
 <h2 id="calcipy.code_tag_collector._collector-functions">Functions<a href="#calcipy.code_tag_collector._collector-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
 
-
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="calcipy.code_tag_collector._collector.github_blame_url" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">github_blame_url</span>
+            <span class="doc doc-object-name doc-function-name">github_blame_url</span>
 
 
 <a href="#calcipy.code_tag_collector._collector.github_blame_url" class="headerlink" title="Permanent link">⚓︎</a></h3>
 <div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nf">github_blame_url</span><span class="p">(</span><span class="n">clone_uri</span><span class="p">)</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Format the blame URL.</p>
 
 
-
-  <table>
-    <thead>
-      <tr>
-        <th><b>PARAMETER</b></th>
-        <th><b> DESCRIPTION</b></th>
-      </tr>
-    </thead>
-    <tbody>
+<table>
+      <thead>
         <tr>
-          <td><code>clone_uri</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>git remote URI</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
-            </p>
-          </td>
+          <th><span class="doc-section-title">PARAMETER</span></th>
+          <th><span>DESCRIPTION</span></th>
         </tr>
-    </tbody>
-  </table>
-
-
-
-  <table>
-    <thead>
-      <tr>
-        <th><b>RETURNS</b></th>
-        <th><b>DESCRIPTION</b></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-              <code>str</code>
-          </td>
-          <td class="doc-returns-details">
-            <div class="doc-md-description">
-              <p><code>repo_url</code></p>
-            </div>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>clone_uri</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>git remote URI</p>
+              </div>
               <p>
-                <span class="doc-returns-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
               </p>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>calcipy/code_tag_collector/_collector.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="117 "></span><span class="nd">@beartype</span>
+
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">RETURNS</span></th>
+          <th><span>DESCRIPTION</span></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>str</code>
+            </td>
+            <td class="doc-returns-details">
+              <div class="doc-md-description">
+                <p><code>repo_url</code></p>
+              </div>
+                <p>
+                  <span class="doc-returns-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
+                </p>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+            <details class="quote">
+              <summary>Source code in <code>calcipy/code_tag_collector/_collector.py</code></summary>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="117 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="118 "></span><span class="k">def</span> <span class="nf">github_blame_url</span><span class="p">(</span><span class="n">clone_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="linenos" data-linenos="119 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Format the blame URL.</span>
 <span class="linenos" data-linenos="120 "></span>
@@ -1873,18 +1869,16 @@
 <span class="linenos" data-linenos="133 "></span>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">github_url</span><span class="si">}{</span><span class="n">matches</span><span class="p">[</span><span class="s1">&#39;owner&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">matches</span><span class="p">[</span><span class="s1">&#39;repository&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="linenos" data-linenos="134 "></span>    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 </code></pre></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="calcipy.code_tag_collector._collector.write_code_tag_file" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">write_code_tag_file</span>
+            <span class="doc doc-object-name doc-function-name">write_code_tag_file</span>
 
 
 <a href="#calcipy.code_tag_collector._collector.write_code_tag_file" class="headerlink" title="Permanent link">⚓︎</a></h3>
@@ -1893,123 +1887,122 @@
 <span class="linenos" data-linenos="3 "></span><span class="p">)</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Create the code tag summary file.</p>
 
 
-
-  <table>
-    <thead>
-      <tr>
-        <th><b>PARAMETER</b></th>
-        <th><b> DESCRIPTION</b></th>
-      </tr>
-    </thead>
-    <tbody>
+<table>
+      <thead>
         <tr>
-          <td><code>path_tag_summary</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>Path to the output file</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="pathlib.Path">Path</span></code>
-                </span>
-            </p>
-          </td>
+          <th><span class="doc-section-title">PARAMETER</span></th>
+          <th><span>DESCRIPTION</span></th>
         </tr>
-        <tr>
-          <td><code>paths_source</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>list of source files to parse</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="beartype.typing.List">List</span>[<span title="pathlib.Path">Path</span>]</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td><code>base_dir</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>base directory relative to the searched files</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="pathlib.Path">Path</span></code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td><code>regex</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>compiled regular expression. Expected to have matching groups <code>(tag, text)</code>.
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>path_tag_summary</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>Path to the output file</p>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="pathlib.Path">Path</span></code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>paths_source</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>list of source files to parse</p>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="beartype.typing.List">List</span>[<span title="pathlib.Path">Path</span>]</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>base_dir</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>base directory relative to the searched files</p>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="pathlib.Path">Path</span></code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>regex</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>compiled regular expression. Expected to have matching groups <code>(tag, text)</code>.
 Default is CODE_TAG_RE with tags from tag_order</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>&#39;&#39;</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td><code>tags</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>&#39;&#39;</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td><code>header</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>header text</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>&#39;# Task Summary\n\nAuto-Generated by `calcipy`&#39;</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>&#39;&#39;</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>tags</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>subset of all tags to include in the report and specified order. Default is COMMON_CODE_TAGS</p>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>&#39;&#39;</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>header</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>header text</p>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>&#39;# Task Summary\n\nAuto-Generated by `calcipy`&#39;</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>calcipy/code_tag_collector/_collector.py</code></summary>
-            <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="295 "></span><span class="nd">@beartype</span>
+            <details class="quote">
+              <summary>Source code in <code>calcipy/code_tag_collector/_collector.py</code></summary>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="295 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="296 "></span><span class="k">def</span> <span class="nf">write_code_tag_file</span><span class="p">(</span>
 <span class="linenos" data-linenos="297 "></span>    <span class="n">path_tag_summary</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
 <span class="linenos" data-linenos="298 "></span>    <span class="n">paths_source</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
@@ -2043,8 +2036,8 @@ Default is CODE_TAG_RE with tags from tag_order</p>
 <span class="linenos" data-linenos="326 "></span>    <span class="k">elif</span> <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
 <span class="linenos" data-linenos="327 "></span>        <span class="n">path_tag_summary</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 </code></pre></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
 
@@ -2052,7 +2045,7 @@ Default is CODE_TAG_RE with tags from tag_order</p>
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
@@ -2077,7 +2070,7 @@ Default is CODE_TAG_RE with tags from tag_order</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 18, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 30, 2024</span>
   </span>
 
     
@@ -2087,7 +2080,7 @@ Default is CODE_TAG_RE with tags from tag_order</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 18, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 30, 2024</span>
   </span>
 
     
@@ -2136,7 +2129,7 @@ Default is CODE_TAG_RE with tags from tag_order</p>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
