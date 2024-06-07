@@ -2,8 +2,8 @@
 
 from invoke.context import Context
 
-from ..check_for_stale_packages import check_for_stale_packages as cfsp
-from ..cli import task
+from calcipy.check_for_stale_packages import check_for_stale_packages as cfsp
+from calcipy.cli import task
 
 
 @task(

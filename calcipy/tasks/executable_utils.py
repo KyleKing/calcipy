@@ -8,7 +8,7 @@ from pathlib import Path
 from beartype import beartype
 from invoke.context import Context
 
-from ..invoke_helpers import run
+from calcipy.invoke_helpers import run
 
 
 @lru_cache(maxsize=1)

@@ -19,7 +19,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_valid
 from pyrate_limiter import Rate
 from pyrate_limiter.limiter import Limiter
 
-from .. import can_skip  # Required for mocking can_skip.can_skip
+from calcipy import can_skip  # Required for mocking can_skip.can_skip
 
 CALCIPY_CACHE = Path('.calcipy_packaging.lock')
 """Path to the packaging lock file."""

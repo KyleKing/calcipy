@@ -6,8 +6,7 @@ from beartype import beartype
 from beartype.typing import Callable, Dict, List
 
 from calcipy.tasks.tags import collect_code_tags
-
-from ..configuration import APP_DIR, TEST_DATA_DIR
+from tests.configuration import APP_DIR, TEST_DATA_DIR
 
 
 @beartype

@@ -11,8 +11,7 @@ from calcipy.code_tag_collector._collector import (
     _Tags,
     github_blame_url,
 )
-
-from ..configuration import TEST_DATA_DIR
+from tests.configuration import TEST_DATA_DIR
 
 TEST_PROJECT = TEST_DATA_DIR / 'test_project'
 

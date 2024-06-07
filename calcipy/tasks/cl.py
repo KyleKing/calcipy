@@ -4,8 +4,9 @@ from beartype import beartype
 from beartype.typing import Literal, Optional
 from invoke.context import Context
 
-from ..cli import task
-from ..invoke_helpers import get_doc_subdir, get_project_path, run
+from calcipy.cli import task
+from calcipy.invoke_helpers import get_doc_subdir, get_project_path, run
+
 from .executable_utils import GH_MESSAGE, check_installed, python_dir
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]

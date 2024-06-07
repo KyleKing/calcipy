@@ -5,9 +5,10 @@ from corallium.file_helpers import LOCK, PROJECT_TOML
 from corallium.log import logger
 from invoke.context import Context
 
-from .. import can_skip  # Required for mocking can_skip.can_skip
-from ..cli import task
-from ..invoke_helpers import run
+from calcipy import can_skip  # Required for mocking can_skip.can_skip
+from calcipy.cli import task
+from calcipy.invoke_helpers import run
+
 from .executable_utils import python_dir
 
 
@@ -76,7 +77,7 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
         poetry_config = file_helpers.read_pyproject()['tool']['poetry']
         pkg_name = poetry_config['name']
 
-    from ..experiments import bump_programmatically  # noqa: PLC0415
+    from calcipy.experiments import bump_programmatically  # noqa: PLC0415
 
     new_version = bump_programmatically.bump_tag(
         pkg_name=pkg_name,

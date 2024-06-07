@@ -6,7 +6,8 @@ from corallium.log import logger
 from invoke.context import Context
 from invoke.tasks import Call
 
-from ..cli import task
+from calcipy.cli import task
+
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
 from ._invoke import Collection, DeferedTask, _build_task
 from .defaults import new_collection

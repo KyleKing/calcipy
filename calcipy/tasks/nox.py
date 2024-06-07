@@ -2,8 +2,9 @@
 
 from invoke.context import Context
 
-from ..cli import task
-from ..invoke_helpers import run
+from calcipy.cli import task
+from calcipy.invoke_helpers import run
+
 from .executable_utils import python_dir
 
 

@@ -14,8 +14,7 @@ from calcipy.md_writer._writer import (
     _parse_var_comment,
     write_autoformatted_md_sections,
 )
-
-from ..configuration import TEST_DATA_DIR
+from tests.configuration import TEST_DATA_DIR
 
 SAMPLE_README_PATH = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
 

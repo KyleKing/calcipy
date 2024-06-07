@@ -5,10 +5,11 @@ from pathlib import Path
 from beartype.typing import Optional
 from invoke.context import Context
 
-from ..cli import task
-from ..code_tag_collector import write_code_tag_file
-from ..file_search import find_project_files
-from ..invoke_helpers import get_doc_subdir
+from calcipy.cli import task
+from calcipy.code_tag_collector import write_code_tag_file
+from calcipy.file_search import find_project_files
+from calcipy.invoke_helpers import get_doc_subdir
+
 from .defaults import from_ctx
 
 

@@ -11,8 +11,8 @@ from corallium.file_helpers import read_lines
 from corallium.log import logger
 from transitions import Machine
 
-from ..file_search import find_project_files_by_suffix
-from ..invoke_helpers import get_project_path
+from calcipy.file_search import find_project_files_by_suffix
+from calcipy.invoke_helpers import get_project_path
 
 HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
 """Handler Lookup."""

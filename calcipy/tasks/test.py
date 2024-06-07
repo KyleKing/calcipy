@@ -7,9 +7,10 @@ from beartype.typing import Optional
 from corallium.file_helpers import open_in_browser, read_package_name
 from invoke.context import Context
 
-from ..cli import task
-from ..experiments import check_duplicate_test_names
-from ..invoke_helpers import run
+from calcipy.cli import task
+from calcipy.experiments import check_duplicate_test_names
+from calcipy.invoke_helpers import run
+
 from .defaults import from_ctx
 from .executable_utils import python_dir
 

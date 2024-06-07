@@ -7,8 +7,9 @@ from beartype.typing import Optional
 from corallium.file_helpers import read_package_name
 from invoke.context import Context
 
-from ..cli import task
-from ..invoke_helpers import run
+from calcipy.cli import task
+from calcipy.invoke_helpers import run
+
 from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir, python_m
 
 # ==============================================================================
@@ -43,10 +44,17 @@ def check(ctx: Context) -> None:
     _inner_task(ctx, command='ruff check')
 
 
-@task()
-def fix(ctx: Context) -> None:
+@task(
+    help={
+        'unsafe': 'if provided, attempt even fixes considered unsafe',
+    },
+)
+def fix(ctx: Context, *, unsafe: bool = False) -> None:
     """Run ruff and apply fixes."""
-    _inner_task(ctx, command='ruff check', cli_args='--fix')
+    cli_args = '--fix'
+    if unsafe:
+        cli_args += ' --unsafe-fixes'
+    _inner_task(ctx, command='ruff check', cli_args=cli_args)
 
 
 @task()

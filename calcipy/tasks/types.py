@@ -4,8 +4,9 @@ from beartype import beartype
 from corallium.file_helpers import read_package_name
 from invoke.context import Context
 
-from ..cli import task
-from ..invoke_helpers import run
+from calcipy.cli import task
+from calcipy.invoke_helpers import run
+
 from .executable_utils import PYRIGHT_MESSAGE, check_installed, python_dir
 
 

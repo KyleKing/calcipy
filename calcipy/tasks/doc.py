@@ -17,9 +17,10 @@ from corallium.file_helpers import (
 from invoke.context import Context
 from invoke.exceptions import UnexpectedExit
 
-from ..cli import task
-from ..invoke_helpers import get_doc_subdir, get_project_path, run
-from ..md_writer import write_autoformatted_md_sections
+from calcipy.cli import task
+from calcipy.invoke_helpers import get_doc_subdir, get_project_path, run
+from calcipy.md_writer import write_autoformatted_md_sections
+
 from .executable_utils import python_dir
 
 
