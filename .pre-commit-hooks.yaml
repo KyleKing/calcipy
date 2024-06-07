@@ -20,15 +20,6 @@
   name: Lint-Fix
   require_serial: true
   types: [python]
-- id: flake8
-  additional_dependencies: [".[flake8]"]
-  description: "Legacy: lint with flake8 packages not yet in ruff"
-  entry: calcipy-lint lint.flake8
-  language: python
-  minimum_pre_commit_version: 2.9.2
-  name: flake8
-  require_serial: true
-  types: [python]
 - id: tags
   additional_dependencies: [".[tags]"]
   description: "Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments"

@@ -6,6 +6,22 @@ requires = ["poetry-core"]
 version = "2.1.0"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
+[tool.mypy]
+check_untyped_defs = false
+disallow_any_generics = true
+enable_error_code = "ignore-without-code"
+follow_imports = "silent"
+no_implicit_reexport = true
+plugins = [
+  "pydantic.mypy", # Most settings are from: https://pydantic-docs.helpmanual.io/mypy_plugin
+]
+python_version = "3.9"
+show_column_numbers = true
+show_error_codes = true
+warn_redundant_casts = true
+warn_unreachable = true
+warn_unused_ignores = true
+
 [tool.poetry]
 authors = ["Kyle King <dev.act.kyle@gmail.com>"]
 classifiers = [
@@ -145,9 +161,103 @@ calcipy-types = "calcipy.scripts:start_types"
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 "Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
 
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
 [tool.pyright]
 include = ["calcipy"]
 pythonVersion = "3.9"
+
+[tool.ruff]
+# Docs: https://github.com/charliermarsh/ruff
+# Tip: poetry run python -m ruff --explain RUF100
+line-length = 120
+target-version = 'py39'
+
+[tool.ruff.lint]
+external = [
+  'CAC001', # <func> is too complex (8 > 7)
+  'ECE001', # Expression is too complex (8 > 7)
+]
+ignore = [
+  'ANN002', # Missing type annotation for `*args`
+  'ANN003', # Missing type annotation for `**kwargs`
+  'ANN101', # Missing type annotation for `self` in method
+  'ANN102', # Missing type annotation for `cls` in classmethod
+  'ANN401', # Dynamically typed expressions (typing.Any) are disallowed in `**kwargs`
+  'BLE001', # Do not catch blind exception: `Exception`
+  'CPY001', # Missing copyright notice at top of file
+  'D203', # "1 blank line required before class docstring" (Conflicts with D211)
+  'D213', # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
+  'D4', # Numpy-Style Docstrings (e.g. "Section name should end with a newline ("Returns")")
+  'EM101', # Exception must not use a string literal, assign to variable first
+  'FBT002', # Boolean default value in function definition
+  'FIX001', # Line contains FIXME
+  'FIX002', # Line contains TODO
+  'FIX004', # Line contains HACK
+  'N999', # Invalid module name: '_noxfile'
+  'RUF013', # PEP 484 prohibits implicit `Optional`
+  'TCH001', # Move application import `{}` into a type-checking block
+  'TCH002', # Move third-party import `{}` into a type-checking block
+  'TCH003', # Move standard library import `pathlib.Path` into a type-checking block
+  'TD001', # Invalid TODO tag: `FIXME`
+  'TD002', # Missing author in TODO; try: `# TODO(<author_name>): ...`
+  'TD003', # Missing issue link on the line following this TODO
+  'TID252', # Relative imports from parent modules are banned
+  'TRY003', # Avoid specifying long messages outside the exception class
+]
+preview = true
+select = ['ALL']
+unfixable = [
+  'ERA001', # Commented out code
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = 'single'
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+'invoke.collection.Collection'.msg = 'Use calcipy.cli.Collection instead.'
+'invoke.tasks.task'.msg = 'Use calcipy.cli.task instead.'
+'typing.Callable'.msg = 'Use beartype.typing.* instead.'
+'typing.Dict'.msg = 'Use beartype.typing.* instead.'
+'typing.List'.msg = 'Use beartype.typing.* instead.'
+'typing.Optional'.msg = 'Use beartype.typing.* instead.'
+'typing.Protocol'.msg = 'Use beartype.typing.* instead.'
+'typing.TypeVar'.msg = 'Use beartype.typing.* instead.'
+
+[tool.ruff.lint.isort]
+known-first-party = ['test_template']
+
+[tool.ruff.lint.per-file-ignores]
+'./calcipy/../*.py' = [
+  'INP001', # File `/<>.py` is part of an implicit namespace package. Add an `__init__.py`.
+]
+'__init__.py' = [
+  'D104', # Missing docstring in public package
+  'F401', # imported but unused; consider adding to __all__ or using a redundant alias
+]
+'scripts/*.py' = [
+  'INP001', # File `scripts/*.py` is part of an implicit namespace package. Add an `__init__.py`.
+]
+'scripts/check_imports.py' = [
+  'F401', # imported but unused; consider adding to __all__ or using a redundant alias
+]
+'tests/*.py' = [
+  'ANN001', # Missing type annotation for function argument
+  'ANN201', # Missing return type annotation for public function
+  'ANN202', # Missing return type annotation for private function `test_make_diffable`
+  'D100', # Missing docstring in public module
+  'D103', # Missing docstring in public function
+  'EM102', # Exception must not use an f-string literal, assign to variable first
+  'PLC2701', # Private name import `_<>` from external module
+  'PT004', # flake8-pytest-style: fixture does not return
+  'S101', # Use of `assert` detected
+]
+
+[tool.ruff.lint.pylint]
+max-args = 6
 
 [tool.tomlsort]
 all = true
