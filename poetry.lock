@@ -391,13 +391,13 @@ tomlkit = ">=0.5.3,<1.0.0"
 
 [[package]]
 name = "corallium"
-version = "1.0.3"
+version = "2.0.0"
 description = "Shared functionality for the calcipy-ecosystem"
 optional = false
 python-versions = "<4.0.0,>=3.9.13"
 files = [
-    {file = "corallium-1.0.3-py3-none-any.whl", hash = "sha256:9eaba076072d5b4ee2073ec77eeaca7e177e3bfe8c073553be9ad385b5aa6ed0"},
-    {file = "corallium-1.0.3.tar.gz", hash = "sha256:4600c43e59fd69b35310fd4d46f40354d7d17a88605cc8fa55c806b0c4c94234"},
+    {file = "corallium-2.0.0-py3-none-any.whl", hash = "sha256:ae753ec2dbfe917ed82bb8fed7d68c00f0a74841a2a93727e949a88f3c5d5e6f"},
+    {file = "corallium-2.0.0.tar.gz", hash = "sha256:c2790a359288463ce388c836258f26c3edac5b25f975645f93b817a7bd2ed5d1"},
 ]
 
 [package.dependencies]
