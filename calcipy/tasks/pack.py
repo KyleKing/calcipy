@@ -70,13 +70,13 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
     ```
 
     """
-    from ..experiments import bump_programmatically  # noqa: PLC0415
-
     if not tag:
         raise ValueError('tag must not be empty')
     if not pkg_name:
         poetry_config = file_helpers.read_pyproject()['tool']['poetry']
         pkg_name = poetry_config['name']
+
+    from ..experiments import bump_programmatically  # noqa: PLC0415
 
     new_version = bump_programmatically.bump_tag(
         pkg_name=pkg_name,
