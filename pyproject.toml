@@ -8,6 +8,9 @@ version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
 check_untyped_defs = false
+disable_error_code = [
+  "import-untyped", # Skipping analyzing "corallium.log": module is installed, but missing library stubs or py.typed marker
+]
 disallow_any_generics = true
 enable_error_code = "ignore-without-code"
 follow_imports = "silent"
@@ -80,7 +83,7 @@ pytest-randomly = {optional = true, version = ">=3.12.0"} # test
 pytest-watcher = {optional = true, version = ">=0.4.2"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc,tags
-ruff = {optional = true, version = ">=0.3.7"} # lint
+ruff = {optional = true, version = ">=0.4.4"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 transitions = {optional = true, version = ">=0.9.0"} # tags: docs
@@ -140,6 +143,7 @@ types = [
 [tool.poetry.group.dev.dependencies]
 # pytest-benchmark = ">=3.4.1"  # Provides the benchmark fixture
 hypothesis = {extras = ["cli"], version = ">=6.100.1"} # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
+pandas-stubs = ">=2.2.2.240603"
 pytest-asyncio = ">=0.21.0"
 pytest-recording = ">=0.13.0"
 pytest-subprocess = ">=1.4.1"

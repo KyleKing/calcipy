@@ -58,4 +58,4 @@ def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
     """
     path_copier = (path_project or get_project_path()) / COPIER_ANSWERS
     doc_dir = read_yaml_file(path_copier).get('doc_dir', 'docs')
-    return path_copier.parent / doc_dir / 'docs'  # type: ignore[no-any-return]
+    return path_copier.parent / doc_dir / 'docs'

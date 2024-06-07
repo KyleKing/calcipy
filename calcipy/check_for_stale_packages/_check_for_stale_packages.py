@@ -108,7 +108,7 @@ def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPython
 
     """
     if not path_pack_lock.is_file():
-        path_pack_lock.write_text('{}', encoding='utf-8')  # noqa: P103
+        path_pack_lock.write_text('{}', encoding='utf-8')
     old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text(encoding='utf-8'))
     return {
         package_name: _HostedPythonPackage(**meta_data)  # type: ignore[arg-type]
