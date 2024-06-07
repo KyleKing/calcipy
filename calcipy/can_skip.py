@@ -4,7 +4,7 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import List
-from corallium.log import logger
+from corallium.log import LOGGER
 
 
 @beartype
@@ -28,7 +28,7 @@ def can_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
 
     ts_targets = [pth.stat().st_mtime for pth in targets]
     if ts_targets and min(ts_targets) > max(ts_prerequisites):
-        logger.warning('Skipping because targets are newer', targets=targets)
+        LOGGER.warning('Skipping because targets are newer', targets=targets)
         return True
     return False
 
@@ -36,5 +36,5 @@ def can_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
 @beartype
 def dont_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
     """To use for testing with mock; always returns False."""
-    logger.debug('Mocking can_skip', prerequisites=prerequisites, targets=targets)
+    LOGGER.debug('Mocking can_skip', prerequisites=prerequisites, targets=targets)
     return False

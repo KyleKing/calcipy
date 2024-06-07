@@ -3,7 +3,7 @@
 import griffe
 import semver
 from beartype import beartype
-from corallium.log import logger
+from corallium.log import LOGGER
 from griffe.exceptions import BuiltinModuleError
 
 
@@ -20,16 +20,16 @@ def bump_tag(*, pkg_name: str, tag: str, tag_prefix: str) -> str:
     breakages = [*griffe.find_breaking_changes(previous, current)]
     for breakage in breakages:
         try:
-            logger.text(breakage._explain_oneline())  # noqa: SLF001
+            LOGGER.text(breakage._explain_oneline())  # noqa: SLF001
         except BuiltinModuleError:  # noqa: PERF203
-            logger.warning(str(breakage))
+            LOGGER.warning(str(breakage))
         except Exception:
-            logger.exception(str(breakage))
+            LOGGER.exception(str(breakage))
 
     try:
         ver = semver.Version.parse(tag.replace(tag_prefix, ''))
     except ValueError:
-        logger.exception('Failed to parse tag', tag=tag)
+        LOGGER.exception('Failed to parse tag', tag=tag)
         return ''
     new_ver = ver.bump_minor() if any(breakages) else ver.bump_patch()
     return f'{tag_prefix}{new_ver}'

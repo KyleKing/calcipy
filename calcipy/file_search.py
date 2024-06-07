@@ -5,7 +5,7 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import Dict, List, Optional
-from corallium.log import logger
+from corallium.log import LOGGER
 from corallium.shell import capture_shell
 
 
@@ -81,7 +81,7 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
         if path_file.is_file():
             file_paths.append(path_file)
         else:  # pragma: no cover
-            logger.warning('Could not find the specified file', path_file=path_file)
+            LOGGER.warning('Could not find the specified file', path_file=path_file)
     return file_paths
 
 

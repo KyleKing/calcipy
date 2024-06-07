@@ -2,7 +2,7 @@
 
 from beartype import beartype
 from beartype.typing import Any, List, Union
-from corallium.log import logger
+from corallium.log import LOGGER
 from invoke.context import Context
 from invoke.tasks import Call
 
@@ -34,7 +34,7 @@ ns.add_collection(Collection.from_module(types))
 )
 def summary(_ctx: Context, *, message: str) -> None:
     """Summary Task."""
-    logger.text(message, is_header=True)
+    LOGGER.text(message, is_header=True)
 
 
 @task(
@@ -46,7 +46,7 @@ def summary(_ctx: Context, *, message: str) -> None:
 )
 def progress(_ctx: Context, *, index: int, total: int) -> None:
     """Progress Task."""
-    logger.text('Progress', is_header=True, index=index + 1, total=total)
+    LOGGER.text('Progress', is_header=True, index=index + 1, total=total)
 
 
 TaskList = List[Union[Call, DeferedTask]]

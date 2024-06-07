@@ -8,7 +8,7 @@ from types import ModuleType
 
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional, Tuple, Union
-from corallium.log import configure_logger, logger
+from corallium.log import LOGGER, configure_logger
 from invoke.collection import Collection as InvokeCollection  # noqa: TID251
 from invoke.context import Context
 from invoke.tasks import Task
@@ -51,14 +51,14 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
     """Run the task function with optional logging."""
     if show_task_info:
         summary = func.__doc__.split('\n')[0]
-        logger.text(f'Running {func.__name__}', is_header=True, summary=summary)
-        logger.text_debug('With task arguments', args=args, kwargs=kwargs)
+        LOGGER.text(f'Running {func.__name__}', is_header=True, summary=summary)
+        LOGGER.text_debug('With task arguments', args=args, kwargs=kwargs)
 
     result = func(ctx, *args, **kwargs)
 
     if show_task_info:
-        logger.text('')
-        logger.text_debug(f'Completed {func.__name__}', result=result)
+        LOGGER.text('')
+        LOGGER.text_debug(f'Completed {func.__name__}', result=result)
 
     return result
 
@@ -80,7 +80,7 @@ def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **k
     except Exception:
         if not ctx.config.gto.keep_going:
             raise
-        logger.exception('Task Failed', func=str(func), args=args, kwargs=kwargs)
+        LOGGER.exception('Task Failed', func=str(func), args=args, kwargs=kwargs)
     return None
 
 

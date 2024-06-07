@@ -13,7 +13,7 @@ from beartype import beartype
 from beartype.typing import Dict, List, Optional, Union
 from bidict import bidict
 from corallium.file_helpers import LOCK
-from corallium.log import logger
+from corallium.log import LOGGER
 from corallium.tomllib import tomllib
 from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 from pyrate_limiter import Rate
@@ -150,7 +150,7 @@ def _collect_release_dates(
             elif cached_package:
                 updated_packages.append(cached_package)
         except httpx.HTTPError as exc:  # noqa: PERF203
-            logger.warning('Could not lock package', package=package, error=str(exc))
+            LOGGER.warning('Could not lock package', package=package, error=str(exc))
     return updated_packages
 
 
@@ -221,12 +221,12 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
     if stale_packages:
         pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
         stale_list = '\n'.join([format_package(_p) for _p in pkgs])
-        logger.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
+        LOGGER.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
         return True
     if packages:
         datetime_array = np.asarray([pack.datetime for pack in packages])
         oldest_date = np.amin(datetime_array)
-        logger.text('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
+        LOGGER.text('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
     return False
 
 

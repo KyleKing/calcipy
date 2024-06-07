@@ -12,7 +12,7 @@ import pandas as pd
 from beartype import beartype
 from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from corallium.file_helpers import read_lines
-from corallium.log import logger
+from corallium.log import LOGGER
 from corallium.shell import capture_shell
 from pydantic import BaseModel, ConfigDict
 
@@ -82,7 +82,7 @@ def _search_lines(
                 group = match.groupdict()
                 comments.append(_CodeTag(lineno=lineno + 1, tag=group['tag'], text=group['text']))
             else:
-                logger.text_debug('Skipping long line', lineno=lineno, line=line[:200])
+                LOGGER.text_debug('Skipping long line', lineno=lineno, line=line[:200])
     return comments
 
 
@@ -106,7 +106,7 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
         try:
             lines = read_lines(path_source)
         except UnicodeDecodeError as err:
-            logger.text_debug('Could not parse', path_source=path_source, err=err)
+            LOGGER.text_debug('Could not parse', path_source=path_source, err=err)
 
         if comments := _search_lines(lines, regex_compiled):
             matches.append(_Tags(path_source=path_source, code_tags=comments))
@@ -249,7 +249,7 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _Colle
         handled_errors = (128,)
         if exc.returncode not in handled_errors:
             raise
-        logger.text_debug('Skipping blame', file_path=file_path, exc=exc)
+        LOGGER.text_debug('Skipping blame', file_path=file_path, exc=exc)
 
     return collector_row
 
@@ -293,10 +293,10 @@ def _format_report(
             if not line.startswith('/'):
                 output += '\n'
             output += line
-    logger.text_debug('counter', counter=counter)
+    LOGGER.text_debug('counter', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}
-    logger.text_debug('sorted_counter', sorted_counter=sorted_counter)
+    LOGGER.text_debug('sorted_counter', sorted_counter=sorted_counter)
     if formatted_summary := ', '.join(
         f'{tag} ({count})' for tag, count in sorted_counter.items()
     ):
@@ -335,6 +335,6 @@ def write_code_tag_file(
     ).strip():
         path_tag_summary.parent.mkdir(exist_ok=True, parents=True)
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
-        logger.text('Created Code Tag Summary', path_tag_summary=path_tag_summary)
+        LOGGER.text('Created Code Tag Summary', path_tag_summary=path_tag_summary)
     elif path_tag_summary.is_file():
         path_tag_summary.unlink()

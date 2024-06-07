@@ -8,7 +8,7 @@ import pandas as pd
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
-from corallium.log import logger
+from corallium.log import LOGGER
 from transitions import Machine
 
 from calcipy.file_search import find_project_files_by_suffix
@@ -103,7 +103,7 @@ class _ReplacementMachine(Machine):
                     lines.append(line)
                     self.end()
             else:
-                logger.warning('Could not parse. Skipping:', line=line)
+                LOGGER.warning('Could not parse. Skipping:', line=line)
                 lines.append(line)
                 self.end()
         elif self.state == self.state_user:
@@ -156,7 +156,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     language = path_source.suffix.lstrip('.')
     lines_source = [f'```{language}', *read_lines(path_source), '```']
     if not path_source.is_file():
-        logger.warning('Could not locate source file', path_source=path_source)
+        LOGGER.warning('Could not locate source file', path_source=path_source)
 
     line_start = f'<!-- {{cts}} {key}={path_rel}; -->'
     line_end = '<!-- {cte} -->'
@@ -242,6 +242,6 @@ def write_autoformatted_md_sections(
 
     paths = paths_md or find_project_files_by_suffix(get_project_path()).get('md') or []
     for path_md in paths:
-        logger.text_debug('Processing', path_md=path_md)
+        LOGGER.text_debug('Processing', path_md=path_md)
         if md_lines := _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md):
             path_md.write_text('\n'.join(md_lines) + '\n', encoding='utf-8')

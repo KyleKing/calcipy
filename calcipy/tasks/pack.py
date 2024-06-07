@@ -2,7 +2,7 @@
 
 from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import LOCK, PROJECT_TOML
-from corallium.log import logger
+from corallium.log import LOGGER
 from invoke.context import Context
 
 from calcipy import can_skip  # Required for mocking can_skip.can_skip
@@ -49,7 +49,7 @@ def check_licenses(ctx: Context) -> None:
     """Check licenses for compatibility with `licensecheck`."""
     res = run(ctx, 'which licensecheck', warn=True, hide=True)
     if not res or res.exited == 1:
-        logger.warning('`licensecheck` not found. installing with pipx')
+        LOGGER.warning('`licensecheck` not found. installing with pipx')
         run(ctx, 'pipx install licensecheck')
     run(ctx, 'licensecheck')
 
@@ -84,4 +84,4 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
         tag=tag,
         tag_prefix=tag_prefix,
     )
-    logger.text(new_version)
+    LOGGER.text(new_version)

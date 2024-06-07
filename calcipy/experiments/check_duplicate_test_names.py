@@ -5,15 +5,15 @@ from pathlib import Path
 
 from beartype import beartype
 from beartype.typing import List, Union
-from corallium.log import logger
+from corallium.log import LOGGER
 
 
 @beartype
 def _show_info(function: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> None:
     """Print info about the function."""
-    logger.info('> name', name=function.name)
+    LOGGER.info('> name', name=function.name)
     if function.args.args:
-        logger.info('\t args', args=function.args.args)
+        LOGGER.info('\t args', args=function.args.args)
 
 
 @beartype
@@ -27,7 +27,7 @@ def run(test_path: Path) -> List[str]:  # noqa: C901  # pylint: disable=too-comp
     duplicates = []
 
     for path_test in test_path.rglob('test_*.py'):  # pylint: disable=too-many-nested-blocks
-        logger.info(path_test.as_posix())
+        LOGGER.info(path_test.as_posix())
         parsed_ast = ast.parse(path_test.read_text())
 
         for node in parsed_ast.body:
@@ -37,7 +37,7 @@ def run(test_path: Path) -> List[str]:  # noqa: C901  # pylint: disable=too-comp
                 summary.add(node.name)
                 _show_info(node)
             elif isinstance(node, ast.ClassDef):
-                logger.info('Class name', name=node.name)
+                LOGGER.info('Class name', name=node.name)
                 for method in node.body:
                     if isinstance(method, ast.FunctionDef):
                         _show_info(method)
@@ -47,12 +47,12 @@ def run(test_path: Path) -> List[str]:  # noqa: C901  # pylint: disable=too-comp
                 isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
                 and node.name not in summary
             ):
-                logger.info('Found new function(s) through walking')
+                LOGGER.info('Found new function(s) through walking')
                 _show_info(node)
                 summary.add(node.name)
 
     if duplicates:
-        logger.error('Found Duplicates', duplicates=duplicates)
+        LOGGER.error('Found Duplicates', duplicates=duplicates)
     return duplicates
 
 

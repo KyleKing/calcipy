@@ -42,7 +42,7 @@ from beartype import beartype
 from beartype.typing import Dict, List, Union, cast
 from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import get_tool_versions, if_found_unlink, read_package_name
-from corallium.log import logger
+from corallium.log import LOGGER
 from nox import Session as NoxSession
 from nox_poetry import session as nox_poetry_session
 from nox_poetry.poetry import DistributionFormat
@@ -152,7 +152,7 @@ def build_dist(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cov
     wheel = dist_path / output.split()[-1]
     path_wheel = wheel.resolve().as_uri()
 
-    logger.text('Created wheel', path_wheel=path_wheel)
+    LOGGER.text('Created wheel', path_wheel=path_wheel)
     # Install the wheel and check that imports without any of the optional dependencies
     session.install(path_wheel)
     session.run(*shlex.split('python scripts/check_imports.py'), stdout=True)
@@ -164,7 +164,7 @@ def build_check(session: NPSession) -> None:  # pragma: no cover
     # Build sdist and fix return URI, which will have file://...#egg=calcipy
     sdist_uri = session.poetry.build_package(distribution_format=DistributionFormat.SDIST)
     path_sdist = Path(url2pathname(urlparse(sdist_uri).path))
-    logger.text_debug('Fixed sdist URI', sdist_uri=sdist_uri, path_sdist=path_sdist)
+    LOGGER.text_debug('Fixed sdist URI', sdist_uri=sdist_uri, path_sdist=path_sdist)
     # Check with pyroma
     session.install('pyroma>=4.0', '--upgrade')
     # required for "poetry.core.masonry.api" build backend
