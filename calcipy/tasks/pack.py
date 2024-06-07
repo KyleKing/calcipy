@@ -12,20 +12,20 @@ from .executable_utils import python_dir
 
 
 @task()
-def install_extras(ctx: Context) -> None:
-    """Run poetry install with all extras."""
-    poetry_config = file_helpers.read_pyproject()['tool']['poetry']
-    extras = (poetry_config.get('extras') or {}).keys()
-    run(ctx, ' '.join(['poetry install --sync', *[f'--extras={ex}' for ex in extras]]))
-
-
-@task()
 def lock(ctx: Context) -> None:
     """Ensure poetry.lock is  up-to-date."""
     if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
         return  # Exit early
 
     run(ctx, 'poetry lock --no-update')
+
+
+@task(pre=[lock])
+def install_extras(ctx: Context) -> None:
+    """Run poetry install with all extras."""
+    poetry_config = file_helpers.read_pyproject()['tool']['poetry']
+    extras = (poetry_config.get('extras') or {}).keys()
+    run(ctx, ' '.join(['poetry install --sync', *[f'--extras={ex}' for ex in extras]]))
 
 
 @task(
