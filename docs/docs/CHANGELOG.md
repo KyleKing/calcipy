@@ -1,5 +1,19 @@
 ## Unreleased
 
+### Fix
+
+- resolve remaining ruff errors manually
+- use all-caps LOGGER from corallium
+- require lock before install-extras
+- copier-auto-update
+
+### Refactor
+
+- unsafe fixes from ruff
+- safe fixes from ruff
+
+## 2.2.0rc0 (2024-06-06)
+
 ### Feat
 
 - remove bandit/security task
@@ -7,6 +21,8 @@
 
 ### Fix
 
+- make experimental dependencies optional
+- remove pip-check
 - shorten main task list
 - remove autopep8
 - remove semgrep
