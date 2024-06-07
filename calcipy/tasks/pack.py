@@ -7,7 +7,6 @@ from invoke.context import Context
 
 from .. import can_skip  # Required for mocking can_skip.can_skip
 from ..cli import task
-from ..experiments import bump_programmatically
 from ..invoke_helpers import run
 from .executable_utils import python_dir
 
@@ -71,6 +70,8 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
     ```
 
     """
+    from ..experiments import bump_programmatically  # noqa: PLC0415
+
     if not tag:
         raise ValueError('tag must not be empty')
     if not pkg_name:
