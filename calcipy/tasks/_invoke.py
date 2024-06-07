@@ -65,7 +65,7 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
 
 @beartype
 def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **kwargs: Any) -> Any:  # pragma: no cover
-    """Extended task logic."""
+    """Wrap task with extended logic."""
     try:
         ctx.config.gto  # noqa: B018
     except AttributeError:

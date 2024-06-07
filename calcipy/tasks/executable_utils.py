@@ -22,7 +22,7 @@ def resolve_python() -> Path:
 
 @lru_cache(maxsize=1)
 def python_dir() -> str:
-    """Runs an executable from the currently active Python directory."""
+    """Run an executable from the currently active Python directory."""
     return str(resolve_python().parent)
 
 

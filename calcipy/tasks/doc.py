@@ -34,6 +34,7 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
 
     Args:
     ----
+        ctx: invoke task context
         pdoc_out_path: path to the top-level pdoc output. Expect subdir with module name
 
     """

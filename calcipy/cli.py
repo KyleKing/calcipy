@@ -107,7 +107,7 @@ def start_program(
 
 
 def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-arg]
-    """Marks wrapped callable object as a valid Invoke task."""
+    """Mark wrapped callable object as a valid Invoke task."""
     def wrapper(func: Any) -> Callable:  # type: ignore[type-arg]
         # Attach arguments for Task
         setattr(func, TASK_ARGS_ATTR, dec_args)

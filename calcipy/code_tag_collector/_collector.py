@@ -306,6 +306,7 @@ def _format_report(
 
 @beartype
 def write_code_tag_file(
+    *,
     path_tag_summary: Path,
     paths_source: List[Path],
     base_dir: Path,

@@ -24,7 +24,7 @@ from .defaults import from_ctx
         'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated)',
     },
 )
-def collect_code_tags(  # noqa: PLR0913,PLR0917
+def collect_code_tags(  # noqa: PLR0917
     ctx: Context,
     base_dir: str = '.',
     doc_sub_dir: str = '',

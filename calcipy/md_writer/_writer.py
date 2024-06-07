@@ -38,7 +38,8 @@ class _ReplacementMachine(Machine):
                 'trigger': 'start_auto',
                 'source': self.state_user,
                 'dest': self.state_auto,
-            }, {
+            },
+            {
                 'trigger': 'end',
                 'source': self.state_auto,
                 'dest': self.state_user,
@@ -52,7 +53,9 @@ class _ReplacementMachine(Machine):
 
     @beartype
     def parse(
-        self, lines: List[str], handler_lookup: HandlerLookupT,
+        self,
+        lines: List[str],
+        handler_lookup: HandlerLookupT,
         path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
@@ -75,7 +78,10 @@ class _ReplacementMachine(Machine):
 
     @beartype
     def _parse_line(
-        self, line: str, handler_lookup: HandlerLookupT, path_file: Path,
+        self,
+        line: str,
+        handler_lookup: HandlerLookupT,
+        path_file: Path,
     ) -> List[str]:
         """Parse lines and insert new_text based on provided handler_lookup.
 
@@ -186,12 +192,15 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
         {
             'File': f'`{Path(path_file).as_posix()}`',
             **{col: file_obj['summary'][key] for col, key in col_key_map.items()},
-        } for path_file, file_obj in coverage_data['files'].items()
+        }
+        for path_file, file_obj in coverage_data['files'].items()
     ]
-    records.append({
-        'File': '**Totals**',
-        **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
-    })
+    records.append(
+        {
+            'File': '**Totals**',
+            **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
+        },
+    )
     # Format table for Github Markdown
     df_cov = pd.DataFrame(records)
     df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
@@ -208,7 +217,8 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
     Args:
     ----
         line: first line of the section
-        path_file: path to the file that contained the string
+        _path_file: path to the file that contained the string (unused)
+        path_coverage: full path to a coverage.json file or defaults to the project
 
     Returns:
     -------

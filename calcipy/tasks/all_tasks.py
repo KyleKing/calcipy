@@ -99,7 +99,7 @@ _OTHER_TASKS = [
 
 @task(post=with_progress(_MAIN_TASKS))
 def main(_ctx: Context) -> None:
-    """Main task pipeline."""
+    """Run main task pipeline."""
 
 
 @task(post=with_progress(_OTHER_TASKS))
@@ -120,7 +120,7 @@ def other(_ctx: Context) -> None:
     ),
 )
 def release(ctx: Context, *, suffix: cl.SuffixT = None) -> None:
-    """Release pipeline."""
+    """Run release pipeline."""
     cl.bumpz(ctx, suffix=suffix)
 
 

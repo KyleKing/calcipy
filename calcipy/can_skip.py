@@ -9,12 +9,12 @@ from corallium.log import LOGGER
 
 @beartype
 def can_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
-    """Generic make-style task skipping logic based on file `mtime`.
+    """Return true if the prerequisite files are have newer `mtime` than targets.
 
     Example use with Invoke, but can be used anywhere:
 
     ```py
-    @task
+    @task()
     def test(ctx: Context) -> None:
         if can_skip(prerequisites=[*Path('src').rglob('*.py')], targets=[Path('.coverage.xml')]):
             return  # Exit early

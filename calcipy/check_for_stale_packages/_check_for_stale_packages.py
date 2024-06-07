@@ -232,11 +232,13 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
 
 @beartype
 def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_cache: Path = CALCIPY_CACHE) -> bool:
-    """Read the cached packaging information.
+    """Check for stale packages by reading from the cache, and updating if necessary.
 
     Args:
     ----
         stale_months: cutoff in months for when a package might be stale enough to be a risk
+        path_lock: path to poetry lock file
+        path_cache: path to calcipy package cache file
 
     """
     packages = _read_packages(path_lock)
