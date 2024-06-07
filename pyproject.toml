@@ -50,7 +50,6 @@ version = "2.1.0"
 [tool.poetry.dependencies]
 python = "^3.9.13"
 arrow = {optional = true, version = ">=1.2.3"} # tags
-autopep8 = {optional = true, version = ">=2.0.1"} # lint
 basedpyright = {optional = true, version = ">=1.6.0"} # types
 beartype = ">=0.18.2"
 bidict = {optional = true, version = ">=0.22.1"} # stale
@@ -71,7 +70,6 @@ mkdocstrings = {extras = ["python"], optional = true, version = ">=0.24.2"} # do
 mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.3"} # test
 pandas = {optional = true, version = ">=1.5.3"} # docs,tags
-pip-check = {optional = true, version = ">=2.8.1"} # lint
 pydantic = ">=2.7.0"
 pylint = {optional = true, version = ">=3.0.2"} # doc,pylint
 pymdown-extensions = {optional = true, version = ">=10.0.1"} # docs
@@ -108,8 +106,6 @@ doc = [
   "transitions",
 ]
 lint = [
-  "autopep8",
-  "pip-check",
   "ruff",
 ]
 nox = ["nox-poetry", "virtualenv"]
