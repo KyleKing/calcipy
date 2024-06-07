@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
     
     
       
@@ -167,7 +167,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -1697,35 +1697,37 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="57 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="58 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="59 "></span>        <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="s1">&#39;Last tag, can be provided with `--tag=&quot;$(git tag -l &quot;v*&quot; | sort | tail -n 1)&quot;`&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="60 "></span>        <span class="s1">&#39;tag_prefix&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional tag prefix, such as &quot;v&quot;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="61 "></span>        <span class="s1">&#39;pkg_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional package name. If not provided, will read the poetry pyproject.toml file&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="62 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="63 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="64 "></span><span class="k">def</span> <span class="nf">bump_tag</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tag_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG001</span>
-<span class="linenos" data-linenos="65 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Experiment with bumping the git tag using `griffe`.</span>
-<span class="linenos" data-linenos="66 "></span>
-<span class="linenos" data-linenos="67 "></span><span class="sd">    Example for `calcipy`:</span>
-<span class="linenos" data-linenos="68 "></span>
-<span class="linenos" data-linenos="69 "></span><span class="sd">    ```sh</span>
-<span class="linenos" data-linenos="70 "></span><span class="sd">    ./run pack.bump-tag --tag=&quot;$(git tag -l &quot;*&quot; | sort | head -n 5 | tail -n 1)&quot; --tag-prefix=&quot;&quot;</span>
-<span class="linenos" data-linenos="71 "></span><span class="sd">    ```</span>
-<span class="linenos" data-linenos="72 "></span>
-<span class="linenos" data-linenos="73 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="74 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="p">:</span>
-<span class="linenos" data-linenos="75 "></span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;tag must not be empty&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="76 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pkg_name</span><span class="p">:</span>
-<span class="linenos" data-linenos="77 "></span>        <span class="n">poetry_config</span> <span class="o">=</span> <span class="n">file_helpers</span><span class="o">.</span><span class="n">read_pyproject</span><span class="p">()[</span><span class="s1">&#39;tool&#39;</span><span class="p">][</span><span class="s1">&#39;poetry&#39;</span><span class="p">]</span>
-<span class="linenos" data-linenos="78 "></span>        <span class="n">pkg_name</span> <span class="o">=</span> <span class="n">poetry_config</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="linenos" data-linenos="79 "></span>
-<span class="linenos" data-linenos="80 "></span>    <span class="n">new_version</span> <span class="o">=</span> <span class="n">bump_programmatically</span><span class="o">.</span><span class="n">bump_tag</span><span class="p">(</span>
-<span class="linenos" data-linenos="81 "></span>        <span class="n">pkg_name</span><span class="o">=</span><span class="n">pkg_name</span><span class="p">,</span>
-<span class="linenos" data-linenos="82 "></span>        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
-<span class="linenos" data-linenos="83 "></span>        <span class="n">tag_prefix</span><span class="o">=</span><span class="n">tag_prefix</span><span class="p">,</span>
-<span class="linenos" data-linenos="84 "></span>    <span class="p">)</span>
-<span class="linenos" data-linenos="85 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">new_version</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="56 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="57 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="58 "></span>        <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="s1">&#39;Last tag, can be provided with `--tag=&quot;$(git tag -l &quot;v*&quot; | sort | tail -n 1)&quot;`&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="59 "></span>        <span class="s1">&#39;tag_prefix&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional tag prefix, such as &quot;v&quot;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="60 "></span>        <span class="s1">&#39;pkg_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional package name. If not provided, will read the poetry pyproject.toml file&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="61 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="62 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="63 "></span><span class="k">def</span> <span class="nf">bump_tag</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tag_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG001</span>
+<span class="linenos" data-linenos="64 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Experiment with bumping the git tag using `griffe`.</span>
+<span class="linenos" data-linenos="65 "></span>
+<span class="linenos" data-linenos="66 "></span><span class="sd">    Example for `calcipy`:</span>
+<span class="linenos" data-linenos="67 "></span>
+<span class="linenos" data-linenos="68 "></span><span class="sd">    ```sh</span>
+<span class="linenos" data-linenos="69 "></span><span class="sd">    ./run pack.bump-tag --tag=&quot;$(git tag -l &quot;*&quot; | sort | head -n 5 | tail -n 1)&quot; --tag-prefix=&quot;&quot;</span>
+<span class="linenos" data-linenos="70 "></span><span class="sd">    ```</span>
+<span class="linenos" data-linenos="71 "></span>
+<span class="linenos" data-linenos="72 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="73 "></span>    <span class="kn">from</span> <span class="nn">..experiments</span> <span class="kn">import</span> <span class="n">bump_programmatically</span>  <span class="c1"># noqa: PLC0415</span>
+<span class="linenos" data-linenos="74 "></span>
+<span class="linenos" data-linenos="75 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="p">:</span>
+<span class="linenos" data-linenos="76 "></span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;tag must not be empty&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="77 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pkg_name</span><span class="p">:</span>
+<span class="linenos" data-linenos="78 "></span>        <span class="n">poetry_config</span> <span class="o">=</span> <span class="n">file_helpers</span><span class="o">.</span><span class="n">read_pyproject</span><span class="p">()[</span><span class="s1">&#39;tool&#39;</span><span class="p">][</span><span class="s1">&#39;poetry&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos="79 "></span>        <span class="n">pkg_name</span> <span class="o">=</span> <span class="n">poetry_config</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos="80 "></span>
+<span class="linenos" data-linenos="81 "></span>    <span class="n">new_version</span> <span class="o">=</span> <span class="n">bump_programmatically</span><span class="o">.</span><span class="n">bump_tag</span><span class="p">(</span>
+<span class="linenos" data-linenos="82 "></span>        <span class="n">pkg_name</span><span class="o">=</span><span class="n">pkg_name</span><span class="p">,</span>
+<span class="linenos" data-linenos="83 "></span>        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
+<span class="linenos" data-linenos="84 "></span>        <span class="n">tag_prefix</span><span class="o">=</span><span class="n">tag_prefix</span><span class="p">,</span>
+<span class="linenos" data-linenos="85 "></span>    <span class="p">)</span>
+<span class="linenos" data-linenos="86 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">new_version</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1749,14 +1751,14 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="48 "></span><span class="k">def</span> <span class="nf">check_licenses</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="49 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check licenses for compatibility with `licensecheck`.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="50 "></span>    <span class="n">res</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;which licensecheck&#39;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="51 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="linenos" data-linenos="52 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;`licensecheck` not found. installing with pipx&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="53 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pipx install licensecheck&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="54 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;licensecheck&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">check_licenses</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check licenses for compatibility with `licensecheck`.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="49 "></span>    <span class="n">res</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;which licensecheck&#39;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span> <span class="ow">or</span> <span class="n">res</span><span class="o">.</span><span class="n">exited</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="linenos" data-linenos="51 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;`licensecheck` not found. installing with pipx&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="52 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pipx install licensecheck&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="53 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;licensecheck&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1780,12 +1782,12 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="15 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="16 "></span><span class="k">def</span> <span class="nf">install_extras</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run poetry install with all extras.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="18 "></span>    <span class="n">poetry_config</span> <span class="o">=</span> <span class="n">file_helpers</span><span class="o">.</span><span class="n">read_pyproject</span><span class="p">()[</span><span class="s1">&#39;tool&#39;</span><span class="p">][</span><span class="s1">&#39;poetry&#39;</span><span class="p">]</span>
-<span class="linenos" data-linenos="19 "></span>    <span class="n">extras</span> <span class="o">=</span> <span class="p">(</span><span class="n">poetry_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extras&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="linenos" data-linenos="20 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;poetry install --sync&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;--extras=</span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">extras</span><span class="p">]]))</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="14 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="15 "></span><span class="k">def</span> <span class="nf">install_extras</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="16 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run poetry install with all extras.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="17 "></span>    <span class="n">poetry_config</span> <span class="o">=</span> <span class="n">file_helpers</span><span class="o">.</span><span class="n">read_pyproject</span><span class="p">()[</span><span class="s1">&#39;tool&#39;</span><span class="p">][</span><span class="s1">&#39;poetry&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos="18 "></span>    <span class="n">extras</span> <span class="o">=</span> <span class="p">(</span><span class="n">poetry_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extras&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="linenos" data-linenos="19 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;poetry install --sync&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;--extras=</span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">extras</span><span class="p">]]))</span>
 </code></pre></div>
             </details>
     </div>
@@ -1809,13 +1811,13 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="23 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="24 "></span><span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="25 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure poetry.lock is  up-to-date.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="26 "></span>    <span class="k">if</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">PROJECT_TOML</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">LOCK</span><span class="p">]):</span>
-<span class="linenos" data-linenos="27 "></span>        <span class="k">return</span>  <span class="c1"># Exit early</span>
-<span class="linenos" data-linenos="28 "></span>
-<span class="linenos" data-linenos="29 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;poetry lock --no-update&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="22 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="23 "></span><span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="24 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensure poetry.lock is  up-to-date.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="k">if</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">PROJECT_TOML</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">LOCK</span><span class="p">]):</span>
+<span class="linenos" data-linenos="26 "></span>        <span class="k">return</span>  <span class="c1"># Exit early</span>
+<span class="linenos" data-linenos="27 "></span>
+<span class="linenos" data-linenos="28 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;poetry lock --no-update&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1839,19 +1841,19 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="32 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="33 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="34 "></span>        <span class="s1">&#39;to_test_pypi&#39;</span><span class="p">:</span> <span class="s1">&#39;Publish to the TestPyPi repository&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="35 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="36 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="37 "></span><span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">to_test_pypi</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="38 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the distributed format(s) and publish.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="39 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/nox --error-on-missing-interpreters --session build_dist build_check&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="40 "></span>
-<span class="linenos" data-linenos="41 "></span>    <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;poetry publish&#39;</span>
-<span class="linenos" data-linenos="42 "></span>    <span class="k">if</span> <span class="n">to_test_pypi</span><span class="p">:</span>
-<span class="linenos" data-linenos="43 "></span>        <span class="n">cmd</span> <span class="o">+=</span> <span class="s1">&#39; --repository testpypi&#39;</span>
-<span class="linenos" data-linenos="44 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="31 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="33 "></span>        <span class="s1">&#39;to_test_pypi&#39;</span><span class="p">:</span> <span class="s1">&#39;Publish to the TestPyPi repository&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="34 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="35 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="36 "></span><span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">to_test_pypi</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="37 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the distributed format(s) and publish.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="38 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/nox --error-on-missing-interpreters --session build_dist build_check&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="39 "></span>
+<span class="linenos" data-linenos="40 "></span>    <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;poetry publish&#39;</span>
+<span class="linenos" data-linenos="41 "></span>    <span class="k">if</span> <span class="n">to_test_pypi</span><span class="p">:</span>
+<span class="linenos" data-linenos="42 "></span>        <span class="n">cmd</span> <span class="o">+=</span> <span class="s1">&#39; --repository testpypi&#39;</span>
+<span class="linenos" data-linenos="43 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1887,7 +1889,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 30, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 7, 2024</span>
   </span>
 
     
@@ -1897,7 +1899,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 30, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 7, 2024</span>
   </span>
 
     
@@ -1946,7 +1948,7 @@
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["toc.autohide"], "search": "../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
