@@ -50,9 +50,11 @@ def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
     """Retrieve the documentation directory from the copier answer file.
 
     Args:
+    ----
         path_project: Path to the project directory with contains `.copier-answers.yml`
 
     Returns:
+    -------
         Path: to the source documentation directory
 
     """

@@ -32,6 +32,7 @@ def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
     PUML support may be coming in a future release: https://github.com/PyCQA/pylint/issues/4498
 
     Args:
+    ----
         pdoc_out_path: path to the top-level pdoc output. Expect subdir with module name
 
     """
@@ -88,7 +89,8 @@ def _is_mkdocs_local() -> bool:
 
     Additional information on using local search here: https://github.com/wilhelmer/mkdocs-localsearch
 
-    Returns:
+    Returns
+    -------
         bool: True if configured for local file output rather than hosted
 
     """

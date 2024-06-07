@@ -61,11 +61,13 @@ def _search_lines(
     """Search lines of text for matches to the compiled regular expression.
 
     Args:
+    ----
         lines: lines of text as list
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
         skip_phrase: skip file if string is found in final two lines. Default is `SKIP_PHRASE`
 
     Returns:
+    -------
         List[_CodeTag]: list of all code tags found in lines
 
     """
@@ -89,10 +91,12 @@ def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) ->
     """Collect matches from multiple files.
 
     Args:
+    ----
         paths_source: list of source files to parse
         regex_compiled: compiled regular expression. Expected to have matching groups `(tag, text)`
 
     Returns:
+    -------
         List[_Tags]: list of all code tags found in files
 
     """
@@ -119,9 +123,11 @@ def github_blame_url(clone_uri: str) -> str:
     """Format the blame URL.
 
     Args:
+    ----
         clone_uri: git remote URI
 
     Returns:
+    -------
        str: `repo_url`
 
     """
@@ -142,9 +148,11 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
     and: https://github.com/rscherf/GitLink/blob/e2e7c412630246efc86de4fe71192f15bf11209e/GitLink.py
 
     Args:
+    ----
         cwd: Path to the current working directory (typically file_path.parent)
 
     Returns:
+    -------
         Tuple[Path, str]: (git_dir, repo_url)
 
     """
@@ -211,11 +219,13 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _Colle
     """Format each table row for the code tag summary file. Include git permalink.
 
     Args:
+    ----
         base_dir: base path of the project if git directory is not known
         file_path: path to the file of interest
         comment: _CodeTag information for the matched tag
 
     Returns:
+    -------
         Dict[str, str]: formatted dictionary with file info
 
     """
@@ -245,17 +255,19 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _Colle
 
 
 @beartype
-def _format_report(  # noqa: CAC001
+def _format_report(
     base_dir: Path, code_tags: List[_Tags], tag_order: List[str],
 ) -> str:
     """Pretty-format the code tags by file and line number.
 
     Args:
+    ----
         base_dir: base directory relative to the searched files
         code_tags: list of all code tags found in files
         tag_order: subset of all tags to include in the report and specified order
 
     Returns:
+    -------
         str: pretty-formatted text
 
     """
@@ -304,6 +316,7 @@ def write_code_tag_file(
     """Create the code tag summary file.
 
     Args:
+    ----
         path_tag_summary: Path to the output file
         paths_source: list of source files to parse
         base_dir: base directory relative to the searched files

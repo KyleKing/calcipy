@@ -55,7 +55,7 @@ class CalcipyConfig(Config):
 
 
 @beartype
-def start_program(  # noqa: CAC001
+def start_program(
     pkg_name: str,
     pkg_version: str,
     module: Optional[ModuleType] = None,

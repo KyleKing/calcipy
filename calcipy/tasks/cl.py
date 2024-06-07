@@ -25,7 +25,8 @@ def write(ctx: Context) -> None:
     - https://semver.org/
     - https://calver.org/
 
-    Returns:
+    Returns
+    -------
         List[DoitAction]: doit actions
 
     """

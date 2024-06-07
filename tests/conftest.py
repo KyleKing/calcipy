@@ -14,7 +14,8 @@ from .configuration import TEST_TMP_CACHE, clear_test_cache
 def vcr_config() -> Dict:
     """Global configuration (https://github.com/kiwicom/pytest-recording) for `pytest-recording` (vcr).
 
-    Returns:
+    Returns
+    -------
         Dict: `pytest-recording` options
 
     """
@@ -30,7 +31,8 @@ def vcr_config() -> Dict:
 def fix_test_cache() -> Path:
     """Fixture to clear and return the test cache directory for use.
 
-    Returns:
+    Returns
+    -------
         Path: Path to the test cache directory
 
     """

@@ -22,9 +22,11 @@ def _get_all_files(*, cwd: Path) -> List[str]:
     https://github.com/pre-commit/pre-commit/blob/488b1999f36cac62b6b0d9bc8eae99418ae5c226/pre_commit/git.py#L153
 
     Args:
+    ----
         cwd: current working directory to pass to `subprocess.Popen`
 
     Returns:
+    -------
         List[str]: list of all file paths relative to the `cwd`
 
     """
@@ -36,10 +38,12 @@ def _filter_files(rel_filepaths: List[str], ignore_patterns: List[str]) -> List[
     """Filter a list of string file paths with specified ignore patterns in glob syntax.
 
     Args:
+    ----
         rel_filepaths: list of string file paths
         ignore_patterns: glob ignore patterns
 
     Returns:
+    -------
         List[str]: list of all non-ignored file path names
 
     """
@@ -60,10 +64,12 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
     > Note: uses the relative project directory and verifies that each file exists
 
     Args:
+    ----
         path_project: Path to the project directory
         ignore_patterns: glob ignore patterns
 
     Returns:
+    -------
         Dict[str, List[Path]]: where keys are the suffix (without leading dot) and values the list of paths
 
     """
@@ -89,10 +95,12 @@ def find_project_files_by_suffix(
     > Note: uses the relative project directory and verifies that each file exists
 
     Args:
+    ----
         path_project: Path to the project directory
         ignore_patterns: glob ignore patterns
 
     Returns:
+    -------
         Dict[str, List[Path]]: where keys are the suffix (without leading dot) and values the list of paths
 
     """

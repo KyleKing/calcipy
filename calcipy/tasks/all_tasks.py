@@ -57,6 +57,7 @@ def with_progress(items: Any, offset: int = 0) -> TaskList:
     """Inject intermediary 'progress' tasks.
 
     Args:
+    ----
         items: list of tasks
         offset: Optional offset to shift counters
 

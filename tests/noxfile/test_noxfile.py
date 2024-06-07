@@ -6,7 +6,7 @@ from calcipy.noxfile._noxfile import _installable_dev_dependencies
 
 def test__installable_dev_dependencies(monkeypatch):
     def stubbed_read_pyproject() -> Dict:
-        return {  # noqa: ECE001
+        return {
             'tool': {
                 'poetry': {
                     'dependencies': {
