@@ -7,13 +7,8 @@ version = "2.2.0rc0"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
-check_untyped_defs = false
-disable_error_code = [
-  "import-untyped", # Skipping analyzing "corallium.log": module is installed, but missing library stubs or py.typed marker
-]
 disallow_any_generics = true
-enable_error_code = "ignore-without-code"
-follow_imports = "silent"
+enable_error_code = ["ignore-without-code", "possibly-undefined", "redundant-expr", "truthy-bool"]
 no_implicit_reexport = true
 plugins = [
   "pydantic.mypy", # Most settings are from: https://pydantic-docs.helpmanual.io/mypy_plugin
@@ -21,6 +16,8 @@ plugins = [
 python_version = "3.9"
 show_column_numbers = true
 show_error_codes = true
+strict_equality = true
+warn_no_return = true
 warn_redundant_casts = true
 warn_unreachable = true
 warn_unused_ignores = true
@@ -35,6 +32,7 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.9",
   "Topic :: Software Development :: Libraries",
   "Topic :: Utilities",
@@ -42,7 +40,7 @@ classifiers = [
 description = "Python package to simplify development"
 documentation = "https://calcipy.kyleking.me"
 include = ["LICENSE"]
-keywords = ["nox", "python-poetry"]
+keywords = ["calcipy_template", "nox"]
 license = "MIT"
 maintainers = []
 name = "calcipy"
@@ -181,35 +179,22 @@ line-length = 120
 target-version = 'py39'
 
 [tool.ruff.lint]
-external = [
-  'CAC001', # <func> is too complex (8 > 7)
-  'ECE001', # Expression is too complex (8 > 7)
-]
 ignore = [
   'ANN002', # Missing type annotation for `*args`
   'ANN003', # Missing type annotation for `**kwargs`
-  'ANN101', # Missing type annotation for `self` in method
-  'ANN102', # Missing type annotation for `cls` in classmethod
-  'ANN401', # Dynamically typed expressions (typing.Any) are disallowed in `**kwargs`
+  'ANN101', # Missing type annotation for `self` in method (automatically inferred)
+  'ANN102', # Missing type annotation for `cls` in classmethod (automatically inferred)
   'BLE001', # Do not catch blind exception: `Exception`
   'CPY001', # Missing copyright notice at top of file
   'D203', # "1 blank line required before class docstring" (Conflicts with D211)
   'D213', # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
-  'D4', # Numpy-Style Docstrings (e.g. "Section name should end with a newline ("Returns")")
   'EM101', # Exception must not use a string literal, assign to variable first
-  'FBT002', # Boolean default value in function definition
   'FIX001', # Line contains FIXME
   'FIX002', # Line contains TODO
   'FIX004', # Line contains HACK
-  'N999', # Invalid module name: '_noxfile'
-  'RUF013', # PEP 484 prohibits implicit `Optional`
-  'TCH001', # Move application import `{}` into a type-checking block
-  'TCH002', # Move third-party import `{}` into a type-checking block
-  'TCH003', # Move standard library import `pathlib.Path` into a type-checking block
   'TD001', # Invalid TODO tag: `FIXME`
   'TD002', # Missing author in TODO; try: `# TODO(<author_name>): ...`
   'TD003', # Missing issue link on the line following this TODO
-  'TID252', # Relative imports from parent modules are banned
   'TRY003', # Avoid specifying long messages outside the exception class
 ]
 preview = true
@@ -232,7 +217,7 @@ inline-quotes = 'single'
 'typing.TypeVar'.msg = 'Use beartype.typing.* instead.'
 
 [tool.ruff.lint.isort]
-known-first-party = ['test_template']
+known-first-party = ['calcipy']
 
 [tool.ruff.lint.per-file-ignores]
 './calcipy/../*.py' = [
@@ -240,7 +225,6 @@ known-first-party = ['test_template']
 ]
 '__init__.py' = [
   'D104', # Missing docstring in public package
-  'F401', # imported but unused; consider adding to __all__ or using a redundant alias
 ]
 'scripts/*.py' = [
   'INP001', # File `scripts/*.py` is part of an implicit namespace package. Add an `__init__.py`.
@@ -254,14 +238,10 @@ known-first-party = ['test_template']
   'ANN202', # Missing return type annotation for private function `test_make_diffable`
   'D100', # Missing docstring in public module
   'D103', # Missing docstring in public function
-  'EM102', # Exception must not use an f-string literal, assign to variable first
   'PLC2701', # Private name import `_<>` from external module
   'PT004', # flake8-pytest-style: fixture does not return
   'S101', # Use of `assert` detected
 ]
-
-[tool.ruff.lint.pylint]
-max-args = 6
 
 [tool.tomlsort]
 all = true
