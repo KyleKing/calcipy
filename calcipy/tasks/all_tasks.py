@@ -78,18 +78,18 @@ _MAIN_TASKS = [
     lint.fix,
     types.mypy,
     types.basedpyright,
-    nox.noxfile.with_kwargs(session='tests'),    # pyright: ignore[reportFunctionMemberAccess]
-    lint.pre_commit.with_kwargs(no_update=True),    # pyright: ignore[reportFunctionMemberAccess]
-    tags.collect_code_tags,
-    cl.write,
-    pack.lock,
     test.coverage,
+    cl.write,
     doc.build,
-    stale.check_for_stale_packages,
 ]
 _OTHER_TASKS = [
+    lint.pre_commit.with_kwargs(no_update=True),    # pyright: ignore[reportFunctionMemberAccess]
     lint.pylint,
+    nox.noxfile.with_kwargs(session='tests'),    # pyright: ignore[reportFunctionMemberAccess]
     pack.check_licenses,
+    pack.lock,
+    stale.check_for_stale_packages,
+    tags.collect_code_tags,
     test.step,
     test.check,  # Expected to fail for calcipy
 ]
