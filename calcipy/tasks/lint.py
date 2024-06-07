@@ -44,18 +44,6 @@ def check(ctx: Context) -> None:
 
 
 @task()
-def autopep8(ctx: Context) -> None:
-    """Run autopep8.
-
-    FYI: This is temporary until ruff implements white space rules
-    https://github.com/charliermarsh/ruff/issues/970
-
-    """
-    cli_args = '--aggressive --recursive --in-place --max-line-length=120'
-    _inner_task(ctx, command='autopep8', cli_args=cli_args)
-
-
-@task(pre=[autopep8])
 def fix(ctx: Context) -> None:
     """Run ruff and apply fixes."""
     _inner_task(ctx, command='ruff check', cli_args='--fix')
@@ -81,6 +69,19 @@ def pylint(ctx: Context, *, report: bool = False) -> None:
 # ==============================================================================
 # Pre-Commit
 
+ALL_PRE_COMMIT_HOOK_STAGES = [
+    'commit',
+    'merge-commit',
+    'push',
+    'prepare-commit-msg',
+    'commit-msg',
+    'post-checkout',
+    'post-commit',
+    'post-merge',
+    'post-rewrite',
+    'manual',
+]
+
 
 @task(
     help={
@@ -95,9 +96,5 @@ def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     if not no_update:
         run(ctx, 'pre-commit autoupdate')
 
-    all_hook_stages = [
-        'commit', 'merge-commit', 'push', 'prepare-commit-msg', 'commit-msg', 'post-checkout',
-        'post-commit', 'post-merge', 'post-rewrite', 'manual',
-    ]
-    stages_cli = ' '.join(f'--hook-stage {stg}' for stg in all_hook_stages)
+    stages_cli = ' '.join(f'--hook-stage {stg}' for stg in ALL_PRE_COMMIT_HOOK_STAGES)
     run(ctx, f'pre-commit run --all-files {stages_cli}')
