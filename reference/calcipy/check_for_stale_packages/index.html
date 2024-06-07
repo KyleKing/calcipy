@@ -1547,52 +1547,36 @@
 
     <div class="doc doc-contents ">
 
-      <p>Read the cached packaging information.</p>
-
-
-<table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">PARAMETER</span></th>
-          <th><span>DESCRIPTION</span></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code>stale_months</code></td>
-            <td class="doc-param-details">
-              <div class="doc-md-description">
-                <p>cutoff in months for when a package might be stale enough to be a risk</p>
-              </div>
-              <p>
-                  <span class="doc-param-annotation">
-                    <b>TYPE:</b>
-                      <code>int</code>
-                  </span>
-              </p>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+      <p>Check for stale packages by reading from the cache, and updating if necessary.</p>
+      <hr />
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">stale_months</span><span class="o">:</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">months</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">package</span><span class="w"> </span><span class="nn">might</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">stale</span><span class="w"> </span><span class="n">enough</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">risk</span>
+<span class="n">path_lock</span><span class="o">:</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">poetry</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="n">file</span>
+<span class="n">path_cache</span><span class="o">:</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">calcipy</span><span class="w"> </span><span class="k">package</span><span class="w"> </span><span class="nn">cache</span><span class="w"> </span><span class="n">file</span>
+</code></pre></div></td></tr></table></div>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/check_for_stale_packages/_check_for_stale_packages.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="222 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="223 "></span><span class="k">def</span> <span class="nf">check_for_stale_packages</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">stale_months</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">path_lock</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">LOCK</span><span class="p">,</span> <span class="n">path_cache</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">CALCIPY_CACHE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos" data-linenos="224 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the cached packaging information.</span>
-<span class="linenos" data-linenos="225 "></span>
-<span class="linenos" data-linenos="226 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="227 "></span><span class="sd">        stale_months: cutoff in months for when a package might be stale enough to be a risk</span>
-<span class="linenos" data-linenos="228 "></span>
-<span class="linenos" data-linenos="229 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="230 "></span>    <span class="n">packages</span> <span class="o">=</span> <span class="n">_read_packages</span><span class="p">(</span><span class="n">path_lock</span><span class="p">)</span>
-<span class="linenos" data-linenos="231 "></span>    <span class="n">cached_packages</span> <span class="o">=</span> <span class="n">_read_cache</span><span class="p">(</span><span class="n">path_cache</span><span class="p">)</span>
-<span class="linenos" data-linenos="232 "></span>    <span class="k">if</span> <span class="n">cached_packages</span> <span class="ow">and</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">path_lock</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">path_cache</span><span class="p">]):</span>
-<span class="linenos" data-linenos="233 "></span>        <span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">cached_packages</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-<span class="linenos" data-linenos="234 "></span>    <span class="k">else</span><span class="p">:</span>
-<span class="linenos" data-linenos="235 "></span>        <span class="n">packages</span> <span class="o">=</span> <span class="n">_collect_release_dates</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">cached_packages</span><span class="p">)</span>
-<span class="linenos" data-linenos="236 "></span>        <span class="n">_write_cache</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">path_cache</span><span class="p">)</span>
-<span class="linenos" data-linenos="237 "></span>    <span class="k">return</span> <span class="n">_packages_are_stale</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">stale_months</span><span class="o">=</span><span class="n">stale_months</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="233 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="234 "></span><span class="k">def</span> <span class="nf">check_for_stale_packages</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">stale_months</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">path_lock</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">LOCK</span><span class="p">,</span> <span class="n">path_cache</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">CALCIPY_CACHE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos" data-linenos="235 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check for stale packages by reading from the cache, and updating if necessary.</span>
+<span class="linenos" data-linenos="236 "></span>
+<span class="linenos" data-linenos="237 "></span><span class="sd">    Args:</span>
+<span class="linenos" data-linenos="238 "></span><span class="sd">    ----</span>
+<span class="linenos" data-linenos="239 "></span><span class="sd">        stale_months: cutoff in months for when a package might be stale enough to be a risk</span>
+<span class="linenos" data-linenos="240 "></span><span class="sd">        path_lock: path to poetry lock file</span>
+<span class="linenos" data-linenos="241 "></span><span class="sd">        path_cache: path to calcipy package cache file</span>
+<span class="linenos" data-linenos="242 "></span>
+<span class="linenos" data-linenos="243 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="244 "></span>    <span class="n">packages</span> <span class="o">=</span> <span class="n">_read_packages</span><span class="p">(</span><span class="n">path_lock</span><span class="p">)</span>
+<span class="linenos" data-linenos="245 "></span>    <span class="n">cached_packages</span> <span class="o">=</span> <span class="n">_read_cache</span><span class="p">(</span><span class="n">path_cache</span><span class="p">)</span>
+<span class="linenos" data-linenos="246 "></span>    <span class="k">if</span> <span class="n">cached_packages</span> <span class="ow">and</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">path_lock</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">path_cache</span><span class="p">]):</span>
+<span class="linenos" data-linenos="247 "></span>        <span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">cached_packages</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<span class="linenos" data-linenos="248 "></span>    <span class="k">else</span><span class="p">:</span>
+<span class="linenos" data-linenos="249 "></span>        <span class="n">packages</span> <span class="o">=</span> <span class="n">_collect_release_dates</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">cached_packages</span><span class="p">)</span>
+<span class="linenos" data-linenos="250 "></span>        <span class="n">_write_cache</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">path_cache</span><span class="p">)</span>
+<span class="linenos" data-linenos="251 "></span>    <span class="k">return</span> <span class="n">_packages_are_stale</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">stale_months</span><span class="o">=</span><span class="n">stale_months</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

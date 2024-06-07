@@ -1694,10 +1694,10 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="40 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="41 "></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="42 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="41 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos="42 "></span><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="43 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="44 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1712,7 +1712,7 @@
 
 
 <a href="#calcipy.tasks.lint.fix" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nf">fix</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nf">fix</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">unsafe</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1721,10 +1721,17 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">fix</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff and apply fixes.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="49 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;--fix&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="48 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="49 "></span>        <span class="s1">&#39;unsafe&#39;</span><span class="p">:</span> <span class="s1">&#39;if provided, attempt even fixes considered unsafe&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="51 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="52 "></span><span class="k">def</span> <span class="nf">fix</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">unsafe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="53 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff and apply fixes.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="54 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39;--fix&#39;</span>
+<span class="linenos" data-linenos="55 "></span>    <span class="k">if</span> <span class="n">unsafe</span><span class="p">:</span>
+<span class="linenos" data-linenos="56 "></span>        <span class="n">cli_args</span> <span class="o">+=</span> <span class="s1">&#39; --unsafe-fixes&#39;</span>
+<span class="linenos" data-linenos="57 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1748,21 +1755,21 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 86 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos=" 87 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos=" 88 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the pre-commit hooks&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 89 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos=" 90 "></span><span class="p">)</span>
-<span class="linenos" data-linenos=" 91 "></span><span class="k">def</span> <span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos=" 92 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pre-commit.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos=" 93 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;pre-commit&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PRE_COMMIT_MESSAGE</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 94 "></span>
-<span class="linenos" data-linenos=" 95 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit install&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 96 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
-<span class="linenos" data-linenos=" 97 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit autoupdate&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 98 "></span>
-<span class="linenos" data-linenos=" 99 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">ALL_PRE_COMMIT_HOOK_STAGES</span><span class="p">)</span>
-<span class="linenos" data-linenos="100 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;pre-commit run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 94 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 95 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos=" 96 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the pre-commit hooks&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 97 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos=" 98 "></span><span class="p">)</span>
+<span class="linenos" data-linenos=" 99 "></span><span class="k">def</span> <span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="100 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pre-commit.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="101 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;pre-commit&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PRE_COMMIT_MESSAGE</span><span class="p">)</span>
+<span class="linenos" data-linenos="102 "></span>
+<span class="linenos" data-linenos="103 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit install&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="104 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
+<span class="linenos" data-linenos="105 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;pre-commit autoupdate&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="106 "></span>
+<span class="linenos" data-linenos="107 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">ALL_PRE_COMMIT_HOOK_STAGES</span><span class="p">)</span>
+<span class="linenos" data-linenos="108 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;pre-commit run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1786,15 +1793,15 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="58 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="59 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="60 "></span>        <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="s1">&#39;if provided, show the pylint summary report&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="61 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="62 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="63 "></span><span class="k">def</span> <span class="nf">pylint</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="64 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pylint.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="65 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39;--report=y&#39;</span> <span class="k">if</span> <span class="n">report</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-<span class="linenos" data-linenos="66 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;pylint&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="66 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="67 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="68 "></span>        <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="s1">&#39;if provided, show the pylint summary report&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="69 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="70 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="71 "></span><span class="k">def</span> <span class="nf">pylint</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="72 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pylint.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="73 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="s1">&#39;--report=y&#39;</span> <span class="k">if</span> <span class="n">report</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+<span class="linenos" data-linenos="74 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;pylint&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="n">cli_args</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1818,10 +1825,10 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="52 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="53 "></span><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="54 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="55 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;--watch --show-source&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="60 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="61 "></span><span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="62 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run ruff as check-only.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="63 "></span>    <span class="n">_inner_task</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;ruff check&#39;</span><span class="p">,</span> <span class="n">cli_args</span><span class="o">=</span><span class="s1">&#39;--watch --show-source&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

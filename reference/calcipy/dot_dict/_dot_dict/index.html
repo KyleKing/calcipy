@@ -1696,64 +1696,12 @@
 <li>Could consider <code>cleverdict</code> which had updates as recently as 2022</li>
 <li>There are numerous other variations that haven&rsquo;t been updated since 2020, such as <code>munch</code>, <code>bunch</code>, <code>ddict</code></li>
 </ul>
-
-
-<table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">PARAMETER</span></th>
-          <th><span>DESCRIPTION</span></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code>**kwargs</code></td>
-            <td class="doc-param-details">
-              <div class="doc-md-description">
-                <p>keyword arguments formatted into dictionary</p>
-              </div>
-              <p>
-                  <span class="doc-param-annotation">
-                    <b>TYPE:</b>
-                      <code><span title="beartype.typing.Dict">Dict</span>[str, <span title="beartype.typing.Any">Any</span>]</code>
-                  </span>
-                  <span class="doc-param-default">
-                    <b>DEFAULT:</b>
-                      <code>{}</code>
-                  </span>
-              </p>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">RETURNS</span></th>
-          <th><span>DESCRIPTION</span></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>DdictType</code>
-            </td>
-            <td class="doc-returns-details">
-              <div class="doc-md-description">
-                <p>dotted dictionary</p>
-              </div>
-                <p>
-                  <span class="doc-returns-annotation">
-                    <b>TYPE:</b>
-                      <code><a class="autorefs autorefs-internal" title="calcipy.dot_dict._dot_dict.DdictType" href="#calcipy.dot_dict._dot_dict.DdictType">DdictType</a></code>
-                  </span>
-                </p>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+      <hr />
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>**kwargs: keyword arguments formatted into dictionary
+</code></pre></div></td></tr></table></div>
+      <hr />
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">DdictType</span><span class="o">:</span><span class="w"> </span><span class="n">dotted</span><span class="w"> </span><span class="n">dictionary</span>
+</code></pre></div></td></tr></table></div>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/dot_dict/_dot_dict.py</code></summary>
@@ -1766,13 +1714,15 @@
 <span class="linenos" data-linenos="21 "></span><span class="sd">    - There are numerous other variations that haven&#39;t been updated since 2020, such as `munch`, `bunch`, `ddict`</span>
 <span class="linenos" data-linenos="22 "></span>
 <span class="linenos" data-linenos="23 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="24 "></span><span class="sd">        **kwargs: keyword arguments formatted into dictionary</span>
-<span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span><span class="sd">    Returns:</span>
-<span class="linenos" data-linenos="27 "></span><span class="sd">        DdictType: dotted dictionary</span>
-<span class="linenos" data-linenos="28 "></span>
-<span class="linenos" data-linenos="29 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="30 "></span>    <span class="k">return</span> <span class="n">Box</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="linenos" data-linenos="24 "></span><span class="sd">    ----</span>
+<span class="linenos" data-linenos="25 "></span><span class="sd">        **kwargs: keyword arguments formatted into dictionary</span>
+<span class="linenos" data-linenos="26 "></span>
+<span class="linenos" data-linenos="27 "></span><span class="sd">    Returns:</span>
+<span class="linenos" data-linenos="28 "></span><span class="sd">    -------</span>
+<span class="linenos" data-linenos="29 "></span><span class="sd">        DdictType: dotted dictionary</span>
+<span class="linenos" data-linenos="30 "></span>
+<span class="linenos" data-linenos="31 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="k">return</span> <span class="n">Box</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

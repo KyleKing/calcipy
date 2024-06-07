@@ -1634,9 +1634,9 @@
 
     <div class="doc doc-contents ">
 
-      <p>Generic make-style task skipping logic based on file <code>mtime</code>.</p>
+      <p>Return true if the prerequisite files are have newer <code>mtime</code> than targets.</p>
 <p>Example use with Invoke, but can be used anywhere:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nd">@task</span>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nd">@task</span><span class="p">()</span>
 <span class="linenos" data-linenos="2 "></span><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="3 "></span>    <span class="k">if</span> <span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s1">&#39;*.py&#39;</span><span class="p">)],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;.coverage.xml&#39;</span><span class="p">)]):</span>
 <span class="linenos" data-linenos="4 "></span>        <span class="k">return</span>  <span class="c1"># Exit early</span>
@@ -1648,12 +1648,12 @@
               <summary>Source code in <code>calcipy/can_skip.py</code></summary>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="10 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="11 "></span><span class="k">def</span> <span class="nf">can_skip</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos" data-linenos="12 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic make-style task skipping logic based on file `mtime`.</span>
+<span class="linenos" data-linenos="12 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return true if the prerequisite files are have newer `mtime` than targets.</span>
 <span class="linenos" data-linenos="13 "></span>
 <span class="linenos" data-linenos="14 "></span><span class="sd">    Example use with Invoke, but can be used anywhere:</span>
 <span class="linenos" data-linenos="15 "></span>
 <span class="linenos" data-linenos="16 "></span><span class="sd">    ```py</span>
-<span class="linenos" data-linenos="17 "></span><span class="sd">    @task</span>
+<span class="linenos" data-linenos="17 "></span><span class="sd">    @task()</span>
 <span class="linenos" data-linenos="18 "></span><span class="sd">    def test(ctx: Context) -&gt; None:</span>
 <span class="linenos" data-linenos="19 "></span><span class="sd">        if can_skip(prerequisites=[*Path(&#39;src&#39;).rglob(&#39;*.py&#39;)], targets=[Path(&#39;.coverage.xml&#39;)]):</span>
 <span class="linenos" data-linenos="20 "></span><span class="sd">            return  # Exit early</span>
@@ -1667,7 +1667,7 @@
 <span class="linenos" data-linenos="28 "></span>
 <span class="linenos" data-linenos="29 "></span>    <span class="n">ts_targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">pth</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_mtime</span> <span class="k">for</span> <span class="n">pth</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">]</span>
 <span class="linenos" data-linenos="30 "></span>    <span class="k">if</span> <span class="n">ts_targets</span> <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">ts_targets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">ts_prerequisites</span><span class="p">):</span>
-<span class="linenos" data-linenos="31 "></span>        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Skipping because targets are newer&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
+<span class="linenos" data-linenos="31 "></span>        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Skipping because targets are newer&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
 <span class="linenos" data-linenos="32 "></span>        <span class="k">return</span> <span class="kc">True</span>
 <span class="linenos" data-linenos="33 "></span>    <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
@@ -1696,7 +1696,7 @@
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="36 "></span><span class="nd">@beartype</span>
 <span class="linenos" data-linenos="37 "></span><span class="k">def</span> <span class="nf">dont_skip</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">prerequisites</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos" data-linenos="38 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;To use for testing with mock; always returns False.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="39 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Mocking can_skip&#39;</span><span class="p">,</span> <span class="n">prerequisites</span><span class="o">=</span><span class="n">prerequisites</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
+<span class="linenos" data-linenos="39 "></span>    <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Mocking can_skip&#39;</span><span class="p">,</span> <span class="n">prerequisites</span><span class="o">=</span><span class="n">prerequisites</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">)</span>
 <span class="linenos" data-linenos="40 "></span>    <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
             </details>

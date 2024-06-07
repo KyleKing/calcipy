@@ -1622,16 +1622,16 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/nox.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="10 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="11 "></span>    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos" data-linenos="12 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="13 "></span>        <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional session to run&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="14 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="15 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="16 "></span><span class="k">def</span> <span class="nf">noxfile</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run nox from the local noxfile.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="18 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;--session&#39;</span><span class="p">,</span> <span class="n">session</span><span class="p">]</span> <span class="k">if</span> <span class="n">session</span> <span class="k">else</span> <span class="p">[]</span>
-<span class="linenos" data-linenos="19 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/nox --error-on-missing-interpreters </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_args</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="11 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="12 "></span>    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="14 "></span>        <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional session to run&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="16 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="17 "></span><span class="k">def</span> <span class="nf">noxfile</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="18 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run nox from the local noxfile.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="19 "></span>    <span class="n">cli_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;--session&#39;</span><span class="p">,</span> <span class="n">session</span><span class="p">]</span> <span class="k">if</span> <span class="n">session</span> <span class="k">else</span> <span class="p">[]</span>
+<span class="linenos" data-linenos="20 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/nox --error-on-missing-interpreters </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cli_args</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

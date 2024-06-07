@@ -1300,6 +1300,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="write">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calcipy.tasks.cl.write--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1641,6 +1656,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="write">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calcipy.tasks.cl.write--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1729,15 +1759,15 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="55 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="56 "></span>    <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">write</span><span class="p">],</span>
-<span class="linenos" data-linenos="57 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="58 "></span>        <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;Specify prerelease suffix for version bump (alpha, beta, rc)&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="59 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="60 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="61 "></span><span class="k">def</span> <span class="nf">bump</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="62 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="63 "></span>    <span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="57 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="58 "></span>    <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">write</span><span class="p">],</span>
+<span class="linenos" data-linenos="59 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="60 "></span>        <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;Specify prerelease suffix for version bump (alpha, beta, rc)&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="61 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="62 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="63 "></span><span class="k">def</span> <span class="nf">bump</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="64 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="65 "></span>    <span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1761,19 +1791,19 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="40 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="41 "></span><span class="k">def</span> <span class="nf">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="42 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;gh&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">GH_MESSAGE</span><span class="p">)</span>
-<span class="linenos" data-linenos="44 "></span>
-<span class="linenos" data-linenos="45 "></span>    <span class="n">opt_cz_args</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39; --prerelease=</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">suffix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-<span class="linenos" data-linenos="46 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/cz bump</span><span class="si">{</span><span class="n">opt_cz_args</span><span class="si">}</span><span class="s1"> --annotated-tag --no-verify --gpg-sign&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="47 "></span>
-<span class="linenos" data-linenos="48 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;git push origin --tags --no-verify&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="42 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="43 "></span><span class="k">def</span> <span class="nf">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="44 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="45 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;gh&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">GH_MESSAGE</span><span class="p">)</span>
+<span class="linenos" data-linenos="46 "></span>
+<span class="linenos" data-linenos="47 "></span>    <span class="n">opt_cz_args</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39; --prerelease=</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">suffix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+<span class="linenos" data-linenos="48 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/cz bump</span><span class="si">{</span><span class="n">opt_cz_args</span><span class="si">}</span><span class="s1"> --annotated-tag --no-verify --gpg-sign&#39;</span><span class="p">)</span>
 <span class="linenos" data-linenos="49 "></span>
-<span class="linenos" data-linenos="50 "></span>    <span class="n">get_last_tag</span> <span class="o">=</span> <span class="s1">&#39;git tag --list --sort=-creatordate | head -n 1&#39;</span>
-<span class="linenos" data-linenos="51 "></span>    <span class="n">opt_gh_args</span> <span class="o">=</span> <span class="s1">&#39; --prerelease&#39;</span> <span class="k">if</span> <span class="n">suffix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-<span class="linenos" data-linenos="52 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;gh release create --generate-notes $(</span><span class="si">{</span><span class="n">get_last_tag</span><span class="si">}</span><span class="s1">)</span><span class="si">{</span><span class="n">opt_gh_args</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;git push origin --tags --no-verify&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="51 "></span>
+<span class="linenos" data-linenos="52 "></span>    <span class="n">get_last_tag</span> <span class="o">=</span> <span class="s1">&#39;git tag --list --sort=-creatordate | head -n 1&#39;</span>
+<span class="linenos" data-linenos="53 "></span>    <span class="n">opt_gh_args</span> <span class="o">=</span> <span class="s1">&#39; --prerelease&#39;</span> <span class="k">if</span> <span class="n">suffix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+<span class="linenos" data-linenos="54 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;gh release create --generate-notes $(</span><span class="si">{</span><span class="n">get_last_tag</span><span class="si">}</span><span class="s1">)</span><span class="si">{</span><span class="n">opt_gh_args</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1803,56 +1833,36 @@
 <li>https://semver.org/</li>
 <li>https://calver.org/</li>
 </ul>
-
-
-<table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">RETURNS</span></th>
-          <th><span>DESCRIPTION</span></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <span class="doc-returns-annotation">
-                    <code>None</code>
-                </span>
-            </td>
-            <td class="doc-returns-details">
-              <div class="doc-md-description">
-                <p>List[DoitAction]: doit actions</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+<h5 id="calcipy.tasks.cl.write--returns">Returns<a class="headerlink" href="#calcipy.tasks.cl.write--returns" title="Permanent link">⚓︎</a></h5>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">List</span><span class="o">[</span><span class="n">DoitAction</span><span class="o">]</span><span class="err">:</span><span class="w"> </span><span class="n">doit</span><span class="w"> </span><span class="n">actions</span>
+</code></pre></div></td></tr></table></div>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="15 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="16 "></span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Write a Changelog file with the raw Git history.</span>
-<span class="linenos" data-linenos="18 "></span>
-<span class="linenos" data-linenos="19 "></span><span class="sd">    Resources:</span>
-<span class="linenos" data-linenos="20 "></span>
-<span class="linenos" data-linenos="21 "></span><span class="sd">    - https://keepachangelog.com/en/1.0.0/</span>
-<span class="linenos" data-linenos="22 "></span><span class="sd">    - https://www.conventionalcommits.org/en/v1.0.0/</span>
-<span class="linenos" data-linenos="23 "></span><span class="sd">    - https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message</span>
-<span class="linenos" data-linenos="24 "></span><span class="sd">    - https://chris.beams.io/posts/git-commit/</span>
-<span class="linenos" data-linenos="25 "></span><span class="sd">    - https://semver.org/</span>
-<span class="linenos" data-linenos="26 "></span><span class="sd">    - https://calver.org/</span>
-<span class="linenos" data-linenos="27 "></span>
-<span class="linenos" data-linenos="28 "></span><span class="sd">    Returns:</span>
-<span class="linenos" data-linenos="29 "></span><span class="sd">        List[DoitAction]: doit actions</span>
-<span class="linenos" data-linenos="30 "></span>
-<span class="linenos" data-linenos="31 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="32 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/cz changelog&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="33 "></span>    <span class="n">path_cl</span> <span class="o">=</span> <span class="n">get_project_path</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;CHANGELOG.md&#39;</span>
-<span class="linenos" data-linenos="34 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">path_cl</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-<span class="linenos" data-linenos="35 "></span>        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Could not locate the changelog at: </span><span class="si">{</span><span class="n">path_cl</span><span class="si">}</span><span class="s1">&#39;</span>
-<span class="linenos" data-linenos="36 "></span>        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="linenos" data-linenos="37 "></span>    <span class="n">path_cl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">get_doc_subdir</span><span class="p">()</span> <span class="o">/</span> <span class="n">path_cl</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="16 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="17 "></span><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="18 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Write a Changelog file with the raw Git history.</span>
+<span class="linenos" data-linenos="19 "></span>
+<span class="linenos" data-linenos="20 "></span><span class="sd">    Resources:</span>
+<span class="linenos" data-linenos="21 "></span>
+<span class="linenos" data-linenos="22 "></span><span class="sd">    - https://keepachangelog.com/en/1.0.0/</span>
+<span class="linenos" data-linenos="23 "></span><span class="sd">    - https://www.conventionalcommits.org/en/v1.0.0/</span>
+<span class="linenos" data-linenos="24 "></span><span class="sd">    - https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message</span>
+<span class="linenos" data-linenos="25 "></span><span class="sd">    - https://chris.beams.io/posts/git-commit/</span>
+<span class="linenos" data-linenos="26 "></span><span class="sd">    - https://semver.org/</span>
+<span class="linenos" data-linenos="27 "></span><span class="sd">    - https://calver.org/</span>
+<span class="linenos" data-linenos="28 "></span>
+<span class="linenos" data-linenos="29 "></span><span class="sd">    Returns</span>
+<span class="linenos" data-linenos="30 "></span><span class="sd">    -------</span>
+<span class="linenos" data-linenos="31 "></span><span class="sd">        List[DoitAction]: doit actions</span>
+<span class="linenos" data-linenos="32 "></span>
+<span class="linenos" data-linenos="33 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="34 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">/cz changelog&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="35 "></span>    <span class="n">path_cl</span> <span class="o">=</span> <span class="n">get_project_path</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;CHANGELOG.md&#39;</span>
+<span class="linenos" data-linenos="36 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">path_cl</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+<span class="linenos" data-linenos="37 "></span>        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Could not locate the changelog at: </span><span class="si">{</span><span class="n">path_cl</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos" data-linenos="38 "></span>        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="linenos" data-linenos="39 "></span>    <span class="n">path_cl</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">get_doc_subdir</span><span class="p">()</span> <span class="o">/</span> <span class="n">path_cl</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

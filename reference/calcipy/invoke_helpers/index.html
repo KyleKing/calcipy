@@ -1671,64 +1671,12 @@
     <div class="doc doc-contents ">
 
       <p>Retrieve the documentation directory from the copier answer file.</p>
-
-
-<table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">PARAMETER</span></th>
-          <th><span>DESCRIPTION</span></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code>path_project</code></td>
-            <td class="doc-param-details">
-              <div class="doc-md-description">
-                <p>Path to the project directory with contains <code>.copier-answers.yml</code></p>
-              </div>
-              <p>
-                  <span class="doc-param-annotation">
-                    <b>TYPE:</b>
-                      <code><span title="beartype.typing.Optional">Optional</span>[<span title="pathlib.Path">Path</span>]</code>
-                  </span>
-                  <span class="doc-param-default">
-                    <b>DEFAULT:</b>
-                      <code>None</code>
-                  </span>
-              </p>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">RETURNS</span></th>
-          <th><span>DESCRIPTION</span></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>Path</code>
-            </td>
-            <td class="doc-returns-details">
-              <div class="doc-md-description">
-                <p>to the source documentation directory</p>
-              </div>
-                <p>
-                  <span class="doc-returns-annotation">
-                    <b>TYPE:</b>
-                      <code><span title="pathlib.Path">Path</span></code>
-                  </span>
-                </p>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+      <hr />
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">path_project</span><span class="o">:</span><span class="w"> </span><span class="n">Path</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">directory</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="err">`</span><span class="o">.</span><span class="na">copier</span><span class="o">-</span><span class="n">answers</span><span class="o">.</span><span class="na">yml</span><span class="err">`</span>
+</code></pre></div></td></tr></table></div>
+      <hr />
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">Path</span><span class="o">:</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">documentation</span><span class="w"> </span><span class="n">directory</span>
+</code></pre></div></td></tr></table></div>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
@@ -1737,15 +1685,17 @@
 <span class="linenos" data-linenos="50 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the documentation directory from the copier answer file.</span>
 <span class="linenos" data-linenos="51 "></span>
 <span class="linenos" data-linenos="52 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="53 "></span><span class="sd">        path_project: Path to the project directory with contains `.copier-answers.yml`</span>
-<span class="linenos" data-linenos="54 "></span>
-<span class="linenos" data-linenos="55 "></span><span class="sd">    Returns:</span>
-<span class="linenos" data-linenos="56 "></span><span class="sd">        Path: to the source documentation directory</span>
-<span class="linenos" data-linenos="57 "></span>
-<span class="linenos" data-linenos="58 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="59 "></span>    <span class="n">path_copier</span> <span class="o">=</span> <span class="p">(</span><span class="n">path_project</span> <span class="ow">or</span> <span class="n">get_project_path</span><span class="p">())</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
-<span class="linenos" data-linenos="60 "></span>    <span class="n">doc_dir</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">path_copier</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doc_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;docs&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="61 "></span>    <span class="k">return</span> <span class="n">path_copier</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">doc_dir</span> <span class="o">/</span> <span class="s1">&#39;docs&#39;</span>
+<span class="linenos" data-linenos="53 "></span><span class="sd">    ----</span>
+<span class="linenos" data-linenos="54 "></span><span class="sd">        path_project: Path to the project directory with contains `.copier-answers.yml`</span>
+<span class="linenos" data-linenos="55 "></span>
+<span class="linenos" data-linenos="56 "></span><span class="sd">    Returns:</span>
+<span class="linenos" data-linenos="57 "></span><span class="sd">    -------</span>
+<span class="linenos" data-linenos="58 "></span><span class="sd">        Path: to the source documentation directory</span>
+<span class="linenos" data-linenos="59 "></span>
+<span class="linenos" data-linenos="60 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="61 "></span>    <span class="n">path_copier</span> <span class="o">=</span> <span class="p">(</span><span class="n">path_project</span> <span class="ow">or</span> <span class="n">get_project_path</span><span class="p">())</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
+<span class="linenos" data-linenos="62 "></span>    <span class="n">doc_dir</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">path_copier</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doc_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;docs&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="63 "></span>    <span class="k">return</span> <span class="n">path_copier</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">doc_dir</span> <span class="o">/</span> <span class="s1">&#39;docs&#39;</span>
 </code></pre></div>
             </details>
     </div>
@@ -1832,13 +1782,13 @@
 
     <div class="doc doc-contents ">
 
-      <p>Returns False on Windows and some CI environments.</p>
+      <p>Return False on Windows and some CI environments.</p>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="19 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="linenos" data-linenos="20 "></span><span class="k">def</span> <span class="nf">use_pty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos" data-linenos="21 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns False on Windows and some CI environments.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="21 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return False on Windows and some CI environments.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="22 "></span>    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
 <span class="linenos" data-linenos="23 "></span>        <span class="k">return</span> <span class="kc">False</span>
 <span class="linenos" data-linenos="24 "></span>    <span class="k">return</span> <span class="ow">not</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GITHUB_ACTION&#39;</span><span class="p">)</span>

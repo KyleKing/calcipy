@@ -1846,7 +1846,7 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
             <details class="quote">
               <summary>Source code in <code>calcipy/cli.py</code></summary>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 57 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos=" 58 "></span><span class="k">def</span> <span class="nf">start_program</span><span class="p">(</span>  <span class="c1"># noqa: CAC001</span>
+<span class="linenos" data-linenos=" 58 "></span><span class="k">def</span> <span class="nf">start_program</span><span class="p">(</span>
 <span class="linenos" data-linenos=" 59 "></span>    <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 60 "></span>    <span class="n">pkg_version</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="linenos" data-linenos=" 61 "></span>    <span class="n">module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ModuleType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1914,12 +1914,12 @@ https://docs.pyinvoke.org/en/stable/concepts/library.html#modifying-core-parser-
 
     <div class="doc doc-contents ">
 
-      <p>Marks wrapped callable object as a valid Invoke task.</p>
+      <p>Mark wrapped callable object as a valid Invoke task.</p>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/cli.py</code></summary>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="109 "></span><span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="o">*</span><span class="n">dec_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">dec_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg]</span>
-<span class="linenos" data-linenos="110 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Marks wrapped callable object as a valid Invoke task.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="110 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Mark wrapped callable object as a valid Invoke task.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="111 "></span>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># type: ignore[type-arg]</span>
 <span class="linenos" data-linenos="112 "></span>        <span class="c1"># Attach arguments for Task</span>
 <span class="linenos" data-linenos="113 "></span>        <span class="nb">setattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">TASK_ARGS_ATTR</span><span class="p">,</span> <span class="n">dec_args</span><span class="p">)</span>

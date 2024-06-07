@@ -1797,13 +1797,13 @@
 
     <div class="doc doc-contents ">
 
-      <p>Main task pipeline.</p>
+      <p>Run main task pipeline.</p>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 98 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_MAIN_TASKS</span><span class="p">))</span>
-<span class="linenos" data-linenos=" 99 "></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="100 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Main task pipeline.&quot;&quot;&quot;</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="100 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_MAIN_TASKS</span><span class="p">))</span>
+<span class="linenos" data-linenos="101 "></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="102 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run main task pipeline.&quot;&quot;&quot;</span>
 </code></pre></div>
             </details>
     </div>
@@ -1827,9 +1827,9 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="103 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_OTHER_TASKS</span><span class="p">))</span>
-<span class="linenos" data-linenos="104 "></span><span class="k">def</span> <span class="nf">other</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="105 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tasks that are otherwise not exercised in main.&quot;&quot;&quot;</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="105 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_OTHER_TASKS</span><span class="p">))</span>
+<span class="linenos" data-linenos="106 "></span><span class="k">def</span> <span class="nf">other</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="107 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tasks that are otherwise not exercised in main.&quot;&quot;&quot;</span>
 </code></pre></div>
             </details>
     </div>
@@ -1853,16 +1853,16 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="39 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="40 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="41 "></span>        <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Current index (0-indexed)&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="42 "></span>        <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="s1">&#39;Total steps&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="44 "></span>    <span class="n">show_task_info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="linenos" data-linenos="45 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="46 "></span><span class="k">def</span> <span class="nf">progress</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="47 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Progress Task.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="48 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Progress&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="40 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="41 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="42 "></span>        <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;Current index (0-indexed)&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="43 "></span>        <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="s1">&#39;Total steps&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="44 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="45 "></span>    <span class="n">show_task_info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos" data-linenos="46 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="47 "></span><span class="k">def</span> <span class="nf">progress</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">total</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Progress Task.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="49 "></span>    <span class="n">LOGGER</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;Progress&#39;</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1882,25 +1882,25 @@
 
     <div class="doc doc-contents ">
 
-      <p>Release pipeline.</p>
+      <p>Run release pipeline.</p>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="108 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="109 "></span>    <span class="n">help</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bump</span><span class="o">.</span><span class="n">help</span><span class="p">,</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
-<span class="linenos" data-linenos="110 "></span>    <span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span>
-<span class="linenos" data-linenos="111 "></span>        <span class="p">[</span>
-<span class="linenos" data-linenos="112 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
-<span class="linenos" data-linenos="113 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">build</span><span class="p">,</span>
-<span class="linenos" data-linenos="114 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">deploy</span><span class="p">,</span>
-<span class="linenos" data-linenos="115 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">publish</span><span class="p">,</span>
-<span class="linenos" data-linenos="116 "></span>        <span class="p">],</span>
-<span class="linenos" data-linenos="117 "></span>        <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="linenos" data-linenos="118 "></span>    <span class="p">),</span>
-<span class="linenos" data-linenos="119 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="120 "></span><span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">cl</span><span class="o">.</span><span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="121 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Release pipeline.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="122 "></span>    <span class="n">cl</span><span class="o">.</span><span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="110 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="111 "></span>    <span class="n">help</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bump</span><span class="o">.</span><span class="n">help</span><span class="p">,</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
+<span class="linenos" data-linenos="112 "></span>    <span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span>
+<span class="linenos" data-linenos="113 "></span>        <span class="p">[</span>
+<span class="linenos" data-linenos="114 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
+<span class="linenos" data-linenos="115 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">build</span><span class="p">,</span>
+<span class="linenos" data-linenos="116 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">deploy</span><span class="p">,</span>
+<span class="linenos" data-linenos="117 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">publish</span><span class="p">,</span>
+<span class="linenos" data-linenos="118 "></span>        <span class="p">],</span>
+<span class="linenos" data-linenos="119 "></span>        <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos="120 "></span>    <span class="p">),</span>
+<span class="linenos" data-linenos="121 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="122 "></span><span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">cl</span><span class="o">.</span><span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="123 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run release pipeline.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="124 "></span>    <span class="n">cl</span><span class="o">.</span><span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1924,15 +1924,15 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="28 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="29 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="30 "></span>        <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;String message to display&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="31 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="32 "></span>    <span class="n">show_task_info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="linenos" data-linenos="33 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="34 "></span><span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="35 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Summary Task.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="36 "></span>    <span class="n">logger</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="29 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="30 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="31 "></span>        <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;String message to display&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="33 "></span>    <span class="n">show_task_info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="linenos" data-linenos="34 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="35 "></span><span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="36 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Summary Task.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="n">LOGGER</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">is_header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1953,73 +1953,35 @@
     <div class="doc doc-contents ">
 
       <p>Inject intermediary &lsquo;progress&rsquo; tasks.</p>
-
-
-<table>
-      <thead>
-        <tr>
-          <th><span class="doc-section-title">PARAMETER</span></th>
-          <th><span>DESCRIPTION</span></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code>items</code></td>
-            <td class="doc-param-details">
-              <div class="doc-md-description">
-                <p>list of tasks</p>
-              </div>
-              <p>
-                  <span class="doc-param-annotation">
-                    <b>TYPE:</b>
-                      <code><span title="beartype.typing.Any">Any</span></code>
-                  </span>
-              </p>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code>offset</code></td>
-            <td class="doc-param-details">
-              <div class="doc-md-description">
-                <p>Optional offset to shift counters</p>
-              </div>
-              <p>
-                  <span class="doc-param-annotation">
-                    <b>TYPE:</b>
-                      <code>int</code>
-                  </span>
-                  <span class="doc-param-default">
-                    <b>DEFAULT:</b>
-                      <code>0</code>
-                  </span>
-              </p>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+      <hr />
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">items</span><span class="o">:</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">tasks</span>
+<span class="n">offset</span><span class="o">:</span><span class="w"> </span><span class="n">Optional</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="n">counters</span>
+</code></pre></div></td></tr></table></div>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="55 "></span><span class="nd">@beartype</span>
-<span class="linenos" data-linenos="56 "></span><span class="k">def</span> <span class="nf">with_progress</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TaskList</span><span class="p">:</span>
-<span class="linenos" data-linenos="57 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Inject intermediary &#39;progress&#39; tasks.</span>
-<span class="linenos" data-linenos="58 "></span>
-<span class="linenos" data-linenos="59 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="60 "></span><span class="sd">        items: list of tasks</span>
-<span class="linenos" data-linenos="61 "></span><span class="sd">        offset: Optional offset to shift counters</span>
-<span class="linenos" data-linenos="62 "></span>
-<span class="linenos" data-linenos="63 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="64 "></span>    <span class="n">task_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">_build_task</span><span class="p">(</span><span class="n">_t</span><span class="p">)</span> <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
-<span class="linenos" data-linenos="65 "></span>    <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Running tasks: &#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">_t</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span> <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">task_items</span><span class="p">])</span>
-<span class="linenos" data-linenos="66 "></span>    <span class="n">tasks</span><span class="p">:</span> <span class="n">TaskList</span> <span class="o">=</span> <span class="p">[</span><span class="n">summary</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)]</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
-<span class="linenos" data-linenos="67 "></span>
-<span class="linenos" data-linenos="68 "></span>    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">task_items</span><span class="p">)</span> <span class="o">+</span> <span class="n">offset</span>
-<span class="linenos" data-linenos="69 "></span>    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">task_items</span><span class="p">):</span>
-<span class="linenos" data-linenos="70 "></span>        <span class="n">tasks</span> <span class="o">+=</span> <span class="p">[</span>
-<span class="linenos" data-linenos="71 "></span>            <span class="n">progress</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
-<span class="linenos" data-linenos="72 "></span>            <span class="n">item</span><span class="p">,</span>
-<span class="linenos" data-linenos="73 "></span>        <span class="p">]</span>
-<span class="linenos" data-linenos="74 "></span>    <span class="k">return</span> <span class="n">tasks</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="56 "></span><span class="nd">@beartype</span>
+<span class="linenos" data-linenos="57 "></span><span class="k">def</span> <span class="nf">with_progress</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TaskList</span><span class="p">:</span>
+<span class="linenos" data-linenos="58 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Inject intermediary &#39;progress&#39; tasks.</span>
+<span class="linenos" data-linenos="59 "></span>
+<span class="linenos" data-linenos="60 "></span><span class="sd">    Args:</span>
+<span class="linenos" data-linenos="61 "></span><span class="sd">    ----</span>
+<span class="linenos" data-linenos="62 "></span><span class="sd">        items: list of tasks</span>
+<span class="linenos" data-linenos="63 "></span><span class="sd">        offset: Optional offset to shift counters</span>
+<span class="linenos" data-linenos="64 "></span>
+<span class="linenos" data-linenos="65 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="66 "></span>    <span class="n">task_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">_build_task</span><span class="p">(</span><span class="n">_t</span><span class="p">)</span> <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+<span class="linenos" data-linenos="67 "></span>    <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;Running tasks: &#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">_t</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span> <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">task_items</span><span class="p">])</span>
+<span class="linenos" data-linenos="68 "></span>    <span class="n">tasks</span><span class="p">:</span> <span class="n">TaskList</span> <span class="o">=</span> <span class="p">[</span><span class="n">summary</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)]</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
+<span class="linenos" data-linenos="69 "></span>
+<span class="linenos" data-linenos="70 "></span>    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">task_items</span><span class="p">)</span> <span class="o">+</span> <span class="n">offset</span>
+<span class="linenos" data-linenos="71 "></span>    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">task_items</span><span class="p">):</span>
+<span class="linenos" data-linenos="72 "></span>        <span class="n">tasks</span> <span class="o">+=</span> <span class="p">[</span>
+<span class="linenos" data-linenos="73 "></span>            <span class="n">progress</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
+<span class="linenos" data-linenos="74 "></span>            <span class="n">item</span><span class="p">,</span>
+<span class="linenos" data-linenos="75 "></span>        <span class="p">]</span>
+<span class="linenos" data-linenos="76 "></span>    <span class="k">return</span> <span class="n">tasks</span>
 </code></pre></div>
             </details>
     </div>
