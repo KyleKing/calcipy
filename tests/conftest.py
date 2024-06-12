@@ -20,8 +20,13 @@ def vcr_config() -> Dict:
 
     """
     return {
+        # VCR-py configuration
+        #   Docs: https://vcrpy.readthedocs.io/en/latest/advanced.html
         'filter_headers': ['authorization'],
-        'ignore_localhost': True,
+        'ignore_localhost': False,
+        # Pytest-Recording CLI Options
+        'allowed_hosts': '',
+        'block_network': True,
         'record_mode': 'once',
     }
 
