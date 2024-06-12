@@ -11,10 +11,10 @@ from calcipy.tasks.types import basedpyright, mypy, pyright
     [
         (pyright, {}, [
             call('which pyright', warn=True, hide=True),
-            'pyright calcipy',
+            'pyright',
         ]),
-        (mypy, {}, [f'{python_dir()}/mypy calcipy']),
-        (basedpyright, {}, [f'{python_dir()}/basedpyright calcipy']),
+        (mypy, {}, [f'{python_dir()}/mypy']),
+        (basedpyright, {}, [f'{python_dir()}/basedpyright']),
     ],
 )
 def test_types(ctx, task, kwargs, commands):
