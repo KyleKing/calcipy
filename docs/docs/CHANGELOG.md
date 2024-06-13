@@ -1,5 +1,15 @@
 ## Unreleased
 
+## 3.0.1 (2024-06-12)
+
+### Fix
+
+- don't pass arguments to pyright CLI
+
+### Perf
+
+- cache known executables
+
 ## 3.0.0 (2024-06-07)
 
 ### Fix
