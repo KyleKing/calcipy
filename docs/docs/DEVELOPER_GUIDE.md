@@ -72,15 +72,15 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/cl.py`                                           |           28 |         5 |          0 | 75.0%      |
 | `calcipy/tasks/defaults.py`                                     |           20 |         0 |          0 | 89.3%      |
 | `calcipy/tasks/doc.py`                                          |           45 |         0 |          8 | 90.5%      |
-| `calcipy/tasks/executable_utils.py`                             |           27 |         0 |          0 | 87.2%      |
+| `calcipy/tasks/executable_utils.py`                             |           34 |         0 |          0 | 89.6%      |
 | `calcipy/tasks/lint.py`                                         |           44 |         2 |          0 | 82.9%      |
 | `calcipy/tasks/nox.py`                                          |            8 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/pack.py`                                         |           42 |        11 |          0 | 64.1%      |
 | `calcipy/tasks/stale.py`                                        |            6 |         0 |          0 | 100.0%     |
 | `calcipy/tasks/tags.py`                                         |           18 |         1 |          0 | 91.7%      |
 | `calcipy/tasks/test.py`                                         |           45 |         1 |          2 | 89.2%      |
-| `calcipy/tasks/types.py`                                        |           20 |         0 |          0 | 89.3%      |
-| **Totals**                                                      |         1019 |        76 |        262 | 86.5%      |
+| `calcipy/tasks/types.py`                                        |           14 |         0 |          0 | 90.0%      |
+| **Totals**                                                      |         1020 |        76 |        262 | 86.5%      |
 
-Generated on: 2024-06-07
+Generated on: 2024-06-12
 <!-- {cte} -->

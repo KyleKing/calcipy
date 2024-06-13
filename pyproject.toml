@@ -3,12 +3,15 @@ build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
 [tool.commitizen]
-version = "3.0.0"
+version = "3.0.1"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
+check_untyped_defs = true
 disallow_any_generics = true
 enable_error_code = ["ignore-without-code", "possibly-undefined", "redundant-expr", "truthy-bool"]
+extra_checks = true
+files = ["calcipy", "tests"]
 no_implicit_reexport = true
 plugins = [
   "pydantic.mypy", # Most settings are from: https://pydantic-docs.helpmanual.io/mypy_plugin
@@ -20,6 +23,7 @@ strict_equality = true
 warn_no_return = true
 warn_redundant_casts = true
 warn_unreachable = true
+warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.poetry]
@@ -46,7 +50,7 @@ maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
 repository = "https://github.com/kyleking/calcipy"
-version = "3.0.0"
+version = "3.0.1"
 
 [tool.poetry.dependencies]
 python = "^3.9.13"
@@ -55,7 +59,7 @@ basedpyright = {optional = true, version = ">=1.6.0"} # types
 beartype = ">=0.18.2"
 bidict = {optional = true, version = ">=0.22.1"} # stale
 commitizen = {optional = true, version = ">=3.22.0"} # doc
-corallium = ">=1.0.3"
+corallium = ">=2.0.0"
 griffe = {optional = true, version = ">=0.45.2"} # experimental
 httpx = {optional = true, version = ">=0.24.1"} # stale
 invoke = ">=2.2.0"
@@ -169,7 +173,7 @@ init_typed = true
 warn_required_dynamic_aliases = true
 
 [tool.pyright]
-include = ["calcipy"]
+include = ["calcipy", "tests"]
 pythonVersion = "3.9"
 
 [tool.ruff]

@@ -6,7 +6,9 @@ from functools import lru_cache
 from pathlib import Path
 
 from beartype import beartype
+from beartype.typing import Optional
 from invoke.context import Context
+from invoke.runners import Result
 
 from calcipy.invoke_helpers import run
 
@@ -45,10 +47,18 @@ PYRIGHT_MESSAGE = """
     See the online documentation for your system: https://microsoft.github.io/pyright/#/installation
 """
 
+_EXECUTABLE_CACHE: dict[str, Optional[Result]] = {}
+"""Runtime cache of executables."""
+
 
 @beartype
 def check_installed(ctx: Context, executable: str, message: str) -> None:
     """If the required executable isn't present, raise a clear user error."""
-    res = run(ctx, f'which {executable}', warn=True, hide=True)
+    if executable in _EXECUTABLE_CACHE:
+        res = _EXECUTABLE_CACHE[executable]
+    else:
+        res = run(ctx, f'which {executable}', warn=True, hide=True)
+        _EXECUTABLE_CACHE[executable] = res
+
     if not res or res.exited == 1:
         raise RuntimeError(message)

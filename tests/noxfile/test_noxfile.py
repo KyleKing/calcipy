@@ -5,7 +5,7 @@ from calcipy.noxfile._noxfile import _installable_dev_dependencies
 
 
 def test__installable_dev_dependencies(monkeypatch):
-    def stubbed_read_pyproject() -> Dict:
+    def stubbed_read_pyproject() -> Dict:  # type: ignore[type-arg]
         return {
             'tool': {
                 'poetry': {

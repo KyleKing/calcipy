@@ -1,7 +1,20 @@
 ## Unreleased
 
+## 3.0.1 (2024-06-12)
+
 ### Fix
 
+- don't pass arguments to pyright CLI
+
+### Perf
+
+- cache known executables
+
+## 3.0.0 (2024-06-07)
+
+### Fix
+
+- finish migration from autopep8 to ruff
 - resolve remaining ruff errors manually
 - use all-caps LOGGER from corallium
 - require lock before install-extras
