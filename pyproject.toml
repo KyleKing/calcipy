@@ -7,8 +7,11 @@ version = "3.0.1"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
+check_untyped_defs = true
 disallow_any_generics = true
 enable_error_code = ["ignore-without-code", "possibly-undefined", "redundant-expr", "truthy-bool"]
+extra_checks = true
+files = ["calcipy", "tests"]
 no_implicit_reexport = true
 plugins = [
   "pydantic.mypy", # Most settings are from: https://pydantic-docs.helpmanual.io/mypy_plugin
@@ -20,6 +23,7 @@ strict_equality = true
 warn_no_return = true
 warn_redundant_casts = true
 warn_unreachable = true
+warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.poetry]
@@ -169,7 +173,7 @@ init_typed = true
 warn_required_dynamic_aliases = true
 
 [tool.pyright]
-include = ["calcipy"]
+include = ["calcipy", "tests"]
 pythonVersion = "3.9"
 
 [tool.ruff]
