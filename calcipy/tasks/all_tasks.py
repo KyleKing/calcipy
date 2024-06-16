@@ -7,9 +7,9 @@ from invoke.context import Context
 from invoke.tasks import Call
 
 from calcipy.cli import task
+from calcipy.collection import Collection, DeferedTask, _build_task
 
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
-from ._invoke import Collection, DeferedTask, _build_task
 from .defaults import new_collection
 
 # "ns" will be recognized by Collection.from_module(all_tasks)

@@ -6,7 +6,7 @@ from beartype.typing import List
 
 from . import __pkg_name__, __version__
 from .cli import start_program
-from .tasks._invoke import Collection
+from .collection import Collection
 
 
 def start() -> None:  # pragma: no cover

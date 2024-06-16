@@ -12,8 +12,8 @@ from invoke.collection import Collection as InvokeCollection  # noqa: TID251
 from invoke.config import Config, merge_dicts
 from invoke.program import Program
 
+from .collection import TASK_ARGS_ATTR, TASK_KWARGS_ATTR, Collection, GlobalTaskOptions
 from .invoke_helpers import use_pty
-from .tasks._invoke import TASK_ARGS_ATTR, TASK_KWARGS_ATTR, Collection, GlobalTaskOptions
 
 
 class _CalcipyProgram(Program):

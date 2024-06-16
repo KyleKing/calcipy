@@ -7,7 +7,7 @@ from pathlib import Path
 from beartype import beartype
 from invoke.context import Context
 
-from ._invoke import Collection
+from calcipy.collection import Collection
 
 DEFAULTS = {
     'tags': {

@@ -100,6 +100,7 @@ def _build_task(task: DeferedTask) -> Task:  # type: ignore[type-arg]  # pragma:
 
 
 class Collection(InvokeCollection):
+    """Calcipy Task Collection."""
 
     @classmethod
     def from_module(

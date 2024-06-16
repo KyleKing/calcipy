@@ -212,7 +212,7 @@ unfixable = [
 inline-quotes = 'single'
 
 [tool.ruff.lint.flake8-tidy-imports.banned-api]
-'invoke.collection.Collection'.msg = 'Use calcipy.cli.Collection instead.'
+'invoke.collection.Collection'.msg = 'Use calcipy.collection.Collection instead.'
 'invoke.tasks.task'.msg = 'Use calcipy.cli.task instead.'
 'typing.Callable'.msg = 'Use beartype.typing.* instead.'
 'typing.Dict'.msg = 'Use beartype.typing.* instead.'
