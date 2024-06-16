@@ -28,12 +28,14 @@ class _CalcipyProgram(Program):
         super().print_help()
         print('Global Task Options:')  # noqa: T201
         print()  # noqa: T201
-        self.print_columns([
-            ('*file_args', 'List of Paths available globally to all tasks. Will resolve paths with working_dir'),
-            ('--keep-going', 'Continue running tasks even on failure'),
-            ('--working_dir=STRING', 'Set the cwd for the program. Example: "../run --working-dir .. lint test"'),
-            ('-v,-vv,-vvv', 'Globally configure logger verbosity (-vvv for most verbose)'),
-        ])
+        self.print_columns(
+            [
+                ('*file_args', 'List of Paths available globally to all tasks. Will resolve paths with working_dir'),
+                ('--keep-going', 'Continue running tasks even on failure'),
+                ('--working_dir=STRING', 'Set the cwd for the program. Example: "../run --working-dir .. lint test"'),
+                ('-v,-vv,-vvv', 'Globally configure logger verbosity (-vvv for most verbose)'),
+            ],
+        )
         print()  # noqa: T201
 
 
@@ -85,14 +87,10 @@ def start_program(
         elif argv != '--working-dir':
             sys_argv.append(argv)
         last_argv = argv
-    _gto.file_args = [
-        _f if _f.is_absolute() else Path.cwd() / _f
-        for _f in _gto.file_args
-    ]
+    _gto.file_args = [_f if _f.is_absolute() else Path.cwd() / _f for _f in _gto.file_args]
     sys.argv = sys_argv
 
     class _CalcipyConfig(CalcipyConfig):
-
         gto: GlobalTaskOptions = _gto
 
     if module and collection:
@@ -108,6 +106,7 @@ def start_program(
 
 def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-arg]
     """Mark wrapped callable object as a valid Invoke task."""
+
     def wrapper(func: Any) -> Callable:  # type: ignore[type-arg]
         # Attach arguments for Task
         setattr(func, TASK_ARGS_ATTR, dec_args)
@@ -126,6 +125,7 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-ar
             @wraps(func)  # nosem
             def _with_kwargs_inner(*args: Any, **kwargs: Any) -> Any:
                 return func(*args, **kwargs, **extra_kwargs)
+
             return _with_kwargs_inner
 
         func.with_kwargs = _with_kwargs
@@ -137,11 +137,7 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-ar
         return _inner
 
     # Handle the case when the decorator is called without arguments
-    if (
-        len(dec_args) == 1
-        and callable(dec_args[0])
-        and not hasattr(dec_args[0], TASK_ARGS_ATTR)
-    ):
+    if len(dec_args) == 1 and callable(dec_args[0]) and not hasattr(dec_args[0], TASK_ARGS_ATTR):
         return wrapper(dec_args[0])
 
     return wrapper
