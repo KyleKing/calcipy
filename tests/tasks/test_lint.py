@@ -9,10 +9,10 @@ from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commi
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (check, {}, [f'{python_m()} ruff check ./calcipy ./tests']),
-        (fix, {}, [f'{python_m()} ruff check ./calcipy ./tests --fix']),
-        (watch, {}, [f'{python_m()} ruff check ./calcipy ./tests --watch --show-source']),
-        (pylint, {}, [f'{python_m()} pylint ./calcipy ./tests']),
+        (check, {}, [f'{python_m()} ruff check "./calcipy" ./tests']),
+        (fix, {}, [f'{python_m()} ruff check "./calcipy" ./tests --fix']),
+        (watch, {}, [f'{python_m()} ruff check "./calcipy" ./tests --watch --show-source']),
+        (pylint, {}, [f'{python_m()} pylint "./calcipy" ./tests']),
         (pre_commit, {}, [
             call('which pre-commit', warn=True, hide=True),
             'pre-commit install',

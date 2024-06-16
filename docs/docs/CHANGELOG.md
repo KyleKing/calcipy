@@ -1,5 +1,14 @@
 ## Unreleased
 
+### Fix
+
+- use calcipy.collection for Collection import
+- quote each file-arg to linting tasks
+
+### Refactor
+
+- format cli file
+
 ## 3.0.1 (2024-06-12)
 
 ### Fix
