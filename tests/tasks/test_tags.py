@@ -17,7 +17,8 @@ def _merge_path_kwargs(kwargs: Dict) -> Path:
 
 @beartype
 def _check_no_write(kwargs: Dict) -> None:
-    assert not _merge_path_kwargs(kwargs).is_file()
+    path_tag_summary = _merge_path_kwargs(kwargs)
+    assert not path_tag_summary.is_file()
 
 
 @beartype
@@ -32,23 +33,31 @@ def _check_output(kwargs: Dict) -> None:
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'validator'),
     [
-        (collect_code_tags, {
-            'base_dir': APP_DIR.as_posix(),
-            'doc_sub_dir': TEST_DATA_DIR.as_posix(),
-            'filename': 'test_tags.md.rej',
-            'tag_order': 'FIXME,TODO',
-            'regex': '',
-            'ignore_patterns': '*.py,*.yaml,docs/docs/*.md',
-        }, _check_no_write),
-        (collect_code_tags, {
-            'base_dir': APP_DIR.as_posix(),
-            'doc_sub_dir': TEST_DATA_DIR.as_posix(),
-            'filename': 'test_tags.md.rej',
-        }, _check_output),
+        (
+            collect_code_tags,
+            {
+                'base_dir': APP_DIR.as_posix(),
+                'doc_sub_dir': TEST_DATA_DIR.as_posix(),
+                'filename': 'test_tags.md.rej',
+                'tag_order': 'FIXME,TODO',
+                'regex': '',
+                'ignore_patterns': '*.py,*.yaml,docs/docs/*.md,*.toml',
+            },
+            _check_no_write,
+        ),
+        (
+            collect_code_tags,
+            {
+                'base_dir': APP_DIR.as_posix(),
+                'doc_sub_dir': TEST_DATA_DIR.as_posix(),
+                'filename': 'test_tags.md.rej',
+            },
+            _check_output,
+        ),
     ],
     ids=[
         'Check that no code tags were matched and no file was created',
-        'Check that no code tags were matched and no file was created',
+        'Check that code tags were matched and a file was created',
     ],
 )
 @beartype
