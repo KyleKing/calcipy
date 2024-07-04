@@ -1,4 +1,4 @@
-<!-- Do not modify sections with "AUTO-*". They are updated by make.py -->
+<!-- Do not modify sections within "{ct*}". They are updated when building the docs -->
 
 # Title
 
@@ -15,5 +15,5 @@ Personal rating: *Not yet rated*
 <!-- {cts} COVERAGE_TEST -->
 <!-- {cte} -->
 
-<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->
+<!-- {cts} SOURCE_FILE_TEST=/tests/test_zz_calcipy.py; -->
 <!-- {cte} -->

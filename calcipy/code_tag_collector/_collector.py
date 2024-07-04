@@ -8,13 +8,14 @@ from pathlib import Path
 from subprocess import CalledProcessError  # nosec  # noqa: S404
 
 import arrow
-import pandas as pd
 from beartype import beartype
 from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
 from corallium.shell import capture_shell
 from pydantic import BaseModel, ConfigDict
+
+from calcipy._md_helpers import _format_md_table
 
 SKIP_PHRASE = 'calcipy_skip_tags'
 """String that indicates the file should be excluded from the tag search."""
@@ -55,7 +56,8 @@ class _Tags(BaseModel):
 
 @beartype
 def _search_lines(
-    lines: List[str], regex_compiled: Pattern[str],
+    lines: List[str],
+    regex_compiled: Pattern[str],
     skip_phrase: str = 'calcipy_skip_tags',
 ) -> List[_CodeTag]:
     """Search lines of text for matches to the compiled regular expression.
@@ -184,7 +186,12 @@ class _CollectorRow(BaseModel):
 
 @beartype
 def _format_from_blame(
-    *, collector_row: _CollectorRow, blame: str, repo_url: str, cwd: Path, rel_path: Path,
+    *,
+    collector_row: _CollectorRow,
+    blame: str,
+    repo_url: str,
+    cwd: Path,
+    rel_path: Path,
 ) -> _CollectorRow:
     """Parse the git blame for useful timestamps and author when available."""
     # Note: line number may be different in older blame (and relative path)
@@ -193,10 +200,7 @@ def _format_from_blame(
     if all(_c == '0' for _c in revision):
         revision = capture_shell('git branch --show-current', cwd=cwd)
     # Format a nice timestamp of the last edit to the line
-    blame_dict = {
-        line.split(' ')[0]: ' '.join(line.split(' ')[1:])
-        for line in blame.split('\n')
-    }
+    blame_dict = {line.split(' ')[0]: ' '.join(line.split(' ')[1:]) for line in blame.split('\n')}
 
     # Handle uncommitted files that only have author-time and author-tz
     user = 'committer' if 'committer-tz' in blame_dict else 'author'
@@ -243,7 +247,11 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _Colle
     try:
         blame = capture_shell(f'git blame {file_path} -L {comment.lineno},{comment.lineno} --porcelain', cwd=cwd)
         collector_row = _format_from_blame(
-            collector_row=collector_row, blame=blame, repo_url=repo_url, cwd=cwd, rel_path=rel_path,
+            collector_row=collector_row,
+            blame=blame,
+            repo_url=repo_url,
+            cwd=cwd,
+            rel_path=rel_path,
         )
     except CalledProcessError as exc:
         handled_errors = (128,)
@@ -256,7 +264,9 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _Colle
 
 @beartype
 def _format_report(
-    base_dir: Path, code_tags: List[_Tags], tag_order: List[str],
+    base_dir: Path,
+    code_tags: List[_Tags],
+    tag_order: List[str],
 ) -> str:
     """Pretty-format the code tags by file and line number.
 
@@ -278,28 +288,22 @@ def _format_report(
         for comment in comments.code_tags:
             if comment.tag in tag_order:
                 collector_row = _format_record(base_dir, comments.path_source, comment)
-                records.append({
-                    'Type': collector_row.tag_name,
-                    'Comment': collector_row.comment,
-                    'Last Edit': collector_row.last_edit,
-                    'Source File': collector_row.source_file,
-                })
+                records.append(
+                    {
+                        'Type': collector_row.tag_name,
+                        'Comment': collector_row.comment,
+                        'Last Edit': collector_row.last_edit,
+                        'Source File': collector_row.source_file,
+                    },
+                )
                 counter[comment.tag] += 1
     if records:
-        df_tags = pd.DataFrame(records)
-        # Prevent URLs from appearing on multiple lines
-        content = df_tags.to_markdown(index=False, tablefmt='github', maxcolwidths=None) or ''
-        for line in content.split('\n'):
-            if not line.startswith('/'):
-                output += '\n'
-            output += line
+        output += '\n' + '\n'.join(_format_md_table(headers=[*records[0]], records=records))
     LOGGER.text_debug('counter', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}
     LOGGER.text_debug('sorted_counter', sorted_counter=sorted_counter)
-    if formatted_summary := ', '.join(
-        f'{tag} ({count})' for tag, count in sorted_counter.items()
-    ):
+    if formatted_summary := ', '.join(f'{tag} ({count})' for tag, count in sorted_counter.items()):
         output += f'\n\nFound code tags for {formatted_summary}\n'
     return output
 
@@ -332,7 +336,9 @@ def write_code_tag_file(
 
     matches = _search_files(paths_source, re.compile(matcher))
     if report := _format_report(
-        base_dir, matches, tag_order=tag_order,
+        base_dir,
+        matches,
+        tag_order=tag_order,
     ).strip():
         path_tag_summary.parent.mkdir(exist_ok=True, parents=True)
         path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')

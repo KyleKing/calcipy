@@ -1,0 +1,61 @@
+# serializer version: 1
+# name: test_format_cov_table
+  '''
+  | File                              | Statements | Missing | Excluded | Coverage |
+  |-----------------------------------|------------|---------|----------|----------|
+  | `calcipy/doit_tasks/base.py`      | 22         | 2       | 3        | 90.9%    |
+  | `calcipy/doit_tasks/code_tags.py` | 75         | 44      | 0        | 41.3%    |
+  | **Totals**                        | 97         | 46      | 3        | 52.6%    |
+  
+  Generated on: 2021-06-03
+  '''
+# ---
+# name: test_write_template_formatted_md_sections
+  '''
+  <!-- Do not modify sections within "{ct*}". They are updated when building the docs -->
+  
+  # Title
+  
+  > Test markdown formatting from [recipes](https://github.com/KyleKing/recipes)
+  
+  <!-- {cts} rating=4; (User can specify rating on scale of 1-5) -->
+  Personal rating: *Not yet rated*
+  <!-- {cte} -->
+  
+  <!-- {cts} name_image=NA.png; (User can specify image name) -->
+  <!-- Capture image -->
+  <!-- {cte} -->
+  
+  <!-- {cts} COVERAGE_TEST -->
+  | File                              | Statements | Missing | Excluded | Coverage |
+  |-----------------------------------|------------|---------|----------|----------|
+  | `calcipy/doit_tasks/base.py`      | 22         | 2       | 3        | 90.9%    |
+  | `calcipy/doit_tasks/code_tags.py` | 75         | 44      | 0        | 41.3%    |
+  | **Totals**                        | 97         | 46      | 3        | 52.6%    |
+  
+  Generated on: 2021-06-03
+  <!-- {cte} -->
+  
+  <!-- {cts} SOURCE_FILE_TEST=/tests/test_zz_calcipy.py; -->
+  ```py
+  """Final test alphabetically (zz) to catch general integration cases."""
+  
+  from pathlib import Path
+  
+  from corallium.tomllib import tomllib
+  
+  from calcipy import __version__
+  
+  
+  def test_version():
+      """Check that PyProject and package __version__ are equivalent."""
+      data = Path('pyproject.toml').read_text(encoding='utf-8')
+  
+      result = tomllib.loads(data)['tool']['poetry']['version']
+  
+      assert result == __version__
+  ```
+  <!-- {cte} -->
+  
+  '''
+# ---

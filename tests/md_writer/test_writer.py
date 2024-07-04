@@ -51,46 +51,37 @@ _COVERAGE_SAMPLE_DATA = {
 """Sample coverage data generated with `python -m coverage json`."""
 
 
-def test_format_cov_table():
+def test_format_cov_table(snapshot):
     result = _format_cov_table(_COVERAGE_SAMPLE_DATA)
 
-    assert result == [
-        '| File                              |   Statements |   Missing |   Excluded | Coverage   |',
-        '|-----------------------------------|--------------|-----------|------------|------------|',
-        '| `calcipy/doit_tasks/base.py`      |           22 |         2 |          3 | 90.9%      |',
-        '| `calcipy/doit_tasks/code_tags.py` |           75 |        44 |          0 | 41.3%      |',
-        '| **Totals**                        |           97 |        46 |          3 | 52.6%      |',
-        '',
-        'Generated on: 2021-06-03',
-    ]
+    assert '\n'.join(result) == snapshot
 
 
-def test_write_template_formatted_md_sections(fix_test_cache):
+def test_write_template_formatted_md_sections(fix_test_cache, snapshot):
     path_new_readme = fix_test_cache / SAMPLE_README_PATH.name
     shutil.copyfile(SAMPLE_README_PATH, path_new_readme)
     path_cover = fix_test_cache / 'coverage.json'
     path_cover.write_text(json.dumps(_COVERAGE_SAMPLE_DATA))
-    placeholder = '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->'
+    placeholder = '<!-- {cts} SOURCE_FILE_TEST=/tests/test_zz_calcipy.py; -->\n<!-- {cte} -->'
     was_placeholder = placeholder in path_new_readme.read_text()
 
-    write_template_formatted_md_sections(handler_lookup={
-        'SOURCE_FILE_TEST': _handle_source_file,
-        'COVERAGE_TEST': partial(_handle_coverage, path_coverage=path_cover),
-    }, paths_md=[path_new_readme])
+    write_template_formatted_md_sections(
+        handler_lookup={
+            'SOURCE_FILE_TEST': _handle_source_file,
+            'COVERAGE_TEST': partial(_handle_coverage, path_coverage=path_cover),
+        },
+        paths_md=[path_new_readme],
+    )
 
     text = path_new_readme.read_text()
     assert was_placeholder
     assert placeholder not in text
-    assert '<!-- {cts} COVERAGE_TEST -->\n| File    ' in text
-    assert '| File                              |   Statements |   Missing |   Excluded | Coverage   |' in text
-    assert '| `calcipy/doit_tasks/base.py`      |           22 |         2 |          3 | 90.9%      |' in text
-    assert '| **Totals**                        |           97 |        46 |          3 | 52.6%      |' in text
-    assert 'Generated on: 2021-06-03' in text
-    assert '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n```py\n"""PyTest configuration.' in text
+    assert text == snapshot
 
 
 @pytest.mark.parametrize(
-    ('line', 'match'), [
+    ('line', 'match'),
+    [
         ('<!-- {cts} rating=1; (User can specify rating on scale of 1-5) -->', {'rating': '1'}),
         ('<!-- {cts} path_image=imgs/image_filename.png; -->', {'path_image': 'imgs/image_filename.png'}),
         ('<!-- {cts} tricky_var_3=-11e-21; -->', {'tricky_var_3': '-11e-21'}),
@@ -118,6 +109,9 @@ def test_write_template_formatted_md_sections_custom(fix_test_cache):
     assert '\n<!-- {cts} rating=' in SAMPLE_README_PATH.read_text()
     assert '\n<!-- {cts} rating=' not in text
     assert '\n\nRATING=4\n\n' in text
-    assert """<!-- {cts} name_image=NA.png; (User can specify image name) -->
+    assert (
+        """<!-- {cts} name_image=NA.png; (User can specify image name) -->
 <!-- Capture image -->
-<!-- {cte} -->""" in text
+<!-- {cte} -->"""
+        in text
+    )
