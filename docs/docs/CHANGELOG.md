@@ -2,6 +2,19 @@
 
 ### Fix
 
+- **#132**: remove mkdocs section-index and literate nav
+
+### Refactor
+
+- **#132**: remove pyreverse diagrams
+- **#132**: remove MkDocs revision date plugin
+- **#132**: remove plantuml-mkdocs integration
+- **#132**: remove dependency on bidict and pyrate-limiter
+
+## 3.0.2 (2024-06-16)
+
+### Fix
+
 - use calcipy.collection for Collection import
 - quote each file-arg to linting tasks
 

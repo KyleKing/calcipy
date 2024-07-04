@@ -2190,24 +2190,6 @@ files = [
 ]
 
 [[package]]
-name = "transitions"
-version = "0.9.1"
-description = "A lightweight, object-oriented Python state machine implementation with many extensions."
-optional = true
-python-versions = "*"
-files = [
-    {file = "transitions-0.9.1-py2.py3-none-any.whl", hash = "sha256:e76ad7bf44d46bd03bc50f269cebfa5affef28534c92b87b43e60b03d8925864"},
-    {file = "transitions-0.9.1.tar.gz", hash = "sha256:3542c37108e93e2ae5f215208ec5732c94a772937854a102cd7345b967fee61b"},
-]
-
-[package.dependencies]
-six = "*"
-
-[package.extras]
-diagrams = ["pygraphviz"]
-test = ["pytest"]
-
-[[package]]
 name = "types-python-dateutil"
 version = "2.9.0.20240316"
 description = "Typing stubs for python-dateutil"
@@ -2613,7 +2595,7 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 
 [extras]
 ddict = ["python-box"]
-doc = ["commitizen", "mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocstrings", "pandas", "pymdown-extensions", "pyyaml", "transitions"]
+doc = ["commitizen", "mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocstrings", "pandas", "pymdown-extensions", "pyyaml"]
 experimental = ["griffe", "semver"]
 lint = ["ruff"]
 nox = ["nox-poetry", "virtualenv"]
@@ -2626,4 +2608,4 @@ types = ["basedpyright", "mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "59d1baefe233784a47dba62ec5184feef84ce036f9c26bed1d8e93c27725d854"
+content-hash = "185d4a174f9cd83ac89d9de23a3a2dbd2112a58ceb8baa7723eb4676adbeb01c"

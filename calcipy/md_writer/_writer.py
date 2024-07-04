@@ -9,7 +9,6 @@ from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
-from transitions import Machine
 
 from calcipy.file_search import find_project_files_by_suffix
 from calcipy.invoke_helpers import get_project_path
@@ -22,8 +21,10 @@ class _ParseSkipError(RuntimeError):
     """Exception caught if the handler does not want to replace the text."""
 
 
-class _ReplacementMachine(Machine):
+class _ReplacementMachine:
     """State machine to replace content with user-specified handlers.
+
+    Previously built with `transitions`
 
     Uses `{cts}` and `{cte}` to demarcate sections (short for calcipy_template start|end)
 
@@ -33,23 +34,17 @@ class _ReplacementMachine(Machine):
         """Initialize the state machine."""
         self.state_user = 'user'
         self.state_auto = 'autoformatted'
-        transitions = [
-            {
-                'trigger': 'start_auto',
-                'source': self.state_user,
-                'dest': self.state_auto,
-            },
-            {
-                'trigger': 'end',
-                'source': self.state_auto,
-                'dest': self.state_user,
-            },
-        ]
-        super().__init__(
-            states=[self.state_user, self.state_auto],
-            initial=self.state_user,
-            transitions=transitions,
-        )
+        self.state = self.state_user
+
+    def change_auto(self) -> None:
+        """Transition from state_user to state_auto."""
+        if self.state == self.state_user:
+            self.state = self.state_auto
+
+    def change_end(self) -> None:
+        """Transition from state_auto to state_user."""
+        if self.state == self.state_auto:
+            self.state = self.state_user
 
     @beartype
     def parse(
@@ -98,20 +93,21 @@ class _ReplacementMachine(Machine):
         """
         lines: List[str] = []
         if '{cte}' in line and self.state == self.state_auto:  # end
-            self.end()
+            self.change_end()
         elif '{cts}' in line:  # start
-            self.start_auto()
+            self.change_auto()
             matches = [text_match for text_match in handler_lookup if text_match in line]
             if len(matches) == 1:
+                [match] = matches
                 try:
-                    lines.extend(handler_lookup[matches[0]](line, path_file))
+                    lines.extend(handler_lookup[match](line, path_file))
                 except _ParseSkipError:
                     lines.append(line)
-                    self.end()
+                    self.change_end()
             else:
                 LOGGER.warning('Could not parse. Skipping:', line=line)
                 lines.append(line)
-                self.end()
+                self.change_end()
         elif self.state == self.state_user:
             lines.append(line)
         # else: discard the lines in the auto-section

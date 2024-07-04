@@ -351,6 +351,14 @@
         "name": "mkdocs-autorefs",
         "version": "1.0.1"
     },
+    "mkdocs-gen-files": {
+        "datetime": "2023-04-27T19:48:07.059869+00:00",
+        "domain": "https://pypi.org/pypi/{name}/json",
+        "latest_datetime": "2023-04-27T19:48:07.059869+00:00",
+        "latest_version": "0.5.0",
+        "name": "mkdocs-gen-files",
+        "version": "0.5.0"
+    },
     "mkdocs-get-deps": {
         "datetime": "2023-11-20T17:51:08.587799+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -766,14 +774,6 @@
         "latest_version": "0.12.5",
         "name": "tomlkit",
         "version": "0.12.5"
-    },
-    "transitions": {
-        "datetime": "2024-05-14T15:30:09.631264+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-05-14T15:30:09.631264+00:00",
-        "latest_version": "0.9.1",
-        "name": "transitions",
-        "version": "0.9.1"
     },
     "types-python-dateutil": {
         "datetime": "2024-03-16T02:12:35.307255+00:00",

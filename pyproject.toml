@@ -82,7 +82,6 @@ pyyaml = {optional = true, version = ">=5.2"} # doc,tags
 ruff = {optional = true, version = ">=0.4.8"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
 tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
-transitions = {optional = true, version = ">=0.9.0"} # tags: docs
 virtualenv = {optional = true, version = ">=20.24.0"} # tags: nox. Prevents 'scripts' KeyError with Python 3.12
 
 [tool.poetry.extras]
@@ -97,7 +96,6 @@ doc = [
   "pandas",
   "pymdown-extensions",
   "pyyaml",
-  "transitions",
 ]
 experimental = [
   "griffe",
@@ -139,7 +137,7 @@ pytest-subprocess = ">=1.4.1"
 syrupy = ">=4.4.0"
 types-pyyaml = ">=6.0.12.6"
 types-setuptools = ">=67.3.0.1"
-vcrpy = ">=5.1.0" # FYI: Pinned to indirectly manage the urllib3 version
+vcrpy = ">=6.0.1"  # Note: urllib3 requires Python >=3.10 https://github.com/kevin1024/vcrpy/blob/9cfa6c51733313b7a0db429df0740f5c14b43e78/setup.py#L49-L57
 
 [tool.poetry.scripts]
 calcipy = "calcipy.scripts:start"
