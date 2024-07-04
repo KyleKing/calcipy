@@ -63,7 +63,6 @@ griffe = {optional = true, version = ">=0.45.2"} # experimental
 httpx = {optional = true, version = ">=0.24.1"} # stale
 invoke = ">=2.2.0"
 mkdocs = {optional = true, version = ">=1.5.3"} # doc
-mkdocs-build-plantuml-plugin = {optional = true, version = ">=1.9.0,!=1.10.0"} # doc
 mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # doc
 mkdocs-git-revision-date-localized-plugin = {optional = true, version = ">=1.0.1"} # doc
 mkdocs-include-markdown-plugin = {markers = "python_version < '3.12'", optional = true, version = ">=4.0.3"} # doc
@@ -94,7 +93,6 @@ ddict = ["python-box"]
 doc = [
   "commitizen",
   "mkdocs",
-  "mkdocs-build-plantuml-plugin",
   "mkdocs-gen-files",
   "mkdocs-git-revision-date-localized-plugin",
   "mkdocs-include-markdown-plugin",
