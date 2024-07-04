@@ -7,16 +7,14 @@ from pathlib import Path
 from beartype import beartype
 from corallium.file_helpers import (
     MKDOCS_CONFIG,
-    delete_dir,
     open_in_browser,
     read_yaml_file,
-    trim_trailing_whitespace,
 )
 from invoke.context import Context
 from invoke.exceptions import UnexpectedExit
 
 from calcipy.cli import task
-from calcipy.invoke_helpers import get_doc_subdir, get_project_path, run
+from calcipy.invoke_helpers import get_project_path, run
 from calcipy.md_writer import write_autoformatted_md_sections
 
 from .executable_utils import python_dir
@@ -32,14 +30,7 @@ def get_out_dir() -> Path:
 @task()
 def build(ctx: Context) -> None:
     """Build documentation with mkdocs."""
-    auto_doc_path = get_doc_subdir().parent / 'modules'
     write_autoformatted_md_sections()
-    delete_dir(auto_doc_path)
-
-    # Find and trim trailing whitespace
-    for path_md in auto_doc_path.rglob('*.md'):
-        trim_trailing_whitespace(path_md)
-
     run(ctx, f'{python_dir()}/mkdocs build --site-dir {get_out_dir()}')
 
 
