@@ -69,7 +69,6 @@ mkdocs-material = {optional = true, version = ">=9.4.8"} # doc
 mkdocstrings = {extras = ["python"], optional = true, version = ">=0.24.2"} # doc
 mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.3"} # test
-pandas = {optional = true, version = ">=1.5.3"} # docs,tags
 pydantic = ">=2.8.2"
 pylint = {optional = true, version = ">=3.0.2"} # doc,pylint
 pymdown-extensions = {optional = true, version = ">=10.0.1"} # docs
@@ -81,7 +80,6 @@ python-box = {optional = true, version = ">=6.0.2"} # ddict
 pyyaml = {optional = true, version = ">=5.2"} # doc,tags
 ruff = {optional = true, version = ">=0.4.8"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
-tabulate = {optional = true, version = ">=0.9.0"} # tags: Required for pandas to markdown
 virtualenv = {optional = true, version = ">=20.24.0"} # tags: nox. Prevents 'scripts' KeyError with Python 3.12
 
 [tool.poetry.extras]
@@ -93,7 +91,6 @@ doc = [
   "mkdocs-include-markdown-plugin",
   "mkdocs-material",
   "mkdocstrings",
-  "pandas",
   "pymdown-extensions",
   "pyyaml",
 ]
@@ -112,7 +109,6 @@ stale = [
 ]
 tags = [
   "arrow",
-  "pandas",
   "pyyaml",
   "tabulate",
 ]
@@ -130,14 +126,13 @@ types = [
 [tool.poetry.group.dev.dependencies]
 # pytest-benchmark = ">=3.4.1"  # Provides the benchmark fixture
 hypothesis = {extras = ["cli"], version = ">=6.100.1"} # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
-pandas-stubs = ">=2.2.2.240603"
 pytest-asyncio = ">=0.21.0"
 pytest-recording = ">=0.13.0"
 pytest-subprocess = ">=1.4.1"
 syrupy = ">=4.4.0"
 types-pyyaml = ">=6.0.12.6"
 types-setuptools = ">=67.3.0.1"
-vcrpy = ">=6.0.1"  # Note: urllib3 requires Python >=3.10 https://github.com/kevin1024/vcrpy/blob/9cfa6c51733313b7a0db429df0740f5c14b43e78/setup.py#L49-L57
+vcrpy = ">=6.0.1" # Note: urllib3 requires Python >=3.10 https://github.com/kevin1024/vcrpy/blob/9cfa6c51733313b7a0db429df0740f5c14b43e78/setup.py#L49-L57
 
 [tool.poetry.scripts]
 calcipy = "calcipy.scripts:start"

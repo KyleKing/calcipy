@@ -455,14 +455,6 @@
         "name": "nox-poetry",
         "version": "1.0.3"
     },
-    "numpy": {
-        "datetime": "2024-02-05T23:48:01.194769+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-03-11T23:23:35.526242+00:00",
-        "latest_version": "2.0.0b1",
-        "name": "numpy",
-        "version": "1.26.4"
-    },
     "packaging": {
         "datetime": "2024-03-10T09:39:25.947088+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -478,22 +470,6 @@
         "latest_version": "0.5.6",
         "name": "paginate",
         "version": "0.5.6"
-    },
-    "pandas": {
-        "datetime": "2024-04-10T19:44:10.360057+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-04-10T19:44:10.360057+00:00",
-        "latest_version": "2.2.2",
-        "name": "pandas",
-        "version": "2.2.2"
-    },
-    "pandas-stubs": {
-        "datetime": "2024-06-03T18:02:19.076145+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-06-03T18:02:19.076145+00:00",
-        "latest_version": "2.2.2.240603",
-        "name": "pandas-stubs",
-        "version": "2.2.2.240603"
     },
     "pathspec": {
         "datetime": "2023-12-10T22:30:43.140207+00:00",
@@ -639,14 +615,6 @@
         "name": "python-dateutil",
         "version": "2.9.0.post0"
     },
-    "pytz": {
-        "datetime": "2024-02-02T01:18:37.283025+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-02-02T01:18:37.283025+00:00",
-        "latest_version": "2024.1",
-        "name": "pytz",
-        "version": "2024.1"
-    },
     "pyyaml": {
         "datetime": "2023-07-17T23:57:04.325444+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -743,14 +711,6 @@
         "name": "syrupy",
         "version": "4.6.1"
     },
-    "tabulate": {
-        "datetime": "2022-10-06T17:21:44.262497+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2022-10-06T17:21:44.262497+00:00",
-        "latest_version": "0.9.0",
-        "name": "tabulate",
-        "version": "0.9.0"
-    },
     "termcolor": {
         "datetime": "2023-12-01T11:04:50.019609+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -783,14 +743,6 @@
         "name": "types-python-dateutil",
         "version": "2.9.0.20240316"
     },
-    "types-pytz": {
-        "datetime": "2024-04-17T02:16:55.830875+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-04-17T02:16:55.830875+00:00",
-        "latest_version": "2024.1.0.20240417",
-        "name": "types-pytz",
-        "version": "2024.1.0.20240417"
-    },
     "types-pyyaml": {
         "datetime": "2024-03-11T02:15:45.451944+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -814,14 +766,6 @@
         "latest_version": "4.12.2",
         "name": "typing-extensions",
         "version": "4.12.2"
-    },
-    "tzdata": {
-        "datetime": "2024-02-11T23:22:38.223335+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-02-11T23:22:38.223335+00:00",
-        "latest_version": "2024.1",
-        "name": "tzdata",
-        "version": "2024.1"
     },
     "urllib3": {
         "datetime": "2024-02-18T03:55:54.704486+00:00",

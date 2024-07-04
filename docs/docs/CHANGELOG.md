@@ -2,10 +2,12 @@
 
 ### Fix
 
+- improve output from stale and concurrency
 - **#132**: remove mkdocs section-index and literate nav
 
 ### Refactor
 
+- **#132**: remove transitions
 - **#132**: remove pyreverse diagrams
 - **#132**: remove MkDocs revision date plugin
 - **#132**: remove plantuml-mkdocs integration
@@ -388,7 +390,7 @@
 - add tests for code tag collector
 - replace dg with user configuration file
 - better support min-cover
-- unit test write_autoformatted_md_sections
+- unit test write_template_formatted_md_sections
 - start using check_imports
 - support prereleases and add autopep8
 - introduce cl namespace

@@ -4,7 +4,6 @@ import json
 import re
 from pathlib import Path
 
-import pandas as pd
 from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
@@ -165,6 +164,24 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     return [line_start, *lines_source, line_end]
 
 
+def format_md_table(headers: List[str], records: List[Dict[str, Any]]) -> List[str]:
+    """Format the input as a Github markdown table."""
+    table = [[str(_r[col]) for col in headers] for _r in records]
+    widths = [max(len(row[col_idx]) for row in [headers, *table]) for col_idx in range(len(headers))]
+
+    def pad(values: List[str]) -> List[str]:
+        return [val.ljust(widths[col_idx]) for col_idx, val in enumerate(values)]
+
+    def join(row: List[str], spacer: str = ' ') -> str:
+        return f'|{spacer}' + f'{spacer}|{spacer}'.join(row) + f'{spacer}|'
+
+    return [
+        join(pad(headers)),
+        join(['-' * widths[col_idx] for col_idx in range(len(headers))], '-'),
+        *[join(pad(row)) for row in table],
+    ]
+
+
 @beartype
 def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     """Format code coverage data table as markdown.
@@ -197,10 +214,9 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
             **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
         },
     )
-    # Format table for Github Markdown
-    df_cov = pd.DataFrame(records)
-    df_cov['Coverage'] = df_cov['Coverage'].round(1).astype(str) + '%'
-    lines_table = str(df_cov.to_markdown(index=False, tablefmt='github')).split('\n')
+    records = [{**_r, 'Coverage': f"{round(_r['Coverage'], 1)}%"} for _r in records]
+
+    lines_table = format_md_table(headers=['File', *col_key_map], records=records)
     short_date = coverage_data['meta']['timestamp'].split('T')[0]
     lines_table.extend(['', f'Generated on: {short_date}'])
     return lines_table
