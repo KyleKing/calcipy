@@ -29,7 +29,7 @@ except RuntimeError as exc:
         raise
 
 try:
-    from calcipy.md_writer import write_autoformatted_md_sections
+    from calcipy.md_writer import write_template_formatted_md_sections
 except RuntimeError as exc:
     if 'extras' not in str(exc):
         raise

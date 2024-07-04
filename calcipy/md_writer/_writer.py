@@ -24,27 +24,27 @@ class _ParseSkipError(RuntimeError):
 class _ReplacementMachine:
     """State machine to replace content with user-specified handlers.
 
-    Previously built with `transitions`
+    Uses `{cts}` and `{cte}` to demarcate sections (short for 'calcipy-template-start' or '...-end')
 
-    Uses `{cts}` and `{cte}` to demarcate sections (short for calcipy_template start|end)
+    Previously built with `transitions`: https://pypi.org/project/transitions
 
     """
 
     def __init__(self) -> None:
         """Initialize the state machine."""
-        self.state_user = 'user'
-        self.state_auto = 'autoformatted'
-        self.state = self.state_user
+        self.state_other = 'non-template'
+        self.state_template = 'calcipy-template-formatted'
+        self.state = self.state_other
 
-    def change_auto(self) -> None:
-        """Transition from state_user to state_auto."""
-        if self.state == self.state_user:
-            self.state = self.state_auto
+    def change_template(self) -> None:
+        """Transition from state_other to state_template."""
+        if self.state == self.state_other:
+            self.state = self.state_template
 
     def change_end(self) -> None:
-        """Transition from state_auto to state_user."""
-        if self.state == self.state_auto:
-            self.state = self.state_user
+        """Transition from state_template to state_other."""
+        if self.state == self.state_template:
+            self.state = self.state_other
 
     @beartype
     def parse(
@@ -58,7 +58,7 @@ class _ReplacementMachine:
         Args:
         ----
             lines: list of string from source file
-            handler_lookup: Lookup dictionary for autoformatted sections
+            handler_lookup: Lookup dictionary for template-formatted sections
             path_file: optional path to the file. Only useful for debugging
 
         Returns:
@@ -83,7 +83,7 @@ class _ReplacementMachine:
         Args:
         ----
             line: single line
-            handler_lookup: Lookup dictionary for autoformatted sections
+            handler_lookup: lookup dictionary for template-formatted sections
             path_file: optional path to the file. Only useful for debugging
 
         Returns:
@@ -92,10 +92,10 @@ class _ReplacementMachine:
 
         """
         lines: List[str] = []
-        if '{cte}' in line and self.state == self.state_auto:  # end
+        if '{cte}' in line and self.state == self.state_template:  # end
             self.change_end()
         elif '{cts}' in line:  # start
-            self.change_auto()
+            self.change_template()
             matches = [text_match for text_match in handler_lookup if text_match in line]
             if len(matches) == 1:
                 [match] = matches
@@ -108,9 +108,9 @@ class _ReplacementMachine:
                 LOGGER.warning('Could not parse. Skipping:', line=line)
                 lines.append(line)
                 self.change_end()
-        elif self.state == self.state_user:
+        elif self.state == self.state_other:
             lines.append(line)
-        # else: discard the lines in the auto-section
+        # else: discard the lines in the template-section
         return lines
 
 
@@ -149,7 +149,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
 
     Returns:
     -------
-        List[str]: list of auto-formatted text
+        List[str]: list of template-formatted text
 
     """
     key, path_rel = next(iter(_parse_var_comment(line).items()))
@@ -218,7 +218,7 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
 
     Returns:
     -------
-        List[str]: list of auto-formatted text
+        List[str]: list of template-formatted text
 
     Raises:
     ------
@@ -236,11 +236,11 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
 
 
 @beartype
-def write_autoformatted_md_sections(
+def write_template_formatted_md_sections(
     handler_lookup: Optional[HandlerLookupT] = None,
     paths_md: Optional[List[Path]] = None,
 ) -> None:
-    """Populate the auto-formatted sections of markdown files with user-configured logic."""
+    """Populate the template-formatted sections of markdown files with user-configured logic."""
     _lookup: HandlerLookupT = handler_lookup or {
         'COVERAGE ': _handle_coverage,
         'SOURCE_FILE=': _handle_source_file,

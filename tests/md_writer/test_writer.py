@@ -12,7 +12,7 @@ from calcipy.md_writer._writer import (
     _handle_coverage,
     _handle_source_file,
     _parse_var_comment,
-    write_autoformatted_md_sections,
+    write_template_formatted_md_sections,
 )
 from tests.configuration import TEST_DATA_DIR
 
@@ -65,7 +65,7 @@ def test_format_cov_table():
     ]
 
 
-def test_write_autoformatted_md_sections(fix_test_cache):
+def test_write_template_formatted_md_sections(fix_test_cache):
     path_new_readme = fix_test_cache / SAMPLE_README_PATH.name
     shutil.copyfile(SAMPLE_README_PATH, path_new_readme)
     path_cover = fix_test_cache / 'coverage.json'
@@ -73,7 +73,7 @@ def test_write_autoformatted_md_sections(fix_test_cache):
     placeholder = '<!-- {cts} SOURCE_FILE_TEST=/tests/conftest.py; -->\n<!-- {cte} -->'
     was_placeholder = placeholder in path_new_readme.read_text()
 
-    write_autoformatted_md_sections(handler_lookup={
+    write_template_formatted_md_sections(handler_lookup={
         'SOURCE_FILE_TEST': _handle_source_file,
         'COVERAGE_TEST': partial(_handle_coverage, path_coverage=path_cover),
     }, paths_md=[path_new_readme])
@@ -108,11 +108,11 @@ def _star_parser(line: str, path_md: Path) -> List[str]:  # noqa: ARG001
     return [f'RATING={rating}']
 
 
-def test_write_autoformatted_md_sections_custom(fix_test_cache):
+def test_write_template_formatted_md_sections_custom(fix_test_cache):
     path_new_readme = fix_test_cache / SAMPLE_README_PATH.name
     shutil.copyfile(SAMPLE_README_PATH, path_new_readme)
 
-    write_autoformatted_md_sections(handler_lookup={'rating': _star_parser}, paths_md=[path_new_readme])
+    write_template_formatted_md_sections(handler_lookup={'rating': _star_parser}, paths_md=[path_new_readme])
 
     text = path_new_readme.read_text()
     assert '\n<!-- {cts} rating=' in SAMPLE_README_PATH.read_text()
