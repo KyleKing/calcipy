@@ -199,22 +199,6 @@
         "name": "ghp-import",
         "version": "2.1.0"
     },
-    "gitdb": {
-        "datetime": "2023-10-20T07:43:16.712121+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-10-20T07:43:16.712121+00:00",
-        "latest_version": "4.0.11",
-        "name": "gitdb",
-        "version": "4.0.11"
-    },
-    "gitpython": {
-        "datetime": "2024-03-31T08:07:31.194713+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-03-31T08:07:31.194713+00:00",
-        "latest_version": "3.1.43",
-        "name": "gitpython",
-        "version": "3.1.43"
-    },
     "griffe": {
         "datetime": "2024-05-23T20:01:54.654667+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -238,14 +222,6 @@
         "latest_version": "1.0.5",
         "name": "httpcore",
         "version": "1.0.5"
-    },
-    "httplib2": {
-        "datetime": "2023-03-21T22:29:35.683092+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-03-21T22:29:35.683092+00:00",
-        "latest_version": "0.22.0",
-        "name": "httplib2",
-        "version": "0.22.0"
     },
     "httpx": {
         "datetime": "2024-02-21T13:07:50.455078+00:00",
@@ -375,14 +351,6 @@
         "name": "mkdocs-autorefs",
         "version": "1.0.1"
     },
-    "mkdocs-build-plantuml-plugin": {
-        "datetime": "2023-11-10T19:24:37.173116+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-11-10T19:24:37.173116+00:00",
-        "latest_version": "1.9.0",
-        "name": "mkdocs-build-plantuml-plugin",
-        "version": "1.9.0"
-    },
     "mkdocs-gen-files": {
         "datetime": "2023-04-27T19:48:07.059869+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -398,14 +366,6 @@
         "latest_version": "0.2.0",
         "name": "mkdocs-get-deps",
         "version": "0.2.0"
-    },
-    "mkdocs-git-revision-date-localized-plugin": {
-        "datetime": "2024-05-31T19:07:27.792213+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-05-31T19:07:27.792213+00:00",
-        "latest_version": "1.2.6",
-        "name": "mkdocs-git-revision-date-localized-plugin",
-        "version": "1.2.6"
     },
     "mkdocs-include-markdown-plugin": {
         "datetime": "2024-06-01T21:17:08.477660+00:00",
@@ -623,14 +583,6 @@
         "name": "pymdown-extensions",
         "version": "10.8.1"
     },
-    "pyparsing": {
-        "datetime": "2024-03-06T07:25:50.845795+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-03-06T07:25:50.845795+00:00",
-        "latest_version": "3.1.2",
-        "name": "pyparsing",
-        "version": "3.1.2"
-    },
     "pytest": {
         "datetime": "2024-06-04T13:38:05.285139+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -783,14 +735,6 @@
         "name": "six",
         "version": "1.16.0"
     },
-    "smmap": {
-        "datetime": "2023-09-17T11:35:03.253782+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-09-17T11:35:03.253782+00:00",
-        "latest_version": "5.0.1",
-        "name": "smmap",
-        "version": "5.0.1"
-    },
     "sniffio": {
         "datetime": "2024-02-25T23:20:01.196159+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -904,12 +848,12 @@
         "version": "2024.1"
     },
     "urllib3": {
-        "datetime": "2024-02-18T03:55:54.704486+00:00",
+        "datetime": "2023-10-17T17:47:01.725249+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
         "latest_datetime": "2024-06-17T14:53:31.589461+00:00",
         "latest_version": "1.26.19",
         "name": "urllib3",
-        "version": "2.2.1"
+        "version": "1.26.18"
     },
     "vcrpy": {
         "datetime": "2024-01-25T16:17:46.838399+00:00",

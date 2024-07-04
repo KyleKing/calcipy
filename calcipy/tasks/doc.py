@@ -8,9 +8,7 @@ from beartype import beartype
 from corallium.file_helpers import (
     MKDOCS_CONFIG,
     delete_dir,
-    ensure_dir,
     open_in_browser,
-    read_package_name,
     read_yaml_file,
     trim_trailing_whitespace,
 )
@@ -22,43 +20,6 @@ from calcipy.invoke_helpers import get_doc_subdir, get_project_path, run
 from calcipy.md_writer import write_autoformatted_md_sections
 
 from .executable_utils import python_dir
-
-
-@beartype
-def _diagram_task(ctx: Context, pdoc_out_path: Path) -> None:
-    """Return actions to generate code diagrams in the module documentation directory.
-
-    Note: must be run after `document` because pdoc will delete these files
-
-    PUML support may be coming in a future release: https://github.com/PyCQA/pylint/issues/4498
-
-    Args:
-    ----
-        ctx: invoke task context
-        pdoc_out_path: path to the top-level pdoc output. Expect subdir with module name
-
-    """
-    diagram_md = """# Code Diagrams
-
-> Auto-generated with `pylint-pyreverse`
-
-## Packages
-
-![./packages.svg](./packages.svg)
-
-[Full Size](./packages.svg)
-
-## Classes
-
-![./classes.svg](./classes.svg)
-
-[Full Size](./classes.svg)
-"""
-    pkg_name = read_package_name()
-    path_diagram = pdoc_out_path / pkg_name / '_code_diagrams.md'
-    ensure_dir(path_diagram.parent)
-    path_diagram.write_text(diagram_md)
-    run(ctx, f'{python_dir()}/pyreverse {pkg_name} --output svg --output-directory {path_diagram.parent}')
 
 
 @beartype
@@ -74,7 +35,6 @@ def build(ctx: Context) -> None:
     auto_doc_path = get_doc_subdir().parent / 'modules'
     write_autoformatted_md_sections()
     delete_dir(auto_doc_path)
-    _diagram_task(ctx, auto_doc_path)
 
     # Find and trim trailing whitespace
     for path_md in auto_doc_path.rglob('*.md'):

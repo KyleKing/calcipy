@@ -56,7 +56,7 @@ version = "3.0.2"
 python = "^3.9.13"
 arrow = {optional = true, version = ">=1.2.3"} # tags
 basedpyright = {optional = true, version = ">=1.6.0"} # types
-beartype = ">=0.18.2"
+beartype = ">=0.18.5"
 commitizen = {optional = true, version = ">=3.22.0"} # doc
 corallium = ">=2.0.0"
 griffe = {optional = true, version = ">=0.45.2"} # experimental
@@ -99,7 +99,6 @@ doc = [
   "mkdocs-section-index",
   "mkdocstrings",
   "pandas",
-  "pylint", # for 'pyreverse'
   "pymdown-extensions",
   "pyyaml",
   "transitions",
