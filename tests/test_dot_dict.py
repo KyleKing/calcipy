@@ -6,7 +6,6 @@ from hypothesis import strategies as st
 from calcipy.dot_dict import ddict
 
 
-# PLANNED: Convert to hypothesis test!
 @pytest.mark.parametrize(
     ('key', 'value'), [
         ('int', 1),
@@ -19,14 +18,14 @@ from calcipy.dot_dict import ddict
 def test_ddict(key, value):
     result = ddict(**{key: value})
 
-    assert getattr(result, key) == value
     assert result[key] == value
+    assert getattr(result, key) == value
     assert isinstance(result, dict)
     assert result.get(f'--{key}--') is None
 
 
 _ST_ANY = st.booleans() | st.binary() | st.integers() | st.text()
-"""Broadest swatch of strategies for data input testing of dot_dict."""
+"""Broadest set of strategies for data input testing of dot_dict."""
 
 
 @given(

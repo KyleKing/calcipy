@@ -6,14 +6,14 @@ import asyncio
 import json
 import time
 from functools import partial
+from itertools import starmap
 from pathlib import Path
 
 import arrow
 import httpx
-import numpy as np
 from arrow import Arrow
 from beartype import beartype
-from beartype.typing import Awaitable, Callable, Dict, List, Optional, TypeVar, Union
+from beartype.typing import Awaitable, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 from corallium.file_helpers import LOCK
 from corallium.log import LOGGER
 from corallium.tomllib import tomllib
@@ -117,9 +117,9 @@ async def _rate_limited(
     interval_sec: int,
     max_delay: int | None = None,
 ) -> List[_OpReturnT]:
-    """Semaphore-based rate limiting.
+    """Naive semaphore-based rate limiting.
 
-    For more advanced and flexible limiting, see: <https://pypi.org/project/pyrate-limiter>
+    For more performant and flexible limiting, see: <https://pypi.org/project/pyrate-limiter>
 
     Args:
     ----
@@ -134,24 +134,28 @@ async def _rate_limited(
 
     """
     initial_start = time.monotonic()
-    sem = asyncio.Semaphore(max_per_interval)
-    results = []
-    total_idle = 0.0
-    for op in operations:
+    sem = asyncio.BoundedSemaphore(value=max_per_interval)
+
+    async def task(idx: int, op: Callable[[], Awaitable[_OpReturnT]]) -> Tuple[_OpReturnT | None, float]:
+        """Acquire the semaphore while calling `op` for up to the interval."""
         if max_delay and (time.monotonic() - initial_start) > max_delay:
-            continue
+            return (None, 0.0)
+        max_idle = interval_sec if (count_input - idx) >= max_per_interval else 0
         async with sem:
             start = time.monotonic()
-            results.append(await op())
-            duration = time.monotonic() - start
-            if len(results) != len(operations) and (idle := interval_sec - duration) > 0:
-                total_idle += idle
+            result = await op()
+            if (idle := max_idle - (time.monotonic() - start)) > 0:
                 await asyncio.sleep(idle)
+            return (result, idle)
 
+    count_input = len(operations)
+    tasks = await asyncio.gather(*starmap(task, enumerate(operations)))
+    results = [out[0] for out in tasks if out[0]]
+    total_idle = sum(max([out[1], 0]) for out in tasks)
     count_output = len(results)
     LOGGER.info(
         'Completed rate limited operations',
-        count_input=len(operations),
+        count_input=count_input,
         count_output=count_output,
         avg_idle_time=round(total_idle / count_output, 2),
         total=round(time.monotonic() - initial_start, 2),
@@ -202,7 +206,7 @@ async def _collect_release_dates(
             for result in await _rate_limited(
                 [partial(fetch, pkg) for pkg in missing_packages],
                 max_per_interval=3,
-                interval_sec=5,
+                interval_sec=3,
                 max_delay=600,
             )
             if result
@@ -272,22 +276,18 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
     def format_package(pack: _HostedPythonPackage) -> str:
         delta = pack.datetime.humanize()  # type: ignore[union-attr]
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
-        return f'- {delta}: {pack.name} {pack.version}{latest}'
+        return f'{delta}: {pack.name} {pack.version}{latest}'
 
-    now = arrow.utcnow()
-    stale_cutoff = now.shift(months=-1 * stale_months)
-    stale_packages = [pack for pack in packages if not pack.datetime or pack.datetime < stale_cutoff]
-    # TODO: If no stale, write out five oldest?
+    stale_cutoff = arrow.utcnow().shift(months=-1 * stale_months)
+    sorted_packages = sorted(packages, key=lambda x: x.datetime or stale_cutoff, reverse=True)
+    stale_packages = [pack for pack in sorted_packages if not pack.datetime or pack.datetime < stale_cutoff]
     if stale_packages:
-        pkgs = sorted(stale_packages, key=lambda x: x.datetime or stale_cutoff)
-        stale_list = '\n'.join([format_package(_p) for _p in pkgs])
-        LOGGER.warning('Found stale packages that may be a dependency risk', stale_list=stale_list)
-        return True
-    if packages:
-        datetime_array = np.asarray([pack.datetime for pack in packages])
-        oldest_date = np.amin(datetime_array)
-        LOGGER.text('No stale packages found', oldest=oldest_date.humanize(), stale_threshold=stale_months)
-    return False
+        LOGGER.warning(
+            f'Found stale packages older than {stale_months} months',
+            stale_packages=[format_package(_p) for _p in stale_packages],
+        )
+    LOGGER.text('Oldest packages:\n\t' + '\n\t'.join([format_package(_p) for _p in sorted_packages[-5:]]))
+    return bool(stale_packages)
 
 
 @beartype
