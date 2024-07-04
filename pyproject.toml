@@ -64,7 +64,6 @@ httpx = {optional = true, version = ">=0.24.1"} # stale
 invoke = ">=2.2.0"
 mkdocs = {optional = true, version = ">=1.5.3"} # doc
 mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # doc
-mkdocs-git-revision-date-localized-plugin = {optional = true, version = ">=1.0.1"} # doc
 mkdocs-include-markdown-plugin = {markers = "python_version < '3.12'", optional = true, version = ">=4.0.3"} # doc
 mkdocs-literate-nav = {optional = true, version = ">=0.5.0"} # doc
 mkdocs-material = {optional = true, version = ">=9.4.8"} # doc
@@ -94,7 +93,6 @@ doc = [
   "commitizen",
   "mkdocs",
   "mkdocs-gen-files",
-  "mkdocs-git-revision-date-localized-plugin",
   "mkdocs-include-markdown-plugin",
   "mkdocs-literate-nav",
   "mkdocs-material",
