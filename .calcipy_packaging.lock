@@ -351,14 +351,6 @@
         "name": "mkdocs-autorefs",
         "version": "1.0.1"
     },
-    "mkdocs-gen-files": {
-        "datetime": "2023-04-27T19:48:07.059869+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-04-27T19:48:07.059869+00:00",
-        "latest_version": "0.5.0",
-        "name": "mkdocs-gen-files",
-        "version": "0.5.0"
-    },
     "mkdocs-get-deps": {
         "datetime": "2023-11-20T17:51:08.587799+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -375,14 +367,6 @@
         "name": "mkdocs-include-markdown-plugin",
         "version": "6.1.1"
     },
-    "mkdocs-literate-nav": {
-        "datetime": "2023-09-10T22:17:18.751200+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-09-10T22:17:18.751200+00:00",
-        "latest_version": "0.6.1",
-        "name": "mkdocs-literate-nav",
-        "version": "0.6.1"
-    },
     "mkdocs-material": {
         "datetime": "2024-06-06T11:46:36.120839+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -398,14 +382,6 @@
         "latest_version": "1.3.1",
         "name": "mkdocs-material-extensions",
         "version": "1.3.1"
-    },
-    "mkdocs-section-index": {
-        "datetime": "2024-04-20T14:40:56.864147+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-04-20T14:40:56.864147+00:00",
-        "latest_version": "0.3.9",
-        "name": "mkdocs-section-index",
-        "version": "0.3.9"
     },
     "mkdocstrings": {
         "datetime": "2024-05-05T14:09:22.819543+00:00",
@@ -848,12 +824,12 @@
         "version": "2024.1"
     },
     "urllib3": {
-        "datetime": "2023-10-17T17:47:01.725249+00:00",
+        "datetime": "2024-02-18T03:55:54.704486+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
         "latest_datetime": "2024-06-17T14:53:31.589461+00:00",
         "latest_version": "1.26.19",
         "name": "urllib3",
-        "version": "1.26.18"
+        "version": "2.2.1"
     },
     "vcrpy": {
         "datetime": "2024-01-25T16:17:46.838399+00:00",

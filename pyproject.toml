@@ -65,9 +65,7 @@ invoke = ">=2.2.0"
 mkdocs = {optional = true, version = ">=1.5.3"} # doc
 mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # doc
 mkdocs-include-markdown-plugin = {markers = "python_version < '3.12'", optional = true, version = ">=4.0.3"} # doc
-mkdocs-literate-nav = {optional = true, version = ">=0.5.0"} # doc
 mkdocs-material = {optional = true, version = ">=9.4.8"} # doc
-mkdocs-section-index = {optional = true, version = ">=0.3.4"} # doc
 mkdocstrings = {extras = ["python"], optional = true, version = ">=0.24.2"} # doc
 mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.3"} # test
@@ -94,9 +92,7 @@ doc = [
   "mkdocs",
   "mkdocs-gen-files",
   "mkdocs-include-markdown-plugin",
-  "mkdocs-literate-nav",
   "mkdocs-material",
-  "mkdocs-section-index",
   "mkdocstrings",
   "pandas",
   "pymdown-extensions",

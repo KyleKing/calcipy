@@ -976,20 +976,6 @@ wcmatch = ">=8,<9"
 cache = ["platformdirs"]
 
 [[package]]
-name = "mkdocs-literate-nav"
-version = "0.6.1"
-description = "MkDocs plugin to specify the navigation in Markdown instead of YAML"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "mkdocs_literate_nav-0.6.1-py3-none-any.whl", hash = "sha256:e70bdc4a07050d32da79c0b697bd88e9a104cf3294282e9cb20eec94c6b0f401"},
-    {file = "mkdocs_literate_nav-0.6.1.tar.gz", hash = "sha256:78a7ab6d878371728acb0cdc6235c9b0ffc6e83c997b037f4a5c6ff7cef7d759"},
-]
-
-[package.dependencies]
-mkdocs = ">=1.0.3"
-
-[[package]]
 name = "mkdocs-material"
 version = "9.5.26"
 description = "Documentation that simply works"
@@ -1028,20 +1014,6 @@ files = [
     {file = "mkdocs_material_extensions-1.3.1-py3-none-any.whl", hash = "sha256:adff8b62700b25cb77b53358dad940f3ef973dd6db797907c49e3c2ef3ab4e31"},
     {file = "mkdocs_material_extensions-1.3.1.tar.gz", hash = "sha256:10c9511cea88f568257f960358a467d12b970e1f7b2c0e5fb2bb48cab1928443"},
 ]
-
-[[package]]
-name = "mkdocs-section-index"
-version = "0.3.9"
-description = "MkDocs plugin to allow clickable sections that lead to an index page"
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "mkdocs_section_index-0.3.9-py3-none-any.whl", hash = "sha256:5e5eb288e8d7984d36c11ead5533f376fdf23498f44e903929d72845b24dfe34"},
-    {file = "mkdocs_section_index-0.3.9.tar.gz", hash = "sha256:b66128d19108beceb08b226ee1ba0981840d14baf8a652b6c59e650f3f92e4f8"},
-]
-
-[package.dependencies]
-mkdocs = ">=1.2"
 
 [[package]]
 name = "mkdocstrings"
@@ -2641,7 +2613,7 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 
 [extras]
 ddict = ["python-box"]
-doc = ["commitizen", "mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-literate-nav", "mkdocs-material", "mkdocs-section-index", "mkdocstrings", "pandas", "pymdown-extensions", "pyyaml", "transitions"]
+doc = ["commitizen", "mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocstrings", "pandas", "pymdown-extensions", "pyyaml", "transitions"]
 experimental = ["griffe", "semver"]
 lint = ["ruff"]
 nox = ["nox-poetry", "virtualenv"]
@@ -2654,4 +2626,4 @@ types = ["basedpyright", "mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "8cbc1c07934ce5b71c8c723ae7987fffb8ba7687b1fcf6019183b0db4409359b"
+content-hash = "59d1baefe233784a47dba62ec5184feef84ce036f9c26bed1d8e93c27725d854"
