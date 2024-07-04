@@ -13,7 +13,7 @@ import httpx
 import numpy as np
 from arrow import Arrow
 from beartype import beartype
-from beartype.typing import Awaitable, Dict, List, Optional, TypeVar, Union
+from beartype.typing import Awaitable, Callable, Dict, List, Optional, TypeVar, Union
 from corallium.file_helpers import LOCK
 from corallium.log import LOGGER
 from corallium.tomllib import tomllib
@@ -111,8 +111,8 @@ def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPython
 _OpReturnT = TypeVar('_OpReturnT')
 
 
-async def rate_limited(
-    operations: list[Awaitable[[], _OpReturnT]],
+async def _rate_limited(
+    operations: list[Callable[[], Awaitable[_OpReturnT]]],
     max_per_interval: int,
     interval_sec: int,
     max_delay: int | None = None,
@@ -130,13 +130,13 @@ async def rate_limited(
 
     Returns:
     -------
-        list[_OpReturnT]: list of return values from operations up to max_delay time, if set
+        List[_OpReturnT]: list of return values from operations up to max_delay time, if set
 
     """
     initial_start = time.monotonic()
     sem = asyncio.Semaphore(max_per_interval)
     results = []
-    total_idle = 0
+    total_idle = 0.0
     for op in operations:
         if max_delay and (time.monotonic() - initial_start) > max_delay:
             continue
@@ -199,7 +199,7 @@ async def _collect_release_dates(
     updated_packages.extend(
         [
             result
-            for result in await rate_limited(
+            for result in await _rate_limited(
                 [partial(fetch, pkg) for pkg in missing_packages],
                 max_per_interval=3,
                 interval_sec=5,
