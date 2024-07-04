@@ -57,7 +57,6 @@ python = "^3.9.13"
 arrow = {optional = true, version = ">=1.2.3"} # tags
 basedpyright = {optional = true, version = ">=1.6.0"} # types
 beartype = ">=0.18.2"
-bidict = {optional = true, version = ">=0.22.1"} # stale
 commitizen = {optional = true, version = ">=3.22.0"} # doc
 corallium = ">=2.0.0"
 griffe = {optional = true, version = ">=0.45.2"} # experimental
@@ -75,10 +74,9 @@ mkdocstrings = {extras = ["python"], optional = true, version = ">=0.24.2"} # do
 mypy = {optional = true, version = ">=1.0.0"} # types
 nox-poetry = {optional = true, version = ">=1.0.3"} # test
 pandas = {optional = true, version = ">=1.5.3"} # docs,tags
-pydantic = ">=2.7.0"
+pydantic = ">=2.8.2"
 pylint = {optional = true, version = ">=3.0.2"} # doc,pylint
 pymdown-extensions = {optional = true, version = ">=10.0.1"} # docs
-pyrate_limiter = {optional = true, version = ">=3.0.2"} # stale
 pytest = {optional = true, version = ">=7.2.1"} # test
 pytest-cov = {optional = true, version = ">=5.0.0"} # test
 pytest-randomly = {optional = true, version = ">=3.12.0"} # test
@@ -121,9 +119,7 @@ nox = ["nox-poetry", "virtualenv"]
 pylint = ["pylint"]
 stale = [
   "arrow",
-  "bidict",
   "httpx",
-  "pyrate_limiter",
 ]
 tags = [
   "arrow",

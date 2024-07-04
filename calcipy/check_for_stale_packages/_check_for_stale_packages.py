@@ -1,8 +1,11 @@
 """Check for stale packages."""
 
+from __future__ import annotations
+
 import asyncio
 import json
-from functools import lru_cache
+import time
+from functools import partial
 from pathlib import Path
 
 import arrow
@@ -10,14 +13,11 @@ import httpx
 import numpy as np
 from arrow import Arrow
 from beartype import beartype
-from beartype.typing import Dict, List, Optional, Union
-from bidict import bidict
+from beartype.typing import Awaitable, Dict, List, Optional, TypeVar, Union
 from corallium.file_helpers import LOCK
 from corallium.log import LOGGER
 from corallium.tomllib import tomllib
 from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
-from pyrate_limiter import Rate
-from pyrate_limiter.limiter import Limiter
 
 from calcipy import can_skip  # Required for mocking can_skip.can_skip
 
@@ -47,17 +47,6 @@ class _HostedPythonPackage(BaseModel):
         return arrow.get(value)
 
 
-@lru_cache(maxsize=1)
-def _limiter() -> Limiter:
-    """Configure rate-limiter.
-
-    https://pypi.org/project/pyrate-limiter
-
-    """
-    rate = Rate(limit=3, interval=5)  # Duration.seconds
-    return Limiter(rate, max_delay=600)
-
-
 async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
     """Retrieve release date metadata for the specified package.
 
@@ -70,12 +59,10 @@ async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPacka
         _HostedPythonPackage: updated with release date metadata from API
 
     """
-    _limiter().try_acquire('pypi')
-
     # Retrieve the JSON summary for the specified package
     json_url = package.domain.format(name=package.name)
     async with httpx.AsyncClient() as client:
-        res = await client.get(json_url, timeout=30)   # nosem
+        res = await client.get(json_url, timeout=30)  # nosem
         res.raise_for_status()
         res_json = res.json()
         if not (releases := res_json['releases']):
@@ -83,13 +70,14 @@ async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPacka
             raise RuntimeError(msg)
 
     # Also retrieve the latest release date of the package looking through all releases
-    release_dates = bidict({
+    release_dates = {
         arrow.get(release_data[0]['upload_time_iso_8601']): version
         for version, release_data in releases.items()
         if release_data
-    })
+    }
+    inverse_release_dates = {_v: key for key, _v in release_dates.items()}
     try:
-        package.datetime = release_dates.inverse[package.version]
+        package.datetime = inverse_release_dates[package.version]
     except KeyError:  # pragma: no cover
         msg = f'Could not locate {package} in {res_json}. Please wait and try again later'
         raise RuntimeError(msg) from None
@@ -120,8 +108,59 @@ def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPython
     }
 
 
+_OpReturnT = TypeVar('_OpReturnT')
+
+
+async def rate_limited(
+    operations: list[Awaitable[[], _OpReturnT]],
+    max_per_interval: int,
+    interval_sec: int,
+    max_delay: int | None = None,
+) -> List[_OpReturnT]:
+    """Semaphore-based rate limiting.
+
+    For more advanced and flexible limiting, see: <https://pypi.org/project/pyrate-limiter>
+
+    Args:
+    ----
+        operations: list of no-argument callable functions to run
+        max_per_interval: maximum number of concurrent operations per interval
+        interval_sec: length of interval in seconds
+        max_delay: maximum runtime before quietly stopping
+
+    Returns:
+    -------
+        list[_OpReturnT]: list of return values from operations up to max_delay time, if set
+
+    """
+    initial_start = time.monotonic()
+    sem = asyncio.Semaphore(max_per_interval)
+    results = []
+    total_idle = 0
+    for op in operations:
+        if max_delay and (time.monotonic() - initial_start) > max_delay:
+            continue
+        async with sem:
+            start = time.monotonic()
+            results.append(await op())
+            duration = time.monotonic() - start
+            if len(results) != len(operations) and (idle := interval_sec - duration) > 0:
+                total_idle += idle
+                await asyncio.sleep(idle)
+
+    count_output = len(results)
+    LOGGER.info(
+        'Completed rate limited operations',
+        count_input=len(operations),
+        count_output=count_output,
+        avg_idle_time=round(total_idle / count_output, 2),
+        total=round(time.monotonic() - initial_start, 2),
+    )
+    return results
+
+
 @beartype
-def _collect_release_dates(
+async def _collect_release_dates(
     packages: List[_HostedPythonPackage],
     old_cache: Optional[Dict[str, _HostedPythonPackage]] = None,
 ) -> List[_HostedPythonPackage]:
@@ -141,16 +180,34 @@ def _collect_release_dates(
         old_cache = {}
 
     updated_packages = []
+    missing_packages = []
     for package in packages:
+        cached_package = old_cache.get(package.name)
+        cached_version = '' if cached_package is None else cached_package.version
+        if package.version != cached_version:
+            missing_packages.append(package)
+        elif cached_package:
+            updated_packages.append(cached_package)
+
+    async def fetch(package: _HostedPythonPackage) -> _HostedPythonPackage | None:
         try:
-            cached_package = old_cache.get(package.name)
-            cached_version = '' if cached_package is None else cached_package.version
-            if package.version != cached_version:
-                updated_packages.append(asyncio.run(_get_release_date(package)))
-            elif cached_package:
-                updated_packages.append(cached_package)
-        except httpx.HTTPError as exc:  # noqa: PERF203
+            return await _get_release_date(package)
+        except httpx.HTTPError as exc:
             LOGGER.warning('Could not lock package', package=package, error=str(exc))
+        return None
+
+    updated_packages.extend(
+        [
+            result
+            for result in await rate_limited(
+                [partial(fetch, pkg) for pkg in missing_packages],
+                max_per_interval=3,
+                interval_sec=5,
+                max_delay=600,
+            )
+            if result
+        ],
+    )
     return updated_packages
 
 
@@ -193,8 +250,10 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     lock = tomllib.loads(path_lock.read_text(errors='ignore'))
     return [
         _HostedPythonPackage(
-            name=dependency['name'], version=dependency['version'],
-        ) for dependency in lock['package']
+            name=dependency['name'],
+            version=dependency['version'],
+        )
+        for dependency in lock['package']
     ]
 
 
@@ -208,6 +267,7 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
     """
+
     @beartype
     def format_package(pack: _HostedPythonPackage) -> str:
         delta = pack.datetime.humanize()  # type: ignore[union-attr]
@@ -246,6 +306,6 @@ def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_
     if cached_packages and can_skip.can_skip(prerequisites=[path_lock], targets=[path_cache]):
         packages = [*cached_packages.values()]
     else:
-        packages = _collect_release_dates(packages, cached_packages)
+        packages = asyncio.run(_collect_release_dates(packages, cached_packages))
         _write_cache(packages, path_cache)
     return _packages_are_stale(packages, stale_months=stale_months)
