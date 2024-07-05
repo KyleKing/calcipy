@@ -684,6 +684,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experiments/sync_package_dependencies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sync package dependencies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -988,6 +1009,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#calcipy.tasks.pack.sync_pyproject_versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      sync_pyproject_versions
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1192,6 +1222,15 @@
   <a href="#calcipy.tasks.pack.publish" class="md-nav__link">
     <span class="md-ellipsis">
       publish
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calcipy.tasks.pack.sync_pyproject_versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      sync_pyproject_versions
     </span>
   </a>
   
@@ -1420,6 +1459,40 @@
 <span class="linenos" data-linenos="42 "></span>    <span class="k">if</span> <span class="n">to_test_pypi</span><span class="p">:</span>
 <span class="linenos" data-linenos="43 "></span>        <span class="n">cmd</span> <span class="o">+=</span> <span class="s1">&#39; --repository testpypi&#39;</span>
 <span class="linenos" data-linenos="44 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+</code></pre></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="calcipy.tasks.pack.sync_pyproject_versions" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">sync_pyproject_versions</span>
+
+
+<a href="#calcipy.tasks.pack.sync_pyproject_versions" class="headerlink" title="Permanent link">⚓︎</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nf">sync_pyproject_versions</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Experiment with setting the pyproject.toml dependencies to the version from poetry.lock.</p>
+<p>Uses the current working directory and should be run after <code>poetry update</code>.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="90 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="p">[</span><span class="n">lock</span><span class="p">])</span>
+<span class="linenos" data-linenos="91 "></span><span class="k">def</span> <span class="nf">sync_pyproject_versions</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG001</span>
+<span class="linenos" data-linenos="92 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Experiment with setting the pyproject.toml dependencies to the version from poetry.lock.</span>
+<span class="linenos" data-linenos="93 "></span>
+<span class="linenos" data-linenos="94 "></span><span class="sd">    Uses the current working directory and should be run after `poetry update`.</span>
+<span class="linenos" data-linenos="95 "></span>
+<span class="linenos" data-linenos="96 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="97 "></span>    <span class="kn">from</span> <span class="nn">calcipy.experiments</span> <span class="kn">import</span> <span class="n">sync_package_dependencies</span>  <span class="c1"># noqa: PLC0415</span>
+<span class="linenos" data-linenos="98 "></span>
+<span class="linenos" data-linenos="99 "></span>    <span class="n">sync_package_dependencies</span><span class="o">.</span><span class="n">replace_versions</span><span class="p">(</span><span class="n">path_lock</span><span class="o">=</span><span class="n">LOCK</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
