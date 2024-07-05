@@ -43,7 +43,6 @@ classifiers = [
 ] # https://pypi.org/classifiers/
 description = "Python package to simplify development"
 documentation = "https://calcipy.kyleking.me"
-include = ["LICENSE"]
 keywords = ["calcipy_template", "nox"]
 license = "MIT"
 maintainers = []
