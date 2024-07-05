@@ -63,7 +63,6 @@ httpx = {optional = true, version = ">=0.24.1"} # stale
 invoke = ">=2.2.0"
 mkdocs = {optional = true, version = ">=1.5.3"} # doc
 mkdocs-gen-files = {optional = true, version = ">=0.4.0"} # doc
-mkdocs-include-markdown-plugin = {markers = "python_version < '3.12'", optional = true, version = ">=4.0.3"} # doc
 mkdocs-material = {optional = true, version = ">=9.4.8"} # doc
 mkdocstrings = {extras = ["python"], optional = true, version = ">=0.24.2"} # doc
 mypy = {optional = true, version = ">=1.0.0"} # types
@@ -76,7 +75,6 @@ pytest-cov = {optional = true, version = ">=5.0.0"} # test
 pytest-randomly = {optional = true, version = ">=3.12.0"} # test
 pytest-watcher = {optional = true, version = ">=0.4.2"} # test
 python-box = {optional = true, version = ">=6.0.2"} # ddict
-pyyaml = {optional = true, version = ">=5.2"} # doc
 ruff = {optional = true, version = ">=0.4.8"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
 virtualenv = {optional = true, version = ">=20.24.0"} # tags: nox. Prevents 'scripts' KeyError with Python 3.12
@@ -86,11 +84,9 @@ ddict = ["python-box"]
 doc = [
   "mkdocs",
   "mkdocs-gen-files",
-  "mkdocs-include-markdown-plugin",
   "mkdocs-material",
   "mkdocstrings",
   "pymdown-extensions",
-  "pyyaml",
 ]
 experimental = [
   "griffe",

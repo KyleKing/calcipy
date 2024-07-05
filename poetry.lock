@@ -192,17 +192,6 @@ jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
-name = "bracex"
-version = "2.4"
-description = "Bash style brace expander."
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "bracex-2.4-py3-none-any.whl", hash = "sha256:efdc71eff95eaff5e0f8cfebe7d01adf2c8637c8c92edaf63ef348c241a82418"},
-    {file = "bracex-2.4.tar.gz", hash = "sha256:a27eaf1df42cf561fed58b7a8f3fdf129d1ea16a81e1fadd1d17989bc6384beb"},
-]
-
-[[package]]
 name = "certifi"
 version = "2024.7.4"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -923,24 +912,6 @@ platformdirs = ">=2.2.0"
 pyyaml = ">=5.1"
 
 [[package]]
-name = "mkdocs-include-markdown-plugin"
-version = "6.2.1"
-description = "Mkdocs Markdown includer plugin."
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "mkdocs_include_markdown_plugin-6.2.1-py3-none-any.whl", hash = "sha256:8dfc3aee9435679b094cbdff023239e91d86cf357c40b0e99c28036449661830"},
-    {file = "mkdocs_include_markdown_plugin-6.2.1.tar.gz", hash = "sha256:46fc372886d48eec541d36138d1fe1db42afd08b976ef7c8d8d4ea6ee4d5d1e8"},
-]
-
-[package.dependencies]
-mkdocs = ">=1.4"
-wcmatch = ">=8,<9"
-
-[package.extras]
-cache = ["platformdirs"]
-
-[[package]]
 name = "mkdocs-material"
 version = "9.5.28"
 description = "Documentation that simply works"
@@ -1313,8 +1284,8 @@ files = [
 annotated-types = ">=0.4.0"
 pydantic-core = "2.20.1"
 typing-extensions = [
-    {version = ">=4.12.2", markers = "python_version >= \"3.13\""},
     {version = ">=4.6.1", markers = "python_version < \"3.13\""},
+    {version = ">=4.12.2", markers = "python_version >= \"3.13\""},
 ]
 
 [package.extras]
@@ -1450,8 +1421,8 @@ files = [
 astroid = ">=3.2.2,<=3.3.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = [
-    {version = ">=0.3.7", markers = "python_version >= \"3.12\""},
     {version = ">=0.2", markers = "python_version < \"3.11\""},
+    {version = ">=0.3.7", markers = "python_version >= \"3.12\""},
     {version = ">=0.3.6", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
 ]
 isort = ">=4.2.5,<5.13.0 || >5.13.0,<6"
@@ -2116,20 +2087,6 @@ files = [
 watchmedo = ["PyYAML (>=3.10)"]
 
 [[package]]
-name = "wcmatch"
-version = "8.5.2"
-description = "Wildcard/glob file name matcher."
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "wcmatch-8.5.2-py3-none-any.whl", hash = "sha256:17d3ad3758f9d0b5b4dedc770b65420d4dac62e680229c287bf24c9db856a478"},
-    {file = "wcmatch-8.5.2.tar.gz", hash = "sha256:a70222b86dea82fb382dd87b73278c10756c138bd6f8f714e2183128887b9eb2"},
-]
-
-[package.dependencies]
-bracex = ">=2.1.1"
-
-[[package]]
 name = "wrapt"
 version = "1.16.0"
 description = "Module for decorators, wrappers and monkey patching."
@@ -2328,7 +2285,7 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 
 [extras]
 ddict = ["python-box"]
-doc = ["mkdocs", "mkdocs-gen-files", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocstrings", "pymdown-extensions", "pyyaml"]
+doc = ["mkdocs", "mkdocs-gen-files", "mkdocs-material", "mkdocstrings", "pymdown-extensions"]
 experimental = ["griffe", "semver"]
 lint = ["ruff"]
 nox = ["nox-poetry", "virtualenv"]
@@ -2341,4 +2298,4 @@ types = ["basedpyright", "mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "d71f6a73682a67d67072ce5528edd7e752a59a65373ef678feb8a4bb415f0037"
+content-hash = "affffe743e9382393a200526ed05bb4fac9db0ae50affe1feeb527d52bc19e0c"

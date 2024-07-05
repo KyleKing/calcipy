@@ -79,14 +79,6 @@
         "name": "black",
         "version": "24.4.2"
     },
-    "bracex": {
-        "datetime": "2023-09-02T01:32:23.902840+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-09-02T01:32:23.902840+00:00",
-        "latest_version": "2.4",
-        "name": "bracex",
-        "version": "2.4"
-    },
     "certifi": {
         "datetime": "2024-07-04T01:36:09.038930+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -350,14 +342,6 @@
         "latest_version": "0.2.0",
         "name": "mkdocs-get-deps",
         "version": "0.2.0"
-    },
-    "mkdocs-include-markdown-plugin": {
-        "datetime": "2024-06-21T17:12:02.165772+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-06-21T17:12:02.165772+00:00",
-        "latest_version": "6.2.1",
-        "name": "mkdocs-include-markdown-plugin",
-        "version": "6.2.1"
     },
     "mkdocs-material": {
         "datetime": "2024-07-02T11:05:27.583627+00:00",
@@ -728,12 +712,12 @@
         "version": "4.12.2"
     },
     "urllib3": {
-        "datetime": "2024-06-17T13:40:07.795777+00:00",
+        "datetime": "2024-06-17T14:53:31.589461+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
         "latest_datetime": "2024-06-17T14:53:31.589461+00:00",
         "latest_version": "1.26.19",
         "name": "urllib3",
-        "version": "2.2.2"
+        "version": "1.26.19"
     },
     "vcrpy": {
         "datetime": "2024-01-25T16:17:46.838399+00:00",
@@ -758,14 +742,6 @@
         "latest_version": "4.0.1",
         "name": "watchdog",
         "version": "4.0.1"
-    },
-    "wcmatch": {
-        "datetime": "2024-05-15T12:51:06.200673+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-05-15T12:51:06.200673+00:00",
-        "latest_version": "8.5.2",
-        "name": "wcmatch",
-        "version": "8.5.2"
     },
     "wrapt": {
         "datetime": "2023-11-09T06:31:34.487396+00:00",
