@@ -79,7 +79,7 @@ def with_progress(items: Any, offset: int = 0) -> TaskList:
 _MAIN_TASKS = [
     lint.fix,
     types.mypy,
-    types.basedpyright,
+    types.pyright,
     test.coverage,
     cl.write,
     doc.build,

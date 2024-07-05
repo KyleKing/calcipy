@@ -3,7 +3,7 @@ from unittest.mock import call
 import pytest
 
 from calcipy.tasks.executable_utils import python_dir
-from calcipy.tasks.types import basedpyright, mypy, pyright
+from calcipy.tasks.types import mypy, pyright
 
 
 @pytest.mark.parametrize(
@@ -14,7 +14,6 @@ from calcipy.tasks.types import basedpyright, mypy, pyright
             'pyright',
         ]),
         (mypy, {}, [f'{python_dir()}/mypy']),
-        (basedpyright, {}, [f'{python_dir()}/basedpyright']),
     ],
 )
 def test_types(ctx, task, kwargs, commands):

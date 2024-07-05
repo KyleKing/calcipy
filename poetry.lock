@@ -114,20 +114,6 @@ files = [
 dev = ["freezegun (>=1.0,<2.0)", "pytest (>=6.0)", "pytest-cov"]
 
 [[package]]
-name = "basedpyright"
-version = "1.13.2"
-description = "static type checking for Python (but based)"
-optional = true
-python-versions = ">=3.8"
-files = [
-    {file = "basedpyright-1.13.2-py3-none-any.whl", hash = "sha256:97ef8733486fc9c1ce80571fe577e8613fcc042b805d4c69dee22b214b47b038"},
-    {file = "basedpyright-1.13.2.tar.gz", hash = "sha256:0c66277863daefd0f753f0d593d2deaf903a3c57ac23898a02578cb0feb3c242"},
-]
-
-[package.dependencies]
-nodejs-wheel-binaries = ">=20.13.1"
-
-[[package]]
 name = "beartype"
 version = "0.18.5"
 description = "Unbearably fast runtime type checking in pure Python."
@@ -1150,22 +1136,6 @@ python-versions = ">=3.5"
 files = [
     {file = "mypy_extensions-1.0.0-py3-none-any.whl", hash = "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d"},
     {file = "mypy_extensions-1.0.0.tar.gz", hash = "sha256:75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782"},
-]
-
-[[package]]
-name = "nodejs-wheel-binaries"
-version = "20.15.0"
-description = "unoffical Node.js package"
-optional = true
-python-versions = ">=3.7"
-files = [
-    {file = "nodejs_wheel_binaries-20.15.0-py2.py3-none-macosx_10_15_x86_64.whl", hash = "sha256:16cf7edbb67c57d3eb2482db0d95fb58a9c65170063b48c2fe877b6e129fe802"},
-    {file = "nodejs_wheel_binaries-20.15.0-py2.py3-none-macosx_11_0_arm64.whl", hash = "sha256:1be468912a5f666bf6f035474b1ed87d04e9908ff3ffe82fc485ec67c771c6ff"},
-    {file = "nodejs_wheel_binaries-20.15.0-py2.py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3d5b3d53f1b992d766190578daf1f719bd412e8df2667dbd3f5864df70c0c99f"},
-    {file = "nodejs_wheel_binaries-20.15.0-py2.py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:036122f5d33f0d9a0160e5a60c2b98fc5cf55308ca826a48a0e0323ffdc4e9c8"},
-    {file = "nodejs_wheel_binaries-20.15.0-py2.py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:6637bcc4aa995adddfa35bd69dd7cc5432497ad35be48f0c1b98cd781790a6f5"},
-    {file = "nodejs_wheel_binaries-20.15.0-py2.py3-none-win_amd64.whl", hash = "sha256:f2ff3240ecda17375f78905ebc25a3d0f055a5c29e1f327a9a37d974af6729a0"},
-    {file = "nodejs_wheel_binaries-20.15.0.tar.gz", hash = "sha256:ef3820341946396abd2ebffc45bbb9386ef84ed51c0d04759f8fe8e50615c85e"},
 ]
 
 [[package]]
@@ -2293,9 +2263,9 @@ pylint = ["pylint"]
 stale = ["arrow", "httpx"]
 tags = ["arrow"]
 test = ["pytest", "pytest-cov", "pytest-randomly", "pytest-watcher"]
-types = ["basedpyright", "mypy"]
+types = ["mypy"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "affffe743e9382393a200526ed05bb4fac9db0ae50affe1feeb527d52bc19e0c"
+content-hash = "1f22803e21380b3f56c90a46e3ffe0ffbde1b9778fc994e41ed88aaf4530f9f3"
