@@ -85,3 +85,15 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
         tag_prefix=tag_prefix,
     )
     LOGGER.text(new_version)
+
+
+@task(post=[lock])
+def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
+    """Experiment with setting the pyproject.toml dependencies to the version from poetry.lock.
+
+    Uses the current working directory and should be run after `poetry update`.
+
+    """
+    from calcipy.experiments import sync_package_dependencies  # noqa: PLC0415
+
+    sync_package_dependencies.replace_versions(path_lock=LOCK)

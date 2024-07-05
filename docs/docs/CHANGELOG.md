@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Feat
+
+- add pack.sync-package-dependencies experiment
+
 ### Fix
 
 - improve output from stale task and semaphore concurrency
@@ -7,6 +11,7 @@
 
 ### Refactor
 
+- **#132**: remove @beartype decorators
 - **#132**: restore commitizen for changelog creation
 - **#132**: remove basedpyright; too many false positives
 - **#132**: remove unused mkdocs-markdown-include-plugin
