@@ -93,7 +93,7 @@ experimental = [
   "griffe",
   "semver",
 ]
-lint = ["ruff"]
+lint = ["pylint", "ruff"]
 nox = ["nox-poetry", "virtualenv"]
 pylint = ["pylint"]
 stale = ["arrow", "httpx"]

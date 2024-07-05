@@ -2345,7 +2345,7 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 ddict = ["python-box"]
 doc = ["commitizen", "mkdocs", "mkdocs-gen-files", "mkdocs-material", "mkdocstrings", "pymdown-extensions"]
 experimental = ["griffe", "semver"]
-lint = ["ruff"]
+lint = ["pylint", "ruff"]
 nox = ["nox-poetry", "virtualenv"]
 pylint = ["pylint"]
 stale = ["arrow", "httpx"]
@@ -2356,4 +2356,4 @@ types = ["mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "09ff47d6b34856e3b1d3153620c7baa927dc0211feb9e117d78b4dc7235a57f4"
+content-hash = "05402fe1516c9394705b39ed1c709d1ee31c420b37ce46098c0556ff4d878eab"
