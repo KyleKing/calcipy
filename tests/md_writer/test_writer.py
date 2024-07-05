@@ -92,7 +92,7 @@ def test_parse_var_comment(line, match):
     assert result == match
 
 
-def _star_parser(line: str, path_md: Path) -> List[str]:  # noqa: ARG001
+def _star_parser(line: str, path_md: Path) -> List[str]:
     rating = int(_parse_var_comment(line)['rating'])
     return [f'RATING={rating}']
 
