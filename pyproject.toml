@@ -88,7 +88,6 @@ doc = [
   "mkdocs-material",
   "mkdocstrings",
   "pymdown-extensions",
-  "pyyaml",
 ]
 experimental = [
   "griffe",
@@ -98,7 +97,10 @@ lint = ["ruff"]
 nox = ["nox-poetry", "virtualenv"]
 pylint = ["pylint"]
 stale = ["arrow", "httpx"]
-tags = ["arrow"]
+tags = [
+  "arrow",
+  "pyyaml", # Required for get_doc_subdir
+]
 test = [
   "pytest",
   "pytest-cov",

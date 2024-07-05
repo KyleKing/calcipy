@@ -2343,17 +2343,17 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 
 [extras]
 ddict = ["python-box"]
-doc = ["commitizen", "mkdocs", "mkdocs-gen-files", "mkdocs-material", "mkdocstrings", "pymdown-extensions", "pyyaml"]
+doc = ["commitizen", "mkdocs", "mkdocs-gen-files", "mkdocs-material", "mkdocstrings", "pymdown-extensions"]
 experimental = ["griffe", "semver"]
 lint = ["ruff"]
 nox = ["nox-poetry", "virtualenv"]
 pylint = ["pylint"]
 stale = ["arrow", "httpx"]
-tags = ["arrow"]
+tags = ["arrow", "pyyaml"]
 test = ["pytest", "pytest-cov", "pytest-randomly", "pytest-watcher"]
 types = ["mypy"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.13"
-content-hash = "f434bbbaca1e74117826521820f8849dbcc2bea7d8ffab242b7c58e498d1bad2"
+content-hash = "09ff47d6b34856e3b1d3153620c7baa927dc0211feb9e117d78b4dc7235a57f4"
