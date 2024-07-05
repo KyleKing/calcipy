@@ -55,7 +55,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/check_for_stale_packages/_check_for_stale_packages.py` | 133        | 12      | 3        | 87.0%    |
 | `calcipy/cli.py`                                                | 35         | 1       | 76       | 93.0%    |
 | `calcipy/code_tag_collector/__init__.py`                        | 5          | 2       | 0        | 60.0%    |
-| `calcipy/code_tag_collector/_collector.py`                      | 138        | 1       | 0        | 95.5%    |
+| `calcipy/code_tag_collector/_collector.py`                      | 138        | 2       | 0        | 94.0%    |
 | `calcipy/collection.py`                                         | 34         | 0       | 55       | 97.6%    |
 | `calcipy/dot_dict/__init__.py`                                  | 5          | 2       | 0        | 60.0%    |
 | `calcipy/dot_dict/_dot_dict.py`                                 | 8          | 0       | 0        | 100.0%   |
@@ -81,8 +81,8 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/stale.py`                                        | 6          | 0       | 0        | 100.0%   |
 | `calcipy/tasks/tags.py`                                         | 18         | 1       | 0        | 90.9%    |
 | `calcipy/tasks/test.py`                                         | 45         | 1       | 2        | 89.2%    |
-| `calcipy/tasks/types.py`                                        | 14         | 0       | 0        | 90.0%    |
-| **Totals**                                                      | 1031       | 81      | 264      | 86.7%    |
+| `calcipy/tasks/types.py`                                        | 11         | 0       | 0        | 93.3%    |
+| **Totals**                                                      | 1028       | 82      | 264      | 86.5%    |
 
 Generated on: 2024-07-04
 <!-- {cte} -->

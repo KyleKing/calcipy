@@ -56,6 +56,7 @@ version = "3.0.2"
 python = "^3.9.13"
 arrow = {optional = true, version = ">=1.2.3"} # tags
 beartype = ">=0.18.5"
+commitizen = {optional = true, version = ">=3.22.0"} # doc
 corallium = ">=2.0.0"
 griffe = {optional = true, version = ">=0.45.2"} # experimental
 httpx = {optional = true, version = ">=0.24.1"} # stale
@@ -81,6 +82,7 @@ virtualenv = {optional = true, version = ">=20.24.0"} # tags: nox. Prevents 'scr
 [tool.poetry.extras]
 ddict = ["python-box"]
 doc = [
+  "commitizen",
   "mkdocs",
   "mkdocs-gen-files",
   "mkdocs-material",

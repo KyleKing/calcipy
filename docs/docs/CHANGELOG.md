@@ -7,6 +7,12 @@
 
 ### Refactor
 
+- **#132**: restore commitizen for changelog creation
+- **#132**: remove basedpyright; too many false positives
+- **#132**: remove unused mkdocs-markdown-include-plugin
+- make pyyaml required only for doc extra
+- **#132**: remove commitizen
+- **#132**: finish replacing pandas for markdown tables
 - **#132**: partially remove pandas
 - rename to write_template_formatted_md_sections
 - **#132**: remove transitions

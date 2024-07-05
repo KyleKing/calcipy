@@ -31,7 +31,7 @@ def write(ctx: Context) -> None:
         List[DoitAction]: doit actions
 
     """
-    run(ctx, f'{python_dir()}/cz changelog')
+    run(ctx, f'{python_dir()}/cz changelog')  # with commitizen
     path_cl = get_project_path() / 'CHANGELOG.md'
     if not path_cl.is_file():
         msg = f'Could not locate the changelog at: {path_cl}'
