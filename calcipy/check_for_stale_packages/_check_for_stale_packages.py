@@ -51,11 +51,9 @@ async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPacka
     """Retrieve release date metadata for the specified package.
 
     Args:
-    ----
         package: `_HostedPythonPackage`
 
     Returns:
-    -------
         _HostedPythonPackage: updated with release date metadata from API
 
     """
@@ -91,11 +89,9 @@ def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPython
     """Read the cached packaging information.
 
     Args:
-    ----
         path_pack_lock: Path to the lock file. Default is `CALCIPY_CACHE`
 
     Returns:
-    -------
         Dict[str, _HostedPythonPackage]: the cached packages
 
     """
@@ -122,14 +118,12 @@ async def _rate_limited(
     For more performant and flexible limiting, see: <https://pypi.org/project/pyrate-limiter>
 
     Args:
-    ----
         operations: list of no-argument callable functions to run
         max_per_interval: maximum number of concurrent operations per interval
         interval_sec: length of interval in seconds
         max_delay: maximum runtime before quietly stopping
 
     Returns:
-    -------
         List[_OpReturnT]: list of return values from operations up to max_delay time, if set
 
     """
@@ -171,12 +165,10 @@ async def _collect_release_dates(
     """Use the cache to retrieve only metadata that needs to be updated.
 
     Args:
-    ----
         packages: list of `_HostedPythonPackage`
         old_cache: cache data to compare against to limit network requests
 
     Returns:
-    -------
         List[_HostedPythonPackage]: packages with updated release dates
 
     """
@@ -220,7 +212,6 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
     """Read the cached packaging information.
 
     Args:
-    ----
         updated_packages: updated packages to store
         path_pack_lock: Path to the lock file. Default is `CALCIPY_CACHE`
 
@@ -235,15 +226,12 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     """Read packages from lock file. Currently only support `poetry.lock`, but could support more in the future.
 
     Args:
-    ----
         path_lock: Path to the lock file to parse
 
     Returns:
-    -------
         List[_HostedPythonPackage]: packages found in the lock file
 
     Raises:
-    ------
         NotImplementedError: if a lock file other that the poetry lock file is used
 
     """
@@ -266,7 +254,6 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
     """Check for stale packages. Raise error and log all stale versions found.
 
     Args:
-    ----
         packages: List of packages
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
@@ -295,7 +282,6 @@ def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_
     """Check for stale packages by reading from the cache, and updating if necessary.
 
     Args:
-    ----
         stale_months: cutoff in months for when a package might be stale enough to be a risk
         path_lock: path to poetry lock file
         path_cache: path to calcipy package cache file

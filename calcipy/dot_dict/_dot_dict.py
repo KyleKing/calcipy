@@ -21,11 +21,9 @@ def ddict(**kwargs: Dict[str, Any]) -> DdictType:
     - There are numerous other variations that haven't been updated since 2020, such as `munch`, `bunch`, `ddict`
 
     Args:
-    ----
         **kwargs: keyword arguments formatted into dictionary
 
     Returns:
-    -------
         DdictType: dotted dictionary
 
     """

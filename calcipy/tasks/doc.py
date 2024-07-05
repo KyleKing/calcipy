@@ -42,7 +42,7 @@ def _is_mkdocs_local() -> bool:
 
     Additional information on using local search here: https://github.com/wilhelmer/mkdocs-localsearch
 
-    Returns
+    Returns:
     -------
         bool: True if configured for local file output rather than hosted
 

@@ -92,7 +92,7 @@ def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
 def _installable_dev_dependencies() -> List[str]:
     """List of dependencies from pyproject, excluding calcipy.
 
-    Returns
+    Returns:
     -------
         List[str]: `['Cerberus=>1.3.4', 'freezegun']`
 

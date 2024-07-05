@@ -56,13 +56,11 @@ class _ReplacementMachine:
         """Parse lines and insert new_text based on provided handler_lookup.
 
         Args:
-        ----
             lines: list of string from source file
             handler_lookup: Lookup dictionary for template-formatted sections
             path_file: optional path to the file. Only useful for debugging
 
         Returns:
-        -------
             List[str]: modified list of strings
 
         """
@@ -81,13 +79,11 @@ class _ReplacementMachine:
         """Parse lines and insert new_text based on provided handler_lookup.
 
         Args:
-        ----
             line: single line
             handler_lookup: lookup dictionary for template-formatted sections
             path_file: optional path to the file. Only useful for debugging
 
         Returns:
-        -------
             List[str]: modified list of strings
 
         """
@@ -123,12 +119,10 @@ def _parse_var_comment(line: str, matcher: str = _VAR_COMMENT_HTML) -> Dict[str,
     """Parse the variable from a matching comment.
 
     Args:
-    ----
         line: string from source file
         matcher: string regex pattern to match. Default is `_RE_VAR_COMMENT_HTML`
 
     Returns:
-    -------
         Dict[str, str]: single key and value pair based on the parsed comment
 
     """
@@ -143,12 +137,10 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     """Replace commented sections in README with linked file contents.
 
     Args:
-    ----
         line: first line of the section
         path_file: path to the file that contained the string
 
     Returns:
-    -------
         List[str]: list of template-formatted text
 
     """
@@ -170,11 +162,9 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     """Format code coverage data table as markdown.
 
     Args:
-    ----
         coverage_data: dictionary created by `python -m coverage json`
 
     Returns:
-    -------
         List[str]: list of string lines to insert
 
     """
@@ -210,17 +200,14 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
     """Read the coverage.json file and write a Markdown table to the README file.
 
     Args:
-    ----
         line: first line of the section
         _path_file: path to the file that contained the string (unused)
         path_coverage: full path to a coverage.json file or defaults to the project
 
     Returns:
-    -------
         List[str]: list of template-formatted text
 
     Raises:
-    ------
         _ParseSkipError: if the "coverage.json" file is not available
 
     """
