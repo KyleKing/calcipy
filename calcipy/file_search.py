@@ -3,19 +3,16 @@
 from collections import defaultdict
 from pathlib import Path
 
-from beartype import beartype
 from beartype.typing import Dict, List, Optional
 from corallium.log import LOGGER
 from corallium.shell import capture_shell
 
 
-@beartype
 def _zsplit(stdout: str) -> List[str]:
     """Split output from git when used with `-z`."""
     return [item for item in stdout.split('\0') if item]
 
 
-@beartype
 def _get_all_files(*, cwd: Path) -> List[str]:
     """Get all files using git. Modified `pre_commit.git.get_all_files` to accept `cwd`.
 
@@ -31,7 +28,6 @@ def _get_all_files(*, cwd: Path) -> List[str]:
     return _zsplit(capture_shell('git ls-files -z', cwd=cwd))
 
 
-@beartype
 def _filter_files(rel_filepaths: List[str], ignore_patterns: List[str]) -> List[str]:
     """Filter a list of string file paths with specified ignore patterns in glob syntax.
 
@@ -53,7 +49,6 @@ def _filter_files(rel_filepaths: List[str], ignore_patterns: List[str]) -> List[
     return rel_filepaths
 
 
-@beartype
 def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[Path]:
     """Find project files in git version control.
 
@@ -80,7 +75,7 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
 
 
 # TODO: Consider adding a configuration item for ignore_patterns
-@beartype
+
 def find_project_files_by_suffix(
     path_project: Path,
     *,

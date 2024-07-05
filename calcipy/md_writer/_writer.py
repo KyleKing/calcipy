@@ -4,7 +4,6 @@ import json
 import re
 from pathlib import Path
 
-from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
@@ -46,7 +45,6 @@ class _ReplacementMachine:
         if self.state == self.state_template:
             self.state = self.state_other
 
-    @beartype
     def parse(
         self,
         lines: List[str],
@@ -69,7 +67,6 @@ class _ReplacementMachine:
             updated_lines.extend(self._parse_line(line, handler_lookup, path_file))
         return updated_lines
 
-    @beartype
     def _parse_line(
         self,
         line: str,
@@ -114,7 +111,6 @@ _VAR_COMMENT_HTML = r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);'
 """Regex for extracting the variable from an HTML code comment."""
 
 
-@beartype
 def _parse_var_comment(line: str, matcher: str = _VAR_COMMENT_HTML) -> Dict[str, str]:
     """Parse the variable from a matching comment.
 
@@ -132,7 +128,6 @@ def _parse_var_comment(line: str, matcher: str = _VAR_COMMENT_HTML) -> Dict[str,
     return {}
 
 
-@beartype
 def _handle_source_file(line: str, path_file: Path) -> List[str]:
     """Replace commented sections in README with linked file contents.
 
@@ -157,7 +152,6 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     return [line_start, *lines_source, line_end]
 
 
-@beartype
 def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     """Format code coverage data table as markdown.
 
@@ -195,7 +189,6 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     return lines_table
 
 
-@beartype
 def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] = None) -> List[str]:
     """Read the coverage.json file and write a Markdown table to the README file.
 
@@ -221,7 +214,6 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
     return [line, *lines_cov, line_end]
 
 
-@beartype
 def write_template_formatted_md_sections(
     handler_lookup: Optional[HandlerLookupT] = None,
     paths_md: Optional[List[Path]] = None,

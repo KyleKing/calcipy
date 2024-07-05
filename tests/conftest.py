@@ -3,7 +3,6 @@
 from pathlib import Path
 
 import pytest
-from beartype import beartype
 from beartype.typing import Dict, Union
 from invoke.context import MockContext
 
@@ -32,7 +31,6 @@ def vcr_config() -> Dict[str, Union[str, bool, list[str]]]:
 
 
 @pytest.fixture()
-@beartype
 def fix_test_cache() -> Path:
     """Fixture to clear and return the test cache directory for use.
 

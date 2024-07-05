@@ -4,7 +4,6 @@ import json
 from contextlib import suppress
 from pathlib import Path
 
-from beartype import beartype
 from invoke.context import Context
 
 from calcipy.collection import Collection
@@ -24,7 +23,6 @@ DEFAULTS = {
 }
 
 
-@beartype
 def from_ctx(ctx: Context, group: str, key: str) -> str:
     """Safely extract the value from the context or the defaults.
 
@@ -36,7 +34,6 @@ def from_ctx(ctx: Context, group: str, key: str) -> str:
     return str(DEFAULTS[group][key])
 
 
-@beartype
 def new_collection() -> Collection:
     """Initialize a collection with the combination of merged and project-specific defaults."""
     ns = Collection('')

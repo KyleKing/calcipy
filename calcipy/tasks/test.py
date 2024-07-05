@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-from beartype import beartype
 from beartype.typing import Optional
 from corallium.file_helpers import open_in_browser, read_package_name
 from invoke.context import Context
@@ -17,7 +16,6 @@ from .executable_utils import python_dir
 _STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
 
 
-@beartype
 def _inner_task(
     ctx: Context,
     *,

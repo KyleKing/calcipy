@@ -2,12 +2,10 @@
 
 import griffe
 import semver
-from beartype import beartype
 from corallium.log import LOGGER
 from griffe.exceptions import BuiltinModuleError
 
 
-@beartype
 def bump_tag(*, pkg_name: str, tag: str, tag_prefix: str) -> str:
     """Make a SemVer minor bump using `griffe` if there were any breaking changes.
 

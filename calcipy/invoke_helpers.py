@@ -6,7 +6,6 @@ from functools import lru_cache
 from os import environ
 from pathlib import Path
 
-from beartype import beartype
 from beartype.typing import Any, Optional
 from corallium.file_helpers import COPIER_ANSWERS, read_yaml_file
 from invoke.context import Context
@@ -24,7 +23,6 @@ def use_pty() -> bool:
     return not environ.get('GITHUB_ACTION')
 
 
-@beartype
 def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Optional[Result]:
     """Wrap invoke.run to run within the `working_dir`."""
     working_dir = '.'
@@ -45,7 +43,6 @@ def get_project_path() -> Path:
     return Path.cwd()
 
 
-@beartype
 def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
     """Retrieve the documentation directory from the copier answer file.
 

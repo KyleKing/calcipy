@@ -1,6 +1,5 @@
 """Changelog CLI."""
 
-from beartype import beartype
 from beartype.typing import Literal, Optional
 from invoke.context import Context
 
@@ -39,7 +38,6 @@ def write(ctx: Context) -> None:
     path_cl.replace(get_doc_subdir() / path_cl.name)
 
 
-@beartype
 def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     """Bumps project version based on commits & settings in pyproject.toml."""
     check_installed(ctx, executable='gh', message=GH_MESSAGE)

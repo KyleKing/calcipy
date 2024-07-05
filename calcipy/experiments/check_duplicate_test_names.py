@@ -3,12 +3,10 @@
 import ast
 from pathlib import Path
 
-from beartype import beartype
 from beartype.typing import List, Union
 from corallium.log import LOGGER
 
 
-@beartype
 def _show_info(function: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> None:
     """Print info about the function."""
     LOGGER.info('> name', name=function.name)
@@ -16,7 +14,6 @@ def _show_info(function: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> None:
         LOGGER.info('\t args', args=function.args.args)
 
 
-@beartype
 def run(test_path: Path) -> List[str]:  # noqa: C901  # pylint: disable=too-complex
     """Check for duplicates in the test suite.
 

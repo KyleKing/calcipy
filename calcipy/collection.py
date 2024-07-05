@@ -6,7 +6,6 @@ from functools import wraps
 from pathlib import Path
 from types import ModuleType
 
-from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from corallium.log import LOGGER, configure_logger
 from invoke.collection import Collection as InvokeCollection  # noqa: TID251
@@ -36,7 +35,6 @@ class GlobalTaskOptions(BaseModel):
     """Continue task execution regardless of failure."""
 
 
-@beartype
 def _configure_task_logger(ctx: Context) -> None:  # pragma: no cover
     """Configure the logger based on task context."""
     verbose = ctx.config.gto.verbose
@@ -46,7 +44,6 @@ def _configure_task_logger(ctx: Context) -> None:  # pragma: no cover
     configure_logger(log_level=log_level)
 
 
-@beartype
 def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwargs: Any) -> Any:  # pragma: no cover
     """Run the task function with optional logging."""
     if show_task_info:
@@ -63,7 +60,6 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
     return result
 
 
-@beartype
 def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **kwargs: Any) -> Any:  # pragma: no cover
     """Wrap task with extended logic."""
     try:

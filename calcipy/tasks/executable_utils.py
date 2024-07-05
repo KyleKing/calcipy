@@ -5,7 +5,6 @@ from contextlib import suppress
 from functools import lru_cache
 from pathlib import Path
 
-from beartype import beartype
 from beartype.typing import Optional
 from invoke.context import Context
 from invoke.runners import Result
@@ -51,7 +50,6 @@ _EXECUTABLE_CACHE: dict[str, Optional[Result]] = {}
 """Runtime cache of executables."""
 
 
-@beartype
 def check_installed(ctx: Context, executable: str, message: str) -> None:
     """If the required executable isn't present, raise a clear user error."""
     if executable in _EXECUTABLE_CACHE:

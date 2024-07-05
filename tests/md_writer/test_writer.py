@@ -4,7 +4,6 @@ from functools import partial
 from pathlib import Path
 
 import pytest
-from beartype import beartype
 from beartype.typing import List
 
 from calcipy.md_writer._writer import (
@@ -93,7 +92,6 @@ def test_parse_var_comment(line, match):
     assert result == match
 
 
-@beartype
 def _star_parser(line: str, path_md: Path) -> List[str]:  # noqa: ARG001
     rating = int(_parse_var_comment(line)['rating'])
     return [f'RATING={rating}']

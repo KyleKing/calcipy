@@ -2,7 +2,6 @@
 
 from contextlib import suppress
 
-from beartype import beartype
 from beartype.typing import Optional
 from corallium.file_helpers import read_package_name
 from invoke.context import Context
@@ -16,7 +15,6 @@ from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir, p
 # Linting
 
 
-@beartype
 def _inner_task(
     ctx: Context,
     *,

@@ -8,7 +8,6 @@ from pathlib import Path
 from subprocess import CalledProcessError  # nosec  # noqa: S404
 
 import arrow
-from beartype import beartype
 from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
@@ -54,7 +53,6 @@ class _Tags(BaseModel):
     model_config = ConfigDict(frozen=True)
 
 
-@beartype
 def _search_lines(
     lines: List[str],
     regex_compiled: Pattern[str],
@@ -86,7 +84,6 @@ def _search_lines(
     return comments
 
 
-@beartype
 def _search_files(paths_source: Sequence[Path], regex_compiled: Pattern[str]) -> List[_Tags]:
     """Collect matches from multiple files.
 
@@ -116,7 +113,6 @@ _GITHUB_ORIGIN = r'^.+github.com[:/](?P<owner>[^/]+)/(?P<repository>[^.]+)(?:\.g
 """Match owner and repository from a GitHub git origin URI."""
 
 
-@beartype
 def github_blame_url(clone_uri: str) -> str:
     """Format the blame URL.
 
@@ -166,7 +162,6 @@ class _CollectorRow(BaseModel):
     source_file: str
 
     @classmethod
-    @beartype
     def from_code_tag(cls, code_tag: _CodeTag, last_edit: str, source_file: str) -> '_CollectorRow':
         return cls(
             tag_name=f'{code_tag.tag:>7}',
@@ -176,7 +171,6 @@ class _CollectorRow(BaseModel):
         )
 
 
-@beartype
 def _format_from_blame(
     *,
     collector_row: _CollectorRow,
@@ -210,7 +204,6 @@ def _format_from_blame(
     return collector_row
 
 
-@beartype
 def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _CollectorRow:
     """Format each table row for the code tag summary file. Include git permalink.
 
@@ -252,7 +245,6 @@ def _format_record(base_dir: Path, file_path: Path, comment: _CodeTag) -> _Colle
     return collector_row
 
 
-@beartype
 def _format_report(
     base_dir: Path,
     code_tags: List[_Tags],
@@ -296,7 +288,6 @@ def _format_report(
     return output
 
 
-@beartype
 def write_code_tag_file(
     *,
     path_tag_summary: Path,

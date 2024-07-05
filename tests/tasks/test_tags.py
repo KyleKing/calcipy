@@ -3,25 +3,21 @@
 from pathlib import Path
 
 import pytest
-from beartype import beartype
 from beartype.typing import Callable, Dict
 
 from calcipy.tasks.tags import collect_code_tags
 from tests.configuration import APP_DIR, TEST_DATA_DIR
 
 
-@beartype
 def _merge_path_kwargs(kwargs: Dict) -> Path:
     return Path(f"{kwargs['doc_sub_dir']}/{kwargs['filename']}")
 
 
-@beartype
 def _check_no_write(kwargs: Dict) -> None:
     path_tag_summary = _merge_path_kwargs(kwargs)
     assert not path_tag_summary.is_file()
 
 
-@beartype
 def _check_output(kwargs: Dict) -> None:
     path_tag_summary = _merge_path_kwargs(kwargs)
     assert path_tag_summary.is_file()
@@ -60,7 +56,6 @@ def _check_output(kwargs: Dict) -> None:
         'Check that code tags were matched and a file was created',
     ],
 )
-@beartype
 def test_tags(ctx, task, kwargs: Dict, validator: Callable[[Dict], None]):
     task(ctx, **kwargs)
 

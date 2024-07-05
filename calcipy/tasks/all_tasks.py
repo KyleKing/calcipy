@@ -1,6 +1,5 @@
 """Tasks can be imported piecemeal or imported in their entirety from here."""
 
-from beartype import beartype
 from beartype.typing import Any, List, Union
 from corallium.log import LOGGER
 from invoke.context import Context
@@ -53,7 +52,6 @@ TaskList = List[Union[Call, DeferedTask]]
 """List of wrapped or normal task functions."""
 
 
-@beartype
 def with_progress(items: Any, offset: int = 0) -> TaskList:
     """Inject intermediary 'progress' tasks.
 

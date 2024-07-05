@@ -6,7 +6,6 @@ from functools import wraps
 from pathlib import Path
 from types import ModuleType
 
-from beartype import beartype
 from beartype.typing import Any, Callable, Dict, List, Optional, Union
 from invoke.collection import Collection as InvokeCollection  # noqa: TID251
 from invoke.config import Config, merge_dicts
@@ -56,7 +55,6 @@ class CalcipyConfig(Config):
         return merge_dicts(invoke_defaults, calcipy_defaults)
 
 
-@beartype
 def start_program(
     pkg_name: str,
     pkg_version: str,

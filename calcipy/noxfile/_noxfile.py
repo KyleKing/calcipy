@@ -38,7 +38,6 @@ from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 
-from beartype import beartype
 from beartype.typing import Dict, List, Union, cast
 from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import get_tool_versions, if_found_unlink, read_package_name
@@ -61,7 +60,6 @@ def _get_pythons() -> List[str]:
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
-@beartype
 def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-arg]
     """Retrieve nested dictionary keys unless not found."""
     result = source
@@ -71,12 +69,10 @@ def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-
     return result
 
 
-@beartype
 def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
     """Return a dictionary of all dev-dependencies from the 'pyproject.toml'."""
     poetry_config = file_helpers.read_pyproject()['tool']['poetry']
 
-    @beartype
     def normalize_dep(value: Union[str, Dict]) -> Dict:  # type: ignore[type-arg]
         return {'version': value} if isinstance(value, str) else value
 
@@ -97,12 +93,11 @@ def _installable_dev_dependencies() -> List[str]:
         List[str]: `['Cerberus=>1.3.4', 'freezegun']`
 
     """
-    @beartype
+
     def to_package(key: str, value: Dict) -> str:  # type: ignore[type-arg]
         extras = value.get('extras', [])
         return f'{key}[{",".join(extras)}]' if extras else key
 
-    @beartype
     def to_constraint(value: Dict) -> str:  # type: ignore[type-arg]
         return str(value['version']).replace('^', '==')
 
@@ -113,7 +108,6 @@ def _installable_dev_dependencies() -> List[str]:
     ]
 
 
-@beartype
 def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> None:  # pragma: no cover
     """Ensure local dev-dependencies and calcipy extras are installed.
 

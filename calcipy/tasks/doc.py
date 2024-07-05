@@ -4,7 +4,6 @@ import webbrowser
 from contextlib import suppress
 from pathlib import Path
 
-from beartype import beartype
 from corallium.file_helpers import (
     MKDOCS_CONFIG,
     open_in_browser,
@@ -20,7 +19,6 @@ from calcipy.md_writer import write_template_formatted_md_sections
 from .executable_utils import python_dir
 
 
-@beartype
 def get_out_dir() -> Path:
     """Retrieve the mkdocs-specified site directory."""
     mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
@@ -34,7 +32,6 @@ def build(ctx: Context) -> None:
     run(ctx, f'{python_dir()}/mkdocs build --site-dir {get_out_dir()}')
 
 
-@beartype
 def _is_mkdocs_local() -> bool:
     """Check if mkdocs is configured for local output.
 

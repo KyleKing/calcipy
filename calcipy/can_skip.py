@@ -2,12 +2,10 @@
 
 from pathlib import Path
 
-from beartype import beartype
 from beartype.typing import List
 from corallium.log import LOGGER
 
 
-@beartype
 def can_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
     """Return true if the prerequisite files are have newer `mtime` than targets.
 
@@ -33,7 +31,6 @@ def can_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
     return False
 
 
-@beartype
 def dont_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
     """To use for testing with mock; always returns False."""
     LOGGER.debug('Mocking can_skip', prerequisites=prerequisites, targets=targets)

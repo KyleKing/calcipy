@@ -12,7 +12,6 @@ from pathlib import Path
 import arrow
 import httpx
 from arrow import Arrow
-from beartype import beartype
 from beartype.typing import Awaitable, Callable, Dict, List, Optional, Tuple, TypeVar, Union
 from corallium.file_helpers import LOCK
 from corallium.log import LOGGER
@@ -84,7 +83,6 @@ async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPacka
     return package
 
 
-@beartype
 def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPythonPackage]:
     """Read the cached packaging information.
 
@@ -157,7 +155,6 @@ async def _rate_limited(
     return results
 
 
-@beartype
 async def _collect_release_dates(
     packages: List[_HostedPythonPackage],
     old_cache: Optional[Dict[str, _HostedPythonPackage]] = None,
@@ -207,7 +204,6 @@ async def _collect_release_dates(
     return updated_packages
 
 
-@beartype
 def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: Path = CALCIPY_CACHE) -> None:
     """Read the cached packaging information.
 
@@ -221,7 +217,6 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
     path_pack_lock.write_text(pretty_json + '\n', encoding='utf-8')
 
 
-@beartype
 def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     """Read packages from lock file. Currently only support `poetry.lock`, but could support more in the future.
 
@@ -249,7 +244,6 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     ]
 
 
-@beartype
 def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: int) -> bool:
     """Check for stale packages. Raise error and log all stale versions found.
 
@@ -258,8 +252,6 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
     """
-
-    @beartype
     def format_package(pack: _HostedPythonPackage) -> str:
         delta = pack.datetime.humanize()  # type: ignore[union-attr]
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
@@ -277,7 +269,6 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
     return bool(stale_packages)
 
 
-@beartype
 def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_cache: Path = CALCIPY_CACHE) -> bool:
     """Check for stale packages by reading from the cache, and updating if necessary.
 
