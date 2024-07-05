@@ -50,7 +50,7 @@ repos:
     hooks:
       - id: mdformat
         additional_dependencies:
-          - "mdformat-mkdocs[recommended]>=2.1.0"
+          - "mdformat-mkdocs[recommended]>=3.0.0"
           - "mdformat-gfm-alerts>=1.0.1"
         args: [--wrap=no]
         exclude: _.+\.md|CHANGELOG\.md|CODE_TAG_SUMMARY\.md
@@ -71,12 +71,6 @@ repos:
           - "prettier-plugin-sh"
         exclude: \.copier-answers\.yml|tests/.*/cassettes/.*\.yaml|__snapshots__/.*\.json
         types_or: [html, javascript, json, shell, yaml]
-        stages: ["pre-commit"]
-  - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.35.1
-    hooks:
-      - id: yamllint
-        exclude: tests/.*/cassettes/.*\.yaml
         stages: ["pre-commit"]
   - repo: https://github.com/pappasam/toml-sort
     rev: v0.23.1

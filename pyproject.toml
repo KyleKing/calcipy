@@ -204,6 +204,7 @@ known-first-party = ['calcipy']
   'ANN001', # Missing type annotation for function argument
   'ANN201', # Missing return type annotation for public function
   'ANN202', # Missing return type annotation for private function `test_make_diffable`
+  'ARG001', # Unused function argument: `line`
   'D100', # Missing docstring in public module
   'D103', # Missing docstring in public function
   'PLC2701', # Private name import `_<>` from external module
