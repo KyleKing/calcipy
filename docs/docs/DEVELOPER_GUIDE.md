@@ -62,7 +62,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/experiments/__init__.py`                               | 0          | 0       | 0        | 100.0%   |
 | `calcipy/experiments/bump_programmatically.py`                  | 22         | 22      | 0        | 0.0%     |
 | `calcipy/experiments/check_duplicate_test_names.py`             | 33         | 0       | 2        | 98.2%    |
-| `calcipy/experiments/sync_package_dependencies.py`              | 34         | 34      | 0        | 0.0%     |
+| `calcipy/experiments/sync_package_dependencies.py`              | 33         | 33      | 0        | 0.0%     |
 | `calcipy/file_search.py`                                        | 32         | 0       | 2        | 100.0%   |
 | `calcipy/invoke_helpers.py`                                     | 27         | 4       | 0        | 83.8%    |
 | `calcipy/md_writer/__init__.py`                                 | 5          | 2       | 0        | 60.0%    |
@@ -83,7 +83,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         | 18         | 1       | 0        | 90.9%    |
 | `calcipy/tasks/test.py`                                         | 43         | 1       | 2        | 90.2%    |
 | `calcipy/tasks/types.py`                                        | 11         | 0       | 0        | 93.3%    |
-| **Totals**                                                      | 998        | 115     | 259      | 84.6%    |
+| **Totals**                                                      | 997        | 114     | 259      | 84.7%    |
 
 Generated on: 2024-07-05
 <!-- {cte} -->
