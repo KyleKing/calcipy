@@ -30,7 +30,7 @@ def vcr_config() -> Dict[str, Union[str, bool, list[str]]]:
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def fix_test_cache() -> Path:
     """Fixture to clear and return the test cache directory for use.
 
@@ -43,7 +43,7 @@ def fix_test_cache() -> Path:
     return TEST_TMP_CACHE
 
 
-@pytest.fixture()
+@pytest.fixture
 def ctx() -> MockContext:
     """Mock Invoke Context.
 

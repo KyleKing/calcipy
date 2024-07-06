@@ -34,7 +34,9 @@ def replace_versions(path_lock: Path) -> None:
         for name, value in deps.items():
             if name == 'python':
                 continue
-            pyproject_versions[name] = value if isinstance(value, str) else value['version']
+            version = value if isinstance(value, str) else value['version']
+            if not version.startswith('<'):
+                pyproject_versions[name] = version.lstrip('^>=')
 
     new_lines: list[str] = []
     active_section = ''
@@ -43,8 +45,8 @@ def replace_versions(path_lock: Path) -> None:
             active_section = line
         elif '=' in line and 'dependencies' in active_section:
             name = line.split('=')[0].strip()
-            if lock_version := lock_versions.get(name):
-                if (pyproject_version := pyproject_versions[name].lstrip('^>=')) in line:
+            if (lock_version := lock_versions.get(name)) and (pyproject_version := pyproject_versions.get(name)):
+                if pyproject_version in line:
                     new_lines.append(line.replace(pyproject_version, lock_version, 1))
                     continue
                 LOGGER.warning(

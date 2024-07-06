@@ -62,7 +62,7 @@ def check_licenses(ctx: Context) -> None:
     },
 )
 def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = '') -> None:  # noqa: ARG001
-    """Experiment with bumping the git tag using `griffe`.
+    """Experiment with bumping the git tag using `griffe` (experimental).
 
     Example for `calcipy`:
 
@@ -89,7 +89,7 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
 
 @task(post=[lock])
 def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
-    """Experiment with setting the pyproject.toml dependencies to the version from poetry.lock.
+    """Experiment with setting the pyproject.toml dependencies to the version from poetry.lock (experimental).
 
     Uses the current working directory and should be run after `poetry update`.
 

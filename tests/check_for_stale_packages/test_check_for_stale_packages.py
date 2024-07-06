@@ -13,8 +13,8 @@ from calcipy.check_for_stale_packages._check_for_stale_packages import (
 )
 
 
-@pytest.mark.asyncio()
-@pytest.mark.vcr()
+@pytest.mark.asyncio
+@pytest.mark.vcr
 async def test__get_release_date():
     release_year = 2018
     package = _HostedPythonPackage(
@@ -35,7 +35,7 @@ async def test__get_release_date():
     assert result.latest_datetime.year >= release_year
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test__check_for_stale_packages(fix_test_cache):
     path_pack_lock = fix_test_cache / CALCIPY_CACHE.name
     path_pack_lock.write_text(json.dumps({

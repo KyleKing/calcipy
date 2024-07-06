@@ -75,7 +75,7 @@ pytest-randomly = {optional = true, version = ">=3.15.0"} # test
 pytest-watcher = {optional = true, version = ">=0.4.2"} # test
 python-box = {optional = true, version = ">=7.2.0"} # ddict
 pyyaml = {optional = true, version = ">=6.0.1"} # docs
-ruff = {optional = true, version = ">=0.5.0"} # lint
+ruff = {optional = true, version = ">=0.5.1"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
 urllib3 = {python = "<3.11", version = "<2"} # Prevents SSL errors
 virtualenv = {optional = true, version = ">=20.26.3"} # tags: nox. Prevents 'scripts' KeyError with Python 3.12
