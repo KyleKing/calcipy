@@ -125,6 +125,9 @@ async def _rate_limited(
         List[_OpReturnT]: list of return values from operations up to max_delay time, if set
 
     """
+    if not operations:
+        return []
+
     initial_start = time.monotonic()
     sem = asyncio.BoundedSemaphore(value=max_per_interval)
 
@@ -172,8 +175,8 @@ async def _collect_release_dates(
     if old_cache is None:
         old_cache = {}
 
-    updated_packages = []
-    missing_packages = []
+    updated_packages: List[_HostedPythonPackage] = []
+    missing_packages: List[_HostedPythonPackage] = []
     for package in packages:
         cached_package = old_cache.get(package.name)
         cached_version = '' if cached_package is None else cached_package.version
@@ -252,6 +255,7 @@ def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: i
         stale_months: cutoff in months for when a package might be stale enough to be a risk
 
     """
+
     def format_package(pack: _HostedPythonPackage) -> str:
         delta = pack.datetime.humanize()  # type: ignore[union-attr]
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
@@ -278,11 +282,10 @@ def check_for_stale_packages(*, stale_months: int, path_lock: Path = LOCK, path_
         path_cache: path to calcipy package cache file
 
     """
-    packages = _read_packages(path_lock)
     cached_packages = _read_cache(path_cache)
     if cached_packages and can_skip.can_skip(prerequisites=[path_lock], targets=[path_cache]):
         packages = [*cached_packages.values()]
     else:
-        packages = asyncio.run(_collect_release_dates(packages, cached_packages))
+        packages = asyncio.run(_collect_release_dates(_read_packages(path_lock), cached_packages))
         _write_cache(packages, path_cache)
     return _packages_are_stale(packages, stale_months=stale_months)
