@@ -58,7 +58,7 @@ async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPacka
     """
     # Retrieve the JSON summary for the specified package
     json_url = package.domain.format(name=package.name)
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=10) as client:
         res = await client.get(json_url, timeout=30)  # nosem
         res.raise_for_status()
         res_json = res.json()

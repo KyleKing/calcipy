@@ -1,5 +1,33 @@
 ## Unreleased
 
+### Fix
+
+- don't sync versions when a maximum version is specified
+- prevent installing urllib3 in Python 3.10
+- add missing pylint extra
+
+### Refactor
+
+- reduce sync_package_deps complexity
+- try debugging urllib3 inconsistencies
+
+## 4.0.0rc2 (2024-07-05)
+
+### Fix
+
+- install pyyaml for tags extra
+- correctly calculate markdown table widths
+
+## 4.0.0rc1 (2024-07-05)
+
+### Fix
+
+- **wheel**: don't distribute top-level LICENSE file
+- ensure consistent whitespace when writing markdown tables
+- restore pyyaml extra
+
+## 4.0.0rc0 (2024-07-05)
+
 ### Feat
 
 - add pack.sync-package-dependencies experiment
