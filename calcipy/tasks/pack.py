@@ -54,6 +54,7 @@ def check_licenses(ctx: Context) -> None:
     run(ctx, 'licensecheck')
 
 
+# TODO: Add unit test
 @task(
     help={
         'tag': 'Last tag, can be provided with `--tag="$(git tag -l "v*" | sort | tail -n 1)"`',
@@ -87,6 +88,7 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
     LOGGER.text(new_version)
 
 
+# TODO: Add unit test
 @task(post=[lock])
 def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
     """Experiment with setting the pyproject.toml dependencies to the version from poetry.lock (experimental).
