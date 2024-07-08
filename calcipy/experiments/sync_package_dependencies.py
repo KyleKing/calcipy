@@ -21,9 +21,11 @@ def _collect_pyproject_versions(pyproject_text: str) -> dict[str, str]:
         for name, value in deps.items():
             if name == 'python':
                 continue
-            version = value if isinstance(value, str) else value['version']
-            if not version.startswith('<') and not ('*' in version or '~' in version):
-                pyproject_versions[name] = version.lstrip('^>=')
+            version = value if isinstance(value, str) else value.get('version')
+            if not version or any(_c in version for _c in ',*!@/'):
+                LOGGER.text('WARNING: requires manually review', name=name, version=version)
+            else:
+                pyproject_versions[name] = version.lstrip('~^<>=')
     return pyproject_versions
 
 
@@ -50,6 +52,9 @@ def _replace_pyproject_versions(
                     new_version=lock_version,
                     old_version=pyproject_version,
                 )
+            elif lock_version and not pyproject_versions.get(name):
+                LOGGER.text('WARNING: consider manually updating the version', new_version=lock_version)
+
         new_lines.append(line)
     return '\n'.join(new_lines)
 
