@@ -40,8 +40,9 @@ from urllib.request import url2pathname
 
 from beartype.typing import Dict, List, Union, cast
 from corallium import file_helpers  # Required for mocking read_pyproject
-from corallium.file_helpers import get_tool_versions, if_found_unlink, read_package_name
+from corallium.file_helpers import LOCK, get_tool_versions, if_found_unlink, read_package_name
 from corallium.log import LOGGER
+from corallium.tomllib import tomllib
 from nox import Session as NoxSession
 from nox_poetry import session as nox_poetry_session
 from nox_poetry.poetry import DistributionFormat
@@ -77,7 +78,8 @@ def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
         return {'version': value} if isinstance(value, str) else value
 
     return {
-        key: normalize_dep(value) for key, value in {
+        key: normalize_dep(value)
+        for key, value in {
             **_retrieve_keys(poetry_config, ['dev', 'dependencies']),
             **_retrieve_keys(poetry_config, ['group', 'dev', 'dependencies']),
         }.items()
@@ -108,7 +110,7 @@ def _installable_dev_dependencies() -> List[str]:
     ]
 
 
-def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> None:  # pragma: no cover
+def _install_local(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cover
     """Ensure local dev-dependencies and calcipy extras are installed.
 
     See: https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855445920
@@ -116,8 +118,10 @@ def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> 
     """
     if read_package_name() == 'calcipy':
         session = cast(NPSession, session)
-        session.poetry.installroot(extras=extras)
+        lock_data = tomllib.loads(LOCK.read_text())
+        session.poetry.installroot(extras=[*lock_data['extras']])  # First part extras
     else:
+        extras = ['test']
         session.install('.', f'calcipy[{",".join(extras)}]')
 
     if dev_deps := _installable_dev_dependencies():
@@ -127,7 +131,7 @@ def _install_local(session: Union[NoxSession, NPSession], extras: List[str]) -> 
 @nox_session(python=_get_pythons(), reuse_venv=True)
 def tests(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cover
     """Run doit test task for specified python versions."""
-    _install_local(session, ['ddict', 'doc', 'lint', 'nox', 'stale', 'tags', 'test'])
+    _install_local(session)
     session.run(*shlex.split('pytest ./tests'), stdout=True, env={'RUNTIME_TYPE_CHECKING_MODE': 'WARNING'})
 
 
@@ -140,8 +144,7 @@ def build_dist(session: Union[NoxSession, NPSession]) -> None:  # pragma: no cov
     # Support 'corallium' by re-implementing "session.poetry.build_package()", from:
     # https://github.com/cjolowicz/nox-poetry/blob/5772b66ebff8d5a3351a08ed402d3d31e48be5f8/src/nox_poetry/sessions.py#L233-L255
     # https://github.com/cjolowicz/nox-poetry/blob/5772b66ebff8d5a3351a08ed402d3d31e48be5f8/src/nox_poetry/poetry.py#L111-L154
-    output = session.run(*shlex.split('poetry build --format=wheel --no-ansi'),
-                         external=True, silent=True)
+    output = session.run(*shlex.split('poetry build --format=wheel --no-ansi'), external=True, silent=True)
     output = cast(str, output)
     wheel = dist_path / output.split()[-1]
     path_wheel = wheel.resolve().as_uri()
