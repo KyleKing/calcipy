@@ -74,8 +74,6 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
     return file_paths
 
 
-# TODO: Consider adding a configuration item for ignore_patterns
-
 def find_project_files_by_suffix(
     path_project: Path,
     *,

@@ -119,7 +119,7 @@ def _install_local(session: Union[NoxSession, NPSession]) -> None:  # pragma: no
     if read_package_name() == 'calcipy':
         session = cast(NPSession, session)
         lock_data = tomllib.loads(LOCK.read_text())
-        session.poetry.installroot(extras=[*lock_data['extras']])  # First part extras
+        session.poetry.installroot(extras=[*lock_data['extras']])  # First party extras
     else:
         extras = ['test']
         session.install('.', f'calcipy[{",".join(extras)}]')

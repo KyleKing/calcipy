@@ -43,14 +43,15 @@ def _replace_pyproject_versions(
         elif '=' in line and 'dependencies' in active_section:
             name = line.split('=')[0].strip()
             if (lock_version := lock_versions.get(name)) and (pyproject_version := pyproject_versions.get(name)):
-                if pyproject_version in line:
+                versions = {'new_version': lock_version, 'old_version': pyproject_version}
+                if pyproject_version != lock_version and pyproject_version in line:
                     new_lines.append(line.replace(pyproject_version, lock_version, 1))
+                    LOGGER.text('Upgrade minimum package version', **versions)
                     continue
                 LOGGER.warning(
                     'Could not set new version. Please do so manually and submit a bug report',
                     line=line,
-                    new_version=lock_version,
-                    old_version=pyproject_version,
+                    **versions,
                 )
             elif lock_version and not pyproject_versions.get(name):
                 LOGGER.text('WARNING: consider manually updating the version', new_version=lock_version)
