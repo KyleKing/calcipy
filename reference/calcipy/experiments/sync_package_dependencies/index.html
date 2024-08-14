@@ -1259,28 +1259,28 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/experiments/sync_package_dependencies.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="57 "></span><span class="k">def</span> <span class="nf">replace_versions</span><span class="p">(</span><span class="n">path_lock</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="58 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Read packages from poetry.lock and update the versions in pyproject.toml.</span>
-<span class="linenos" data-linenos="59 "></span>
-<span class="linenos" data-linenos="60 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="61 "></span><span class="sd">        path_lock: Path to the poetry.lock file</span>
-<span class="linenos" data-linenos="62 "></span>
-<span class="linenos" data-linenos="63 "></span><span class="sd">    Raises:</span>
-<span class="linenos" data-linenos="64 "></span><span class="sd">        NotImplementedError: if a lock file other that the poetry lock file is used</span>
-<span class="linenos" data-linenos="65 "></span>
-<span class="linenos" data-linenos="66 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="67 "></span>    <span class="k">if</span> <span class="n">path_lock</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;poetry.lock&#39;</span><span class="p">:</span>
-<span class="linenos" data-linenos="68 "></span>        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Expected a path to a &quot;poetry.lock&quot; file. Instead, received: &quot;</span><span class="si">{</span><span class="n">path_lock</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
-<span class="linenos" data-linenos="69 "></span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="linenos" data-linenos="70 "></span>
-<span class="linenos" data-linenos="71 "></span>    <span class="n">lock</span> <span class="o">=</span> <span class="n">tomllib</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">path_lock</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">))</span>
-<span class="linenos" data-linenos="72 "></span>    <span class="n">lock_versions</span> <span class="o">=</span> <span class="p">{</span><span class="n">dependency</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]:</span> <span class="n">dependency</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">dependency</span> <span class="ow">in</span> <span class="n">lock</span><span class="p">[</span><span class="s1">&#39;package&#39;</span><span class="p">]}</span>
-<span class="linenos" data-linenos="73 "></span>
-<span class="linenos" data-linenos="74 "></span>    <span class="n">path_pyproject</span> <span class="o">=</span> <span class="n">path_lock</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;pyproject.toml&#39;</span>
-<span class="linenos" data-linenos="75 "></span>    <span class="n">pyproject_text</span> <span class="o">=</span> <span class="n">path_pyproject</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="76 "></span>    <span class="n">pyproject_versions</span> <span class="o">=</span> <span class="n">_collect_pyproject_versions</span><span class="p">(</span><span class="n">pyproject_text</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="64 "></span><span class="k">def</span> <span class="nf">replace_versions</span><span class="p">(</span><span class="n">path_lock</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="65 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Read packages from poetry.lock and update the versions in pyproject.toml.</span>
+<span class="linenos" data-linenos="66 "></span>
+<span class="linenos" data-linenos="67 "></span><span class="sd">    Args:</span>
+<span class="linenos" data-linenos="68 "></span><span class="sd">        path_lock: Path to the poetry.lock file</span>
+<span class="linenos" data-linenos="69 "></span>
+<span class="linenos" data-linenos="70 "></span><span class="sd">    Raises:</span>
+<span class="linenos" data-linenos="71 "></span><span class="sd">        NotImplementedError: if a lock file other that the poetry lock file is used</span>
+<span class="linenos" data-linenos="72 "></span>
+<span class="linenos" data-linenos="73 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="74 "></span>    <span class="k">if</span> <span class="n">path_lock</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;poetry.lock&#39;</span><span class="p">:</span>
+<span class="linenos" data-linenos="75 "></span>        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Expected a path to a &quot;poetry.lock&quot; file. Instead, received: &quot;</span><span class="si">{</span><span class="n">path_lock</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
+<span class="linenos" data-linenos="76 "></span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 <span class="linenos" data-linenos="77 "></span>
-<span class="linenos" data-linenos="78 "></span>    <span class="n">path_pyproject</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">_replace_pyproject_versions</span><span class="p">(</span><span class="n">lock_versions</span><span class="p">,</span> <span class="n">pyproject_versions</span><span class="p">,</span> <span class="n">pyproject_text</span><span class="p">))</span>
+<span class="linenos" data-linenos="78 "></span>    <span class="n">lock</span> <span class="o">=</span> <span class="n">tomllib</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">path_lock</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">))</span>
+<span class="linenos" data-linenos="79 "></span>    <span class="n">lock_versions</span> <span class="o">=</span> <span class="p">{</span><span class="n">dependency</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]:</span> <span class="n">dependency</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">dependency</span> <span class="ow">in</span> <span class="n">lock</span><span class="p">[</span><span class="s1">&#39;package&#39;</span><span class="p">]}</span>
+<span class="linenos" data-linenos="80 "></span>
+<span class="linenos" data-linenos="81 "></span>    <span class="n">path_pyproject</span> <span class="o">=</span> <span class="n">path_lock</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;pyproject.toml&#39;</span>
+<span class="linenos" data-linenos="82 "></span>    <span class="n">pyproject_text</span> <span class="o">=</span> <span class="n">path_pyproject</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="83 "></span>    <span class="n">pyproject_versions</span> <span class="o">=</span> <span class="n">_collect_pyproject_versions</span><span class="p">(</span><span class="n">pyproject_text</span><span class="p">)</span>
+<span class="linenos" data-linenos="84 "></span>
+<span class="linenos" data-linenos="85 "></span>    <span class="n">path_pyproject</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">_replace_pyproject_versions</span><span class="p">(</span><span class="n">lock_versions</span><span class="p">,</span> <span class="n">pyproject_versions</span><span class="p">,</span> <span class="n">pyproject_text</span><span class="p">))</span>
 </code></pre></div>
             </details>
     </div>

@@ -413,13 +413,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#calcipy-100" class="md-nav__link">
+  <a href="#v4" class="md-nav__link">
     <span class="md-ellipsis">
-      calcipy 1.0.0
+      v4
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="calcipy 1.0.0">
+    <nav class="md-nav" aria-label="v4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speed-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speed Test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      v3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      v2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v2">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -441,7 +474,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#speed-test" class="md-nav__link">
+  <a href="#speed-test_1" class="md-nav__link">
     <span class="md-ellipsis">
       Speed Test
     </span>
@@ -1148,13 +1181,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#calcipy-100" class="md-nav__link">
+  <a href="#v4" class="md-nav__link">
     <span class="md-ellipsis">
-      calcipy 1.0.0
+      v4
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="calcipy 1.0.0">
+    <nav class="md-nav" aria-label="v4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speed-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speed Test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      v3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      v2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v2">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1176,7 +1242,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#speed-test" class="md-nav__link">
+  <a href="#speed-test_1" class="md-nav__link">
     <span class="md-ellipsis">
       Speed Test
     </span>
@@ -1226,7 +1292,23 @@
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">⚓︎</a></h1>
-<h2 id="calcipy-100"><code>calcipy 1.0.0</code><a class="headerlink" href="#calcipy-100" title="Permanent link">⚓︎</a></h2>
+<h2 id="v4"><code>v4</code><a class="headerlink" href="#v4" title="Permanent link">⚓︎</a></h2>
+<p>The total number of dependencies was reduce even further by replacing flake8, isort, and other tooling with ruff; fewer mkdocs plugins; and fewer steps in the <code>main</code> run task to speed up normal usage.</p>
+<p>The only breaking <a href="https://github.com/KyleKing/recipes/commit/b3fcf8136af77ccf1bd3ee1fb4297b79dd7e86ea#diff-4bf564fcd9dbaec9e9807f16f649791c1e333f89db8160ad715d3c0c09a1a65c">change impacted <code>recipes</code></a> when <code>write_autoformatted_md_sections</code> was renamed to <code>write_template_formatted_md_sections</code>.</p>
+<h3 id="speed-test">Speed Test<a class="headerlink" href="#speed-test" title="Permanent link">⚓︎</a></h3>
+<p>Following up on performance checks from the <code>v2</code> migration. The performance is comparable, but you will see savings in cache size and poetry install and when running <code>main</code> (<code>./run main</code> for Calcipy, currently takes ~20s)</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
+<span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
+<span class="linenos" data-linenos="3 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">863</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">10</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">550</span>.7<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">102</span>.3<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="4 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">848</span>.5<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">885</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+<span class="linenos" data-linenos="5 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy-tags&quot;</span>
+<span class="linenos" data-linenos="6 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy-tags
+<span class="linenos" data-linenos="7 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">770</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">5</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">470</span>.6<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">89</span>.5<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="8 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">760</span>.1<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">780</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+</code></pre></div>
+<h2 id="v3"><code>v3</code><a class="headerlink" href="#v3" title="Permanent link">⚓︎</a></h2>
+<p>Replaced features from flake8 and plugins with corresponding checks from ruff, however both are still used in parallel.</p>
+<h2 id="v2"><code>v2</code><a class="headerlink" href="#v2" title="Permanent link">⚓︎</a></h2>
 <h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">⚓︎</a></h3>
 <p>calcipy <code>v1</code> was a complete rewrite to switch from <code>doit</code> to <code>invoke</code>:</p>
 <ul>
@@ -1238,8 +1320,17 @@
 <p>calcipy <code>v0</code> was built on <a href="https://pypi.org/project/doit/">doit</a> and thus required a <code>dodo.py</code> file. I began adding <code>cement</code> to support a separate CLI for <code>calcipy</code> installed with <code>pipx</code>, but that required a lot of boilerplate code. With <code>doit</code>, the string command needed to be complete at task evaluation rather than runtime, so globbing files couldn&rsquo;t be resolved lazily.</p>
 <h3 id="migration">Migration<a class="headerlink" href="#migration" title="Permanent link">⚓︎</a></h3>
 <p>While refactoring, the global configuration was mostly removed (<code>DoitGlobals</code>) along with a few tasks, but the main functionality is still present. Any project dependent on <code>calcipy</code> will need substantial changes. The easiest way to start migrating is to run <code>copier copy gh:KyleKing/calcipy_template .</code> for <a href="https://github.com/KyleKing/calcipy_template">calcipy_template</a></p>
-<h3 id="speed-test">Speed Test<a class="headerlink" href="#speed-test" title="Permanent link">⚓︎</a></h3>
+<h3 id="speed-test_1">Speed Test<a class="headerlink" href="#speed-test_1" title="Permanent link">⚓︎</a></h3>
 <p>It turns out that switching to <code>invoke</code> appears to have only saved 100ms</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
+<span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
+<span class="linenos" data-linenos="3 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">863</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">10</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">550</span>.7<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">102</span>.3<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="4 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">848</span>.5<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">885</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+<span class="linenos" data-linenos="5 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy-tags&quot;</span>
+<span class="linenos" data-linenos="6 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy-tags
+<span class="linenos" data-linenos="7 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">770</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">5</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">470</span>.6<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">89</span>.5<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="8 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">760</span>.1<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">780</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run python -c &#39;print(1)&#39;&quot;</span>
 <span class="linenos" data-linenos=" 2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;print(1)&#39;</span>
 <span class="linenos" data-linenos=" 3 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">377</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">3</span>.1<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">235</span>.0<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">61</span>.8<span class="w"> </span>ms<span class="o">]</span>
@@ -1319,8 +1410,6 @@
 <span class="linenos" data-linenos="57 "></span>-------------------------------------------------------------------------------
 </code></pre></div>
 <h3 id="doit-output">doit output<a class="headerlink" href="#doit-output" title="Permanent link">⚓︎</a></h3>
-<!-- TODO: Look into running tasks from within other tasks to support '--continue' and more readable logs -->
-
 <p>I would like to restore the <code>doit</code> task summary, but <code>invoke</code>&rsquo;s architecture doesn&rsquo;t really make this possible. The <code>--continue</code> option was extremely useful, but that also might not be achievable.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt;<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>doit<span class="w"> </span>run
 <span class="linenos" data-linenos=" 2 "></span>.<span class="w">  </span>format_recipes<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
