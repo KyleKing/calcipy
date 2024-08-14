@@ -16,7 +16,8 @@ def _collect_pyproject_versions(pyproject_text: str) -> dict[str, str]:
 
     pyproject_versions: dict[str, str] = {}
     # for section in
-    groups = [group['dependencies'] for group in pyproject['tool']['poetry']['group'].values()]
+    pyproject_groups = pyproject['tool']['poetry'].get('group', {})
+    groups = [group.group('dependencies', []) for group in pyproject_groups.values()]
     for deps in [pyproject['tool']['poetry']['dependencies'], *groups]:
         for name, value in deps.items():
             if name == 'python':
