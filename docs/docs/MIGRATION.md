@@ -1,6 +1,31 @@
 # Migration Guide
 
-## `calcipy 1.0.0`
+## `v4`
+
+The total number of dependencies was reduce even further by replacing flake8, isort, and other tooling with ruff; fewer mkdocs plugins; and fewer steps in the `main` run task to speed up normal usage.
+
+The only breaking [change impacted `recipes`](https://github.com/KyleKing/recipes/commit/b3fcf8136af77ccf1bd3ee1fb4297b79dd7e86ea#diff-4bf564fcd9dbaec9e9807f16f649791c1e333f89db8160ad715d3c0c09a1a65c) when `write_autoformatted_md_sections` was renamed to `write_template_formatted_md_sections`.
+
+### Speed Test
+
+Following up on performance checks from the `v2` migration. The performance is comparable, but you will see savings in cache size and poetry install and when running `main` (`./run main` for Calcipy, currently takes ~20s)
+
+```sh
+> hyperfine -m 20 --warmup 5 ./run
+Benchmark 1: ./run
+Time (mean ± σ):     863.9 ms ±  10.0 ms    [User: 550.7 ms, System: 102.3 ms]
+Range (min … max):   848.5 ms … 885.3 ms    20 runs
+> hyperfine -m 20 --warmup 5 "poetry run calcipy-tags"
+Benchmark 1: poetry run calcipy-tags
+Time (mean ± σ):     770.5 ms ±   5.7 ms    [User: 470.6 ms, System: 89.5 ms]
+Range (min … max):   760.1 ms … 780.3 ms    20 runs
+```
+
+## `v3`
+
+Replaced features from flake8 and plugins with corresponding checks from ruff, however both are still used in parallel.
+
+## `v2`
 
 ### Background
 
@@ -21,6 +46,17 @@ While refactoring, the global configuration was mostly removed (`DoitGlobals`) a
 ### Speed Test
 
 It turns out that switching to `invoke` appears to have only saved 100ms
+
+```sh
+> hyperfine -m 20 --warmup 5 ./run
+Benchmark 1: ./run
+Time (mean ± σ):     863.9 ms ±  10.0 ms    [User: 550.7 ms, System: 102.3 ms]
+Range (min … max):   848.5 ms … 885.3 ms    20 runs
+> hyperfine -m 20 --warmup 5 "poetry run calcipy-tags"
+Benchmark 1: poetry run calcipy-tags
+Time (mean ± σ):     770.5 ms ±   5.7 ms    [User: 470.6 ms, System: 89.5 ms]
+Range (min … max):   760.1 ms … 780.3 ms    20 runs
+```
 
 ```sh
 > hyperfine -m 20 --warmup 5 "poetry run python -c 'print(1)'"
@@ -108,8 +144,6 @@ SUM:                             7             37             15             71
 ```
 
 ### doit output
-
-<!-- TODO: Look into running tasks from within other tasks to support '--continue' and more readable logs -->
 
 I would like to restore the `doit` task summary, but `invoke`'s architecture doesn't really make this possible. The `--continue` option was extremely useful, but that also might not be achievable.
 

@@ -2,6 +2,20 @@
 
 ### Fix
 
+- handle when dev-dependencies are missing
+- minimize calcipy extras when testing in nox
+- handle git, path, and other complex versions for sync task
+- pinning urllib3 for Python 3.11 wasn't necessary
+
+### Refactor
+
+- minor logging improvements for pack.sync
+
+## 4.0.0 (2024-07-06)
+
+### Fix
+
+- add timeout to httpx requests
 - don't sync versions when a maximum version is specified
 - prevent installing urllib3 in Python 3.10
 - add missing pylint extra
