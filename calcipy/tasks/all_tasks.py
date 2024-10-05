@@ -83,7 +83,6 @@ _MAIN_TASKS = [
 ]
 _OTHER_TASKS = [
     lint.pre_commit.with_kwargs(no_update=True),    # pyright: ignore[reportFunctionMemberAccess]
-    lint.pylint,
     nox.noxfile.with_kwargs(session='tests'),    # pyright: ignore[reportFunctionMemberAccess]
     pack.check_licenses,
     pack.lock,

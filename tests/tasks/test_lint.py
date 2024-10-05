@@ -3,7 +3,7 @@ from unittest.mock import call
 import pytest
 
 from calcipy.tasks.executable_utils import python_m
-from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, pylint, watch
+from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, watch
 
 
 @pytest.mark.parametrize(
@@ -12,7 +12,6 @@ from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commi
         (check, {}, [f'{python_m()} ruff check "./calcipy" ./tests']),
         (fix, {}, [f'{python_m()} ruff check "./calcipy" ./tests --fix']),
         (watch, {}, [f'{python_m()} ruff check "./calcipy" ./tests --watch --show-source']),
-        (pylint, {}, [f'{python_m()} pylint "./calcipy" ./tests']),
         (pre_commit, {}, [
             call('which pre-commit', warn=True, hide=True),
             'pre-commit install',

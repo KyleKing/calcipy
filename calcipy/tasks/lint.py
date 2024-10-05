@@ -61,17 +61,6 @@ def watch(ctx: Context) -> None:
     _inner_task(ctx, command='ruff check', cli_args='--watch --show-source')
 
 
-@task(
-    help={
-        'report': 'if provided, show the pylint summary report',
-    },
-)
-def pylint(ctx: Context, *, report: bool = False) -> None:
-    """Run pylint."""
-    cli_args = '--report=y' if report else ''
-    _inner_task(ctx, command='pylint', cli_args=cli_args)
-
-
 # ==============================================================================
 # Pre-Commit
 

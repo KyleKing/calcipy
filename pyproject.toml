@@ -67,7 +67,6 @@ mkdocstrings = {extras = ["python"], optional = true, version = ">=0.25.1"} # do
 mypy = {optional = true, version = ">=1.10.1"} # types
 nox-poetry = {optional = true, version = ">=1.0.3"} # test
 pydantic = ">=2.8.2"
-pylint = {optional = true, version = ">=3.2.5"} # doc,pylint
 pymdown-extensions = {optional = true, version = ">=10.8.1"} # docs
 pytest = {optional = true, version = ">=8.2.2"} # test
 pytest-cov = {optional = true, version = ">=5.0.0"} # test

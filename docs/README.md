@@ -92,7 +92,6 @@ Subcommands:
   lint.check (lint)   Run ruff as check-only.
   lint.fix            Run ruff and apply fixes.
   lint.pre-commit     Run pre-commit.
-  lint.pylint         Run pylint.
   lint.security       Attempt to identify possible security vulnerabilities.
   lint.watch          Run ruff as check-only.
 
