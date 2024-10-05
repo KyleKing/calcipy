@@ -1,7 +1,13 @@
 ## Unreleased
 
+### Feat
+
+- remove pylint
+
 ### Fix
 
+- remove unused test.step
+- **pack**: handle missing dependenies group section
 - handle when dev-dependencies are missing
 - minimize calcipy extras when testing in nox
 - handle git, path, and other complex versions for sync task

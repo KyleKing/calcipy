@@ -45,6 +45,7 @@ def _replace_pyproject_versions(
             name = line.split('=')[0].strip()
             if (lock_version := lock_versions.get(name)) and (pyproject_version := pyproject_versions.get(name)):
                 versions = {'new_version': lock_version, 'old_version': pyproject_version}
+                # TODO: Handle ">=3.0.0,<4"
                 if pyproject_version != lock_version:
                     if pyproject_version in line:
                         new_lines.append(line.replace(pyproject_version, lock_version, 1))

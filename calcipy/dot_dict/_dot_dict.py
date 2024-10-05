@@ -11,7 +11,7 @@ DdictType = Union[Dict[str, Any], Box]
 """Return type from `ddict()`."""
 
 
-def ddict(**kwargs: Dict[str, Any]) -> DdictType:
+def ddict(**kwargs: Any) -> DdictType:
     """Return a dotted dictionary that can also be accessed normally.
 
     - Currently uses `python-box`

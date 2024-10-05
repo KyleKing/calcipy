@@ -132,7 +132,7 @@ async def _rate_limited(
     sem = asyncio.BoundedSemaphore(value=max_per_interval)
 
     async def task(idx: int, op: Callable[[], Awaitable[_OpReturnT]]) -> Tuple[_OpReturnT | None, float]:
-        """Acquire the semaphore while calling `op` for up to the interval."""
+        """Return result. Rudimentary rate limiting by waiting to acquire the semaphore, then sleeping if necessary."""
         if max_delay and (time.monotonic() - initial_start) > max_delay:
             return (None, 0.0)
         max_idle = interval_sec if (count_input - idx) >= max_per_interval else 0

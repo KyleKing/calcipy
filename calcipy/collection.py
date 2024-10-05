@@ -35,6 +35,7 @@ class GlobalTaskOptions(BaseModel):
     """Continue task execution regardless of failure."""
 
 
+# TODO: How to capture output?
 def _configure_task_logger(ctx: Context) -> None:  # pragma: no cover
     """Configure the logger based on task context."""
     verbose = ctx.config.gto.verbose
