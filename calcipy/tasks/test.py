@@ -13,8 +13,6 @@ from calcipy.invoke_helpers import run
 from .defaults import from_ctx
 from .executable_utils import python_dir
 
-_STEPWISE_ARGS = ' --failed-first --new-first --exitfirst -vv --no-cov'
-
 
 def _inner_task(
     ctx: Context,
@@ -64,21 +62,25 @@ def pytest(ctx: Context, *, keyword: str = '', marker: str = '', min_cover: int 
     """
     pkg_name = read_package_name()
     durations = '--durations=25 --durations-min="0.1"'
-    _inner_task(ctx,
-                cli_args=f' --cov={pkg_name} --cov-branch --cov-report=term-missing {durations}',
-                keyword=keyword, marker=marker, min_cover=min_cover)
-
-
-@task(help=KM_HELP)
-def step(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
-    """Run pytest optimized to stop on first error."""
-    _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker)
+    _inner_task(
+        ctx,
+        cli_args=f' --cov={pkg_name} --cov-branch --cov-report=term-missing {durations}',
+        keyword=keyword,
+        marker=marker,
+        min_cover=min_cover,
+    )
 
 
 @task(help=KM_HELP)
 def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
     """Run pytest with polling and optimized to stop on first error."""
-    _inner_task(ctx, cli_args=_STEPWISE_ARGS, keyword=keyword, marker=marker, command='ptw . --now')
+    _inner_task(
+        ctx,
+        cli_args=' --failed-first --new-first --exitfirst -vv --no-cov',
+        keyword=keyword,
+        marker=marker,
+        command='ptw . --now',
+    )
 
 
 @task(
@@ -95,8 +97,12 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
 
     """
     pkg_name = read_package_name()
-    _inner_task(ctx, cli_args='', min_cover=min_cover,
-                command=f'coverage run --branch --source={pkg_name} --module pytest')
+    _inner_task(
+        ctx,
+        cli_args='',
+        min_cover=min_cover,
+        command=f'coverage run --branch --source={pkg_name} --module pytest',
+    )
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'test', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)

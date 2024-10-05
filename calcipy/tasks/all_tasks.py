@@ -88,7 +88,6 @@ _OTHER_TASKS = [
     pack.lock,
     stale.check_for_stale_packages,
     tags.collect_code_tags,
-    test.step,
     test.check,  # Expected to fail for calcipy
 ]
 

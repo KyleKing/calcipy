@@ -3,7 +3,7 @@ from unittest.mock import call
 import pytest
 
 from calcipy.tasks.executable_utils import python_dir
-from calcipy.tasks.test import check, coverage, step, watch
+from calcipy.tasks.test import check, coverage, watch
 from calcipy.tasks.test import pytest as task_pytest
 
 _COV = '--cov=calcipy --cov-branch --cov-report=term-missing --durations=25 --durations-min="0.1"'
@@ -17,7 +17,6 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
         (task_pytest, {}, [f'{python_dir()}/pytest ./tests {_COV}']),
         (task_pytest, {'keyword': 'test'}, [f'{python_dir()}/pytest ./tests {_COV} -k "test"']),
         (task_pytest, {'marker': _MARKERS}, [f'{python_dir()}/pytest ./tests {_COV} -m "{_MARKERS}"']),
-        (step, {'marker': _MARKERS}, [f'{python_dir()}/pytest ./tests {_FAILFIRST} -m "{_MARKERS}"']),
         (watch, {'marker': _MARKERS}, [f'{python_dir()}/ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
         (coverage, {'out_dir': '.cover'}, [
             f'{python_dir()}/coverage run --branch --source=calcipy --module pytest ./tests',
@@ -30,7 +29,6 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
         'Default test',
         'Default test with keyword',
         'Default test with marker',
-        'step',
         'watch',
         'coverage',
     ],

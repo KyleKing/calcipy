@@ -9,7 +9,7 @@
 - [pyscaffold](https://github.com/pyscaffold/pyscaffold) is a much more mature project that aims for the same goals, but with a slightly different approach and tech stack (tox vs. nox, cookiecutter vs. copier, etc.)
 - [tidypy](https://github.com/jayclassless/tidypy#features), [pylama](https://github.com/klen/pylama), and [codecheck](https://pypi.org/project/codecheck/) offer similar functionality of bundling and running static checkers, but makes far fewer assumptions
 - [pytoil](https://github.com/FollowTheProcess/pytoil) is a general CLI tool for developer automation
-- And many more such as [pyta](https://github.com/pyta-uoft/pyta), [prospector](https://github.com/PyCQA/prospector), [wemake-python-styleguide](https://github.com/wemake-services/wemake-python-styleguide) / [cjolowicz/cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), [formate](https://github.com/python-formate/formate), [johnthagen/python-blueprint](https://github.com/johnthagen/python-blueprint), [oxsecurity/megalinter](https://github.com/oxsecurity/megalinter), etc.
+- And many more such as [pyta](https://github.com/pyta-uoft/pyta), [prospector](https://github.com/PyCQA/prospector), [wemake-python-styleguide](https://github.com/wemake-services/wemake-python-styleguide) / [cjolowicz/cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), [formate](https://github.com/python-formate/formate), [johnthagen/python-blueprint](https://github.com/johnthagen/python-blueprint), [oxsecurity/megalinter](https://github.com/oxsecurity/megalinter), [trialandsuccess/su6](https://github.com/trialandsuccess/su6), etc.
 
 ## Installation
 
@@ -88,11 +88,9 @@ Core options:
 
 Subcommands:
 
-  lint.autopep8       Run autopep8.
   lint.check (lint)   Run ruff as check-only.
   lint.fix            Run ruff and apply fixes.
   lint.pre-commit     Run pre-commit.
-  lint.security       Attempt to identify possible security vulnerabilities.
   lint.watch          Run ruff as check-only.
 
 Global Task Options:
@@ -106,24 +104,25 @@ Global Task Options:
 
 Subcommands:
 
-  pack.check-licenses   Check licenses for compatibility with `licensecheck`.
-  pack.install-extras   Run poetry install with all extras.
-  pack.lock             Ensure poetry.lock is  up-to-date.
-  pack.publish          Build the distributed format(s) and publish.
+  pack.bump-tag                  Experiment with bumping the git tag using `griffe` (experimental).
+  pack.check-licenses            Check licenses for compatibility with `licensecheck`.
+  pack.install-extras            Run poetry install with all extras.
+  pack.lock                      Ensure poetry.lock is  up-to-date.
+  pack.publish                   Build the distributed format(s) and publish.
+  pack.sync-pyproject-versions   Experiment with setting the pyproject.toml dependencies to the version from poetry.lock (experimental).
 
 > calcipy-tags
 
 Subcommands:
 
-  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table          for TODO- and FIXME-style code comments.
+  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
 
 > calcipy-types
 
 Subcommands:
 
-  types.basedpyright   Run basedpyright.
   types.mypy      Run mypy.
-  types.pyright   Run pyright.
+  types.pyright   Run pyright using the config in `pyproject.toml`.
 ```
 
 ### Calcipy Pre-Commit
