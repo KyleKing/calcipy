@@ -29,4 +29,4 @@
   name: Tags
   pass_filenames: false
   require_serial: true
-  stages: [push]
+  stages: [pre-push]
