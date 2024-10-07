@@ -7,9 +7,9 @@ from griffe.exceptions import BuiltinModuleError
 
 
 def bump_tag(*, pkg_name: str, tag: str, tag_prefix: str) -> str:
-    """Make a SemVer minor bump using `griffe` if there were any breaking changes.
+    """Return either minor or patch change based on `griffe`.
 
-    Major versions must be bumped manually
+    Note: major versions must be bumped manually
 
     """
     previous = griffe.load_git(pkg_name, ref=tag)

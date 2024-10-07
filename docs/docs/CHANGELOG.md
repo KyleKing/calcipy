@@ -6,6 +6,7 @@
 
 ### Fix
 
+- upgrade pre-commit
 - remove unused test.step
 - **pack**: handle missing dependenies group section
 - handle when dev-dependencies are missing
