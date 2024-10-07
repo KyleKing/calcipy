@@ -1388,9 +1388,9 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="97 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_MAIN_TASKS</span><span class="p">))</span>
-<span class="linenos" data-linenos="98 "></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="99 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run main task pipeline.&quot;&quot;&quot;</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="95 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_MAIN_TASKS</span><span class="p">))</span>
+<span class="linenos" data-linenos="96 "></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="97 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run main task pipeline.&quot;&quot;&quot;</span>
 </code></pre></div>
             </details>
     </div>
@@ -1414,9 +1414,9 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="102 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_OTHER_TASKS</span><span class="p">))</span>
-<span class="linenos" data-linenos="103 "></span><span class="k">def</span> <span class="nf">other</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="104 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tasks that are otherwise not exercised in main.&quot;&quot;&quot;</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="100 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span><span class="n">_OTHER_TASKS</span><span class="p">))</span>
+<span class="linenos" data-linenos="101 "></span><span class="k">def</span> <span class="nf">other</span><span class="p">(</span><span class="n">_ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="102 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tasks that are otherwise not exercised in main.&quot;&quot;&quot;</span>
 </code></pre></div>
             </details>
     </div>
@@ -1473,21 +1473,21 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/tasks/all_tasks.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="107 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="108 "></span>    <span class="n">help</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bump</span><span class="o">.</span><span class="n">help</span><span class="p">,</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
-<span class="linenos" data-linenos="109 "></span>    <span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span>
-<span class="linenos" data-linenos="110 "></span>        <span class="p">[</span>
-<span class="linenos" data-linenos="111 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
-<span class="linenos" data-linenos="112 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">build</span><span class="p">,</span>
-<span class="linenos" data-linenos="113 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">deploy</span><span class="p">,</span>
-<span class="linenos" data-linenos="114 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">publish</span><span class="p">,</span>
-<span class="linenos" data-linenos="115 "></span>        <span class="p">],</span>
-<span class="linenos" data-linenos="116 "></span>        <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="linenos" data-linenos="117 "></span>    <span class="p">),</span>
-<span class="linenos" data-linenos="118 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="119 "></span><span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">cl</span><span class="o">.</span><span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="120 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run release pipeline.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="121 "></span>    <span class="n">cl</span><span class="o">.</span><span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="105 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="106 "></span>    <span class="n">help</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bump</span><span class="o">.</span><span class="n">help</span><span class="p">,</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
+<span class="linenos" data-linenos="107 "></span>    <span class="n">post</span><span class="o">=</span><span class="n">with_progress</span><span class="p">(</span>
+<span class="linenos" data-linenos="108 "></span>        <span class="p">[</span>
+<span class="linenos" data-linenos="109 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
+<span class="linenos" data-linenos="110 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">build</span><span class="p">,</span>
+<span class="linenos" data-linenos="111 "></span>            <span class="n">doc</span><span class="o">.</span><span class="n">deploy</span><span class="p">,</span>
+<span class="linenos" data-linenos="112 "></span>            <span class="n">pack</span><span class="o">.</span><span class="n">publish</span><span class="p">,</span>
+<span class="linenos" data-linenos="113 "></span>        <span class="p">],</span>
+<span class="linenos" data-linenos="114 "></span>        <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="linenos" data-linenos="115 "></span>    <span class="p">),</span>
+<span class="linenos" data-linenos="116 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="117 "></span><span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">cl</span><span class="o">.</span><span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="118 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run release pipeline.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="119 "></span>    <span class="n">cl</span><span class="o">.</span><span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

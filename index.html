@@ -1295,7 +1295,7 @@
 <li><a href="https://github.com/pyscaffold/pyscaffold">pyscaffold</a> is a much more mature project that aims for the same goals, but with a slightly different approach and tech stack (tox vs. nox, cookiecutter vs. copier, etc.)</li>
 <li><a href="https://github.com/jayclassless/tidypy#features">tidypy</a>, <a href="https://github.com/klen/pylama">pylama</a>, and <a href="https://pypi.org/project/codecheck/">codecheck</a> offer similar functionality of bundling and running static checkers, but makes far fewer assumptions</li>
 <li><a href="https://github.com/FollowTheProcess/pytoil">pytoil</a> is a general CLI tool for developer automation</li>
-<li>And many more such as <a href="https://github.com/pyta-uoft/pyta">pyta</a>, <a href="https://github.com/PyCQA/prospector">prospector</a>, <a href="https://github.com/wemake-services/wemake-python-styleguide">wemake-python-styleguide</a> / <a href="https://github.com/cjolowicz/cookiecutter-hypermodern-python">cjolowicz/cookiecutter-hypermodern-python</a>, <a href="https://github.com/python-formate/formate">formate</a>, <a href="https://github.com/johnthagen/python-blueprint">johnthagen/python-blueprint</a>, <a href="https://github.com/oxsecurity/megalinter">oxsecurity/megalinter</a>, etc.</li>
+<li>And many more such as <a href="https://github.com/pyta-uoft/pyta">pyta</a>, <a href="https://github.com/PyCQA/prospector">prospector</a>, <a href="https://github.com/wemake-services/wemake-python-styleguide">wemake-python-styleguide</a> / <a href="https://github.com/cjolowicz/cookiecutter-hypermodern-python">cjolowicz/cookiecutter-hypermodern-python</a>, <a href="https://github.com/python-formate/formate">formate</a>, <a href="https://github.com/johnthagen/python-blueprint">johnthagen/python-blueprint</a>, <a href="https://github.com/oxsecurity/megalinter">oxsecurity/megalinter</a>, <a href="https://github.com/trialandsuccess/su6">trialandsuccess/su6</a>, etc.</li>
 </ul>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">⚓︎</a></h2>
 <p>Calcipy needs a few static files managed using copier and a template project: <a href="https://github.com/KyleKing/calcipy_template/">kyleking/calcipy_template</a></p>
@@ -1360,43 +1360,41 @@
 <span class="linenos" data-linenos="23 "></span>
 <span class="linenos" data-linenos="24 "></span>Subcommands:
 <span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span>  lint.autopep8       Run autopep8.
-<span class="linenos" data-linenos="27 "></span>  lint.check (lint)   Run ruff as check-only.
-<span class="linenos" data-linenos="28 "></span>  lint.fix            Run ruff and apply fixes.
-<span class="linenos" data-linenos="29 "></span>  lint.pre-commit     Run pre-commit.
-<span class="linenos" data-linenos="30 "></span>  lint.pylint         Run pylint.
-<span class="linenos" data-linenos="31 "></span>  lint.security       Attempt to identify possible security vulnerabilities.
-<span class="linenos" data-linenos="32 "></span>  lint.watch          Run ruff as check-only.
-<span class="linenos" data-linenos="33 "></span>
-<span class="linenos" data-linenos="34 "></span>Global Task Options:
-<span class="linenos" data-linenos="35 "></span>
-<span class="linenos" data-linenos="36 "></span>  *file_args             List of Paths available globally to all tasks. Will resolve paths with working_dir
-<span class="linenos" data-linenos="37 "></span>  --keep-going           Continue running tasks even on failure
-<span class="linenos" data-linenos="38 "></span>  --working_dir=STRING   Set the cwd for the program. Example: &quot;../run --working-dir .. lint test&quot;
-<span class="linenos" data-linenos="39 "></span>  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most verbose)
-<span class="linenos" data-linenos="40 "></span>
-<span class="linenos" data-linenos="41 "></span>&gt; calcipy-pack
-<span class="linenos" data-linenos="42 "></span>
-<span class="linenos" data-linenos="43 "></span>Subcommands:
-<span class="linenos" data-linenos="44 "></span>
-<span class="linenos" data-linenos="45 "></span>  pack.check-licenses   Check licenses for compatibility with `licensecheck`.
-<span class="linenos" data-linenos="46 "></span>  pack.install-extras   Run poetry install with all extras.
-<span class="linenos" data-linenos="47 "></span>  pack.lock             Ensure poetry.lock is  up-to-date.
-<span class="linenos" data-linenos="48 "></span>  pack.publish          Build the distributed format(s) and publish.
-<span class="linenos" data-linenos="49 "></span>
-<span class="linenos" data-linenos="50 "></span>&gt; calcipy-tags
-<span class="linenos" data-linenos="51 "></span>
-<span class="linenos" data-linenos="52 "></span>Subcommands:
-<span class="linenos" data-linenos="53 "></span>
-<span class="linenos" data-linenos="54 "></span>  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table          for TODO- and FIXME-style code comments.
-<span class="linenos" data-linenos="55 "></span>
-<span class="linenos" data-linenos="56 "></span>&gt; calcipy-types
-<span class="linenos" data-linenos="57 "></span>
-<span class="linenos" data-linenos="58 "></span>Subcommands:
-<span class="linenos" data-linenos="59 "></span>
-<span class="linenos" data-linenos="60 "></span>  types.basedpyright   Run basedpyright.
-<span class="linenos" data-linenos="61 "></span>  types.mypy      Run mypy.
-<span class="linenos" data-linenos="62 "></span>  types.pyright   Run pyright.
+<span class="linenos" data-linenos="26 "></span>  lint.check (lint)   Run ruff as check-only.
+<span class="linenos" data-linenos="27 "></span>  lint.fix            Run ruff and apply fixes.
+<span class="linenos" data-linenos="28 "></span>  lint.pre-commit     Run pre-commit.
+<span class="linenos" data-linenos="29 "></span>  lint.watch          Run ruff as check-only.
+<span class="linenos" data-linenos="30 "></span>
+<span class="linenos" data-linenos="31 "></span>Global Task Options:
+<span class="linenos" data-linenos="32 "></span>
+<span class="linenos" data-linenos="33 "></span>  *file_args             List of Paths available globally to all tasks. Will resolve paths with working_dir
+<span class="linenos" data-linenos="34 "></span>  --keep-going           Continue running tasks even on failure
+<span class="linenos" data-linenos="35 "></span>  --working_dir=STRING   Set the cwd for the program. Example: &quot;../run --working-dir .. lint test&quot;
+<span class="linenos" data-linenos="36 "></span>  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most verbose)
+<span class="linenos" data-linenos="37 "></span>
+<span class="linenos" data-linenos="38 "></span>&gt; calcipy-pack
+<span class="linenos" data-linenos="39 "></span>
+<span class="linenos" data-linenos="40 "></span>Subcommands:
+<span class="linenos" data-linenos="41 "></span>
+<span class="linenos" data-linenos="42 "></span>  pack.bump-tag                  Experiment with bumping the git tag using `griffe` (experimental).
+<span class="linenos" data-linenos="43 "></span>  pack.check-licenses            Check licenses for compatibility with `licensecheck`.
+<span class="linenos" data-linenos="44 "></span>  pack.install-extras            Run poetry install with all extras.
+<span class="linenos" data-linenos="45 "></span>  pack.lock                      Ensure poetry.lock is  up-to-date.
+<span class="linenos" data-linenos="46 "></span>  pack.publish                   Build the distributed format(s) and publish.
+<span class="linenos" data-linenos="47 "></span>  pack.sync-pyproject-versions   Experiment with setting the pyproject.toml dependencies to the version from poetry.lock (experimental).
+<span class="linenos" data-linenos="48 "></span>
+<span class="linenos" data-linenos="49 "></span>&gt; calcipy-tags
+<span class="linenos" data-linenos="50 "></span>
+<span class="linenos" data-linenos="51 "></span>Subcommands:
+<span class="linenos" data-linenos="52 "></span>
+<span class="linenos" data-linenos="53 "></span>  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
+<span class="linenos" data-linenos="54 "></span>
+<span class="linenos" data-linenos="55 "></span>&gt; calcipy-types
+<span class="linenos" data-linenos="56 "></span>
+<span class="linenos" data-linenos="57 "></span>Subcommands:
+<span class="linenos" data-linenos="58 "></span>
+<span class="linenos" data-linenos="59 "></span>  types.mypy      Run mypy.
+<span class="linenos" data-linenos="60 "></span>  types.pyright   Run pyright using the config in `pyproject.toml`.
 </code></pre></div>
 <h3 id="calcipy-pre-commit">Calcipy Pre-Commit<a class="headerlink" href="#calcipy-pre-commit" title="Permanent link">⚓︎</a></h3>
 <p><code>calcipy</code> can also be used as a <code>pre-commit</code> task by adding the below snippet to your <code>pre-commit</code> file:</p>

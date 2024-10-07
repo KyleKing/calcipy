@@ -1210,7 +1210,7 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/experiments/check_duplicate_test_names.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="17 "></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">test_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>  <span class="c1"># noqa: C901  # pylint: disable=too-complex</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="17 "></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">test_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>  <span class="c1"># noqa: C901</span>
 <span class="linenos" data-linenos="18 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check for duplicates in the test suite.</span>
 <span class="linenos" data-linenos="19 "></span>
 <span class="linenos" data-linenos="20 "></span><span class="sd">    Inspired by: https://stackoverflow.com/a/67840804/3219667</span>
@@ -1219,7 +1219,7 @@
 <span class="linenos" data-linenos="23 "></span>    <span class="n">summary</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 <span class="linenos" data-linenos="24 "></span>    <span class="n">duplicates</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span>    <span class="k">for</span> <span class="n">path_test</span> <span class="ow">in</span> <span class="n">test_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s1">&#39;test_*.py&#39;</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-many-nested-blocks</span>
+<span class="linenos" data-linenos="26 "></span>    <span class="k">for</span> <span class="n">path_test</span> <span class="ow">in</span> <span class="n">test_path</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s1">&#39;test_*.py&#39;</span><span class="p">):</span>
 <span class="linenos" data-linenos="27 "></span>        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">path_test</span><span class="o">.</span><span class="n">as_posix</span><span class="p">())</span>
 <span class="linenos" data-linenos="28 "></span>        <span class="n">parsed_ast</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">path_test</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
 <span class="linenos" data-linenos="29 "></span>

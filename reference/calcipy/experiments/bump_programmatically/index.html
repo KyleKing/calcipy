@@ -1205,15 +1205,15 @@
 
     <div class="doc doc-contents ">
 
-      <p>Make a SemVer minor bump using <code>griffe</code> if there were any breaking changes.</p>
-<p>Major versions must be bumped manually</p>
+      <p>Return either minor or patch change based on <code>griffe</code>.</p>
+<p>Note: major versions must be bumped manually</p>
 
             <details class="quote">
               <summary>Source code in <code>calcipy/experiments/bump_programmatically.py</code></summary>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 9 "></span><span class="k">def</span> <span class="nf">bump_tag</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tag_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="linenos" data-linenos="10 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Make a SemVer minor bump using `griffe` if there were any breaking changes.</span>
+<span class="linenos" data-linenos="10 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return either minor or patch change based on `griffe`.</span>
 <span class="linenos" data-linenos="11 "></span>
-<span class="linenos" data-linenos="12 "></span><span class="sd">    Major versions must be bumped manually</span>
+<span class="linenos" data-linenos="12 "></span><span class="sd">    Note: major versions must be bumped manually</span>
 <span class="linenos" data-linenos="13 "></span>
 <span class="linenos" data-linenos="14 "></span><span class="sd">    &quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="15 "></span>    <span class="n">previous</span> <span class="o">=</span> <span class="n">griffe</span><span class="o">.</span><span class="n">load_git</span><span class="p">(</span><span class="n">pkg_name</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
