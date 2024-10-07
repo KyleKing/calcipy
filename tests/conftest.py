@@ -1,4 +1,4 @@
-"""PyTest configuration."""
+"""Pytest configuration."""
 
 from pathlib import Path
 
@@ -14,7 +14,6 @@ def vcr_config() -> Dict[str, Union[str, bool, list[str]]]:
     """Global configuration (https://github.com/kiwicom/pytest-recording) for `pytest-recording` (vcr).
 
     Returns:
-    -------
         Dict: `pytest-recording` options
 
     """
@@ -35,7 +34,6 @@ def fix_test_cache() -> Path:
     """Fixture to clear and return the test cache directory for use.
 
     Returns:
-    -------
         Path: Path to the test cache directory
 
     """
@@ -45,10 +43,9 @@ def fix_test_cache() -> Path:
 
 @pytest.fixture
 def ctx() -> MockContext:
-    """Mock Invoke Context.
+    """Return Mock Invoke Context.
 
     Adapted from:
-
     https://github.com/pyinvoke/invocations/blob/4e3578e9c49dbbff2ec00ef3c8d37810fba511fa/tests/conftest.py#L13-L19
 
     Documentation: https://docs.pyinvoke.org/en/stable/concepts/testing.html
