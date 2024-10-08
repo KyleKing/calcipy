@@ -16,6 +16,7 @@
 
 ### Refactor
 
+- resolve ruff errors
 - minor logging improvements for pack.sync
 
 ## 4.0.0 (2024-07-06)

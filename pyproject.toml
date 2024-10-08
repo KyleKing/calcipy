@@ -76,6 +76,7 @@ python-box = {optional = true, version = ">=7.2.0"} # ddict
 pyyaml = {optional = true, version = ">=6.0.2"} # docs
 ruff = {optional = true, version = ">=0.6.9"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
+urllib3 = {python = "<3.10", version = "<1.26.20"} # resolves dependency resolution because vcr-py doesn't support v2 yet
 virtualenv = {optional = true, version = ">=20.26.6"} # tags: nox. Prevents 'scripts' KeyError with Python 3.12
 
 [tool.poetry.extras]
@@ -109,14 +110,14 @@ types = ["mypy"]
 
 [tool.poetry.group.dev.dependencies]
 # pytest-benchmark = ">=3.4.1"  # Provides the benchmark fixture
-hypothesis = {extras = ["cli"], version = ">=6.112.2"} # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
+hypothesis = {extras = ["cli"], version = ">=6.112.4"} # Use CLI with: "poetry run hypothesis write calcipy.dot_dict.ddict"
 pytest-asyncio = ">=0.24.0"
 pytest-recording = ">=0.13.2"
 pytest-subprocess = ">=1.5.2"
-syrupy = ">=4.7.1"
+syrupy = ">=4.7.2"
 types-pyyaml = ">=6.0.12.20240917"
 types-setuptools = ">=75.1.0.20240917"
-vcrpy = ">=6.0.1" # Note: urllib3>=2 requires Python >=3.11 https://github.com/kevin1024/vcrpy/blob/9cfa6c51733313b7a0db429df0740f5c14b43e78/setup.py#L49-L57
+vcrpy = ">=6.0.2" # Note: urllib3>=2 requires Python >=3.11 https://github.com/kevin1024/vcrpy/blob/9cfa6c51733313b7a0db429df0740f5c14b43e78/setup.py#L49-L57
 
 [tool.poetry.scripts]
 calcipy = "calcipy.scripts:start"
@@ -157,6 +158,8 @@ ignore = [
   'CPY001', # Missing copyright notice at top of file
   'D203', # "1 blank line required before class docstring" (Conflicts with D211)
   'D213', # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
+  'DOC201', # PLANNED: finish updating docstrings for Returns
+  'DOC501', # Raised exception `RuntimeError` missing from docstring
   'EM101', # Exception must not use a string literal, assign to variable first
   'FIX001', # Line contains FIXME
   'FIX002', # Line contains TODO

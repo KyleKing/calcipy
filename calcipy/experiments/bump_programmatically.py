@@ -3,7 +3,7 @@
 import griffe
 import semver
 from corallium.log import LOGGER
-from griffe.exceptions import BuiltinModuleError
+from griffe import BuiltinModuleError
 
 
 def bump_tag(*, pkg_name: str, tag: str, tag_prefix: str) -> str:

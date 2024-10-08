@@ -35,7 +35,12 @@ def _inner_task(
 
 @task()
 def check(_ctx: Context) -> None:
-    """Run pytest checks, such as identifying ."""
+    """Run pytest checks, such as identifying.
+
+    Raises:
+        RuntimeError: if duplicate tests
+
+    """
     if duplciates := check_duplicate_test_names.run(Path('tests')):
         raise RuntimeError(f'Duplicate test names found ({duplciates}). See above for details.')  # noqa: EM102
 

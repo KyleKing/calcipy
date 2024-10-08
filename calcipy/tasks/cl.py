@@ -25,9 +25,8 @@ def write(ctx: Context) -> None:
     - https://semver.org/
     - https://calver.org/
 
-    Returns:
-    -------
-        List[DoitAction]: doit actions
+    Raises:
+        FileNotFoundError: On missing changelog
 
     """
     run(ctx, f'{python_dir()}/cz changelog')  # with commitizen

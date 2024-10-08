@@ -32,6 +32,6 @@ def can_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
 
 
 def dont_skip(*, prerequisites: List[Path], targets: List[Path]) -> bool:
-    """To use for testing with mock; always returns False."""
+    """Returns False. To use for testing with mock."""
     LOGGER.debug('Mocking can_skip', prerequisites=prerequisites, targets=targets)
     return False

@@ -24,7 +24,7 @@ def use_pty() -> bool:
 
 
 def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Optional[Result]:
-    """Wrap invoke.run to run within the `working_dir`."""
+    """Return wrapped `invoke.run` to run within the `working_dir`."""
     working_dir = '.'
     with suppress(AttributeError):
         working_dir = ctx.config.gto.working_dir
@@ -39,7 +39,7 @@ def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Optional[Result]:
 
 @lru_cache(maxsize=1)
 def get_project_path() -> Path:
-    """Retrieve the `cwd`."""
+    """Returns the `cwd`."""
     return Path.cwd()
 
 

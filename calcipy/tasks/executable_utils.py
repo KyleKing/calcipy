@@ -14,7 +14,7 @@ from calcipy.invoke_helpers import run
 
 @lru_cache(maxsize=1)
 def resolve_python() -> Path:
-    """Resolve the user's Python path based on `sys`."""
+    """Return the user's Python path based on `sys`."""
     python_path = Path(sys.executable)
     with suppress(ValueError):
         return python_path.relative_to(Path.cwd())
@@ -23,7 +23,7 @@ def resolve_python() -> Path:
 
 @lru_cache(maxsize=1)
 def python_dir() -> str:
-    """Run an executable from the currently active Python directory."""
+    """Return an executable path from the currently active Python directory."""
     return str(resolve_python().parent)
 
 
@@ -51,7 +51,12 @@ _EXECUTABLE_CACHE: dict[str, Optional[Result]] = {}
 
 
 def check_installed(ctx: Context, executable: str, message: str) -> None:
-    """If the required executable isn't present, raise a clear user error."""
+    """If the required executable isn't present, raise a clear user error.
+
+    Raises:
+        RuntimeError: if not missing
+
+    """
     if executable in _EXECUTABLE_CACHE:
         res = _EXECUTABLE_CACHE[executable]
     else:

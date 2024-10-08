@@ -58,7 +58,7 @@ def fix(ctx: Context, *, unsafe: bool = False) -> None:
 @task()
 def watch(ctx: Context) -> None:
     """Run ruff as check-only."""
-    _inner_task(ctx, command='ruff check', cli_args='--watch --show-source')
+    _inner_task(ctx, command='ruff check', cli_args='--watch')
 
 
 # ==============================================================================

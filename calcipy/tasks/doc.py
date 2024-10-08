@@ -20,7 +20,7 @@ from .executable_utils import python_dir
 
 
 def get_out_dir() -> Path:
-    """Retrieve the mkdocs-specified site directory."""
+    """Returns the mkdocs-specified site directory."""
     mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
     return Path(mkdocs_config.get('site_dir', 'releases/site'))
 
@@ -40,7 +40,6 @@ def _is_mkdocs_local() -> bool:
     Additional information on using local search here: https://github.com/wilhelmer/mkdocs-localsearch
 
     Returns:
-    -------
         bool: True if configured for local file output rather than hosted
 
     """

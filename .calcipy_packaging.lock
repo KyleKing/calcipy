@@ -16,12 +16,12 @@
         "version": "4.6.0"
     },
     "argcomplete": {
-        "datetime": "2024-08-06T15:37:46.450786+00:00",
+        "datetime": "2024-10-07T04:00:36.986514+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-08-06T15:37:46.450786+00:00",
-        "latest_version": "3.5.0",
+        "latest_datetime": "2024-10-07T04:00:36.986514+00:00",
+        "latest_version": "3.5.1",
         "name": "argcomplete",
-        "version": "3.5.0"
+        "version": "3.5.1"
     },
     "arrow": {
         "datetime": "2023-09-30T22:11:16.072329+00:00",
@@ -56,12 +56,12 @@
         "version": "0.19.0"
     },
     "black": {
-        "datetime": "2024-08-02T17:47:26.911765+00:00",
+        "datetime": "2024-10-07T19:26:12.430410+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-08-02T17:47:26.911765+00:00",
-        "latest_version": "24.8.0",
+        "latest_datetime": "2024-10-07T19:26:12.430410+00:00",
+        "latest_version": "24.10.0",
         "name": "black",
-        "version": "24.8.0"
+        "version": "24.10.0"
     },
     "certifi": {
         "datetime": "2024-08-30T01:55:02.591297+00:00",
@@ -200,12 +200,12 @@
         "version": "0.27.2"
     },
     "hypothesis": {
-        "datetime": "2024-09-29T09:42:47.370328+00:00",
+        "datetime": "2024-10-06T07:36:56.801056+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-09-29T09:42:47.370328+00:00",
-        "latest_version": "6.112.2",
+        "latest_datetime": "2024-10-06T07:36:56.801056+00:00",
+        "latest_version": "6.112.4",
         "name": "hypothesis",
-        "version": "6.112.2"
+        "version": "6.112.4"
     },
     "idna": {
         "datetime": "2024-09-15T18:07:37.964349+00:00",
@@ -264,12 +264,12 @@
         "version": "3.0.0"
     },
     "markupsafe": {
-        "datetime": "2024-02-02T16:30:04.105634+00:00",
+        "datetime": "2024-10-07T21:08:07.333591+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-02-02T16:30:04.105634+00:00",
-        "latest_version": "2.1.5",
+        "latest_datetime": "2024-10-07T21:08:07.333591+00:00",
+        "latest_version": "3.0.0",
         "name": "markupsafe",
-        "version": "2.1.5"
+        "version": "3.0.0"
     },
     "mdurl": {
         "datetime": "2022-08-14T12:40:09.779676+00:00",
@@ -632,20 +632,20 @@
         "version": "2.4.0"
     },
     "syrupy": {
-        "datetime": "2024-08-23T04:48:25.936395+00:00",
+        "datetime": "2024-10-06T01:32:14.229378+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-08-23T04:48:25.936395+00:00",
-        "latest_version": "4.7.1",
+        "latest_datetime": "2024-10-06T01:32:14.229378+00:00",
+        "latest_version": "4.7.2",
         "name": "syrupy",
-        "version": "4.7.1"
+        "version": "4.7.2"
     },
     "termcolor": {
-        "datetime": "2023-12-01T11:04:50.019609+00:00",
+        "datetime": "2024-10-06T19:50:02.097764+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2023-12-01T11:04:50.019609+00:00",
-        "latest_version": "2.4.0",
+        "latest_datetime": "2024-10-06T19:50:02.097764+00:00",
+        "latest_version": "2.5.0",
         "name": "termcolor",
-        "version": "2.4.0"
+        "version": "2.5.0"
     },
     "tomli": {
         "datetime": "2024-10-02T10:46:11.806259+00:00",
@@ -696,20 +696,20 @@
         "version": "4.12.2"
     },
     "urllib3": {
-        "datetime": "2024-09-12T10:52:16.589559+00:00",
+        "datetime": "2024-08-29T15:43:08.921610+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
         "latest_datetime": "2024-09-12T10:52:16.589559+00:00",
         "latest_version": "2.2.3",
         "name": "urllib3",
-        "version": "2.2.3"
+        "version": "1.26.20"
     },
     "vcrpy": {
-        "datetime": "2024-01-25T16:17:46.838399+00:00",
+        "datetime": "2024-10-07T13:07:30.475213+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-01-25T16:17:46.838399+00:00",
-        "latest_version": "6.0.1",
+        "latest_datetime": "2024-10-07T13:07:30.475213+00:00",
+        "latest_version": "6.0.2",
         "name": "vcrpy",
-        "version": "6.0.1"
+        "version": "6.0.2"
     },
     "virtualenv": {
         "datetime": "2024-09-27T16:28:54.798278+00:00",

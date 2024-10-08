@@ -49,13 +49,13 @@ poetry config pypi-token.pypi ...
 |-----------------------------------------------------------------|------------|---------|----------|----------|
 | `calcipy/__init__.py`                                           | 4          | 0       | 0        | 100.0%   |
 | `calcipy/_md_helpers.py`                                        | 9          | 0       | 0        | 100.0%   |
-| `calcipy/_runtime_type_check_setup.py`                          | 13         | 0       | 28       | 100.0%   |
+| `calcipy/_runtime_type_check_setup.py`                          | 13         | 0       | 33       | 100.0%   |
 | `calcipy/can_skip.py`                                           | 14         | 1       | 0        | 88.9%    |
 | `calcipy/check_for_stale_packages/__init__.py`                  | 5          | 2       | 0        | 60.0%    |
 | `calcipy/check_for_stale_packages/_check_for_stale_packages.py` | 126        | 13      | 3        | 86.7%    |
-| `calcipy/cli.py`                                                | 34         | 1       | 75       | 92.9%    |
+| `calcipy/cli.py`                                                | 34         | 1       | 86       | 92.9%    |
 | `calcipy/code_tag_collector/__init__.py`                        | 5          | 2       | 0        | 60.0%    |
-| `calcipy/code_tag_collector/_collector.py`                      | 129        | 1       | 0        | 98.3%    |
+| `calcipy/code_tag_collector/_collector.py`                      | 129        | 2       | 0        | 96.6%    |
 | `calcipy/collection.py`                                         | 33         | 0       | 52       | 97.5%    |
 | `calcipy/dot_dict/__init__.py`                                  | 5          | 2       | 0        | 60.0%    |
 | `calcipy/dot_dict/_dot_dict.py`                                 | 6          | 0       | 0        | 100.0%   |
@@ -83,7 +83,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         | 18         | 1       | 0        | 90.9%    |
 | `calcipy/tasks/test.py`                                         | 39         | 1       | 2        | 90.9%    |
 | `calcipy/tasks/types.py`                                        | 11         | 0       | 0        | 93.3%    |
-| **Totals**                                                      | 1005       | 128     | 260      | 83.4%    |
+| **Totals**                                                      | 1005       | 129     | 276      | 83.2%    |
 
 Generated on: 2024-10-07
 <!-- {cte} -->

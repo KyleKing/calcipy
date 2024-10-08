@@ -7,7 +7,7 @@ from corallium.tomllib import tomllib
 
 
 def _collect_pyproject_versions(pyproject_text: str) -> dict[str, str]:
-    """Identify the subset of pyproject versions without version specification for possible replacement.
+    """Return pyproject versions without version specification for possible replacement.
 
     Documentation: https://python-poetry.org/docs/dependency-specification
 
@@ -44,7 +44,7 @@ def _replace_pyproject_versions(
         elif '=' in line and 'dependencies' in active_section:
             name = line.split('=')[0].strip()
             if (lock_version := lock_versions.get(name)) and (pyproject_version := pyproject_versions.get(name)):
-                versions = {'new_version': lock_version, 'old_version': pyproject_version}
+                versions = {'name': name, 'new_version': lock_version, 'old_version': pyproject_version}
                 # TODO: Handle ">=3.0.0,<4"
                 if pyproject_version != lock_version:
                     if pyproject_version in line:

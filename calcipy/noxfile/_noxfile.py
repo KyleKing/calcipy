@@ -57,12 +57,12 @@ else:
 
 @lru_cache(maxsize=1)
 def _get_pythons() -> List[str]:
-    """Get python versions from the `.tool-versions` file."""
+    """Return python versions from the `.tool-versions` file."""
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
 def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-arg]
-    """Retrieve nested dictionary keys unless not found."""
+    """Return nested dictionary keys unless not found."""
     result = source
     for key in keys:
         if not (result := result.get(key)):  # type: ignore[assignment]
@@ -91,7 +91,6 @@ def _installable_dev_dependencies() -> List[str]:
     """List of dependencies from pyproject, excluding calcipy.
 
     Returns:
-    -------
         List[str]: `['Cerberus=>1.3.4', 'freezegun']`
 
     """
