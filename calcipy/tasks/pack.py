@@ -49,9 +49,11 @@ def check_licenses(ctx: Context) -> None:
     """Check licenses for compatibility with `licensecheck`."""
     res = run(ctx, 'which licensecheck', warn=True, hide=True)
     if not res or res.exited == 1:
-        LOGGER.warning('`licensecheck` not found. installing with pipx')
-        run(ctx, 'pipx install licensecheck')
-    run(ctx, 'licensecheck')
+        uvx_res = run(ctx, 'uvx licensecheck', warn=True)
+        if not uvx_res or uvx_res.exited == 1:
+            LOGGER.error('Failed to use `uv` to run licensecheck. See: https://docs.astral.sh/uv')
+    else:
+        run(ctx, 'licensecheck')
 
 
 # TODO: Add unit test
