@@ -37,7 +37,7 @@ calcipy `v1` was a complete rewrite to switch from `doit` to `invoke`:
 
 `doit` excelled at clearly delineated task output and run summary, but `invoke` isn't designed that way. I would like to improve the CLI output, but the benefits are worth this tradeoff.
 
-calcipy `v0` was built on [doit](https://pypi.org/project/doit/) and thus required a `dodo.py` file. I began adding `cement` to support a separate CLI for `calcipy` installed with `pipx`, but that required a lot of boilerplate code. With `doit`, the string command needed to be complete at task evaluation rather than runtime, so globbing files couldn't be resolved lazily.
+calcipy `v0` was built on [doit](https://pypi.org/project/doit/) and thus required a `dodo.py` file. I began adding `cement` to support a separate CLI for `calcipy` installed with `pipx` or `uvx`, but that required a lot of boilerplate code. With `doit`, the string command needed to be complete at task evaluation rather than runtime, so globbing files couldn't be resolved lazily.
 
 ### Migration
 

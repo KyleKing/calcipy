@@ -18,17 +18,17 @@ Calcipy needs a few static files managed using copier and a template project: [k
 You can quickly use the template to create a new project or add calcipy to an existing one:
 
 ```sh
-# Install copier. pipx is recommended
-pipx install copier
+# Below examples assume you have Astral uv installed (which provides uvx)
+#   If you have your shell configured, `uv tool install copier` allows usage of `copier ...` instead of `uvx copier ...`
 
 # To create a new project
-copier copy gh:KyleKing/calcipy_template new_project
+uvx copier copy gh:KyleKing/calcipy_template new_project
 cd new_project
 
 # Or convert/update an existing one
 cd my_project
-copier copy gh:KyleKing/calcipy_template .
-copier update
+uvx copier copy gh:KyleKing/calcipy_template .
+uvx copier update
 ```
 
 ### Calcipy CLI
@@ -39,25 +39,11 @@ Quick Start:
 
 ```sh
 # For the CLI, only install a few of the extras which can be used from a few different CLI commands
-pipx install 'calcipy[lint,tags]'
+uv tool install 'calcipy[lint,tags]'
 
 # Use 'tags' to create a CODE_TAG_SUMMARY of the specified directory
 calcipy-tags tags --help
 calcipy-tags tags --base-dir=~/path/to/my_project
-
-# You can list all provided CLI commands with
-pipx list
-```
-
-```txt
-venvs are in ~/.local/pipx/venvs
-apps are exposed on your $PATH at ~/.local/bin
-   package calcipy 1.4.0, installed using Python 3.11.4
-    - calcipy
-    - calcipy-lint
-    - calcipy-pack
-    - calcipy-tags
-    - calcipy-types
 ```
 
 Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The "Usage", "Core options", and "Global Task Options" are the same for each subsequent command, so they are excluded for brevity.

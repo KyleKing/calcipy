@@ -1,15 +1,22 @@
 ---
 name: Setup Action
-description: Install requested pipx dependencies, configure the system python, and install poetry and the package dependencies
+description: Install requested uvx dependencies, configure the system python, and install poetry and the package dependencies
 
 inputs:
   os:
+    description: OS Version
     default: ubuntu-latest
-  pipx-packages:
+  python-tools:
+    description: List of Python packages installed as CLI tools
     default: ""
+  uv-version:
+    description: Astral/uv version
+    default: 0.4.20
   poetry-version:
+    description: poetry version
     default: 1.8.3
   python-version:
+    description: Python version
     required: true
 
 env:
@@ -19,17 +26,23 @@ env:
 runs:
   using: composite
   steps:
-    - name: Install Poetry ${{ inputs.poetry-version }} and '${{ inputs.pipx-packages }}'
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: ${{ inputs.uv-version }}
+
+    - name: Install Poetry ${{ inputs.poetry-version }} and '${{ inputs.python-tools }}'
       run: |
-        for tool in "poetry==${{ inputs.poetry-version }}" ${{ inputs.pipx-packages }}; do
-          pipx install $tool
+        for tool in "poetry==${{ inputs.poetry-version }}" ${{ inputs.python-tools }}; do
+          uv tool install $tool
         done
       shell: bash
 
-    - name: Debug pipx
+    - name: Debug UV
       run: |
-        pipx ensurepath
-        pipx list
+        uv cache dir
+        uv tool list
+        uv tool update-shell
       shell: bash
 
     - name: Setup Python ${{ inputs.python-version }}
@@ -38,7 +51,7 @@ runs:
         python-version: ${{ inputs.python-version }}
         cache: poetry
 
-    - name: Poetry Debug Info
+    - name: Debug Poetry
       run: |
         poetry debug info
         poetry config --list
