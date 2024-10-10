@@ -6,7 +6,7 @@ from invoke.context import Context
 from invoke.tasks import Call
 
 from calcipy.cli import task
-from calcipy.collection import Collection, DeferedTask, _build_task
+from calcipy.collection import Collection, DeferredTask, _build_task
 
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
 from .defaults import new_collection
@@ -48,7 +48,7 @@ def progress(_ctx: Context, *, index: int, total: int) -> None:
     LOGGER.text('Progress', is_header=True, index=index + 1, total=total)
 
 
-TaskList = List[Union[Call, DeferedTask]]
+TaskList = List[Union[Call, DeferredTask]]
 """List of wrapped or normal task functions."""
 
 
@@ -82,8 +82,8 @@ _MAIN_TASKS = [
     doc.build,
 ]
 _OTHER_TASKS = [
-    lint.pre_commit.with_kwargs(no_update=True),    # pyright: ignore[reportFunctionMemberAccess]
-    nox.noxfile.with_kwargs(session='tests'),    # pyright: ignore[reportFunctionMemberAccess]
+    lint.pre_commit.with_kwargs(no_update=True),  # pyright: ignore[reportFunctionMemberAccess]
+    nox.noxfile.with_kwargs(session='tests'),  # pyright: ignore[reportFunctionMemberAccess]
     pack.check_licenses,
     pack.lock,
     stale.check_for_stale_packages,

@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field, PositiveInt
 TASK_ARGS_ATTR = 'dev_args'
 TASK_KWARGS_ATTR = 'dev_kwargs'
 
-DeferedTask = Union[Callable, Task]  # type: ignore[type-arg]
+DeferredTask = Union[Callable, Task]  # type: ignore[type-arg]
 
 
 class GlobalTaskOptions(BaseModel):
@@ -81,9 +81,10 @@ def _wrapped_task(ctx: Context, *args: Any, func: Any, show_task_info: bool, **k
     return None
 
 
-def _build_task(task: DeferedTask) -> Task:  # type: ignore[type-arg]  # pragma: no cover
+def _build_task(task: DeferredTask) -> Task:  # type: ignore[type-arg]  # pragma: no cover
     """Defer creation of the Task."""
     if hasattr(task, TASK_ARGS_ATTR) or hasattr(task, TASK_KWARGS_ATTR):
+
         @wraps(task)
         def inner(*args: Any, **kwargs: Any) -> Any:
             return _wrapped_task(*args, func=task, show_task_info=show_task_info, **kwargs)
@@ -127,7 +128,7 @@ class Collection(InvokeCollection):
 
     def add_task(
         self,
-        task: DeferedTask,
+        task: DeferredTask,
         name: Optional[str] = None,
         aliases: Optional[Tuple[str, ...]] = None,
         default: Optional[bool] = None,
