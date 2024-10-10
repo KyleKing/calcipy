@@ -6,23 +6,10 @@ from invoke.context import Context
 from invoke.tasks import Call
 
 from calcipy.cli import task
-from calcipy.collection import Collection, DeferredTask, _build_task
+from calcipy.collection import DeferredTask, _build_task
 
 from . import cl, doc, lint, nox, pack, stale, tags, test, types
-from .defaults import new_collection
-
-# "ns" will be recognized by Collection.from_module(all_tasks)
-# https://docs.pyinvoke.org/en/stable/api/collection.html#invoke.collection.Collection.from_module
-ns = new_collection()
-ns.add_collection(Collection.from_module(cl))
-ns.add_collection(Collection.from_module(doc))
-ns.add_collection(Collection.from_module(lint))
-ns.add_collection(Collection.from_module(nox))
-ns.add_collection(Collection.from_module(pack))
-ns.add_collection(Collection.from_module(stale))
-ns.add_collection(Collection.from_module(tags))
-ns.add_collection(Collection.from_module(test))
-ns.add_collection(Collection.from_module(types))
+from .most_tasks import ns
 
 
 @task(

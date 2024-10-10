@@ -108,6 +108,8 @@ def start_program(
         #  source ~/.invoke-completion.sh
         # NOW: https://docs.pyinvoke.org/en/stable/invoke.html?highlight=completion#generating-a-completion-script
         #  AND: https://docs.pyinvoke.org/en/stable/api/program.html
+
+        # PLANNED: Also see how https://docs.astral.sh/ruff/configuration/#shell-autocompletion
         namespace=Collection.from_module(module) if module else collection,
         config_class=_CalcipyConfig,
     ).run()
