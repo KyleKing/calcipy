@@ -76,7 +76,7 @@ python-box = {optional = true, version = ">=7.2.0"} # ddict
 pyyaml = {optional = true, version = ">=6.0.2"} # docs
 ruff = {optional = true, version = ">=0.6.9"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
-urllib3 = {python = "<3.10", version = "<1.26.19"} # resolves dependency resolution because vcr-py doesn't support v2 yet
+urllib3 = {python = "<3.10", version = "^1.26.20"} # resolves dependency resolution because vcr-py doesn't support v2 yet
 virtualenv = {optional = true, version = ">=20.26.6"} # tags: nox. Prevents 'scripts' KeyError with Python 3.12
 
 [tool.poetry.extras]
