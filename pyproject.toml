@@ -31,7 +31,7 @@ maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
 repository = "https://github.com/kyleking/calcipy"
-requires-python = ">=3.9.13,<4"
+requires-python = ">=3.9.13"
 version = "4.1.0"
 
 [project.optional-dependencies]
@@ -75,7 +75,7 @@ types = [
   "mypy >=1.11.2",
 ]
 
-[project.scripts]
+[project.scripts] # Docs: https://setuptools.pypa.io/en/latest/userguide/entry_point.html#console-scripts
 calcipy = "calcipy.scripts:start"
 calcipy-docs = "calcipy.scripts:start_docs"
 calcipy-lint = "calcipy.scripts:start_lint"
