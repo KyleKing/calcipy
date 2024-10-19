@@ -1300,39 +1300,27 @@
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">⚓︎</a></h2>
 <p>Calcipy needs a few static files managed using copier and a template project: <a href="https://github.com/KyleKing/calcipy_template/">kyleking/calcipy_template</a></p>
 <p>You can quickly use the template to create a new project or add calcipy to an existing one:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Install copier. pipx is recommended</span>
-<span class="linenos" data-linenos=" 2 "></span>pipx<span class="w"> </span>install<span class="w"> </span>copier
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Below examples assume you have Astral uv installed (which provides uvx)</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="c1">#   If you have your shell configured, `uv tool install copier` allows usage of `copier ...` instead of `uvx copier ...`</span>
 <span class="linenos" data-linenos=" 3 "></span>
 <span class="linenos" data-linenos=" 4 "></span><span class="c1"># To create a new project</span>
-<span class="linenos" data-linenos=" 5 "></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>new_project
+<span class="linenos" data-linenos=" 5 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>new_project
 <span class="linenos" data-linenos=" 6 "></span><span class="nb">cd</span><span class="w"> </span>new_project
 <span class="linenos" data-linenos=" 7 "></span>
 <span class="linenos" data-linenos=" 8 "></span><span class="c1"># Or convert/update an existing one</span>
 <span class="linenos" data-linenos=" 9 "></span><span class="nb">cd</span><span class="w"> </span>my_project
-<span class="linenos" data-linenos="10 "></span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>.
-<span class="linenos" data-linenos="11 "></span>copier<span class="w"> </span>update
+<span class="linenos" data-linenos="10 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>.
+<span class="linenos" data-linenos="11 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>update
 </code></pre></div>
 <h3 id="calcipy-cli">Calcipy CLI<a class="headerlink" href="#calcipy-cli" title="Permanent link">⚓︎</a></h3>
 <p>Additionally, <code>calcipy</code> can be run as a CLI application without adding the package as a dependency.</p>
 <p>Quick Start:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># For the CLI, only install a few of the extras which can be used from a few different CLI commands</span>
-<span class="linenos" data-linenos="2 "></span>pipx<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[lint,tags]&#39;</span>
+<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[lint,tags]&#39;</span>
 <span class="linenos" data-linenos="3 "></span>
 <span class="linenos" data-linenos="4 "></span><span class="c1"># Use &#39;tags&#39; to create a CODE_TAG_SUMMARY of the specified directory</span>
 <span class="linenos" data-linenos="5 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
 <span class="linenos" data-linenos="6 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
-<span class="linenos" data-linenos="7 "></span>
-<span class="linenos" data-linenos="8 "></span><span class="c1"># You can list all provided CLI commands with</span>
-<span class="linenos" data-linenos="9 "></span>pipx<span class="w"> </span>list
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>venvs are in ~/.local/pipx/venvs
-<span class="linenos" data-linenos="2 "></span>apps are exposed on your $PATH at ~/.local/bin
-<span class="linenos" data-linenos="3 "></span>   package calcipy 1.4.0, installed using Python 3.11.4
-<span class="linenos" data-linenos="4 "></span>    - calcipy
-<span class="linenos" data-linenos="5 "></span>    - calcipy-lint
-<span class="linenos" data-linenos="6 "></span>    - calcipy-pack
-<span class="linenos" data-linenos="7 "></span>    - calcipy-tags
-<span class="linenos" data-linenos="8 "></span>    - calcipy-types
 </code></pre></div>
 <p>Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The &ldquo;Usage&rdquo;, &ldquo;Core options&rdquo;, and &ldquo;Global Task Options&rdquo; are the same for each subsequent command, so they are excluded for brevity.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt; calcipy-lint
