@@ -58,6 +58,7 @@ else:
 @lru_cache(maxsize=1)
 def _get_pythons() -> List[str]:
     """Return python versions from the `.tool-versions` file."""
+    # TODO: interop for uv/poetry/* && asdf/mise
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
