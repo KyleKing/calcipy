@@ -9,13 +9,13 @@ name: github_labeler
     paths: [.github/labels.yml, .github/workflows/labeler.yml]
   workflow_dispatch: null # For manual runs
 
-permissions:
-  # Issues and related comments, assignees, labels, and milestones.
-  issues: write
-
 jobs:
   labeler:
     runs-on: ubuntu-latest
+    permissions:
+      # Issues and related comments, assignees, labels, and milestones.
+      contents: read
+      issues: write
     steps:
       - uses: actions/checkout@v4
 
