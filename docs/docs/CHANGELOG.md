@@ -1,3 +1,16 @@
+## Unreleased
+
+### Fix
+
+- set minimum urllib3 version
+- use uvx instead of pipx
+- attempt to output tasks even when some dependencies are missing
+- correct typo in DeferedTask
+
+### Refactor
+
+- sync Github Labeler
+
 ## 4.1.0 (2024-10-07)
 
 ### Feat

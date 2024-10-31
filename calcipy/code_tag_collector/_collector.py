@@ -3,6 +3,7 @@
 import re
 from collections import defaultdict
 from contextlib import suppress
+from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 from subprocess import CalledProcessError  # nosec  # noqa: S404
@@ -12,7 +13,6 @@ from beartype.typing import Dict, List, Pattern, Sequence, Tuple
 from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
 from corallium.shell import capture_shell
-from pydantic import BaseModel, ConfigDict
 
 from calcipy._md_helpers import _format_md_table
 
@@ -36,21 +36,21 @@ Commonly, the `tag_list` could be `COMMON_CODE_TAGS`
 """
 
 
-class _CodeTag(BaseModel):
+@dataclass(frozen=True)
+class _CodeTag:
     """Code Tag (FIXME,TODO,etc) with contextual information."""
 
     lineno: int
     tag: str
     text: str
-    model_config = ConfigDict(frozen=True)
 
 
-class _Tags(BaseModel):
+@dataclass(frozen=True)
+class _Tags:
     """Collection of code tags with additional contextual information."""
 
     path_source: Path
     code_tags: List[_CodeTag]
-    model_config = ConfigDict(frozen=True)
 
 
 def _search_lines(
@@ -153,7 +153,8 @@ def _git_info(cwd: Path) -> Tuple[Path, str]:
     return git_dir, github_blame_url(clone_uri)
 
 
-class _CollectorRow(BaseModel):
+@dataclass
+class _CollectorRow:
     """Each row of the Code Tag table."""
 
     tag_name: str

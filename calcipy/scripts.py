@@ -19,7 +19,7 @@ def start() -> None:  # pragma: no cover
     except (ImportError, RuntimeError) as error:
         from .tasks import most_tasks  # noqa: PLC0415
 
-        LOGGER.error(error)  # Must be first
+        LOGGER.error(str(error))  # Must be first
         print()  # noqa: T201
         start_program(__pkg_name__, __version__, most_tasks)
 

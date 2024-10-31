@@ -53,10 +53,10 @@ poetry config pypi-token.pypi ...
 | `calcipy/can_skip.py`                                           | 14         | 1       | 0        | 88.9%    |
 | `calcipy/check_for_stale_packages/__init__.py`                  | 5          | 2       | 0        | 60.0%    |
 | `calcipy/check_for_stale_packages/_check_for_stale_packages.py` | 126        | 13      | 3        | 86.7%    |
-| `calcipy/cli.py`                                                | 34         | 1       | 86       | 92.9%    |
+| `calcipy/cli.py`                                                | 34         | 1       | 88       | 92.9%    |
 | `calcipy/code_tag_collector/__init__.py`                        | 5          | 2       | 0        | 60.0%    |
-| `calcipy/code_tag_collector/_collector.py`                      | 129        | 2       | 0        | 96.6%    |
-| `calcipy/collection.py`                                         | 33         | 0       | 52       | 97.5%    |
+| `calcipy/code_tag_collector/_collector.py`                      | 130        | 2       | 0        | 93.9%    |
+| `calcipy/collection.py`                                         | 33         | 0       | 53       | 97.5%    |
 | `calcipy/dot_dict/__init__.py`                                  | 5          | 2       | 0        | 60.0%    |
 | `calcipy/dot_dict/_dot_dict.py`                                 | 6          | 0       | 0        | 100.0%   |
 | `calcipy/experiments/__init__.py`                               | 0          | 0       | 0        | 100.0%   |
@@ -69,21 +69,22 @@ poetry config pypi-token.pypi ...
 | `calcipy/md_writer/_writer.py`                                  | 91         | 6       | 0        | 89.6%    |
 | `calcipy/noxfile/__init__.py`                                   | 5          | 2       | 0        | 60.0%    |
 | `calcipy/noxfile/_noxfile.py`                                   | 39         | 2       | 51       | 91.5%    |
-| `calcipy/scripts.py`                                            | 5          | 0       | 37       | 100.0%   |
+| `calcipy/scripts.py`                                            | 6          | 0       | 51       | 100.0%   |
 | `calcipy/tasks/__init__.py`                                     | 0          | 0       | 0        | 100.0%   |
-| `calcipy/tasks/all_tasks.py`                                    | 46         | 0       | 0        | 94.8%    |
+| `calcipy/tasks/all_tasks.py`                                    | 36         | 0       | 0        | 93.8%    |
 | `calcipy/tasks/cl.py`                                           | 26         | 5       | 0        | 78.1%    |
 | `calcipy/tasks/defaults.py`                                     | 17         | 0       | 0        | 90.5%    |
 | `calcipy/tasks/doc.py`                                          | 29         | 0       | 8        | 94.9%    |
 | `calcipy/tasks/executable_utils.py`                             | 32         | 0       | 0        | 90.9%    |
 | `calcipy/tasks/lint.py`                                         | 38         | 2       | 0        | 86.2%    |
+| `calcipy/tasks/most_tasks.py`                                   | 32         | 0       | 0        | 100.0%   |
 | `calcipy/tasks/nox.py`                                          | 8          | 0       | 0        | 100.0%   |
-| `calcipy/tasks/pack.py`                                         | 46         | 12      | 0        | 64.7%    |
+| `calcipy/tasks/pack.py`                                         | 47         | 13      | 0        | 62.0%    |
 | `calcipy/tasks/stale.py`                                        | 6          | 0       | 0        | 100.0%   |
 | `calcipy/tasks/tags.py`                                         | 18         | 1       | 0        | 90.9%    |
 | `calcipy/tasks/test.py`                                         | 39         | 1       | 2        | 90.9%    |
 | `calcipy/tasks/types.py`                                        | 11         | 0       | 0        | 93.3%    |
-| **Totals**                                                      | 1005       | 129     | 276      | 83.2%    |
+| **Totals**                                                      | 1030       | 130     | 293      | 83.3%    |
 
-Generated on: 2024-10-07
+Generated on: 2024-10-31
 <!-- {cte} -->

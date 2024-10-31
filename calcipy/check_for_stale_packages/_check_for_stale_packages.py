@@ -34,6 +34,7 @@ class _HostedPythonPackage(BaseModel):
     datetime: Optional[Arrow] = Field(default=None)
     latest_version: str = Field(default='')
     latest_datetime: Optional[Arrow] = Field(default=None)
+
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     @field_serializer('datetime', 'latest_datetime')
