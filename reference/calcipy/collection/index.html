@@ -699,6 +699,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#calcipy.collection.GlobalTaskOptions-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calcipy.collection.GlobalTaskOptions.__post_init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __post_init__
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -767,6 +791,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../markdown_table/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markdown table
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../scripts/" class="md-nav__link">
         
   
@@ -795,10 +840,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_7" id="__nav_3_1_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -809,8 +854,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_7">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_8">
             <span class="md-nav__icon md-icon"></span>
             Experiments
           </label>
@@ -901,10 +946,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_9" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_9" id="__nav_3_1_9_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -915,8 +960,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_9">
             <span class="md-nav__icon md-icon"></span>
             Tasks
           </label>
@@ -1349,6 +1394,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#calcipy.collection.GlobalTaskOptions-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#calcipy.collection.GlobalTaskOptions.__post_init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      __post_init__
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1419,44 +1488,44 @@
 
               <details class="quote">
                 <summary>Source code in <code>calcipy/collection.py</code></summary>
-                <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="100 "></span><span class="k">class</span> <span class="nc">Collection</span><span class="p">(</span><span class="n">InvokeCollection</span><span class="p">):</span>
-<span class="linenos" data-linenos="101 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcipy Task Collection.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="102 "></span>
-<span class="linenos" data-linenos="103 "></span>    <span class="nd">@classmethod</span>
-<span class="linenos" data-linenos="104 "></span>    <span class="k">def</span> <span class="nf">from_module</span><span class="p">(</span>
-<span class="linenos" data-linenos="105 "></span>        <span class="bp">cls</span><span class="p">,</span>
-<span class="linenos" data-linenos="106 "></span>        <span class="n">module</span><span class="p">:</span> <span class="n">ModuleType</span><span class="p">,</span>
-<span class="linenos" data-linenos="107 "></span>        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="108 "></span>        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="109 "></span>        <span class="n">loaded_from</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="110 "></span>        <span class="n">auto_dash_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="111 "></span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;InvokeCollection&#39;</span><span class="p">:</span>
-<span class="linenos" data-linenos="112 "></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extend search for a namespace, Task, or deferred task.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="113 "></span>        <span class="n">collection</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_module</span><span class="p">(</span>
-<span class="linenos" data-linenos="114 "></span>            <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
-<span class="linenos" data-linenos="115 "></span>            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-<span class="linenos" data-linenos="116 "></span>            <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
-<span class="linenos" data-linenos="117 "></span>            <span class="n">loaded_from</span><span class="o">=</span><span class="n">loaded_from</span><span class="p">,</span>
-<span class="linenos" data-linenos="118 "></span>            <span class="n">auto_dash_names</span><span class="o">=</span><span class="n">auto_dash_names</span><span class="p">,</span>
-<span class="linenos" data-linenos="119 "></span>        <span class="p">)</span>
-<span class="linenos" data-linenos="120 "></span>
-<span class="linenos" data-linenos="121 "></span>        <span class="c1"># If tasks were not loaded from a namespace or otherwise found</span>
-<span class="linenos" data-linenos="122 "></span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">collection</span><span class="o">.</span><span class="n">task_names</span><span class="p">:</span>
-<span class="linenos" data-linenos="123 "></span>            <span class="c1"># Look for any decorated, but deferred &quot;Tasks&quot;</span>
-<span class="linenos" data-linenos="124 "></span>            <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="p">(</span><span class="n">fxn</span> <span class="k">for</span> <span class="n">fxn</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fxn</span><span class="p">,</span> <span class="n">TASK_ARGS_ATTR</span><span class="p">)):</span>
-<span class="linenos" data-linenos="125 "></span>                <span class="n">collection</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
-<span class="linenos" data-linenos="126 "></span>
-<span class="linenos" data-linenos="127 "></span>        <span class="k">return</span> <span class="n">collection</span>
-<span class="linenos" data-linenos="128 "></span>
-<span class="linenos" data-linenos="129 "></span>    <span class="k">def</span> <span class="nf">add_task</span><span class="p">(</span>
-<span class="linenos" data-linenos="130 "></span>        <span class="bp">self</span><span class="p">,</span>
-<span class="linenos" data-linenos="131 "></span>        <span class="n">task</span><span class="p">:</span> <span class="n">DeferredTask</span><span class="p">,</span>
-<span class="linenos" data-linenos="132 "></span>        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="133 "></span>        <span class="n">aliases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="134 "></span>        <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="135 "></span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="136 "></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extend for deferred tasks.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="137 "></span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">_build_task</span><span class="p">(</span><span class="n">task</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">aliases</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
+                <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="111 "></span><span class="k">class</span> <span class="nc">Collection</span><span class="p">(</span><span class="n">InvokeCollection</span><span class="p">):</span>
+<span class="linenos" data-linenos="112 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcipy Task Collection.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="113 "></span>
+<span class="linenos" data-linenos="114 "></span>    <span class="nd">@classmethod</span>
+<span class="linenos" data-linenos="115 "></span>    <span class="k">def</span> <span class="nf">from_module</span><span class="p">(</span>
+<span class="linenos" data-linenos="116 "></span>        <span class="bp">cls</span><span class="p">,</span>
+<span class="linenos" data-linenos="117 "></span>        <span class="n">module</span><span class="p">:</span> <span class="n">ModuleType</span><span class="p">,</span>
+<span class="linenos" data-linenos="118 "></span>        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="119 "></span>        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="120 "></span>        <span class="n">loaded_from</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="121 "></span>        <span class="n">auto_dash_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="122 "></span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InvokeCollection</span><span class="p">:</span>
+<span class="linenos" data-linenos="123 "></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extend search for a namespace, Task, or deferred task.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="124 "></span>        <span class="n">collection</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_module</span><span class="p">(</span>
+<span class="linenos" data-linenos="125 "></span>            <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+<span class="linenos" data-linenos="126 "></span>            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="linenos" data-linenos="127 "></span>            <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="linenos" data-linenos="128 "></span>            <span class="n">loaded_from</span><span class="o">=</span><span class="n">loaded_from</span><span class="p">,</span>
+<span class="linenos" data-linenos="129 "></span>            <span class="n">auto_dash_names</span><span class="o">=</span><span class="n">auto_dash_names</span><span class="p">,</span>
+<span class="linenos" data-linenos="130 "></span>        <span class="p">)</span>
+<span class="linenos" data-linenos="131 "></span>
+<span class="linenos" data-linenos="132 "></span>        <span class="c1"># If tasks were not loaded from a namespace or otherwise found</span>
+<span class="linenos" data-linenos="133 "></span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">collection</span><span class="o">.</span><span class="n">task_names</span><span class="p">:</span>
+<span class="linenos" data-linenos="134 "></span>            <span class="c1"># Look for any decorated, but deferred &quot;Tasks&quot;</span>
+<span class="linenos" data-linenos="135 "></span>            <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="p">(</span><span class="n">fxn</span> <span class="k">for</span> <span class="n">fxn</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fxn</span><span class="p">,</span> <span class="n">TASK_ARGS_ATTR</span><span class="p">)):</span>
+<span class="linenos" data-linenos="136 "></span>                <span class="n">collection</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="linenos" data-linenos="137 "></span>
+<span class="linenos" data-linenos="138 "></span>        <span class="k">return</span> <span class="n">collection</span>
+<span class="linenos" data-linenos="139 "></span>
+<span class="linenos" data-linenos="140 "></span>    <span class="k">def</span> <span class="nf">add_task</span><span class="p">(</span>
+<span class="linenos" data-linenos="141 "></span>        <span class="bp">self</span><span class="p">,</span>
+<span class="linenos" data-linenos="142 "></span>        <span class="n">task</span><span class="p">:</span> <span class="n">DeferredTask</span><span class="p">,</span>
+<span class="linenos" data-linenos="143 "></span>        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="144 "></span>        <span class="n">aliases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="145 "></span>        <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="146 "></span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="147 "></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extend for deferred tasks.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="148 "></span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">_build_task</span><span class="p">(</span><span class="n">task</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">aliases</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
 </code></pre></div>
               </details>
 
@@ -1489,15 +1558,15 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/collection.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="129 "></span><span class="k">def</span> <span class="nf">add_task</span><span class="p">(</span>
-<span class="linenos" data-linenos="130 "></span>    <span class="bp">self</span><span class="p">,</span>
-<span class="linenos" data-linenos="131 "></span>    <span class="n">task</span><span class="p">:</span> <span class="n">DeferredTask</span><span class="p">,</span>
-<span class="linenos" data-linenos="132 "></span>    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="133 "></span>    <span class="n">aliases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="134 "></span>    <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="135 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="136 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Extend for deferred tasks.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="137 "></span>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">_build_task</span><span class="p">(</span><span class="n">task</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">aliases</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="140 "></span><span class="k">def</span> <span class="nf">add_task</span><span class="p">(</span>
+<span class="linenos" data-linenos="141 "></span>    <span class="bp">self</span><span class="p">,</span>
+<span class="linenos" data-linenos="142 "></span>    <span class="n">task</span><span class="p">:</span> <span class="n">DeferredTask</span><span class="p">,</span>
+<span class="linenos" data-linenos="143 "></span>    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="144 "></span>    <span class="n">aliases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="145 "></span>    <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="146 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="147 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Extend for deferred tasks.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="148 "></span>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">_build_task</span><span class="p">(</span><span class="n">task</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">aliases</span><span class="o">=</span><span class="n">aliases</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -1525,31 +1594,31 @@
 
             <details class="quote">
               <summary>Source code in <code>calcipy/collection.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="103 "></span><span class="nd">@classmethod</span>
-<span class="linenos" data-linenos="104 "></span><span class="k">def</span> <span class="nf">from_module</span><span class="p">(</span>
-<span class="linenos" data-linenos="105 "></span>    <span class="bp">cls</span><span class="p">,</span>
-<span class="linenos" data-linenos="106 "></span>    <span class="n">module</span><span class="p">:</span> <span class="n">ModuleType</span><span class="p">,</span>
-<span class="linenos" data-linenos="107 "></span>    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="108 "></span>    <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="109 "></span>    <span class="n">loaded_from</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="110 "></span>    <span class="n">auto_dash_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="111 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;InvokeCollection&#39;</span><span class="p">:</span>
-<span class="linenos" data-linenos="112 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Extend search for a namespace, Task, or deferred task.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="113 "></span>    <span class="n">collection</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_module</span><span class="p">(</span>
-<span class="linenos" data-linenos="114 "></span>        <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
-<span class="linenos" data-linenos="115 "></span>        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-<span class="linenos" data-linenos="116 "></span>        <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
-<span class="linenos" data-linenos="117 "></span>        <span class="n">loaded_from</span><span class="o">=</span><span class="n">loaded_from</span><span class="p">,</span>
-<span class="linenos" data-linenos="118 "></span>        <span class="n">auto_dash_names</span><span class="o">=</span><span class="n">auto_dash_names</span><span class="p">,</span>
-<span class="linenos" data-linenos="119 "></span>    <span class="p">)</span>
-<span class="linenos" data-linenos="120 "></span>
-<span class="linenos" data-linenos="121 "></span>    <span class="c1"># If tasks were not loaded from a namespace or otherwise found</span>
-<span class="linenos" data-linenos="122 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">collection</span><span class="o">.</span><span class="n">task_names</span><span class="p">:</span>
-<span class="linenos" data-linenos="123 "></span>        <span class="c1"># Look for any decorated, but deferred &quot;Tasks&quot;</span>
-<span class="linenos" data-linenos="124 "></span>        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="p">(</span><span class="n">fxn</span> <span class="k">for</span> <span class="n">fxn</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fxn</span><span class="p">,</span> <span class="n">TASK_ARGS_ATTR</span><span class="p">)):</span>
-<span class="linenos" data-linenos="125 "></span>            <span class="n">collection</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
-<span class="linenos" data-linenos="126 "></span>
-<span class="linenos" data-linenos="127 "></span>    <span class="k">return</span> <span class="n">collection</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="114 "></span><span class="nd">@classmethod</span>
+<span class="linenos" data-linenos="115 "></span><span class="k">def</span> <span class="nf">from_module</span><span class="p">(</span>
+<span class="linenos" data-linenos="116 "></span>    <span class="bp">cls</span><span class="p">,</span>
+<span class="linenos" data-linenos="117 "></span>    <span class="n">module</span><span class="p">:</span> <span class="n">ModuleType</span><span class="p">,</span>
+<span class="linenos" data-linenos="118 "></span>    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="119 "></span>    <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="120 "></span>    <span class="n">loaded_from</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="121 "></span>    <span class="n">auto_dash_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="122 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InvokeCollection</span><span class="p">:</span>
+<span class="linenos" data-linenos="123 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Extend search for a namespace, Task, or deferred task.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="124 "></span>    <span class="n">collection</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_module</span><span class="p">(</span>
+<span class="linenos" data-linenos="125 "></span>        <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+<span class="linenos" data-linenos="126 "></span>        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="linenos" data-linenos="127 "></span>        <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="linenos" data-linenos="128 "></span>        <span class="n">loaded_from</span><span class="o">=</span><span class="n">loaded_from</span><span class="p">,</span>
+<span class="linenos" data-linenos="129 "></span>        <span class="n">auto_dash_names</span><span class="o">=</span><span class="n">auto_dash_names</span><span class="p">,</span>
+<span class="linenos" data-linenos="130 "></span>    <span class="p">)</span>
+<span class="linenos" data-linenos="131 "></span>
+<span class="linenos" data-linenos="132 "></span>    <span class="c1"># If tasks were not loaded from a namespace or otherwise found</span>
+<span class="linenos" data-linenos="133 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">collection</span><span class="o">.</span><span class="n">task_names</span><span class="p">:</span>
+<span class="linenos" data-linenos="134 "></span>        <span class="c1"># Look for any decorated, but deferred &quot;Tasks&quot;</span>
+<span class="linenos" data-linenos="135 "></span>        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="p">(</span><span class="n">fxn</span> <span class="k">for</span> <span class="n">fxn</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fxn</span><span class="p">,</span> <span class="n">TASK_ARGS_ATTR</span><span class="p">)):</span>
+<span class="linenos" data-linenos="136 "></span>            <span class="n">collection</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="linenos" data-linenos="137 "></span>
+<span class="linenos" data-linenos="138 "></span>    <span class="k">return</span> <span class="n">collection</span>
 </code></pre></div>
             </details>
     </div>
@@ -1572,32 +1641,42 @@
             <span class="doc doc-object-name doc-class-name">GlobalTaskOptions</span>
 
 
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
 <a href="#calcipy.collection.GlobalTaskOptions" class="headerlink" title="Permanent link">⚓︎</a></h3>
 
 
     <div class="doc doc-contents ">
-            <p class="doc doc-class-bases">
-              Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
         <p>Global Task Options.</p>
 
               <details class="quote">
                 <summary>Source code in <code>calcipy/collection.py</code></summary>
-                <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="22 "></span><span class="k">class</span> <span class="nc">GlobalTaskOptions</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="linenos" data-linenos="23 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Global Task Options.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="24 "></span>
-<span class="linenos" data-linenos="25 "></span>    <span class="n">working_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
-<span class="linenos" data-linenos="26 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Working directory for the program to use globally.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="27 "></span>
-<span class="linenos" data-linenos="28 "></span>    <span class="n">file_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-<span class="linenos" data-linenos="29 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;List of Paths to modify.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="30 "></span>
-<span class="linenos" data-linenos="31 "></span>    <span class="n">verbose</span><span class="p">:</span> <span class="n">PositiveInt</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="linenos" data-linenos="32 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Verbosity level.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="33 "></span>
-<span class="linenos" data-linenos="34 "></span>    <span class="n">keep_going</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="linenos" data-linenos="35 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Continue task execution regardless of failure.&quot;&quot;&quot;</span>
+                <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="26 "></span><span class="nd">@dataclass</span>
+<span class="linenos" data-linenos="27 "></span><span class="k">class</span> <span class="nc">GlobalTaskOptions</span><span class="p">:</span>
+<span class="linenos" data-linenos="28 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Global Task Options.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="29 "></span>
+<span class="linenos" data-linenos="30 "></span>    <span class="n">working_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
+<span class="linenos" data-linenos="31 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Working directory for the program to use globally.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="32 "></span>
+<span class="linenos" data-linenos="33 "></span>    <span class="n">file_args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<span class="linenos" data-linenos="34 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;List of Paths to modify.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="35 "></span>
+<span class="linenos" data-linenos="36 "></span>    <span class="n">verbose</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos" data-linenos="37 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Verbosity level.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="38 "></span>
+<span class="linenos" data-linenos="39 "></span>    <span class="n">keep_going</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos" data-linenos="40 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Continue task execution regardless of failure.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="41 "></span>
+<span class="linenos" data-linenos="42 "></span>    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="43 "></span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate dataclass.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="44 "></span>        <span class="n">options_verbose</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">LOG_LOOKUP</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+<span class="linenos" data-linenos="45 "></span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">options_verbose</span><span class="p">:</span>
+<span class="linenos" data-linenos="46 "></span>            <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;verbose must be one of: </span><span class="si">{</span><span class="n">options_verbose</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos" data-linenos="47 "></span>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </code></pre></div>
               </details>
 
@@ -1625,7 +1704,7 @@
   </span>
 
 <a href="#calcipy.collection.GlobalTaskOptions.file_args" class="headerlink" title="Permanent link">⚓︎</a></h5>
-<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">file_args</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">file_args</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1673,7 +1752,7 @@
   </span>
 
 <a href="#calcipy.collection.GlobalTaskOptions.verbose" class="headerlink" title="Permanent link">⚓︎</a></h5>
-<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">verbose</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">verbose</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1697,7 +1776,7 @@
   </span>
 
 <a href="#calcipy.collection.GlobalTaskOptions.working_dir" class="headerlink" title="Permanent link">⚓︎</a></h5>
-<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">working_dir</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">working_dir</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1707,7 +1786,36 @@
 
 </div>
 
+<h4 id="calcipy.collection.GlobalTaskOptions-functions">Functions<a href="#calcipy.collection.GlobalTaskOptions-functions" class="headerlink" title="Permanent link">⚓︎</a></h4>
 
+<div class="doc doc-object doc-function">
+
+
+<h5 id="calcipy.collection.GlobalTaskOptions.__post_init__" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">__post_init__</span>
+
+
+<a href="#calcipy.collection.GlobalTaskOptions.__post_init__" class="headerlink" title="Permanent link">⚓︎</a></h5>
+<div class="doc-signature highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nf">__post_init__</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Validate dataclass.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>calcipy/collection.py</code></summary>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="42 "></span><span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="43 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate dataclass.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="44 "></span>    <span class="n">options_verbose</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">LOG_LOOKUP</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+<span class="linenos" data-linenos="45 "></span>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">options_verbose</span><span class="p">:</span>
+<span class="linenos" data-linenos="46 "></span>        <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;verbose must be one of: </span><span class="si">{</span><span class="n">options_verbose</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="linenos" data-linenos="47 "></span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</code></pre></div>
+            </details>
+    </div>
+
+</div>
 
 
 

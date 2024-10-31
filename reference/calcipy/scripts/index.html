@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://calcipy.kyleking.me/reference/calcipy/scripts/">
       
       
-        <link rel="prev" href="../invoke_helpers/">
+        <link rel="prev" href="../markdown_table/">
       
       
         <link rel="next" href="../experiments/bump_programmatically/">
@@ -590,6 +590,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown_table/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markdown table
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -753,10 +774,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_7" id="__nav_3_1_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -767,8 +788,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_7">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_8">
             <span class="md-nav__icon md-icon"></span>
             Experiments
           </label>
@@ -859,10 +880,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_9" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_9" id="__nav_3_1_9_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -873,8 +894,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_9">
             <span class="md-nav__icon md-icon"></span>
             Tasks
           </label>
@@ -1342,7 +1363,7 @@
 <span class="linenos" data-linenos="19 "></span>    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
 <span class="linenos" data-linenos="20 "></span>        <span class="kn">from</span> <span class="nn">.tasks</span> <span class="kn">import</span> <span class="n">most_tasks</span>  <span class="c1"># noqa: PLC0415</span>
 <span class="linenos" data-linenos="21 "></span>
-<span class="linenos" data-linenos="22 "></span>        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>  <span class="c1"># Must be first</span>
+<span class="linenos" data-linenos="22 "></span>        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>  <span class="c1"># Must be first</span>
 <span class="linenos" data-linenos="23 "></span>        <span class="nb">print</span><span class="p">()</span>  <span class="c1"># noqa: T201</span>
 <span class="linenos" data-linenos="24 "></span>        <span class="n">start_program</span><span class="p">(</span><span class="n">__pkg_name__</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="n">most_tasks</span><span class="p">)</span>
 </code></pre></div>
