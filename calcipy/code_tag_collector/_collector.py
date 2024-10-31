@@ -14,7 +14,7 @@ from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
 from corallium.shell import capture_shell
 
-from calcipy._md_helpers import _format_md_table
+from calcipy.markdown_table import format_table
 
 SKIP_PHRASE = 'calcipy_skip_tags'
 """String that indicates the file should be excluded from the tag search."""
@@ -279,7 +279,7 @@ def _format_report(
                 )
                 counter[comment.tag] += 1
     if records:
-        output += '\n' + '\n'.join(_format_md_table(headers=[*records[0]], records=records))
+        output += '\n' + format_table(headers=[*records[0]], records=records)
     LOGGER.text_debug('counter', counter=counter)
 
     sorted_counter = {tag: counter[tag] for tag in tag_order if tag in counter}

@@ -9,6 +9,7 @@
 
 ### Refactor
 
+- finish removing pydantic dependency
 - switch serialized BaseModel to dataclass
 - switch some BaseModels to plain dataclasses
 - sync Github Labeler
