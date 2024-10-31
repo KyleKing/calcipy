@@ -7,6 +7,7 @@ import json
 import time
 from collections.abc import Awaitable
 from dataclasses import asdict, dataclass, field
+from datetime import timezone
 from functools import partial
 from itertools import starmap
 from pathlib import Path
@@ -272,7 +273,7 @@ def _packages_are_stale(packages: list[_HostedPythonPackage], *, stale_months: i
         latest = '' if pack.version == pack.latest_version else f' (*New version available: {pack.latest_version}*)'
         return f'{delta}: {pack.name} {pack.version}{latest}'
 
-    stale_cutoff = arrow.utcnow().shift(months=-1 * stale_months)
+    stale_cutoff = arrow.now(timezone.utc).shift(months=-1 * stale_months)
     sorted_packages = sorted(packages, key=lambda x: x.datetime or stale_cutoff, reverse=True)
     stale_packages = [pack for pack in sorted_packages if not pack.datetime or pack.datetime < stale_cutoff]
     if stale_packages:

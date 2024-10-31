@@ -185,7 +185,8 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     )
     records = [{**_r, 'Coverage': f"{round(_r['Coverage'], 1)}%"} for _r in records]
 
-    lines_table = format_table(headers=['File', *col_key_map], records=records).split('\n')
+    delimiters = ['-', *(['-:'] * len(col_key_map))]
+    lines_table = format_table(headers=['File', *col_key_map], records=records, delimiters=delimiters).split('\n')
     short_date = coverage_data['meta']['timestamp'].split('T')[0]
     lines_table.extend(['', f'Generated on: {short_date}'])
     return lines_table
