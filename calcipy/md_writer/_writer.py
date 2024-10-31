@@ -100,7 +100,7 @@ class _ReplacementMachine:
                     lines.append(line)
                     self.change_end()
             else:
-                LOGGER.warning('Could not parse. Skipping:', line=line)
+                LOGGER.debug('Could not parse. Skipping:', line=line)
                 lines.append(line)
                 self.change_end()
         elif self.state == self.state_other:
