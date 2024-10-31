@@ -5,18 +5,20 @@ from __future__ import annotations
 import asyncio
 import json
 import time
+from collections.abc import Awaitable
+from dataclasses import asdict, dataclass, field
 from functools import partial
 from itertools import starmap
 from pathlib import Path
+from typing import Any
 
 import arrow
 import httpx
 from arrow import Arrow
-from beartype.typing import Awaitable, Callable, Dict, List, Optional, Tuple, TypeVar, Union
+from beartype.typing import Callable, TypeVar
 from corallium.file_helpers import LOCK
 from corallium.log import LOGGER
 from corallium.tomllib import tomllib
-from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 from calcipy import can_skip  # Required for mocking can_skip.can_skip
 
@@ -24,27 +26,38 @@ CALCIPY_CACHE = Path('.calcipy_packaging.lock')
 """Path to the packaging lock file."""
 
 
-class _HostedPythonPackage(BaseModel):
+def arrow_as_string_factory(data: list[tuple[str, Any]]) -> dict[str, Any]:
+    """`asdict.dict_factory` to serialize Arrow types.
+
+    Note: if `dict_factory` composition is needed, use functools.reduce and see:
+    <https://cucumbersome.hashnode.dev/combine-multiple-dict-factories-in-asdict>
+
+    """
+    return {key: str(value) if isinstance(value, Arrow) else value for key, value in data}
+
+
+@dataclass
+class _HostedPythonPackage:
     """Representative information for a python package hosted on some domain."""
 
     # Note: "releases" was removed from the versioned URL: https://warehouse.pypa.io/api-reference/json.html#release
-    domain: str = Field(default='https://pypi.org/pypi/{name}/json')
     name: str
     version: str
-    datetime: Optional[Arrow] = Field(default=None)
-    latest_version: str = Field(default='')
-    latest_datetime: Optional[Arrow] = Field(default=None)
+    domain: str = field(default='https://pypi.org/pypi/{name}/json')
+    datetime: Arrow | None = field(default=None)
+    latest_version: str = field(default='')
+    latest_datetime: Arrow | None = field(default=None)
 
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    @field_serializer('datetime', 'latest_datetime')
-    def serialize_datetime(self, value: Optional[Arrow]) -> Optional[str]:  # noqa: PLR6301
-        return str(value) if value else None
-
-    @field_validator('datetime', 'latest_datetime', mode='before')
     @classmethod
-    def date_validator(cls, value: Union[str, Arrow]) -> Arrow:
-        return arrow.get(value)
+    def from_data(cls, **kwargs) -> _HostedPythonPackage:
+        for date_key in ('datetime', 'latest_datetime'):
+            if value := kwargs.get(date_key):
+                kwargs[date_key] = arrow.get(value)
+        return cls(**kwargs)
+
+    def model_dump_json(self) -> str:
+        data = asdict(self, dict_factory=arrow_as_string_factory)
+        return json.dumps(data)
 
 
 async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPackage:
@@ -84,7 +97,7 @@ async def _get_release_date(package: _HostedPythonPackage) -> _HostedPythonPacka
     return package
 
 
-def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPythonPackage]:
+def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> dict[str, _HostedPythonPackage]:
     """Read the cached packaging information.
 
     Args:
@@ -96,22 +109,19 @@ def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> Dict[str, _HostedPython
     """
     if not path_pack_lock.is_file():
         path_pack_lock.write_text('{}', encoding='utf-8')
-    old_cache: Dict[str, Dict[str, str]] = json.loads(path_pack_lock.read_text(encoding='utf-8'))
-    return {
-        package_name: _HostedPythonPackage(**meta_data)  # type: ignore[arg-type]
-        for package_name, meta_data in old_cache.items()
-    }
+    old_cache: dict[str, dict[str, str]] = json.loads(path_pack_lock.read_text(encoding='utf-8'))
+    return {package_name: _HostedPythonPackage.from_data(**meta_data) for package_name, meta_data in old_cache.items()}
 
 
-_OpReturnT = TypeVar('_OpReturnT')
+_OpReturn = TypeVar('_OpReturn')
 
 
 async def _rate_limited(
-    operations: list[Callable[[], Awaitable[_OpReturnT]]],
+    operations: list[Callable[[], Awaitable[_OpReturn]]],
     max_per_interval: int,
     interval_sec: int,
     max_delay: int | None = None,
-) -> List[_OpReturnT]:
+) -> list[_OpReturn]:
     """Naive semaphore-based rate limiting.
 
     For more performant and flexible limiting, see: <https://pypi.org/project/pyrate-limiter>
@@ -123,7 +133,7 @@ async def _rate_limited(
         max_delay: maximum runtime before quietly stopping
 
     Returns:
-        List[_OpReturnT]: list of return values from operations up to max_delay time, if set
+        List[_OpReturn]: list of return values from operations up to max_delay time, if set
 
     """
     if not operations:
@@ -132,7 +142,7 @@ async def _rate_limited(
     initial_start = time.monotonic()
     sem = asyncio.BoundedSemaphore(value=max_per_interval)
 
-    async def task(idx: int, op: Callable[[], Awaitable[_OpReturnT]]) -> Tuple[_OpReturnT | None, float]:
+    async def task(idx: int, op: Callable[[], Awaitable[_OpReturn]]) -> tuple[_OpReturn | None, float]:
         """Return result. Rudimentary rate limiting by waiting to acquire the semaphore, then sleeping if necessary."""
         if max_delay and (time.monotonic() - initial_start) > max_delay:
             return (None, 0.0)
@@ -160,9 +170,9 @@ async def _rate_limited(
 
 
 async def _collect_release_dates(
-    packages: List[_HostedPythonPackage],
-    old_cache: Optional[Dict[str, _HostedPythonPackage]] = None,
-) -> List[_HostedPythonPackage]:
+    packages: list[_HostedPythonPackage],
+    old_cache: dict[str, _HostedPythonPackage] | None = None,
+) -> list[_HostedPythonPackage]:
     """Use the cache to retrieve only metadata that needs to be updated.
 
     Args:
@@ -176,8 +186,8 @@ async def _collect_release_dates(
     if old_cache is None:
         old_cache = {}
 
-    updated_packages: List[_HostedPythonPackage] = []
-    missing_packages: List[_HostedPythonPackage] = []
+    updated_packages: list[_HostedPythonPackage] = []
+    missing_packages: list[_HostedPythonPackage] = []
     for package in packages:
         cached_package = old_cache.get(package.name)
         cached_version = '' if cached_package is None else cached_package.version
@@ -208,7 +218,7 @@ async def _collect_release_dates(
     return updated_packages
 
 
-def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: Path = CALCIPY_CACHE) -> None:
+def _write_cache(updated_packages: list[_HostedPythonPackage], path_pack_lock: Path = CALCIPY_CACHE) -> None:
     """Read the cached packaging information.
 
     Args:
@@ -221,7 +231,7 @@ def _write_cache(updated_packages: List[_HostedPythonPackage], path_pack_lock: P
     path_pack_lock.write_text(pretty_json + '\n', encoding='utf-8')
 
 
-def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
+def _read_packages(path_lock: Path) -> list[_HostedPythonPackage]:
     """Read packages from lock file. Currently only support `poetry.lock`, but could support more in the future.
 
     Args:
@@ -240,7 +250,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
 
     lock = tomllib.loads(path_lock.read_text(errors='ignore'))
     return [
-        _HostedPythonPackage(
+        _HostedPythonPackage.from_data(
             name=dependency['name'],
             version=dependency['version'],
         )
@@ -248,7 +258,7 @@ def _read_packages(path_lock: Path) -> List[_HostedPythonPackage]:
     ]
 
 
-def _packages_are_stale(packages: List[_HostedPythonPackage], *, stale_months: int) -> bool:
+def _packages_are_stale(packages: list[_HostedPythonPackage], *, stale_months: int) -> bool:
     """Check for stale packages. Raise error and log all stale versions found.
 
     Args:

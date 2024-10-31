@@ -17,7 +17,7 @@ from calcipy.check_for_stale_packages._check_for_stale_packages import (
 @pytest.mark.vcr
 async def test__get_release_date():
     release_year = 2018
-    package = _HostedPythonPackage(
+    package = _HostedPythonPackage.from_data(
         domain='https://test.pypi.org/pypi/{name}/json',
         name='twine', version='1.11.0rc1',
     )
@@ -76,7 +76,7 @@ version = "1.2.3"
 def test__packages_are_stale(stale_months, expected):
     datetime = arrow.now().shift(months=-2)
     packages = [
-        _HostedPythonPackage(
+        _HostedPythonPackage.from_data(
             name='twine',
             datetime=datetime, version='1.11.0rc1',
             latest_datetime=datetime, latest_version='1.11.0rc1',

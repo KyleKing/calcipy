@@ -52,7 +52,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/_runtime_type_check_setup.py`                          | 13         | 0       | 33       | 100.0%   |
 | `calcipy/can_skip.py`                                           | 14         | 1       | 0        | 88.9%    |
 | `calcipy/check_for_stale_packages/__init__.py`                  | 5          | 2       | 0        | 60.0%    |
-| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` | 126        | 13      | 3        | 86.7%    |
+| `calcipy/check_for_stale_packages/_check_for_stale_packages.py` | 132        | 13      | 3        | 86.6%    |
 | `calcipy/cli.py`                                                | 34         | 1       | 88       | 92.9%    |
 | `calcipy/code_tag_collector/__init__.py`                        | 5          | 2       | 0        | 60.0%    |
 | `calcipy/code_tag_collector/_collector.py`                      | 130        | 2       | 0        | 93.9%    |
@@ -84,7 +84,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         | 18         | 1       | 0        | 90.9%    |
 | `calcipy/tasks/test.py`                                         | 39         | 1       | 2        | 90.9%    |
 | `calcipy/tasks/types.py`                                        | 11         | 0       | 0        | 93.3%    |
-| **Totals**                                                      | 1030       | 130     | 293      | 83.3%    |
+| **Totals**                                                      | 1036       | 130     | 293      | 83.3%    |
 
 Generated on: 2024-10-31
 <!-- {cte} -->

@@ -9,6 +9,7 @@
 
 ### Refactor
 
+- switch some BaseModels to plain dataclasses
 - sync Github Labeler
 
 ## 4.1.0 (2024-10-07)
