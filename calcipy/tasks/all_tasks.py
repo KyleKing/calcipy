@@ -109,3 +109,5 @@ def release(ctx: Context, *, suffix: cl.SuffixT = None) -> None:
 ns.add_task(main)
 ns.add_task(other)
 ns.add_task(release)
+
+__all__ = ('ns',)
