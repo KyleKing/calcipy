@@ -113,15 +113,15 @@ def _read_cache(path_pack_lock: Path = CALCIPY_CACHE) -> dict[str, _HostedPython
     return {package_name: _HostedPythonPackage.from_data(**meta_data) for package_name, meta_data in old_cache.items()}
 
 
-_OpReturn = TypeVar('_OpReturn')
+_OpReturnT = TypeVar('_OpReturnT')
 
 
 async def _rate_limited(
-    operations: list[Callable[[], Awaitable[_OpReturn]]],
+    operations: list[Callable[[], Awaitable[_OpReturnT]]],
     max_per_interval: int,
     interval_sec: int,
     max_delay: int | None = None,
-) -> list[_OpReturn]:
+) -> list[_OpReturnT]:
     """Naive semaphore-based rate limiting.
 
     For more performant and flexible limiting, see: <https://pypi.org/project/pyrate-limiter>
@@ -133,7 +133,7 @@ async def _rate_limited(
         max_delay: maximum runtime before quietly stopping
 
     Returns:
-        List[_OpReturn]: list of return values from operations up to max_delay time, if set
+        List[_OpReturnT]: list of return values from operations up to max_delay time, if set
 
     """
     if not operations:
@@ -142,7 +142,7 @@ async def _rate_limited(
     initial_start = time.monotonic()
     sem = asyncio.BoundedSemaphore(value=max_per_interval)
 
-    async def task(idx: int, op: Callable[[], Awaitable[_OpReturn]]) -> tuple[_OpReturn | None, float]:
+    async def task(idx: int, op: Callable[[], Awaitable[_OpReturnT]]) -> tuple[_OpReturnT | None, float]:
         """Return result. Rudimentary rate limiting by waiting to acquire the semaphore, then sleeping if necessary."""
         if max_delay and (time.monotonic() - initial_start) > max_delay:
             return (None, 0.0)
