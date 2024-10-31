@@ -56,7 +56,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/cli.py`                                                | 34         | 1       | 88       | 92.9%    |
 | `calcipy/code_tag_collector/__init__.py`                        | 5          | 2       | 0        | 60.0%    |
 | `calcipy/code_tag_collector/_collector.py`                      | 130        | 2       | 0        | 93.9%    |
-| `calcipy/collection.py`                                         | 33         | 0       | 53       | 97.5%    |
+| `calcipy/collection.py`                                         | 41         | 3       | 52       | 86.5%    |
 | `calcipy/dot_dict/__init__.py`                                  | 5          | 2       | 0        | 60.0%    |
 | `calcipy/dot_dict/_dot_dict.py`                                 | 6          | 0       | 0        | 100.0%   |
 | `calcipy/experiments/__init__.py`                               | 0          | 0       | 0        | 100.0%   |
@@ -84,7 +84,7 @@ poetry config pypi-token.pypi ...
 | `calcipy/tasks/tags.py`                                         | 18         | 1       | 0        | 90.9%    |
 | `calcipy/tasks/test.py`                                         | 39         | 1       | 2        | 90.9%    |
 | `calcipy/tasks/types.py`                                        | 11         | 0       | 0        | 93.3%    |
-| **Totals**                                                      | 1036       | 130     | 293      | 83.3%    |
+| **Totals**                                                      | 1044       | 133     | 292      | 83.0%    |
 
 Generated on: 2024-10-31
 <!-- {cte} -->

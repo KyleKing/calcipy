@@ -9,6 +9,7 @@
 
 ### Refactor
 
+- switch serialized BaseModel to dataclass
 - switch some BaseModels to plain dataclasses
 - sync Github Labeler
 
