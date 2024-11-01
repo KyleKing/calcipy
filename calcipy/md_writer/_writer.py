@@ -1,5 +1,7 @@
 """Markdown Machine."""
 
+from __future__ import annotations
+
 import json
 import re
 from pathlib import Path
@@ -8,9 +10,9 @@ from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
 
-from calcipy._md_helpers import _format_md_table
 from calcipy.file_search import find_project_files_by_suffix
 from calcipy.invoke_helpers import get_project_path
+from calcipy.markdown_table import format_table
 
 HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
 """Handler Lookup."""
@@ -98,7 +100,7 @@ class _ReplacementMachine:
                     lines.append(line)
                     self.change_end()
             else:
-                LOGGER.warning('Could not parse. Skipping:', line=line)
+                LOGGER.debug('Could not parse. Skipping:', line=line)
                 lines.append(line)
                 self.change_end()
         elif self.state == self.state_other:
@@ -183,7 +185,8 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
     )
     records = [{**_r, 'Coverage': f"{round(_r['Coverage'], 1)}%"} for _r in records]
 
-    lines_table = _format_md_table(headers=['File', *col_key_map], records=records)
+    delimiters = ['-', *(['-:'] * len(col_key_map))]
+    lines_table = format_table(headers=['File', *col_key_map], records=records, delimiters=delimiters).split('\n')
     short_date = coverage_data['meta']['timestamp'].split('T')[0]
     lines_table.extend(['', f'Generated on: {short_date}'])
     return lines_table

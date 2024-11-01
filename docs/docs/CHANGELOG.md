@@ -1,3 +1,34 @@
+## Unreleased
+
+### Fix
+
+- downgrade 'could not parse' to debug
+- export 'ns' for recipes
+
+### Refactor
+
+- restore T suffix for consistency
+
+## 4.2.0 (2024-10-31)
+
+### Feat
+
+- add markdown_tables.format_table
+
+### Fix
+
+- set minimum urllib3 version
+- use uvx instead of pipx
+- attempt to output tasks even when some dependencies are missing
+- correct typo in DeferedTask
+
+### Refactor
+
+- finish removing pydantic dependency
+- switch serialized BaseModel to dataclass
+- switch some BaseModels to plain dataclasses
+- sync Github Labeler
+
 ## 4.1.0 (2024-10-07)
 
 ### Feat

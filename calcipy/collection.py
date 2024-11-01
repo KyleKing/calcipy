@@ -1,7 +1,10 @@
 """Extend Invoke for Calcipy."""
 
+from __future__ import annotations
+
 import logging
 import os
+from dataclasses import dataclass, field
 from functools import wraps
 from pathlib import Path
 from types import ModuleType
@@ -11,36 +14,44 @@ from corallium.log import LOGGER, configure_logger
 from invoke.collection import Collection as InvokeCollection  # noqa: TID251
 from invoke.context import Context
 from invoke.tasks import Task
-from pydantic import BaseModel, Field, PositiveInt
 
 TASK_ARGS_ATTR = 'dev_args'
 TASK_KWARGS_ATTR = 'dev_kwargs'
 
 DeferredTask = Union[Callable, Task]  # type: ignore[type-arg]
 
+LOG_LOOKUP = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
 
-class GlobalTaskOptions(BaseModel):
+
+@dataclass
+class GlobalTaskOptions:
     """Global Task Options."""
 
-    working_dir: Path = Field(default_factory=Path.cwd)
+    working_dir: Path = field(default_factory=Path.cwd)
     """Working directory for the program to use globally."""
 
-    file_args: List[Path] = Field(default_factory=list)
+    file_args: List[Path] = field(default_factory=list)
     """List of Paths to modify."""
 
-    verbose: PositiveInt = Field(default=0, le=3)
+    verbose: int = field(default=0)
     """Verbosity level."""
 
     keep_going: bool = False
     """Continue task execution regardless of failure."""
+
+    def __post_init__(self) -> None:
+        """Validate dataclass."""
+        options_verbose = [*LOG_LOOKUP.keys()]
+        if self.verbose not in options_verbose:
+            error = f'verbose must be one of: {options_verbose}'
+            raise ValueError(error)
 
 
 # TODO: How to capture output?
 def _configure_task_logger(ctx: Context) -> None:  # pragma: no cover
     """Configure the logger based on task context."""
     verbose = ctx.config.gto.verbose
-    log_lookup = {3: logging.NOTSET, 2: logging.DEBUG, 1: logging.INFO, 0: logging.WARNING}
-    raw_log_level = log_lookup.get(verbose)
+    raw_log_level = LOG_LOOKUP.get(verbose)
     log_level = logging.ERROR if raw_log_level is None else raw_log_level
     configure_logger(log_level=log_level)
 
@@ -108,7 +119,7 @@ class Collection(InvokeCollection):
         config: Optional[Dict[str, Any]] = None,
         loaded_from: Optional[str] = None,
         auto_dash_names: Optional[bool] = None,
-    ) -> 'InvokeCollection':
+    ) -> InvokeCollection:
         """Extend search for a namespace, Task, or deferred task."""
         collection = super().from_module(
             module=module,

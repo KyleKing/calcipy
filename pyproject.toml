@@ -87,7 +87,7 @@ calcipy-test = "calcipy.scripts:start_test"
 calcipy-types = "calcipy.scripts:start_types"
 
 [tool.commitizen]
-version = "4.1.0"
+version = "4.3.0"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
@@ -98,7 +98,6 @@ extra_checks = true
 files = ["calcipy", "tests"]
 no_implicit_reexport = true
 plugins = [
-  "pydantic.mypy", # Most settings are from: https://pydantic-docs.helpmanual.io/mypy_plugin
 ]
 python_version = "3.9"
 show_column_numbers = true
@@ -113,11 +112,6 @@ warn_unused_ignores = true
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
 "Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
-
-[tool.pydantic-mypy]
-init_forbid_extra = true
-init_typed = true
-warn_required_dynamic_aliases = true
 
 [tool.pyright]
 include = ["calcipy", "tests"]

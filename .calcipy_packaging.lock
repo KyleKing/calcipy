@@ -1,12 +1,4 @@
 {
-    "annotated-types": {
-        "datetime": "2024-05-20T21:33:24.100469+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-05-20T21:33:24.100469+00:00",
-        "latest_version": "0.7.0",
-        "name": "annotated-types",
-        "version": "0.7.0"
-    },
     "anyio": {
         "datetime": "2024-09-21T10:33:27.050417+00:00",
         "domain": "https://pypi.org/pypi/{name}/json",
@@ -438,22 +430,6 @@
         "latest_version": "3.0.39",
         "name": "prompt-toolkit",
         "version": "3.0.36"
-    },
-    "pydantic": {
-        "datetime": "2024-09-17T15:59:51.827231+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-09-17T15:59:51.827231+00:00",
-        "latest_version": "2.9.2",
-        "name": "pydantic",
-        "version": "2.9.2"
-    },
-    "pydantic-core": {
-        "datetime": "2024-09-16T16:03:57.223800+00:00",
-        "domain": "https://pypi.org/pypi/{name}/json",
-        "latest_datetime": "2024-09-20T17:02:41.050755+00:00",
-        "latest_version": "2.24.0",
-        "name": "pydantic-core",
-        "version": "2.23.4"
     },
     "pygments": {
         "datetime": "2024-05-04T13:41:57.345734+00:00",
