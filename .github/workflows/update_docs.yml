@@ -36,4 +36,4 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Build and deploy documentation
-        run: poetry run calcipy-docs cl.write doc.build doc.deploy
+        run: uv run calcipy-docs cl.write doc.build doc.deploy
