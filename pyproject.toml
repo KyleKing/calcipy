@@ -33,7 +33,7 @@ name = "calcipy"
 readme = "docs/README.md"
 repository = "https://github.com/kyleking/calcipy"
 requires-python = ">=3.9.13"
-version = "4.1.0"
+version = "5.0.0"
 
 [project.optional-dependencies]
 ddict = [
@@ -104,10 +104,6 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
-"Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
-
 [tool.pyright]
 include = ["calcipy", "tests"]
 pythonVersion = "3.9"
@@ -175,9 +171,6 @@ known-first-party = ['calcipy']
 ]
 'scripts/*.py' = [
   'INP001', # File `scripts/*.py` is part of an implicit namespace package. Add an `__init__.py`.
-]
-'scripts/check_imports.py' = [
-  'F401', # imported but unused; consider adding to __all__ or using a redundant alias
 ]
 'tests/*.py' = [
   'ANN001', # Missing type annotation for function argument
