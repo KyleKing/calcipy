@@ -8,12 +8,12 @@ from calcipy.can_skip import can_skip
 @pytest.mark.parametrize(
     ('create_order', 'prerequisites', 'targets', 'expected'),
     [
-        (['poetry.lock', 'cache.json'], ['poetry.lock'], ['cache.json'], True),
-        (['cache.json', 'poetry.lock'], ['poetry.lock'], ['cache.json'], False),
-        (['poetry.lock', 'pyproject.toml', 'cache.json'], ['pyproject.toml', 'poetry.lock'], ['cache.json'], True),
-        (['poetry.lock', 'cache.json', 'pyproject.toml'], ['pyproject.toml', 'poetry.lock'], ['cache.json'], False),
-        (['poetry.lock', 'summary.txt', 'cache.json'], ['poetry.lock'], ['cache.json', 'summary.txt'], True),
-        (['summary.txt', 'poetry.lock', 'cache.json'], ['poetry.lock'], ['cache.json', 'summary.txt'], False),
+        (['uv.lock', 'cache.json'], ['uv.lock'], ['cache.json'], True),
+        (['cache.json', 'uv.lock'], ['uv.lock'], ['cache.json'], False),
+        (['uv.lock', 'pyproject.toml', 'cache.json'], ['pyproject.toml', 'uv.lock'], ['cache.json'], True),
+        (['uv.lock', 'cache.json', 'pyproject.toml'], ['pyproject.toml', 'uv.lock'], ['cache.json'], False),
+        (['uv.lock', 'summary.txt', 'cache.json'], ['uv.lock'], ['cache.json', 'summary.txt'], True),
+        (['summary.txt', 'uv.lock', 'cache.json'], ['uv.lock'], ['cache.json', 'summary.txt'], False),
     ],
 )
 def test_skip(fix_test_cache, create_order, prerequisites, targets, expected):

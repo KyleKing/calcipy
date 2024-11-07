@@ -168,7 +168,7 @@ requires-dist = [
     { name = "arrow", marker = "extra == 'tags'", specifier = ">=1.3.0" },
     { name = "beartype", specifier = ">=0.19.0" },
     { name = "commitizen", marker = "extra == 'doc'", specifier = ">=3.29.1" },
-    { name = "corallium", specifier = ">=2.0.1" },
+    { name = "corallium", specifier = ">=2.1.0" },
     { name = "griffe", marker = "extra == 'experimental'", specifier = ">=1.3.2" },
     { name = "invoke", specifier = ">=2.2.0" },
     { name = "mkdocs", marker = "extra == 'doc'", specifier = ">=1.6.1" },
@@ -350,7 +350,7 @@ wheels = [
 
 [[package]]
 name = "corallium"
-version = "2.0.1"
+version = "2.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beartype" },
@@ -358,9 +358,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/25/f5/fedda1561e89ab220cee99e3ef3e457ce42b4fe68bc0c866f9e4299286d9/corallium-2.0.1.tar.gz", hash = "sha256:7d45f31779d5d01d62612f7d3ddfc9bd0f94041182c0538717d7f5f64159e0e8", size = 14008 }
+sdist = { url = "https://files.pythonhosted.org/packages/e4/ea/20ea12cccdb037ec574dc9945c3e9bb697cb702e2130d0518639e6b7213f/corallium-2.1.0.tar.gz", hash = "sha256:c7d0248463140e3d3578607bde51121e80025a73b7e85e3cb1cb0f6793ad65f9", size = 14549 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4d/8c/fbffe60981a58d26fe75eb19d61533fd6f24d17abf55dfe9b0c8b41c4383/corallium-2.0.1-py3-none-any.whl", hash = "sha256:50e44abaf1f044372df3ee267fc591f88edc8641f56fad558f89e556f5bafa6a", size = 16067 },
+    { url = "https://files.pythonhosted.org/packages/98/ec/24a0fd0fbf6d289bcecff5ee5b267b45501677d2f75297335b5adad70e7f/corallium-2.1.0-py3-none-any.whl", hash = "sha256:c5f62c5edf0282c02c48796b5ccf5e37cf5f1c716fca4171e3bde809e075c168", size = 16597 },
 ]
 
 [[package]]
