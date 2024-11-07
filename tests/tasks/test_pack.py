@@ -12,7 +12,7 @@ from calcipy.tasks.pack import check_licenses, install_extras, lock, publish
     [
         (install_extras, {}, [call(
             'poetry install --sync --extras=ddict --extras=doc --extras=experimental --extras=lint'
-            ' --extras=nox --extras=stale --extras=tags --extras=test --extras=types',
+            ' --extras=nox --extras=tags --extras=test --extras=types',
         )]),
         (lock, {}, [call('poetry lock --no-update')]),
         (publish, {}, [

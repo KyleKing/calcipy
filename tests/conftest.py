@@ -3,30 +3,9 @@
 from pathlib import Path
 
 import pytest
-from beartype.typing import Dict, Union
 from invoke.context import MockContext
 
 from .configuration import TEST_TMP_CACHE, clear_test_cache
-
-
-@pytest.fixture(scope='module')
-def vcr_config() -> Dict[str, Union[str, bool, list[str]]]:
-    """Global configuration (https://github.com/kiwicom/pytest-recording) for `pytest-recording` (vcr).
-
-    Returns:
-        Dict: `pytest-recording` options
-
-    """
-    return {
-        # VCR-py configuration
-        #   Docs: https://vcrpy.readthedocs.io/en/latest/advanced.html
-        'filter_headers': ['authorization'],
-        'ignore_localhost': False,
-        # Pytest-Recording CLI Options
-        'allowed_hosts': '',
-        'block_network': True,
-        'record_mode': 'once',
-    }
 
 
 @pytest.fixture

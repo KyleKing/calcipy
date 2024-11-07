@@ -1,5 +1,11 @@
 ## Unreleased
 
+## 4.3.0 (2024-10-31)
+
+### Feat
+
+- add optional delimiters for alignment
+
 ### Fix
 
 - downgrade 'could not parse' to debug
