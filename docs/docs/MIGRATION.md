@@ -1,5 +1,25 @@
 # Migration Guide
 
+## `v5`
+
+The breaking changes include removing `stale` and `pack.check_license`
+
+### Speed Test
+
+After further reduction of dependencies, the CLI performance has continued to improve:
+
+```sh
+> poetry run pip freeze | wc -l
+79
+```
+
+```sh
+> hyperfine -m 20 --warmup 5 ./run
+Benchmark 1: ./run
+  Time (mean ± σ):     397.1 ms ±  12.2 ms    [User: 268.4 ms, System: 57.0 ms]
+  Range (min … max):   385.9 ms … 421.5 ms    20 runs
+```
+
 ## `v4`
 
 The total number of dependencies was reduce even further by replacing flake8, isort, and other tooling with ruff; fewer mkdocs plugins; and fewer steps in the `main` run task to speed up normal usage.
