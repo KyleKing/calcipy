@@ -82,7 +82,7 @@ calcipy-test = "calcipy.scripts:start_test"
 calcipy-types = "calcipy.scripts:start_types"
 
 [tool.commitizen]
-version = "4.3.0"
+version = "5.0.0"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
