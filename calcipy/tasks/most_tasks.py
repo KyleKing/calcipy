@@ -30,10 +30,6 @@ with suppress(RuntimeError):
 
     ns.add_collection(Collection.from_module(pack))
 with suppress(RuntimeError):
-    from . import stale
-
-    ns.add_collection(Collection.from_module(stale))
-with suppress(RuntimeError):
     from . import tags
 
     ns.add_collection(Collection.from_module(tags))

@@ -8,7 +8,7 @@ from invoke.tasks import Call
 from calcipy.cli import task
 from calcipy.collection import DeferredTask, _build_task
 
-from . import cl, doc, lint, nox, pack, stale, tags, test, types
+from . import cl, doc, lint, nox, pack, tags, test, types
 from .most_tasks import ns
 
 
@@ -71,9 +71,7 @@ _MAIN_TASKS = [
 _OTHER_TASKS = [
     lint.pre_commit.with_kwargs(no_update=True),  # pyright: ignore[reportFunctionMemberAccess]
     nox.noxfile.with_kwargs(session='tests'),  # pyright: ignore[reportFunctionMemberAccess]
-    pack.check_licenses,
     pack.lock,
-    stale.check_for_stale_packages,
     tags.collect_code_tags,
     test.check,  # Expected to fail for calcipy
 ]

@@ -5,12 +5,6 @@ from pprint import pprint
 from calcipy.invoke_helpers import get_doc_subdir, get_project_path
 
 try:
-    from calcipy.check_for_stale_packages import check_for_stale_packages
-except RuntimeError as exc:
-    if 'extras' not in str(exc):
-        raise
-
-try:
     from calcipy.code_tag_collector import write_code_tag_file
 except RuntimeError as exc:
     if 'extras' not in str(exc):
