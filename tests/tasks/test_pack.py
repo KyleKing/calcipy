@@ -4,7 +4,7 @@ import pytest
 
 from calcipy import can_skip
 from calcipy.tasks.executable_utils import python_dir
-from calcipy.tasks.pack import check_licenses, install_extras, lock, publish
+from calcipy.tasks.pack import install_extras, lock, publish
 
 
 @pytest.mark.parametrize(
@@ -19,7 +19,6 @@ from calcipy.tasks.pack import check_licenses, install_extras, lock, publish
             f'{python_dir()}/nox --error-on-missing-interpreters --session build_dist build_check',
             'poetry publish',
         ]),
-        (check_licenses, {}, ['licensecheck']),
     ],
 )
 def test_pack(ctx, task, kwargs, commands, monkeypatch):

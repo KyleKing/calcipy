@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Feat
+
+- remove 'stale' module and pytest-recording
+
 ## 4.3.0 (2024-10-31)
 
 ### Feat

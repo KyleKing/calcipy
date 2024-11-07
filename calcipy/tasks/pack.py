@@ -44,18 +44,6 @@ def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     run(ctx, cmd)
 
 
-@task()
-def check_licenses(ctx: Context) -> None:
-    """Check licenses for compatibility with `licensecheck`."""
-    res = run(ctx, 'which licensecheck', warn=True, hide=True)
-    if not res or res.exited == 1:
-        uvx_res = run(ctx, 'uvx licensecheck', warn=True)
-        if not uvx_res or uvx_res.exited == 1:
-            LOGGER.error('Failed to use `uv` to run licensecheck. See: https://docs.astral.sh/uv')
-    else:
-        run(ctx, 'licensecheck')
-
-
 # TODO: Add unit test
 @task(
     help={

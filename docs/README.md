@@ -91,7 +91,6 @@ Global Task Options:
 Subcommands:
 
   pack.bump-tag                  Experiment with bumping the git tag using `griffe` (experimental).
-  pack.check-licenses            Check licenses for compatibility with `licensecheck`.
   pack.install-extras            Run poetry install with all extras.
   pack.lock                      Ensure poetry.lock is  up-to-date.
   pack.publish                   Build the distributed format(s) and publish.
