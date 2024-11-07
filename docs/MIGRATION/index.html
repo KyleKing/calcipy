@@ -413,6 +413,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v5" class="md-nav__link">
+    <span class="md-ellipsis">
+      v5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speed-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speed Test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v4" class="md-nav__link">
     <span class="md-ellipsis">
       v4
@@ -423,7 +447,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#speed-test" class="md-nav__link">
+  <a href="#speed-test_1" class="md-nav__link">
     <span class="md-ellipsis">
       Speed Test
     </span>
@@ -474,7 +498,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#speed-test_1" class="md-nav__link">
+  <a href="#speed-test_2" class="md-nav__link">
     <span class="md-ellipsis">
       Speed Test
     </span>
@@ -1181,6 +1205,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v5" class="md-nav__link">
+    <span class="md-ellipsis">
+      v5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#speed-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Speed Test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v4" class="md-nav__link">
     <span class="md-ellipsis">
       v4
@@ -1191,7 +1239,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#speed-test" class="md-nav__link">
+  <a href="#speed-test_1" class="md-nav__link">
     <span class="md-ellipsis">
       Speed Test
     </span>
@@ -1242,7 +1290,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#speed-test_1" class="md-nav__link">
+  <a href="#speed-test_2" class="md-nav__link">
     <span class="md-ellipsis">
       Speed Test
     </span>
@@ -1292,10 +1340,22 @@
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">⚓︎</a></h1>
+<h2 id="v5"><code>v5</code><a class="headerlink" href="#v5" title="Permanent link">⚓︎</a></h2>
+<p>The breaking changes include removing <code>stale</code> and <code>pack.check_license</code></p>
+<h3 id="speed-test">Speed Test<a class="headerlink" href="#speed-test" title="Permanent link">⚓︎</a></h3>
+<p>After further reduction of dependencies, the CLI performance has continued to improve:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+<span class="linenos" data-linenos="2 "></span><span class="m">79</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
+<span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
+<span class="linenos" data-linenos="3 "></span><span class="w">  </span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">397</span>.1<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">12</span>.2<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">268</span>.4<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">57</span>.0<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">  </span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">385</span>.9<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">421</span>.5<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+</code></pre></div>
 <h2 id="v4"><code>v4</code><a class="headerlink" href="#v4" title="Permanent link">⚓︎</a></h2>
 <p>The total number of dependencies was reduce even further by replacing flake8, isort, and other tooling with ruff; fewer mkdocs plugins; and fewer steps in the <code>main</code> run task to speed up normal usage.</p>
 <p>The only breaking <a href="https://github.com/KyleKing/recipes/commit/b3fcf8136af77ccf1bd3ee1fb4297b79dd7e86ea#diff-4bf564fcd9dbaec9e9807f16f649791c1e333f89db8160ad715d3c0c09a1a65c">change impacted <code>recipes</code></a> when <code>write_autoformatted_md_sections</code> was renamed to <code>write_template_formatted_md_sections</code>.</p>
-<h3 id="speed-test">Speed Test<a class="headerlink" href="#speed-test" title="Permanent link">⚓︎</a></h3>
+<h3 id="speed-test_1">Speed Test<a class="headerlink" href="#speed-test_1" title="Permanent link">⚓︎</a></h3>
 <p>Following up on performance checks from the <code>v2</code> migration. The performance is comparable, but you will see savings in cache size and poetry install and when running <code>main</code> (<code>./run main</code> for Calcipy, currently takes ~20s)</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
 <span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
@@ -1320,7 +1380,7 @@
 <p>calcipy <code>v0</code> was built on <a href="https://pypi.org/project/doit/">doit</a> and thus required a <code>dodo.py</code> file. I began adding <code>cement</code> to support a separate CLI for <code>calcipy</code> installed with <code>pipx</code> or <code>uvx</code>, but that required a lot of boilerplate code. With <code>doit</code>, the string command needed to be complete at task evaluation rather than runtime, so globbing files couldn&rsquo;t be resolved lazily.</p>
 <h3 id="migration">Migration<a class="headerlink" href="#migration" title="Permanent link">⚓︎</a></h3>
 <p>While refactoring, the global configuration was mostly removed (<code>DoitGlobals</code>) along with a few tasks, but the main functionality is still present. Any project dependent on <code>calcipy</code> will need substantial changes. The easiest way to start migrating is to run <code>copier copy gh:KyleKing/calcipy_template .</code> for <a href="https://github.com/KyleKing/calcipy_template">calcipy_template</a></p>
-<h3 id="speed-test_1">Speed Test<a class="headerlink" href="#speed-test_1" title="Permanent link">⚓︎</a></h3>
+<h3 id="speed-test_2">Speed Test<a class="headerlink" href="#speed-test_2" title="Permanent link">⚓︎</a></h3>
 <p>It turns out that switching to <code>invoke</code> appears to have only saved 100ms</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
 <span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
