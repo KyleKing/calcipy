@@ -3,7 +3,7 @@
 from pathlib import Path
 
 from corallium import file_helpers  # Required for mocking read_pyproject
-from corallium.file_helpers import LOCK, PROJECT_TOML, if_found_unlink
+from corallium.file_helpers import PROJECT_TOML, get_lock, if_found_unlink
 from corallium.log import LOGGER
 from invoke.context import Context
 
@@ -15,7 +15,7 @@ from calcipy.invoke_helpers import run
 @task()
 def lock(ctx: Context) -> None:
     """Update package manager lock file."""
-    if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
+    if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[get_lock()]):
         return  # Exit early
 
     run(ctx, 'uv lock')
@@ -92,4 +92,4 @@ def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
     """
     from calcipy.experiments import sync_package_dependencies  # noqa: PLC0415
 
-    sync_package_dependencies.replace_versions(path_lock=LOCK)
+    sync_package_dependencies.replace_versions(path_lock=get_lock())

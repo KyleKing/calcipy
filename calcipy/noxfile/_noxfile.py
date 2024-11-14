@@ -37,7 +37,7 @@ from functools import lru_cache
 
 from beartype.typing import Dict, List, Union, cast
 from corallium import file_helpers  # Required for mocking read_pyproject
-from corallium.file_helpers import LOCK, get_tool_versions, read_package_name
+from corallium.file_helpers import get_lock, get_tool_versions, read_package_name
 from corallium.tomllib import tomllib
 from nox import Session as NoxSession
 from nox_uv.sessions import Session as NPSession
@@ -112,7 +112,7 @@ def _install_local(session: Union[NoxSession, NPSession]) -> None:  # pragma: no
     """
     if read_package_name() == 'calcipy':
         session = cast(NPSession, session)
-        lock_data = tomllib.loads(LOCK.read_text())
+        lock_data = tomllib.loads(get_lock().read_text())
         session.uv.installroot(extras=[*lock_data['extras']])  # First party extras
     else:
         extras = ['test']
