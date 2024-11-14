@@ -1,4 +1,8 @@
-"""Expriment with setting pyproject versions to latest lock file versions."""
+"""Experiment with setting pyproject versions to latest lock file versions.
+
+PLANNED: Currently only support poetry
+
+"""
 
 from pathlib import Path
 
@@ -9,16 +13,16 @@ from corallium.tomllib import tomllib
 def _collect_pyproject_versions(pyproject_text: str) -> dict[str, str]:
     """Return pyproject versions without version specification for possible replacement.
 
-    Documentation: https://docs.astral.sh/uv/concepts/dependencies/#dependency-specifiers-pep-508
+    Documentation: https://python-poetry.org/docs/dependency-specification
 
     """
     pyproject = tomllib.loads(pyproject_text)
 
     pyproject_versions: dict[str, str] = {}
     # for section in
-    pyproject_groups = pyproject['tool']['uv'].get('group', {})
+    pyproject_groups = pyproject['tool']['poetry'].get('group', {})
     groups = [group.get('dependencies', []) for group in pyproject_groups.values()]
-    for deps in [pyproject['tool']['uv']['dependencies'], *groups]:
+    for deps in [pyproject['tool']['poetry']['dependencies'], *groups]:
         for name, value in deps.items():
             if name == 'python':
                 continue
@@ -64,17 +68,17 @@ def _replace_pyproject_versions(
 
 
 def replace_versions(path_lock: Path) -> None:
-    """Read packages from uv.lock and update the versions in pyproject.toml.
+    """Read packages from poetry.lock and update the versions in pyproject.toml.
 
     Args:
-        path_lock: Path to the uv.lock file
+        path_lock: Path to the poetry.lock file
 
     Raises:
-        NotImplementedError: if a lock file other that the uv lock file is used
+        NotImplementedError: if a lock file other that the poetry lock file is used
 
     """
-    if path_lock.name != 'uv.lock':
-        msg = f'Expected a path to a "uv.lock" file. Instead, received: "{path_lock.name}"'
+    if path_lock.name != 'poetry.lock':
+        msg = f'Expected a path to a "poetry.lock" file. Instead, received: "{path_lock.name}"'
         raise NotImplementedError(msg)
 
     lock = tomllib.loads(path_lock.read_text(encoding='utf-8', errors='ignore'))
