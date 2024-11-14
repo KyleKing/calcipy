@@ -5,11 +5,10 @@
 ```sh
 git clone https://github.com/kyleking/calcipy.git
 cd calcipy
-poetry install --sync
-poetry run calcipy-pack pack.install-extras
+uv sync --all-extras
 
 # See the available tasks
-poetry run calcipy
+uv run calcipy
 # Or use a local 'run' file (so that 'calcipy' can be extended)
 ./run
 
@@ -22,20 +21,15 @@ poetry run calcipy
 
 ## Publishing
 
-For testing, create an account on [TestPyPi](https://test.pypi.org/legacy/). Replace `...` with the API token generated on TestPyPi or PyPi respectively
+For testing, create an account on [TestPyPi](https://test.pypi.org/legacy). Either set 'UV_PUBLISH_TOKEN' or input the generated token when prompted by the command.
 
 ```sh
-poetry config repositories.testpypi https://test.pypi.org/legacy/
-poetry config pypi-token.testpypi ...
-
 ./run main pack.publish --to-test-pypi
-# If you didn't configure a token, you will need to provide your username and password to publish
 ```
 
 To publish to the real PyPi
 
 ```sh
-poetry config pypi-token.pypi ...
 ./run release
 
 # Or for a pre-release

@@ -11,7 +11,7 @@ from calcipy.tasks.pack import install_extras, lock, publish
     [
         (install_extras, {}, [call('uv sync --all-extras')]),
         (lock, {}, [call('uv lock')]),
-        (publish, {}, ['uv build', 'uv publish']),
+        (publish, {}, ['uv build --no-sources', 'uv publish']),
     ],
 )
 def test_pack(ctx, task, kwargs, commands, monkeypatch):

@@ -1,7 +1,9 @@
 """Packaging CLI."""
 
+from os import getenv
 from pathlib import Path
 
+import keyring
 from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import PROJECT_TOML, get_lock, if_found_unlink
 from corallium.log import LOGGER
@@ -27,12 +29,36 @@ def install_extras(ctx: Context) -> None:
     run(ctx, 'uv sync --all-extras')
 
 
+def _configure_uv_env_credentials(*, index_name: str, interactive: bool) -> dict[str, str]:
+    username = getenv('UV_PUBLISH_USERNAME')
+    password = getenv('UV_PUBLISH_PASSWORD')
+    if username and password:
+        return {
+            'UV_PUBLISH_USERNAME': username,
+            'UV_PUBLISH_PASSWORD': password,
+        }
+
+    def _get_token() -> str:
+        """Return token stored in keyring."""
+        kwargs = {'service_name': 'calcipy', 'username': f'uv-{index_name}-token'}
+        if token := keyring.get_password(**kwargs):
+            return token
+        if interactive and (new_token := input('PyPi Publish Token: ')):
+            keyring.set_password(**kwargs, password=new_token)
+            return new_token
+        raise RuntimeError("No Token for PyPi in 'UV_PUBLISH_TOKEN' or keyring")
+
+    token = getenv('UV_PUBLISH_TOKEN')
+    return {'UV_PUBLISH_USERNAME': '__token__', 'UV_PUBLISH_TOKEN': token or _get_token()}
+
+
 @task(
     help={
         'to_test_pypi': 'Publish to the TestPyPi repository',
+        'no_interactive': 'Do not prompt for credentials when not found',
     },
 )
-def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
+def publish(ctx: Context, *, to_test_pypi: bool = False, no_interactive: bool = False) -> None:
     """Build the distributed format(s) and publish.
 
     Alternatively, configure Github Actions to use 'Trusted Publisher'
@@ -40,12 +66,18 @@ def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
 
     """
     if_found_unlink(Path('dist'))
-    run(ctx, 'uv build')
+    run(ctx, 'uv build --no-sources')
+
+    keyring.set_password('system', 'username', 'password')
+    keyring.get_password('system', 'username')
 
     cmd = 'uv publish'
+    index_name = 'PyPi'
     if to_test_pypi:
         cmd += ' --publish-url https://test.pypi.org/legacy/'
-    run(ctx, cmd)
+        index_name = 'Test PyPi'
+    env = _configure_uv_env_credentials(index_name=index_name, interactive=not no_interactive)
+    run(ctx, cmd, env=env)
 
 
 # TODO: Add unit test
