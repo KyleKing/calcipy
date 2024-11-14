@@ -33,23 +33,10 @@ runs:
         done
       shell: bash
 
-    # - name: Debug UV
-    #   run: |
-    #     uv cache dir
-    #     uv tool list
-    #     uv tool update-shell
-    #   shell: bash
-
     - name: Setup Python ${{ inputs.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.python-version }}
-
-    # - name: Debug uv
-    #   run: |
-    #     uv debug info
-    #     uv config --list
-    #   shell: bash
 
     - name: Install Project and Minimum Subset of Dependencies
       run: uv sync --all-extras
