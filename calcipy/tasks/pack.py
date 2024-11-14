@@ -1,7 +1,9 @@
 """Packaging CLI."""
 
+from pathlib import Path
+
 from corallium import file_helpers  # Required for mocking read_pyproject
-from corallium.file_helpers import LOCK, PROJECT_TOML
+from corallium.file_helpers import LOCK, PROJECT_TOML, if_found_unlink
 from corallium.log import LOGGER
 from invoke.context import Context
 
@@ -9,24 +11,20 @@ from calcipy import can_skip  # Required for mocking can_skip.can_skip
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 
-from .executable_utils import python_dir
-
 
 @task()
 def lock(ctx: Context) -> None:
-    """Ensure poetry.lock is  up-to-date."""
+    """Update package manager lock file."""
     if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
         return  # Exit early
 
-    run(ctx, 'poetry lock --no-update')
+    run(ctx, 'uv lock')
 
 
 @task(pre=[lock])
 def install_extras(ctx: Context) -> None:
-    """Run poetry install with all extras."""
-    poetry_config = file_helpers.read_pyproject()['tool']['poetry']
-    extras = (poetry_config.get('extras') or {}).keys()
-    run(ctx, ' '.join(['poetry install --sync', *[f'--extras={ex}' for ex in extras]]))
+    """Run uv install with all extras."""
+    run(ctx, 'uv sync --all-extras')
 
 
 @task(
@@ -35,12 +33,18 @@ def install_extras(ctx: Context) -> None:
     },
 )
 def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
-    """Build the distributed format(s) and publish."""
-    run(ctx, f'{python_dir()}/nox --error-on-missing-interpreters --session build_dist build_check')
+    """Build the distributed format(s) and publish.
 
-    cmd = 'poetry publish'
+    Alternatively, configure Github Actions to use 'Trusted Publisher'
+    https://docs.pypi.org/trusted-publishers/adding-a-publisher
+
+    """
+    if_found_unlink(Path('dist'))
+    run(ctx, 'uv build')
+
+    cmd = 'uv publish'
     if to_test_pypi:
-        cmd += ' --repository testpypi'
+        cmd += ' --publish-url https://test.pypi.org/legacy/'
     run(ctx, cmd)
 
 
@@ -49,7 +53,7 @@ def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     help={
         'tag': 'Last tag, can be provided with `--tag="$(git tag -l "v*" | sort | tail -n 1)"`',
         'tag_prefix': 'Optional tag prefix, such as "v"',
-        'pkg_name': 'Optional package name. If not provided, will read the poetry pyproject.toml file',
+        'pkg_name': 'Optional package name. If not provided, will read the uv pyproject.toml file',
     },
 )
 def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = '') -> None:  # noqa: ARG001
@@ -65,8 +69,8 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
     if not tag:
         raise ValueError('tag must not be empty')
     if not pkg_name:
-        poetry_config = file_helpers.read_pyproject()['tool']['poetry']
-        pkg_name = poetry_config['name']
+        uv_config = file_helpers.read_pyproject()['tool']['uv']
+        pkg_name = uv_config['name']
 
     from calcipy.experiments import bump_programmatically  # noqa: PLC0415
 
@@ -81,9 +85,9 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
 # TODO: Add unit test
 @task(post=[lock])
 def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
-    """Experiment with setting the pyproject.toml dependencies to the version from poetry.lock (experimental).
+    """Experiment with setting the pyproject.toml dependencies to the version from uv.lock (experimental).
 
-    Uses the current working directory and should be run after `poetry update`.
+    Uses the current working directory and should be run after `uv update`.
 
     """
     from calcipy.experiments import sync_package_dependencies  # noqa: PLC0415
