@@ -28,7 +28,7 @@ def has_public_code(line: str) -> bool:
 
 
 _config = tomllib.loads(Path('pyproject.toml').read_text(encoding='utf-8'))
-_pkg_name = _config['tool']['uv']['name']
+_pkg_name = _config['project']['name']
 src = Path(_pkg_name)
 for path in sorted(src.rglob('*.py')):
     for line in path.read_text().split('\n'):

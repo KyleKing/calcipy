@@ -56,29 +56,17 @@ def _get_pythons() -> List[str]:
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
-def _retrieve_keys(source: Dict, keys: List[str]) -> Dict:  # type: ignore[type-arg]
-    """Return nested dictionary keys unless not found."""
-    result = source
-    for key in keys:
-        if not (result := result.get(key)):  # type: ignore[assignment]
-            return {}
-    return result
-
-
 def _get_uv_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
     """Return a dictionary of all dev-dependencies from the 'pyproject.toml'."""
-    uv_config = file_helpers.read_pyproject()['tool']['uv']
-
-    def normalize_dep(value: Union[str, Dict]) -> Dict:  # type: ignore[type-arg]
-        return {'version': value} if isinstance(value, str) else value
-
-    return {
-        key: normalize_dep(value)
-        for key, value in {
-            **_retrieve_keys(uv_config, ['dev', 'dependencies']),
-            **_retrieve_keys(uv_config, ['group', 'dev', 'dependencies']),
-        }.items()
-    }
+    result = {}
+    extras = file_helpers.read_pyproject()['project'].get('optional-dependencies', {})
+    for deps in extras.values():
+        for dep in deps:
+            name, constraint = dep.split(' ', maxsplit=1)
+            if '=' in name:
+                raise ValueError('Excepted a space between dependency name and constraint')
+            result[name] = {'version': constraint}
+    return result
 
 
 @lru_cache(maxsize=1)

@@ -101,8 +101,7 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
     if not tag:
         raise ValueError('tag must not be empty')
     if not pkg_name:
-        uv_config = file_helpers.read_pyproject()['tool']['uv']
-        pkg_name = uv_config['name']
+        pkg_name = file_helpers.read_pyproject()['project']['name']
 
     from calcipy.experiments import bump_programmatically  # noqa: PLC0415
 
