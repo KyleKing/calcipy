@@ -23,6 +23,7 @@ runs:
       uses: astral-sh/setup-uv@v3
       with:
         version: ${{ inputs.uv-version }}
+        enable-cache: true
 
     - name: Install '${{ inputs.python-tools }}'
       if: ${{ inputs.python-tools }}
@@ -43,11 +44,6 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.python-version }}
-    - uses: actions/cache@v4
-      id: cache-uv
-      with:
-        path: ~/.cache/uv
-        key: ${{ inputs.os }}-python-${{ inputs.python-version }}-uv
 
     # - name: Debug uv
     #   run: |
