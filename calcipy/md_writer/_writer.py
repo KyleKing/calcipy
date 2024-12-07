@@ -222,7 +222,7 @@ def write_template_formatted_md_sections(
     paths_md: Optional[List[Path]] = None,
 ) -> None:
     """Populate the template-formatted sections of markdown files with user-configured logic."""
-    _lookup: HandlerLookupT = handler_lookup or {
+    lookup: HandlerLookupT = handler_lookup or {
         'COVERAGE ': _handle_coverage,
         'SOURCE_FILE=': _handle_source_file,
     }
@@ -230,5 +230,5 @@ def write_template_formatted_md_sections(
     paths = paths_md or find_project_files_by_suffix(get_project_path()).get('md') or []
     for path_md in paths:
         LOGGER.text_debug('Processing', path_md=path_md)
-        if md_lines := _ReplacementMachine().parse(read_lines(path_md), _lookup, path_md):
+        if md_lines := _ReplacementMachine().parse(read_lines(path_md), lookup, path_md):
             path_md.write_text('\n'.join(md_lines) + '\n', encoding='utf-8')

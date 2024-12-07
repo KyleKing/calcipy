@@ -34,19 +34,17 @@ repos:
       - id: end-of-file-fixer
         exclude: \.copier-answers\.yml|__snapshots__/.*\.ambr
       - id: fix-byte-order-marker
-      - id: fix-encoding-pragma
-        args: [--remove]
       - id: forbid-new-submodules
       - id: mixed-line-ending
         args: [--fix=auto]
       - id: trailing-whitespace
         exclude: __snapshots__/.*\.ambr
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.29.1
+    rev: v4.1.0
     hooks:
       - id: commitizen
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.17
+    rev: 0.7.19
     hooks:
       - id: mdformat
         additional_dependencies:
@@ -73,16 +71,18 @@ repos:
         types_or: [html, javascript, json, shell, yaml]
         stages: ["pre-commit"]
   - repo: https://github.com/pappasam/toml-sort
-    rev: v0.23.1
+    rev: v0.24.2
     hooks:
       - id: toml-sort-fix
         exclude: uv\.lock
         stages: ["pre-commit"]
   - repo: https://github.com/KyleKing/calcipy
-    rev: 4.1.0
+    rev: 5.0.0
     hooks:
       - id: copier-forbidden-files
       - id: lint-fix
         stages: ["pre-commit"]
+        additional_dependencies:
+          - ruff>=0.8.0
       - id: tags
         stages: ["pre-push"]
