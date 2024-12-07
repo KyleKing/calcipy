@@ -68,28 +68,28 @@ def start_program(
 
     """
     # Manipulate 'sys.argv' to hide arguments that invoke can't parse
-    gto = GlobalTaskOptions()
+    lgto = GlobalTaskOptions()
     sys_argv: List[str] = sys.argv[:1]
     last_argv = ''
     for argv in sys.argv[1:]:
         if not last_argv.startswith('-') and Path(argv).is_file():
-            gto.file_args.append(Path(argv))
+            lgto.file_args.append(Path(argv))
         # Check for CLI flags
         elif argv in {'-v', '-vv', '-vvv', '--verbose'}:
-            gto.verbose = argv.count('v')
+            lgto.verbose = argv.count('v')
         elif argv == '--keep-going':
-            gto.keep_going = True
+            lgto.keep_going = True
         # Check for CLI arguments with values
         elif last_argv == '--working-dir':
-            gto.working_dir = Path(argv).resolve()
+            lgto.working_dir = Path(argv).resolve()
         elif argv != '--working-dir':
             sys_argv.append(argv)
         last_argv = argv
-    gto.file_args = [_f if _f.is_absolute() else Path.cwd() / _f for _f in gto.file_args]
+    lgto.file_args = [_f if _f.is_absolute() else Path.cwd() / _f for _f in lgto.file_args]
     sys.argv = sys_argv
 
     class _CalcipyConfig(CalcipyConfig):
-        gto: GlobalTaskOptions = gto
+        gto: GlobalTaskOptions = lgto
 
     if module and collection:
         raise ValueError('Only one of collection or module can be specified')

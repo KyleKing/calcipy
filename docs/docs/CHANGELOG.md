@@ -1,7 +1,14 @@
 ## Unreleased
 
+### Fix
+
+- partial revert of copier-update
+
+## 5.0.0 (2024-11-07)
+
 ### Feat
 
+- remove licensecheck
 - remove 'stale' module and pytest-recording
 
 ## 4.3.0 (2024-10-31)
