@@ -139,8 +139,6 @@ target-version = 'py39'
 ignore = [
   'ANN002', # Missing type annotation for `*args`
   'ANN003', # Missing type annotation for `**kwargs`
-  'ANN101', # Missing type annotation for `self` in method (automatically inferred)
-  'ANN102', # Missing type annotation for `cls` in classmethod (automatically inferred)
   'ANN401', # Dynamically typed expressions (typing.Any) are disallowed in `pop_key`
   'BLE001', # Do not catch blind exception: `Exception`
   'CPY001', # Missing copyright notice at top of file
@@ -153,9 +151,9 @@ ignore = [
   'FIX002', # Line contains TODO
   'FIX004', # Line contains HACK
   'PLR0913', # Too many arguments in function definition (6 > 5)
-  'TCH001', # Move application import `tail_jsonl.config.Config` into a type-checking block (Conflicts with Beartype)
-  'TCH002', # Move third-party import `rich.console.Console` into a type-checking block (Conflicts with Beartype)
-  'TCH003', # Move standard library import `argparse` into a type-checking block (Conflicts with Beartype)
+  'TC001', # Move application import `tail_jsonl.config.Config` into a type-checking block (Conflicts with Beartype)
+  'TC002', # Move third-party import `rich.console.Console` into a type-checking block (Conflicts with Beartype)
+  'TC003', # Move standard library import `argparse` into a type-checking block (Conflicts with Beartype)
   'TD001', # Invalid TODO tag: `FIXME`
   'TD002', # Missing author in TODO; try: `# TODO(<author_name>): ...`
   'TD003', # Missing issue link on the line following this TODO
@@ -173,12 +171,11 @@ inline-quotes = 'single'
 [tool.ruff.lint.flake8-tidy-imports.banned-api]
 'invoke.collection.Collection'.msg = 'Use calcipy.collection.Collection instead.'
 'invoke.tasks.task'.msg = 'Use calcipy.cli.task instead.'
-'typing.Callable'.msg = 'Use beartype.typing.* instead.'
-'typing.Dict'.msg = 'Use beartype.typing.* instead.'
-'typing.List'.msg = 'Use beartype.typing.* instead.'
-'typing.Optional'.msg = 'Use beartype.typing.* instead.'
-'typing.Protocol'.msg = 'Use beartype.typing.* instead.'
-'typing.TypeVar'.msg = 'Use beartype.typing.* instead.'
+'typing.Callable'.msg = 'Use "from collections.abc" instead.'
+'typing.Dict'.msg = 'Use "from __future__ import annotations"'
+'typing.List'.msg = 'Use "from __future__ import annotations"'
+'typing.Optional'.msg = 'Use "from __future__ import annotations"'
+'typing.Protocol'.msg = 'Use "from beartype.typing" instead.'
 
 [tool.ruff.lint.isort]
 known-first-party = ['calcipy']
