@@ -82,7 +82,5 @@ repos:
       - id: copier-forbidden-files
       - id: lint-fix
         stages: ["pre-commit"]
-        additional_dependencies:
-          - ruff>=0.8.0
       - id: tags
         stages: ["pre-push"]
