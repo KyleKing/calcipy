@@ -71,7 +71,7 @@ pytest-randomly = {optional = true, version = ">=3.15.0"} # test
 pytest-watcher = {optional = true, version = ">=0.4.3"} # test
 python-box = {optional = true, version = ">=7.2.0"} # ddict
 pyyaml = {optional = true, version = ">=6.0.2"} # docs
-ruff = {optional = true, version = ">=0.6.9"} # lint
+ruff = {optional = true, version = ">=0.8.2"} # lint
 semver = {optional = true, version = ">=3.0.2"} # experimental
 virtualenv = {optional = true, version = ">=20.26.6"} # tags: nox. Prevents 'scripts' KeyError with Python 3.12
 
