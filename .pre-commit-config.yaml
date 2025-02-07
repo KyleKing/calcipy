@@ -5,7 +5,7 @@
 # pre-commit run --all-files mdformat
 # pre-commit run --all-files --hook-stage commit
 # pre-commit run --all-files --hook-stage push
-# uv run calcipy lint.pre-commit --no-update
+# .venv/bin/calcipy lint.pre-commit --no-update
 #
 # See https://pre-commit.com for more information
 #  and https://pre-commit.com/hooks.html for more hooks

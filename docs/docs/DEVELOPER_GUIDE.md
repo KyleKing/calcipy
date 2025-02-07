@@ -8,7 +8,8 @@ cd calcipy
 uv sync --all-extras
 
 # See the available tasks
-uv run calcipy
+source .venv/bin/activate
+calcipy
 # Or use a local 'run' file (so that 'calcipy' can be extended)
 ./run
 
@@ -17,6 +18,15 @@ uv run calcipy
 
 # Make code changes and run specific tasks as needed:
 ./run lint.fix test
+```
+
+### Maintenance
+
+Dependency upgrades can be accomplished with:
+
+```sh
+uv lock --upgrade
+uv sync --all-extras
 ```
 
 ## Publishing

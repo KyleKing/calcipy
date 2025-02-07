@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from itertools import starmap
 from typing import Any
 
 
@@ -49,7 +48,7 @@ def format_table(
 
     lines = [
         join(pad(headers)),
-        join(starmap(expand_delimiters, zip(delimiters or ['-'] * len(headers), widths)), ''),
+        join(map(expand_delimiters, delimiters or ['-'] * len(headers), widths), ''),
         *[join(pad(row)) for row in table],
     ]
     return '\n'.join(lines)

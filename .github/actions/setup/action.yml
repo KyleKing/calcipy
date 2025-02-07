@@ -10,8 +10,8 @@ inputs:
     description: List of Python packages installed as CLI tools by uv
     default: ""
   uv-version:
-    description: Astral/uv version
-    default: 0.4.30
+    description: Astral/uv version. Defers to `[tool.uv].required-version` in `pyproject.toml`
+    default: ""
   python-version:
     description: Python version
     required: true
@@ -20,10 +20,11 @@ runs:
   using: composite
   steps:
     - name: Install 'uv==%{{ inputs.uv-version }}'
-      uses: astral-sh/setup-uv@v3
+      uses: astral-sh/setup-uv@v5
       with:
-        version: ${{ inputs.uv-version }}
         enable-cache: true
+        python-version: ${{ inputs.python-version }}
+        version: ${{ inputs.uv-version }}
 
     - name: Install '${{ inputs.python-tools }}'
       if: ${{ inputs.python-tools }}
@@ -32,11 +33,6 @@ runs:
           uv tool install $tool
         done
       shell: bash
-
-    - name: Setup Python ${{ inputs.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ inputs.python-version }}
 
     - name: Install Project and Minimum Subset of Dependencies
       run: uv sync --all-extras
