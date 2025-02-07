@@ -5,7 +5,7 @@ from pathlib import Path
 
 import keyring
 from corallium import file_helpers  # Required for mocking read_pyproject
-from corallium.file_helpers import PROJECT_TOML, get_lock, if_found_unlink
+from corallium.file_helpers import PROJECT_TOML, delete_dir, get_lock
 from corallium.log import LOGGER
 from invoke.context import Context
 
@@ -37,13 +37,13 @@ def _configure_uv_env_credentials(*, index_name: str, interactive: bool) -> dict
         kwargs = {'service_name': 'calcipy', 'username': f'uv-{index_name}-token'}
         if token := keyring.get_password(**kwargs):
             return token
-        if interactive and (new_token := input('PyPi Publish Token: ')):
+        if interactive and (new_token := input('PyPi Publish Token: ')):  # pragma: no cover
             keyring.set_password(**kwargs, password=new_token)
             return new_token
         raise RuntimeError("No Token for PyPi in 'UV_PUBLISH_TOKEN' or keyring")
 
     token = getenv('UV_PUBLISH_TOKEN')
-    return {'UV_PUBLISH_USERNAME': '__token__', 'UV_PUBLISH_TOKEN': token or _get_token()}
+    return {'UV_PUBLISH_TOKEN': token or _get_token()}
 
 
 @task(
@@ -59,7 +59,7 @@ def publish(ctx: Context, *, to_test_pypi: bool = False, no_interactive: bool = 
     https://docs.pypi.org/trusted-publishers/adding-a-publisher
 
     """
-    if_found_unlink(Path('dist'))
+    delete_dir(Path('dist'))
     run(ctx, 'uv build --no-sources')
 
     keyring.set_password('system', 'username', 'password')

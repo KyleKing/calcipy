@@ -1,8 +1,22 @@
 ## Unreleased
 
+### Feat
+
+- add keyring for PyPi credential storage
+- remove nox build and check
+
 ### Fix
 
-- partial revert of copier-update
+- resolve uv migration issues
+- uv uses 'project' rather than 'tool.poetry'
+- undo incomplete uv migration for sync dependencies
+- use dynamic get_lock
+
+### Refactor
+
+- remove pack.install-extras
+- begin replacing usage of poetry with uv
+- continue replacing poetry steps with uv equivalent
 
 ## 5.0.0 (2024-11-07)
 
@@ -31,6 +45,7 @@
 ### Feat
 
 - add markdown_tables.format_table
+- switch to uv
 
 ### Fix
 
