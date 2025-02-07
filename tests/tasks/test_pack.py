@@ -3,13 +3,12 @@ from unittest.mock import call
 import pytest
 
 from calcipy import can_skip
-from calcipy.tasks.pack import install_extras, lock, publish
+from calcipy.tasks.pack import lock, publish
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (install_extras, {}, [call('uv sync --all-extras')]),
         (lock, {}, [call('uv lock')]),
         (publish, {}, ['uv build --no-sources', 'uv publish']),
     ],

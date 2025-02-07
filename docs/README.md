@@ -91,7 +91,6 @@ Global Task Options:
 Subcommands:
 
   pack.bump-tag                  Experiment with bumping the git tag using `griffe` (experimental).
-  pack.install-extras            Run uv install with all extras.
   pack.lock                      Update package manager lock file.
   pack.publish                   Build the distributed format(s) and publish.
   pack.sync-pyproject-versions   Experiment with setting the pyproject.toml dependencies to the version from uv.lock (experimental).

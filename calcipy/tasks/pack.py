@@ -23,12 +23,6 @@ def lock(ctx: Context) -> None:
     run(ctx, 'uv lock')
 
 
-@task(pre=[lock])
-def install_extras(ctx: Context) -> None:
-    """Run uv install with all extras."""
-    run(ctx, 'uv sync --all-extras')
-
-
 def _configure_uv_env_credentials(*, index_name: str, interactive: bool) -> dict[str, str]:
     username = getenv('UV_PUBLISH_USERNAME')
     password = getenv('UV_PUBLISH_PASSWORD')
