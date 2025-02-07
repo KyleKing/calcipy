@@ -76,11 +76,11 @@ repos:
       - id: toml-sort-fix
         exclude: uv\.lock
         stages: ["pre-commit"]
-  - repo: https://github.com/KyleKing/calcipy
-    rev: 5.0.0
-    hooks:
-      - id: copier-forbidden-files
-      - id: lint-fix
-        stages: ["pre-commit"]
-      - id: tags
-        stages: ["pre-push"]
+  # - repo: https://github.com/KyleKing/calcipy
+  #   rev: 5.0.0
+  #   hooks:
+  #     - id: copier-forbidden-files
+  #     - id: lint-fix
+  #       stages: ["pre-commit"]
+  #     - id: tags
+  #       stages: ["pre-push"]
