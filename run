@@ -1,4 +1,6 @@
 #!/bin/bash -e
 
-# shellcheck disable=SC2048
-.venv/bin/calcipy -v $*
+source .venv/bin/activate
+
+# shellcheck disable=SC2048,SC2086
+calcipy -v $*
