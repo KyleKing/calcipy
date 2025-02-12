@@ -139,7 +139,6 @@ lint = [
 ]
 nox = [
     { name = "nox" },
-    { name = "virtualenv" },
 ]
 tags = [
     { name = "arrow" },
@@ -170,7 +169,7 @@ requires-dist = [
     { name = "arrow", marker = "extra == 'tags'", specifier = ">=1.3.0" },
     { name = "beartype", specifier = ">=0.19.0" },
     { name = "commitizen", marker = "extra == 'doc'", specifier = ">=3.29.1" },
-    { name = "corallium", specifier = ">=2.1.0" },
+    { name = "corallium", specifier = ">=2.1.1" },
     { name = "griffe", marker = "extra == 'experimental'", specifier = ">=1.3.2" },
     { name = "invoke", specifier = ">=2.2.0" },
     { name = "keyring", specifier = ">=25.5.0" },
@@ -190,7 +189,6 @@ requires-dist = [
     { name = "pyyaml", marker = "extra == 'tags'", specifier = ">=6.0.2" },
     { name = "ruff", marker = "extra == 'lint'", specifier = ">=0.8.2" },
     { name = "semver", marker = "extra == 'experimental'", specifier = ">=3.0.2" },
-    { name = "virtualenv", marker = "extra == 'nox'", specifier = ">=20.26.6" },
 ]
 
 [package.metadata.requires-dev]
