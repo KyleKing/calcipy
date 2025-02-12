@@ -33,7 +33,7 @@ maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
 repository = "https://github.com/kyleking/calcipy"
-requires-python = ">=3.9.6"
+requires-python = ">=3.9.13"
 version = "5.0.0"
 
 [project.optional-dependencies]
