@@ -27,9 +27,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Run static linters
-        run: |
-          .venv\Scripts\activate || source .venv/bin/activate || true
-          calcipy-lint lint.check
+        run: uv run calcipy-lint lint.check
 
   test:
     runs-on: ${{ matrix.os }}
@@ -45,9 +43,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Run test
-        run: |
-          .venv\Scripts\activate || source .venv/bin/activate || true
-          calcipy-test test.pytest
+        run: uv run calcipy-test test.pytest
 
   typecheck:
     runs-on: ${{ matrix.os }}
@@ -63,9 +59,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Run typecheck
-        run: |
-          .venv\Scripts\activate || source .venv/bin/activate || true
-          calcipy-types types.mypy
+        run: uv run calcipy-types types.mypy
 
       # https://github.com/jakebailey/pyright-action/blob/ea37d1c67b7fc90ab9ab4571114e203b313152a2/README.md#use-with-a-virtualenv
       - name: Add Virtual Environment to Path for pyright
