@@ -1,4 +1,8 @@
-"""Expriment with setting pyproject versions to latest lock file versions."""
+"""Experiment with setting pyproject versions to latest lock file versions.
+
+PLANNED: Currently only support poetry
+
+"""
 
 from pathlib import Path
 

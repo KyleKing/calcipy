@@ -14,15 +14,15 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (task_pytest, {}, [f'{python_dir()}/pytest ./tests {_COV}']),
-        (task_pytest, {'keyword': 'test'}, [f'{python_dir()}/pytest ./tests {_COV} -k "test"']),
-        (task_pytest, {'marker': _MARKERS}, [f'{python_dir()}/pytest ./tests {_COV} -m "{_MARKERS}"']),
-        (watch, {'marker': _MARKERS}, [f'{python_dir()}/ptw . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
+        (task_pytest, {}, [f'{python_dir() / "pytest"} ./tests {_COV}']),
+        (task_pytest, {'keyword': 'test'}, [f'{python_dir() / "pytest"} ./tests {_COV} -k "test"']),
+        (task_pytest, {'marker': _MARKERS}, [f'{python_dir() / "pytest"} ./tests {_COV} -m "{_MARKERS}"']),
+        (watch, {'marker': _MARKERS}, [f'{python_dir() / "ptw"} . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
         (coverage, {'out_dir': '.cover'}, [
-            f'{python_dir()}/coverage run --branch --source=calcipy --module pytest ./tests',
-            call(f'{python_dir()}/coverage report --show-missing'),
-            call(f'{python_dir()}/coverage html --directory=.cover'),
-            call(f'{python_dir()}/coverage json'),
+            f'{python_dir() / "coverage"} run --branch --source=calcipy --module pytest ./tests',
+            call(f'{python_dir() / "coverage"} report --show-missing'),
+            call(f'{python_dir() / "coverage"} html --directory=.cover'),
+            call(f'{python_dir() / "coverage"} json'),
         ]),
     ],
     ids=[

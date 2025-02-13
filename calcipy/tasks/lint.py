@@ -3,9 +3,9 @@
 from contextlib import suppress
 
 from beartype.typing import Optional
-from corallium.file_helpers import read_package_name
 from invoke.context import Context
 
+from calcipy._corallium.file_helpers import read_package_name
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 
@@ -32,7 +32,7 @@ def _inner_task(
     elif target is None:
         target = f'"./{read_package_name()}" ./tests'
 
-    cmd = f'{python_m()} {command}' if run_as_module else f'{python_dir()}/{command}'
+    cmd = f'{python_m()} {command}' if run_as_module else f'{python_dir() / command}'
     run(ctx, f'{cmd} {target} {cli_args}'.strip())
 
 

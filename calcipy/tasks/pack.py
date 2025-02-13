@@ -1,7 +1,11 @@
 """Packaging CLI."""
 
+from os import getenv
+from pathlib import Path
+
+import keyring
 from corallium import file_helpers  # Required for mocking read_pyproject
-from corallium.file_helpers import LOCK, PROJECT_TOML
+from corallium.file_helpers import PROJECT_TOML, delete_dir, get_lock
 from corallium.log import LOGGER
 from invoke.context import Context
 
@@ -9,39 +13,65 @@ from calcipy import can_skip  # Required for mocking can_skip.can_skip
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 
-from .executable_utils import python_dir
-
 
 @task()
 def lock(ctx: Context) -> None:
-    """Ensure poetry.lock is  up-to-date."""
-    if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[LOCK]):
+    """Update package manager lock file."""
+    if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[get_lock()]):
         return  # Exit early
 
-    run(ctx, 'poetry lock --no-update')
+    run(ctx, 'uv lock')
 
 
-@task(pre=[lock])
-def install_extras(ctx: Context) -> None:
-    """Run poetry install with all extras."""
-    poetry_config = file_helpers.read_pyproject()['tool']['poetry']
-    extras = (poetry_config.get('extras') or {}).keys()
-    run(ctx, ' '.join(['poetry install --sync', *[f'--extras={ex}' for ex in extras]]))
+def _configure_uv_env_credentials(*, index_name: str, interactive: bool) -> dict[str, str]:
+    username = getenv('UV_PUBLISH_USERNAME')
+    password = getenv('UV_PUBLISH_PASSWORD')
+    if username and password:
+        return {
+            'UV_PUBLISH_USERNAME': username,
+            'UV_PUBLISH_PASSWORD': password,
+        }
+
+    def _get_token() -> str:
+        """Return token stored in keyring."""
+        kwargs = {'service_name': 'calcipy', 'username': f'uv-{index_name}-token'}
+        if token := keyring.get_password(**kwargs):
+            return token
+        if interactive and (new_token := input('PyPi Publish Token: ')):  # pragma: no cover
+            keyring.set_password(**kwargs, password=new_token)
+            return new_token
+        raise RuntimeError("No Token for PyPi in 'UV_PUBLISH_TOKEN' or keyring")
+
+    token = getenv('UV_PUBLISH_TOKEN')
+    return {'UV_PUBLISH_TOKEN': token or _get_token()}
 
 
 @task(
     help={
         'to_test_pypi': 'Publish to the TestPyPi repository',
+        'no_interactive': 'Do not prompt for credentials when not found',
     },
 )
-def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
-    """Build the distributed format(s) and publish."""
-    run(ctx, f'{python_dir()}/nox --error-on-missing-interpreters --session build_dist build_check')
+def publish(ctx: Context, *, to_test_pypi: bool = False, no_interactive: bool = False) -> None:
+    """Build the distributed format(s) and publish.
 
-    cmd = 'poetry publish'
+    Alternatively, configure Github Actions to use 'Trusted Publisher'
+    https://docs.pypi.org/trusted-publishers/adding-a-publisher
+
+    """
+    delete_dir(Path('dist'))
+    run(ctx, 'uv build --no-sources')
+
+    keyring.set_password('system', 'username', 'password')
+    keyring.get_password('system', 'username')
+
+    cmd = 'uv publish'
+    index_name = 'PyPi'
     if to_test_pypi:
-        cmd += ' --repository testpypi'
-    run(ctx, cmd)
+        cmd += ' --publish-url https://test.pypi.org/legacy/'
+        index_name = 'Test PyPi'
+    env = _configure_uv_env_credentials(index_name=index_name, interactive=not no_interactive)
+    run(ctx, cmd, env=env)
 
 
 # TODO: Add unit test
@@ -49,7 +79,7 @@ def publish(ctx: Context, *, to_test_pypi: bool = False) -> None:
     help={
         'tag': 'Last tag, can be provided with `--tag="$(git tag -l "v*" | sort | tail -n 1)"`',
         'tag_prefix': 'Optional tag prefix, such as "v"',
-        'pkg_name': 'Optional package name. If not provided, will read the poetry pyproject.toml file',
+        'pkg_name': 'Optional package name. If not provided, will read the uv pyproject.toml file',
     },
 )
 def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = '') -> None:  # noqa: ARG001
@@ -65,8 +95,7 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
     if not tag:
         raise ValueError('tag must not be empty')
     if not pkg_name:
-        poetry_config = file_helpers.read_pyproject()['tool']['poetry']
-        pkg_name = poetry_config['name']
+        pkg_name = file_helpers.read_pyproject()['project']['name']
 
     from calcipy.experiments import bump_programmatically  # noqa: PLC0415
 
@@ -81,11 +110,11 @@ def bump_tag(ctx: Context, *, tag: str, tag_prefix: str = '', pkg_name: str = ''
 # TODO: Add unit test
 @task(post=[lock])
 def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
-    """Experiment with setting the pyproject.toml dependencies to the version from poetry.lock (experimental).
+    """Experiment with setting the pyproject.toml dependencies to the version from uv.lock (experimental).
 
-    Uses the current working directory and should be run after `poetry update`.
+    Uses the current working directory and should be run after `uv update`.
 
     """
     from calcipy.experiments import sync_package_dependencies  # noqa: PLC0415
 
-    sync_package_dependencies.replace_versions(path_lock=LOCK)
+    sync_package_dependencies.replace_versions(path_lock=get_lock())

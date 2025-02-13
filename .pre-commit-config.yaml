@@ -5,7 +5,7 @@
 # pre-commit run --all-files mdformat
 # pre-commit run --all-files --hook-stage commit
 # pre-commit run --all-files --hook-stage push
-# poetry run calcipy lint.pre-commit --no-update
+# uv run calcipy lint.pre-commit --no-update
 #
 # See https://pre-commit.com for more information
 #  and https://pre-commit.com/hooks.html for more hooks
@@ -74,13 +74,13 @@ repos:
     rev: v0.24.2
     hooks:
       - id: toml-sort-fix
-        exclude: poetry\.lock
+        exclude: uv\.lock
         stages: ["pre-commit"]
-  - repo: https://github.com/KyleKing/calcipy
-    rev: 5.0.0
-    hooks:
-      - id: copier-forbidden-files
-      - id: lint-fix
-        stages: ["pre-commit"]
-      - id: tags
-        stages: ["pre-push"]
+  # - repo: https://github.com/KyleKing/calcipy
+  #   rev: 5.0.0
+  #   hooks:
+  #     - id: copier-forbidden-files
+  #     - id: lint-fix
+  #       stages: ["pre-commit"]
+  #     - id: tags
+  #       stages: ["pre-push"]

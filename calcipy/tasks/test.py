@@ -3,9 +3,10 @@
 from pathlib import Path
 
 from beartype.typing import Optional
-from corallium.file_helpers import open_in_browser, read_package_name
+from corallium.file_helpers import open_in_browser
 from invoke.context import Context
 
+from calcipy._corallium.file_helpers import read_package_name
 from calcipy.cli import task
 from calcipy.experiments import check_duplicate_test_names
 from calcipy.invoke_helpers import run
@@ -30,7 +31,7 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
-    run(ctx, f'{python_dir()}/{command} ./tests{cli_args}')
+    run(ctx, f'{python_dir() / command} ./tests{cli_args}')
 
 
 @task()
@@ -117,7 +118,7 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
         f'html --directory={cov_dir}',  # Write to HTML
         'json',  # Create coverage.json file for "_handle_coverage"
     ):
-        run(ctx, f'{python_dir()}/coverage {cli_args}')
+        run(ctx, f'{python_dir() / "coverage"} {cli_args}')
 
     if view:  # pragma: no cover
         open_in_browser(cov_dir / 'index.html')

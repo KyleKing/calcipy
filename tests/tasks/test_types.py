@@ -13,7 +13,7 @@ from calcipy.tasks.types import mypy, pyright
             call('which pyright', warn=True, hide=True),
             'pyright',
         ]),
-        (mypy, {}, [f'{python_dir()}/mypy']),
+        (mypy, {}, [f'{python_dir() / "mypy"}']),
     ],
 )
 def test_types(ctx, task, kwargs, commands):

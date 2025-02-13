@@ -15,16 +15,16 @@ from calcipy.invoke_helpers import run
 @lru_cache(maxsize=1)
 def resolve_python() -> Path:
     """Return the user's Python path based on `sys`."""
-    python_path = Path(sys.executable)
+    python_path = Path(sys.executable).absolute()
     with suppress(ValueError):
         return python_path.relative_to(Path.cwd())
     return python_path
 
 
 @lru_cache(maxsize=1)
-def python_dir() -> str:
+def python_dir() -> Path:
     """Return an executable path from the currently active Python directory."""
-    return str(resolve_python().parent)
+    return resolve_python().parent
 
 
 @lru_cache(maxsize=1)
