@@ -19,4 +19,4 @@ def pyright(ctx: Context) -> None:
 @task()
 def mypy(ctx: Context) -> None:
     """Run mypy."""
-    run(ctx, f'{python_dir()}/mypy')
+    run(ctx, f'{python_dir() / "mypy"}')

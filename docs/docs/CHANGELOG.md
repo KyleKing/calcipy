@@ -7,6 +7,8 @@
 
 ### Fix
 
+- upgrade corallium
+- temporarily skip pre-commit until fixed
 - resolve uv migration issues
 - uv uses 'project' rather than 'tool.poetry'
 - undo incomplete uv migration for sync dependencies
@@ -14,6 +16,7 @@
 
 ### Refactor
 
+- prefer 'uv run' over 'source'
 - remove pack.install-extras
 - begin replacing usage of poetry with uv
 - continue replacing poetry steps with uv equivalent

@@ -54,6 +54,8 @@ To publish to the real PyPi
 | File                                                | Statements | Missing | Excluded | Coverage |
 |-----------------------------------------------------|-----------:|--------:|---------:|---------:|
 | `calcipy/__init__.py`                               | 4          | 0       | 0        | 100.0%   |
+| `calcipy/_corallium/__init__.py`                    | 0          | 0       | 0        | 100.0%   |
+| `calcipy/_corallium/file_helpers.py`                | 11         | 1       | 0        | 90.9%    |
 | `calcipy/_runtime_type_check_setup.py`              | 12         | 0       | 37       | 100.0%   |
 | `calcipy/can_skip.py`                               | 14         | 1       | 0        | 88.9%    |
 | `calcipy/cli.py`                                    | 34         | 2       | 88       | 89.5%    |
@@ -68,11 +70,11 @@ To publish to the real PyPi
 | `calcipy/experiments/sync_package_dependencies.py`  | 47         | 47      | 0        | 0.0%     |
 | `calcipy/file_search.py`                            | 32         | 0       | 2        | 100.0%   |
 | `calcipy/invoke_helpers.py`                         | 27         | 6       | 0        | 72.4%    |
-| `calcipy/markdown_table.py`                         | 29         | 4       | 0        | 80.5%    |
+| `calcipy/markdown_table.py`                         | 28         | 4       | 0        | 80.0%    |
 | `calcipy/md_writer/__init__.py`                     | 5          | 2       | 0        | 60.0%    |
 | `calcipy/md_writer/_writer.py`                      | 91         | 7       | 0        | 88.7%    |
-| `calcipy/noxfile/__init__.py`                       | 5          | 2       | 0        | 60.0%    |
-| `calcipy/noxfile/_noxfile.py`                       | 39         | 2       | 51       | 91.1%    |
+| `calcipy/noxfile/__init__.py`                       | 5          | 5       | 0        | 0.0%     |
+| `calcipy/noxfile/_noxfile.py`                       | 10         | 10      | 27       | 0.0%     |
 | `calcipy/scripts.py`                                | 6          | 0       | 51       | 100.0%   |
 | `calcipy/tasks/__init__.py`                         | 0          | 0       | 0        | 100.0%   |
 | `calcipy/tasks/all_tasks.py`                        | 36         | 2       | 0        | 94.7%    |
@@ -83,11 +85,11 @@ To publish to the real PyPi
 | `calcipy/tasks/lint.py`                             | 38         | 2       | 0        | 87.0%    |
 | `calcipy/tasks/most_tasks.py`                       | 29         | 0       | 0        | 100.0%   |
 | `calcipy/tasks/nox.py`                              | 8          | 0       | 0        | 100.0%   |
-| `calcipy/tasks/pack.py`                             | 39         | 12      | 0        | 61.7%    |
+| `calcipy/tasks/pack.py`                             | 53         | 19      | 3        | 58.7%    |
 | `calcipy/tasks/tags.py`                             | 18         | 1       | 0        | 90.0%    |
-| `calcipy/tasks/test.py`                             | 39         | 1       | 2        | 93.6%    |
+| `calcipy/tasks/test.py`                             | 40         | 1       | 2        | 93.8%    |
 | `calcipy/tasks/types.py`                            | 11         | 0       | 0        | 100.0%   |
-| **Totals**                                          | 898        | 131     | 293      | 81.7%    |
+| **Totals**                                          | 894        | 150     | 272      | 79.9%    |
 
-Generated on: 2024-12-07
+Generated on: 2025-02-13
 <!-- {cte} -->

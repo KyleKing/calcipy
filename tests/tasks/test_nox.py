@@ -9,7 +9,7 @@ from calcipy.tasks.nox import noxfile
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (noxfile, {}, [f'{python_dir()}/nox --error-on-missing-interpreters ']),
+        (noxfile, {}, [f'{python_dir() / "nox"} --error-on-missing-interpreters ']),
     ],
 )
 def test_nox(ctx, task, kwargs, commands):
