@@ -28,8 +28,7 @@ jobs:
 
       - name: Run static linters
         run: |
-          source .venv/bin/activate || true
-          .venv\Scripts\activate || true
+          .venv\Scripts\activate || source .venv/bin/activate || true
           calcipy-lint lint.check
 
   test:
@@ -47,8 +46,7 @@ jobs:
 
       - name: Run test
         run: |
-          source .venv/bin/activate || true
-          .venv\Scripts\activate || true
+          .venv\Scripts\activate || source .venv/bin/activate || true
           calcipy-test test.pytest
 
   typecheck:
@@ -66,8 +64,7 @@ jobs:
 
       - name: Run typecheck
         run: |
-          source .venv/bin/activate || true
-          .venv\Scripts\activate || true
+          .venv\Scripts\activate || source .venv/bin/activate || true
           calcipy-types types.mypy
 
       # https://github.com/jakebailey/pyright-action/blob/ea37d1c67b7fc90ab9ab4571114e203b313152a2/README.md#use-with-a-virtualenv
