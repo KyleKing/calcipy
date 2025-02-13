@@ -18,6 +18,9 @@ calcipy
 
 # Make code changes and run specific tasks as needed:
 ./run lint.fix test
+
+# Install globally
+uv tool install ".[ddict,doc,experimental,lint,nox,tags,test,types]" --force --editable
 ```
 
 ### Maintenance
