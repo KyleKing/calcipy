@@ -110,7 +110,7 @@ pythonVersion = "3.9"
 
 [tool.ruff]
 # Docs: https://github.com/charliermarsh/ruff
-# Tip: .venv/bin/ruff rule RUF100
+# Tip: uv run ruff rule RUF100
 line-length = 120
 target-version = 'py39'
 

@@ -1,6 +1,4 @@
 #!/bin/bash -e
 
-source .venv/bin/activate
-
 # shellcheck disable=SC2048,SC2086
-calcipy -v $*
+uv run calcipy -v $*

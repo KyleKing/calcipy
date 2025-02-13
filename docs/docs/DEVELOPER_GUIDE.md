@@ -8,8 +8,7 @@ cd calcipy
 uv sync --all-extras
 
 # See the available tasks
-source .venv/bin/activate
-calcipy
+uv run calcipy
 # Or use a local 'run' file (so that 'calcipy' can be extended)
 ./run
 

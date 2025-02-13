@@ -3,9 +3,6 @@ name: Setup Action
 description: Install requested uvx dependencies, configure the system python, and install uv and the package dependencies
 
 inputs:
-  os:
-    description: OS Version
-    default: ubuntu-latest
   python-tools:
     description: List of Python packages installed as CLI tools by uv
     default: ""
