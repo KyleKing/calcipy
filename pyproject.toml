@@ -1,8 +1,18 @@
 # TODO: Sync with https://github.com/pawamoy/copier-uv
 
 [build-system]
-build-backend = "hatchling.build"
-requires = ["hatchling"]
+build-backend = "uv_build"
+requires = ["uv_build>=0.9.7"]
+
+[dependency-groups]
+dev = [
+  "hypothesis[cli] >=6.112.4", # Use CLI with: "uv run hypothesis write calcipy.dot_dict.ddict"
+  "pytest-asyncio >=0.24.0",
+  "pytest-subprocess >=1.5.2",
+  "syrupy >=4.7.2",
+  "types-pyyaml >=6.0.12.20240917",
+  "types-setuptools >=75.1.0.20240917",
+]
 
 [project]
 classifiers = [
@@ -190,12 +200,4 @@ in_place = true
 trailing_comma_inline_array = true
 
 [tool.uv]
-dev-dependencies = [
-  "hypothesis[cli] >=6.112.4", # Use CLI with: "uv run hypothesis write calcipy.dot_dict.ddict"
-  "pytest-asyncio >=0.24.0",
-  "pytest-subprocess >=1.5.2",
-  "syrupy >=4.7.2",
-  "types-pyyaml >=6.0.12.20240917",
-  "types-setuptools >=75.1.0.20240917",
-]
-required-version = ">=0.7.3"
+required-version = ">=0.9.0"
