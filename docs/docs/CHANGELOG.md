@@ -2,7 +2,6 @@
 
 ### Feat
 
-- read mise and tool-versions
 - migrate to prek
 - switch to uv (#134)
 

@@ -38,11 +38,11 @@ with open(path_stdout, 'w') as out:
 import shlex
 from functools import lru_cache
 
-from beartype.typing import List
+from beartype.typing import List, Union
 from nox import Session as NoxSession
 from nox import session as nox_session
 
-from calcipy._corallium.file_helpers import get_tool_versions, read_package_name
+from calcipy._corallium.file_helpers import get_tool_versions, read_package_name, read_pyproject
 
 
 @lru_cache(maxsize=1)
@@ -51,50 +51,24 @@ def _get_pythons() -> List[str]:
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
-# TODO: Migrate to uv
-# def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
-#     """Return a dictionary of all dev-dependencies from the 'pyproject.toml'."""
-#     poetry_config = file_helpers.read_pyproject()['tool']['poetry']
-#
-#     def normalize_dep(value: Union[str, Dict]) -> Dict:  # type: ignore[type-arg]
-#         return {'version': value} if isinstance(value, str) else value
-#
-#     return {
-#         key: normalize_dep(value)
-#         for key, value in {
-#             **_retrieve_keys(poetry_config, ['dev', 'dependencies']),
-#             **_retrieve_keys(poetry_config, ['group', 'dev', 'dependencies']),
-#         }.items()
-#     }
-#
-#
-# @lru_cache(maxsize=1)
-# def _installable_dev_dependencies() -> List[str]:
-#     """List of dependencies from pyproject, excluding calcipy.
-#
-#     Returns:
-#         List[str]: `['Cerberus=>1.3.4', 'freezegun']`
-#
-#     """
-#
-#     def to_package(key: str, value: Dict) -> str:  # type: ignore[type-arg]
-#         extras = value.get('extras', [])
-#         return f'{key}[{",".join(extras)}]' if extras else key
-#
-#     def to_constraint(value: Dict) -> str:  # type: ignore[type-arg]
-#         return str(value['version']).replace('^', '==')
-#
-#     return [
-#         f'{to_package(key, value)}{to_constraint(value)}'
-#         for key, value in _get_poetry_dev_dependencies().items()
-#         if key != 'calcipy'
-#     ]
+def _installable_dev_dependencies(pyproject_data: Union[dict, None] = None) -> List[str]:
+    """List of dev dependencies from pyproject.toml dependency-groups.
+
+    Args:
+        pyproject_data: Optional pyproject data for testing
+
+    Returns:
+        List[str]: `['hypothesis[cli] >=6.112.4', 'pytest-asyncio >=0.24.0']`
+
+    """
+    pyproject = read_pyproject() if pyproject_data is None else pyproject_data
+    return pyproject.get('dependency-groups', {}).get('dev', [])
 
 
 def _install_local(session: NoxSession) -> None:  # pragma: no cover
     """Ensure local dev-dependencies and calcipy extras are installed.
 
-    Previously required to support poetry, but no re-tested is still required for uv.
+    Previously required to support poetry, but not re-tested with uv yet.
     See: https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855445920
 
     """
@@ -114,9 +88,8 @@ def _install_local(session: NoxSession) -> None:  # pragma: no cover
             env={'UV_PROJECT_ENVIRONMENT': session.virtualenv.location},
         )
 
-    # PLANNED: revisit this logic from poetry-implementation
-    # if dev_deps := _installable_dev_dependencies():
-    #     session.install(*dev_deps)
+    if dev_deps := _installable_dev_dependencies():
+        session.install(*dev_deps)
 
 
 @nox_session(venv_backend='uv', python=_get_pythons(), reuse_venv=True)
