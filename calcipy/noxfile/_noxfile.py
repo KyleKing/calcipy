@@ -52,6 +52,7 @@ def _get_pythons() -> List[str]:
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
+# TODO: Migrate to uv
 # def _get_poetry_dev_dependencies() -> Dict[str, Dict]:  # type: ignore[type-arg]
 #     """Return a dictionary of all dev-dependencies from the 'pyproject.toml'."""
 #     poetry_config = file_helpers.read_pyproject()['tool']['poetry']

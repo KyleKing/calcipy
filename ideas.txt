@@ -1,0 +1,3 @@
+- Instead of noxfile being imported, move to calcipy-template
+- Move most of the CLI to mise.toml (and maybe see if it can be extended?) - which is distributed with copier-template rather than calcipy as well
+- Only have the first-party tooling in calcipy after this is done (everything else is just wrappers around flake8, etc.)

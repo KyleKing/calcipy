@@ -16,8 +16,8 @@ After further reduction of dependencies, the CLI performance has continued to im
 ```sh
 > hyperfine -m 20 --warmup 5 ./run
 Benchmark 1: ./run
-  Time (mean ± σ):     397.1 ms ±  12.2 ms    [User: 268.4 ms, System: 57.0 ms]
-  Range (min … max):   385.9 ms … 421.5 ms    20 runs
+Time (mean ± σ):     397.1 ms ±  12.2 ms    [User: 268.4 ms, System: 57.0 ms]
+Range (min … max):   385.9 ms … 421.5 ms    20 runs
 ```
 
 ## `v4`

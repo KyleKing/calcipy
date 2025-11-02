@@ -187,7 +187,6 @@ convention = "google"
 [tool.tomlsort]
 all = true
 in_place = true
-sort_first = ["python"]
 trailing_comma_inline_array = true
 
 [tool.uv]
@@ -199,4 +198,4 @@ dev-dependencies = [
   "types-pyyaml >=6.0.12.20240917",
   "types-setuptools >=75.1.0.20240917",
 ]
-required-version = ">=0.5.26"
+required-version = ">=0.7.3"
