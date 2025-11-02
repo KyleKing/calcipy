@@ -7,6 +7,7 @@
 
 ### Fix
 
+- finish migrating noxfile
 - finish migration to src/* uv_build organization
 
 ## 5.0.0 (2024-11-07)

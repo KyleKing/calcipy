@@ -1,4 +1,4 @@
-from unittest.mock import call
+from unittest.mock import call, patch
 
 import pytest
 
@@ -18,6 +18,7 @@ PUBLISH_ENV = {'UV_PUBLISH_USERNAME': 'pypi_user', 'UV_PUBLISH_PASSWORD': 'pypi_
 )
 def test_pack(ctx, task, kwargs, commands, monkeypatch):
     monkeypatch.setattr(can_skip, 'can_skip', can_skip.dont_skip)
-    task(ctx, **kwargs)
+    with patch('calcipy.tasks.pack.keyring'):
+        task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])

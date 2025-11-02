@@ -38,7 +38,7 @@ with open(path_stdout, 'w') as out:
 import shlex
 from functools import lru_cache
 
-from beartype.typing import List, Union
+from beartype.typing import Any, Dict, List, Union
 from nox import Session as NoxSession
 from nox import session as nox_session
 
@@ -51,7 +51,7 @@ def _get_pythons() -> List[str]:
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
-def _installable_dev_dependencies(pyproject_data: Union[dict, None] = None) -> List[str]:
+def _installable_dev_dependencies(pyproject_data: Union[Dict[str, Any], None] = None) -> List[str]:
     """List of dev dependencies from pyproject.toml dependency-groups.
 
     Args:

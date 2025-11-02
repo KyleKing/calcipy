@@ -7,6 +7,8 @@ from pathlib import Path
 from corallium.file_helpers import find_in_parents, read_pyproject
 from corallium.tomllib import tomllib
 
+__all__ = ['get_tool_versions', 'read_package_name', 'read_pyproject']
+
 
 def _parse_mise_lock(lock_path: Path) -> dict[str, list[str]]:
     """Parse mise.lock file and extract locked tool versions.

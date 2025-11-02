@@ -1,5 +1,3 @@
-# TODO: Sync with https://github.com/pawamoy/copier-uv
-
 [build-system]
 build-backend = "uv_build"
 requires = ["uv_build>=0.9.7"]
@@ -93,7 +91,7 @@ calcipy-types = "calcipy.scripts:start_types"
 
 [tool.commitizen]
 version = "5.0.0"
-version_files = ["src/calcipy/__init__.py:^__version", "pyproject.toml:^version"]
+version_files = ["pyproject.toml:^version", "src/calcipy/__init__.py:^__version"]
 
 [tool.mypy]
 check_untyped_defs = true
@@ -200,4 +198,5 @@ in_place = true
 trailing_comma_inline_array = true
 
 [tool.uv]
+default-groups = ["dev"]
 required-version = ">=0.9.0"
