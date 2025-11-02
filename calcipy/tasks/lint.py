@@ -62,7 +62,7 @@ def watch(ctx: Context) -> None:
 
 
 # ==============================================================================
-# Pre-Commit
+# prek
 
 ALL_PRE_COMMIT_HOOK_STAGES = [
     'commit',
@@ -80,16 +80,16 @@ ALL_PRE_COMMIT_HOOK_STAGES = [
 
 @task(
     help={
-        'no_update': 'Skip updating the pre-commit hooks',
+        'no_update': 'Skip updating the prek hooks',
     },
 )
 def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
-    """Run pre-commit."""
-    check_installed(ctx, executable='pre-commit', message=PRE_COMMIT_MESSAGE)
+    """Run prek."""
+    check_installed(ctx, executable='prek', message=PRE_COMMIT_MESSAGE)
 
-    run(ctx, 'pre-commit install')
+    run(ctx, 'prek install')
     if not no_update:
-        run(ctx, 'pre-commit autoupdate')
+        run(ctx, 'prek autoupdate')
 
     stages_cli = ' '.join(f'--hook-stage {stg}' for stg in ALL_PRE_COMMIT_HOOK_STAGES)
-    run(ctx, f'pre-commit run --all-files {stages_cli}')
+    run(ctx, f'prek run --all-files {stages_cli}')

@@ -1,9 +1,9 @@
 # ---
 # # Docs: https://pre-commit.com/#new-hooks
 # # Can be tested with:
-# #   pre-commit try-repo . --verbose --all-files --hook-stage push
-# #   pre-commit try-repo . tags --verbose --all-files --hook-stage push
-# #   pre-commit try-repo . lint-fix --verbose --all-files
+# #   prek try-repo . --verbose --all-files --hook-stage push
+# #   prek try-repo . tags --verbose --all-files --hook-stage push
+# #   prek try-repo . lint-fix --verbose --all-files
 # - id: copier-forbidden-files
 #   name: Copier Forbidden Files
 #   entry: |

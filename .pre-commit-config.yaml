@@ -1,14 +1,16 @@
 ---
 # Common commands:
-# pre-commit install
-# pre-commit autoupdate
-# pre-commit run --all-files mdformat
-# pre-commit run --all-files --hook-stage commit
-# pre-commit run --all-files --hook-stage push
-# uv run calcipy lint.pre-commit --no-update
+# prek install -f
+# prek autoupdate
+# prek run --all-files mdformat
+# prek run --all-files --hook-stage commit
+# prek run --all-files --hook-stage push
+# prek run --last-commit
+# uv run calcipy lint.prek --no-update
 #
 # See https://pre-commit.com for more information
 #  and https://pre-commit.com/hooks.html for more hooks
+# And: https://prek.j178.dev/builtin
 
 # Only commit is installed by default: https://pre-commit.com/#pre-commit-install
 # Pending rename of pre-push from: https://github.com/pre-commit/pre-commit/issues/2732

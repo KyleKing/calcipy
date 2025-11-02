@@ -38,8 +38,8 @@ GH_MESSAGE = """
     See the online documentation for your system: https://cli.github.com/
 """
 PRE_COMMIT_MESSAGE = """
-`pre-commit` was not found and must be installed separately (such as 'brew install pre-commit' on Mac).
-    See the online documentation for your system: https://pre-commit.com/#install
+`prek` was not found and must be installed separately (such as 'brew install prek' on Mac).
+    See the online documentation for your system: https://prek.com/#install
 """
 PYRIGHT_MESSAGE = """
 `pyright` was not found and must be installed separately (such as 'brew install pyright' on Mac).

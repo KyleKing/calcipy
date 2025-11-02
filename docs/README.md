@@ -76,7 +76,7 @@ Subcommands:
 
   lint.check (lint)   Run ruff as check-only.
   lint.fix            Run ruff and apply fixes.
-  lint.pre-commit     Run pre-commit.
+  lint.prek           Run prek.
   lint.watch          Run ruff as check-only.
 
 Global Task Options:
@@ -122,6 +122,8 @@ repos:
       - id: lint-fix
       - id: types
 ```
+
+Tip: running pre-commit with prek is recommended for performance: https://pypi.org/project/prek
 
 ## Project Status
 

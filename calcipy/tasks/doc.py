@@ -65,7 +65,7 @@ def deploy(ctx: Context) -> None:
         raise NotImplementedError('Not yet configured to deploy documentation without "use_directory_urls"')
 
     with suppress(UnexpectedExit):
-        run(ctx, 'pre-commit uninstall')  # To prevent pre-commit failures when mkdocs calls push
+        run(ctx, 'prek uninstall')  # To prevent prek failures when mkdocs calls push
     run(ctx, f'{python_dir() / "mkdocs"} gh-deploy --force')
     with suppress(UnexpectedExit):
-        run(ctx, 'pre-commit install')  # Restore pre-commit
+        run(ctx, 'prek install')  # Restore prek
