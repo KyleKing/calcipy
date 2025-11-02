@@ -93,14 +93,14 @@ calcipy-types = "calcipy.scripts:start_types"
 
 [tool.commitizen]
 version = "5.0.0"
-version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
+version_files = ["src/calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true
 enable_error_code = ["ignore-without-code", "possibly-undefined", "redundant-expr", "truthy-bool"]
 extra_checks = true
-files = ["calcipy", "tests"]
+files = ["src/calcipy", "tests"]
 no_implicit_reexport = true
 plugins = [
 ]
@@ -115,7 +115,7 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.pyright]
-include = ["calcipy", "tests"]
+include = ["src/calcipy", "tests"]
 pythonVersion = "3.9"
 
 [tool.ruff]
@@ -170,7 +170,7 @@ inline-quotes = 'single'
 known-first-party = ['calcipy']
 
 [tool.ruff.lint.per-file-ignores]
-'./calcipy/../*.py' = [
+'./src/calcipy/../*.py' = [
   'INP001', # File `/<>.py` is part of an implicit namespace package. Add an `__init__.py`.
 ]
 '__init__.py' = [

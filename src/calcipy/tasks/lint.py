@@ -30,7 +30,8 @@ def _inner_task(
     if file_args:
         target = ' '.join([f'"{_a}"' for _a in file_args])
     elif target is None:
-        target = f'"./{read_package_name()}" ./tests'
+        # TODO: Performantly support either ./src/<>/ and ./<>/
+        target = f'"./src/{read_package_name()}" ./tests'
 
     cmd = f'{python_m()} {command}' if run_as_module else f'{python_dir() / command}'
     run(ctx, f'{cmd} {target} {cli_args}'.strip())

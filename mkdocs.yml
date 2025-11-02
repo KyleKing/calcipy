@@ -20,7 +20,7 @@ theme:
     - toc.autohide
 
 watch:
-  - calcipy
+  - src/calcipy
 
 plugins:
   - gen-files:

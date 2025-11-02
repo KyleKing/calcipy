@@ -39,11 +39,10 @@ import shlex
 from functools import lru_cache
 
 from beartype.typing import List
-from corallium.file_helpers import get_tool_versions
 from nox import Session as NoxSession
 from nox import session as nox_session
 
-from calcipy._corallium.file_helpers import read_package_name
+from calcipy._corallium.file_helpers import get_tool_versions, read_package_name
 
 
 @lru_cache(maxsize=1)
