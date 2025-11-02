@@ -1,13 +1,21 @@
 """Experiment with setting pyproject versions to latest lock file versions.
 
-PLANNED: Currently only supports poetry. Fix
+# Note: Currently only supports poetry format
 
 """
 
+import re
 from pathlib import Path
 
 from corallium.log import LOGGER
 from corallium.tomllib import tomllib
+
+
+def _extract_base_version(version_spec: str) -> str:
+    """Extract the base version from a version specification."""
+    # Find version numbers in the spec
+    version_match = re.search(r'(\d+(?:\.\d+)*(?:\.\d+)*)', version_spec)
+    return version_match.group(1) if version_match else version_spec
 
 
 def _collect_pyproject_versions(pyproject_text: str) -> dict[str, str]:
@@ -27,10 +35,9 @@ def _collect_pyproject_versions(pyproject_text: str) -> dict[str, str]:
             if name == 'python':
                 continue
             version = value if isinstance(value, str) else value.get('version')
-            if not version or any(_c in version for _c in ',*!@/'):
-                LOGGER.text('WARNING: requires manually review', name=name, version=version)
-            else:
-                pyproject_versions[name] = version.lstrip('~^<>=')
+            if not version:
+                continue
+            pyproject_versions[name] = _extract_base_version(version)
     return pyproject_versions
 
 
@@ -49,7 +56,6 @@ def _replace_pyproject_versions(
             name = line.split('=')[0].strip()
             if (lock_version := lock_versions.get(name)) and (pyproject_version := pyproject_versions.get(name)):
                 versions = {'name': name, 'new_version': lock_version, 'old_version': pyproject_version}
-                # TODO: Handle ">=3.0.0,<4"
                 if pyproject_version != lock_version:
                     if pyproject_version in line:
                         new_lines.append(line.replace(pyproject_version, lock_version, 1))

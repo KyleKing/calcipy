@@ -51,8 +51,8 @@ def _get_pythons() -> List[str]:
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
-def _installable_dev_dependencies(pyproject_data: Union[Dict[str, Any], None] = None) -> List[str]:
-    """List of dev dependencies from pyproject.toml dependency-groups.
+def _installable_ci_dependencies(pyproject_data: Union[Dict[str, Any], None] = None) -> List[str]:
+    """List of CI dependencies from pyproject.toml dependency-groups.
 
     Args:
         pyproject_data: Optional pyproject data for testing
@@ -62,11 +62,11 @@ def _installable_dev_dependencies(pyproject_data: Union[Dict[str, Any], None] = 
 
     """
     pyproject = read_pyproject() if pyproject_data is None else pyproject_data
-    return pyproject.get('dependency-groups', {}).get('dev', [])
+    return pyproject.get('dependency-groups', {}).get('ci', [])
 
 
 def _install_local(session: NoxSession) -> None:  # pragma: no cover
-    """Ensure local dev-dependencies and calcipy extras are installed.
+    """Ensure local CI-dependencies and calcipy extras are installed.
 
     Previously required to support poetry, but not re-tested with uv yet.
     See: https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855445920
@@ -88,7 +88,7 @@ def _install_local(session: NoxSession) -> None:  # pragma: no cover
             env={'UV_PROJECT_ENVIRONMENT': session.virtualenv.location},
         )
 
-    if dev_deps := _installable_dev_dependencies():
+    if dev_deps := _installable_ci_dependencies():
         session.install(*dev_deps)
 
 

@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import logging
 import os
+from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass, field
 from functools import wraps
+from io import StringIO
 from pathlib import Path
 from types import ModuleType
 
@@ -39,6 +41,9 @@ class GlobalTaskOptions:
     keep_going: bool = False
     """Continue task execution regardless of failure."""
 
+    capture_output: bool = False
+    """Capture stdout and stderr output from tasks."""
+
     def __post_init__(self) -> None:
         """Validate dataclass."""
         options_verbose = [*LOG_LOOKUP.keys()]
@@ -47,7 +52,6 @@ class GlobalTaskOptions:
             raise ValueError(error)
 
 
-# TODO: How to capture output?
 def _configure_task_logger(ctx: Context) -> None:  # pragma: no cover
     """Configure the logger based on task context."""
     verbose = ctx.config.gto.verbose
@@ -63,7 +67,20 @@ def _run_task(func: Any, ctx: Context, *args: Any, show_task_info: bool, **kwarg
         LOGGER.text(f'Running {func.__name__}', is_header=True, summary=summary)
         LOGGER.text_debug('With task arguments', args=args, kwargs=kwargs)
 
-    result = func(ctx, *args, **kwargs)
+    if ctx.config.gto.capture_output:
+        stdout_capture = StringIO()
+        stderr_capture = StringIO()
+        with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
+            result = func(ctx, *args, **kwargs)
+        captured_stdout = stdout_capture.getvalue()
+        captured_stderr = stderr_capture.getvalue()
+        if show_task_info:
+            if captured_stdout:
+                LOGGER.text_debug('Captured stdout', output=captured_stdout)
+            if captured_stderr:
+                LOGGER.text_debug('Captured stderr', output=captured_stderr)
+    else:
+        result = func(ctx, *args, **kwargs)
 
     if show_task_info:
         LOGGER.text('')
