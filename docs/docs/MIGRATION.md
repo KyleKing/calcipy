@@ -1,5 +1,246 @@
 # Migration Guide
 
+## Poetry → UV Migration (v6)
+
+Calcipy has migrated from Poetry to UV for package management and builds. This migration brings significant improvements in speed, simplicity, and modern Python packaging standards.
+
+### What Changed
+
+**Build System:**
+- ✅ Migrated from `poetry-core` to `uv_build`
+- ✅ Updated to modern PEP 621 `[project]` format
+- ✅ Using `[dependency-groups]` instead of `[tool.poetry.group]`
+- ✅ Lock file changed from `poetry.lock` to `uv.lock`
+
+**CI/CD:**
+- ✅ All workflows updated to use `uv` commands
+- ✅ GitHub Actions use `astral-sh/setup-uv@v5`
+- ✅ Pre-commit hooks configured for `uv.lock`
+
+**Task Automation:**
+- ✅ All tasks updated to use `uv run`, `uv sync`, `uv build`, `uv publish`
+- ✅ Noxfile uses `venv_backend='uv'`
+
+### Migration Path for Users
+
+If you're using Calcipy in your project and want to migrate from Poetry to UV:
+
+#### 1. Update Package Manager
+
+```sh
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Or with brew
+brew install uv
+```
+
+#### 2. Convert pyproject.toml
+
+Your `pyproject.toml` needs these changes:
+
+**Before (Poetry):**
+```toml
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "my-package"
+version = "1.0.0"
+dependencies = {python = "^3.9"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+```
+
+**After (UV):**
+```toml
+[build-system]
+requires = ["uv_build>=0.9.7"]
+build-backend = "uv_build"
+
+[project]
+name = "my-package"
+version = "1.0.0"
+requires-python = ">=3.9"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=7.0"]
+```
+
+#### 3. Migrate Lock File
+
+```sh
+# Remove old poetry files
+rm poetry.lock
+
+# Create new uv lock file
+uv lock
+
+# Install dependencies
+uv sync --all-extras
+```
+
+#### 4. Update CI/CD
+
+Replace poetry commands with uv equivalents:
+
+| Poetry | UV |
+|--------|-----|
+| `poetry install` | `uv sync --all-extras` |
+| `poetry add package` | `uv add package` |
+| `poetry run command` | `uv run command` |
+| `poetry build` | `uv build` |
+| `poetry publish` | `uv publish` |
+
+#### 5. Update GitHub Actions
+
+```yaml
+# Before
+- uses: actions/setup-python@v4
+  with:
+    python-version: '3.11'
+- name: Install Poetry
+  run: pipx install poetry
+- name: Install dependencies
+  run: poetry install
+
+# After
+- uses: astral-sh/setup-uv@v5
+- uses: actions/setup-python@v4
+  with:
+    python-version: '3.11'
+- name: Install dependencies
+  run: uv sync --all-extras
+```
+
+### Python Version Management: mise + uv + nox
+
+Calcipy uses a powerful combination of tools for managing Python versions:
+
+#### mise (Version Manager)
+
+[mise](https://mise.jdx.dev/) (formerly rtx) is a polyglot version manager that replaces `asdf`, `pyenv`, `nvm`, etc.
+
+**Setup mise:**
+
+```sh
+# Install mise
+curl https://mise.run | sh
+
+# Or with brew
+brew install mise
+
+# Add to your shell (e.g., ~/.bashrc or ~/.zshrc)
+echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+```
+
+**Configure Python versions:**
+
+Create `mise.toml`:
+```toml
+[tools]
+python = ["3.12.5", "3.9.13"]
+
+[env]
+_.python.venv = {path = ".venv"}
+```
+
+**Use mise:**
+
+```sh
+# Install Python versions from mise.toml
+mise install
+
+# Verify installation
+mise which python
+python --version
+```
+
+#### Integration with nox
+
+Calcipy's noxfile automatically reads Python versions from `mise.toml`:
+
+```python
+# From src/calcipy/noxfile/_noxfile.py
+def _get_pythons() -> List[str]:
+    """Return python versions from supported configuration files."""
+    return [*{str(ver) for ver in get_tool_versions()['python']}]
+
+@nox_session(venv_backend='uv', python=_get_pythons(), reuse_venv=True)
+def tests(session: NoxSession) -> None:
+    """Run tests for all specified Python versions."""
+    ...
+```
+
+This reads from:
+1. `mise.lock` (resolved versions)
+2. `mise.toml` (specified versions)
+3. `.tool-versions` (legacy asdf format)
+
+**Run nox tests:**
+
+```sh
+# List available sessions
+uv run nox -l
+
+# Run tests for all Python versions
+uv run nox
+
+# Run tests for specific version
+uv run nox -s tests-3.12
+```
+
+#### Benefits of this Setup
+
+1. **Version Consistency**: Same Python versions for development, testing, and CI
+2. **Multi-version Testing**: nox automatically tests against all specified versions
+3. **Fast Environment Creation**: uv's venv backend is significantly faster than virtualenv
+4. **Per-directory Versions**: mise manages Python versions per project
+5. **No Global Pollution**: Each project has isolated Python environments
+
+#### Common Issues
+
+**Problem**: `nox` can't find Python version
+
+**Solution**: Ensure mise installed all versions:
+```sh
+mise install
+mise which python3.9
+mise which python3.12
+```
+
+**Problem**: Different versions between local and CI
+
+**Solution**: Use `mise.lock` to pin exact versions:
+```sh
+mise lock
+git add mise.lock
+```
+
+### Tool vs Dependency Usage
+
+With v6, Calcipy now has clear modes:
+
+**Tool Mode** (New in v6):
+```sh
+# Minimal installation for linting and code analysis
+uv tool install 'calcipy[tool]'
+calcipy-lint lint
+calcipy-tags tags --base-dir=./my-project
+```
+
+**Dependency Mode** (Traditional):
+```sh
+# Full development environment
+uv add --dev 'calcipy[dev]'
+uv run calcipy test
+```
+
+See [README](../README.md) for detailed usage examples.
+
 ## `v5`
 
 The breaking changes include removing `stale` and `pack.check_license`

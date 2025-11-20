@@ -1,6 +1,6 @@
 """Experiment with setting pyproject versions to latest lock file versions.
 
-# Note: Currently only supports poetry format
+Supports both poetry.lock and uv.lock formats.
 
 """
 
@@ -21,23 +21,61 @@ def _extract_base_version(version_spec: str) -> str:
 def _collect_pyproject_versions(pyproject_text: str) -> dict[str, str]:
     """Return pyproject versions without version specification for possible replacement.
 
-    Documentation: https://python-poetry.org/docs/dependency-specification
+    Supports both poetry and uv dependency formats:
+    - Poetry: https://python-poetry.org/docs/dependency-specification
+    - UV: Uses [project.dependencies] and [dependency-groups]
 
     """
     pyproject = tomllib.loads(pyproject_text)
 
     pyproject_versions: dict[str, str] = {}
-    # for section in
-    pyproject_groups = pyproject['tool']['poetry'].get('group', {})
-    groups = [group.get('dependencies', []) for group in pyproject_groups.values()]
-    for deps in [pyproject['tool']['poetry']['dependencies'], *groups]:
-        for name, value in deps.items():
-            if name == 'python':
-                continue
-            version = value if isinstance(value, str) else value.get('version')
-            if not version:
-                continue
-            pyproject_versions[name] = _extract_base_version(version)
+
+    # Collect dependencies from different formats
+    deps_sources = []
+
+    # UV format: [project.dependencies] and [dependency-groups]
+    if 'project' in pyproject:
+        if 'dependencies' in pyproject['project']:
+            deps_sources.append(pyproject['project']['dependencies'])
+
+        # Optional dependencies
+        if 'optional-dependencies' in pyproject['project']:
+            deps_sources.extend(pyproject['project']['optional-dependencies'].values())
+
+    # UV dependency-groups
+    if 'dependency-groups' in pyproject:
+        deps_sources.extend(pyproject['dependency-groups'].values())
+
+    # Poetry format: [tool.poetry.dependencies] and groups
+    if 'tool' in pyproject and 'poetry' in pyproject['tool']:
+        deps_sources.append(pyproject['tool']['poetry']['dependencies'])
+
+        pyproject_groups = pyproject['tool']['poetry'].get('group', {})
+        deps_sources.extend([group.get('dependencies', {}) for group in pyproject_groups.values()])
+
+    # Process all dependency sources
+    for deps in deps_sources:
+        if isinstance(deps, list):
+            # UV format: list of strings like "package>=1.0.0"
+            for dep_spec in deps:
+                if not isinstance(dep_spec, str):
+                    continue
+                # Parse "package>=1.0.0" format
+                match = re.match(r'^([a-zA-Z0-9_-]+)([><=!]+.+)?$', dep_spec)
+                if match:
+                    name = match.group(1)
+                    version_spec = match.group(2) or ''
+                    if version_spec:
+                        pyproject_versions[name] = _extract_base_version(version_spec)
+        elif isinstance(deps, dict):
+            # Poetry format: dict of {package: version}
+            for name, value in deps.items():
+                if name == 'python':
+                    continue
+                version = value if isinstance(value, str) else value.get('version') if isinstance(value, dict) else None
+                if version:
+                    pyproject_versions[name] = _extract_base_version(version)
+
     return pyproject_versions
 
 
@@ -73,22 +111,52 @@ def _replace_pyproject_versions(
     return '\n'.join(new_lines)
 
 
-def replace_versions(path_lock: Path) -> None:
-    """Read packages from poetry.lock and update the versions in pyproject.toml.
+def _parse_lock_file(path_lock: Path) -> dict[str, str]:
+    """Parse lock file and return package versions.
+
+    Supports both poetry.lock and uv.lock formats.
 
     Args:
-        path_lock: Path to the poetry.lock file
+        path_lock: Path to the lock file (poetry.lock or uv.lock)
+
+    Returns:
+        Dictionary mapping package names to versions
 
     Raises:
-        NotImplementedError: if a lock file other that the poetry lock file is used
+        NotImplementedError: if the lock file format is not recognized
 
     """
-    if path_lock.name != 'poetry.lock':
-        msg = f'Expected a path to a "poetry.lock" file. Instead, received: "{path_lock.name}"'
+    lock_content = path_lock.read_text(encoding='utf-8', errors='ignore')
+    lock = tomllib.loads(lock_content)
+
+    if path_lock.name == 'poetry.lock':
+        # Poetry format: list of packages under 'package' key
+        return {dependency['name']: dependency['version'] for dependency in lock.get('package', [])}
+    if path_lock.name == 'uv.lock':
+        # UV format: list of [[package]] sections
+        return {pkg['name']: pkg['version'] for pkg in lock.get('package', [])}
+
+    msg = f'Unsupported lock file format: "{path_lock.name}". Expected "poetry.lock" or "uv.lock"'
+    raise NotImplementedError(msg)
+
+
+def replace_versions(path_lock: Path) -> None:
+    """Read packages from lock file and update the versions in pyproject.toml.
+
+    Supports both poetry.lock and uv.lock formats.
+
+    Args:
+        path_lock: Path to the lock file (poetry.lock or uv.lock)
+
+    Raises:
+        NotImplementedError: if the lock file format is not recognized
+
+    """
+    if path_lock.name not in {'poetry.lock', 'uv.lock'}:
+        msg = f'Expected a path to a "poetry.lock" or "uv.lock" file. Instead, received: "{path_lock.name}"'
         raise NotImplementedError(msg)
 
-    lock = tomllib.loads(path_lock.read_text(encoding='utf-8', errors='ignore'))
-    lock_versions = {dependency['name']: dependency['version'] for dependency in lock['package']}
+    lock_versions = _parse_lock_file(path_lock)
 
     path_pyproject = path_lock.parent / 'pyproject.toml'
     pyproject_text = path_pyproject.read_text(encoding='utf-8')
