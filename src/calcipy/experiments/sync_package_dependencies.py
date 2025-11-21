@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
+from typing import Any
 
 from corallium.log import LOGGER
 from corallium.tomllib import tomllib
@@ -27,6 +28,7 @@ def _parse_pep621_dependency(dep_spec: str) -> tuple[str, str] | None:
     - "package>=1.0.0"
     - "package[extra]>=1.0.0"
     - "package[extra1,extra2]>=1.0.0"
+    - "zope.interface>=5.0.0" (dot-separated package names)
 
     Args:
         dep_spec: Dependency specification string
@@ -36,10 +38,10 @@ def _parse_pep621_dependency(dep_spec: str) -> tuple[str, str] | None:
 
     """
     # Match package name (with optional extras) and version spec
-    # Package name can contain letters, numbers, hyphens, underscores
+    # Package name can contain letters, numbers, hyphens, underscores, dots
     # Extras are in square brackets
     # Version spec starts with comparison operators
-    match = re.match(r'^([a-zA-Z0-9_-]+(?:\[[^\]]+\])?)([><=!~].+)?$', dep_spec.strip())
+    match = re.match(r'^([a-zA-Z0-9_.-]+(?:\[[^\]]+\])?)([><=!~].+)?$', dep_spec.strip())
     if not match:
         return None
 
@@ -55,7 +57,7 @@ def _parse_pep621_dependency(dep_spec: str) -> tuple[str, str] | None:
     return None
 
 
-def _collect_uv_dependencies(pyproject: dict) -> dict[str, str]:
+def _collect_uv_dependencies(pyproject: dict[str, Any]) -> dict[str, str]:
     """Collect dependencies from UV format sections.
 
     Args:
@@ -66,7 +68,7 @@ def _collect_uv_dependencies(pyproject: dict) -> dict[str, str]:
 
     """
     versions: dict[str, str] = {}
-    deps_sources: list = []
+    deps_sources: list[Any] = []
 
     # Collect from [project.dependencies]
     if 'project' in pyproject:
@@ -95,7 +97,7 @@ def _collect_uv_dependencies(pyproject: dict) -> dict[str, str]:
     return versions
 
 
-def _collect_poetry_dependencies(pyproject: dict) -> dict[str, str]:
+def _collect_poetry_dependencies(pyproject: dict[str, Any]) -> dict[str, str]:
     """Collect dependencies from Poetry format sections.
 
     Args:
@@ -113,7 +115,7 @@ def _collect_poetry_dependencies(pyproject: dict) -> dict[str, str]:
     poetry_config = pyproject['tool']['poetry']
 
     # Collect from [tool.poetry.dependencies]
-    deps_sources: list[dict] = [poetry_config.get('dependencies', {})]
+    deps_sources: list[dict[str, Any]] = [poetry_config.get('dependencies', {})]
 
     # Collect from [tool.poetry.group.*.dependencies]
     poetry_groups = poetry_config.get('group', {})
@@ -223,9 +225,34 @@ def _replace_pep621_versions(
 
 
 def _is_dependency_section(section: str) -> bool:
-    """Check if section is dependency-related."""
+    """Check if section is dependency-related.
+
+    Matches sections that can contain dependencies, but not unrelated
+    sections like [project.urls], [project.scripts], etc.
+
+    """
     section_lower = section.lower()
-    return any(keyword in section_lower for keyword in ['dependencies', 'project', 'poetry'])
+
+    # Match sections that can contain dependencies
+    valid_sections = {
+        '[project]',
+        '[project.optional-dependencies]',
+        '[dependency-groups]',
+        '[tool.poetry.dependencies]',
+    }
+
+    if section_lower in valid_sections:
+        return True
+
+    # Poetry groups like [tool.poetry.group.dev.dependencies]
+    if '.group.' in section_lower and 'dependencies' in section_lower:
+        return True
+
+    # Exclude non-dependency project sections
+    if section_lower.startswith('[project.') and section_lower not in valid_sections:
+        return False
+
+    return False
 
 
 def _try_replace_poetry_line(
@@ -242,6 +269,30 @@ def _try_replace_poetry_line(
         return _replace_poetry_versions(line, name, lock_version, pyproject_version)
     if lock_version and not pyproject_version:
         LOGGER.text('WARNING: consider manually updating the version', new_version=lock_version)
+    return None
+
+
+def _handle_single_line_list(
+    line: str,
+    lock_versions: dict[str, str],
+    pyproject_versions: dict[str, str],
+) -> str | None:
+    """Handle single-line list format like: dependencies = ["pkg>=1.0"].
+
+    Returns the replaced line or None if no replacement was made.
+
+    """
+    stripped = line.split('#')[0].strip()
+    list_content = stripped[stripped.index('[') + 1:stripped.index(']')].strip()
+
+    if list_content and ('"' in list_content or "'" in list_content) and (
+        replaced := _replace_pep621_versions(list_content, lock_versions, pyproject_versions)
+    ):
+        # Reconstruct the line with replaced version
+        before_bracket = line[:line.index('[') + 1]
+        after_bracket = line[line.index(']'):]
+        return f'{before_bracket}{replaced}{after_bracket}'
+
     return None
 
 
@@ -269,15 +320,29 @@ def _replace_pyproject_versions(
 
         # Handle lines with '=' in dependency sections
         if '=' in line and is_dep_section and not line.strip().startswith('#'):
-            if line.strip().endswith('['):
+            stripped = line.split('#')[0].strip()  # Remove trailing comments
+
+            # Check if line starts a list
+            if '[' in stripped:
                 in_dependency_list = True
+                if ']' not in stripped:
+                    # Multi-line list, will handle items on subsequent lines
+                    new_lines.append(line)
+                    continue
+
+                # Single-line list - handle inline
+                if replaced := _handle_single_line_list(line, lock_versions, pyproject_versions):
+                    new_lines.append(replaced)
+                    continue
+
+            # Poetry dict format (name = "version")
             elif not in_dependency_list and ']' not in line and (
                 replaced := _try_replace_poetry_line(line, lock_versions, pyproject_versions)
             ):
                 new_lines.append(replaced)
                 continue
 
-        # Try PEP 621 list format
+        # Try PEP 621 list format for multi-line lists
         has_quotes = '"' in line or "'" in line
         if (
             in_dependency_list

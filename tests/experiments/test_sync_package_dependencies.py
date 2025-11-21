@@ -3,14 +3,18 @@
 from pathlib import Path
 from textwrap import dedent
 
+from corallium.tomllib import tomllib
+
 from calcipy.experiments.sync_package_dependencies import (
-    _collect_pyproject_versions,
     _collect_poetry_dependencies,
+    _collect_pyproject_versions,
     _collect_uv_dependencies,
     _extract_base_version,
+    _is_dependency_section,
     _parse_lock_file,
     _parse_pep621_dependency,
     _replace_pyproject_versions,
+    replace_versions,
 )
 
 
@@ -40,6 +44,26 @@ def test_parse_pep621_dependency():
 
     # Complex version specifiers
     assert _parse_pep621_dependency('package>=1.0.0,<2.0.0') == ('package', '1.0.0')
+
+    # Dot-separated package names
+    assert _parse_pep621_dependency('zope.interface>=5.0.0') == ('zope.interface', '5.0.0')
+    assert _parse_pep621_dependency('backports.tarfile>=1.0.0') == ('backports.tarfile', '1.0.0')
+
+
+def test_is_dependency_section():
+    """Test _is_dependency_section function."""
+    # Should match dependency sections
+    assert _is_dependency_section('[project]')  # Can contain dependencies = [...]
+    assert _is_dependency_section('[project.optional-dependencies]')
+    assert _is_dependency_section('[dependency-groups]')
+    assert _is_dependency_section('[tool.poetry.dependencies]')
+    assert _is_dependency_section('[tool.poetry.group.dev.dependencies]')
+
+    # Should NOT match non-dependency sections
+    assert not _is_dependency_section('[project.urls]')
+    assert not _is_dependency_section('[project.scripts]')
+    assert not _is_dependency_section('[tool.ruff]')
+    assert not _is_dependency_section('[tool.mypy]')
 
 
 def test_collect_pyproject_versions_poetry():
@@ -87,8 +111,6 @@ def test_collect_uv_dependencies():
             "mkdocs>=1.5.0",
         ]
     """)
-    from corallium.tomllib import tomllib
-
     pyproject = tomllib.loads(pyproject_text)
     versions = _collect_uv_dependencies(pyproject)
     assert versions == {
@@ -108,8 +130,6 @@ def test_collect_uv_dependencies_with_extras():
             "hypothesis[cli]>=6.112.4",
         ]
     """)
-    from corallium.tomllib import tomllib
-
     pyproject = tomllib.loads(pyproject_text)
     versions = _collect_uv_dependencies(pyproject)
     assert versions == {
@@ -128,8 +148,6 @@ def test_collect_poetry_dependencies():
         [tool.poetry.group.dev.dependencies]
         pytest = "^7.0.0"
     """)
-    from corallium.tomllib import tomllib
-
     pyproject = tomllib.loads(pyproject_text)
     versions = _collect_poetry_dependencies(pyproject)
     assert 'requests' in versions
@@ -221,6 +239,37 @@ def test_replace_pyproject_versions_pep621_with_extras():
     assert 'mkdocstrings[python]>=0.26.1' not in new_text
 
 
+def test_replace_pyproject_versions_single_line_list():
+    """Test _replace_pyproject_versions with single-line list format."""
+    pyproject_text = dedent("""
+        [project]
+        dependencies = ["requests>=2.0.0"]
+    """)
+    lock_versions = {'requests': '2.1.0'}
+    pyproject_versions = {'requests': '2.0.0'}
+    new_text = _replace_pyproject_versions(lock_versions, pyproject_versions, pyproject_text)
+
+    assert 'requests>=2.1.0' in new_text
+    assert 'requests>=2.0.0' not in new_text
+
+
+def test_replace_pyproject_versions_trailing_comment():
+    """Test _replace_pyproject_versions with trailing comments."""
+    pyproject_text = dedent("""
+        [dependency-groups]
+        dev = [  # development dependencies
+            "pytest>=7.0.0",
+        ]
+    """)
+    lock_versions = {'pytest': '7.1.0'}
+    pyproject_versions = {'pytest': '7.0.0'}
+    new_text = _replace_pyproject_versions(lock_versions, pyproject_versions, pyproject_text)
+
+    assert 'pytest>=7.1.0' in new_text
+    assert 'pytest>=7.0.0' not in new_text
+    assert '# development dependencies' in new_text  # Comment preserved
+
+
 def test_parse_lock_file_uv(tmp_path: Path):
     """Test _parse_lock_file with uv.lock format."""
     uv_lock = tmp_path / 'uv.lock'
@@ -271,6 +320,10 @@ def test_end_to_end_uv_replacement(tmp_path: Path):
         [[package]]
         name = "mkdocstrings"
         version = "0.27.0"
+
+        [[package]]
+        name = "zope.interface"
+        version = "6.0.0"
     """))
 
     # Create pyproject.toml
@@ -280,6 +333,7 @@ def test_end_to_end_uv_replacement(tmp_path: Path):
         name = "test-package"
         dependencies = [
             "requests>=2.28.0",
+            "zope.interface>=5.5.0",
         ]
 
         [project.optional-dependencies]
@@ -289,14 +343,14 @@ def test_end_to_end_uv_replacement(tmp_path: Path):
     """))
 
     # Run replacement
-    from calcipy.experiments.sync_package_dependencies import replace_versions
-
     replace_versions(uv_lock)
 
     # Verify results
     result = pyproject.read_text()
     assert 'requests>=2.31.0' in result
     assert 'mkdocstrings[python]>=0.27.0' in result
+    assert 'zope.interface>=6.0.0' in result
     # Ensure old versions are gone
     assert 'requests>=2.28.0' not in result
     assert 'mkdocstrings[python]>=0.26.0' not in result
+    assert 'zope.interface>=5.5.0' not in result
