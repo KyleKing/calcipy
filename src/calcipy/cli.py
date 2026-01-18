@@ -99,6 +99,19 @@ def start_program(
         version=pkg_version,
         # binary=?,
         # binary_names=?,
+
+        # PLANNED: support completions
+        # https://github.com/pyinvoke/invoke/commit/86822aa8346fe69062cc34d6a28e3bc5053d867f
+        #   calcipy --print-completion-script zsh
+        #  inv --print-completion-script zsh > ~/.invoke-completion.sh
+        # and then perhaps add the following to the end of ``~/.zshrc``::
+        #  source ~/.invoke-completion.sh
+        # NOW: https://docs.pyinvoke.org/en/stable/invoke.html?highlight=completion#generating-a-completion-script
+        #  AND: https://docs.pyinvoke.org/en/stable/api/program.html
+
+        # PLANNED: Alternatively define completions with `usage`: https://usage.jdx.dev/spec
+
+        # PLANNED: Also see how https://docs.astral.sh/ruff/configuration/#shell-autocompletion
         namespace=Collection.from_module(module) if module else collection,
         config_class=_CalcipyConfig,
     ).run()

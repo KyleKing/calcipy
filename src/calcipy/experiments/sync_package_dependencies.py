@@ -1,6 +1,6 @@
 """Experiment with setting pyproject versions to latest lock file versions.
 
-# Note: Currently only supports poetry format
+PLANNED: Currently only supports poetry. Fix
 
 """
 
