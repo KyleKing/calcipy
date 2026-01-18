@@ -1,0 +1,2320 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="calcipy project documentation">
+      
+      
+        <meta name="author" content="Kyle King">
+      
+      
+        <link rel="canonical" href="https://calcipy.kyleking.me/docs/adr-research/ethereum-eips/">
+      
+      
+        <link rel="prev" href="../comparison-and-recommendations/">
+      
+      
+        <link rel="next" href="../log4brains/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.3">
+    
+    
+      
+        <title>Ethereum EIPs - Ethereum Improvement Proposals - calcipy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../_styles/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ethereum-eips-ethereum-improvement-proposals" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            calcipy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ethereum EIPs - Ethereum Improvement Proposals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    calcipy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    calcipy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CHANGELOG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CODE_TAG_SUMMARY/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collected Code Tags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEVELOPER_GUIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Developer Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MIGRATION/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migration Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STYLE_GUIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Style Guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Adr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Adr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture Decision Records
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0001-record-architecture-decisions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Record Architecture Decisions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0002-use-invoke-for-task-automation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Invoke for Task Automation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Ruff for Linting and Formatting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Switch to uv for Dependency Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Beartype for Runtime Type Checking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0006-use-hatchling-for-build-backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Hatchling for Build Backend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0007-provide-multiple-cli-entry-points/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Provide Multiple CLI Entry Points
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Adr research
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Adr research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR Research and Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-guidance-for-adrs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Guidance for Writing and Reviewing Architecture Decision Records
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws-adr-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS Architecture Decision Records (ADRs) Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison-and-recommendations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR Approaches: Comparison and Recommendations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Ethereum EIPs - Ethereum Improvement Proposals
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Ethereum EIPs - Ethereum Improvement Proposals
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eip-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EIP Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-core-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Core EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-networking-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Networking EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-interface-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Interface EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-meta-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Meta EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-informational-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Informational EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ercs-ethereum-request-for-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. ERCs (Ethereum Request for Comments)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eip-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EIP Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-proposing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before Proposing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal Lifecycle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eip-1-the-meta-eip" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP-1: The Meta-EIP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eip-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EIP Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-rigor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Rigor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Rigor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      High Standards
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editor-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Editor Review
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#community-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Community Governance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Community Governance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decentralized-decision-making" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decentralized Decision Making
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stakeholder-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stakeholder Groups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork Coordination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Tracking
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Site
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits-of-eip-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of EIP Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benefits of EIP Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-the-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      For the Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-developers" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Developers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-the-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      For the Ecosystem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Challenges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-barrier-to-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      High Barrier to Entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Long Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordination-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordination Complexity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-to-software-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison to Software ADRs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparison to Software ADRs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#similarities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Similarities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Differences
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-for-eip-style-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases for EIP-style Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases for EIP-style Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best For
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overkill-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overkill For
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applicable-lessons-for-software-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applicable Lessons for Software Projects
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log4brains/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    log4brains - Architecture Decision Records Management Tool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../madr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MADR - Markdown Architectural Decision Records
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prefect-pins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prefect PINs - Prefect Improvement Notices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-world-examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Real-World ADR Examples and Implementations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../y-statements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Y-Statements - Abbreviated Architecture Decision Format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eip-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EIP Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-core-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Core EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-networking-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Networking EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-interface-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Interface EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-meta-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Meta EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-informational-eips" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Informational EIPs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-ercs-ethereum-request-for-comments" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. ERCs (Ethereum Request for Comments)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eip-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EIP Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-proposing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before Proposing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposal-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Proposal Lifecycle
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eip-1-the-meta-eip" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP-1: The Meta-EIP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eip-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      EIP Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EIP Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-rigor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Rigor
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Rigor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      High Standards
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editor-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      Editor Review
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#community-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Community Governance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Community Governance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decentralized-decision-making" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decentralized Decision Making
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stakeholder-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stakeholder Groups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork Coordination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Tracking
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Site
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits-of-eip-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of EIP Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benefits of EIP Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-the-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      For the Network
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-developers" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Developers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-the-ecosystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      For the Ecosystem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#challenges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenges
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Challenges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-barrier-to-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      High Barrier to Entry
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Long Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordination-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordination Complexity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-to-software-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison to Software ADRs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparison to Software ADRs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#similarities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Similarities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Differences
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-for-eip-style-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases for EIP-style Process
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Cases for EIP-style Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best For
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overkill-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overkill For
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applicable-lessons-for-software-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applicable Lessons for Software Projects
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ethereum-eips-ethereum-improvement-proposals">Ethereum EIPs - Ethereum Improvement Proposals<a class="headerlink" href="#ethereum-eips-ethereum-improvement-proposals" title="Permanent link">⚓︎</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">⚓︎</a></h2>
+<p>EIPs (Ethereum Improvement Proposals) are the standardization and documentation process for improvements to the Ethereum blockchain platform. They represent one of the most rigorous and well-established decision documentation processes in the blockchain space.</p>
+<p><strong>Repository</strong>: https://github.com/ethereum/EIPs
+<strong>Documentation</strong>: Approximately 870 EIP documents
+<strong>Purpose</strong>: &ldquo;To standardize and provide high-quality documentation for Ethereum itself and conventions built upon it&rdquo;</p>
+<h2 id="eip-categories">EIP Categories<a class="headerlink" href="#eip-categories" title="Permanent link">⚓︎</a></h2>
+<p>The system divides proposals into six main types:</p>
+<h3 id="1-core-eips">1. Core EIPs<a class="headerlink" href="#1-core-eips" title="Permanent link">⚓︎</a></h3>
+<p>Changes to the Ethereum consensus protocol:</p>
+<ul>
+<li>Consensus rules</li>
+<li>Blockchain validation</li>
+<li>Proof-of-work/proof-of-stake mechanisms</li>
+<li>Fork implementations</li>
+<li>Critical protocol updates</li>
+</ul>
+<p><strong>Impact</strong>: Requires all nodes to upgrade
+<strong>Examples</strong>: Major network upgrades (Shanghai, Merge, etc.)</p>
+<h3 id="2-networking-eips">2. Networking EIPs<a class="headerlink" href="#2-networking-eips" title="Permanent link">⚓︎</a></h3>
+<p>Peer-to-peer network layer specifications:</p>
+<ul>
+<li>Network protocols</li>
+<li>Node communication</li>
+<li>Devp2p improvements</li>
+<li>Discovery mechanisms</li>
+</ul>
+<p><strong>Impact</strong>: Affects node communication
+<strong>Examples</strong>: Network optimization proposals</p>
+<h3 id="3-interface-eips">3. Interface EIPs<a class="headerlink" href="#3-interface-eips" title="Permanent link">⚓︎</a></h3>
+<p>Standards determining user and application interaction with blockchain:</p>
+<ul>
+<li>JSON-RPC specifications</li>
+<li>API standards</li>
+<li>Client interfaces</li>
+<li>Developer tools</li>
+</ul>
+<p><strong>Impact</strong>: Affects how applications interact with Ethereum
+<strong>Examples</strong>: RPC method specifications</p>
+<h3 id="4-meta-eips">4. Meta EIPs<a class="headerlink" href="#4-meta-eips" title="Permanent link">⚓︎</a></h3>
+<p>Miscellaneous improvements requiring consensus:</p>
+<ul>
+<li>Process improvements</li>
+<li>Guidelines</li>
+<li>Decision-making procedures</li>
+<li>EIP process itself (EIP-1)</li>
+</ul>
+<p><strong>Impact</strong>: Affects Ethereum development process
+<strong>Examples</strong>: EIP-1 (EIP Purpose and Guidelines)</p>
+<h3 id="5-informational-eips">5. Informational EIPs<a class="headerlink" href="#5-informational-eips" title="Permanent link">⚓︎</a></h3>
+<p>Non-binding documentation:</p>
+<ul>
+<li>Design rationale</li>
+<li>General guidelines</li>
+<li>Best practices</li>
+<li>Educational content</li>
+</ul>
+<p><strong>Impact</strong>: Informational only, no implementation required
+<strong>Examples</strong>: Design philosophy documents</p>
+<h3 id="6-ercs-ethereum-request-for-comments">6. ERCs (Ethereum Request for Comments)<a class="headerlink" href="#6-ercs-ethereum-request-for-comments" title="Permanent link">⚓︎</a></h3>
+<p>Application layer standards - <strong>now in separate repository</strong>:</p>
+<ul>
+<li>Token standards (ERC-20, ERC-721, ERC-1155)</li>
+<li>Smart contract patterns</li>
+<li>Application conventions</li>
+</ul>
+<p><strong>Important</strong>: ERCs are now maintained at https://github.com/ethereum/ercs</p>
+<h2 id="eip-process">EIP Process<a class="headerlink" href="#eip-process" title="Permanent link">⚓︎</a></h2>
+<h3 id="before-proposing">Before Proposing<a class="headerlink" href="#before-proposing" title="Permanent link">⚓︎</a></h3>
+<p>According to the README:</p>
+<blockquote>
+<p>&ldquo;Ideas MUST be thoroughly discussed on Ethereum Magicians or Ethereum Research&rdquo;</p>
+</blockquote>
+<p>This ensures:</p>
+<ul>
+<li>Community vetting before formal submission</li>
+<li>Refinement of ideas</li>
+<li>Identification of issues</li>
+<li>Building consensus</li>
+</ul>
+<h3 id="proposal-lifecycle">Proposal Lifecycle<a class="headerlink" href="#proposal-lifecycle" title="Permanent link">⚓︎</a></h3>
+<ol>
+<li><strong>Discussion</strong>: Informal discussion on forums</li>
+<li><strong>Draft</strong>: Initial EIP written using template</li>
+<li><strong>Review</strong>: Community and editors review</li>
+<li><strong>Last Call</strong>: Final comment period</li>
+<li><strong>Final</strong>: Accepted and finalized</li>
+<li><strong>Living</strong>: For documents that are continually updated</li>
+<li><strong>Stagnant</strong>: Inactive for 6+ months</li>
+<li><strong>Withdrawn</strong>: Author withdrew proposal</li>
+<li><strong>Rejected</strong>: Not accepted</li>
+</ol>
+<h3 id="eip-1-the-meta-eip">EIP-1: The Meta-EIP<a class="headerlink" href="#eip-1-the-meta-eip" title="Permanent link">⚓︎</a></h3>
+<p>EIP-1 governs the entire publication process and is required reading for anyone proposing an EIP. It defines:</p>
+<ul>
+<li>EIP formats and structures</li>
+<li>Review processes</li>
+<li>Status transitions</li>
+<li>Editor responsibilities</li>
+<li>Quality standards</li>
+</ul>
+<h2 id="eip-structure">EIP Structure<a class="headerlink" href="#eip-structure" title="Permanent link">⚓︎</a></h2>
+<h3 id="required-components">Required Components<a class="headerlink" href="#required-components" title="Permanent link">⚓︎</a></h3>
+<p>Based on typical EIP structure:</p>
+<p><strong>Header/Metadata</strong></p>
+<ul>
+<li>EIP number</li>
+<li>Title</li>
+<li>Author(s)</li>
+<li>Status</li>
+<li>Type</li>
+<li>Category</li>
+<li>Created date</li>
+<li>Requires (dependencies)</li>
+<li>Replaces/Superseded-By</li>
+</ul>
+<p><strong>Abstract</strong></p>
+<p>Brief technical summary (~200 words)</p>
+<p><strong>Motivation</strong></p>
+<p>Why the EIP is necessary, what problem it solves</p>
+<p><strong>Specification</strong></p>
+<p>Technical details of the proposal:</p>
+<ul>
+<li>Precise technical description</li>
+<li>Formal specifications</li>
+<li>Implementation details</li>
+<li>Edge cases</li>
+</ul>
+<p><strong>Rationale</strong></p>
+<p>Design decisions and alternatives considered:</p>
+<ul>
+<li>Why this approach?</li>
+<li>What alternatives were considered?</li>
+<li>What trade-offs were made?</li>
+</ul>
+<p><strong>Backwards Compatibility</strong></p>
+<p>Impact on existing implementations:</p>
+<ul>
+<li>Breaking changes</li>
+<li>Migration requirements</li>
+<li>Deprecated features</li>
+</ul>
+<p><strong>Test Cases</strong> (for Core EIPs)</p>
+<p>Comprehensive test coverage</p>
+<p><strong>Reference Implementation</strong></p>
+<p>Working code demonstrating the proposal</p>
+<p><strong>Security Considerations</strong></p>
+<p>Security implications and risks</p>
+<h2 id="technical-rigor">Technical Rigor<a class="headerlink" href="#technical-rigor" title="Permanent link">⚓︎</a></h2>
+<h3 id="high-standards">High Standards<a class="headerlink" href="#high-standards" title="Permanent link">⚓︎</a></h3>
+<p>EIPs require:</p>
+<ul>
+<li><strong>Precise specification</strong>: Implementable from document alone</li>
+<li><strong>Technical completeness</strong>: All edge cases covered</li>
+<li><strong>Test cases</strong>: Comprehensive validation</li>
+<li><strong>Reference implementation</strong>: Proof of concept</li>
+<li><strong>Security analysis</strong>: Threat model considered</li>
+</ul>
+<h3 id="editor-review">Editor Review<a class="headerlink" href="#editor-review" title="Permanent link">⚓︎</a></h3>
+<p>Designated EIP editors:</p>
+<ul>
+<li>Review for technical quality</li>
+<li>Ensure format compliance</li>
+<li>Check for completeness</li>
+<li>Assign EIP numbers</li>
+<li>Manage status transitions</li>
+</ul>
+<h2 id="community-governance">Community Governance<a class="headerlink" href="#community-governance" title="Permanent link">⚓︎</a></h2>
+<h3 id="decentralized-decision-making">Decentralized Decision Making<a class="headerlink" href="#decentralized-decision-making" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>No single authority approves EIPs</li>
+<li>Consensus through discussion</li>
+<li>Multiple stakeholder types (developers, miners, users)</li>
+<li>Transparent process</li>
+</ul>
+<h3 id="stakeholder-groups">Stakeholder Groups<a class="headerlink" href="#stakeholder-groups" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Core developers</strong>: Protocol implementation</li>
+<li><strong>Client teams</strong>: Node software</li>
+<li><strong>Application developers</strong>: Smart contracts and dApps</li>
+<li><strong>Users</strong>: Token holders and network participants</li>
+<li><strong>Researchers</strong>: Academic and theoretical input</li>
+</ul>
+<h2 id="integration-with-development">Integration with Development<a class="headerlink" href="#integration-with-development" title="Permanent link">⚓︎</a></h2>
+<h3 id="fork-coordination">Fork Coordination<a class="headerlink" href="#fork-coordination" title="Permanent link">⚓︎</a></h3>
+<p>Major Ethereum upgrades bundle multiple EIPs:</p>
+<ul>
+<li><strong>Shanghai</strong>: Multiple EIPs implemented together</li>
+<li><strong>The Merge</strong>: Transition to proof-of-stake</li>
+<li><strong>London</strong>: EIP-1559 and others</li>
+</ul>
+<p>This requires:</p>
+<ul>
+<li>Dependency management</li>
+<li>Testing across EIPs</li>
+<li>Coordinated deployment</li>
+<li>Network-wide upgrade</li>
+</ul>
+<h3 id="implementation-tracking">Implementation Tracking<a class="headerlink" href="#implementation-tracking" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Multiple client implementations (Geth, Besu, Nethermind, etc.)</li>
+<li>Each must implement EIPs independently</li>
+<li>Cross-client testing required</li>
+<li>Testnet deployment before mainnet</li>
+</ul>
+<h2 id="documentation-system">Documentation System<a class="headerlink" href="#documentation-system" title="Permanent link">⚓︎</a></h2>
+<h3 id="static-site">Static Site<a class="headerlink" href="#static-site" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Built with Jekyll (Ruby 3.1.4)</li>
+<li>GitHub Pages deployment</li>
+<li>RSS feeds for updates</li>
+<li>Categorized browsing</li>
+<li>Search functionality</li>
+</ul>
+<h3 id="organization">Organization<a class="headerlink" href="#organization" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Individual markdown files per EIP</li>
+<li>Consistent naming: <code>eip-NNNN.md</code></li>
+<li>Template for new proposals</li>
+<li>Configuration for site generation</li>
+</ul>
+<h2 id="benefits-of-eip-process">Benefits of EIP Process<a class="headerlink" href="#benefits-of-eip-process" title="Permanent link">⚓︎</a></h2>
+<h3 id="for-the-network">For the Network<a class="headerlink" href="#for-the-network" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Standardization</strong>: Consistent improvements</li>
+<li><strong>Quality</strong>: High technical bar</li>
+<li><strong>Security</strong>: Thorough review</li>
+<li><strong>Compatibility</strong>: Coordinated changes</li>
+</ul>
+<h3 id="for-developers">For Developers<a class="headerlink" href="#for-developers" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Clarity</strong>: Clear specifications</li>
+<li><strong>Reference</strong>: Test cases and implementations</li>
+<li><strong>History</strong>: Understanding of design evolution</li>
+<li><strong>Standards</strong>: Common patterns and practices</li>
+</ul>
+<h3 id="for-the-ecosystem">For the Ecosystem<a class="headerlink" href="#for-the-ecosystem" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Transparency</strong>: Open proposal process</li>
+<li><strong>Participation</strong>: Anyone can propose</li>
+<li><strong>Governance</strong>: Decentralized decision making</li>
+<li><strong>Documentation</strong>: Permanent record</li>
+</ul>
+<h2 id="challenges">Challenges<a class="headerlink" href="#challenges" title="Permanent link">⚓︎</a></h2>
+<h3 id="high-barrier-to-entry">High Barrier to Entry<a class="headerlink" href="#high-barrier-to-entry" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Requires significant technical expertise</li>
+<li>Formal writing style</li>
+<li>Comprehensive specification</li>
+<li>Reference implementation</li>
+</ul>
+<h3 id="long-process">Long Process<a class="headerlink" href="#long-process" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Multiple review stages</li>
+<li>Community consensus building</li>
+<li>Cross-client implementation</li>
+<li>Testing and deployment</li>
+</ul>
+<h3 id="coordination-complexity">Coordination Complexity<a class="headerlink" href="#coordination-complexity" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Multiple independent teams</li>
+<li>Global distributed contributors</li>
+<li>Network upgrade coordination</li>
+<li>Backward compatibility maintenance</li>
+</ul>
+<h2 id="comparison-to-software-adrs">Comparison to Software ADRs<a class="headerlink" href="#comparison-to-software-adrs" title="Permanent link">⚓︎</a></h2>
+<h3 id="similarities">Similarities<a class="headerlink" href="#similarities" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Document important decisions</li>
+<li>Capture rationale</li>
+<li>Permanent record</li>
+<li>Version controlled</li>
+</ul>
+<h3 id="differences">Differences<a class="headerlink" href="#differences" title="Permanent link">⚓︎</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>EIPs</th>
+<th>Traditional ADRs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Network-wide protocol</td>
+<td>Single project/application</td>
+</tr>
+<tr>
+<td><strong>Stakeholders</strong></td>
+<td>Entire ecosystem</td>
+<td>Internal team</td>
+</tr>
+<tr>
+<td><strong>Process</strong></td>
+<td>Highly formal, multi-stage</td>
+<td>Lightweight, team consensus</td>
+</tr>
+<tr>
+<td><strong>Technical Detail</strong></td>
+<td>Exhaustive specification</td>
+<td>Contextual detail as needed</td>
+</tr>
+<tr>
+<td><strong>Review</strong></td>
+<td>Public, multiple reviewers</td>
+<td>Team review</td>
+</tr>
+<tr>
+<td><strong>Implementation</strong></td>
+<td>Multiple independent teams</td>
+<td>Single team</td>
+</tr>
+<tr>
+<td><strong>Time Scale</strong></td>
+<td>Months to years</td>
+<td>Days to weeks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="use-cases-for-eip-style-process">Use Cases for EIP-style Process<a class="headerlink" href="#use-cases-for-eip-style-process" title="Permanent link">⚓︎</a></h2>
+<h3 id="best-for">Best For<a class="headerlink" href="#best-for" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Protocol development</strong>: Network-wide standards</li>
+<li><strong>Public blockchains</strong>: Decentralized governance</li>
+<li><strong>Open standards</strong>: Industry-wide adoption</li>
+<li><strong>Critical infrastructure</strong>: High-stakes decisions</li>
+<li><strong>Multiple implementations</strong>: Interoperability required</li>
+</ul>
+<h3 id="overkill-for">Overkill For<a class="headerlink" href="#overkill-for" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Internal applications</strong>: Single team/codebase</li>
+<li><strong>Rapid iteration</strong>: Fast-moving projects</li>
+<li><strong>Small changes</strong>: Minor improvements</li>
+<li><strong>Proprietary systems</strong>: No external stakeholders</li>
+</ul>
+<h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">⚓︎</a></h2>
+<ol>
+<li><strong>Most rigorous process</strong>: Highest bar for quality and completeness</li>
+<li><strong>Community-driven</strong>: Open participation and governance</li>
+<li><strong>Protocol-level</strong>: For network-wide changes</li>
+<li><strong>Long timelines</strong>: Thorough but slow</li>
+<li><strong>Multiple implementations</strong>: Requires precise specification</li>
+<li><strong>Permanent record</strong>: Comprehensive historical documentation</li>
+</ol>
+<h2 id="applicable-lessons-for-software-projects">Applicable Lessons for Software Projects<a class="headerlink" href="#applicable-lessons-for-software-projects" title="Permanent link">⚓︎</a></h2>
+<p>Even if not adopting full EIP rigor, teams can learn from:</p>
+<ul>
+<li><strong>Template structure</strong>: Comprehensive sections</li>
+<li><strong>Rationale section</strong>: Document alternatives considered</li>
+<li><strong>Security considerations</strong>: Explicit threat analysis</li>
+<li><strong>Test cases</strong>: Validation requirements</li>
+<li><strong>Reference implementation</strong>: Proof of concept</li>
+<li><strong>Status tracking</strong>: Clear lifecycle states</li>
+<li><strong>Backwards compatibility</strong>: Impact analysis</li>
+</ul>
+<h2 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li><strong>Best for</strong>: Blockchain protocols and decentralized networks</li>
+<li><strong>Project Size</strong>: Very large, network-scale projects</li>
+<li><strong>Team Size</strong>: Multiple independent teams</li>
+<li><strong>Culture</strong>: Open source, decentralized governance</li>
+<li><strong>Formality</strong>: Highly formal</li>
+<li><strong>Time Investment</strong>: Substantial (months to years per proposal)</li>
+<li><strong>Standards</strong>: Industry-wide or ecosystem-wide standards</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="../../../_javascript/tables.js"></script>
+      
+    
+  </body>
+</html>

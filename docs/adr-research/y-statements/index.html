@@ -1,0 +1,1856 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="calcipy project documentation">
+      
+      
+        <meta name="author" content="Kyle King">
+      
+      
+        <link rel="canonical" href="https://calcipy.kyleking.me/docs/adr-research/y-statements/">
+      
+      
+        <link rel="prev" href="../real-world-examples/">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.3">
+    
+    
+      
+        <title>Y-Statements - Abbreviated Architecture Decision Format - calcipy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../_styles/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#y-statements-abbreviated-architecture-decision-format" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            calcipy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Y-Statements - Abbreviated Architecture Decision Format
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    calcipy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    calcipy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CHANGELOG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CHANGELOG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CODE_TAG_SUMMARY/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collected Code Tags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEVELOPER_GUIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Developer Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MIGRATION/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migration Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../STYLE_GUIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Style Guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Adr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Adr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture Decision Records
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0001-record-architecture-decisions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Record Architecture Decisions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0002-use-invoke-for-task-automation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Invoke for Task Automation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Ruff for Linting and Formatting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Switch to uv for Dependency Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Beartype for Runtime Type Checking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0006-use-hatchling-for-build-backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Use Hatchling for Build Backend
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0007-provide-multiple-cli-entry-points/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Provide Multiple CLI Entry Points
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Adr research
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            Adr research
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR Research and Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-guidance-for-adrs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Guidance for Writing and Reviewing Architecture Decision Records
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws-adr-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS Architecture Decision Records (ADRs) Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparison-and-recommendations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ADR Approaches: Comparison and Recommendations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ethereum-eips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ethereum EIPs - Ethereum Improvement Proposals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log4brains/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    log4brains - Architecture Decision Records Management Tool
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../madr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MADR - Markdown Architectural Decision Records
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prefect-pins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prefect PINs - Prefect Improvement Notices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../real-world-examples/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Real-World ADR Examples and Implementations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Y-Statements - Abbreviated Architecture Decision Format
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Y-Statements - Abbreviated Architecture Decision Format
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#six-core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six Core Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-y-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Y-Statement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Representation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Characteristics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-brevity" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Brevity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Completeness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-structured" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Structured
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lightweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Lightweight
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-y-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Y-Statements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use Y-Statements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ideal-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ideal Use Cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consider-full-adrs-instead-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consider Full ADRs Instead When
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationship-to-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationship to ADRs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benefits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-teams" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Teams
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Communication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-decision-making" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Decision Making
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-y-statements-dont-capture-well" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Y-Statements Don&rsquo;t Capture Well
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#potential-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Potential Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-effective-y-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Effective Y-Statements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizing-y-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizing Y-Statements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-meetings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Meetings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#six-core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Six Core Components
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-y-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Y-Statement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Representation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Characteristics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-brevity" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Brevity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Completeness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-structured" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Structured
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lightweight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Lightweight
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-y-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Y-Statements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use Y-Statements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ideal-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ideal Use Cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consider-full-adrs-instead-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consider Full ADRs Instead When
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relationship-to-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationship to ADRs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benefits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-teams" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Teams
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Communication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-decision-making" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Decision Making
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Limitations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-y-statements-dont-capture-well" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Y-Statements Don&rsquo;t Capture Well
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#potential-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Potential Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-effective-y-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Effective Y-Statements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizing-y-statements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizing Y-Statements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-meetings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Meetings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Requests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="y-statements-abbreviated-architecture-decision-format">Y-Statements - Abbreviated Architecture Decision Format<a class="headerlink" href="#y-statements-abbreviated-architecture-decision-format" title="Permanent link">⚓︎</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">⚓︎</a></h2>
+<p>Y-Statements (also called (WH)Y-Statements) are an abbreviated, lightweight format for documenting architectural decisions. They condense decision documentation into a single structured sentence, making them ideal for quick capture and communication.</p>
+<p><strong>Source</strong>: https://medium.com/olzzio/y-statements-10eb07b5a177
+<strong>Origin</strong>: Evolved from George Fairbanks&rsquo; Architecture Haikus notation
+<strong>Published</strong>: Featured in &ldquo;Making Architectural Knowledge Sustainable: Industrial Practice Report and Outlook&rdquo; at SATURN 2012 and in IEEE Software/InfoQ article</p>
+<h2 id="format-structure">Format Structure<a class="headerlink" href="#format-structure" title="Permanent link">⚓︎</a></h2>
+<p>Y-Statements reduce documentation to a single statement following this template:</p>
+<blockquote>
+<p>&ldquo;In the context of <code>&lt;use case/user story u&gt;</code>, facing <code>&lt;concern c&gt;</code> we decided for <code>&lt;option o&gt;</code> to achieve <code>&lt;quality q&gt;</code>, accepting <code>&lt;downside d&gt;</code>.&rdquo;</p>
+</blockquote>
+<h3 id="six-core-components">Six Core Components<a class="headerlink" href="#six-core-components" title="Permanent link">⚓︎</a></h3>
+<p><strong>1. Context</strong> (In the context of&hellip;)</p>
+<ul>
+<li>Functional requirement (user story or use case)</li>
+<li>Or an architecture component</li>
+<li>Establishes the scope and situation</li>
+</ul>
+<p><strong>2. Facing</strong> (facing&hellip;)</p>
+<ul>
+<li>Non-functional requirement</li>
+<li>Desired quality attribute</li>
+<li>The problem or concern driving the decision</li>
+</ul>
+<p><strong>3. We decided for</strong> (we decided for&hellip;)</p>
+<ul>
+<li>Decision outcome</li>
+<li>The most important part - what was chosen</li>
+<li>Clear statement of the solution</li>
+</ul>
+<p><strong>4. Neglected</strong> (and against&hellip;)</p>
+<ul>
+<li>Alternatives not chosen</li>
+<li>Important to remember what was considered but rejected</li>
+<li>Prevents revisiting dismissed options</li>
+</ul>
+<p><strong>5. To achieve</strong> (to achieve&hellip;)</p>
+<ul>
+<li>Benefits of the decision</li>
+<li>Full or partial satisfaction of the requirement</li>
+<li>Positive outcomes expected</li>
+</ul>
+<p><strong>6. Accepting that</strong> (accepting that&hellip;)</p>
+<ul>
+<li>Drawbacks and trade-offs</li>
+<li>Impact on other properties/context</li>
+<li>Effort/cost implications</li>
+<li>Honest acknowledgment of downsides</li>
+</ul>
+<h2 id="example-y-statement">Example Y-Statement<a class="headerlink" href="#example-y-statement" title="Permanent link">⚓︎</a></h2>
+<blockquote>
+<p>In the context of the <strong>Web shop service</strong>, facing the need to <strong>keep user session data consistent and current across shop instances</strong>, we decided for the <strong>Database Session State pattern</strong> and against <strong>Client Session State or Server Session State</strong>, to achieve <strong>data consistency and cloud elasticity</strong>, accepting that <strong>a session database needs to be designed and implemented</strong>.</p>
+</blockquote>
+<h2 id="visual-representation">Visual Representation<a class="headerlink" href="#visual-representation" title="Permanent link">⚓︎</a></h2>
+<p>The template forms the letter &ldquo;Y&rdquo; when visualized:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>                Context
+<span class="linenos" data-linenos=" 2 "></span>                   |
+<span class="linenos" data-linenos=" 3 "></span>                Facing
+<span class="linenos" data-linenos=" 4 "></span>                   |
+<span class="linenos" data-linenos=" 5 "></span>        ┌──────────┴──────────┐
+<span class="linenos" data-linenos=" 6 "></span>    Decided              Neglected
+<span class="linenos" data-linenos=" 7 "></span>        │
+<span class="linenos" data-linenos=" 8 "></span>    To Achieve
+<span class="linenos" data-linenos=" 9 "></span>        │
+<span class="linenos" data-linenos="10 "></span>    Accepting
+</code></pre></div>
+<p>The &ldquo;Y&rdquo; shape gives the format its name and is pronounced like the word &ldquo;why&rdquo;, which reinforces the focus on explaining the reasoning.</p>
+<h2 id="key-characteristics">Key Characteristics<a class="headerlink" href="#key-characteristics" title="Permanent link">⚓︎</a></h2>
+<h3 id="1-brevity">1. Brevity<a class="headerlink" href="#1-brevity" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Single (long) sentence</li>
+<li>Forces conciseness</li>
+<li>Easy to scan and understand quickly</li>
+</ul>
+<h3 id="2-completeness">2. Completeness<a class="headerlink" href="#2-completeness" title="Permanent link">⚓︎</a></h3>
+<p>Despite brevity, captures:</p>
+<ul>
+<li>Problem (context + facing)</li>
+<li>Solution (decided for)</li>
+<li>Alternatives (neglected)</li>
+<li>Benefits (to achieve)</li>
+<li>Trade-offs (accepting)</li>
+</ul>
+<h3 id="3-structured">3. Structured<a class="headerlink" href="#3-structured" title="Permanent link">⚓︎</a></h3>
+<p>The six sections provide a consistent template that:</p>
+<ul>
+<li>Guides thinking</li>
+<li>Ensures key information is captured</li>
+<li>Makes decisions comparable</li>
+</ul>
+<h3 id="4-lightweight">4. Lightweight<a class="headerlink" href="#4-lightweight" title="Permanent link">⚓︎</a></h3>
+<p>Much leaner than full ADR templates while still capturing essential information.</p>
+<h2 id="when-to-use-y-statements">When to Use Y-Statements<a class="headerlink" href="#when-to-use-y-statements" title="Permanent link">⚓︎</a></h2>
+<h3 id="ideal-use-cases">Ideal Use Cases<a class="headerlink" href="#ideal-use-cases" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Lightweight documentation needs</strong>: When full ADRs feel too heavy</li>
+<li><strong>Quick decision capture</strong>: During meetings or design sessions</li>
+<li><strong>Decision summaries</strong>: As TL;DR for longer documents</li>
+<li><strong>Intermediate decisions</strong>: Not architecturally significant enough for full ADR</li>
+<li><strong>Rapid iteration</strong>: Early in design when things are fluid</li>
+</ul>
+<h3 id="consider-full-adrs-instead-when">Consider Full ADRs Instead When<a class="headerlink" href="#consider-full-adrs-instead-when" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Decision is highly complex with many nuances</li>
+<li>Multiple stakeholders need detailed justification</li>
+<li>Regulatory or compliance documentation required</li>
+<li>Decision needs extensive technical detail</li>
+<li>Long-term reference documentation needed</li>
+</ul>
+<h2 id="relationship-to-adrs">Relationship to ADRs<a class="headerlink" href="#relationship-to-adrs" title="Permanent link">⚓︎</a></h2>
+<p>Y-Statements can work alongside ADRs:</p>
+<ul>
+<li><strong>ADR Summary</strong>: Use Y-Statement as the summary at the top of a full ADR</li>
+<li><strong>Lightweight ADRs</strong>: Use Y-Statement as the entire ADR for simpler decisions</li>
+<li><strong>Decision Register</strong>: Maintain a list of Y-Statements with links to full ADRs when they exist</li>
+<li><strong>Hybrid Approach</strong>: Start with Y-Statement, expand to full ADR if needed</li>
+</ul>
+<h2 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">⚓︎</a></h2>
+<h3 id="for-teams">For Teams<a class="headerlink" href="#for-teams" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Fast to create</strong>: Can capture decisions in real-time</li>
+<li><strong>Easy to review</strong>: Quick to read and understand</li>
+<li><strong>Encourages documentation</strong>: Lower barrier than full ADRs</li>
+<li><strong>Consistent format</strong>: Same structure every time</li>
+</ul>
+<h3 id="for-communication">For Communication<a class="headerlink" href="#for-communication" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Concise</strong>: Gets to the point quickly</li>
+<li><strong>Complete</strong>: Still captures essential elements</li>
+<li><strong>Memorable</strong>: Structure makes it stick</li>
+<li><strong>Shareable</strong>: Easy to include in emails, chat, presentations</li>
+</ul>
+<h3 id="for-decision-making">For Decision Making<a class="headerlink" href="#for-decision-making" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Forces clarity</strong>: Must distill to essentials</li>
+<li><strong>Highlights trade-offs</strong>: &ldquo;Accepting&rdquo; clause ensures honest assessment</li>
+<li><strong>Shows alternatives</strong>: &ldquo;Neglected&rdquo; prevents tunnel vision</li>
+<li><strong>Links to goals</strong>: &ldquo;To achieve&rdquo; connects decision to objectives</li>
+</ul>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">⚓︎</a></h2>
+<h3 id="what-y-statements-dont-capture-well">What Y-Statements Don&rsquo;t Capture Well<a class="headerlink" href="#what-y-statements-dont-capture-well" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Detailed technical analysis</strong>: Not enough space for deep dive</li>
+<li><strong>Complex multi-faceted decisions</strong>: Hard to fit in one sentence</li>
+<li><strong>Multiple alternatives</strong>: Can list but not analyze in detail</li>
+<li><strong>Detailed consequences</strong>: Only high-level trade-offs</li>
+<li><strong>Implementation guidance</strong>: Not enough room for &ldquo;how&rdquo;</li>
+</ul>
+<h3 id="potential-issues">Potential Issues<a class="headerlink" href="#potential-issues" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Oversimplification</strong>: Complex decisions may be trivialized</li>
+<li><strong>Missing context</strong>: Background information often needed</li>
+<li><strong>Limited traceability</strong>: Hard to reference specific requirements</li>
+<li><strong>One-size-fits-all</strong>: Same format for very different decisions</li>
+</ul>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">⚓︎</a></h2>
+<h3 id="writing-effective-y-statements">Writing Effective Y-Statements<a class="headerlink" href="#writing-effective-y-statements" title="Permanent link">⚓︎</a></h3>
+<ol>
+<li><strong>Be specific</strong>: Avoid vague terms like &ldquo;better&rdquo; or &ldquo;improved&rdquo;</li>
+<li><strong>Be honest</strong>: Don&rsquo;t hide or minimize trade-offs</li>
+<li><strong>Be complete</strong>: Fill in all six components</li>
+<li><strong>Be concise</strong>: Each component should be short</li>
+<li><strong>Be clear</strong>: Avoid jargon and acronyms when possible</li>
+</ol>
+<h3 id="organizing-y-statements">Organizing Y-Statements<a class="headerlink" href="#organizing-y-statements" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><strong>Decision log</strong>: Maintain a numbered or dated list</li>
+<li><strong>Categorize</strong>: Group by component, layer, or concern</li>
+<li><strong>Link</strong>: Reference related decisions</li>
+<li><strong>Version control</strong>: Store in git like code</li>
+<li><strong>Review</strong>: Revisit periodically to validate or supersede</li>
+</ul>
+<h2 id="integration-with-workflows">Integration with Workflows<a class="headerlink" href="#integration-with-workflows" title="Permanent link">⚓︎</a></h2>
+<h3 id="design-meetings">Design Meetings<a class="headerlink" href="#design-meetings" title="Permanent link">⚓︎</a></h3>
+<ol>
+<li>Discuss problem and options</li>
+<li>Draft Y-Statement collaboratively</li>
+<li>Review for completeness</li>
+<li>Document in decision log</li>
+<li>Expand to full ADR if needed</li>
+</ol>
+<h3 id="pull-requests">Pull Requests<a class="headerlink" href="#pull-requests" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Include Y-Statement in PR description</li>
+<li>Helps reviewers understand intent</li>
+<li>Captures decision at implementation time</li>
+<li>Creates historical record</li>
+</ul>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Include in README or design docs</li>
+<li>Link to relevant code</li>
+<li>Maintain index of decisions</li>
+<li>Update status as needed</li>
+</ul>
+<h2 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li><strong>Best for</strong>: Agile teams needing quick decision capture</li>
+<li><strong>Project Size</strong>: Small to medium projects</li>
+<li><strong>Team Size</strong>: Small, co-located teams</li>
+<li><strong>Integration</strong>: Works with any version control system</li>
+<li><strong>Learning Curve</strong>: Very low - just one sentence format</li>
+<li><strong>Formality</strong>: Informal to semi-formal documentation needs</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="../../../_javascript/tables.js"></script>
+      
+    
+  </body>
+</html>

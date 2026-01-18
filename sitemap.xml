@@ -2,26 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://calcipy.kyleking.me/</loc>
-         <lastmod>2025-11-20</lastmod>
+         <lastmod>2026-01-18</lastmod>
     </url>
     <url>
          <loc>https://calcipy.kyleking.me/docs/CHANGELOG/</loc>
-         <lastmod>2025-11-20</lastmod>
+         <lastmod>2026-01-18</lastmod>
     </url>
     <url>
          <loc>https://calcipy.kyleking.me/docs/CODE_TAG_SUMMARY/</loc>
-         <lastmod>2025-11-20</lastmod>
+         <lastmod>2026-01-18</lastmod>
     </url>
     <url>
          <loc>https://calcipy.kyleking.me/docs/DEVELOPER_GUIDE/</loc>
-         <lastmod>2025-11-20</lastmod>
+         <lastmod>2026-01-18</lastmod>
     </url>
     <url>
          <loc>https://calcipy.kyleking.me/docs/MIGRATION/</loc>
-         <lastmod>2025-11-20</lastmod>
+         <lastmod>2026-01-18</lastmod>
     </url>
     <url>
          <loc>https://calcipy.kyleking.me/docs/STYLE_GUIDE/</loc>
-         <lastmod>2025-11-20</lastmod>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/0001-record-architecture-decisions/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/0002-use-invoke-for-task-automation/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/0003-use-ruff-for-linting-and-formatting/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/0004-switch-to-uv-for-dependency-management/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/0005-use-beartype-for-runtime-type-checking/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/0006-use-hatchling-for-build-backend/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr/0007-provide-multiple-cli-entry-points/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/ai-guidance-for-adrs/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/aws-adr-guide/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/comparison-and-recommendations/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/ethereum-eips/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/log4brains/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/madr/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/prefect-pins/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/real-world-examples/</loc>
+         <lastmod>2026-01-18</lastmod>
+    </url>
+    <url>
+         <loc>https://calcipy.kyleking.me/docs/adr-research/y-statements/</loc>
+         <lastmod>2026-01-18</lastmod>
     </url>
 </urlset>

@@ -12,13 +12,13 @@
         <meta name="author" content="Kyle King">
       
       
-        <link rel="canonical" href="https://calcipy.kyleking.me/docs/STYLE_GUIDE/">
+        <link rel="canonical" href="https://calcipy.kyleking.me/docs/adr/">
       
       
-        <link rel="prev" href="../MIGRATION/">
+        <link rel="prev" href="../STYLE_GUIDE/">
       
       
-        <link rel="next" href="../adr/">
+        <link rel="next" href="0001-record-architecture-decisions/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Personal Style Guides - calcipy</title>
+        <title>Architecture Decision Records - calcipy</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#personal-style-guides" class="md-skip">
+        <a href="#architecture-decision-records" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Personal Style Guides
+              Architecture Decision Records
             
           </span>
         </div>
@@ -391,6 +391,66 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../STYLE_GUIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Personal Style Guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Adr
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Adr
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
     
   
   
@@ -407,7 +467,7 @@
           
   
   <span class="md-ellipsis">
-    Personal Style Guides
+    Architecture Decision Records
     
   </span>
   
@@ -419,7 +479,7 @@
         
   
   <span class="md-ellipsis">
-    Personal Style Guides
+    Architecture Decision Records
     
   </span>
   
@@ -442,46 +502,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#git" class="md-nav__link">
+  <a href="#what-is-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      Git
+      What is an ADR?
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Git">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why ADRs?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR Index
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADR Index">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#commitizen-types-and-scopes" class="md-nav__link">
+  <a href="#meta" class="md-nav__link">
     <span class="md-ellipsis">
-      Commitizen Types and Scopes
+      Meta
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#git-description-guidelines" class="md-nav__link">
+  <a href="#task-automation-and-development-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Git Description Guidelines
+      Task Automation and Development Workflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#issue-labels-and-milestones" class="md-nav__link">
+  <a href="#code-quality-tools" class="md-nav__link">
     <span class="md-ellipsis">
-      Issue Labels and Milestones
+      Code Quality Tools
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#external-links" class="md-nav__link">
+  <a href="#packaging-and-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      External Links
+      Packaging and Dependencies
     </span>
   </a>
   
@@ -493,18 +571,69 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
+  <a href="#status-definitions" class="md-nav__link">
     <span class="md-ellipsis">
-      Python
+      Status Definitions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#adrs" class="md-nav__link">
+  <a href="#how-to-contribute" class="md-nav__link">
     <span class="md-ellipsis">
-      ADRs
+      How to Contribute
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Contribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-warrants-an-adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Warrants an ADR?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-does-not-warrant-an-adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Does NOT Warrant an ADR?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#research-and-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Research and Guidance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
     </span>
   </a>
   
@@ -525,66 +654,8 @@
   
   
   
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Adr
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
-            <span class="md-nav__icon md-icon"></span>
-            Adr
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../adr/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Architecture Decision Records
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../adr/0001-record-architecture-decisions/" class="md-nav__link">
+      <a href="0001-record-architecture-decisions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -606,7 +677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0002-use-invoke-for-task-automation/" class="md-nav__link">
+      <a href="0002-use-invoke-for-task-automation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -628,7 +699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
+      <a href="0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -650,7 +721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
+      <a href="0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -672,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
+      <a href="0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -694,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0006-use-hatchling-for-build-backend/" class="md-nav__link">
+      <a href="0006-use-hatchling-for-build-backend/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -716,7 +787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0007-provide-multiple-cli-entry-points/" class="md-nav__link">
+      <a href="0007-provide-multiple-cli-entry-points/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1037,46 +1108,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#git" class="md-nav__link">
+  <a href="#what-is-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      Git
+      What is an ADR?
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Git">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why ADRs?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR Index
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADR Index">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#commitizen-types-and-scopes" class="md-nav__link">
+  <a href="#meta" class="md-nav__link">
     <span class="md-ellipsis">
-      Commitizen Types and Scopes
+      Meta
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#git-description-guidelines" class="md-nav__link">
+  <a href="#task-automation-and-development-workflow" class="md-nav__link">
     <span class="md-ellipsis">
-      Git Description Guidelines
+      Task Automation and Development Workflow
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#issue-labels-and-milestones" class="md-nav__link">
+  <a href="#code-quality-tools" class="md-nav__link">
     <span class="md-ellipsis">
-      Issue Labels and Milestones
+      Code Quality Tools
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#external-links" class="md-nav__link">
+  <a href="#packaging-and-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
-      External Links
+      Packaging and Dependencies
     </span>
   </a>
   
@@ -1088,18 +1177,69 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
+  <a href="#status-definitions" class="md-nav__link">
     <span class="md-ellipsis">
-      Python
+      Status Definitions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#adrs" class="md-nav__link">
+  <a href="#how-to-contribute" class="md-nav__link">
     <span class="md-ellipsis">
-      ADRs
+      How to Contribute
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Contribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-warrants-an-adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Warrants an ADR?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-does-not-warrant-an-adr" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Does NOT Warrant an ADR?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Template
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#research-and-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Research and Guidance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Resources
     </span>
   </a>
   
@@ -1124,201 +1264,177 @@
   
 
 
-<h1 id="personal-style-guides">Personal Style Guides<a class="headerlink" href="#personal-style-guides" title="Permanent link">⚓︎</a></h1>
-<h2 id="git">Git<a class="headerlink" href="#git" title="Permanent link">⚓︎</a></h2>
-<p>We use <a href="https://github.com/commitizen-tools/commitizen">Commitizen</a> to manage both an auto-generated <a href="https://keepachangelog.com/en/1.0.0/">Changelog</a> and incrementing the release version following <a href="https://semver.org/">semver</a>. For both of these automated outputs to work well, please follow the <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> style, which is described in more detail below.</p>
-<h3 id="commitizen-types-and-scopes">Commitizen Types and Scopes<a class="headerlink" href="#commitizen-types-and-scopes" title="Permanent link">⚓︎</a></h3>
-<blockquote>
-<p><code>type(scope): description</code></p>
-</blockquote>
+<h1 id="architecture-decision-records">Architecture Decision Records<a class="headerlink" href="#architecture-decision-records" title="Permanent link">⚓︎</a></h1>
+<p>This directory contains Architecture Decision Records (ADRs) for calcipy - documents that capture important architectural decisions along with their context and consequences.</p>
+<h2 id="what-is-an-adr">What is an ADR?<a class="headerlink" href="#what-is-an-adr" title="Permanent link">⚓︎</a></h2>
+<p>An Architecture Decision Record (ADR) is a document that captures an architecturally significant decision, the context in which it was made, the alternatives considered, and the consequences of the choice.</p>
+<h2 id="why-adrs">Why ADRs?<a class="headerlink" href="#why-adrs" title="Permanent link">⚓︎</a></h2>
+<p>ADRs help us:</p>
 <ul>
-<li><strong>Types</strong><ul>
-<li><em>fix</em>: A bug fix</li>
-<li><em>feat</em>: A new feature</li>
-<li><em>docs</em>: Documentation-only changes (code comments, separate docs)</li>
-<li><em>style</em>: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons)</li>
-<li><em>perf</em>: A code change that improves performance</li>
-<li><em>refactor</em>: A change to production code that is not a <em>fix</em>, <em>feat</em>, or <em>perf</em></li>
-<li><em>test</em>: Adding missing or correcting existing tests</li>
-<li><em>build</em>: Changes that affect the build system or external dependencies</li>
-<li><em>ci</em>: Changes to our CI configuration files and scripts</li>
-<li>A <code>!</code> can be used to indicate a breaking change (<code>refactor!: drop support for Node 6</code>)</li>
-<li><strong>SemVer Rules</strong><ul>
-<li>Based on commit type, the version will be auto-incremented: <code>fix : PATCH // feat : MINOR // BREAKING CHANGE : MAJOR</code></li>
+<li><strong>Preserve context</strong>: Future maintainers understand why decisions were made</li>
+<li><strong>Prevent re-litigation</strong>: Avoid repeatedly discussing settled questions</li>
+<li><strong>Improve onboarding</strong>: New contributors learn architectural thinking</li>
+<li><strong>Support evolution</strong>: Understand when to revisit decisions</li>
+<li><strong>Build consensus</strong>: Structured discussion of trade-offs</li>
 </ul>
-</li>
-</ul>
-</li>
-<li><strong>Scopes</strong><ul>
-<li>A Class, File name, Issue Number, other appropriate noun. As examples: <code>build(uv): bump requests to v3</code> or <code>style(#32): add missing type annotations</code></li>
-</ul>
-</li>
-<li><strong>Tips</strong><ul>
-<li>What if a commit fits multiple types?<ul>
-<li>Go back and make multiple commits whenever possible. Part of the benefit of Conventional Commits is the focus on more organized and intentional changes</li>
-</ul>
-</li>
-<li>Use <code>git rebase -i</code> to fix commit names prior to merging if incorrect types/scopes are used</li>
-</ul>
-</li>
-</ul>
-<h3 id="git-description-guidelines">Git Description Guidelines<a class="headerlink" href="#git-description-guidelines" title="Permanent link">⚓︎</a></h3>
+<h2 id="adr-index">ADR Index<a class="headerlink" href="#adr-index" title="Permanent link">⚓︎</a></h2>
+<h3 id="meta">Meta<a class="headerlink" href="#meta" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li><a href="https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message">Commit message guidelines</a><ul>
-<li>Full sentence with verb (<em>lowercase</em>) and concise description. Below are modified examples for Conventional Commits<ul>
-<li><code>fix(roles): bug in admin role permissions</code></li>
-<li><code>feat(ui): implement new button design</code></li>
-<li><code>build(pip): upgrade package to remove vulnerabilities</code></li>
-<li><code>refactor: file structure to improve code readability</code></li>
-<li><code>perf(cli): rewrite methods</code></li>
-<li><code>feat(api): endpoints to implement new customer dashboard</code></li>
+<li><a href="0001-record-architecture-decisions/">ADR-0001</a> - Record Architecture Decisions</li>
+<li>Status: <strong>accepted</strong></li>
+<li>Establishes the ADR practice for calcipy using MADR format</li>
 </ul>
-</li>
-</ul>
-</li>
-<li><a href="https://chris.beams.io/posts/git-commit/">How to write a good commit message</a><ul>
-<li>A diff will tell you what changed, but only the commit message can properly tell you why.</li>
-<li>Keep in mind: <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">This</a> <a href="https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines">has</a> <a href="https://github.com/torvalds/subsurface-for-dirk/blob/master/README.md#contributing">all</a> <a href="http://who-t.blogspot.co.at/2009/12/on-commit-messages.html">been</a> <a href="https://github.com/erlang/otp/wiki/writing-good-commit-messages">said</a> <a href="https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md#format-commit-messages">before</a>.</li>
-<li>From the seven rules of a great Git commit message:<ul>
-<li>(2) <a href="https://chris.beams.io/posts/git-commit/#limit-50">Try for 50 characters, but consider 72 the hard limit</a></li>
-<li>(7) <a href="https://chris.beams.io/posts/git-commit/#why-not-how">Use the body to explain what and why vs. how</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="issue-labels-and-milestones">Issue Labels and Milestones<a class="headerlink" href="#issue-labels-and-milestones" title="Permanent link">⚓︎</a></h3>
-<p>Personal Guide</p>
+<h3 id="task-automation-and-development-workflow">Task Automation and Development Workflow<a class="headerlink" href="#task-automation-and-development-workflow" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li>For Issue Labels, see [labels.yml][labels]</li>
-<li>Milestones<ul>
-<li><strong>Current Tasks</strong>: main milestone (<em>name could change based on a specific project, sprint, or month</em>)</li>
-<li><strong>Next Tasks</strong></li>
-<li><strong>Blue Sky</strong></li>
-</ul>
+<li><a href="0002-use-invoke-for-task-automation/">ADR-0002</a> - Use Invoke for Task Automation</li>
+<li>Status: <strong>accepted</strong></li>
+<li>
+<p>Chose invoke over Make, Just, Taskipy, and other task runners</p>
 </li>
+<li>
+<p><a href="0007-provide-multiple-cli-entry-points/">ADR-0007</a> - Provide Multiple CLI Entry Points</p>
+</li>
+<li>Status: <strong>accepted</strong></li>
+<li>Multiple specialized commands (calcipy-lint, calcipy-test, etc.) vs single monolithic CLI</li>
 </ul>
-<details>
-<summary>Research</summary>
+<h3 id="code-quality-tools">Code Quality Tools<a class="headerlink" href="#code-quality-tools" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li>[Sane GitHub Labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63) and see [sensible-github-labels](https://github.com/Relequestual/sensible-github-labels) for full descriptions of each</li>
-    <ul>
-        <li>“it is much more helpful to see the status and type of all issues at a glance.”</li>
-        <li>One of each:</li>
-        <ul>
-            <li>Status: …</li>
-                <ul><li>Abandoned, Accepted, Available, Blocked, Completed, In Progress, On Hold, Pending, Review Needed, Revision Needed</li></ul>
-            <li>Type: …</li>
-                <ul><li>Bug, Maintenance, Question, Enhancement</li></ul>
-            <li>Priority: …</li>
-                <ul><li>Critical, High, Medium, Low</li></ul>
-        </ul>
-    </ul>
-    <li>[Britecharts](https://britecharts.github.io/britecharts/github-labels.html)</li>
-    <ul>
-        <li>Status: …</li>
-            <ul>
-                <li>On Review – Request that we are pondering if including or not</li>
-                <li>Needs Reproducing – For bugs that need to be reproduced in order to get fixed</li>
-                <li>Needs Design – Feature that needs a design</li>
-                <li>Ready to Go – Issue that has been defined and is ready to get started with</li>
-                <li>In Progress – Issue that is being worked on right now.</li>
-                <li>Completed – Finished feature or fix</li>
-            </ul>
-        <li>Type: …</li>
-            <ul>
-                <li>Bug – An unexpected problem or unintended behavior</li>
-                <li>Feature – A new feature request</li>
-                <li>Maintenance – A regular maintenance chore or task, including refactors, build system, CI, performance improvements</li>
-                <li>Documentation – A documentation improvement task</li>
-                <li>Question – An issue or PR that needs more information or a user question</li>
-            </ul>
-        <li>Not Included</li>
-            <ul>
-                <li>Priority: They would add complexity and overhead due to the discussions, but could help with the roadmap</li>
-                <li>Technology Labels: It can create too much overhead, as properly tag with technologies all the issues could be time consuming</li>
-            </ul>
-        </ul>
-    </ul>
-    <li>[Ian Bicking Blog](https://www.ianbicking.org/blog/2014/03/use-github-issues-to-organize-a-project.html)</li>
-    <ul>
-        <li>Milestone Overview</li>
-        <ul>
-            <li>What are we doing right now?</li>
-            <li>What aren’t we doing right now?</li>
-                <ul>
-                    <li>2a. Stuff we’ll probably do soon</li>
-                    <li>2b. Stuff we probably won’t do soon</li>
-                </ul>
-            <li>What aren’t we sure about?</li>
-        </ul>
-        <li>Milestone Descriptions</li>
-        <ul>
-            <li>Stuff we are doing right now: this is the “main” milestone. We give it a name (like Alpha 2 or Strawberry Rhubarb Pie) and we write down what we are trying to accomplish with the milestone. We create a new milestone when we are ready for the next iteration.</li>
-            <li>Stuff we’ll probably do soon: this is a standing “**Next Tasks**” milestone. We never change or rename this milestone.</li>
-                <ul><li>We use a permanent “Next Tasks” milestone (as opposed to renaming it to “Alpha 3” or actual-next-iteration milestone) because we don’t want to presume or default to including something in the real next iteration. When we’re ready to start planning the next iteration we’ll create a new milestone, and only deliberately move things into that milestone.</li></ul>
-            <li>Stuff we probably won’t do soon: this is a standing “**Blue Sky**” milestone. We refer to these tickets and sometimes look through them, but they are easy to ignore, somewhat intentionally ignored.</li>
-            <li>What aren’t we sure about?: issues with no milestone.</li>
-        </ul>
-        <li>Label: “Needs Discussion” - (addressed in a triage meeting) - use liberally for either big or small tickets</li>
-        <li>“It’s better to give people more power: it’s actually helpful if people can overreach because it is an opportunity to establish where the limits really are and what purpose those limits have”</li>
-    </ul>
+<li><a href="0003-use-ruff-for-linting-and-formatting/">ADR-0003</a> - Use Ruff for Linting and Formatting</li>
+<li>Status: <strong>accepted</strong></li>
+<li>
+<p>Migrated from flake8 + pylint + black + isort to unified ruff</p>
+</li>
+<li>
+<p><a href="0005-use-beartype-for-runtime-type-checking/">ADR-0005</a> - Use Beartype for Runtime Type Checking</p>
+</li>
+<li>Status: <strong>accepted</strong></li>
+<li>Runtime type validation with near-zero overhead</li>
 </ul>
-</details>
-
-<h3 id="external-links">External Links<a class="headerlink" href="#external-links" title="Permanent link">⚓︎</a></h3>
-<!-- Revisit -->
-
+<h3 id="packaging-and-dependencies">Packaging and Dependencies<a class="headerlink" href="#packaging-and-dependencies" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li>[Git: The Simple Guide][simple_git]</li>
-<li>[Commit Messages][gcmsg] and <a href="https://news.ycombinator.com/item?id=8874177">why use the present tense</a></li>
-<li><a href="https://github.com/erlang/otp/wiki/Writing-good-commit-messages">GitHub&rsquo;s Advice on GitHub</a></li>
-<li><a href="https://chris.beams.io/posts/git-commit/">Most Comprehensive Guide</a></li>
-<li><a href="https://git-scm.com/book/en/v2">Git Pro Book (free)</a><ul>
-<li><a href="https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash">Bash Tab-Completion Snippet</a></li>
-</ul>
+<li><a href="0004-switch-to-uv-for-dependency-management/">ADR-0004</a> - Switch to uv for Dependency Management</li>
+<li>Status: <strong>accepted</strong></li>
+<li>
+<p>Recent migration from Poetry to uv (October 2024)</p>
 </li>
+<li>
+<p><a href="0006-use-hatchling-for-build-backend/">ADR-0006</a> - Use Hatchling for Build Backend</p>
+</li>
+<li>Status: <strong>accepted</strong></li>
+<li>PyPA-maintained build backend for creating wheels and sdists</li>
 </ul>
-<h2 id="python">Python<a class="headerlink" href="#python" title="Permanent link">⚓︎</a></h2>
-<!-- Revisit -->
-
+<h2 id="status-definitions">Status Definitions<a class="headerlink" href="#status-definitions" title="Permanent link">⚓︎</a></h2>
 <ul>
-<li>Python Style Guides<ul>
-<li><a href="https://gist.github.com/sloria/7001839">https://gist.github.com/sloria/7001839</a></li>
-<li><a href="http://www.nilunder.com/blog/2013/08/03/pythonic-sensibilities/">http://www.nilunder.com/blog/2013/08/03/pythonic-sensibilities/</a></li>
-<li><a href="https://innoq.github.io/cards42org_en/">https://innoq.github.io/cards42org_en/</a></li>
-<li><a href="https://docs.openstack.org/hacking/latest/user/hacking.html#styleguide">https://docs.openstack.org/hacking/latest/user/hacking.html#styleguide</a></li>
-<li><a href="https://www.python.org/doc/humor/">https://www.python.org/doc/humor/</a></li>
-<li><a href="https://docs.python-guide.org/writing/reading/">https://docs.python-guide.org/writing/reading/</a></li>
-<li><a href="https://realpython.com/python-refactoring/">https://realpython.com/python-refactoring/</a></li>
+<li><strong>Proposed</strong>: Under discussion, not yet decided</li>
+<li><strong>Accepted</strong>: Approved and currently in use</li>
+<li><strong>Deprecated</strong>: No longer recommended but still in use</li>
+<li><strong>Superseded</strong>: Replaced by a newer decision (linked)</li>
+<li><strong>Rejected</strong>: Considered but not approved</li>
 </ul>
-</li>
-</ul>
-<h2 id="adrs">ADRs<a class="headerlink" href="#adrs" title="Permanent link">⚓︎</a></h2>
-<!-- Revisit -->
-
+<h2 id="how-to-contribute">How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permanent link">⚓︎</a></h2>
+<p>When making significant architectural decisions:</p>
+<ol>
+<li><strong>Copy the MADR template</strong> from the <a href="../adr-research/madr/">research directory</a></li>
+<li><strong>Number sequentially</strong>: Use the next available ADR number (0008, 0009, etc.)</li>
+<li><strong>Fill in all sections</strong>: Context, drivers, options, outcome, consequences</li>
+<li><strong>Be honest about trade-offs</strong>: Include both positive and negative consequences</li>
+<li><strong>Submit for review</strong>: Include ADR in your pull request</li>
+<li><strong>Update this index</strong>: Add your ADR to the appropriate category</li>
+</ol>
+<h3 id="what-warrants-an-adr">What Warrants an ADR?<a class="headerlink" href="#what-warrants-an-adr" title="Permanent link">⚓︎</a></h3>
+<p>Create an ADR when a decision:</p>
 <ul>
-<li>ADR Approaches<ul>
-<li><a href="https://infraeng.dev/tech-spec">https://infraeng.dev/tech-spec</a> Template (And <a href="https://infraeng.dev/tech-spec-review/">associated review</a>) vs. <a href="https://infraeng.dev/decision-log/">https://infraeng.dev/decision-log/</a></li>
-<li>Y-Statements: <a href="https://medium.com/olzzio/y-statements-10eb07b5a177">abbreviated shorthand</a>. Add this as a one-line decision option if a full ADR isn&rsquo;t needed (or when referencing an existing ADR) (<a href="https://scribe.rip/@docsoc/y-statements-10eb07b5a177">https://scribe.rip/@docsoc/y-statements-10eb07b5a177</a>)</li>
-<li>https://adr.github.io</li>
-<li>More formal implementation of <a href="https://adr.github.io/madr/">ADRs (MADR) that this is based on</a>. Template: <a href="https://github.com/adr/madr/blob/97fb8edec60b8dc70b8166ef62de34c4e26b46c0/template/adr-template.md">https://github.com/adr/madr/blob/97fb8edec60b8dc70b8166ef62de34c4e26b46c0/template/adr-template.md</a></li>
-<li><a href="https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-5639.md">https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-5639.md</a></li>
+<li><strong>Has architectural significance</strong>: Affects system structure, patterns, or standards</li>
+<li><strong>Is difficult to reverse</strong>: High cost or risk to change later</li>
+<li><strong>Involves trade-offs</strong>: Multiple valid options with different pros/cons</li>
+<li><strong>Affects multiple components</strong>: Cross-cutting concerns</li>
+<li><strong>Needs to be remembered</strong>: Important context for future maintainers</li>
 </ul>
-</li>
-<li>Examples<ul>
-<li><a href="https://github.com/pawamoy/mkdocstrings/issues/28">https://github.com/pawamoy/mkdocstrings/issues/28</a></li>
-<li><a href="https://github.com/arachne-framework/architecture/blob/060a956277a5ad71df93da49fee52463408841af/adr-002-configuration.md">https://github.com/arachne-framework/architecture/blob/060a956277a5ad71df93da49fee52463408841af/adr-002-configuration.md</a></li>
-<li><a href="https://github.com/arachne-framework/architecture/tree/060a956277a5ad71df93da49fee52463408841af">https://github.com/arachne-framework/architecture/tree/060a956277a5ad71df93da49fee52463408841af</a></li>
-<li><a href="https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-1010.md">https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-1010.md</a></li>
-<li><a href="https://docs-v1.prefect.io/core/pins/pin-01-introduce-pins.html">https://docs-v1.prefect.io/core/pins/pin-01-introduce-pins.html</a></li>
-<li><a href="https://peps.python.org/pep-0387">https://peps.python.org/pep-0387/</a></li>
-<li><a href="https://github.com/AICoE/aicoe-ci/blob/39de02af86a0d1f9dcd395fa88b858f1c6880411/docs/adr/0000-use-markdown-architectural-decision-records.md">https://github.com/AICoE/aicoe-ci/blob/39de02af86a0d1f9dcd395fa88b858f1c6880411/docs/adr/0000-use-markdown-architectural-decision-records.md</a></li>
-<li>And many others!</li>
+<h3 id="what-does-not-warrant-an-adr">What Does NOT Warrant an ADR?<a class="headerlink" href="#what-does-not-warrant-an-adr" title="Permanent link">⚓︎</a></h3>
+<p>Skip ADRs for:</p>
+<ul>
+<li><strong>Implementation details</strong>: Specific code patterns (unless establishing standard)</li>
+<li><strong>Trivial decisions</strong>: Easily reversible, low impact</li>
+<li><strong>Temporary solutions</strong>: Known to be short-term</li>
+<li><strong>Individual preferences</strong>: Style choices without broader impact</li>
 </ul>
-</li>
+<h2 id="template">Template<a class="headerlink" href="#template" title="Permanent link">⚓︎</a></h2>
+<p>For new ADRs, use the MADR (Full) template:</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="gh"># [Short Title]</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="k">*</span><span class="w"> </span>Status: [proposed | accepted | rejected | deprecated | superseded]
+<span class="linenos" data-linenos=" 4 "></span><span class="k">*</span><span class="w"> </span>Date: YYYY-MM-DD
+<span class="linenos" data-linenos=" 5 "></span><span class="k">*</span><span class="w"> </span>Deciders: [list everyone involved]
+<span class="linenos" data-linenos=" 6 "></span><span class="k">*</span><span class="w"> </span>Consulted: [list anyone consulted]
+<span class="linenos" data-linenos=" 7 "></span><span class="k">*</span><span class="w"> </span>Informed: [list anyone informed]
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="gu">## Context and Problem Statement</span>
+<span class="linenos" data-linenos="10 "></span>
+<span class="linenos" data-linenos="11 "></span>[Describe the context and problem]
+<span class="linenos" data-linenos="12 "></span>
+<span class="linenos" data-linenos="13 "></span><span class="gu">## Decision Drivers</span>
+<span class="linenos" data-linenos="14 "></span>
+<span class="linenos" data-linenos="15 "></span><span class="k">*</span><span class="w"> </span>[decision driver 1]
+<span class="linenos" data-linenos="16 "></span><span class="k">*</span><span class="w"> </span>[decision driver 2]
+<span class="linenos" data-linenos="17 "></span><span class="k">*</span><span class="w"> </span>...
+<span class="linenos" data-linenos="18 "></span>
+<span class="linenos" data-linenos="19 "></span><span class="gu">## Considered Options</span>
+<span class="linenos" data-linenos="20 "></span>
+<span class="linenos" data-linenos="21 "></span><span class="k">*</span><span class="w"> </span>[option 1]
+<span class="linenos" data-linenos="22 "></span><span class="k">*</span><span class="w"> </span>[option 2]
+<span class="linenos" data-linenos="23 "></span><span class="k">*</span><span class="w"> </span>[option 3]
+<span class="linenos" data-linenos="24 "></span><span class="k">*</span><span class="w"> </span>...
+<span class="linenos" data-linenos="25 "></span>
+<span class="linenos" data-linenos="26 "></span><span class="gu">## Decision Outcome</span>
+<span class="linenos" data-linenos="27 "></span>
+<span class="linenos" data-linenos="28 "></span>Chosen option: &quot;[option 1]&quot;, because [justification].
+<span class="linenos" data-linenos="29 "></span>
+<span class="linenos" data-linenos="30 "></span><span class="gu">### Consequences</span>
+<span class="linenos" data-linenos="31 "></span>
+<span class="linenos" data-linenos="32 "></span><span class="k">*</span><span class="w"> </span>Good, because [positive consequence]
+<span class="linenos" data-linenos="33 "></span><span class="k">*</span><span class="w"> </span>Bad, because [negative consequence]
+<span class="linenos" data-linenos="34 "></span><span class="k">*</span><span class="w"> </span>...
+<span class="linenos" data-linenos="35 "></span>
+<span class="linenos" data-linenos="36 "></span><span class="gu">## Pros and Cons of the Options</span>
+<span class="linenos" data-linenos="37 "></span>
+<span class="linenos" data-linenos="38 "></span><span class="gu">### [option 1]</span>
+<span class="linenos" data-linenos="39 "></span>
+<span class="linenos" data-linenos="40 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 1]
+<span class="linenos" data-linenos="41 "></span><span class="k">*</span><span class="w"> </span>Bad, because [argument 2]
+<span class="linenos" data-linenos="42 "></span><span class="k">*</span><span class="w"> </span>...
+<span class="linenos" data-linenos="43 "></span>
+<span class="linenos" data-linenos="44 "></span><span class="gu">### [option 2]</span>
+<span class="linenos" data-linenos="45 "></span>
+<span class="linenos" data-linenos="46 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 1]
+<span class="linenos" data-linenos="47 "></span><span class="k">*</span><span class="w"> </span>Bad, because [argument 2]
+<span class="linenos" data-linenos="48 "></span><span class="k">*</span><span class="w"> </span>...
+<span class="linenos" data-linenos="49 "></span>
+<span class="linenos" data-linenos="50 "></span><span class="gu">## Validation</span>
+<span class="linenos" data-linenos="51 "></span>
+<span class="linenos" data-linenos="52 "></span>[How will we validate this decision?]
+<span class="linenos" data-linenos="53 "></span>
+<span class="linenos" data-linenos="54 "></span>We will revisit this decision if:
+<span class="linenos" data-linenos="55 "></span>
+<span class="linenos" data-linenos="56 "></span><span class="k">*</span><span class="w"> </span>[condition 1]
+<span class="linenos" data-linenos="57 "></span><span class="k">*</span><span class="w"> </span>[condition 2]
+<span class="linenos" data-linenos="58 "></span>
+<span class="linenos" data-linenos="59 "></span><span class="gu">## More Information</span>
+<span class="linenos" data-linenos="60 "></span>
+<span class="linenos" data-linenos="61 "></span>[Links, references, etc.]
+</code></pre></div>
+<h2 id="research-and-guidance">Research and Guidance<a class="headerlink" href="#research-and-guidance" title="Permanent link">⚓︎</a></h2>
+<p>For detailed guidance on ADR approaches and best practices, see:</p>
+<ul>
+<li><a href="../adr-research/">ADR Research</a> - Comprehensive research on different ADR approaches</li>
+<li><a href="../adr-research/ai-guidance-for-adrs/">AI Guidance for ADRs</a> - Guide for writing and reviewing ADRs</li>
+<li><a href="../adr-research/comparison-and-recommendations/">Comparison and Recommendations</a> - Comparison table and recommendations</li>
 </ul>
-<p>&lt;&ndash; Links &ndash;&gt;</p>
+<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li><strong>MADR Documentation</strong>: https://adr.github.io/madr/</li>
+<li><strong>Michael Nygard&rsquo;s ADR</strong>: http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions</li>
+<li><strong>ADR GitHub Organization</strong>: https://github.com/adr</li>
+</ul>
 
 
 
