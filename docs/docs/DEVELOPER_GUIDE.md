@@ -33,19 +33,46 @@ uv sync --all-extras
 
 ## Publishing
 
-For testing, create an account on [TestPyPi](https://test.pypi.org/legacy). Either set 'UV_PUBLISH_TOKEN' or input the generated token when prompted by the command.
+Publishing is automated via GitHub Actions using PyPI Trusted Publishing (ADR-0008). Tag creation triggers automated publishing.
 
 ```sh
-./run main pack.publish --to-test-pypi
+./run release              # Bumps version, creates tag, pushes → triggers publish
+./run release --suffix=rc  # For pre-releases
 ```
 
-To publish to the real PyPi
+### Initial Setup
+
+One-time setup to enable PyPI Trusted Publishing:
+
+**Configure GitHub Environments**
+
+Repository Settings → Environments:
+- Create `testpypi` environment (no protection rules)
+- Create `pypi` environment with "Required reviewers" enabled
+
+**Register Trusted Publishers**
+
+TestPyPI: https://test.pypi.org/manage/account/publishing/
+- PyPI Project Name: `calcipy`
+- Owner: `kyleking`
+- Repository: `calcipy`
+- Workflow: `publish.yml`
+- Environment: `testpypi`
+
+PyPI: https://pypi.org/manage/project/calcipy/settings/publishing/
+- Owner: `kyleking`
+- Repository: `calcipy`
+- Workflow: `publish.yml`
+- Environment: `pypi`
+
+### Manual Publishing
+
+For emergency manual publish:
 
 ```sh
-./run release
-
-# Or for a pre-release
-./run release --suffix=rc
+export UV_PUBLISH_TOKEN=pypi-...
+uv build
+uv publish
 ```
 
 ## Current Status
