@@ -1,36 +1,25 @@
-# ruff: noqa: ERA001
-"""nox-uv configuration file.
+"""nox with uv backend configuration.
+
+Modern nox configuration using uv as the virtual environment backend.
+Automatically discovers Python versions from mise.toml, mise.lock, or .tool-versions.
 
 [Useful snippets from docs](https://nox.thea.codes/en/stable/usage.html)
 
 ```sh
-source .venv/bin/activate
-
+# List all sessions
 nox -l
-nox --list-sessions
 
-nox -s build_check-3.8 build_dist-3.8 tests-3.8
-nox --session tests-3.11
+# Run tests for all Python versions
+nox -s tests
 
-nox --python 3.8
+# Run tests for specific Python version
+nox -s tests-3.11
 
-nox -k "not build_check and not build_dist"
-```
+# Run with specific Python versions only
+nox --python 3.9 3.10
 
-Useful nox snippets
-
-```python3
-# Example conditionally skipping a session
-if not session.interactive:
-    session.skip('Cannot run detect-secrets audit in non-interactive shell')
-
-# Install pinned version
-session.install('detect-secrets==1.0.3')
-
-# Example capturing STDOUT into a file (could do the same for stderr)
-path_stdout = Path('.stdout.txt').resolve()
-with open(path_stdout, 'w') as out:
-    session.run(*shlex.split('echo Hello World!'), stdout=out)
+# Filter sessions by keyword
+nox -k tests
 ```
 
 """
@@ -51,49 +40,65 @@ def _get_pythons() -> List[str]:
     return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
-def _installable_ci_dependencies(pyproject_data: Union[Dict[str, Any], None] = None) -> List[str]:
-    """List of CI dependencies from pyproject.toml dependency-groups.
+def _has_ci_group(pyproject_data: Union[Dict[str, Any], None] = None) -> bool:
+    """Check if pyproject.toml has a 'ci' dependency group.
 
     Args:
         pyproject_data: Optional pyproject data for testing
 
     Returns:
-        List[str]: `['hypothesis[cli] >=6.112.4', 'pytest-asyncio >=0.24.0']`
+        bool: True if 'ci' group exists
 
     """
     pyproject = read_pyproject() if pyproject_data is None else pyproject_data
-    return pyproject.get('dependency-groups', {}).get('ci', [])
+    return bool(pyproject.get('dependency-groups', {}).get('ci'))
 
 
 def _install_local(session: NoxSession) -> None:  # pragma: no cover
-    """Ensure local CI-dependencies and calcipy extras are installed.
+    """Install project dependencies using uv sync.
 
-    Previously required to support poetry, but not re-tested with uv yet.
-    See: https://github.com/cjolowicz/nox-poetry/issues/230#issuecomment-855445920
+    Uses uv's dependency groups and extras for isolation.
+    For calcipy itself, installs all extras to test the full package.
+    For other projects, installs test extras and ci group if available.
+
+    Modern pattern (2026): Use uv sync with --group flag to install dependency groups,
+    which automatically handles dependencies from uv.lock if present.
 
     """
-    if read_package_name() == 'calcipy':
-        session.run_install(
-            'uv',
-            'sync',
-            '--all-extras',
-            env={'UV_PROJECT_ENVIRONMENT': session.virtualenv.location},
-        )
-    else:
-        extras = ['test']
-        session.run_install(
-            'uv',
-            'sync',
-            *(f'--extra={extra}' for extra in extras),
-            env={'UV_PROJECT_ENVIRONMENT': session.virtualenv.location},
-        )
+    sync_args = ['uv', 'sync']
 
-    if dev_deps := _installable_ci_dependencies():
-        session.install(*dev_deps)
+    if read_package_name() == 'calcipy':
+        # Install all extras for comprehensive testing of calcipy itself
+        sync_args.append('--all-extras')
+    else:
+        # Install test extras for downstream projects
+        sync_args.extend(['--extra=test'])
+
+    # Add ci dependency group if it exists
+    if _has_ci_group():
+        sync_args.extend(['--group=ci', '--no-default-groups'])
+
+    session.run_install(
+        *sync_args,
+        env={'UV_PROJECT_ENVIRONMENT': session.virtualenv.location},
+    )
 
 
 @nox_session(venv_backend='uv', python=_get_pythons(), reuse_venv=True)
 def tests(session: NoxSession) -> None:  # pragma: no cover
-    """Run doit test task for specified python versions."""
+    """Run pytest for all configured Python versions.
+
+    Python versions are automatically discovered from:
+    1. mise.lock (if present)
+    2. mise.toml (if present)
+    3. .tool-versions (fallback)
+
+    Run all versions: nox -s tests
+    Run specific version: nox -s tests-3.11
+    """
     _install_local(session)
-    session.run(*shlex.split('pytest ./tests'), stdout=True, env={'RUNTIME_TYPE_CHECKING_MODE': 'WARNING'})
+    session.run(
+        *shlex.split('pytest ./tests'),
+        stdout=True,
+        env={'RUNTIME_TYPE_CHECKING_MODE': 'WARNING'},
+    )
