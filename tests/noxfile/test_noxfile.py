@@ -1,3 +1,5 @@
+from typing import Any
+
 from calcipy.noxfile._noxfile import _has_ci_group
 
 
@@ -29,6 +31,6 @@ def test__has_ci_group_without_ci():
 
 def test__has_ci_group_no_groups():
     """Test that _has_ci_group returns False when no dependency groups exist."""
-    pyproject_data = {}
+    pyproject_data: dict[str, Any] = {}
 
     assert not _has_ci_group(pyproject_data)

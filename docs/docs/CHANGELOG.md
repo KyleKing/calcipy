@@ -2,13 +2,23 @@
 
 ### Feat
 
+- complete poetry→uv migration and add tool-first architecture
 - migrate to prek
 - switch to uv (#134)
 
 ### Fix
 
+- address CI failures and PR review feedback
+- resolve PR feedback on sync_package_dependencies
 - finish migrating noxfile
 - finish migration to src/* uv_build organization
+
+### Refactor
+
+- restore pre-commit hooks
+- explore mise as a nox alternative
+- minor noxfile changes
+- restore in-progress comments from "wip?"
 
 ## 5.0.0 (2024-11-07)
 
