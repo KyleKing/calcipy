@@ -156,7 +156,7 @@ wheels = [
 
 [[package]]
 name = "calcipy"
-version = "5.0.0"
+version = "6.0.0b0"
 source = { editable = "." }
 dependencies = [
     { name = "beartype" },
@@ -313,7 +313,7 @@ requires-dist = [
     { name = "semver", marker = "extra == 'dev'", specifier = ">=3.0.2" },
     { name = "semver", marker = "extra == 'experimental'", specifier = ">=3.0.2" },
 ]
-provides-extras = ["tool", "dev", "ddict", "doc", "experimental", "lint", "nox", "tags", "test", "types"]
+provides-extras = ["ddict", "dev", "doc", "experimental", "lint", "nox", "tags", "test", "tool", "types"]
 
 [package.metadata.requires-dev]
 ci = [
