@@ -1280,48 +1280,62 @@
 <h2 id="adr-index">ADR Index<a class="headerlink" href="#adr-index" title="Permanent link">⚓︎</a></h2>
 <h3 id="meta">Meta<a class="headerlink" href="#meta" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li><a href="0001-record-architecture-decisions/">ADR-0001</a> - Record Architecture Decisions</li>
+<li><a href="0001-record-architecture-decisions/">ADR-0001</a> - Record Architecture Decisions<ul>
 <li>Status: <strong>accepted</strong></li>
 <li>Establishes the ADR practice for calcipy using MADR format</li>
 </ul>
+</li>
+</ul>
 <h3 id="task-automation-and-development-workflow">Task Automation and Development Workflow<a class="headerlink" href="#task-automation-and-development-workflow" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li><a href="0002-use-invoke-for-task-automation/">ADR-0002</a> - Use Invoke for Task Automation</li>
-<li>Status: <strong>accepted</strong></li>
 <li>
-<p>Chose invoke over Make, Just, Taskipy, and other task runners</p>
+<p><a href="0002-use-invoke-for-task-automation/">ADR-0002</a> - Use Invoke for Task Automation</p>
+<ul>
+<li>Status: <strong>accepted</strong></li>
+<li>Chose invoke over Make, Just, Taskipy, and other task runners</li>
+</ul>
 </li>
 <li>
 <p><a href="0007-provide-multiple-cli-entry-points/">ADR-0007</a> - Provide Multiple CLI Entry Points</p>
-</li>
+<ul>
 <li>Status: <strong>accepted</strong></li>
 <li>Multiple specialized commands (calcipy-lint, calcipy-test, etc.) vs single monolithic CLI</li>
 </ul>
+</li>
+</ul>
 <h3 id="code-quality-tools">Code Quality Tools<a class="headerlink" href="#code-quality-tools" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li><a href="0003-use-ruff-for-linting-and-formatting/">ADR-0003</a> - Use Ruff for Linting and Formatting</li>
-<li>Status: <strong>accepted</strong></li>
 <li>
-<p>Migrated from flake8 + pylint + black + isort to unified ruff</p>
+<p><a href="0003-use-ruff-for-linting-and-formatting/">ADR-0003</a> - Use Ruff for Linting and Formatting</p>
+<ul>
+<li>Status: <strong>accepted</strong></li>
+<li>Migrated from flake8 + pylint + black + isort to unified ruff</li>
+</ul>
 </li>
 <li>
 <p><a href="0005-use-beartype-for-runtime-type-checking/">ADR-0005</a> - Use Beartype for Runtime Type Checking</p>
-</li>
+<ul>
 <li>Status: <strong>accepted</strong></li>
 <li>Runtime type validation with near-zero overhead</li>
 </ul>
+</li>
+</ul>
 <h3 id="packaging-and-dependencies">Packaging and Dependencies<a class="headerlink" href="#packaging-and-dependencies" title="Permanent link">⚓︎</a></h3>
 <ul>
-<li><a href="0004-switch-to-uv-for-dependency-management/">ADR-0004</a> - Switch to uv for Dependency Management</li>
-<li>Status: <strong>accepted</strong></li>
 <li>
-<p>Recent migration from Poetry to uv (October 2024)</p>
+<p><a href="0004-switch-to-uv-for-dependency-management/">ADR-0004</a> - Switch to uv for Dependency Management</p>
+<ul>
+<li>Status: <strong>accepted</strong></li>
+<li>Recent migration from Poetry to uv (October 2024)</li>
+</ul>
 </li>
 <li>
 <p><a href="0006-use-hatchling-for-build-backend/">ADR-0006</a> - Use Hatchling for Build Backend</p>
-</li>
+<ul>
 <li>Status: <strong>accepted</strong></li>
 <li>PyPA-maintained build backend for creating wheels and sdists</li>
+</ul>
+</li>
 </ul>
 <h2 id="status-definitions">Status Definitions<a class="headerlink" href="#status-definitions" title="Permanent link">⚓︎</a></h2>
 <ul>

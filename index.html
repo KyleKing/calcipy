@@ -1247,9 +1247,11 @@
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">⚓︎</a></h2>
 <p><code>calcipy</code> can be used in two ways:</p>
 <h3 id="1-as-a-standalone-tool-recommended-for-linting-code-analysis">1. As a Standalone Tool (Recommended for Linting &amp; Code Analysis)<a class="headerlink" href="#1-as-a-standalone-tool-recommended-for-linting-code-analysis" title="Permanent link">⚓︎</a></h3>
-<p>Use <code>calcipy</code> as a standalone tool without adding it as a dependency. This is ideal for:
-- <strong>Linting</strong>: Running <code>ruff</code> on any Python codebase
-- <strong>Code Tag Collection</strong>: Creating TODO/FIXME summaries for any project</p>
+<p>Use <code>calcipy</code> as a standalone tool without adding it as a dependency. This is ideal for:</p>
+<ul>
+<li><strong>Linting</strong>: Running <code>ruff</code> on any Python codebase</li>
+<li><strong>Code Tag Collection</strong>: Creating TODO/FIXME summaries for any project</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Install as a tool (minimal dependencies)</span>
 <span class="linenos" data-linenos=" 2 "></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span>
 <span class="linenos" data-linenos=" 3 "></span>
@@ -1264,10 +1266,12 @@
 <span class="linenos" data-linenos="12 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
 <span class="linenos" data-linenos="13 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
 </code></pre></div>
-<p><strong>Tool Mode Capabilities:</strong>
-- ✅ <code>calcipy-lint</code> - Lint any Python codebase
-- ✅ <code>calcipy-tags</code> - Collect code tags from any directory
-- ⚠️  Other commands require project context (see below)</p>
+<p><strong>Tool Mode Capabilities:</strong></p>
+<ul>
+<li>✅ <code>calcipy-lint</code> - Lint any Python codebase</li>
+<li>✅ <code>calcipy-tags</code> - Collect code tags from any directory</li>
+<li>⚠️ Other commands require project context (see below)</li>
+</ul>
 <h3 id="2-as-a-project-dependency-full-development-environment">2. As a Project Dependency (Full Development Environment)<a class="headerlink" href="#2-as-a-project-dependency-full-development-environment" title="Permanent link">⚓︎</a></h3>
 <p>Add <code>calcipy</code> to your project for the complete development workflow including testing, documentation, type-checking, and more.</p>
 <h4 id="quick-start-with-template">Quick Start with Template<a class="headerlink" href="#quick-start-with-template" title="Permanent link">⚓︎</a></h4>
@@ -1288,13 +1292,15 @@
 <span class="linenos" data-linenos="4 "></span><span class="c1"># Or install specific extras</span>
 <span class="linenos" data-linenos="5 "></span>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[test,doc,types]&#39;</span>
 </code></pre></div>
-<p><strong>Project Mode Capabilities:</strong>
-- ✅ All tool mode features
-- ✅ <code>calcipy-test</code> - Run pytest with coverage
-- ✅ <code>calcipy-types</code> - Type checking with mypy/pyright
-- ✅ <code>calcipy-docs</code> - Build and deploy documentation
-- ✅ <code>calcipy-pack</code> - Package building and publishing
-- ✅ <code>calcipy</code> - Full task automation</p>
+<p><strong>Project Mode Capabilities:</strong></p>
+<ul>
+<li>✅ All tool mode features</li>
+<li>✅ <code>calcipy-test</code> - Run pytest with coverage</li>
+<li>✅ <code>calcipy-types</code> - Type checking with mypy/pyright</li>
+<li>✅ <code>calcipy-docs</code> - Build and deploy documentation</li>
+<li>✅ <code>calcipy-pack</code> - Package building and publishing</li>
+<li>✅ <code>calcipy</code> - Full task automation</li>
+</ul>
 <p>Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The &ldquo;Usage&rdquo;, &ldquo;Core options&rdquo;, and &ldquo;Global Task Options&rdquo; are the same for each subsequent command, so they are excluded for brevity.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt; calcipy-lint
 <span class="linenos" data-linenos=" 2 "></span>Usage: calcipy-lint [--core-opts] &lt;subcommand&gt; [--subcommand-opts] ...
