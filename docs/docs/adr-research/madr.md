@@ -4,9 +4,7 @@
 
 MADR (pronounced like "matter") stands for "Markdown Architectural Decision Records". It's a streamlined template for documenting architectural decisions in a structured, lightweight format using Markdown files stored directly in code repositories.
 
-**Website**: https://adr.github.io/madr/
-**Repository**: https://github.com/adr/madr
-**Latest Version**: MADR 4.0.0 (released 2024-09-17)
+**Website**: https://adr.github.io/madr/ **Repository**: https://github.com/adr/madr **Latest Version**: MADR 4.0.0 (released 2024-09-17)
 
 ## Core Definition
 
@@ -19,9 +17,9 @@ According to MADR documentation:
 MADR provides four template versions to suit different needs:
 
 1. **adr-template.md**: All sections with explanations
-2. **adr-template-minimal.md**: Only mandatory sections with explanations
-3. **adr-template-bare.md**: All sections, empty (no explanations)
-4. **adr-template-bare-minimal.md**: Mandatory sections only, no explanations
+1. **adr-template-minimal.md**: Only mandatory sections with explanations
+1. **adr-template-bare.md**: All sections, empty (no explanations)
+1. **adr-template-bare-minimal.md**: Mandatory sections only, no explanations
 
 ## Template Structure
 
@@ -94,10 +92,10 @@ Supplies additional evidence, team agreements, confidence levels, and related de
 The essential core includes only:
 
 1. Title
-2. Context and Problem Statement
-3. Decision Drivers
-4. Considered Options
-5. Chosen Option with Consequences
+1. Context and Problem Statement
+1. Decision Drivers
+1. Considered Options
+1. Chosen Option with Consequences
 
 ## File Organization
 

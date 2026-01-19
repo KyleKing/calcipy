@@ -4,9 +4,7 @@
 
 EIPs (Ethereum Improvement Proposals) are the standardization and documentation process for improvements to the Ethereum blockchain platform. They represent one of the most rigorous and well-established decision documentation processes in the blockchain space.
 
-**Repository**: https://github.com/ethereum/EIPs
-**Documentation**: Approximately 870 EIP documents
-**Purpose**: "To standardize and provide high-quality documentation for Ethereum itself and conventions built upon it"
+**Repository**: https://github.com/ethereum/EIPs **Documentation**: Approximately 870 EIP documents **Purpose**: "To standardize and provide high-quality documentation for Ethereum itself and conventions built upon it"
 
 ## EIP Categories
 
@@ -22,8 +20,7 @@ Changes to the Ethereum consensus protocol:
 - Fork implementations
 - Critical protocol updates
 
-**Impact**: Requires all nodes to upgrade
-**Examples**: Major network upgrades (Shanghai, Merge, etc.)
+**Impact**: Requires all nodes to upgrade **Examples**: Major network upgrades (Shanghai, Merge, etc.)
 
 ### 2. Networking EIPs
 
@@ -34,8 +31,7 @@ Peer-to-peer network layer specifications:
 - Devp2p improvements
 - Discovery mechanisms
 
-**Impact**: Affects node communication
-**Examples**: Network optimization proposals
+**Impact**: Affects node communication **Examples**: Network optimization proposals
 
 ### 3. Interface EIPs
 
@@ -46,8 +42,7 @@ Standards determining user and application interaction with blockchain:
 - Client interfaces
 - Developer tools
 
-**Impact**: Affects how applications interact with Ethereum
-**Examples**: RPC method specifications
+**Impact**: Affects how applications interact with Ethereum **Examples**: RPC method specifications
 
 ### 4. Meta EIPs
 
@@ -58,8 +53,7 @@ Miscellaneous improvements requiring consensus:
 - Decision-making procedures
 - EIP process itself (EIP-1)
 
-**Impact**: Affects Ethereum development process
-**Examples**: EIP-1 (EIP Purpose and Guidelines)
+**Impact**: Affects Ethereum development process **Examples**: EIP-1 (EIP Purpose and Guidelines)
 
 ### 5. Informational EIPs
 
@@ -70,8 +64,7 @@ Non-binding documentation:
 - Best practices
 - Educational content
 
-**Impact**: Informational only, no implementation required
-**Examples**: Design philosophy documents
+**Impact**: Informational only, no implementation required **Examples**: Design philosophy documents
 
 ### 6. ERCs (Ethereum Request for Comments)
 
@@ -101,14 +94,14 @@ This ensures:
 ### Proposal Lifecycle
 
 1. **Discussion**: Informal discussion on forums
-2. **Draft**: Initial EIP written using template
-3. **Review**: Community and editors review
-4. **Last Call**: Final comment period
-5. **Final**: Accepted and finalized
-6. **Living**: For documents that are continually updated
-7. **Stagnant**: Inactive for 6+ months
-8. **Withdrawn**: Author withdrew proposal
-9. **Rejected**: Not accepted
+1. **Draft**: Initial EIP written using template
+1. **Review**: Community and editors review
+1. **Last Call**: Final comment period
+1. **Final**: Accepted and finalized
+1. **Living**: For documents that are continually updated
+1. **Stagnant**: Inactive for 6+ months
+1. **Withdrawn**: Author withdrew proposal
+1. **Rejected**: Not accepted
 
 ### EIP-1: The Meta-EIP
 
@@ -320,15 +313,15 @@ This requires:
 
 ### Differences
 
-| Aspect | EIPs | Traditional ADRs |
-|--------|------|------------------|
-| **Scope** | Network-wide protocol | Single project/application |
-| **Stakeholders** | Entire ecosystem | Internal team |
-| **Process** | Highly formal, multi-stage | Lightweight, team consensus |
-| **Technical Detail** | Exhaustive specification | Contextual detail as needed |
-| **Review** | Public, multiple reviewers | Team review |
-| **Implementation** | Multiple independent teams | Single team |
-| **Time Scale** | Months to years | Days to weeks |
+| Aspect               | EIPs                       | Traditional ADRs            |
+| -------------------- | -------------------------- | --------------------------- |
+| **Scope**            | Network-wide protocol      | Single project/application  |
+| **Stakeholders**     | Entire ecosystem           | Internal team               |
+| **Process**          | Highly formal, multi-stage | Lightweight, team consensus |
+| **Technical Detail** | Exhaustive specification   | Contextual detail as needed |
+| **Review**           | Public, multiple reviewers | Team review                 |
+| **Implementation**   | Multiple independent teams | Single team                 |
+| **Time Scale**       | Months to years            | Days to weeks               |
 
 ## Use Cases for EIP-style Process
 
@@ -350,11 +343,11 @@ This requires:
 ## Key Takeaways
 
 1. **Most rigorous process**: Highest bar for quality and completeness
-2. **Community-driven**: Open participation and governance
-3. **Protocol-level**: For network-wide changes
-4. **Long timelines**: Thorough but slow
-5. **Multiple implementations**: Requires precise specification
-6. **Permanent record**: Comprehensive historical documentation
+1. **Community-driven**: Open participation and governance
+1. **Protocol-level**: For network-wide changes
+1. **Long timelines**: Thorough but slow
+1. **Multiple implementations**: Requires precise specification
+1. **Permanent record**: Comprehensive historical documentation
 
 ## Applicable Lessons for Software Projects
 

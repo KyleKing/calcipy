@@ -367,8 +367,8 @@ We should use microservices because they're better.
 **Structure**:
 
 1. State the choice clearly
-2. Provide brief justification (1-3 sentences)
-3. Reference decision drivers satisfied
+1. Provide brief justification (1-3 sentences)
+1. Reference decision drivers satisfied
 
 **Good example**:
 
@@ -863,11 +863,11 @@ problem led to this decision?
 When helping with ADRs, remember:
 
 1. **Understand context first**: Ask questions before writing
-2. **Focus on "why"**: The decision rationale matters most
-3. **Be honest about trade-offs**: Every choice has downsides
-4. **Match formality to need**: Don't over-engineer for simple decisions
-5. **Make it useful**: Future readers should understand the decision
-6. **Guide, don't dictate**: Help users think through the decision
+1. **Focus on "why"**: The decision rationale matters most
+1. **Be honest about trade-offs**: Every choice has downsides
+1. **Match formality to need**: Don't over-engineer for simple decisions
+1. **Make it useful**: Future readers should understand the decision
+1. **Guide, don't dictate**: Help users think through the decision
 
 A good ADR answers:
 

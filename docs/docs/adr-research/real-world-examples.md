@@ -6,8 +6,7 @@ This document examines real-world implementations of Architecture Decision Recor
 
 ## Arachne Framework
 
-**Repository**: https://github.com/arachne-framework/architecture
-**Example**: https://github.com/arachne-framework/architecture/blob/master/adr-002-configuration.md
+**Repository**: https://github.com/arachne-framework/architecture **Example**: https://github.com/arachne-framework/architecture/blob/master/adr-002-configuration.md
 
 ### ADR Structure Used
 
@@ -76,22 +75,21 @@ Bullet-pointed outcomes, both positive and challenging:
 
 ## Structurizr Python
 
-**Repository**: https://github.com/Midnighter/structurizr-python/tree/devel/docs/development/adr
-**Number of ADRs**: 9 documented decisions
+**Repository**: https://github.com/Midnighter/structurizr-python/tree/devel/docs/development/adr **Number of ADRs**: 9 documented decisions
 
 ### ADR Collection
 
 The project maintains ADRs at `docs/development/adr/` with:
 
 1. **ADR-0001**: "Record architecture decisions" - establishes the ADR practice itself
-2. **ADR-0002**: Version control approach
-3. **ADR-0003**: Python 3.6 compatibility requirement
-4. **ADR-0004**: Package versioning strategy
-5. **ADR-0005**: Code quality assurance standards
-6. **ADR-0006**: Testing approach
-7. **ADR-0007**: Unit testing specifics
-8. **ADR-0008**: Package structure organization
-9. **ADR-0009**: "Use pydantic for json de-serialization"
+1. **ADR-0002**: Version control approach
+1. **ADR-0003**: Python 3.6 compatibility requirement
+1. **ADR-0004**: Package versioning strategy
+1. **ADR-0005**: Code quality assurance standards
+1. **ADR-0006**: Testing approach
+1. **ADR-0007**: Unit testing specifics
+1. **ADR-0008**: Package structure organization
+1. **ADR-0009**: "Use pydantic for json de-serialization"
 
 ### Organization Approach
 
@@ -126,8 +124,7 @@ The ADRs cover diverse decision types:
 
 ## Concourse CI
 
-**Website**: https://concourse-ci.org/internals.html
-**Type**: Public documentation of architectural decisions
+**Website**: https://concourse-ci.org/internals.html **Type**: Public documentation of architectural decisions
 
 ### Approach
 
@@ -147,8 +144,7 @@ Concourse CI documents architectural decisions as part of their public "Internal
 
 ## Boltons
 
-**Documentation**: https://boltons.readthedocs.io/en/latest/architecture.html
-**Type**: Architecture documentation page
+**Documentation**: https://boltons.readthedocs.io/en/latest/architecture.html **Type**: Architecture documentation page
 
 ### Approach
 
@@ -168,8 +164,7 @@ Boltons includes an "Architecture" page in their documentation that:
 
 ## TimescaleDB
 
-**Documentation**: https://docs.timescale.com/latest/introduction/architecture
-**Type**: Comprehensive architecture documentation
+**Documentation**: https://docs.timescale.com/latest/introduction/architecture **Type**: Comprehensive architecture documentation
 
 ### Approach
 
@@ -189,8 +184,7 @@ TimescaleDB provides extensive architecture documentation:
 
 ## Packet Cafe
 
-**Documentation**: https://iqtlabs.gitbook.io/packet-cafe/design/architecture
-**Type**: Design and architecture section
+**Documentation**: https://iqtlabs.gitbook.io/packet-cafe/design/architecture **Type**: Design and architecture section
 
 ### Approach
 
@@ -216,9 +210,9 @@ Uses GitBook for documentation with dedicated architecture section:
 
 - Most store ADRs in the repository
 - Common paths:
-  - `docs/adr/`
-  - `docs/development/adr/`
-  - `docs/architecture/`
+    - `docs/adr/`
+    - `docs/development/adr/`
+    - `docs/architecture/`
 
 **Integration with Documentation**
 

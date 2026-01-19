@@ -4,8 +4,7 @@
 
 PINs (Prefect Improvement Notices) are Prefect's approach to memorializing important architectural and design decisions. They provide a structured way to document significant changes to the Prefect workflow orchestration platform.
 
-**Source**: https://github.com/PrefectHQ/prefect (community documentation references)
-**Type**: Project-specific decision documentation similar to Python's PEPs or Rust's RFCs
+**Source**: https://github.com/PrefectHQ/prefect (community documentation references) **Type**: Project-specific decision documentation similar to Python's PEPs or Rust's RFCs
 
 ## What Are PINs?
 
@@ -74,11 +73,11 @@ PINs document decisions that:
 Based on repository patterns:
 
 1. **Proposal**: Created as GitHub issue or pull request
-2. **Discussion**: Community and maintainers provide feedback
-3. **Revision**: Updated based on feedback
-4. **Decision**: Accepted or rejected by maintainers
-5. **Implementation**: If accepted, implemented in code
-6. **Documentation**: Becomes permanent record
+1. **Discussion**: Community and maintainers provide feedback
+1. **Revision**: Updated based on feedback
+1. **Decision**: Accepted or rejected by maintainers
+1. **Implementation**: If accepted, implemented in code
+1. **Documentation**: Becomes permanent record
 
 ### Status Tracking
 
@@ -130,8 +129,8 @@ PINs enable:
 Based on GitHub issues:
 
 - **Issue #930**: "Links to individual PINs are broken in docs"
-  - Indicates there were some challenges maintaining PIN documentation
-  - Suggests PINs may have been moved or reorganized
+    - Indicates there were some challenges maintaining PIN documentation
+    - Suggests PINs may have been moved or reorganized
 
 This highlights a common challenge with any documentation system: maintaining links and accessibility over time.
 
@@ -169,14 +168,14 @@ This highlights a common challenge with any documentation system: maintaining li
 
 ### Differences
 
-| Aspect | PINs | Traditional ADRs |
-|--------|------|------------------|
-| **Timing** | Before implementation (proposals) | After decision (records) |
-| **Audience** | Community + maintainers | Internal team |
-| **Process** | Public discussion | Team consensus |
-| **Platform** | GitHub issues/PRs | Markdown in repo |
-| **Mutability** | Can be revised during discussion | Immutable once accepted |
-| **Scope** | Major features/changes | Any architectural decision |
+| Aspect         | PINs                              | Traditional ADRs           |
+| -------------- | --------------------------------- | -------------------------- |
+| **Timing**     | Before implementation (proposals) | After decision (records)   |
+| **Audience**   | Community + maintainers           | Internal team              |
+| **Process**    | Public discussion                 | Team consensus             |
+| **Platform**   | GitHub issues/PRs                 | Markdown in repo           |
+| **Mutability** | Can be revised during discussion  | Immutable once accepted    |
+| **Scope**      | Major features/changes            | Any architectural decision |
 
 ## Use Cases for PIN-style Approach
 
@@ -201,10 +200,10 @@ This highlights a common challenge with any documentation system: maintaining li
 ### Starting a PIN Process
 
 1. **Define scope**: What types of decisions warrant a PIN?
-2. **Create template**: Structure for proposals
-3. **Establish process**: Workflow from proposal to decision
-4. **Document guidelines**: Help contributors understand
-5. **Track decisions**: Maintain index of PINs
+1. **Create template**: Structure for proposals
+1. **Establish process**: Workflow from proposal to decision
+1. **Document guidelines**: Help contributors understand
+1. **Track decisions**: Maintain index of PINs
 
 ### Maintaining PINs
 
@@ -217,10 +216,10 @@ This highlights a common challenge with any documentation system: maintaining li
 ## Key Takeaways
 
 1. **PINs are proposals, not records**: Forward-looking rather than historical
-2. **Community engagement**: Open source projects benefit from transparent discussion
-3. **GitHub integration**: Leverages existing tools rather than new systems
-4. **Flexible process**: Adapts to project needs
-5. **Documentation challenges**: Requires maintenance and organization
+1. **Community engagement**: Open source projects benefit from transparent discussion
+1. **GitHub integration**: Leverages existing tools rather than new systems
+1. **Flexible process**: Adapts to project needs
+1. **Documentation challenges**: Requires maintenance and organization
 
 ## Use Cases
 

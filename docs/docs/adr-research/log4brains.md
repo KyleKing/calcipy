@@ -4,8 +4,7 @@
 
 log4brains is an open-source tool that enables teams to document and publish Architecture Decision Records (ADRs) as a searchable knowledge base. It treats documentation as code, storing ADR files in markdown format within your git repository.
 
-**Website**: https://github.com/thomvaill/log4brains
-**Live Example**: https://thomvaill.github.io/log4brains/adr/
+**Website**: https://github.com/thomvaill/log4brains **Live Example**: https://thomvaill.github.io/log4brains/adr/
 
 ## Key Features
 
@@ -21,9 +20,9 @@ log4brains is an open-source tool that enables teams to document and publish Arc
 ### Workflow
 
 1. **Initialize**: Run `log4brains init` to configure the tool
-2. **Preview**: Use `log4brains preview` to see changes in real-time
-3. **Create**: Run `log4brains adr new` to create new decisions (uses MADR template by default)
-4. **Build**: Execute `log4brains build` to generate static website for deployment
+1. **Preview**: Use `log4brains preview` to see changes in real-time
+1. **Create**: Run `log4brains adr new` to create new decisions (uses MADR template by default)
+1. **Build**: Execute `log4brains build` to generate static website for deployment
 
 ### ADR Properties
 
@@ -41,9 +40,9 @@ Each ADR record contains:
 The decision process follows these stages:
 
 1. **Proposed** - Initial submission
-2. **Accepted** - Approved and implemented
-3. **Superseded** - Replaced by a newer ADR
-4. **Deprecated** - No longer relevant
+1. **Accepted** - Approved and implemented
+1. **Superseded** - Replaced by a newer ADR
+1. **Deprecated** - No longer relevant
 
 ## ADR Philosophy
 

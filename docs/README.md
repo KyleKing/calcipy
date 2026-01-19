@@ -18,6 +18,7 @@
 ### 1. As a Standalone Tool (Recommended for Linting & Code Analysis)
 
 Use `calcipy` as a standalone tool without adding it as a dependency. This is ideal for:
+
 - **Linting**: Running `ruff` on any Python codebase
 - **Code Tag Collection**: Creating TODO/FIXME summaries for any project
 
@@ -38,9 +39,10 @@ calcipy-tags tags --base-dir=~/path/to/my_project
 ```
 
 **Tool Mode Capabilities:**
+
 - ✅ `calcipy-lint` - Lint any Python codebase
 - ✅ `calcipy-tags` - Collect code tags from any directory
-- ⚠️  Other commands require project context (see below)
+- ⚠️ Other commands require project context (see below)
 
 ### 2. As a Project Dependency (Full Development Environment)
 
@@ -72,6 +74,7 @@ uv add --dev 'calcipy[test,doc,types]'
 ```
 
 **Project Mode Capabilities:**
+
 - ✅ All tool mode features
 - ✅ `calcipy-test` - Run pytest with coverage
 - ✅ `calcipy-types` - Type checking with mypy/pyright

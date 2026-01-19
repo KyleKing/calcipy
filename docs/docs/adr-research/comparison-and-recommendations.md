@@ -6,56 +6,56 @@ This document compares different approaches to documenting architectural decisio
 
 ## Quick Comparison Table
 
-| Approach | Formality | Complexity | Time to Create | Best For | Tools Required |
-|----------|-----------|------------|----------------|----------|----------------|
-| **Y-Statements** | Low | Very Low | 5-15 min | Quick decisions, small teams | None |
-| **MADR** | Medium | Low-Medium | 30-60 min | Most projects | Markdown editor |
-| **AWS ADR** | Medium-High | Medium | 1-2 hours | Enterprise teams | Markdown editor |
-| **log4brains** | Medium | Medium | 30-60 min | Teams wanting website | log4brains CLI |
-| **Prefect PINs** | Medium-High | Medium-High | Days-Weeks | Open source proposals | GitHub |
-| **Ethereum EIPs** | Very High | Very High | Weeks-Months | Protocol/standards | GitHub, expertise |
+| Approach          | Formality   | Complexity  | Time to Create | Best For                     | Tools Required    |
+| ----------------- | ----------- | ----------- | -------------- | ---------------------------- | ----------------- |
+| **Y-Statements**  | Low         | Very Low    | 5-15 min       | Quick decisions, small teams | None              |
+| **MADR**          | Medium      | Low-Medium  | 30-60 min      | Most projects                | Markdown editor   |
+| **AWS ADR**       | Medium-High | Medium      | 1-2 hours      | Enterprise teams             | Markdown editor   |
+| **log4brains**    | Medium      | Medium      | 30-60 min      | Teams wanting website        | log4brains CLI    |
+| **Prefect PINs**  | Medium-High | Medium-High | Days-Weeks     | Open source proposals        | GitHub            |
+| **Ethereum EIPs** | Very High   | Very High   | Weeks-Months   | Protocol/standards           | GitHub, expertise |
 
 ## Detailed Comparison
 
 ### Format and Structure
 
-| Aspect | Y-Statements | MADR | AWS ADR | log4brains | Prefect PINs | Ethereum EIPs |
-|--------|--------------|------|---------|------------|--------------|---------------|
-| **File Format** | Any (text/markdown) | Markdown | Markdown | Markdown (MADR default) | Markdown/GitHub | Markdown |
-| **Template** | Single sentence | Multiple sections | Multiple sections | Customizable | Issue template | Rigorous specification |
-| **Sections** | 6 components | 5-10 sections | 3-5 core sections | Based on template | Varies | 10+ sections |
-| **Length** | 1 sentence | 1-3 pages | 1-2 pages | 1-3 pages | 2-10 pages | 5-50 pages |
-| **Metadata** | Minimal | Optional YAML | Optional | Auto-extracted | GitHub metadata | Extensive header |
+| Aspect          | Y-Statements        | MADR              | AWS ADR           | log4brains              | Prefect PINs    | Ethereum EIPs          |
+| --------------- | ------------------- | ----------------- | ----------------- | ----------------------- | --------------- | ---------------------- |
+| **File Format** | Any (text/markdown) | Markdown          | Markdown          | Markdown (MADR default) | Markdown/GitHub | Markdown               |
+| **Template**    | Single sentence     | Multiple sections | Multiple sections | Customizable            | Issue template  | Rigorous specification |
+| **Sections**    | 6 components        | 5-10 sections     | 3-5 core sections | Based on template       | Varies          | 10+ sections           |
+| **Length**      | 1 sentence          | 1-3 pages         | 1-2 pages         | 1-3 pages               | 2-10 pages      | 5-50 pages             |
+| **Metadata**    | Minimal             | Optional YAML     | Optional          | Auto-extracted          | GitHub metadata | Extensive header       |
 
 ### Process and Workflow
 
-| Aspect | Y-Statements | MADR | AWS ADR | log4brains | Prefect PINs | Ethereum EIPs |
-|--------|--------------|------|---------|------------|--------------|---------------|
-| **Creation Time** | 5-15 min | 30-60 min | 1-2 hours | 30-60 min | Days-Weeks | Weeks-Months |
-| **Review Process** | Informal | PR review | Team meeting | PR review | Public discussion | Multi-stage review |
-| **Approval** | Team lead | Team consensus | Team meeting | Merge to main | Maintainers | Community consensus |
-| **Revision** | Easy | Medium | Medium | Medium | Common | Expected |
-| **Status Tracking** | Minimal | Explicit states | Explicit states | 4 states | GitHub labels | 9+ states |
+| Aspect              | Y-Statements | MADR            | AWS ADR         | log4brains    | Prefect PINs      | Ethereum EIPs       |
+| ------------------- | ------------ | --------------- | --------------- | ------------- | ----------------- | ------------------- |
+| **Creation Time**   | 5-15 min     | 30-60 min       | 1-2 hours       | 30-60 min     | Days-Weeks        | Weeks-Months        |
+| **Review Process**  | Informal     | PR review       | Team meeting    | PR review     | Public discussion | Multi-stage review  |
+| **Approval**        | Team lead    | Team consensus  | Team meeting    | Merge to main | Maintainers       | Community consensus |
+| **Revision**        | Easy         | Medium          | Medium          | Medium        | Common            | Expected            |
+| **Status Tracking** | Minimal      | Explicit states | Explicit states | 4 states      | GitHub labels     | 9+ states           |
 
 ### Tooling and Integration
 
-| Aspect | Y-Statements | MADR | AWS ADR | log4brains | Prefect PINs | Ethereum EIPs |
-|--------|--------------|------|---------|------------|--------------|---------------|
-| **Special Tools** | None | None | None | log4brains CLI | GitHub | GitHub + Jekyll |
-| **Version Control** | Any | Git | Git | Git | Git (GitHub) | Git (GitHub) |
-| **Documentation Site** | Manual | Manual | Manual | Auto-generated | GitHub issues | GitHub Pages |
-| **Search** | grep/text search | grep/text search | grep/text search | Built-in | GitHub search | Site search |
-| **Templates** | One format | 4 variants | AWS templates | Customizable | Project-specific | EIP-1 template |
+| Aspect                 | Y-Statements     | MADR             | AWS ADR          | log4brains     | Prefect PINs     | Ethereum EIPs   |
+| ---------------------- | ---------------- | ---------------- | ---------------- | -------------- | ---------------- | --------------- |
+| **Special Tools**      | None             | None             | None             | log4brains CLI | GitHub           | GitHub + Jekyll |
+| **Version Control**    | Any              | Git              | Git              | Git            | Git (GitHub)     | Git (GitHub)    |
+| **Documentation Site** | Manual           | Manual           | Manual           | Auto-generated | GitHub issues    | GitHub Pages    |
+| **Search**             | grep/text search | grep/text search | grep/text search | Built-in       | GitHub search    | Site search     |
+| **Templates**          | One format       | 4 variants       | AWS templates    | Customizable   | Project-specific | EIP-1 template  |
 
 ### Team and Project Fit
 
-| Aspect | Y-Statements | MADR | AWS ADR | log4brains | Prefect PINs | Ethereum EIPs |
-|--------|--------------|------|---------|------------|--------------|---------------|
-| **Team Size** | 1-5 | 1-20 | 5-50 | 3-50 | 5-100+ | Ecosystem-wide |
-| **Project Size** | Small-Medium | Any | Medium-Large | Medium-Large | Large | Very Large |
-| **Formality** | Informal | Semi-formal | Formal | Semi-formal | Formal | Very Formal |
-| **Learning Curve** | Very Low | Low | Medium | Medium | Medium-High | High |
-| **Maintenance** | Very Low | Low | Medium | Medium | High | Very High |
+| Aspect             | Y-Statements | MADR        | AWS ADR      | log4brains   | Prefect PINs | Ethereum EIPs  |
+| ------------------ | ------------ | ----------- | ------------ | ------------ | ------------ | -------------- |
+| **Team Size**      | 1-5          | 1-20        | 5-50         | 3-50         | 5-100+       | Ecosystem-wide |
+| **Project Size**   | Small-Medium | Any         | Medium-Large | Medium-Large | Large        | Very Large     |
+| **Formality**      | Informal     | Semi-formal | Formal       | Semi-formal  | Formal       | Very Formal    |
+| **Learning Curve** | Very Low     | Low         | Medium       | Medium       | Medium-High  | High           |
+| **Maintenance**    | Very Low     | Low         | Medium       | Medium       | High         | Very High      |
 
 ## Recommendations by Project Size
 
@@ -121,8 +121,8 @@ project/
 **Process**:
 
 1. Developer creates ADR in PR
-2. Team reviews in code review
-3. Merge to main
+1. Team reviews in code review
+1. Merge to main
 
 **Pros**:
 
@@ -170,9 +170,9 @@ project/
 **Process**:
 
 1. ADR required for architectural decisions
-2. Team review meeting for significant decisions
-3. PR review for all ADRs
-4. Integration with documentation site (MkDocs, Docusaurus)
+1. Team review meeting for significant decisions
+1. PR review for all ADRs
+1. Integration with documentation site (MkDocs, Docusaurus)
 
 **Considerations**:
 
@@ -240,11 +240,11 @@ project/
 **Process**:
 
 1. ADR template in repo
-2. Automated checks for format
-3. Required reviews by architects
-4. Automatic site generation
-5. Published to internal/external site
-6. Regular audits of ADR status
+1. Automated checks for format
+1. Required reviews by architects
+1. Automatic site generation
+1. Published to internal/external site
+1. Regular audits of ADR status
 
 **Considerations**:
 
@@ -308,12 +308,12 @@ organization/
 **Process**:
 
 1. Template selection based on decision type
-2. Draft creation by proposer
-3. Stakeholder consultation
-4. Review by architecture board
-5. Team consensus
-6. Final approval and publication
-7. Implementation tracking
+1. Draft creation by proposer
+1. Stakeholder consultation
+1. Review by architecture board
+1. Team consensus
+1. Final approval and publication
+1. Implementation tracking
 
 **Governance**:
 
@@ -368,12 +368,12 @@ project/
 **Process**:
 
 1. Community member opens issue/PR with proposal
-2. Discussion in GitHub
-3. Maintainers provide feedback
-4. Revision based on input
-5. Decision by maintainers
-6. Implementation
-7. Documentation in ADR
+1. Discussion in GitHub
+1. Maintainers provide feedback
+1. Revision based on input
+1. Decision by maintainers
+1. Implementation
+1. Documentation in ADR
 
 **Considerations**:
 
@@ -463,9 +463,9 @@ project/
 **Path**:
 
 1. **Phase 1** (0-6 months): Y-Statements in README
-2. **Phase 2** (6-18 months): MADR minimal in docs/adr/
-3. **Phase 3** (18-36 months): Full MADR + documentation site
-4. **Phase 4** (36+ months): log4brains or custom tooling
+1. **Phase 2** (6-18 months): MADR minimal in docs/adr/
+1. **Phase 3** (18-36 months): Full MADR + documentation site
+1. **Phase 4** (36+ months): log4brains or custom tooling
 
 **Trigger Points**:
 
@@ -582,47 +582,47 @@ Track these to measure ADR effectiveness:
 ### From No ADRs to ADRs
 
 1. **Start with ADR-0001**: "Record architecture decisions"
-2. **Document next decision**: Practice the process
-3. **Backfill incrementally**: Document existing major decisions as time allows
-4. **Make it habit**: Add to PR template checklist
+1. **Document next decision**: Practice the process
+1. **Backfill incrementally**: Document existing major decisions as time allows
+1. **Make it habit**: Add to PR template checklist
 
 ### From Y-Statements to MADR
 
 1. **Choose template**: MADR minimal to start
-2. **Convert existing**: Expand Y-Statements to full ADRs
-3. **Update process**: Train team on new format
-4. **Parallel run**: Accept both for transition period
+1. **Convert existing**: Expand Y-Statements to full ADRs
+1. **Update process**: Train team on new format
+1. **Parallel run**: Accept both for transition period
 
 ### From MADR to log4brains
 
 1. **Install log4brains**: `npx log4brains init`
-2. **Migrate files**: Copy ADRs to log4brains directory
-3. **Update metadata**: Ensure proper front matter
-4. **Generate site**: `npx log4brains build`
-5. **Deploy**: Publish to GitHub Pages or hosting
+1. **Migrate files**: Copy ADRs to log4brains directory
+1. **Update metadata**: Ensure proper front matter
+1. **Generate site**: `npx log4brains build`
+1. **Deploy**: Publish to GitHub Pages or hosting
 
 ## Summary Recommendations
 
-| Your Situation | Recommended Approach | Why |
-|----------------|---------------------|-----|
-| Solo developer | Y-Statements or notes | Minimal overhead, maximum flexibility |
-| Small team (2-5) | MADR Minimal | Lightweight structure, room to grow |
-| Growing team (5-15) | MADR Full | Comprehensive, organized, scalable |
-| Large team (15-50) | log4brains or MADR + site | Searchable, professional, team-friendly |
-| Enterprise (50+) | AWS ADR + governance | Process, compliance, consistency |
-| Open source | MADR + public docs | Transparent, accessible, community-friendly |
-| Need community input | PIN-style proposals | Collaborative, inclusive, transparent |
-| Protocol development | EIP-style rigorous | Specification-grade, multi-implementation |
-| Fast startup | Y-Statements | Speed over process |
-| Regulated industry | AWS ADR + extras | Compliance, audit trail, formality |
+| Your Situation       | Recommended Approach      | Why                                         |
+| -------------------- | ------------------------- | ------------------------------------------- |
+| Solo developer       | Y-Statements or notes     | Minimal overhead, maximum flexibility       |
+| Small team (2-5)     | MADR Minimal              | Lightweight structure, room to grow         |
+| Growing team (5-15)  | MADR Full                 | Comprehensive, organized, scalable          |
+| Large team (15-50)   | log4brains or MADR + site | Searchable, professional, team-friendly     |
+| Enterprise (50+)     | AWS ADR + governance      | Process, compliance, consistency            |
+| Open source          | MADR + public docs        | Transparent, accessible, community-friendly |
+| Need community input | PIN-style proposals       | Collaborative, inclusive, transparent       |
+| Protocol development | EIP-style rigorous        | Specification-grade, multi-implementation   |
+| Fast startup         | Y-Statements              | Speed over process                          |
+| Regulated industry   | AWS ADR + extras          | Compliance, audit trail, formality          |
 
 ## Next Steps
 
 1. **Choose your starting point** based on recommendations above
-2. **Create ADR-0001** to establish the practice
-3. **Select a template** and customize if needed
-4. **Document your next decision** to practice
-5. **Review in 3 months** and adjust as needed
-6. **Scale up** as team and project grow
+1. **Create ADR-0001** to establish the practice
+1. **Select a template** and customize if needed
+1. **Document your next decision** to practice
+1. **Review in 3 months** and adjust as needed
+1. **Scale up** as team and project grow
 
 Remember: **The best ADR system is the one your team actually uses.** Start simple, iterate, and grow your practice over time.

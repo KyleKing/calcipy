@@ -100,10 +100,10 @@ Create an ADR for decisions that:
 ### ADR Lifecycle
 
 1. **Draft**: Author creates initial proposal
-2. **Review**: Team discusses and provides feedback
-3. **Decision**: Team accepts or rejects
-4. **Archive**: Store in decision log (never delete)
-5. **Reference**: Use during development and reviews
+1. **Review**: Team discusses and provides feedback
+1. **Decision**: Team accepts or rejects
+1. **Archive**: Store in decision log (never delete)
+1. **Reference**: Use during development and reviews
 
 ## Use Cases
 

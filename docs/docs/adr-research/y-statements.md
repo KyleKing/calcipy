@@ -4,9 +4,7 @@
 
 Y-Statements (also called (WH)Y-Statements) are an abbreviated, lightweight format for documenting architectural decisions. They condense decision documentation into a single structured sentence, making them ideal for quick capture and communication.
 
-**Source**: https://medium.com/olzzio/y-statements-10eb07b5a177
-**Origin**: Evolved from George Fairbanks' Architecture Haikus notation
-**Published**: Featured in "Making Architectural Knowledge Sustainable: Industrial Practice Report and Outlook" at SATURN 2012 and in IEEE Software/InfoQ article
+**Source**: https://medium.com/olzzio/y-statements-10eb07b5a177 **Origin**: Evolved from George Fairbanks' Architecture Haikus notation **Published**: Featured in "Making Architectural Knowledge Sustainable: Industrial Practice Report and Outlook" at SATURN 2012 and in IEEE Software/InfoQ article
 
 ## Format Structure
 
@@ -178,10 +176,10 @@ Y-Statements can work alongside ADRs:
 ### Writing Effective Y-Statements
 
 1. **Be specific**: Avoid vague terms like "better" or "improved"
-2. **Be honest**: Don't hide or minimize trade-offs
-3. **Be complete**: Fill in all six components
-4. **Be concise**: Each component should be short
-5. **Be clear**: Avoid jargon and acronyms when possible
+1. **Be honest**: Don't hide or minimize trade-offs
+1. **Be complete**: Fill in all six components
+1. **Be concise**: Each component should be short
+1. **Be clear**: Avoid jargon and acronyms when possible
 
 ### Organizing Y-Statements
 
@@ -196,10 +194,10 @@ Y-Statements can work alongside ADRs:
 ### Design Meetings
 
 1. Discuss problem and options
-2. Draft Y-Statement collaboratively
-3. Review for completeness
-4. Document in decision log
-5. Expand to full ADR if needed
+1. Draft Y-Statement collaboratively
+1. Review for completeness
+1. Document in decision log
+1. Expand to full ADR if needed
 
 ### Pull Requests
 
