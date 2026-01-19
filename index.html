@@ -303,11 +303,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#calcipy-cli" class="md-nav__link">
+  <a href="#1-as-a-standalone-tool-recommended-for-linting-code-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Calcipy CLI
+      1. As a Standalone Tool (Recommended for Linting &amp; Code Analysis)
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-as-a-project-dependency-full-development-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. As a Project Dependency (Full Development Environment)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. As a Project Dependency (Full Development Environment)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-start-with-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start with Template
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1067,11 +1100,44 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#calcipy-cli" class="md-nav__link">
+  <a href="#1-as-a-standalone-tool-recommended-for-linting-code-analysis" class="md-nav__link">
     <span class="md-ellipsis">
-      Calcipy CLI
+      1. As a Standalone Tool (Recommended for Linting &amp; Code Analysis)
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-as-a-project-dependency-full-development-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. As a Project Dependency (Full Development Environment)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. As a Project Dependency (Full Development Environment)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-start-with-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start with Template
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1179,30 +1245,56 @@
 <li>And many more such as <a href="https://github.com/pyta-uoft/pyta">pyta</a>, <a href="https://github.com/PyCQA/prospector">prospector</a>, <a href="https://github.com/wemake-services/wemake-python-styleguide">wemake-python-styleguide</a> / <a href="https://github.com/cjolowicz/cookiecutter-hypermodern-python">cjolowicz/cookiecutter-hypermodern-python</a>, <a href="https://github.com/python-formate/formate">formate</a>, <a href="https://github.com/johnthagen/python-blueprint">johnthagen/python-blueprint</a>, <a href="https://github.com/oxsecurity/megalinter">oxsecurity/megalinter</a>, <a href="https://github.com/trialandsuccess/su6">trialandsuccess/su6</a>, <a href="https://github.com/houseabsolute/precious">precious</a>, etc.</li>
 </ul>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">⚓︎</a></h2>
-<p>Calcipy needs a few static files managed using copier and a template project: <a href="https://github.com/KyleKing/calcipy_template/">kyleking/calcipy_template</a></p>
-<p>You can quickly use the template to create a new project or add calcipy to an existing one:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Below examples assume you have Astral uv installed (which provides uvx)</span>
-<span class="linenos" data-linenos=" 2 "></span><span class="c1">#   If you have your shell configured, `uv tool install copier` allows usage of `copier ...` instead of `uvx copier ...`</span>
+<p><code>calcipy</code> can be used in two ways:</p>
+<h3 id="1-as-a-standalone-tool-recommended-for-linting-code-analysis">1. As a Standalone Tool (Recommended for Linting &amp; Code Analysis)<a class="headerlink" href="#1-as-a-standalone-tool-recommended-for-linting-code-analysis" title="Permanent link">⚓︎</a></h3>
+<p>Use <code>calcipy</code> as a standalone tool without adding it as a dependency. This is ideal for:
+- <strong>Linting</strong>: Running <code>ruff</code> on any Python codebase
+- <strong>Code Tag Collection</strong>: Creating TODO/FIXME summaries for any project</p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Install as a tool (minimal dependencies)</span>
+<span class="linenos" data-linenos=" 2 "></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span>
 <span class="linenos" data-linenos=" 3 "></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="c1"># To create a new project</span>
-<span class="linenos" data-linenos=" 5 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>new_project
-<span class="linenos" data-linenos=" 6 "></span><span class="nb">cd</span><span class="w"> </span>new_project
+<span class="linenos" data-linenos=" 4 "></span><span class="c1"># Or use without installing via uvx</span>
+<span class="linenos" data-linenos=" 5 "></span>uvx<span class="w"> </span>--from<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span><span class="w"> </span>calcipy-lint<span class="w"> </span>--help
+<span class="linenos" data-linenos=" 6 "></span>uvx<span class="w"> </span>--from<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span><span class="w"> </span>calcipy-tags<span class="w"> </span>--help
 <span class="linenos" data-linenos=" 7 "></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Or convert/update an existing one</span>
-<span class="linenos" data-linenos=" 9 "></span><span class="nb">cd</span><span class="w"> </span>my_project
-<span class="linenos" data-linenos="10 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>.
-<span class="linenos" data-linenos="11 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>update
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Examples</span>
+<span class="linenos" data-linenos=" 9 "></span>calcipy-lint<span class="w"> </span>lint<span class="w"> </span>--help
+<span class="linenos" data-linenos="10 "></span>calcipy-lint<span class="w"> </span>lint<span class="w">  </span><span class="c1"># Lint current directory</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
+<span class="linenos" data-linenos="13 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
 </code></pre></div>
-<h3 id="calcipy-cli">Calcipy CLI<a class="headerlink" href="#calcipy-cli" title="Permanent link">⚓︎</a></h3>
-<p>Additionally, <code>calcipy</code> can be run as a CLI application without adding the package as a dependency.</p>
-<p>Quick Start:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># For the CLI, only install a few of the extras which can be used from a few different CLI commands</span>
-<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[lint,tags]&#39;</span>
+<p><strong>Tool Mode Capabilities:</strong>
+- ✅ <code>calcipy-lint</code> - Lint any Python codebase
+- ✅ <code>calcipy-tags</code> - Collect code tags from any directory
+- ⚠️  Other commands require project context (see below)</p>
+<h3 id="2-as-a-project-dependency-full-development-environment">2. As a Project Dependency (Full Development Environment)<a class="headerlink" href="#2-as-a-project-dependency-full-development-environment" title="Permanent link">⚓︎</a></h3>
+<p>Add <code>calcipy</code> to your project for the complete development workflow including testing, documentation, type-checking, and more.</p>
+<h4 id="quick-start-with-template">Quick Start with Template<a class="headerlink" href="#quick-start-with-template" title="Permanent link">⚓︎</a></h4>
+<p>Calcipy works best with its companion template project: <a href="https://github.com/KyleKing/calcipy_template/">kyleking/calcipy_template</a></p>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Create a new project from template</span>
+<span class="linenos" data-linenos="2 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>new_project
+<span class="linenos" data-linenos="3 "></span><span class="nb">cd</span><span class="w"> </span>new_project
+<span class="linenos" data-linenos="4 "></span>
+<span class="linenos" data-linenos="5 "></span><span class="c1"># Or add to existing project</span>
+<span class="linenos" data-linenos="6 "></span><span class="nb">cd</span><span class="w"> </span>my_project
+<span class="linenos" data-linenos="7 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>.
+<span class="linenos" data-linenos="8 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>update
+</code></pre></div>
+<h4 id="manual-installation">Manual Installation<a class="headerlink" href="#manual-installation" title="Permanent link">⚓︎</a></h4>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Add as development dependency with all tools</span>
+<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[dev]&#39;</span>
 <span class="linenos" data-linenos="3 "></span>
-<span class="linenos" data-linenos="4 "></span><span class="c1"># Use &#39;tags&#39; to create a CODE_TAG_SUMMARY of the specified directory</span>
-<span class="linenos" data-linenos="5 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
-<span class="linenos" data-linenos="6 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Or install specific extras</span>
+<span class="linenos" data-linenos="5 "></span>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[test,doc,types]&#39;</span>
 </code></pre></div>
+<p><strong>Project Mode Capabilities:</strong>
+- ✅ All tool mode features
+- ✅ <code>calcipy-test</code> - Run pytest with coverage
+- ✅ <code>calcipy-types</code> - Type checking with mypy/pyright
+- ✅ <code>calcipy-docs</code> - Build and deploy documentation
+- ✅ <code>calcipy-pack</code> - Package building and publishing
+- ✅ <code>calcipy</code> - Full task automation</p>
 <p>Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The &ldquo;Usage&rdquo;, &ldquo;Core options&rdquo;, and &ldquo;Global Task Options&rdquo; are the same for each subsequent command, so they are excluded for brevity.</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt; calcipy-lint
 <span class="linenos" data-linenos=" 2 "></span>Usage: calcipy-lint [--core-opts] &lt;subcommand&gt; [--subcommand-opts] ...
