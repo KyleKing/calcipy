@@ -13,38 +13,71 @@
 
 ## Installation
 
-Calcipy needs a few static files managed using copier and a template project: [kyleking/calcipy_template](https://github.com/KyleKing/calcipy_template/)
+`calcipy` can be used in two ways:
 
-You can quickly use the template to create a new project or add calcipy to an existing one:
+### 1. As a Standalone Tool (Recommended for Linting & Code Analysis)
+
+Use `calcipy` as a standalone tool without adding it as a dependency. This is ideal for:
+- **Linting**: Running `ruff` on any Python codebase
+- **Code Tag Collection**: Creating TODO/FIXME summaries for any project
 
 ```sh
-# Below examples assume you have Astral uv installed (which provides uvx)
-#   If you have your shell configured, `uv tool install copier` allows usage of `copier ...` instead of `uvx copier ...`
+# Install as a tool (minimal dependencies)
+uv tool install 'calcipy[tool]'
 
-# To create a new project
+# Or use without installing via uvx
+uvx --from 'calcipy[tool]' calcipy-lint --help
+uvx --from 'calcipy[tool]' calcipy-tags --help
+
+# Examples
+calcipy-lint lint --help
+calcipy-lint lint  # Lint current directory
+
+calcipy-tags tags --help
+calcipy-tags tags --base-dir=~/path/to/my_project
+```
+
+**Tool Mode Capabilities:**
+- ✅ `calcipy-lint` - Lint any Python codebase
+- ✅ `calcipy-tags` - Collect code tags from any directory
+- ⚠️  Other commands require project context (see below)
+
+### 2. As a Project Dependency (Full Development Environment)
+
+Add `calcipy` to your project for the complete development workflow including testing, documentation, type-checking, and more.
+
+#### Quick Start with Template
+
+Calcipy works best with its companion template project: [kyleking/calcipy_template](https://github.com/KyleKing/calcipy_template/)
+
+```sh
+# Create a new project from template
 uvx copier copy gh:KyleKing/calcipy_template new_project
 cd new_project
 
-# Or convert/update an existing one
+# Or add to existing project
 cd my_project
 uvx copier copy gh:KyleKing/calcipy_template .
 uvx copier update
 ```
 
-### Calcipy CLI
-
-Additionally, `calcipy` can be run as a CLI application without adding the package as a dependency.
-
-Quick Start:
+#### Manual Installation
 
 ```sh
-# For the CLI, only install a few of the extras which can be used from a few different CLI commands
-uv tool install 'calcipy[lint,tags]'
+# Add as development dependency with all tools
+uv add --dev 'calcipy[dev]'
 
-# Use 'tags' to create a CODE_TAG_SUMMARY of the specified directory
-calcipy-tags tags --help
-calcipy-tags tags --base-dir=~/path/to/my_project
+# Or install specific extras
+uv add --dev 'calcipy[test,doc,types]'
 ```
+
+**Project Mode Capabilities:**
+- ✅ All tool mode features
+- ✅ `calcipy-test` - Run pytest with coverage
+- ✅ `calcipy-types` - Type checking with mypy/pyright
+- ✅ `calcipy-docs` - Build and deploy documentation
+- ✅ `calcipy-pack` - Package building and publishing
+- ✅ `calcipy` - Full task automation
 
 Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The "Usage", "Core options", and "Global Task Options" are the same for each subsequent command, so they are excluded for brevity.
 
