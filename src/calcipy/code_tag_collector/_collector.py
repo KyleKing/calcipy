@@ -182,7 +182,7 @@ def _format_from_blame(
 ) -> _CollectorRow:
     """Parse the git blame for useful timestamps and author when available."""
     # Note: line number may be different in older blame (and relative path)
-    revision, old_line_number = blame.split('\n')[0].split(' ')[:2]
+    revision, old_line_number = blame.split('\n', maxsplit=1)[0].split(' ')[:2]
     # If the change has not yet been committed, use the branch name as best guess
     if all(_c == '0' for _c in revision):
         revision = capture_shell('git branch --show-current', cwd=cwd)

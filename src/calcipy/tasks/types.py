@@ -1,4 +1,3 @@
-# noqa: A005
 """Types CLI."""
 
 from invoke.context import Context

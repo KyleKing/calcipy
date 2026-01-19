@@ -261,7 +261,7 @@ def _try_replace_poetry_line(
     pyproject_versions: dict[str, str],
 ) -> str | None:
     """Try to replace version in Poetry dict format line."""
-    name = line.split('=')[0].strip()
+    name = line.split('=', maxsplit=1)[0].strip()
     lock_version = lock_versions.get(name)
     pyproject_version = pyproject_versions.get(name)
 
@@ -282,7 +282,7 @@ def _handle_single_line_list(
     Returns the replaced line or None if no replacement was made.
 
     """
-    stripped = line.split('#')[0].strip()
+    stripped = line.split('#', maxsplit=1)[0].strip()
     list_content = stripped[stripped.index('[') + 1:stripped.index(']')].strip()
 
     if list_content and ('"' in list_content or "'" in list_content) and (

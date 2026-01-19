@@ -75,12 +75,11 @@ uv add --dev 'calcipy[test,doc,types]'
 
 **Project Mode Capabilities:**
 
-- ✅ All tool mode features
-- ✅ `calcipy-test` - Run pytest with coverage
-- ✅ `calcipy-types` - Type checking with mypy/pyright
-- ✅ `calcipy-docs` - Build and deploy documentation
-- ✅ `calcipy-pack` - Package building and publishing
-- ✅ `calcipy` - Full task automation
+- `calcipy-test` - Run pytest with coverage
+- `calcipy-types` - Type checking with mypy/pyright
+- `calcipy-docs` - Build and deploy documentation
+- `calcipy-pack` - Package building and publishing
+- `calcipy` - Full task automation
 
 Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The "Usage", "Core options", and "Global Task Options" are the same for each subsequent command, so they are excluded for brevity.
 
