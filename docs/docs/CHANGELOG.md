@@ -2,12 +2,15 @@
 
 ### Feat
 
+- implement trusted publishers
 - complete poetry→uv migration and add tool-first architecture
 - migrate to prek
 - switch to uv (#134)
 
 ### Fix
 
+- correct Python 3.10.19 minimum
+- correct uv-build module-root
 - address CI failures and PR review feedback
 - resolve PR feedback on sync_package_dependencies
 - finish migrating noxfile
@@ -19,6 +22,9 @@
 - explore mise as a nox alternative
 - minor noxfile changes
 - restore in-progress comments from "wip?"
+
+
+- drop support for Python 3.9
 
 ## 5.0.0 (2024-11-07)
 

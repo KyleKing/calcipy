@@ -3,17 +3,13 @@ from unittest.mock import call, patch
 import pytest
 
 from calcipy import can_skip
-from calcipy.tasks.pack import bump_tag, lock, publish, sync_pyproject_versions
-
-PUBLISH_ENV = {'UV_PUBLISH_USERNAME': 'pypi_user', 'UV_PUBLISH_PASSWORD': 'pypi_password'}
-"""Set in `tests/__init__.py`."""
+from calcipy.tasks.pack import bump_tag, lock, sync_pyproject_versions
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
         (lock, {}, [call('uv lock')]),
-        (publish, {}, ['uv build --no-sources', call('uv publish', env=PUBLISH_ENV)]),
     ],
 )
 def test_pack(ctx, task, kwargs, commands, monkeypatch):

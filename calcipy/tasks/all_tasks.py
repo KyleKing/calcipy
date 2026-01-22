@@ -94,7 +94,6 @@ def other(_ctx: Context) -> None:
             pack.lock,
             doc.build,
             doc.deploy,
-            pack.publish,
         ],
         offset=1,
     ),

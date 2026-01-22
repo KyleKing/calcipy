@@ -59,7 +59,7 @@ def test__format_report(fake_process, snapshot):
     fake_process.keep_last_process(keep=True)
     lines = ['# DEBUG: Example 1', '# TODO: Example 2']
     comments = [
-        _CodeTag(lineno=lineno, **dict(zip(('tag', 'text'), line.split('# ')[1].split(': '))))
+        _CodeTag(lineno=lineno, **dict(zip(('tag', 'text'), line.split('# ')[1].split(': '), strict=False)))
         for lineno, line in enumerate(lines)
     ]
     tagged_collection = [_Tags(path_source=TEST_DATA_DIR / 'test_project', code_tags=comments)]

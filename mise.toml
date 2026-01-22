@@ -34,7 +34,7 @@ run = '''
 set -euo pipefail
 echo "Testing across Python 3.10, 3.11, 3.12..."
 echo ""
-echo "=== Testing Python 3.10.16 ==="
+echo "=== Testing Python 3.10.19 ==="
 mise run test:310 || exit 1
 echo ""
 echo "=== Testing Python 3.11.11 ==="
@@ -47,10 +47,10 @@ echo "✓ All Python versions passed"
 '''
 
 [tools]
-python = ["3.10.16", "3.11.11", "3.12.5"]
+python = ["3.10.19", "3.11.11", "3.12.5"]
 
 [vars]
-py_310 = "3.10.16"
+py_310 = "3.10.19"
 py_311 = "3.11.11"
 py_312 = "3.12.5"
 # Python versions - single source of truth

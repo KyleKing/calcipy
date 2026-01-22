@@ -1,40 +1,83 @@
 # Code Tags Cleanup
 
-## Overview
+## Current Tags (from CODE_TAG_SUMMARY.md)
 
-The codebase contains several TODO and FIXME tags that need to be addressed. The project has tooling to collect and track these via `CODE_TAG_SUMMARY.md`.
+### FIXME (2) - Port to Corallium
 
-## Current Status
+| Location                                | Description                                            | Action               |
+| --------------------------------------- | ------------------------------------------------------ | -------------------- |
+| `calcipy/_corallium/file_helpers.py:60` | `get_tool_versions()` extended for mise.lock/mise.toml | Port to ../corallium |
+| `calcipy/_corallium/file_helpers.py:85` | `read_package_name()` extended for uv `[project]`      | Port to ../corallium |
 
-Active TODOs (6 total):
+### TODO (1)
 
-- `pyproject.toml:1`: Sync with copier-uv template
-- `calcipy/collection.py:50`: How to capture output?
-- `calcipy/experiments/sync_package_dependencies.py:52`: Handle ">=3.0.0,\<4" version constraints
-- `calcipy/noxfile/_noxfile.py:55`: Migrate to uv
-- `calcipy/tasks/pack.py:77`: Add unit test for pack functionality
-- `calcipy/tasks/pack.py:110`: Add unit test for pack functionality
+| Location                   | Description                             | Action                   |
+| -------------------------- | --------------------------------------- | ------------------------ |
+| `calcipy/tasks/lint.py:33` | Support `./src/<>/` and `./<>/` layouts | Implement path detection |
 
-PLANNED items (4 total) in docstrings.
+### PLANNED (4)
 
-## Proposed Mini-Project
+| Location             | Description                            | Priority |
+| -------------------- | -------------------------------------- | -------- |
+| `pyproject.toml:195` | Finish updating docstrings for Returns | Low      |
+| `calcipy/cli.py:103` | Support completions                    | Medium   |
+| `calcipy/cli.py:112` | usage.jdx.dev spec for completions     | Medium   |
+| `calcipy/cli.py:114` | Ruff-style shell autocompletion        | Medium   |
 
-Systematically address each TODO:
+## Action Items
 
-1. **Copier-UV Sync**: Research and implement changes from pawamoy/copier-uv
-1. **Output Capture**: Implement proper output capturing in collection.py
-1. **Version Constraints**: Add support for complex version ranges in sync_package_dependencies.py
-1. **NOX UV Migration**: Complete UV integration in noxfile
-1. **Unit Tests**: Add comprehensive tests for pack.py functions
-1. **PLANNED Items**: Convert PLANNED docstring items to implemented features or remove if obsolete
+### 1. Port to Corallium (High Priority)
 
-## Benefits
+The `calcipy/_corallium/file_helpers.py` contains extensions that should be upstreamed to corallium.
 
-- Cleaner codebase with resolved technical debt
-- Improved functionality (output capture, version handling)
-- Better test coverage
-- Alignment with project goals
+**Target file:** `../corallium/corallium/file_helpers.py`
 
-## Estimated Effort
+**Changes needed in corallium:**
 
-Medium-High (1-2 weeks): Research, implementation, testing for each TODO
+1. Add `_parse_mise_lock()` function (lines 13-33)
+1. Add `_parse_mise_toml()` function (lines 36-57)
+1. Update `get_tool_versions()` to check mise.lock > mise.toml > .tool-versions (lines 61-82)
+1. Update `read_package_name()` to check `[project]` before `[tool.poetry]` (already done in corallium:143-144)
+
+**After porting:**
+
+- Remove `calcipy/_corallium/file_helpers.py` overrides
+- Update imports in calcipy to use corallium directly
+- Bump corallium version requirement
+
+### 2. Lint Path Detection (Medium Priority)
+
+`calcipy/tasks/lint.py:33` - Support both layouts:
+
+- `./src/<package>/` (src layout)
+- `./<package>/` (flat layout)
+
+Options:
+
+- Read from pyproject.toml `[tool.uv]` or heuristic detection
+- Check which path exists at runtime
+
+### 3. CLI Completions (Low Priority)
+
+Three related PLANNED items for shell completions:
+
+- Basic completion support
+- usage.jdx.dev spec integration
+- Ruff-style completion generation
+
+Defer until CLI architecture stabilizes (see tooling-refactor.md).
+
+### 4. Docstring Cleanup (Low Priority)
+
+Review pyproject.toml PLANNED item for docstring Returns formatting.
+
+## Corallium Sync Checklist
+
+- [ ] Create branch in ../corallium
+- [ ] Port mise.lock parsing
+- [ ] Port mise.toml parsing
+- [ ] Update get_tool_versions() priority order
+- [ ] Add tests for new functionality
+- [ ] Release corallium
+- [ ] Update calcipy to use new corallium version
+- [ ] Remove calcipy/\_corallium/file_helpers.py overrides
