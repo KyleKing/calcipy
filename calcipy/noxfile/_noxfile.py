@@ -16,7 +16,7 @@ nox -s tests
 nox -s tests-3.11
 
 # Run with specific Python versions only
-nox --python 3.9 3.10
+nox --python 3.10 3.11
 
 # Filter sessions by keyword
 nox -k tests

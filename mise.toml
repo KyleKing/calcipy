@@ -23,14 +23,8 @@ env = {RUNTIME_TYPE_CHECKING_MODE = "{{vars.runtime_mode}}"}
 run = "{{vars.test_cmd}}"
 tools.python = "{{vars.py_312}}"
 
-[tasks."test:39"]
-description = "Run tests with Python 3.9"
-env = {RUNTIME_TYPE_CHECKING_MODE = "{{vars.runtime_mode}}"}
-run = "{{vars.test_cmd}}"
-tools.python = "{{vars.py_39}}"
-
 [tasks."test:all"]
-depends = ["test:310", "test:311", "test:312", "test:39"]
+depends = ["test:310", "test:311", "test:312"]
 description = "Run tests on all supported Python versions (sequential)"
 
 [tasks."test:all-verbose"]
@@ -38,10 +32,7 @@ description = "Run tests on all Python versions with explicit output"
 run = '''
 #!/usr/bin/env bash
 set -euo pipefail
-echo "Testing across Python 3.9, 3.10, 3.11, 3.12..."
-echo ""
-echo "=== Testing Python 3.9.13 ==="
-mise run test:39 || exit 1
+echo "Testing across Python 3.10, 3.11, 3.12..."
 echo ""
 echo "=== Testing Python 3.10.16 ==="
 mise run test:310 || exit 1
@@ -56,14 +47,13 @@ echo "✓ All Python versions passed"
 '''
 
 [tools]
-python = ["3.10.16", "3.11.11", "3.12.5", "3.9.13"]
+python = ["3.10.16", "3.11.11", "3.12.5"]
 
 [vars]
 py_310 = "3.10.16"
 py_311 = "3.11.11"
 py_312 = "3.12.5"
 # Python versions - single source of truth
-py_39 = "3.9.13"
 runtime_mode = "WARNING"
 # Shared test configuration
 test_cmd = "uv run --group ci pytest tests/"

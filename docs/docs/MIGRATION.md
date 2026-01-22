@@ -52,7 +52,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "my-package"
 version = "1.0.0"
-dependencies = { python = "^3.9" }
+dependencies = { python = "^3.10" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0"
@@ -68,7 +68,7 @@ build-backend = "uv_build"
 [project]
 name = "my-package"
 version = "1.0.0"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = []
 
 [dependency-groups]
@@ -148,7 +148,7 @@ Create `mise.toml`:
 
 ```toml
 [tools]
-python = ["3.12.5", "3.9.13"]
+python = ["3.12.5", "3.10.16"]
 
 [env]
 _.python.venv = { path = ".venv" }

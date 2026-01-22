@@ -36,7 +36,7 @@ Should we migrate from Poetry to uv for dependency management?
 - Must be fast (developers value quick iteration)
 - Must be reliable (dependency resolution must work)
 - Must support optional dependencies (calcipy has many extras)
-- Must support Python 3.9+ (our minimum version)
+- Must support Python 3.10+ (our minimum version)
 - Prefer tools from Astral (already using ruff successfully)
 - Prefer Rust-based tools for performance
 - Must have active development and community support
