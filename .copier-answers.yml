@@ -2,7 +2,7 @@
 # Answer file maintained by Copier for: https://github.com/KyleKing/calcipy_template
 # DO NOT MODIFY THIS FILE. Edit by re-running copier and changing responses to the questions
 # Check into version control.
-_commit: 4.0.0
+_commit: 4.0.1
 _src_path: gh:KyleKing/calcipy_template
 author_email: dev.act.kyle@gmail.com
 author_name: Kyle King
@@ -12,7 +12,7 @@ copyright_date: '2023'
 development_branch: main
 doc_dir: docs
 extends_calcipy: true
-minimum_python: 3.10
+minimum_python: 3.10.19
 minimum_python_short: '3.10'
 package_name_py: calcipy
 project_description: Python package to simplify development
