@@ -7,7 +7,9 @@ import pytest
 from beartype.typing import List
 
 from calcipy.md_writer._writer import (
+    _CLI_ALLOWED_PREFIXES,
     _format_cov_table,
+    _handle_cli_output,
     _handle_coverage,
     _handle_source_file,
     _parse_var_comment,
@@ -113,3 +115,30 @@ def test_write_template_formatted_md_sections_custom(fix_test_cache):
 <!-- {cte} -->"""
         in text
     )
+
+
+def test_handle_cli_output_echo():
+    line = '<!-- {cts} CLI_OUTPUT=python -m calcipy --help; -->'
+    path_md = Path('fake.md')
+
+    result = _handle_cli_output(line, path_md)
+
+    assert result[0] == '<!-- {cts} CLI_OUTPUT=python -m calcipy --help; -->'
+    assert result[1] == '```txt'
+    assert result[-1] == '<!-- {cte} -->'
+    assert result[-2] == '```'
+    assert any('calcipy' in line.lower() for line in result)
+
+
+def test_handle_cli_output_disallowed_command():
+    line = '<!-- {cts} CLI_OUTPUT=rm -rf /; -->'
+    path_md = Path('fake.md')
+
+    with pytest.raises(Exception):
+        _handle_cli_output(line, path_md)
+
+
+def test_handle_cli_output_allowed_prefixes():
+    assert './run' in _CLI_ALLOWED_PREFIXES
+    assert 'uv ' in _CLI_ALLOWED_PREFIXES
+    assert 'python -m ' in _CLI_ALLOWED_PREFIXES

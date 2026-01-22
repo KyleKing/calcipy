@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import re
+import shlex
+import subprocess
 from pathlib import Path
 
 from beartype.typing import Any, Callable, Dict, List, Optional
@@ -217,12 +219,62 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
     return [line, *lines_cov, line_end]
 
 
+_CLI_ALLOWED_PREFIXES = ('./run', 'uv ', 'python -m ', 'python3 -m ')
+
+
+def _handle_cli_output(line: str, _path_file: Path) -> List[str]:
+    """Execute CLI command and insert output into markdown.
+
+    Args:
+        line: marker line containing command
+        _path_file: path to the markdown file (unused)
+
+    Returns:
+        List of lines with command output wrapped in code fence
+
+    Raises:
+        _ParseSkipError: if command is not allowed or execution fails
+
+    """
+    vars_parsed = _parse_var_comment(line)
+    command = vars_parsed.get('CLI_OUTPUT', '')
+
+    if not command or not any(command.startswith(prefix) for prefix in _CLI_ALLOWED_PREFIXES):
+        msg = f'Command not allowed. Must start with one of: {_CLI_ALLOWED_PREFIXES}'
+        raise _ParseSkipError(msg)
+
+    try:
+        result = subprocess.run(
+            shlex.split(command),
+            capture_output=True,
+            text=True,
+            cwd=get_project_path(),
+            timeout=30,
+        )
+    except (subprocess.TimeoutExpired, FileNotFoundError, OSError) as err:
+        LOGGER.warning('CLI command failed', command=command, error=str(err))
+        raise _ParseSkipError(str(err)) from err
+
+    output = result.stdout or result.stderr
+    if result.returncode != 0 and not output:
+        msg = f'Command failed with exit code {result.returncode}'
+        LOGGER.warning(msg, command=command)
+        raise _ParseSkipError(msg)
+
+    lines_output = ['```txt', *output.rstrip().split('\n'), '```']
+
+    line_start = f'<!-- {{cts}} CLI_OUTPUT={command}; -->'
+    line_end = '<!-- {cte} -->'
+    return [line_start, *lines_output, line_end]
+
+
 def write_template_formatted_md_sections(
     handler_lookup: Optional[HandlerLookupT] = None,
     paths_md: Optional[List[Path]] = None,
 ) -> None:
     """Populate the template-formatted sections of markdown files with user-configured logic."""
     lookup: HandlerLookupT = handler_lookup or {
+        'CLI_OUTPUT=': _handle_cli_output,
         'COVERAGE ': _handle_coverage,
         'SOURCE_FILE=': _handle_source_file,
     }

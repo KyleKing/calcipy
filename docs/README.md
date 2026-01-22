@@ -157,6 +157,86 @@ repos:
       - id: lint-fix
       - id: types
 ```
+<!-- {cts} CLI_OUTPUT=./run --help; -->
+```txt
+Usage: calcipy [--core-opts] <subcommand> [--subcommand-opts] ...
+
+Core options:
+
+  --complete                         Print tab-completion candidates for given
+                                     parse remainder.
+  --hide=STRING                      Set default value of run()'s 'hide' kwarg.
+  --print-completion-script=STRING   Print the tab-completion script for your
+                                     preferred shell (bash|zsh|fish).
+  --prompt-for-sudo-password         Prompt user at start of session for the
+                                     sudo.password config value.
+  --write-pyc                        Enable creation of .pyc files.
+  -d, --debug                        Enable debug output.
+  -D INT, --list-depth=INT           When listing tasks, only show the first
+                                     INT levels.
+  -e, --echo                         Echo executed commands before running.
+  -f STRING, --config=STRING         Runtime configuration file to use.
+  -F STRING, --list-format=STRING    Change the display format used when
+                                     listing tasks. Should be one of: flat
+                                     (default), nested, json.
+  -h [STRING], --help[=STRING]       Show core or per-task help and exit.
+  -l [STRING], --list[=STRING]       List available tasks, optionally limited
+                                     to a namespace.
+  -p, --pty                          Use a pty when executing shell commands.
+  -R, --dry                          Echo commands instead of running.
+  -T INT, --command-timeout=INT      Specify a global command execution
+                                     timeout, in seconds.
+  -V, --version                      Show version and exit.
+  -w, --warn-only                    Warn, instead of failing, when shell
+                                     commands fail.
+
+Subcommands:
+
+  main                            Run main task pipeline.
+  other                           Run tasks that are otherwise not exercised in
+                                  main.
+  release                         Run release pipeline.
+  cl.bump                         Bumps project version based on commits &
+                                  settings in pyproject.toml.
+  cl.write                        Write a Changelog file with the raw Git
+                                  history.
+  doc.build                       Build documentation with mkdocs.
+  doc.deploy                      Deploy docs to the Github `gh-pages` branch.
+  doc.watch                       Serve local documentation for local editing.
+  lint.check (lint)               Run ruff as check-only.
+  lint.fix                        Run ruff and apply fixes.
+  lint.pre-commit                 Run prek.
+  lint.watch                      Run ruff as check-only.
+  nox.noxfile (nox)               Run nox from the local noxfile.
+  pack.bump-tag                   Experiment with bumping the git tag using
+                                  `griffe` (experimental).
+  pack.lock                       Update package manager lock file.
+  pack.sync-pyproject-versions    Experiment with setting the pyproject.toml
+                                  dependencies to the version from uv.lock
+                                  (experimental).
+  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table
+                                  for TODO- and FIXME-style code comments.
+  test.check                      Run pytest checks, such as identifying.
+  test.coverage                   Generate useful coverage outputs after
+                                  running pytest.
+  test.pytest (test)              Run pytest with default arguments.
+  test.watch                      Run pytest with polling and optimized to stop
+                                  on first error.
+  types.mypy                      Run mypy.
+  types.pyright                   Run pyright using the config in
+                                  `pyproject.toml`.
+
+Global Task Options:
+
+  *file_args             List of Paths available globally to all tasks. Will
+                         resolve paths with working_dir
+  --keep-going           Continue running tasks even on failure
+  --working_dir=STRING   Set the cwd for the program. Example: "../run
+                         --working-dir .. lint test"
+  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most
+                         verbose)
+```
+<!-- {cte} -->
 
 Tip: running pre-commit with prek is recommended for performance: https://pypi.org/project/prek
 
