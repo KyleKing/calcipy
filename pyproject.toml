@@ -271,3 +271,7 @@ trailing_comma_inline_array = true
 [tool.uv]
 default-groups = ["ci", "docs", "maintain"]
 required-version = ">=0.9.0"
+
+[tool.uv.build-backend]
+module-name = "calcipy"
+module-root = ""

@@ -33,7 +33,7 @@ uv sync --all-extras
 
 ## Publishing
 
-Publishing is automated via GitHub Actions using PyPI Trusted Publishing (ADR-0008). Tag creation triggers automated publishing.
+Publishing is automated via GitHub Actions using PyPI Trusted Publishing. Tag creation triggers automated publishing.
 
 ```sh
 ./run release              # Bumps version, creates tag, pushes → triggers publish
