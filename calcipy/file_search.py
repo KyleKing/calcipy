@@ -41,10 +41,10 @@ def _filter_files(rel_filepaths: List[str], ignore_patterns: List[str]) -> List[
     """
     if ignore_patterns:
         matches = []
-        for _fp in rel_filepaths:
-            pth = Path(_fp).resolve()
+        for fp in rel_filepaths:
+            pth = Path(fp).resolve()
             if not any(pth.match(pat) for pat in ignore_patterns):
-                matches.append(_fp)
+                matches.append(fp)
         return matches
     return rel_filepaths
 

@@ -19,7 +19,7 @@ def format_table(
         delimiters: optional list to allow for alignment
 
     """
-    table = [[str(_r[col]) for col in headers] for _r in records]
+    table = [[str(r_[col]) for col in headers] for r_ in records]
     widths = [max(len(row[col_idx].strip()) for row in [headers, *table]) for col_idx in range(len(headers))]
 
     def pad(values: list[str]) -> list[str]:

@@ -47,8 +47,8 @@ def with_progress(items: Any, offset: int = 0) -> TaskList:
         offset: Optional offset to shift counters
 
     """
-    task_items = [_build_task(_t) for _t in items]
-    message = 'Running tasks: ' + ', '.join([str(_t.__name__) for _t in task_items])
+    task_items = [_build_task(t_) for t_ in items]
+    message = 'Running tasks: ' + ', '.join([str(t_.__name__) for t_ in task_items])
     tasks: TaskList = [summary.with_kwargs(message=message)]  # pyright: ignore[reportFunctionMemberAccess]
 
     total = len(task_items) + offset

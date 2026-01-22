@@ -85,7 +85,7 @@ def start_program(
         elif argv != '--working-dir':
             sys_argv.append(argv)
         last_argv = argv
-    lgto.file_args = [_f if _f.is_absolute() else Path.cwd() / _f for _f in lgto.file_args]
+    lgto.file_args = [f_ if f_.is_absolute() else Path.cwd() / f_ for f_ in lgto.file_args]
     sys.argv = sys_argv
 
     class _CalcipyConfig(CalcipyConfig):

@@ -184,7 +184,7 @@ def _format_from_blame(
     # Note: line number may be different in older blame (and relative path)
     revision, old_line_number = blame.split('\n', maxsplit=1)[0].split(' ')[:2]
     # If the change has not yet been committed, use the branch name as best guess
-    if all(_c == '0' for _c in revision):
+    if all(c_ == '0' for c_ in revision):
         revision = capture_shell('git branch --show-current', cwd=cwd)
     # Format a nice timestamp of the last edit to the line
     blame_dict = {line.split(' ')[0]: ' '.join(line.split(' ')[1:]) for line in blame.split('\n')}
@@ -310,7 +310,7 @@ def write_code_tag_file(
         header: header text
 
     """
-    tag_order = [_t.strip() for _t in tags.split(',') if _t] or COMMON_CODE_TAGS
+    tag_order = [t_.strip() for t_ in tags.split(',') if t_] or COMMON_CODE_TAGS
     matcher = (regex or CODE_TAG_RE).format(tag='|'.join(tag_order))
 
     matches = _search_files(paths_source, re.compile(matcher))
@@ -320,7 +320,7 @@ def write_code_tag_file(
         tag_order=tag_order,
     ).strip():
         path_tag_summary.parent.mkdir(exist_ok=True, parents=True)
-        path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n')
+        path_tag_summary.write_text(f'{header}\n\n{report}\n\n<!-- {SKIP_PHRASE} -->\n', encoding='utf-8')
         LOGGER.text('Created Code Tag Summary', path_tag_summary=path_tag_summary)
     elif path_tag_summary.is_file():
         path_tag_summary.unlink()

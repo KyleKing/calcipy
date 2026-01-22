@@ -28,7 +28,7 @@ def _inner_task(
     with suppress(AttributeError):
         file_args = ctx.config.gto.file_args
     if file_args:
-        target = ' '.join([f'"{_a}"' for _a in file_args])
+        target = ' '.join([f'"{a_}"' for a_ in file_args])
     elif target is None:
         # TODO: Performantly support either ./src/<>/ and ./<>/
         target = f'"./src/{read_package_name()}" ./tests'
