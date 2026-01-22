@@ -40,10 +40,7 @@ def run(test_path: Path) -> List[str]:  # noqa: C901
                         _show_info(method)
 
         for node in ast.walk(parsed_ast):  # type: ignore[assignment]
-            if (
-                isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-                and node.name not in summary
-            ):
+            if isinstance(node, ast.FunctionDef | ast.AsyncFunctionDef) and node.name not in summary:
                 LOGGER.info('Found new function(s) through walking')
                 _show_info(node)
                 summary.add(node.name)

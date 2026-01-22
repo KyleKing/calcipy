@@ -1,7 +1,5 @@
 """Packaging CLI."""
 
-from pathlib import Path
-
 from corallium import file_helpers  # Required for mocking read_pyproject
 from corallium.file_helpers import PROJECT_TOML, get_lock
 from corallium.log import LOGGER

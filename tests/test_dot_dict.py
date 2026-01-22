@@ -7,7 +7,8 @@ from calcipy.dot_dict import ddict
 
 
 @pytest.mark.parametrize(
-    ('key', 'value'), [
+    ('key', 'value'),
+    [
         ('int', 1),
         ('number', -1.23),
         ('unicode', '✓'),

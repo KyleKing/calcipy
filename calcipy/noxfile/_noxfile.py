@@ -28,10 +28,9 @@ import shlex
 from functools import lru_cache
 
 from beartype.typing import Any, Dict, List, Union
+from corallium.file_helpers import get_tool_versions, read_package_name, read_pyproject
 from nox import Session as NoxSession
 from nox import session as nox_session
-
-from calcipy._corallium.file_helpers import get_tool_versions, read_package_name, read_pyproject
 
 
 @lru_cache(maxsize=1)

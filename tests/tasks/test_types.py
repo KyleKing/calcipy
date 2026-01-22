@@ -9,17 +9,18 @@ from calcipy.tasks.types import mypy, pyright
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (pyright, {}, [
-            call('which pyright', warn=True, hide=True),
-            'pyright',
-        ]),
+        (
+            pyright,
+            {},
+            [
+                call('which pyright', warn=True, hide=True),
+                'pyright',
+            ],
+        ),
         (mypy, {}, [f'{python_dir() / "mypy"}']),
     ],
 )
 def test_types(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([
-        call(cmd) if isinstance(cmd, str) else cmd
-        for cmd in commands
-    ])
+    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])

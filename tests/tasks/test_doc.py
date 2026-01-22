@@ -16,7 +16,4 @@ from calcipy.tasks.executable_utils import python_dir
 def test_doc(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([
-        call(cmd) if isinstance(cmd, str) else cmd
-        for cmd in commands
-    ])
+    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])

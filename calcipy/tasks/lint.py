@@ -3,9 +3,9 @@
 from contextlib import suppress
 
 from beartype.typing import Optional
+from corallium.file_helpers import read_package_name
 from invoke.context import Context
 
-from calcipy._corallium.file_helpers import read_package_name
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 

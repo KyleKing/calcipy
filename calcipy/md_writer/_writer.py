@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import re
 import shlex
-import subprocess
+import subprocess  # noqa: S404
 from pathlib import Path
 
 from beartype.typing import Any, Callable, Dict, List, Optional
@@ -185,7 +185,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
             **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
         },
     )
-    records = [{**_r, 'Coverage': f"{round(_r['Coverage'], 1)}%"} for _r in records]
+    records = [{**_r, 'Coverage': f'{round(_r["Coverage"], 1)}%'} for _r in records]
 
     delimiters = ['-', *(['-:'] * len(col_key_map))]
     lines_table = format_table(headers=['File', *col_key_map], records=records, delimiters=delimiters).split('\n')
@@ -244,12 +244,13 @@ def _handle_cli_output(line: str, _path_file: Path) -> List[str]:
         raise _ParseSkipError(msg)
 
     try:
-        result = subprocess.run(
+        result = subprocess.run(  # noqa: S603
             shlex.split(command),
             capture_output=True,
             text=True,
             cwd=get_project_path(),
             timeout=30,
+            check=False,
         )
     except (subprocess.TimeoutExpired, FileNotFoundError, OSError) as err:
         LOGGER.warning('CLI command failed', command=command, error=str(err))

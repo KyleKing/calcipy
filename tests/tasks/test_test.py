@@ -18,12 +18,16 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
         (task_pytest, {'keyword': 'test'}, [f'{python_dir() / "pytest"} ./tests {_COV} -k "test"']),
         (task_pytest, {'marker': _MARKERS}, [f'{python_dir() / "pytest"} ./tests {_COV} -m "{_MARKERS}"']),
         (watch, {'marker': _MARKERS}, [f'{python_dir() / "ptw"} . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
-        (coverage, {'out_dir': '.cover'}, [
-            f'{python_dir() / "coverage"} run --branch --source=calcipy --module pytest ./tests',
-            call(f'{python_dir() / "coverage"} report --show-missing'),
-            call(f'{python_dir() / "coverage"} html --directory=.cover'),
-            call(f'{python_dir() / "coverage"} json'),
-        ]),
+        (
+            coverage,
+            {'out_dir': '.cover'},
+            [
+                f'{python_dir() / "coverage"} run --branch --source=calcipy --module pytest ./tests',
+                call(f'{python_dir() / "coverage"} report --show-missing'),
+                call(f'{python_dir() / "coverage"} html --directory=.cover'),
+                call(f'{python_dir() / "coverage"} json'),
+            ],
+        ),
     ],
     ids=[
         'Default test',
@@ -36,10 +40,7 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
 def test_test(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([
-        call(cmd) if isinstance(cmd, str) else cmd
-        for cmd in commands
-    ])
+    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
 
 
 def test_test_check(ctx):

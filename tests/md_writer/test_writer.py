@@ -134,7 +134,7 @@ def test_handle_cli_output_disallowed_command():
     line = '<!-- {cts} CLI_OUTPUT=rm -rf /; -->'
     path_md = Path('fake.md')
 
-    with pytest.raises(Exception):
+    with pytest.raises(Exception):  # noqa: B017, PT011
         _handle_cli_output(line, path_md)
 
 

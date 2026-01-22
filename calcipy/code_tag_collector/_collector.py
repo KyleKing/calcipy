@@ -128,7 +128,7 @@ def github_blame_url(clone_uri: str) -> str:
     # > https://github.com/KyleKing/calcipy.git
     if matches := re.compile(_GITHUB_ORIGIN).match(clone_uri):
         github_url = 'https://github.com/'
-        return f"{github_url}{matches['owner']}/{matches['repository']}"
+        return f'{github_url}{matches["owner"]}/{matches["repository"]}'
     return ''
 
 

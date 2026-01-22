@@ -14,8 +14,7 @@ from calcipy.tasks.pack import bump_tag, lock, sync_pyproject_versions
 )
 def test_pack(ctx, task, kwargs, commands, monkeypatch):
     monkeypatch.setattr(can_skip, 'can_skip', can_skip.dont_skip)
-    with patch('calcipy.tasks.pack.keyring'):
-        task(ctx, **kwargs)
+    task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
 

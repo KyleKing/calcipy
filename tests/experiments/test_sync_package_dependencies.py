@@ -273,7 +273,8 @@ def test_replace_pyproject_versions_trailing_comment():
 def test_parse_lock_file_uv(tmp_path: Path):
     """Test _parse_lock_file with uv.lock format."""
     uv_lock = tmp_path / 'uv.lock'
-    uv_lock.write_text(dedent("""
+    uv_lock.write_text(
+        dedent("""
         version = 1
 
         [[package]]
@@ -283,7 +284,8 @@ def test_parse_lock_file_uv(tmp_path: Path):
         [[package]]
         name = "flask"
         version = "3.0.0"
-    """))
+    """),
+    )
 
     versions = _parse_lock_file(uv_lock)
     assert versions == {'requests': '2.31.0', 'flask': '3.0.0'}
@@ -292,7 +294,8 @@ def test_parse_lock_file_uv(tmp_path: Path):
 def test_parse_lock_file_poetry(tmp_path: Path):
     """Test _parse_lock_file with poetry.lock format."""
     poetry_lock = tmp_path / 'poetry.lock'
-    poetry_lock.write_text(dedent("""
+    poetry_lock.write_text(
+        dedent("""
         [[package]]
         name = "requests"
         version = "2.31.0"
@@ -300,7 +303,8 @@ def test_parse_lock_file_poetry(tmp_path: Path):
         [[package]]
         name = "flask"
         version = "3.0.0"
-    """))
+    """),
+    )
 
     versions = _parse_lock_file(poetry_lock)
     assert versions == {'requests': '2.31.0', 'flask': '3.0.0'}
@@ -310,7 +314,8 @@ def test_end_to_end_uv_replacement(tmp_path: Path):
     """Test end-to-end version replacement for UV format."""
     # Create uv.lock
     uv_lock = tmp_path / 'uv.lock'
-    uv_lock.write_text(dedent("""
+    uv_lock.write_text(
+        dedent("""
         version = 1
 
         [[package]]
@@ -324,11 +329,13 @@ def test_end_to_end_uv_replacement(tmp_path: Path):
         [[package]]
         name = "zope.interface"
         version = "6.0.0"
-    """))
+    """),
+    )
 
     # Create pyproject.toml
     pyproject = tmp_path / 'pyproject.toml'
-    pyproject.write_text(dedent("""
+    pyproject.write_text(
+        dedent("""
         [project]
         name = "test-package"
         dependencies = [
@@ -340,7 +347,8 @@ def test_end_to_end_uv_replacement(tmp_path: Path):
         doc = [
             "mkdocstrings[python]>=0.26.0",
         ]
-    """))
+    """),
+    )
 
     # Run replacement
     replace_versions(uv_lock)

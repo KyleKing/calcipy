@@ -283,14 +283,16 @@ def _handle_single_line_list(
 
     """
     stripped = line.split('#', maxsplit=1)[0].strip()
-    list_content = stripped[stripped.index('[') + 1:stripped.index(']')].strip()
+    list_content = stripped[stripped.index('[') + 1 : stripped.index(']')].strip()
 
-    if list_content and ('"' in list_content or "'" in list_content) and (
-        replaced := _replace_pep621_versions(list_content, lock_versions, pyproject_versions)
+    if (
+        list_content
+        and ('"' in list_content or "'" in list_content)
+        and (replaced := _replace_pep621_versions(list_content, lock_versions, pyproject_versions))
     ):
         # Reconstruct the line with replaced version
-        before_bracket = line[:line.index('[') + 1]
-        after_bracket = line[line.index(']'):]
+        before_bracket = line[: line.index('[') + 1]
+        after_bracket = line[line.index(']') :]
         return f'{before_bracket}{replaced}{after_bracket}'
 
     return None
@@ -336,8 +338,10 @@ def _replace_pyproject_versions(
                     continue
 
             # Poetry dict format (name = "version")
-            elif not in_dependency_list and ']' not in line and (
-                replaced := _try_replace_poetry_line(line, lock_versions, pyproject_versions)
+            elif (
+                not in_dependency_list
+                and ']' not in line
+                and (replaced := _try_replace_poetry_line(line, lock_versions, pyproject_versions))
             ):
                 new_lines.append(replaced)
                 continue

@@ -1,4 +1,3 @@
-
 def intentional_duplicate():
     """Intentional duplicate, but should be ignored."""
 

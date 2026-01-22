@@ -10,7 +10,7 @@ from tests.configuration import APP_DIR, TEST_DATA_DIR
 
 
 def _merge_path_kwargs(kwargs: Dict) -> Path:
-    return Path(f"{kwargs['doc_sub_dir']}/{kwargs['filename']}")
+    return Path(f'{kwargs["doc_sub_dir"]}/{kwargs["filename"]}')
 
 
 def _check_no_write(kwargs: Dict) -> None:

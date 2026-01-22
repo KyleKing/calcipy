@@ -77,7 +77,9 @@ def test_write_code_tag_file_when_no_matches(fix_test_cache):
     tmp_code_file.write_text('No FIXMES or TODOS here')
 
     write_code_tag_file(
-        path_tag_summary=path_tag_summary, paths_source=[tmp_code_file], base_dir=fix_test_cache,
+        path_tag_summary=path_tag_summary,
+        paths_source=[tmp_code_file],
+        base_dir=fix_test_cache,
     )
 
     assert not path_tag_summary.is_file()

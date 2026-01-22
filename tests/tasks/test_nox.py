@@ -15,7 +15,4 @@ from calcipy.tasks.nox import noxfile
 def test_nox(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([
-        call(cmd) if isinstance(cmd, str) else cmd
-        for cmd in commands
-    ])
+    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
