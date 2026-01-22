@@ -16,7 +16,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install 'uv==%{{ inputs.uv-version }}'
+    - name: Install 'uv==${{ inputs.uv-version }}'
       uses: astral-sh/setup-uv@v5
       with:
         enable-cache: true

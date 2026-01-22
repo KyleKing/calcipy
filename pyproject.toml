@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "uv_build"
-requires = ["uv_build>=0.9.7"]
+requires = ["uv_build>=0.9.26"]
 
 [dependency-groups]
 ci = [
@@ -45,6 +45,9 @@ maintain = [
 ]
 
 [project]
+authors = [
+  {email = "dev.act.kyle@gmail.com", name = "Kyle King"},
+]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Framework :: Pytest",
@@ -54,7 +57,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Software Development :: Libraries",
   "Topic :: Utilities",
 ] # https://pypi.org/classifiers/
@@ -66,13 +69,11 @@ dependencies = [
   "pydantic >=2.9.2",
 ]
 description = "Python package to simplify development"
-documentation = "https://calcipy.kyleking.me"
 keywords = ["calcipy_template"]
 license = "MIT"
 maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
-repository = "https://github.com/kyleking/calcipy"
 requires-python = ">=3.9.13"
 version = "6.0.0b0"
 
@@ -150,16 +151,22 @@ calcipy-tags = "calcipy.scripts:start_tags"
 calcipy-test = "calcipy.scripts:start_test"
 calcipy-types = "calcipy.scripts:start_types"
 
+[project.urls]
+"Bug Tracker" = "https://github.com/kyleking/calcipy/issues"
+"Changelog" = "https://github.com/kyleking/calcipy/blob/main/docs/docs/CHANGELOG.md"
+"Documentation" = "https://calcipy.kyleking.me"
+"Repository" = "https://github.com/kyleking/calcipy"
+
 [tool.commitizen]
 version = "6.0.0b0"
-version_files = ["pyproject.toml:^version", "src/calcipy/__init__.py:^__version"]
+version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true
 enable_error_code = ["ignore-without-code", "possibly-undefined", "redundant-expr", "truthy-bool"]
 extra_checks = true
-files = ["src/calcipy", "tests"]
+files = ["calcipy", "tests"]
 no_implicit_reexport = true
 plugins = [
 ]
@@ -174,7 +181,7 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.pyright]
-include = ["src/calcipy", "tests"]
+include = ["calcipy", "tests"]
 pythonVersion = "3.9"
 
 [tool.ruff]
@@ -229,7 +236,7 @@ inline-quotes = 'single'
 known-first-party = ['calcipy']
 
 [tool.ruff.lint.per-file-ignores]
-'./src/calcipy/../*.py' = [
+'./calcipy/../*.py' = [
   'INP001', # File `/<>.py` is part of an implicit namespace package. Add an `__init__.py`.
 ]
 '__init__.py' = [
@@ -237,6 +244,9 @@ known-first-party = ['calcipy']
 ]
 'scripts/*.py' = [
   'INP001', # File `scripts/*.py` is part of an implicit namespace package. Add an `__init__.py`.
+]
+'scripts/check_imports.py' = [
+  'F401', # imported but unused; consider adding to __all__ or using a redundant alias
 ]
 'tests/*.py' = [
   'ANN001', # Missing type annotation for function argument
