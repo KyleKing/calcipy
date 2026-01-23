@@ -2,7 +2,7 @@ from unittest.mock import call
 
 import pytest
 
-from calcipy.tasks.executable_utils import python_dir
+from calcipy.tasks.executable_utils import python_m
 from calcipy.tasks.types import mypy, pyright
 
 
@@ -17,7 +17,7 @@ from calcipy.tasks.types import mypy, pyright
                 'pyright',
             ],
         ),
-        (mypy, {}, [f'{python_dir() / "mypy"}']),
+        (mypy, {}, [f'{python_m()} mypy']),
     ],
 )
 def test_types(ctx, task, kwargs, commands):

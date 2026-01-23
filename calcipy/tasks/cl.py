@@ -6,7 +6,7 @@ from invoke.context import Context
 from calcipy.cli import task
 from calcipy.invoke_helpers import get_doc_subdir, get_project_path, run
 
-from .executable_utils import GH_MESSAGE, check_installed, python_dir
+from .executable_utils import GH_MESSAGE, check_installed, python_m
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
@@ -29,7 +29,7 @@ def write(ctx: Context) -> None:
         FileNotFoundError: On missing changelog
 
     """
-    run(ctx, f'{python_dir() / "cz"} changelog')  # with commitizen
+    run(ctx, f'{python_m()} cz changelog')  # with commitizen
     path_cl = get_project_path() / 'CHANGELOG.md'
     if not path_cl.is_file():
         msg = f'Could not locate the changelog at: {path_cl}'
@@ -42,7 +42,7 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     check_installed(ctx, executable='gh', message=GH_MESSAGE)
 
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
-    run(ctx, f'{python_dir() / "cz"} bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
+    run(ctx, f'{python_m()} cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 
     run(ctx, 'git push origin --tags --no-verify')
 

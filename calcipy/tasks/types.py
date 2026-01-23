@@ -5,7 +5,7 @@ from invoke.context import Context
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 
-from .executable_utils import PYRIGHT_MESSAGE, check_installed, python_dir
+from .executable_utils import PYRIGHT_MESSAGE, check_installed, python_m
 
 
 @task()
@@ -18,4 +18,4 @@ def pyright(ctx: Context) -> None:
 @task()
 def mypy(ctx: Context) -> None:
     """Run mypy."""
-    run(ctx, f'{python_dir() / "mypy"}')
+    run(ctx, f'{python_m()} mypy')

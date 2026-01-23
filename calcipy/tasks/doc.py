@@ -16,7 +16,7 @@ from calcipy.cli import task
 from calcipy.invoke_helpers import get_project_path, run
 from calcipy.md_writer import write_template_formatted_md_sections
 
-from .executable_utils import python_dir
+from .executable_utils import python_m
 
 
 def get_out_dir() -> Path:
@@ -29,7 +29,7 @@ def get_out_dir() -> Path:
 def build(ctx: Context) -> None:
     """Build documentation with mkdocs."""
     write_template_formatted_md_sections()
-    run(ctx, f'{python_dir() / "mkdocs"} build --site-dir {get_out_dir()}')
+    run(ctx, f'{python_m()} mkdocs build --site-dir {get_out_dir()}')
 
 
 def _is_mkdocs_local() -> bool:
@@ -55,7 +55,7 @@ def watch(ctx: Context) -> None:
         open_in_browser(path_doc_index)
     else:  # pragma: no cover
         webbrowser.open('http://localhost:8000')
-        run(ctx, f'{python_dir() / "mkdocs"} serve --dirtyreload')
+        run(ctx, f'{python_m()} mkdocs serve --dirtyreload')
 
 
 @task()
@@ -66,6 +66,6 @@ def deploy(ctx: Context) -> None:
 
     with suppress(UnexpectedExit):
         run(ctx, 'prek uninstall')  # To prevent prek failures when mkdocs calls push
-    run(ctx, f'{python_dir() / "mkdocs"} gh-deploy --force')
+    run(ctx, f'{python_m()} mkdocs gh-deploy --force')
     with suppress(UnexpectedExit):
         run(ctx, 'prek install')  # Restore prek

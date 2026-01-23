@@ -3,7 +3,7 @@ from unittest.mock import call
 import pytest
 
 from calcipy.tasks.cl import bump
-from calcipy.tasks.executable_utils import python_dir
+from calcipy.tasks.executable_utils import python_m
 
 
 @pytest.mark.parametrize(
@@ -13,7 +13,7 @@ from calcipy.tasks.executable_utils import python_dir
             bump,
             {},
             [
-                f'{python_dir() / "cz"} bump --annotated-tag --no-verify --gpg-sign',
+                f'{python_m()} cz bump --annotated-tag --no-verify --gpg-sign',
                 'git push origin --tags --no-verify',
                 'gh release create --generate-notes $(git tag --list --sort=-creatordate | head -n 1)',
             ],

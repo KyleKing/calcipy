@@ -11,7 +11,7 @@ from calcipy.experiments import check_duplicate_test_names
 from calcipy.invoke_helpers import run
 
 from .defaults import from_ctx
-from .executable_utils import python_dir
+from .executable_utils import python_dir, python_m
 
 
 def _inner_task(
@@ -22,6 +22,7 @@ def _inner_task(
     keyword: str = '',
     marker: str = '',
     min_cover: int = 0,
+    run_as_module: bool = True,
 ) -> None:
     """Shared task logic."""
     if keyword:
@@ -30,7 +31,8 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
-    run(ctx, f'{python_dir() / command} ./tests{cli_args}')
+    cmd = f'{python_m()} {command}' if run_as_module else f'{python_dir() / command}'
+    run(ctx, f'{cmd} ./tests{cli_args}')
 
 
 @task()
@@ -85,6 +87,7 @@ def watch(ctx: Context, *, keyword: str = '', marker: str = '') -> None:
         keyword=keyword,
         marker=marker,
         command='ptw . --now',
+        run_as_module=False,
     )
 
 
@@ -102,12 +105,7 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
 
     """
     pkg_name = read_package_name()
-    _inner_task(
-        ctx,
-        cli_args='',
-        min_cover=min_cover,
-        command=f'coverage run --branch --source={pkg_name} --module pytest',
-    )
+    run(ctx, f'{python_m()} coverage run --branch --source={pkg_name} --module pytest ./tests')
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'test', 'out_dir'))
     cov_dir.mkdir(exist_ok=True, parents=True)
@@ -117,7 +115,7 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
         f'html --directory={cov_dir}',  # Write to HTML
         'json',  # Create coverage.json file for "_handle_coverage"
     ):
-        run(ctx, f'{python_dir() / "coverage"} {cli_args}')
+        run(ctx, f'{python_m()} coverage {cli_args}')
 
     if view:  # pragma: no cover
         open_in_browser(cov_dir / 'index.html')
