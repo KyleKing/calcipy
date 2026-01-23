@@ -2,6 +2,8 @@
 
 ### Feat
 
+- unhack temporary _corallium (pending release)
+- implement new CLI_OUTPUT markdown tool
 - implement trusted publishers
 - complete poetry→uv migration and add tool-first architecture
 - migrate to prek

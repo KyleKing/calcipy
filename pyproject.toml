@@ -4,36 +4,26 @@ requires = ["uv_build>=0.9.26"]
 
 [dependency-groups]
 ci = [
+  "calcipy[lint,test,types]",
   "duty>=1.6",
   "hypothesis[cli] >=6.112.4", # Use CLI with: "uv run hypothesis write calcipy.dot_dict.ddict"
-  "mypy >=1.11.2",
-  "pytest >=8.3.3",
   "pytest-asyncio >=0.24.0",
-  "pytest-cov >=5.0.0",
-  "pytest-randomly >=3.15.0",
   "pytest-subprocess >=1.5.2",
-  "pytest-watcher >=0.4.3",
   "pytest-xdist>=3.6",
-  "ruff >=0.8.2",
   "syrupy >=4.7.2",
   "types-markdown>=3.6",
   "types-pyyaml >=6.0.12.20240917",
   "types-setuptools >=75.1.0.20240917",
 ]
 docs = [
-  "commitizen >=3.29.1",
+  "calcipy[doc]",
   "markdown-callouts>=0.4",
   "markdown-exec>=1.8",
-  "mkdocs >=1.6.1",
   "mkdocs-coverage>=1.0",
-  "mkdocs-gen-files >=0.5.0",
   "mkdocs-git-revision-date-localized-plugin>=1.2",
   "mkdocs-llmstxt>=0.2",
-  "mkdocs-material >=9.5.39",
   "mkdocs-minify-plugin>=0.8",
   "mkdocs-section-index>=0.3",
-  "mkdocstrings[python] >=0.26.1",
-  "pymdown-extensions >=10.11.2",
   # YORE: EOL 3.10: Remove line.
   "tomli>=2.0; python_version < '3.11'",
 ]
@@ -42,6 +32,9 @@ maintain = [
   "git-changelog>=2.5",
   "twine>=5.1",
   "yore>=0.3.3",
+]
+tags = [
+  "calcipy[tags]",
 ]
 
 [project]
@@ -66,8 +59,6 @@ dependencies = [
   "beartype >=0.19.0",
   "corallium>=2.1.1",
   "invoke >=2.2.0",
-  "keyring>=25.5.0",
-  "pydantic >=2.9.2",
 ]
 description = "Python package to simplify development"
 keywords = ["calcipy_template"]
@@ -274,7 +265,7 @@ in_place = true
 trailing_comma_inline_array = true
 
 [tool.uv]
-default-groups = ["ci", "docs", "maintain"]
+default-groups = ["ci", "docs", "maintain", "tags"]
 required-version = ">=0.9.0"
 
 [tool.uv.build-backend]
