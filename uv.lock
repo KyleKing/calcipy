@@ -254,6 +254,9 @@ ci = [
     { name = "types-pyyaml" },
     { name = "types-setuptools" },
 ]
+ddict = [
+    { name = "calcipy", extra = ["ddict"] },
+]
 docs = [
     { name = "calcipy", extra = ["doc"] },
     { name = "markdown-callouts" },
@@ -270,6 +273,9 @@ maintain = [
     { name = "git-changelog" },
     { name = "twine" },
     { name = "yore" },
+]
+nox = [
+    { name = "calcipy", extra = ["nox"] },
 ]
 tags = [
     { name = "calcipy", extra = ["tags"] },
@@ -334,6 +340,7 @@ ci = [
     { name = "types-pyyaml", specifier = ">=6.0.12.20240917" },
     { name = "types-setuptools", specifier = ">=75.1.0.20240917" },
 ]
+ddict = [{ name = "calcipy", extras = ["ddict"] }]
 docs = [
     { name = "calcipy", extras = ["doc"] },
     { name = "markdown-callouts", specifier = ">=0.4" },
@@ -351,6 +358,7 @@ maintain = [
     { name = "twine", specifier = ">=5.1" },
     { name = "yore", specifier = ">=0.3.3" },
 ]
+nox = [{ name = "calcipy", extras = ["nox"] }]
 tags = [{ name = "calcipy", extras = ["tags"] }]
 
 [[package]]

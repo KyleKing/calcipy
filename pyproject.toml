@@ -15,6 +15,7 @@ ci = [
   "types-pyyaml >=6.0.12.20240917",
   "types-setuptools >=75.1.0.20240917",
 ]
+ddict = ["calcipy[ddict]"]
 docs = [
   "calcipy[doc]",
   "markdown-callouts>=0.4",
@@ -33,9 +34,8 @@ maintain = [
   "twine>=5.1",
   "yore>=0.3.3",
 ]
-tags = [
-  "calcipy[tags]",
-]
+nox = ["calcipy[nox]"]
+tags = ["calcipy[tags]"]
 
 [project]
 authors = [
@@ -172,14 +172,9 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
-[[tool.mypy.overrides]]
-ignore_missing_imports = true
-module = ["box", "nox"]
-
 [tool.pyright]
 include = ["calcipy", "tests"]
 pythonVersion = "3.10"
-reportMissingImports = "none"
 
 [tool.ruff]
 # Docs: https://github.com/charliermarsh/ruff
@@ -270,7 +265,7 @@ in_place = true
 trailing_comma_inline_array = true
 
 [tool.uv]
-default-groups = ["ci", "docs", "maintain", "tags"]
+default-groups = ["ci", "ddict", "docs", "maintain", "nox", "tags"]
 required-version = ">=0.9.0"
 
 [tool.uv.build-backend]
