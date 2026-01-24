@@ -3,6 +3,8 @@ import pytest
 from hypothesis import given
 from hypothesis import strategies as st
 
+pytest.importorskip('box', reason="The 'calcipy[ddict]' extras are required")
+
 from calcipy.dot_dict import ddict
 
 

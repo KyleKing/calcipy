@@ -172,9 +172,14 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = ["box", "nox"]
+
 [tool.pyright]
 include = ["calcipy", "tests"]
 pythonVersion = "3.10"
+reportMissingImports = "none"
 
 [tool.ruff]
 # Docs: https://github.com/charliermarsh/ruff

@@ -1,5 +1,9 @@
 from typing import Any
 
+import pytest
+
+pytest.importorskip('nox', reason="The 'calcipy[nox]' extras are required")
+
 from calcipy.noxfile._noxfile import _has_ci_group
 
 
