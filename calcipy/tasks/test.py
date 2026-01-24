@@ -31,7 +31,7 @@ def _inner_task(
         cli_args += f' -m "{marker}"'
     if fail_under := min_cover or int(from_ctx(ctx, 'test', 'min_cover')):
         cli_args += f' --cov-fail-under={fail_under}'
-    cmd = f'{python_m()} {command}' if run_as_module else f'{python_dir() / command}'
+    cmd = f'{python_m()} {command}' if run_as_module else str(python_dir() / command).replace('\\', '/')
     run(ctx, f'{cmd} ./tests{cli_args}')
 
 
