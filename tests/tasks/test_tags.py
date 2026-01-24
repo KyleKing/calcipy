@@ -60,3 +60,6 @@ def test_tags(ctx, task, kwargs: Dict, validator: Callable[[Dict], None]):
     task(ctx, **kwargs)
 
     validator(kwargs)
+
+
+# TODO: Ensure code tag collection continues to work
