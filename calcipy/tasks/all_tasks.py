@@ -46,6 +46,9 @@ def with_progress(items: Any, offset: int = 0) -> TaskList:
         items: list of tasks
         offset: Optional offset to shift counters
 
+    Returns:
+        List of tasks with progress indicators interspersed.
+
     """
     task_items = [_build_task(t_) for t_ in items]
     message = 'Running tasks: ' + ', '.join([str(t_.__name__) for t_ in task_items])

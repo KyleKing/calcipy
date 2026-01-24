@@ -1,6 +1,7 @@
 """Lint CLI."""
 
 from contextlib import suppress
+from pathlib import Path
 
 from beartype.typing import Optional
 from corallium.file_helpers import read_package_name
@@ -13,6 +14,18 @@ from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir, p
 
 # ==============================================================================
 # Linting
+
+
+def _resolve_package_target() -> str:
+    """Resolve package directory for src or flat layouts."""
+    pkg = read_package_name()
+    src_path = Path(f'./src/{pkg}')
+    flat_path = Path(f'./{pkg}')
+    if src_path.is_dir():
+        return f'"{src_path}"'
+    if flat_path.is_dir():
+        return f'"{flat_path}"'
+    return '.'
 
 
 def _inner_task(
@@ -30,8 +43,7 @@ def _inner_task(
     if file_args:
         target = ' '.join([f'"{a_}"' for a_ in file_args])
     elif target is None:
-        # TODO: Performantly support either ./src/<>/ and ./<>/
-        target = f'"./src/{read_package_name()}" ./tests'
+        target = f'{_resolve_package_target()} ./tests'
 
     cmd = f'{python_m()} {command}' if run_as_module else f'{python_dir() / command}'
     run(ctx, f'{cmd} {target} {cli_args}'.strip())

@@ -28,6 +28,9 @@ def from_ctx(ctx: Context, group: str, key: str) -> str:
 
     Instead of `ctx.tests.out_dir` use `from_ctx(ctx, 'test', 'out_dir')`
 
+    Returns:
+        The configuration value as a string.
+
     """
     with suppress(KeyError):
         return str(ctx.config[group][key])
@@ -35,7 +38,12 @@ def from_ctx(ctx: Context, group: str, key: str) -> str:
 
 
 def new_collection() -> Collection:
-    """Initialize a collection with the combination of merged and project-specific defaults."""
+    """Initialize a collection with the combination of merged and project-specific defaults.
+
+    Returns:
+        Configured Collection instance.
+
+    """
     ns = Collection('')
 
     # Merge default and user configuration

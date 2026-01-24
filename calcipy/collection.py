@@ -137,7 +137,12 @@ class Collection(InvokeCollection):
         loaded_from: Optional[str] = None,
         auto_dash_names: Optional[bool] = None,
     ) -> InvokeCollection:
-        """Extend search for a namespace, Task, or deferred task."""
+        """Extend search for a namespace, Task, or deferred task.
+
+        Returns:
+            Collection populated with tasks from the module.
+
+        """
         collection = super().from_module(
             module=module,
             name=name,

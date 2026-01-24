@@ -22,6 +22,32 @@ uv run calcipy
 uv tool install ".[ddict,doc,experimental,lint,nox,tags,test,types]" --force --editable
 ```
 
+### Shell Completion
+
+Calcipy supports shell completion via Invoke's built-in completion scripts.
+
+**Zsh:**
+
+```sh
+calcipy --print-completion-script zsh > ~/.calcipy-completion.zsh
+echo 'source ~/.calcipy-completion.zsh' >> ~/.zshrc
+```
+
+**Bash:**
+
+```sh
+calcipy --print-completion-script bash > ~/.calcipy-completion.bash
+echo 'source ~/.calcipy-completion.bash' >> ~/.bashrc
+```
+
+**Fish:**
+
+```sh
+calcipy --print-completion-script fish > ~/.config/fish/completions/calcipy.fish
+```
+
+For projects using `./run` as the entry point, replace `calcipy` with the appropriate script name.
+
 ### Maintenance
 
 Dependency upgrades can be accomplished with:
