@@ -29,7 +29,6 @@ from functools import lru_cache
 
 from beartype.typing import Any, Dict, List, Union
 from corallium.file_helpers import get_tool_versions, read_pyproject
-from corallium.log import LOGGER
 from nox import Session as NoxSession
 from nox import session as nox_session
 
@@ -37,11 +36,7 @@ from nox import session as nox_session
 @lru_cache(maxsize=1)
 def _get_pythons() -> List[str]:
     """Return python versions from supported configuration files."""
-    try:
-        return [*{str(ver) for ver in get_tool_versions()['python']}]
-    except Exception:
-        LOGGER.exception('Failed to retrieve tool versions. Skipping tasks')
-        return []
+    return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
 def _has_ci_group(pyproject_data: Union[Dict[str, Any], None] = None) -> bool:
