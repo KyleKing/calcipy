@@ -17,7 +17,11 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
         (task_pytest, {}, [f'{python_m()} pytest ./tests {_COV}']),
         (task_pytest, {'keyword': 'test'}, [f'{python_m()} pytest ./tests {_COV} -k "test"']),
         (task_pytest, {'marker': _MARKERS}, [f'{python_m()} pytest ./tests {_COV} -m "{_MARKERS}"']),
-        (watch, {'marker': _MARKERS}, [f'{python_dir() / "ptw"} . --now ./tests {_FAILFIRST} -m "{_MARKERS}"']),
+        (
+            watch,
+            {'marker': _MARKERS},
+            [f'{(python_dir() / "ptw").as_posix()} . --now ./tests {_FAILFIRST} -m "{_MARKERS}"'],
+        ),
         (
             coverage,
             {'out_dir': '.cover'},

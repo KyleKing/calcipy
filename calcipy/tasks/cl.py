@@ -6,7 +6,7 @@ from invoke.context import Context
 from calcipy.cli import task
 from calcipy.invoke_helpers import get_doc_subdir, get_project_path, run
 
-from .executable_utils import GH_MESSAGE, check_installed, python_m
+from .executable_utils import python_m
 
 SuffixT = Optional[Literal['alpha', 'beta', 'rc']]
 """Prerelease Suffix Type."""
