@@ -29,7 +29,7 @@ def write(ctx: Context) -> None:
         FileNotFoundError: On missing changelog
 
     """
-    run(ctx, f'{python_m()} cz changelog')  # with commitizen
+    run(ctx, f'{python_m()} commitizen changelog')  # with commitizen
     path_cl = get_project_path() / 'CHANGELOG.md'
     if not path_cl.is_file():
         msg = f'Could not locate the changelog at: {path_cl}'
@@ -42,7 +42,7 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     check_installed(ctx, executable='gh', message=GH_MESSAGE)
 
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
-    run(ctx, f'{python_m()} cz bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
+    run(ctx, f'{python_m()} commitizen bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 
     run(ctx, 'git push origin --tags --no-verify')
 

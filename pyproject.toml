@@ -16,24 +16,9 @@ ci = [
   "types-setuptools >=75.1.0.20240917",
 ]
 ddict = ["calcipy[ddict]"]
-docs = [
-  "calcipy[doc]",
-  "markdown-callouts>=0.4",
-  "markdown-exec>=1.8",
-  "mkdocs-coverage>=1.0",
-  "mkdocs-git-revision-date-localized-plugin>=1.2",
-  "mkdocs-llmstxt>=0.2",
-  "mkdocs-minify-plugin>=0.8",
-  "mkdocs-section-index>=0.3",
-  # YORE: EOL 3.10: Remove line.
-  "tomli>=2.0; python_version < '3.11'",
-]
-maintain = [
-  "build>=1.2",
-  "git-changelog>=2.5",
-  "twine>=5.1",
-  "yore>=0.3.3",
-]
+dev = ["calcipy[dev]"]
+docs = ["calcipy[doc]"]
+maintain = ["calcipy[maintain]"]
 nox = ["calcipy[nox]"]
 tags = ["calcipy[tags]"]
 
@@ -97,11 +82,20 @@ dev = [
 ]
 doc = [
   "commitizen >=3.29.1",
+  "markdown-callouts>=0.4",
+  "markdown-exec>=1.8",
   "mkdocs >=1.6.1",
+  "mkdocs-coverage>=1.0",
   "mkdocs-gen-files >=0.5.0",
+  "mkdocs-git-revision-date-localized-plugin>=1.2",
+  "mkdocs-llmstxt>=0.2",
   "mkdocs-material >=9.5.39",
+  "mkdocs-minify-plugin>=0.8",
+  "mkdocs-section-index>=0.3",
   "mkdocstrings[python] >=0.26.1",
   "pymdown-extensions >=10.11.2",
+  # YORE: EOL 3.10: Remove line.
+  "tomli>=2.0; python_version < '3.11'",
 ]
 experimental = [
   "griffe >=1.3.2",
@@ -109,6 +103,12 @@ experimental = [
 ]
 lint = [
   "ruff >=0.8.2",
+]
+maintain = [
+  "build>=1.2",
+  "git-changelog>=2.5",
+  "twine>=5.1",
+  "yore>=0.3.3",
 ]
 nox = [
   "nox >=2024.10.9", # "virtualenv >=20.26.6", # Prevents 'scripts' KeyError with Python 3.12

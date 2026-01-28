@@ -2,6 +2,7 @@
 
 ### Feat
 
+- finally upgrade to latest uv-ready corallium!
 - unhack temporary _corallium (pending release)
 - implement new CLI_OUTPUT markdown tool
 - implement trusted publishers
@@ -11,6 +12,10 @@
 
 ### Fix
 
+- install ddict and nox
+- resolve linter and test failures
+- address TODO items
+- implement cross-platform `python -m`
 - correct Python 3.10.19 minimum
 - correct uv-build module-root
 - address CI failures and PR review feedback
