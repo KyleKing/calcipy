@@ -1,4 +1,4 @@
-"""Markdown Machine."""
+"""Markup Machine."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from corallium.log import LOGGER
 
 from calcipy.file_search import find_project_files_by_suffix
 from calcipy.invoke_helpers import get_project_path
-from calcipy.markdown_table import format_table
+from calcipy.markup_table import format_table
 
 HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
 """Handler Lookup."""
@@ -27,7 +27,7 @@ class _ParseSkipError(RuntimeError):
 class _ReplacementMachine:
     """State machine to replace content with user-specified handlers.
 
-    Uses `{cts}` and `{cte}` to demarcate sections (short for 'calcipy-template-start' or '...-end')
+    Uses `[cts]` and `[cte]` to demarcate sections (short for 'calcipy-template-start' or '...-end')
 
     Previously built with `transitions`: https://pypi.org/project/transitions
 
@@ -89,9 +89,9 @@ class _ReplacementMachine:
 
         """
         lines: List[str] = []
-        if '{cte}' in line and self.state == self.state_template:  # end
+        if '[cte]' in line and self.state == self.state_template:  # end
             self.change_end()
-        elif '{cts}' in line:  # start
+        elif '[cts]' in line:  # start
             self.change_template()
             matches = [text_match for text_match in handler_lookup if text_match in line]
             if len(matches) == 1:
@@ -111,16 +111,16 @@ class _ReplacementMachine:
         return lines
 
 
-_VAR_COMMENT_HTML = r'<!-- {cts} (?P<key>[^=]+)=(?P<value>[^;]+);'
-"""Regex for extracting the variable from an HTML code comment."""
+_COMMENT_VARS = r'[<\-{%]+ \[cts\] (?P<key>[^=]+)=(?P<value>[^;]+);'
+"""Regex for extracting the variable from a markup comment."""
 
 
-def _parse_var_comment(line: str, matcher: str = _VAR_COMMENT_HTML) -> Dict[str, str]:
+def _parse_var_comment(line: str, matcher: str = _COMMENT_VARS) -> Dict[str, str]:
     """Parse the variable from a matching comment.
 
     Args:
         line: string from source file
-        matcher: string regex pattern to match. Default is `_RE_VAR_COMMENT_HTML`
+        matcher: string regex pattern to match. Default is `_COMMENT_VARS`
 
     Returns:
         Dict[str, str]: single key and value pair based on the parsed comment
@@ -151,13 +151,13 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     if not path_source.is_file():
         LOGGER.warning('Could not locate source file', path_source=path_source)
 
-    line_start = f'<!-- {{cts}} {key}={path_rel}; -->'
-    line_end = '<!-- {cte} -->'
+    line_start = f'{{% [cts] {key}={path_rel}; %}}'
+    line_end = '{% [cte] %}'
     return [line_start, *lines_source, line_end]
 
 
 def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
-    """Format code coverage data table as markdown.
+    """Format code coverage data table.
 
     Args:
         coverage_data: dictionary created by `python -m coverage json`
@@ -195,7 +195,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
 
 
 def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] = None) -> List[str]:
-    """Read the coverage.json file and write a Markdown table to the README file.
+    """Read the coverage.json file and write a table to the README file.
 
     Args:
         line: first line of the section
@@ -215,7 +215,7 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
         raise _ParseSkipError(msg)
     coverage_data = json.loads(path_coverage.read_text())
     lines_cov = _format_cov_table(coverage_data)
-    line_end = '<!-- {cte} -->'
+    line_end = '{% [cte] %}'
     return [line, *lines_cov, line_end]
 
 
@@ -264,24 +264,24 @@ def _handle_cli_output(line: str, _path_file: Path) -> List[str]:
 
     lines_output = ['```txt', *output.rstrip().split('\n'), '```']
 
-    line_start = f'<!-- {{cts}} CLI_OUTPUT={command}; -->'
-    line_end = '<!-- {cte} -->'
+    line_start = f'{{% [cts] CLI_OUTPUT={command}; %}}'
+    line_end = '{% [cte] %}'
     return [line_start, *lines_output, line_end]
 
 
-def write_template_formatted_md_sections(
+def write_template_formatted_dj_sections(
     handler_lookup: Optional[HandlerLookupT] = None,
-    paths_md: Optional[List[Path]] = None,
+    paths_dj: Optional[List[Path]] = None,
 ) -> None:
-    """Populate the template-formatted sections of markdown files with user-configured logic."""
+    """Populate the template-formatted sections of djot files with user-configured logic."""
     lookup: HandlerLookupT = handler_lookup or {
         'CLI_OUTPUT=': _handle_cli_output,
         'COVERAGE ': _handle_coverage,
         'SOURCE_FILE=': _handle_source_file,
     }
 
-    paths = paths_md or find_project_files_by_suffix(get_project_path()).get('md') or []
-    for path_md in paths:
-        LOGGER.text_debug('Processing', path_md=path_md)
-        if md_lines := _ReplacementMachine().parse(read_lines(path_md), lookup, path_md):
-            path_md.write_text('\n'.join(md_lines) + '\n', encoding='utf-8')
+    paths = paths_dj or find_project_files_by_suffix(get_project_path()).get('md') or []
+    for path_dj in paths:
+        LOGGER.text_debug('Processing', path_dj=path_dj)
+        if dj_lines := _ReplacementMachine().parse(read_lines(path_dj), lookup, path_dj):
+            path_dj.write_text('\n'.join(dj_lines) + '\n', encoding='utf-8')

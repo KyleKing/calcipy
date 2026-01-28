@@ -14,7 +14,7 @@ from invoke.exceptions import UnexpectedExit
 
 from calcipy.cli import task
 from calcipy.invoke_helpers import get_project_path, run
-from calcipy.md_writer import write_template_formatted_md_sections
+from calcipy.markup_writer import write_template_formatted_dj_sections
 
 from .executable_utils import python_m
 
@@ -28,7 +28,7 @@ def get_out_dir() -> Path:
 @task()
 def build(ctx: Context) -> None:
     """Build documentation with mkdocs."""
-    write_template_formatted_md_sections()
+    write_template_formatted_dj_sections()
     run(ctx, f'{python_m()} mkdocs build --site-dir {get_out_dir()}')
 
 

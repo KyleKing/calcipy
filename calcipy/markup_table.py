@@ -1,4 +1,4 @@
-"""Markdown table formatting."""
+"""Markup table formatting."""
 
 from __future__ import annotations
 
@@ -11,12 +11,15 @@ def format_table(
     records: list[dict[str, Any]],
     delimiters: list[str] | None = None,
 ) -> str:
-    """Returns a formatted Github Markdown table.
+    """Returns a formatted table.
 
     Args:
         headers: ordered keys to use as column title
         records: list of key:row-value dictionaries
         delimiters: optional list to allow for alignment
+
+    Raises:
+        ValueError: if failures generating the table
 
     """
     table = [[str(r_[col]) for col in headers] for r_ in records]
@@ -48,7 +51,7 @@ def format_table(
 
     lines = [
         join(pad(headers)),
-        join(map(expand_delimiters, delimiters or ['-'] * len(headers), widths), ''),
+        join(map(expand_delimiters, delimiters or ['-'] * len(headers), widths, strict=True), ''),
         *[join(pad(row)) for row in table],
     ]
     return '\n'.join(lines)

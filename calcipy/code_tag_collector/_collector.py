@@ -14,7 +14,7 @@ from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
 from corallium.shell import capture_shell
 
-from calcipy.markdown_table import format_table
+from calcipy.markup_table import format_table
 
 SKIP_PHRASE = 'calcipy_skip_tags'
 """String that indicates the file should be excluded from the tag search."""
