@@ -111,14 +111,14 @@ uv publish
 | `calcipy/can_skip.py`                               | 14         | 1       | 1        | 88.9%    |
 | `calcipy/cli.py`                                    | 34         | 1       | 78       | 92.1%    |
 | `calcipy/code_tag_collector/__init__.py`            | 5          | 2       | 0        | 60.0%    |
-| `calcipy/code_tag_collector/_collector.py`          | 130        | 2       | 0        | 97.0%    |
+| `calcipy/code_tag_collector/_collector.py`          | 130        | 1       | 0        | 98.2%    |
 | `calcipy/collection.py`                             | 45         | 3       | 65       | 88.2%    |
 | `calcipy/dot_dict/__init__.py`                      | 5          | 2       | 0        | 60.0%    |
 | `calcipy/dot_dict/_dot_dict.py`                     | 6          | 0       | 0        | 100.0%   |
 | `calcipy/experiments/__init__.py`                   | 0          | 0       | 0        | 100.0%   |
 | `calcipy/experiments/bump_programmatically.py`      | 22         | 16      | 0        | 25.0%    |
 | `calcipy/experiments/check_duplicate_test_names.py` | 33         | 0       | 2        | 98.2%    |
-| `calcipy/experiments/sync_package_dependencies.py`  | 155        | 8       | 0        | 90.6%    |
+| `calcipy/experiments/sync_package_dependencies.py`  | 156        | 8       | 0        | 90.6%    |
 | `calcipy/file_search.py`                            | 32         | 0       | 2        | 100.0%   |
 | `calcipy/invoke_helpers.py`                         | 27         | 4       | 0        | 79.3%    |
 | `calcipy/markdown_table.py`                         | 28         | 4       | 0        | 80.0%    |
@@ -140,7 +140,7 @@ uv publish
 | `calcipy/tasks/tags.py`                             | 18         | 1       | 0        | 90.0%    |
 | `calcipy/tasks/test.py`                             | 41         | 1       | 2        | 93.9%    |
 | `calcipy/tasks/types.py`                            | 11         | 0       | 0        | 100.0%   |
-| **Totals**                                          | 1014       | 72      | 292      | 89.8%    |
+| **Totals**                                          | 1015       | 71      | 292      | 90.0%    |
 
 Generated on: 2026-01-28
 <!-- {cte} -->

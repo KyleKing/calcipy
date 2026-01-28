@@ -2,6 +2,7 @@
 
 ### Fix
 
+- increase minimum dependency
 - lower minimum Python for CI and remove legacy 'gh release create'
 
 ## 6.0.0b1 (2026-01-28)

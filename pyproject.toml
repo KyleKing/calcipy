@@ -91,8 +91,7 @@ doc = [
   "mkdocs-section-index>=0.3.10",
   "mkdocstrings[python] >=1.0.2",
   "pymdown-extensions >=10.20.1",
-  # YORE: EOL 3.10: Remove line.
-  "tomli>=2.4.0; python_version < '3.11'",
+  "tomli>=2.4.0; python_version < '3.11'", # PLANNED: When >=3.11, drop
 ]
 experimental = [
   "griffe >=1.15.0",
@@ -100,12 +99,6 @@ experimental = [
 ]
 lint = [
   "ruff >=0.14.14",
-]
-maintain = [
-  "build>=1.4.0",
-  "git-changelog>=2.7.0",
-  "twine>=6.2.0",
-  "yore>=0.4.7",
 ]
 nox = [
   "nox >=2025.11.12",
