@@ -33,10 +33,6 @@ def python_m() -> str:
     return f'{resolve_python()} -m'
 
 
-GH_MESSAGE = """
-`gh` was not found and must be installed separately (such as 'brew install gh' on Mac).
-    See the online documentation for your system: https://cli.github.com/
-"""
 PRE_COMMIT_MESSAGE = """
 `prek` was not found and must be installed separately (such as 'brew install prek' on Mac).
     See the online documentation for your system: https://prek.com/#install

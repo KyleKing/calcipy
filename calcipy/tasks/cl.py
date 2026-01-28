@@ -39,8 +39,6 @@ def write(ctx: Context) -> None:
 
 def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     """Bumps project version based on commits & settings in pyproject.toml."""
-    check_installed(ctx, executable='gh', message=GH_MESSAGE)
-
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
     run(ctx, f'{python_m()} commitizen bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 
