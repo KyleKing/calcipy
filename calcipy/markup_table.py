@@ -49,9 +49,11 @@ def format_table(
         if errors:
             raise ValueError(' and '.join(errors))
 
+    delimiter_values = delimiters or ['-'] * len(headers)
+    expanded_delimiters = [expand_delimiters(delim, width) for delim, width in zip(delimiter_values, widths, strict=True)]
     lines = [
         join(pad(headers)),
-        join(map(expand_delimiters, delimiters or ['-'] * len(headers), widths, strict=True), ''),
+        join(expanded_delimiters, ''),
         *[join(pad(row)) for row in table],
     ]
     return '\n'.join(lines)
