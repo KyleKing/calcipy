@@ -354,6 +354,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../docs/CODE_TAG_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collected Code Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../docs/DEVELOPER_GUIDE/" class="md-nav__link">
         
   
@@ -446,10 +474,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
             
   
   
@@ -467,8 +495,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -725,10 +753,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
             
   
   
@@ -746,8 +774,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2208,21 +2236,21 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/tasks/lint.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 94 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos=" 95 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos=" 96 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the prek hooks&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos=" 97 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos=" 98 "></span><span class="p">)</span>
-<span class="linenos" data-linenos=" 99 "></span><span class="k">def</span><span class="w"> </span><span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="100 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run prek.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="101 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;prek&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PRE_COMMIT_MESSAGE</span><span class="p">)</span>
-<span class="linenos" data-linenos="102 "></span>
-<span class="linenos" data-linenos="103 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;prek install&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="104 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
-<span class="linenos" data-linenos="105 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;prek autoupdate&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="106 "></span>
-<span class="linenos" data-linenos="107 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">ALL_PRE_COMMIT_HOOK_STAGES</span><span class="p">)</span>
-<span class="linenos" data-linenos="108 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;prek run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 95 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 96 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos=" 97 "></span>        <span class="s1">&#39;no_update&#39;</span><span class="p">:</span> <span class="s1">&#39;Skip updating the prek hooks&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 98 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos=" 99 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="100 "></span><span class="k">def</span><span class="w"> </span><span class="nf">pre_commit</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">no_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="101 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run prek.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="102 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;prek&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">PRE_COMMIT_MESSAGE</span><span class="p">)</span>
+<span class="linenos" data-linenos="103 "></span>
+<span class="linenos" data-linenos="104 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;prek install&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="105 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">no_update</span><span class="p">:</span>
+<span class="linenos" data-linenos="106 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;prek autoupdate&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="107 "></span>
+<span class="linenos" data-linenos="108 "></span>    <span class="n">stages_cli</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;--hook-stage </span><span class="si">{</span><span class="n">stg</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">stg</span> <span class="ow">in</span> <span class="n">ALL_PRE_COMMIT_HOOK_STAGES</span><span class="p">)</span>
+<span class="linenos" data-linenos="109 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;prek run --all-files </span><span class="si">{</span><span class="n">stages_cli</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

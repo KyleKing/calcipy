@@ -356,6 +356,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../CODE_TAG_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Collected Code Tags
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../DEVELOPER_GUIDE/" class="md-nav__link">
         
   
@@ -806,10 +834,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
             
   
   
@@ -827,8 +855,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1085,10 +1113,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
             
   
   
@@ -1106,8 +1134,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2731,10 +2759,10 @@
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># From src/calcipy/noxfile/_noxfile.py</span>
 <span class="linenos" data-linenos=" 2 "></span><span class="k">def</span><span class="w"> </span><span class="nf">_get_pythons</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="linenos" data-linenos=" 3 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return python versions from supported configuration files.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos=" 4 "></span>    <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ver</span><span class="p">)</span> <span class="k">for</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">get_tool_versions</span><span class="p">()[</span><span class="s2">&quot;python&quot;</span><span class="p">]}]</span>
+<span class="linenos" data-linenos=" 4 "></span>    <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ver</span><span class="p">)</span> <span class="k">for</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">get_tool_versions</span><span class="p">()[</span><span class="s1">&#39;python&#39;</span><span class="p">]}]</span>
 <span class="linenos" data-linenos=" 5 "></span>
 <span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="nd">@nox_session</span><span class="p">(</span><span class="n">venv_backend</span><span class="o">=</span><span class="s2">&quot;uv&quot;</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">(),</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="nd">@nox_session</span><span class="p">(</span><span class="n">venv_backend</span><span class="o">=</span><span class="s1">&#39;uv&#39;</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">(),</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="linenos" data-linenos=" 8 "></span><span class="k">def</span><span class="w"> </span><span class="nf">tests</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">NoxSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos=" 9 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tests for all specified Python versions.&quot;&quot;&quot;</span>
 <span class="linenos" data-linenos="10 "></span>    <span class="o">...</span>
