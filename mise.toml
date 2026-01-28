@@ -1,6 +1,56 @@
 [env]
 _.python.venv = {path = ".venv"}
 
+[tasks.calcipy]
+description = "Run any calcipy task (passthrough)"
+run = "uv run calcipy ${usage_args?}"
+usage = 'arg "<args>" var=#true help="Task and arguments for calcipy"'
+
+[tasks."doc:watch"]
+description = "Serve docs locally with live reload"
+run = "uv run mkdocs serve --dirtyreload"
+
+[tasks."lint:check"]
+description = "Run ruff check"
+run = "uv run ruff check ./src/calcipy ./tests"
+
+[tasks."lint:fix"]
+description = "Run ruff with fixes"
+run = '''
+#!/usr/bin/env bash
+unsafe_flag=""
+if [ "${usage_unsafe:-false}" = "true" ]; then
+  unsafe_flag="--unsafe-fixes"
+fi
+uv run ruff check --fix $unsafe_flag ./src/calcipy ./tests
+'''
+usage = 'flag "-u --unsafe" help="Apply unsafe fixes"'
+
+[tasks."lint:watch"]
+description = "Run ruff in watch mode"
+run = "uv run ruff check --watch ./src/calcipy ./tests"
+
+[tasks.lock]
+description = "Update uv lock file"
+run = "uv lock"
+
+[tasks.nox]
+description = "Run nox sessions"
+run = '''
+#!/usr/bin/env bash
+session_arg=""
+if [ -n "${usage_session:-}" ]; then
+  session_arg="--session ${usage_session}"
+fi
+uv run nox --error-on-missing-interpreters $session_arg
+'''
+usage = 'flag "-s --session <session>" help="Specific session to run"'
+
+[tasks.ruff]
+description = "Run ruff with arbitrary args (passthrough)"
+run = "uv run ruff ${usage_args:-}"
+usage = 'arg "[args]" var=#true help="Arguments passed to ruff"'
+
 [tasks.test]
 description = "Run tests with default Python version"
 run = "{{vars.test_cmd}}"
@@ -45,6 +95,14 @@ mise run test:314 || exit 1
 echo ""
 echo "✓ All Python versions passed"
 '''
+
+[tasks."types:mypy"]
+description = "Run mypy type checker"
+run = "uv run mypy"
+
+[tasks."types:pyright"]
+description = "Run pyright type checker"
+run = "pyright"
 
 [tools]
 python = ["3.10.11", "3.11.11", "3.14.2"]
