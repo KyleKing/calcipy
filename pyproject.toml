@@ -52,7 +52,7 @@ maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
 requires-python = ">=3.10.19"
-version = "6.0.0b0"
+version = "6.0.0b1"
 
 [project.optional-dependencies]
 # Individual extras (maintained for backward compatibility)
@@ -150,7 +150,7 @@ calcipy-types = "calcipy.scripts:start_types"
 "Repository" = "https://github.com/kyleking/calcipy"
 
 [tool.commitizen]
-version = "6.0.0b0"
+version = "6.0.0b1"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
