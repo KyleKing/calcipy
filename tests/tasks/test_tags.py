@@ -68,8 +68,8 @@ def test_tags(ctx, task, kwargs: Dict, validator: Callable[[Dict], None]):
     validator(kwargs)
 
 
-def test_collect_code_tags_from_subdirectory_uses_git_root(ctx, tmp_path):
-    """Test that collect_code_tags outputs to git root when run from subdirectory."""
+def test_collect_code_tags_from_subdirectory_uses_repo_root(ctx, tmp_path):
+    """Test that collect_code_tags outputs to repo root when run from subdirectory."""
     # Create a git repo with a subdirectory containing a TODO
     repo_dir = tmp_path / 'repo'
     repo_dir.mkdir()
@@ -90,7 +90,7 @@ def test_collect_code_tags_from_subdirectory_uses_git_root(ctx, tmp_path):
     capture_shell('git add .', cwd=repo_dir)
     capture_shell('git commit -m "initial"', cwd=repo_dir)
 
-    # Create docs/docs at git root
+    # Create docs/docs at repo root
     docs_dir = repo_dir / 'docs' / 'docs'
     docs_dir.mkdir(parents=True)
 
@@ -98,12 +98,12 @@ def test_collect_code_tags_from_subdirectory_uses_git_root(ctx, tmp_path):
     original_cwd = Path.cwd()
     try:
         os.chdir(sub_dir)
-        # This should log a warning and create file at git root
+        # This should log a warning and create file at repo root
         collect_code_tags(ctx)
 
-        # CODE_TAG_SUMMARY.md should be created at git root, not in subdirectory
+        # CODE_TAG_SUMMARY.md should be created at repo root, not in subdirectory
         code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
-        assert code_tag_file.is_file(), f'File should be created at git root {code_tag_file}'
+        assert code_tag_file.is_file(), f'File should be created at repo root {code_tag_file}'
 
         # Should NOT be created in subdirectory
         sub_docs_dir = sub_dir / 'docs' / 'docs'
@@ -116,8 +116,8 @@ def test_collect_code_tags_from_subdirectory_uses_git_root(ctx, tmp_path):
         os.chdir(original_cwd)
 
 
-def test_collect_code_tags_ignore_git_root_flag(ctx, tmp_path):
-    """Test that ignore_git_root flag allows using CWD as base."""
+def test_collect_code_tags_ignore_repo_root_flag(ctx, tmp_path):
+    """Test that ignore_repo_root flag allows using CWD as base."""
     # Create a git repo with a subdirectory
     repo_dir = tmp_path / 'repo'
     repo_dir.mkdir()
@@ -139,11 +139,11 @@ def test_collect_code_tags_ignore_git_root_flag(ctx, tmp_path):
     docs_dir = sub_dir / 'docs' / 'docs'
     docs_dir.mkdir(parents=True)
 
-    # Change to subdirectory and run with ignore_git_root flag
+    # Change to subdirectory and run with ignore_repo_root flag
     original_cwd = Path.cwd()
     try:
         os.chdir(sub_dir)
-        collect_code_tags(ctx, ignore_git_root=True)
+        collect_code_tags(ctx, ignore_repo_root=True)
 
         # File should be created in subdirectory
         code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
@@ -153,18 +153,126 @@ def test_collect_code_tags_ignore_git_root_flag(ctx, tmp_path):
         os.chdir(original_cwd)
 
 
-def test_collect_code_tags_not_in_git_repo(ctx, tmp_path):
-    """Test that collect_code_tags raises error when not in a git repository."""
-    # Create a non-git directory
-    non_git_dir = tmp_path / 'not_git'
-    non_git_dir.mkdir()
-    docs_dir = non_git_dir / 'docs' / 'docs'
+def test_collect_code_tags_copier_answers_at_repo_root(ctx, tmp_path):
+    """Test that .copier-answers.yml is found at repo root even when running from subdirectory."""
+    # Create a git repo with subdirectory
+    repo_dir = tmp_path / 'repo'
+    repo_dir.mkdir()
+    sub_dir = repo_dir / 'subdir'
+    sub_dir.mkdir()
+
+    # Initialize git repo
+    capture_shell('git init', cwd=repo_dir)
+    capture_shell('git config user.email "test@test.com"', cwd=repo_dir)
+    capture_shell('git config user.name "Test"', cwd=repo_dir)
+
+    # Create .copier-answers.yml ONLY at repo root (not in subdirectory)
+    (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
+
+    # Create file with TODO in subdirectory
+    (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
+    capture_shell('git add .', cwd=repo_dir)
+    capture_shell('git commit -m "initial"', cwd=repo_dir)
+
+    # Create docs/docs at repo root
+    docs_dir = repo_dir / 'docs' / 'docs'
+    docs_dir.mkdir(parents=True)
+
+    # Change to subdirectory and run with ignore_repo_root flag
+    # This should still find .copier-answers.yml at repo root
+    original_cwd = Path.cwd()
+    try:
+        os.chdir(sub_dir)
+        collect_code_tags(ctx, ignore_repo_root=True)
+
+        # File should be created in subdirectory's docs/docs
+        # But .copier-answers.yml should have been found at repo root
+        code_tag_file = sub_dir / 'docs' / 'docs' / 'CODE_TAG_SUMMARY.md'
+        assert code_tag_file.is_file(), f'File should be created {code_tag_file}'
+        code_tag_file.unlink()
+    finally:
+        os.chdir(original_cwd)
+
+
+def test_collect_code_tags_jj_repo(ctx, tmp_path):
+    """Test that collect_code_tags works with jj-vcs repositories.
+
+    Note: Still requires git for file listing (find_project_files uses git ls-files).
+    This test verifies that repo root detection works with .jj folders.
+    """
+    # Create a repo with both .jj and .git (jj can coexist with git)
+    repo_dir = tmp_path / 'jj_repo'
+    repo_dir.mkdir()
+    jj_dir = repo_dir / '.jj'
+    jj_dir.mkdir()
+
+    # Initialize git for file listing
+    capture_shell('git init', cwd=repo_dir)
+    capture_shell('git config user.email "test@test.com"', cwd=repo_dir)
+    capture_shell('git config user.name "Test"', cwd=repo_dir)
+
+    # Create a .copier-answers.yml
+    (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
+
+    # Create file with TODO
+    (repo_dir / 'code.py').write_text('# TODO: jj task')
+    capture_shell('git add .', cwd=repo_dir)
+    capture_shell('git commit -m "initial"', cwd=repo_dir)
+
+    # Create docs/docs
+    docs_dir = repo_dir / 'docs' / 'docs'
+    docs_dir.mkdir(parents=True)
+
+    # Run from repo directory
+    original_cwd = Path.cwd()
+    try:
+        os.chdir(repo_dir)
+        collect_code_tags(ctx)
+
+        # File should be created
+        code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
+        assert code_tag_file.is_file(), f'File should be created {code_tag_file}'
+        code_tag_file.unlink()
+    finally:
+        os.chdir(original_cwd)
+
+
+def test_find_repo_root_from_nested_subdirectory(tmp_path):
+    """Test that find_repo_root works from deeply nested subdirectories."""
+    from calcipy.invoke_helpers import find_repo_root
+
+    # Create nested directory structure
+    repo_dir = tmp_path / 'project'
+    repo_dir.mkdir()
+    dist_dir = repo_dir / 'dist'
+    dist_dir.mkdir()
+
+    # Create .git directory
+    git_dir = repo_dir / '.git'
+    git_dir.mkdir()
+
+    # Should find repo root from nested dir
+    assert find_repo_root(dist_dir) == repo_dir
+
+    # Test with .jj
+    jj_dir = repo_dir / '.jj'
+    jj_dir.mkdir()
+    git_dir.rmdir()  # Remove .git to test .jj
+    assert find_repo_root(dist_dir) == repo_dir
+
+
+def test_collect_code_tags_not_in_repo(ctx, tmp_path):
+    """Test that collect_code_tags raises error when not in a repository."""
+    # Create a non-repository directory
+    non_repo_dir = tmp_path / 'not_repo'
+    non_repo_dir.mkdir()
+    docs_dir = non_repo_dir / 'docs' / 'docs'
     docs_dir.mkdir(parents=True)
 
     original_cwd = Path.cwd()
     try:
-        os.chdir(non_git_dir)
-        with pytest.raises(RuntimeError, match='Not in a git repository'):
+        os.chdir(non_repo_dir)
+        with pytest.raises(RuntimeError, match='Not in a repository'):
             collect_code_tags(ctx)
     finally:
         os.chdir(original_cwd)

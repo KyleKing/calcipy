@@ -8,6 +8,7 @@ from pathlib import Path
 
 from beartype.typing import Any, Optional
 from corallium.file_helpers import COPIER_ANSWERS, read_yaml_file
+from corallium.log import LOGGER
 from invoke.context import Context
 from invoke.runners import Result
 
@@ -43,8 +44,30 @@ def get_project_path() -> Path:
     return Path.cwd()
 
 
+def find_repo_root(start_path: Optional[Path] = None) -> Optional[Path]:
+    """Find the repository root by searching for .git or .jj directory.
+
+    Args:
+        start_path: Path to start searching from. Defaults to current working directory.
+
+    Returns:
+        Path to the repository root, or None if not found
+
+    """
+    current = (start_path or get_project_path()).resolve()
+    while current != current.parent:
+        if (current / '.git').is_dir() or (current / '.jj').is_dir():
+            return current
+        current = current.parent
+    return None
+
+
 def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
     """Retrieve the documentation directory from the copier answer file.
+
+    Searches for `.copier-answers.yml` at path_project first, then at repo root if not found.
+    The doc_dir config is read from wherever the file is found, but the returned path is
+    always relative to path_project.
 
     Args:
         path_project: Path to the project directory with contains `.copier-answers.yml`
@@ -53,6 +76,20 @@ def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
         Path: to the source documentation directory
 
     """
-    path_copier = (path_project or get_project_path()) / COPIER_ANSWERS
+    base_path = path_project or get_project_path()
+    path_copier = base_path / COPIER_ANSWERS
+
+    # If not found at base_path, try repo root
+    if not path_copier.is_file():
+        repo_root = find_repo_root(base_path)
+        if repo_root:
+            path_copier_at_root = repo_root / COPIER_ANSWERS
+            if path_copier_at_root.is_file():
+                LOGGER.debug('Found .copier-answers.yml at repo root', repo_root=repo_root)
+                path_copier = path_copier_at_root
+            else:
+                LOGGER.debug('.copier-answers.yml not found at repo root', repo_root=repo_root)
+
     doc_dir = read_yaml_file(path_copier).get('doc_dir', 'docs')
-    return path_copier.parent / doc_dir / 'docs'
+    # Always return path relative to base_path, not where copier answers was found
+    return base_path / doc_dir / 'docs'
