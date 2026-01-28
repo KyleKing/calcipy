@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Fix
+
+- lower minimum Python for CI and remove legacy 'gh release create'
+
+## 6.0.0b1 (2026-01-28)
+
 ### Feat
 
 - finally upgrade to latest uv-ready corallium!
@@ -12,6 +18,7 @@
 
 ### Fix
 
+- de-duplicate optional and groups
 - install ddict and nox
 - resolve linter and test failures
 - address TODO items

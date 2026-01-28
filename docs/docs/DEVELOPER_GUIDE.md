@@ -129,10 +129,10 @@ uv publish
 | `calcipy/scripts.py`                                | 6          | 0       | 51       | 100.0%   |
 | `calcipy/tasks/__init__.py`                         | 0          | 0       | 0        | 100.0%   |
 | `calcipy/tasks/all_tasks.py`                        | 37         | 0       | 0        | 100.0%   |
-| `calcipy/tasks/cl.py`                               | 26         | 5       | 0        | 75.0%    |
+| `calcipy/tasks/cl.py`                               | 22         | 5       | 0        | 70.8%    |
 | `calcipy/tasks/defaults.py`                         | 17         | 0       | 0        | 94.7%    |
 | `calcipy/tasks/doc.py`                              | 29         | 0       | 8        | 100.0%   |
-| `calcipy/tasks/executable_utils.py`                 | 32         | 0       | 0        | 97.2%    |
+| `calcipy/tasks/executable_utils.py`                 | 32         | 1       | 0        | 91.7%    |
 | `calcipy/tasks/lint.py`                             | 48         | 3       | 0        | 85.0%    |
 | `calcipy/tasks/most_tasks.py`                       | 29         | 0       | 0        | 100.0%   |
 | `calcipy/tasks/nox.py`                              | 8          | 0       | 0        | 100.0%   |
@@ -140,7 +140,7 @@ uv publish
 | `calcipy/tasks/tags.py`                             | 18         | 1       | 0        | 90.0%    |
 | `calcipy/tasks/test.py`                             | 41         | 1       | 2        | 93.9%    |
 | `calcipy/tasks/types.py`                            | 11         | 0       | 0        | 100.0%   |
-| **Totals**                                          | 1018       | 71      | 292      | 90.0%    |
+| **Totals**                                          | 1014       | 72      | 292      | 89.8%    |
 
 Generated on: 2026-01-28
 <!-- {cte} -->

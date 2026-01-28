@@ -44,12 +44,6 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
     opt_cz_args = f' --prerelease={suffix}' if suffix else ''
     run(ctx, f'{python_m()} commitizen bump{opt_cz_args} --annotated-tag --no-verify --gpg-sign')
 
-    run(ctx, 'git push origin --tags --no-verify')
-
-    get_last_tag = 'git tag --list --sort=-creatordate | head -n 1'
-    opt_gh_args = ' --prerelease' if suffix else ''
-    run(ctx, f'gh release create --generate-notes $({get_last_tag}){opt_gh_args}')
-
 
 @task(
     pre=[write],

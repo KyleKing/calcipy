@@ -51,7 +51,7 @@ license = "MIT"
 maintainers = []
 name = "calcipy"
 readme = "docs/README.md"
-requires-python = ">=3.10.19"
+requires-python = ">=3.10.11"
 version = "6.0.0b1"
 
 [project.optional-dependencies]
