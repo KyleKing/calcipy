@@ -78,16 +78,17 @@ def watch(ctx: Context) -> None:
 # prek
 
 ALL_PRE_COMMIT_HOOK_STAGES = [
-    'commit',
-    'merge-commit',
-    'push',
-    'prepare-commit-msg',
     'commit-msg',
+    'manual',
     'post-checkout',
     'post-commit',
     'post-merge',
     'post-rewrite',
-    'manual',
+    'pre-commit',
+    'pre-merge-commit',
+    'pre-push',
+    'pre-rebase',
+    'prepare-commit-msg',
 ]
 
 

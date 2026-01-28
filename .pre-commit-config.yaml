@@ -3,8 +3,8 @@
 # prek install -f
 # prek autoupdate
 # prek run --all-files mdformat
-# prek run --all-files --hook-stage commit
-# prek run --all-files --hook-stage push
+# prek run --all-files --hook-stage pre-commit
+# prek run --all-files --hook-stage pre-push
 # prek run --last-commit
 # uv run calcipy lint.prek --no-update
 #
