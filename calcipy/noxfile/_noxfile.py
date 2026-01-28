@@ -28,7 +28,7 @@ import shlex
 from functools import lru_cache
 
 from beartype.typing import Any, Dict, List, Union
-from corallium.file_helpers import get_tool_versions, read_pyproject
+from corallium.file_helpers import get_tool_versions, read_package_name, read_pyproject
 from nox import Session as NoxSession
 from nox import session as nox_session
 
@@ -66,7 +66,7 @@ def _install_local(session: NoxSession) -> None:  # pragma: no cover
     """
     sync_args = ['uv', 'sync']
 
-    if read_pyproject()['project']['name'] == 'calcipy':
+    if read_package_name() == 'calcipy':
         # Install all extras for comprehensive testing of calcipy itself
         sync_args.append('--all-extras')
     else:

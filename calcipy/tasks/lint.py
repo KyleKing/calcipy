@@ -4,7 +4,7 @@ from contextlib import suppress
 from pathlib import Path
 
 from beartype.typing import Optional
-from corallium.file_helpers import read_pyproject
+from corallium.file_helpers import read_package_name
 from invoke.context import Context
 
 from calcipy.cli import task
@@ -18,7 +18,7 @@ from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir, p
 
 def _resolve_package_target() -> str:
     """Resolve package directory for src or flat layouts."""
-    pkg = read_pyproject()['project']['name']
+    pkg = read_package_name()
     src_path = Path(f'./src/{pkg}')
     flat_path = Path(f'./{pkg}')
     if src_path.is_dir():
