@@ -57,7 +57,7 @@ classifiers = [
 ] # https://pypi.org/classifiers/
 dependencies = [
   "beartype >=0.19.0",
-  "corallium>=2.1.1",
+  "corallium>=2.2.0",
   "invoke >=2.2.0",
 ]
 description = "Python package to simplify development"
