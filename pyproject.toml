@@ -16,6 +16,7 @@ ci = [
   "types-setuptools >=80.10.0.20260124",
 ]
 ddict = ["calcipy[ddict]"]
+experimental = ["calcipy[experimental]"]
 recommended = ["calcipy[recommended]"]
 
 [project]
@@ -228,7 +229,7 @@ in_place = true
 trailing_comma_inline_array = true
 
 [tool.uv]
-default-groups = ["ci", "ddict", "recommended"]
+default-groups = ["ci", "ddict", "experimental", "recommended"]
 required-version = ">=0.9.0"
 
 [tool.uv.build-backend]

@@ -242,17 +242,11 @@ ci = [
 ddict = [
     { name = "calcipy", extra = ["ddict"] },
 ]
-docs = [
-    { name = "calcipy", extra = ["doc"] },
-]
-nox = [
-    { name = "calcipy", extra = ["nox"] },
+experimental = [
+    { name = "calcipy", extra = ["experimental"] },
 ]
 recommended = [
     { name = "calcipy", extra = ["recommended"] },
-]
-tags = [
-    { name = "calcipy", extra = ["tags"] },
 ]
 
 [package.metadata]
@@ -304,10 +298,8 @@ ci = [
     { name = "types-setuptools", specifier = ">=80.10.0.20260124" },
 ]
 ddict = [{ name = "calcipy", extras = ["ddict"] }]
-docs = [{ name = "calcipy", extras = ["doc"] }]
-nox = [{ name = "calcipy", extras = ["nox"] }]
+experimental = [{ name = "calcipy", extras = ["experimental"] }]
 recommended = [{ name = "calcipy", extras = ["recommended"] }]
-tags = [{ name = "calcipy", extras = ["tags"] }]
 
 [[package]]
 name = "certifi"

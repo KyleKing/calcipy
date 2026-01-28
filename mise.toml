@@ -17,14 +17,14 @@ env = {RUNTIME_TYPE_CHECKING_MODE = "{{vars.runtime_mode}}"}
 run = "{{vars.test_cmd}}"
 tools.python = "{{vars.py_311}}"
 
-[tasks."test:312"]
+[tasks."test:314"]
 description = "Run tests with Python 3.12"
 env = {RUNTIME_TYPE_CHECKING_MODE = "{{vars.runtime_mode}}"}
 run = "{{vars.test_cmd}}"
-tools.python = "{{vars.py_312}}"
+tools.python = "{{vars.py_314}}"
 
 [tasks."test:all"]
-depends = ["test:310", "test:311", "test:312"]
+depends = ["test:310", "test:311", "test:314"]
 description = "Run tests on all supported Python versions (sequential)"
 
 [tasks."test:all-verbose"]
@@ -40,19 +40,19 @@ echo ""
 echo "=== Testing Python 3.11.11 ==="
 mise run test:311 || exit 1
 echo ""
-echo "=== Testing Python 3.12.5 ==="
-mise run test:312 || exit 1
+echo "=== Testing Python 3.14.2 ==="
+mise run test:314 || exit 1
 echo ""
 echo "✓ All Python versions passed"
 '''
 
 [tools]
-python = ["3.10.11", "3.11.11", "3.12.5"]
+python = ["3.10.11", "3.11.11", "3.14.2"]
 
 [vars]
 py_310 = "3.10.11"
 py_311 = "3.11.11"
-py_312 = "3.12.5"
+py_314 = "3.14.2"
 # Python versions - single source of truth
 runtime_mode = "WARNING"
 # Shared test configuration
