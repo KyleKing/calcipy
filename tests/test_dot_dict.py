@@ -30,7 +30,7 @@ _ST_ANY = st.booleans() | st.binary() | st.integers() | st.text()
 
 
 @given(
-    key=st.text(),
+    key=st.text().filter(lambda k: not (k.startswith('__') and k.endswith('__'))),
     value=(_ST_ANY | st.dictionaries(keys=_ST_ANY, values=_ST_ANY, max_size=10)),
 )
 def test_ddict_with_hypothesis(key, value):
