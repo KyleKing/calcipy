@@ -173,10 +173,10 @@ Calcipy's noxfile automatically reads Python versions from `mise.toml`:
 # From src/calcipy/noxfile/_noxfile.py
 def _get_pythons() -> List[str]:
     """Return python versions from supported configuration files."""
-    return [*{str(ver) for ver in get_tool_versions()["python"]}]
+    return [*{str(ver) for ver in get_tool_versions()['python']}]
 
 
-@nox_session(venv_backend="uv", python=_get_pythons(), reuse_venv=True)
+@nox_session(venv_backend='uv', python=_get_pythons(), reuse_venv=True)
 def tests(session: NoxSession) -> None:
     """Run tests for all specified Python versions."""
     ...

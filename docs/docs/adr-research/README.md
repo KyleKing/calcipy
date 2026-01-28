@@ -9,31 +9,31 @@ Research on Architecture Decision Records (ADRs) approaches, tools, and best pra
 Each document provides a comprehensive overview of a specific ADR approach or tool:
 
 1. **[log4brains](log4brains.md)** - Architecture Decision Records management tool with automated site generation
-2. **[AWS ADR Guide](aws-adr-guide.md)** - AWS's structured approach to documenting architectural decisions
-3. **[MADR](madr.md)** - Markdown Architectural Decision Records, a lightweight template
-4. **[Y-Statements](y-statements.md)** - Abbreviated single-sentence format for quick decision capture
-5. **[Prefect PINs](prefect-pins.md)** - Prefect Improvement Notices for open source proposal-driven decisions
-6. **[Ethereum EIPs](ethereum-eips.md)** - Ethereum Improvement Proposals, rigorous protocol-level decision process
-7. **[Real-World Examples](real-world-examples.md)** - Practical implementations from Arachne, Structurizr, and other projects
+1. **[AWS ADR Guide](aws-adr-guide.md)** - AWS's structured approach to documenting architectural decisions
+1. **[MADR](madr.md)** - Markdown Architectural Decision Records, a lightweight template
+1. **[Y-Statements](y-statements.md)** - Abbreviated single-sentence format for quick decision capture
+1. **[Prefect PINs](prefect-pins.md)** - Prefect Improvement Notices for open source proposal-driven decisions
+1. **[Ethereum EIPs](ethereum-eips.md)** - Ethereum Improvement Proposals, rigorous protocol-level decision process
+1. **[Real-World Examples](real-world-examples.md)** - Practical implementations from Arachne, Structurizr, and other projects
 
 ### Comparison and Guidance
 
-8. **[Comparison and Recommendations](comparison-and-recommendations.md)** - Side-by-side comparison with recommendations for different project scales
-9. **[AI Guidance for ADRs](ai-guidance-for-adrs.md)** - Comprehensive guide for AI assistants to write and review ADRs
+1. **[Comparison and Recommendations](comparison-and-recommendations.md)** - Side-by-side comparison with recommendations for different project scales
+1. **[AI Guidance for ADRs](ai-guidance-for-adrs.md)** - Comprehensive guide for AI assistants to write and review ADRs
 
 ## Quick Decision Guide
 
 ### Choose by Project Size
 
-| Team Size | Project Duration | Recommended Approach |
-|-----------|-----------------|---------------------|
-| 1-2 developers | < 6 months | Y-Statements or notes in README |
-| 2-5 developers | 6 months - 2 years | MADR (Minimal) |
-| 5-15 developers | 2-5 years | MADR (Full) or AWS ADR |
-| 15-50 developers | 5+ years | log4brains or MADR + documentation site |
-| 50+ developers | Enterprise | AWS ADR + governance |
-| Open Source | Any | MADR + public docs or PIN-style |
-| Protocol/Standards | Any | EIP-style rigorous process |
+| Team Size          | Project Duration   | Recommended Approach                    |
+| ------------------ | ------------------ | --------------------------------------- |
+| 1-2 developers     | < 6 months         | Y-Statements or notes in README         |
+| 2-5 developers     | 6 months - 2 years | MADR (Minimal)                          |
+| 5-15 developers    | 2-5 years          | MADR (Full) or AWS ADR                  |
+| 15-50 developers   | 5+ years           | log4brains or MADR + documentation site |
+| 50+ developers     | Enterprise         | AWS ADR + governance                    |
+| Open Source        | Any                | MADR + public docs or PIN-style         |
+| Protocol/Standards | Any                | EIP-style rigorous process              |
 
 ### Choose by Use Case
 
@@ -62,53 +62,56 @@ An Architecture Decision Record (ADR) is a document that captures an important a
 Every ADR should include:
 
 1. **What** was decided
-2. **Why** it was needed (context and problem)
-3. **How** the decision was made (alternatives considered)
-4. **What** the consequences are (positive and negative)
+1. **Why** it was needed (context and problem)
+1. **How** the decision was made (alternatives considered)
+1. **What** the consequences are (positive and negative)
 
 ## Comparison Matrix
 
-| Approach | Formality | Time to Create | Best For |
-|----------|-----------|----------------|----------|
-| Y-Statements | Low | 5-15 min | Quick decisions, small teams |
-| MADR | Medium | 30-60 min | Most projects |
-| AWS ADR | Medium-High | 1-2 hours | Enterprise teams |
-| log4brains | Medium | 30-60 min | Teams wanting website |
-| Prefect PINs | Medium-High | Days-Weeks | Open source proposals |
-| Ethereum EIPs | Very High | Weeks-Months | Protocol/standards |
+| Approach      | Formality   | Time to Create | Best For                     |
+| ------------- | ----------- | -------------- | ---------------------------- |
+| Y-Statements  | Low         | 5-15 min       | Quick decisions, small teams |
+| MADR          | Medium      | 30-60 min      | Most projects                |
+| AWS ADR       | Medium-High | 1-2 hours      | Enterprise teams             |
+| log4brains    | Medium      | 30-60 min      | Teams wanting website        |
+| Prefect PINs  | Medium-High | Days-Weeks     | Open source proposals        |
+| Ethereum EIPs | Very High   | Weeks-Months   | Protocol/standards           |
 
 ## Getting Started
 
 ### For a New Project
 
 1. **Start with ADR-0001**: "Record architecture decisions"
-   - Establishes the practice
-   - Documents which template you'll use
-   - Defines when to create ADRs
 
-2. **Choose your template**:
-   - Small team: MADR Minimal
-   - Growing team: MADR Full
-   - Enterprise: AWS ADR Guide
+    - Establishes the practice
+    - Documents which template you'll use
+    - Defines when to create ADRs
 
-3. **Set up storage**:
-   ```
-   project/
-   └── docs/
-       └── adr/
-           ├── README.md (index)
-           └── 0001-record-architecture-decisions.md
-   ```
+1. **Choose your template**:
 
-4. **Document your next decision**: Practice the process
+    - Small team: MADR Minimal
+    - Growing team: MADR Full
+    - Enterprise: AWS ADR Guide
 
-5. **Review and iterate**: Adjust based on what works
+1. **Set up storage**:
+
+    ```
+    project/
+    └── docs/
+        └── adr/
+            ├── README.md (index)
+            └── 0001-record-architecture-decisions.md
+    ```
+
+1. **Document your next decision**: Practice the process
+
+1. **Review and iterate**: Adjust based on what works
 
 ### For an Existing Project
 
 1. **Backfill key decisions**: Document the most important existing decisions
-2. **Start using for new decisions**: Make it part of your workflow
-3. **Update as you learn**: Refine your template and process
+1. **Start using for new decisions**: Make it part of your workflow
+1. **Update as you learn**: Refine your template and process
 
 ## Common Patterns
 

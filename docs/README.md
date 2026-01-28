@@ -157,7 +157,9 @@ repos:
       - id: lint-fix
       - id: types
 ```
+
 <!-- {cts} CLI_OUTPUT=./run --help; -->
+
 ```txt
 Usage: calcipy [--core-opts] <subcommand> [--subcommand-opts] ...
 
@@ -236,6 +238,7 @@ Global Task Options:
   -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most
                          verbose)
 ```
+
 <!-- {cte} -->
 
 Tip: running pre-commit with prek is recommended for performance: https://pypi.org/project/prek

@@ -42,7 +42,7 @@ repos:
       - id: trailing-whitespace
         exclude: __snapshots__/.*\.ambr
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.11.6
+    rev: v4.12.1
     hooks:
       - id: commitizen
   - repo: https://github.com/executablebooks/mdformat
@@ -80,7 +80,7 @@ repos:
         exclude: uv\.lock
         stages: ["pre-commit"]
   # - repo: https://github.com/KyleKing/calcipy
-  #   rev: 5.0.0
+  #   rev: 6.0.0
   #   hooks:
   #     - id: copier-forbidden-files
   #     - id: lint-fix

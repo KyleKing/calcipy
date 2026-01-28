@@ -16,11 +16,7 @@ ci = [
   "types-setuptools >=80.10.0.20260124",
 ]
 ddict = ["calcipy[ddict]"]
-dev = ["calcipy[dev]"]
-docs = ["calcipy[doc]"]
-maintain = ["calcipy[maintain]"]
-nox = ["calcipy[nox]"]
-tags = ["calcipy[tags]"]
+recommended = ["calcipy[recommended]"]
 
 [project]
 authors = [
@@ -58,25 +54,6 @@ version = "6.0.0b1"
 ddict = [
   "python-box >=7.3.2",
 ]
-dev = [
-  "arrow >=1.4.0",
-  "commitizen >=4.12.1",
-  "griffe >=1.15.0",
-  "mkdocs >=1.6.1",
-  "mkdocs-gen-files >=0.6.0",
-  "mkdocs-material >=9.7.1",
-  "mkdocstrings[python] >=1.0.2",
-  "mypy >=1.19.1",
-  "nox >=2025.11.12",
-  "pymdown-extensions >=10.20.1",
-  "pytest >=9.0.2",
-  "pytest-cov >=7.0.0",
-  "pytest-randomly >=4.0.1",
-  "pytest-watcher >=0.6.3",
-  "pyyaml >=6.0.3",
-  "ruff >=0.14.14",
-  "semver >=3.0.4",
-]
 doc = [
   "commitizen >=4.12.1",
   "markdown-callouts>=0.4.0",
@@ -103,6 +80,9 @@ lint = [
 nox = [
   "nox >=2025.11.12",
 ]
+recommended = [
+  "calcipy[doc,lint,nox,tags,test,types]",
+]
 tags = [
   "arrow >=1.4.0",
   "pyyaml >=6.0.3", # Required for get_doc_subdir
@@ -112,11 +92,6 @@ test = [
   "pytest-cov >=7.0.0",
   "pytest-randomly >=4.0.1",
   "pytest-watcher >=0.6.3",
-]
-tool = [
-  "arrow >=1.4.0", # For tags task
-  "pyyaml >=6.0.3", # For tags task
-  "ruff >=0.14.14", # For lint task
 ]
 types = [
   "mypy >=1.19.1",
@@ -253,7 +228,7 @@ in_place = true
 trailing_comma_inline_array = true
 
 [tool.uv]
-default-groups = ["ci", "ddict", "docs", "maintain", "nox", "tags"]
+default-groups = ["ci", "ddict", "recommended"]
 required-version = ">=0.9.0"
 
 [tool.uv.build-backend]

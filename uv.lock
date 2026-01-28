@@ -161,25 +161,6 @@ dependencies = [
 ddict = [
     { name = "python-box" },
 ]
-dev = [
-    { name = "arrow" },
-    { name = "commitizen" },
-    { name = "griffe" },
-    { name = "mkdocs" },
-    { name = "mkdocs-gen-files" },
-    { name = "mkdocs-material" },
-    { name = "mkdocstrings", extra = ["python"] },
-    { name = "mypy" },
-    { name = "nox" },
-    { name = "pymdown-extensions" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "pytest-randomly" },
-    { name = "pytest-watcher" },
-    { name = "pyyaml" },
-    { name = "ruff" },
-    { name = "semver" },
-]
 doc = [
     { name = "commitizen" },
     { name = "markdown-callouts" },
@@ -206,6 +187,31 @@ lint = [
 nox = [
     { name = "nox" },
 ]
+recommended = [
+    { name = "arrow" },
+    { name = "commitizen" },
+    { name = "markdown-callouts" },
+    { name = "markdown-exec" },
+    { name = "mkdocs" },
+    { name = "mkdocs-coverage" },
+    { name = "mkdocs-gen-files" },
+    { name = "mkdocs-git-revision-date-localized-plugin" },
+    { name = "mkdocs-llmstxt" },
+    { name = "mkdocs-material" },
+    { name = "mkdocs-minify-plugin" },
+    { name = "mkdocs-section-index" },
+    { name = "mkdocstrings", extra = ["python"] },
+    { name = "mypy" },
+    { name = "nox" },
+    { name = "pymdown-extensions" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "pytest-randomly" },
+    { name = "pytest-watcher" },
+    { name = "pyyaml" },
+    { name = "ruff" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
+]
 tags = [
     { name = "arrow" },
     { name = "pyyaml" },
@@ -215,11 +221,6 @@ test = [
     { name = "pytest-cov" },
     { name = "pytest-randomly" },
     { name = "pytest-watcher" },
-]
-tool = [
-    { name = "arrow" },
-    { name = "pyyaml" },
-    { name = "ruff" },
 ]
 types = [
     { name = "mypy" },
@@ -241,17 +242,14 @@ ci = [
 ddict = [
     { name = "calcipy", extra = ["ddict"] },
 ]
-dev = [
-    { name = "calcipy", extra = ["dev"] },
-]
 docs = [
     { name = "calcipy", extra = ["doc"] },
 ]
-maintain = [
-    { name = "calcipy" },
-]
 nox = [
     { name = "calcipy", extra = ["nox"] },
+]
+recommended = [
+    { name = "calcipy", extra = ["recommended"] },
 ]
 tags = [
     { name = "calcipy", extra = ["tags"] },
@@ -259,57 +257,38 @@ tags = [
 
 [package.metadata]
 requires-dist = [
-    { name = "arrow", marker = "extra == 'dev'", specifier = ">=1.4.0" },
     { name = "arrow", marker = "extra == 'tags'", specifier = ">=1.4.0" },
-    { name = "arrow", marker = "extra == 'tool'", specifier = ">=1.4.0" },
     { name = "beartype", specifier = ">=0.22.9" },
-    { name = "commitizen", marker = "extra == 'dev'", specifier = ">=4.12.1" },
+    { name = "calcipy", extras = ["doc", "lint", "nox", "tags", "test", "types"], marker = "extra == 'recommended'" },
     { name = "commitizen", marker = "extra == 'doc'", specifier = ">=4.12.1" },
     { name = "corallium", specifier = ">=2.2.0" },
-    { name = "griffe", marker = "extra == 'dev'", specifier = ">=1.15.0" },
     { name = "griffe", marker = "extra == 'experimental'", specifier = ">=1.15.0" },
     { name = "invoke", specifier = ">=2.2.1" },
     { name = "markdown-callouts", marker = "extra == 'doc'", specifier = ">=0.4.0" },
     { name = "markdown-exec", marker = "extra == 'doc'", specifier = ">=1.12.1" },
-    { name = "mkdocs", marker = "extra == 'dev'", specifier = ">=1.6.1" },
     { name = "mkdocs", marker = "extra == 'doc'", specifier = ">=1.6.1" },
     { name = "mkdocs-coverage", marker = "extra == 'doc'", specifier = ">=2.0.0" },
-    { name = "mkdocs-gen-files", marker = "extra == 'dev'", specifier = ">=0.6.0" },
     { name = "mkdocs-gen-files", marker = "extra == 'doc'", specifier = ">=0.6.0" },
     { name = "mkdocs-git-revision-date-localized-plugin", marker = "extra == 'doc'", specifier = ">=1.5.1" },
     { name = "mkdocs-llmstxt", marker = "extra == 'doc'", specifier = ">=0.5.0" },
-    { name = "mkdocs-material", marker = "extra == 'dev'", specifier = ">=9.7.1" },
     { name = "mkdocs-material", marker = "extra == 'doc'", specifier = ">=9.7.1" },
     { name = "mkdocs-minify-plugin", marker = "extra == 'doc'", specifier = ">=0.8.0" },
     { name = "mkdocs-section-index", marker = "extra == 'doc'", specifier = ">=0.3.10" },
-    { name = "mkdocstrings", extras = ["python"], marker = "extra == 'dev'", specifier = ">=1.0.2" },
     { name = "mkdocstrings", extras = ["python"], marker = "extra == 'doc'", specifier = ">=1.0.2" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.19.1" },
     { name = "mypy", marker = "extra == 'types'", specifier = ">=1.19.1" },
-    { name = "nox", marker = "extra == 'dev'", specifier = ">=2025.11.12" },
     { name = "nox", marker = "extra == 'nox'", specifier = ">=2025.11.12" },
-    { name = "pymdown-extensions", marker = "extra == 'dev'", specifier = ">=10.20.1" },
     { name = "pymdown-extensions", marker = "extra == 'doc'", specifier = ">=10.20.1" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.0.2" },
     { name = "pytest", marker = "extra == 'test'", specifier = ">=9.0.2" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=7.0.0" },
     { name = "pytest-cov", marker = "extra == 'test'", specifier = ">=7.0.0" },
-    { name = "pytest-randomly", marker = "extra == 'dev'", specifier = ">=4.0.1" },
     { name = "pytest-randomly", marker = "extra == 'test'", specifier = ">=4.0.1" },
-    { name = "pytest-watcher", marker = "extra == 'dev'", specifier = ">=0.6.3" },
     { name = "pytest-watcher", marker = "extra == 'test'", specifier = ">=0.6.3" },
     { name = "python-box", marker = "extra == 'ddict'", specifier = ">=7.3.2" },
-    { name = "pyyaml", marker = "extra == 'dev'", specifier = ">=6.0.3" },
     { name = "pyyaml", marker = "extra == 'tags'", specifier = ">=6.0.3" },
-    { name = "pyyaml", marker = "extra == 'tool'", specifier = ">=6.0.3" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.14.14" },
     { name = "ruff", marker = "extra == 'lint'", specifier = ">=0.14.14" },
-    { name = "ruff", marker = "extra == 'tool'", specifier = ">=0.14.14" },
-    { name = "semver", marker = "extra == 'dev'", specifier = ">=3.0.4" },
     { name = "semver", marker = "extra == 'experimental'", specifier = ">=3.0.4" },
     { name = "tomli", marker = "python_full_version < '3.11' and extra == 'doc'", specifier = ">=2.4.0" },
 ]
-provides-extras = ["ddict", "dev", "doc", "experimental", "lint", "nox", "tags", "test", "tool", "types"]
+provides-extras = ["ddict", "doc", "experimental", "lint", "nox", "recommended", "tags", "test", "types"]
 
 [package.metadata.requires-dev]
 ci = [
@@ -325,10 +304,9 @@ ci = [
     { name = "types-setuptools", specifier = ">=80.10.0.20260124" },
 ]
 ddict = [{ name = "calcipy", extras = ["ddict"] }]
-dev = [{ name = "calcipy", extras = ["dev"] }]
 docs = [{ name = "calcipy", extras = ["doc"] }]
-maintain = [{ name = "calcipy", extras = ["maintain"] }]
 nox = [{ name = "calcipy", extras = ["nox"] }]
+recommended = [{ name = "calcipy", extras = ["recommended"] }]
 tags = [{ name = "calcipy", extras = ["tags"] }]
 
 [[package]]
