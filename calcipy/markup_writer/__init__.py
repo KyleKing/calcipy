@@ -1,4 +1,4 @@
-try:  # noqa: RUF067
+try:
     from ._writer import write_template_formatted_sections
 except ImportError as exc:
     raise RuntimeError("The 'calcipy[doc]' extras are missing") from exc

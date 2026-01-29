@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 6.0.0b3 (2026-01-28)
+
 ### Feat
 
 - harden file exploration rules

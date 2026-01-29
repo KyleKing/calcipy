@@ -78,18 +78,12 @@ Repository Settings → Environments:
 
 **Register Trusted Publishers**
 
-TestPyPI: https://test.pypi.org/manage/account/publishing/
-- PyPI Project Name: `calcipy`
-- Owner: `kyleking`
-- Repository: `calcipy`
-- Workflow: `publish.yml`
-- Environment: `testpypi`
-
 PyPI: https://pypi.org/manage/project/calcipy/settings/publishing/
 - Owner: `kyleking`
 - Repository: `calcipy`
 - Workflow: `publish.yml`
 - Environment: `pypi`
+    - Or environment `testpypi` (for [TestPyPI](https://test.pypi.org/manage/account/publishing))
 
 ### Manual Publishing
 

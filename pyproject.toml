@@ -159,13 +159,14 @@ ignore = [
   'CPY001', # Missing copyright notice at top of file
   'D203', # "1 blank line required before class docstring" (Conflicts with D211)
   'D213', # "Multi-line docstring summary should start at the second line" (Conflicts with D212)
-  'DOC201', # Intentionally skip Returns docs for private functions
+  'DOC201', # Missing "Returns" in docstring; prefer minimal docstrings
   'DOC501', # Raised exception `RuntimeError` missing from docstring
   'EM101', # Exception must not use a string literal, assign to variable first
   'FIX001', # Line contains FIXME
   'FIX002', # Line contains TODO
   'FIX004', # Line contains HACK
   'PLR0913', # Too many arguments in function definition (6 > 5)
+  'RUF067', # `__init__` module should only contain docstrings and re-exports
   'TC001', # Move application import `tail_jsonl.config.Config` into a type-checking block (Conflicts with Beartype)
   'TC002', # Move third-party import `rich.console.Console` into a type-checking block (Conflicts with Beartype)
   'TC003', # Move standard library import `argparse` into a type-checking block (Conflicts with Beartype)

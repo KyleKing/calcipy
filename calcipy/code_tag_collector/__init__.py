@@ -5,9 +5,9 @@ DEPRECATED: Use `corallium.code_tag_collector` instead.
 
 from calcipy._compat import deprecated_import
 
-deprecated_import('calcipy.code_tag_collector', 'corallium.code_tag_collector')  # noqa: RUF067
+deprecated_import('calcipy.code_tag_collector', 'corallium.code_tag_collector')
 
-try:  # noqa: RUF067
+try:
     from corallium.code_tag_collector import (
         CODE_TAG_RE,
         COMMON_CODE_TAGS,
