@@ -1,13 +1,16 @@
 # mypy: disable_error_code=type-arg
 
 import os
-from contextlib import contextmanager
+import shutil
+from contextlib import contextmanager, suppress
 from pathlib import Path
+from subprocess import CalledProcessError
 
 import pytest
 from beartype.typing import Callable, Dict
 from corallium.shell import capture_shell
 
+from calcipy.invoke_helpers import find_repo_root
 from calcipy.tasks.tags import collect_code_tags
 from tests.configuration import APP_DIR, TEST_DATA_DIR
 
@@ -34,6 +37,31 @@ def _commit_files(repo_dir: Path, message: str = 'initial') -> None:
     """Stage and commit all files in repository."""
     capture_shell('git add .', cwd=repo_dir)
     capture_shell(f'git commit -m "{message}"', cwd=repo_dir)
+
+
+def _jj_available() -> bool:
+    """Check if jj is available on the system."""
+    return shutil.which('jj') is not None
+
+
+def _init_jj_repo(repo_dir: Path) -> None:
+    """Initialize a pure jj repository (no git colocation)."""
+    capture_shell('jj git init --no-colocate', cwd=repo_dir)
+    capture_shell('jj config set --repo user.email "test@test.com"', cwd=repo_dir)
+    capture_shell('jj config set --repo user.name "Test"', cwd=repo_dir)
+
+
+def _jj_track_files(repo_dir: Path) -> None:
+    """Track and commit files in jj repository."""
+    with suppress(CalledProcessError):
+        capture_shell('jj new', cwd=repo_dir)
+
+
+@pytest.fixture
+def skip_if_no_jj():
+    """Skip test if jj is not available."""
+    if not _jj_available():
+        pytest.skip('jj not available on system')
 
 
 def _merge_path_kwargs(kwargs: Dict) -> Path:
@@ -182,10 +210,67 @@ def test_collect_code_tags_jj_repo(ctx, tmp_path):
         code_tag_file.unlink()
 
 
+def test_collect_code_tags_pure_jj_repo(ctx, tmp_path, skip_if_no_jj):
+    repo_dir = tmp_path / 'pure_jj_repo'
+    repo_dir.mkdir()
+
+    _init_jj_repo(repo_dir)
+    (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
+    (repo_dir / 'code.py').write_text('# TODO: pure jj task')
+    _jj_track_files(repo_dir)
+
+    docs_dir = repo_dir / 'docs' / 'docs'
+    docs_dir.mkdir(parents=True)
+
+    with _in_directory(repo_dir):
+        collect_code_tags(ctx)
+
+        code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
+        assert code_tag_file.is_file(), f'File should be created {code_tag_file}'
+        content = code_tag_file.read_text()
+        assert 'TODO' in content
+        assert 'pure jj task' in content
+        code_tag_file.unlink()
+
+
+def test_collect_code_tags_pure_jj_from_subdirectory(ctx, tmp_path, skip_if_no_jj):
+    repo_dir = tmp_path / 'jj_repo'
+    repo_dir.mkdir()
+    sub_dir = repo_dir / 'subdir'
+    sub_dir.mkdir()
+
+    _init_jj_repo(repo_dir)
+    (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
+    (repo_dir / 'root.py').write_text('# TODO: root task')
+    (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
+    _jj_track_files(repo_dir)
+
+    docs_dir = repo_dir / 'docs' / 'docs'
+    docs_dir.mkdir(parents=True)
+
+    with _in_directory(sub_dir):
+        collect_code_tags(ctx)
+
+        code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
+        assert code_tag_file.is_file(), f'File should be created at repo root {code_tag_file}'
+        content = code_tag_file.read_text()
+        assert 'root task' in content
+        assert 'subdirectory task' in content
+        code_tag_file.unlink()
+
+
+def test_find_repo_root_pure_jj(tmp_path, skip_if_no_jj):
+    repo_dir = tmp_path / 'jj_only'
+    repo_dir.mkdir()
+    _init_jj_repo(repo_dir)
+
+    assert (repo_dir / '.jj').is_dir()
+    assert not (repo_dir / '.git').exists()
+    assert find_repo_root(repo_dir) == repo_dir
+
+
 def test_find_repo_root_from_nested_subdirectory(tmp_path):
     """Test that find_repo_root works from deeply nested subdirectories."""
-    from calcipy.invoke_helpers import find_repo_root
-
     # Create nested directory structure
     repo_dir = tmp_path / 'project'
     repo_dir.mkdir()
