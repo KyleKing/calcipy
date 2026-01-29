@@ -23,7 +23,7 @@ from .defaults import from_ctx
         'tag_order': 'Ordered list of code tags to locate (Comma-separated)',
         'regex': 'Custom Code Tag Regex. Must contain "{tag}"',
         'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated). '
-                           'When outside git repo, defaults to common build/cache directories.',
+        'When outside git repo, defaults to common build/cache directories.',
         'ignore_repo_root': 'Ignore repository root check and use current directory as base',
     },
 )

@@ -1,9 +1,30 @@
 ## Unreleased
 
+### Feat
+
+- harden file exploration rules
+- support djot in markdown writer
+
 ### Fix
 
+- use git root to create exactly one code tag summary
+
+### Refactor
+
+- support jj repos and run from anywhere
+
+## 6.0.0b2 (2026-01-28)
+
+### Fix
+
+- remove unnecessary optional dependencies
+- correct the pre-commit stage names
 - increase minimum dependency
 - lower minimum Python for CI and remove legacy 'gh release create'
+
+### Refactor
+
+- remove unused maintenance extras
 
 ## 6.0.0b1 (2026-01-28)
 

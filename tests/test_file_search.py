@@ -1,4 +1,3 @@
-
 import pytest
 from corallium.file_helpers import get_relative
 

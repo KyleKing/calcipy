@@ -4,7 +4,7 @@ import os
 import shutil
 from contextlib import contextmanager, suppress
 from pathlib import Path
-from subprocess import CalledProcessError
+from subprocess import CalledProcessError  # noqa: S404
 
 import pytest
 from beartype.typing import Callable, Dict

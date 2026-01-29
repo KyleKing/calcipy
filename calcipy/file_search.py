@@ -3,7 +3,7 @@
 from collections import defaultdict
 from contextlib import suppress
 from pathlib import Path
-from subprocess import CalledProcessError
+from subprocess import CalledProcessError  # noqa: S404
 
 from beartype.typing import Dict, List, Optional, Tuple
 from corallium.log import LOGGER
@@ -123,8 +123,7 @@ def find_project_files(path_project: Path, ignore_patterns: List[str]) -> List[P
     if not used_git and not ignore_patterns:
         effective_patterns = _get_default_ignore_patterns()
         LOGGER.info(
-            'Using default ignore patterns for filesystem walk. '
-            'Specify --ignore-patterns to customize.',
+            'Using default ignore patterns for filesystem walk. Specify --ignore-patterns to customize.',
             pattern_count=len(effective_patterns),
         )
 
