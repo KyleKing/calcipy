@@ -22,7 +22,8 @@ from .defaults import from_ctx
         'filename': 'Code Tag Summary Filename',
         'tag_order': 'Ordered list of code tags to locate (Comma-separated)',
         'regex': 'Custom Code Tag Regex. Must contain "{tag}"',
-        'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated)',
+        'ignore_patterns': 'Glob patterns to ignore files and directories when searching (Comma-separated). '
+                           'When outside git repo, defaults to common build/cache directories.',
         'ignore_repo_root': 'Ignore repository root check and use current directory as base',
     },
 )
@@ -37,13 +38,21 @@ def collect_code_tags(
     ignore_patterns: str = '',
     ignore_repo_root: bool = False,
 ) -> None:
-    """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments."""
+    """Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
+
+    Works in git/jj repositories (preferred) or standalone directories.
+    Git blame links and timestamps available only in git repositories.
+    """
     pth_base_dir = Path(base_dir).resolve()
 
     # Find repository root (git or jj-vcs)
     repo_root = find_repo_root(pth_base_dir)
     if not repo_root:
-        raise RuntimeError('Not in a repository. collect_code_tags requires a git or jj-vcs repository.')
+        LOGGER.warning(
+            'Not in a repository. Using current directory as base. Git blame links will not be available.',
+            base_dir=pth_base_dir,
+        )
+        repo_root = pth_base_dir
 
     # Use repo root as base directory unless ignore_repo_root flag is set
     if not ignore_repo_root:
