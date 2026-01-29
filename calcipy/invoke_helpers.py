@@ -7,7 +7,7 @@ from os import environ
 from pathlib import Path
 
 from beartype.typing import Any, Optional
-from corallium.file_helpers import COPIER_ANSWERS, read_yaml_file
+from corallium.file_helpers import COPIER_ANSWERS, find_repo_root, read_yaml_file
 from corallium.log import LOGGER
 from invoke.context import Context
 from invoke.runners import Result
@@ -42,24 +42,6 @@ def run(ctx: Context, *run_args: Any, **run_kwargs: Any) -> Optional[Result]:
 def get_project_path() -> Path:
     """Returns the `cwd`."""
     return Path.cwd()
-
-
-def find_repo_root(start_path: Optional[Path] = None) -> Optional[Path]:
-    """Find the repository root by searching for .git or .jj directory.
-
-    Args:
-        start_path: Path to start searching from. Defaults to current working directory.
-
-    Returns:
-        Path to the repository root, or None if not found
-
-    """
-    current = (start_path or get_project_path()).resolve()
-    while current != current.parent:
-        if (current / '.git').is_dir() or (current / '.jj').is_dir():
-            return current
-        current = current.parent
-    return None
 
 
 def get_doc_subdir(path_project: Optional[Path] = None) -> Path:

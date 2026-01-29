@@ -7,10 +7,11 @@ from corallium.log import LOGGER
 from invoke.context import Context
 
 from corallium.code_tag_collector import write_code_tag_file
+from corallium.file_helpers import find_repo_root
 from corallium.file_search import find_project_files
 
 from calcipy.cli import task
-from calcipy.invoke_helpers import find_repo_root, get_doc_subdir
+from calcipy.invoke_helpers import get_doc_subdir
 
 from .defaults import from_ctx
 
