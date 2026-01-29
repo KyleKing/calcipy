@@ -8,9 +8,8 @@ from subprocess import CalledProcessError  # noqa: S404
 
 import pytest
 from beartype.typing import Callable, Dict
-from corallium.shell import capture_shell
-
 from corallium.file_helpers import find_repo_root
+from corallium.shell import capture_shell
 
 from calcipy.tasks.tags import collect_code_tags
 from tests.configuration import APP_DIR, TEST_DATA_DIR

@@ -6,7 +6,7 @@ requires = ["uv_build>=0.9.26"]
 ci = [
   "calcipy[lint,test,types]",
   "duty>=1.6.3",
-  "hypothesis[cli] >=6.151.3", # Use CLI with: "uv run hypothesis write calcipy.dot_dict.ddict"
+  "hypothesis[cli] >=6.151.4", # Use CLI with: "uv run hypothesis write calcipy.dot_dict.ddict"
   "pytest-asyncio >=1.3.0",
   "pytest-subprocess >=1.5.3",
   "pytest-xdist>=3.8.0",
@@ -39,7 +39,7 @@ classifiers = [
 ] # https://pypi.org/classifiers/
 dependencies = [
   "beartype >=0.22.9",
-  "corallium>=2.2.0",
+  "corallium>=2.3.0rc0",
   "invoke >=2.2.1",
 ]
 description = "Python package to simplify development"
@@ -115,7 +115,7 @@ calcipy-types = "calcipy.scripts:start_types"
 
 [tool.commitizen]
 version = "6.0.0b2"
-version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
+version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version", "uv.lock:^version"]
 
 [tool.mypy]
 check_untyped_defs = true
@@ -196,6 +196,9 @@ inline-quotes = 'single'
 known-first-party = ['calcipy']
 
 [tool.ruff.lint.per-file-ignores]
+'./calcipy/*.py' = [
+  'PLC2701', # Private name import `_collector` from external module `corallium.code_tag_collector`
+]
 './calcipy/../*.py' = [
   'INP001', # File `/<>.py` is part of an implicit namespace package. Add an `__init__.py`.
 ]

@@ -20,4 +20,4 @@ def test_sync_package_dependencies_import_emits_deprecation_warning():
 
 def test_sync_package_dependencies_reexports():
     assert callable(calcipy.experiments.sync_package_dependencies.replace_versions)
-    assert callable(calcipy.experiments.sync_package_dependencies._extract_base_version)
+    assert callable(calcipy.experiments.sync_package_dependencies._extract_base_version)  # noqa: SLF001

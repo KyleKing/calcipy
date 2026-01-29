@@ -11,6 +11,9 @@
 
 ### Refactor
 
+- move repo root to corallium
+- re-export code migrated to corallium
+- merge dj- and md-specific logic
 - support jj repos and run from anywhere
 
 ## 6.0.0b2 (2026-01-28)

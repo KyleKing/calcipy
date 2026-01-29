@@ -1,10 +1,6 @@
 version = 1
 revision = 3
 requires-python = ">=3.10.11"
-resolution-markers = [
-    "python_full_version >= '3.13'",
-    "python_full_version < '3.13'",
-]
 
 [[package]]
 name = "ansimarkup"
@@ -255,7 +251,7 @@ requires-dist = [
     { name = "beartype", specifier = ">=0.22.9" },
     { name = "calcipy", extras = ["doc", "lint", "nox", "tags", "test", "types"], marker = "extra == 'recommended'" },
     { name = "commitizen", marker = "extra == 'doc'", specifier = ">=4.12.1" },
-    { name = "corallium", specifier = ">=2.2.0" },
+    { name = "corallium", specifier = ">=2.3.0rc0" },
     { name = "griffe", marker = "extra == 'experimental'", specifier = ">=1.15.0" },
     { name = "invoke", specifier = ">=2.2.1" },
     { name = "markdown-callouts", marker = "extra == 'doc'", specifier = ">=0.4.0" },
@@ -288,7 +284,7 @@ provides-extras = ["ddict", "doc", "experimental", "lint", "nox", "recommended",
 ci = [
     { name = "calcipy", extras = ["lint", "test", "types"] },
     { name = "duty", specifier = ">=1.6.3" },
-    { name = "hypothesis", extras = ["cli"], specifier = ">=6.151.3" },
+    { name = "hypothesis", extras = ["cli"], specifier = ">=6.151.4" },
     { name = "pytest-asyncio", specifier = ">=1.3.0" },
     { name = "pytest-subprocess", specifier = ">=1.5.3" },
     { name = "pytest-xdist", specifier = ">=3.8.0" },
@@ -458,7 +454,7 @@ wheels = [
 
 [[package]]
 name = "corallium"
-version = "2.2.0"
+version = "2.3.0rc0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beartype" },
@@ -466,9 +462,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e7/5e/21fa48f5c79cae8779ce3bc65af2d08316190853eaf7e9aa82b2fa866583/corallium-2.2.0.tar.gz", hash = "sha256:6021ad469154782196d3cebb55868f325208c905fa8b0e52328796d979237d68", size = 26332, upload-time = "2026-01-28T04:42:02.802Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/78/b7/4ddd74abcc9a4dd93aeb7fb8a00ad8976379c1c819055d2db11777b1b622/corallium-2.3.0rc0.tar.gz", hash = "sha256:6cc512ea1e06e481b152224e753e2869049f6c147abc0c6170d39119179c0344", size = 27247, upload-time = "2026-01-29T04:18:38.455Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0b/93/5af01a31a5e1252fda2a25387b3c1d51b4a4e70e0d5148226ac52883b82f/corallium-2.2.0-py3-none-any.whl", hash = "sha256:497c8568832eb1c8361b82c250184ee15b6109a065fae249c045860fd2e67883", size = 30962, upload-time = "2026-01-28T04:42:01.284Z" },
+    { url = "https://files.pythonhosted.org/packages/5a/f9/d00a34890d080cbcdf5f77be87540e54fb0ab082da0385ebc7c33b51ac0b/corallium-2.3.0rc0-py3-none-any.whl", hash = "sha256:061e7d8c68576f31f45409d22e413079a4f83fa57c7dde42bf911558a5902071", size = 31916, upload-time = "2026-01-29T04:18:36.873Z" },
 ]
 
 [[package]]
@@ -748,15 +744,15 @@ wheels = [
 
 [[package]]
 name = "hypothesis"
-version = "6.151.3"
+version = "6.151.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "exceptiongroup", marker = "python_full_version < '3.11'" },
     { name = "sortedcontainers" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e9/aa/0e1aff2de954a1b11acf643519599c3da97d461cf62e312cab266aa9f855/hypothesis-6.151.3.tar.gz", hash = "sha256:31bcd884b0be8f478aa2e52f0f73be03e8f6a9a2c66706fb93410ebaa5c27bcc", size = 475822, upload-time = "2026-01-28T05:37:32.494Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/47/03/9fd03d5db09029250e69745c1600edab16fe90947636f77a12ba92d79939/hypothesis-6.151.4.tar.gz", hash = "sha256:658a62da1c3ccb36746ac2f7dc4bb1a6e76bd314e0dc54c4e1aaba2503d5545c", size = 475706, upload-time = "2026-01-29T01:30:14.985Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b4/9a/e39da18745c889c7959e0ef4b53b71522062cc94714f99ac9d5b86cb222e/hypothesis-6.151.3-py3-none-any.whl", hash = "sha256:879a4b3dec37678fd1bd3a060aaaf3eedc2aab5543d9a85e5f2a04a6445683c6", size = 543275, upload-time = "2026-01-28T05:37:30.312Z" },
+    { url = "https://files.pythonhosted.org/packages/9b/6d/01ad1b6c3b8cb2bb47eeaa9765dabc27cbe68e3b59f6cff83d5668f57780/hypothesis-6.151.4-py3-none-any.whl", hash = "sha256:a1cf7e0fdaa296d697a68ff3c0b3912c0050f07aa37e7d2ff33a966749d1d9b4", size = 543146, upload-time = "2026-01-29T01:30:12.805Z" },
 ]
 
 [package.optional-dependencies]

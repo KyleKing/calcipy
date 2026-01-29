@@ -10,9 +10,8 @@ from pathlib import Path
 
 from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
-from corallium.log import LOGGER
-
 from corallium.file_search import find_project_files_by_suffix
+from corallium.log import LOGGER
 from corallium.markup_table import format_table
 
 from calcipy.invoke_helpers import get_project_path
