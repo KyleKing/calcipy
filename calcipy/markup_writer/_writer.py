@@ -27,27 +27,13 @@ class _ParseSkipError(RuntimeError):
 class _ReplacementMachine:
     """State machine to replace content with user-specified handlers.
 
-    Uses `[cts]` and `[cte]` to demarcate sections (short for 'calcipy-template-start' or '...-end')
-
-    Previously built with `transitions`: https://pypi.org/project/transitions
+    Uses `[cts]`/`{cts}` and `[cte]`/`{cte}` to demarcate sections (calcipy-template-start/end).
 
     """
 
     def __init__(self) -> None:
         """Initialize the state machine."""
-        self.state_other = 'non-template'
-        self.state_template = 'calcipy-template-formatted'
-        self.state = self.state_other
-
-    def change_template(self) -> None:
-        """Transition from state_other to state_template."""
-        if self.state == self.state_other:
-            self.state = self.state_template
-
-    def change_end(self) -> None:
-        """Transition from state_template to state_other."""
-        if self.state == self.state_template:
-            self.state = self.state_other
+        self.in_template = False
 
     def parse(
         self,
@@ -89,10 +75,10 @@ class _ReplacementMachine:
 
         """
         lines: List[str] = []
-        if '[cte]' in line and self.state == self.state_template:  # end
-            self.change_end()
-        elif '[cts]' in line:  # start
-            self.change_template()
+        if _has_marker(line, 'end') and self.in_template:
+            self.in_template = False
+        elif _has_marker(line, 'start'):
+            self.in_template = True
             matches = [text_match for text_match in handler_lookup if text_match in line]
             if len(matches) == 1:
                 [match] = matches
@@ -100,36 +86,69 @@ class _ReplacementMachine:
                     lines.extend(handler_lookup[match](line, path_file))
                 except _ParseSkipError:
                     lines.append(line)
-                    self.change_end()
+                    self.in_template = False
             else:
                 LOGGER.debug('Could not parse. Skipping:', line=line)
                 lines.append(line)
-                self.change_end()
-        elif self.state == self.state_other:
+                self.in_template = False
+        elif not self.in_template:
             lines.append(line)
         # else: discard the lines in the template-section
         return lines
 
 
-_COMMENT_VARS = r'[<\-{%]+ \[cts\] (?P<key>[^=]+)=(?P<value>[^;]+);'
+_COMMENT_VARS = re.compile(r'[<!\-{%]+ [{\[]cts[}\]] (?P<key>[^=]+)=(?P<value>[^;]+);')
 """Regex for extracting the variable from a markup comment."""
 
 
-def _parse_var_comment(line: str, matcher: str = _COMMENT_VARS) -> Dict[str, str]:
+def _has_marker(line: str, marker_type: str) -> bool:
+    """Check if line contains a marker.
+
+    Args:
+        line: line to check
+        marker_type: 'start' for cts markers, 'end' for cte markers
+
+    Returns:
+        True if line contains the marker
+
+    """
+    marker = 'cts' if marker_type == 'start' else 'cte'
+    return f'[{marker}]' in line or f'{{{marker}}}' in line
+
+
+def _parse_var_comment(line: str) -> Dict[str, str]:
     """Parse the variable from a matching comment.
 
     Args:
         line: string from source file
-        matcher: string regex pattern to match. Default is `_COMMENT_VARS`
 
     Returns:
         Dict[str, str]: single key and value pair based on the parsed comment
 
     """
-    if match := re.compile(matcher).match(line.strip()):
-        matches = match.groupdict()
-        return {matches['key']: matches['value']}
+    if match := _COMMENT_VARS.match(line.strip()):
+        groups = match.groupdict()
+        return {groups['key']: groups['value']}
     return {}
+
+
+def _is_html_comment(line: str) -> bool:
+    """Check if line uses HTML comment style."""
+    return line.strip().startswith('<!--')
+
+
+def _format_start_marker(line: str, key: str, value: str) -> str:
+    """Format a start marker preserving the comment style from input."""
+    if _is_html_comment(line):
+        return f'<!-- {{cts}} {key}={value}; -->'
+    return f'{{% [cts] {key}={value}; %}}'
+
+
+def _format_end_marker(line: str) -> str:
+    """Format an end marker preserving the comment style from input."""
+    if _is_html_comment(line):
+        return '<!-- {cte} -->'
+    return '{% [cte] %}'
 
 
 def _handle_source_file(line: str, path_file: Path) -> List[str]:
@@ -151,9 +170,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     if not path_source.is_file():
         LOGGER.warning('Could not locate source file', path_source=path_source)
 
-    line_start = f'{{% [cts] {key}={path_rel}; %}}'
-    line_end = '{% [cte] %}'
-    return [line_start, *lines_source, line_end]
+    return [_format_start_marker(line, key, path_rel), *lines_source, _format_end_marker(line)]
 
 
 def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
@@ -215,8 +232,7 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
         raise _ParseSkipError(msg)
     coverage_data = json.loads(path_coverage.read_text())
     lines_cov = _format_cov_table(coverage_data)
-    line_end = '{% [cte] %}'
-    return [line, *lines_cov, line_end]
+    return [line, *lines_cov, _format_end_marker(line)]
 
 
 _CLI_ALLOWED_PREFIXES = ('./run', 'uv ', 'python -m ', 'python3 -m ')
@@ -263,25 +279,22 @@ def _handle_cli_output(line: str, _path_file: Path) -> List[str]:
         raise _ParseSkipError(msg)
 
     lines_output = ['```txt', *output.rstrip().split('\n'), '```']
-
-    line_start = f'{{% [cts] CLI_OUTPUT={command}; %}}'
-    line_end = '{% [cte] %}'
-    return [line_start, *lines_output, line_end]
+    return [_format_start_marker(line, 'CLI_OUTPUT', command), *lines_output, _format_end_marker(line)]
 
 
-def write_template_formatted_dj_sections(
+def write_template_formatted_sections(
     handler_lookup: Optional[HandlerLookupT] = None,
-    paths_dj: Optional[List[Path]] = None,
+    paths: Optional[List[Path]] = None,
 ) -> None:
-    """Populate the template-formatted sections of djot files with user-configured logic."""
+    """Populate the template-formatted sections of markup files with user-configured logic."""
     lookup: HandlerLookupT = handler_lookup or {
         'CLI_OUTPUT=': _handle_cli_output,
         'COVERAGE ': _handle_coverage,
         'SOURCE_FILE=': _handle_source_file,
     }
 
-    paths = paths_dj or find_project_files_by_suffix(get_project_path()).get('md') or []
-    for path_dj in paths:
-        LOGGER.text_debug('Processing', path_dj=path_dj)
-        if dj_lines := _ReplacementMachine().parse(read_lines(path_dj), lookup, path_dj):
-            path_dj.write_text('\n'.join(dj_lines) + '\n', encoding='utf-8')
+    markup_paths = paths or find_project_files_by_suffix(get_project_path()).get('md') or []
+    for path in markup_paths:
+        LOGGER.text_debug('Processing', path=path)
+        if lines := _ReplacementMachine().parse(read_lines(path), lookup, path):
+            path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
