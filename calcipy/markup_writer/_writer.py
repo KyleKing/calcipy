@@ -12,9 +12,10 @@ from beartype.typing import Any, Callable, Dict, List, Optional
 from corallium.file_helpers import read_lines
 from corallium.log import LOGGER
 
-from calcipy.file_search import find_project_files_by_suffix
+from corallium.file_search import find_project_files_by_suffix
+from corallium.markup_table import format_table
+
 from calcipy.invoke_helpers import get_project_path
-from calcipy.markup_table import format_table
 
 HandlerLookupT = Dict[str, Callable[[str, Path], List[str]]]
 """Handler Lookup."""

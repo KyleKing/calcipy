@@ -1,60 +1,12 @@
-"""Markup table formatting."""
+"""Backward compatibility shim for markup_table.
 
-from __future__ import annotations
+DEPRECATED: Use `corallium.markup_table` instead.
+"""
 
-from collections.abc import Iterable
-from itertools import starmap
-from typing import Any
+from calcipy._compat import deprecated_import
 
+deprecated_import('calcipy.markup_table', 'corallium.markup_table')
 
-def format_table(
-    headers: list[str],
-    records: list[dict[str, Any]],
-    delimiters: list[str] | None = None,
-) -> str:
-    """Returns a formatted table.
+from corallium.markup_table import format_table  # noqa: E402
 
-    Args:
-        headers: ordered keys to use as column title
-        records: list of key:row-value dictionaries
-        delimiters: optional list to allow for alignment
-
-    Raises:
-        ValueError: if failures generating the table
-
-    """
-    table = [[str(r_[col]) for col in headers] for r_ in records]
-    widths = [max(len(row[col_idx].strip()) for row in [headers, *table]) for col_idx in range(len(headers))]
-
-    def pad(values: list[str]) -> list[str]:
-        return [val.strip().ljust(widths[col_idx]) for col_idx, val in enumerate(values)]
-
-    def join(row: Iterable[str], spacer: str = ' ') -> str:
-        return f'|{spacer}' + f'{spacer}|{spacer}'.join(row) + f'{spacer}|'
-
-    def expand_delimiters(delim: str, width: int) -> str:
-        expanded = '-' * (width + 2)
-        if delim.startswith(':'):
-            expanded = ':' + expanded[1:]
-        if delim.endswith(':'):
-            expanded = expanded[:-1] + ':'
-        return expanded
-
-    if delimiters:
-        errors = []
-        if len(delimiters) != len(headers):
-            errors.append(f'Incorrect number of delimiters provided ({len(delimiters)}). Expected: ({len(headers)})')
-        allowed_delimiters = {'-', ':-', '-:', ':-:'}
-        if not all(delim in allowed_delimiters for delim in delimiters):
-            errors.append(f'Delimiters must one of ({len(allowed_delimiters)}). Received: ({len(delimiters)})')
-        if errors:
-            raise ValueError(' and '.join(errors))
-
-    delimiter_values = delimiters or ['-'] * len(headers)
-    expanded_delimiters = list(starmap(expand_delimiters, zip(delimiter_values, widths, strict=True)))
-    lines = [
-        join(pad(headers)),
-        join(expanded_delimiters, ''),
-        *[join(pad(row)) for row in table],
-    ]
-    return '\n'.join(lines)
+__all__ = ('format_table',)

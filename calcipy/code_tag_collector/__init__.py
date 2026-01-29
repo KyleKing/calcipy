@@ -1,6 +1,21 @@
-try:  # noqa: RUF067
-    from ._collector import write_code_tag_file
-except ImportError as exc:
-    raise RuntimeError("The 'calcipy[tags]' extras are missing") from exc
+"""Backward compatibility shim for code_tag_collector.
 
-__all__ = ('write_code_tag_file',)
+DEPRECATED: Use `corallium.code_tag_collector` instead.
+"""
+
+from calcipy._compat import deprecated_import
+
+deprecated_import('calcipy.code_tag_collector', 'corallium.code_tag_collector')
+
+try:  # noqa: RUF067
+    from corallium.code_tag_collector import (  # noqa: E402
+        CODE_TAG_RE,
+        COMMON_CODE_TAGS,
+        SKIP_PHRASE,
+        write_code_tag_file,
+    )
+except ImportError as exc:
+    msg = "The 'arrow' package is required for code_tag_collector. Install with: pip install arrow"
+    raise ImportError(msg) from exc
+
+__all__ = ('CODE_TAG_RE', 'COMMON_CODE_TAGS', 'SKIP_PHRASE', 'write_code_tag_file')

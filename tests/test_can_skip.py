@@ -1,29 +1,23 @@
-import time
+"""Test backward compatibility shim for can_skip.
 
-import pytest
+Functional tests are in the corallium repository.
+"""
 
-from calcipy.can_skip import can_skip
+import importlib
+import warnings
+
+import calcipy.can_skip
 
 
-@pytest.mark.parametrize(
-    ('create_order', 'prerequisites', 'targets', 'expected'),
-    [
-        (['uv.lock', 'cache.json'], ['uv.lock'], ['cache.json'], True),
-        (['cache.json', 'uv.lock'], ['uv.lock'], ['cache.json'], False),
-        (['uv.lock', 'pyproject.toml', 'cache.json'], ['pyproject.toml', 'uv.lock'], ['cache.json'], True),
-        (['uv.lock', 'cache.json', 'pyproject.toml'], ['pyproject.toml', 'uv.lock'], ['cache.json'], False),
-        (['uv.lock', 'summary.txt', 'cache.json'], ['uv.lock'], ['cache.json', 'summary.txt'], True),
-        (['summary.txt', 'uv.lock', 'cache.json'], ['uv.lock'], ['cache.json', 'summary.txt'], False),
-    ],
-)
-def test_skip(fix_test_cache, create_order, prerequisites, targets, expected):
-    for sub_pth in create_order:
-        (fix_test_cache / sub_pth).write_text('')
-        time.sleep(0.25)  # Reduces flakiness on Windows
+def test_can_skip_import_emits_deprecation_warning():
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter('always')
+        importlib.reload(calcipy.can_skip)
 
-    result = can_skip(
-        prerequisites=[fix_test_cache / sub_pth for sub_pth in prerequisites],
-        targets=[fix_test_cache / sub_pth for sub_pth in targets],
-    )
+        deprecation_warnings = [x for x in w if issubclass(x.category, DeprecationWarning)]
+        assert any('corallium.can_skip' in str(x.message) for x in deprecation_warnings)
 
-    assert result is expected
+
+def test_can_skip_reexports():
+    assert callable(calcipy.can_skip.can_skip)
+    assert callable(calcipy.can_skip.dont_skip)

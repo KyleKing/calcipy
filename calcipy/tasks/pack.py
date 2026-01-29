@@ -5,7 +5,7 @@ from corallium.file_helpers import PROJECT_TOML, get_lock
 from corallium.log import LOGGER
 from invoke.context import Context
 
-from calcipy import can_skip  # Required for mocking can_skip.can_skip
+from corallium import can_skip  # Required for mocking can_skip.can_skip
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 
@@ -58,6 +58,6 @@ def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
     Uses the current working directory and should be run after `uv update`.
 
     """
-    from calcipy.experiments import sync_package_dependencies  # noqa: PLC0415
+    from corallium import sync_dependencies  # noqa: PLC0415
 
-    sync_package_dependencies.replace_versions(path_lock=get_lock())
+    sync_dependencies.replace_versions(path_lock=get_lock())
