@@ -1185,34 +1185,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../can_skip/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Can skip
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../cli/" class="md-nav__link">
         
   
@@ -1269,34 +1241,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../file_search/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    File search
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../invoke_helpers/" class="md-nav__link">
         
   
@@ -1305,34 +1249,6 @@
     
   
     Invoke helpers
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../markdown_table/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Markdown table
   
 
     
@@ -1389,10 +1305,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_5" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_5" id="__nav_3_1_5_label" tabindex="0">
             
   
   
@@ -1410,8 +1326,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1477,34 +1393,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../experiments/sync_package_dependencies/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sync package dependencies
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1530,10 +1418,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_1_9" id="__nav_3_1_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_6" id="__nav_3_1_6_label" tabindex="0">
             
   
   
@@ -1551,8 +1439,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_1_9">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2154,36 +2042,36 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="22 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="23 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="24 "></span>        <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="s1">&#39;Last tag, can be provided with `--tag=&quot;$(git tag -l &quot;v*&quot; | sort | tail -n 1)&quot;`&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="25 "></span>        <span class="s1">&#39;tag_prefix&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional tag prefix, such as &quot;v&quot;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="26 "></span>        <span class="s1">&#39;pkg_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional package name. If not provided, will read the uv pyproject.toml file&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="27 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="28 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="29 "></span><span class="k">def</span><span class="w"> </span><span class="nf">bump_tag</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tag_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG001</span>
-<span class="linenos" data-linenos="30 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Experiment with bumping the git tag using `griffe` (experimental).</span>
-<span class="linenos" data-linenos="31 "></span>
-<span class="linenos" data-linenos="32 "></span><span class="sd">    Example for `calcipy`:</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="24 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="26 "></span>        <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="s1">&#39;Last tag, can be provided with `--tag=&quot;$(git tag -l &quot;v*&quot; | sort | tail -n 1)&quot;`&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="27 "></span>        <span class="s1">&#39;tag_prefix&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional tag prefix, such as &quot;v&quot;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="28 "></span>        <span class="s1">&#39;pkg_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Optional package name. If not provided, will read the uv pyproject.toml file&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="29 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="30 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="31 "></span><span class="k">def</span><span class="w"> </span><span class="nf">bump_tag</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tag_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pkg_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG001</span>
+<span class="linenos" data-linenos="32 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Experiment with bumping the git tag using `griffe` (experimental).</span>
 <span class="linenos" data-linenos="33 "></span>
-<span class="linenos" data-linenos="34 "></span><span class="sd">    ```sh</span>
-<span class="linenos" data-linenos="35 "></span><span class="sd">    ./run pack.bump-tag --tag=&quot;$(git tag -l &quot;*&quot; | sort | head -n 5 | tail -n 1)&quot; --tag-prefix=&quot;&quot;</span>
-<span class="linenos" data-linenos="36 "></span><span class="sd">    ```</span>
-<span class="linenos" data-linenos="37 "></span>
-<span class="linenos" data-linenos="38 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="39 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="p">:</span>
-<span class="linenos" data-linenos="40 "></span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;tag must not be empty&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="41 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pkg_name</span><span class="p">:</span>
-<span class="linenos" data-linenos="42 "></span>        <span class="n">pkg_name</span> <span class="o">=</span> <span class="n">file_helpers</span><span class="o">.</span><span class="n">read_pyproject</span><span class="p">()[</span><span class="s1">&#39;project&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="linenos" data-linenos="43 "></span>
-<span class="linenos" data-linenos="44 "></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">calcipy.experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">bump_programmatically</span>  <span class="c1"># noqa: PLC0415</span>
+<span class="linenos" data-linenos="34 "></span><span class="sd">    Example for `calcipy`:</span>
+<span class="linenos" data-linenos="35 "></span>
+<span class="linenos" data-linenos="36 "></span><span class="sd">    ```sh</span>
+<span class="linenos" data-linenos="37 "></span><span class="sd">    ./run pack.bump-tag --tag=&quot;$(git tag -l &quot;*&quot; | sort | head -n 5 | tail -n 1)&quot; --tag-prefix=&quot;&quot;</span>
+<span class="linenos" data-linenos="38 "></span><span class="sd">    ```</span>
+<span class="linenos" data-linenos="39 "></span>
+<span class="linenos" data-linenos="40 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="41 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">tag</span><span class="p">:</span>
+<span class="linenos" data-linenos="42 "></span>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;tag must not be empty&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="43 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">pkg_name</span><span class="p">:</span>
+<span class="linenos" data-linenos="44 "></span>        <span class="n">pkg_name</span> <span class="o">=</span> <span class="n">file_helpers</span><span class="o">.</span><span class="n">read_pyproject</span><span class="p">()[</span><span class="s1">&#39;project&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
 <span class="linenos" data-linenos="45 "></span>
-<span class="linenos" data-linenos="46 "></span>    <span class="n">new_version</span> <span class="o">=</span> <span class="n">bump_programmatically</span><span class="o">.</span><span class="n">bump_tag</span><span class="p">(</span>
-<span class="linenos" data-linenos="47 "></span>        <span class="n">pkg_name</span><span class="o">=</span><span class="n">pkg_name</span><span class="p">,</span>
-<span class="linenos" data-linenos="48 "></span>        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
-<span class="linenos" data-linenos="49 "></span>        <span class="n">tag_prefix</span><span class="o">=</span><span class="n">tag_prefix</span><span class="p">,</span>
-<span class="linenos" data-linenos="50 "></span>    <span class="p">)</span>
-<span class="linenos" data-linenos="51 "></span>    <span class="n">LOGGER</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">new_version</span><span class="p">)</span>
+<span class="linenos" data-linenos="46 "></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">calcipy.experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">bump_programmatically</span>  <span class="c1"># noqa: PLC0415</span>
+<span class="linenos" data-linenos="47 "></span>
+<span class="linenos" data-linenos="48 "></span>    <span class="n">new_version</span> <span class="o">=</span> <span class="n">bump_programmatically</span><span class="o">.</span><span class="n">bump_tag</span><span class="p">(</span>
+<span class="linenos" data-linenos="49 "></span>        <span class="n">pkg_name</span><span class="o">=</span><span class="n">pkg_name</span><span class="p">,</span>
+<span class="linenos" data-linenos="50 "></span>        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
+<span class="linenos" data-linenos="51 "></span>        <span class="n">tag_prefix</span><span class="o">=</span><span class="n">tag_prefix</span><span class="p">,</span>
+<span class="linenos" data-linenos="52 "></span>    <span class="p">)</span>
+<span class="linenos" data-linenos="53 "></span>    <span class="n">LOGGER</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">new_version</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -2208,13 +2096,13 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="13 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="14 "></span><span class="k">def</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="15 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Update package manager lock file.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="16 "></span>    <span class="k">if</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">PROJECT_TOML</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">get_lock</span><span class="p">()]):</span>
-<span class="linenos" data-linenos="17 "></span>        <span class="k">return</span>  <span class="c1"># Exit early</span>
-<span class="linenos" data-linenos="18 "></span>
-<span class="linenos" data-linenos="19 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;uv lock&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="15 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="16 "></span><span class="k">def</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="17 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Update package manager lock file.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="18 "></span>    <span class="k">if</span> <span class="n">can_skip</span><span class="o">.</span><span class="n">can_skip</span><span class="p">(</span><span class="n">prerequisites</span><span class="o">=</span><span class="p">[</span><span class="n">PROJECT_TOML</span><span class="p">],</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">get_lock</span><span class="p">()]):</span>
+<span class="linenos" data-linenos="19 "></span>        <span class="k">return</span>  <span class="c1"># Exit early</span>
+<span class="linenos" data-linenos="20 "></span>
+<span class="linenos" data-linenos="21 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;uv lock&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -2240,16 +2128,16 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/tasks/pack.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="54 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="p">[</span><span class="n">lock</span><span class="p">])</span>
-<span class="linenos" data-linenos="55 "></span><span class="k">def</span><span class="w"> </span><span class="nf">sync_pyproject_versions</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG001</span>
-<span class="linenos" data-linenos="56 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Experiment with setting the pyproject.toml dependencies to the version from uv.lock (experimental).</span>
-<span class="linenos" data-linenos="57 "></span>
-<span class="linenos" data-linenos="58 "></span><span class="sd">    Uses the current working directory and should be run after `uv update`.</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="56 "></span><span class="nd">@task</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="p">[</span><span class="n">lock</span><span class="p">])</span>
+<span class="linenos" data-linenos="57 "></span><span class="k">def</span><span class="w"> </span><span class="nf">sync_pyproject_versions</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG001</span>
+<span class="linenos" data-linenos="58 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Experiment with setting the pyproject.toml dependencies to the version from uv.lock (experimental).</span>
 <span class="linenos" data-linenos="59 "></span>
-<span class="linenos" data-linenos="60 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="61 "></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">calcipy.experiments</span><span class="w"> </span><span class="kn">import</span> <span class="n">sync_package_dependencies</span>  <span class="c1"># noqa: PLC0415</span>
-<span class="linenos" data-linenos="62 "></span>
-<span class="linenos" data-linenos="63 "></span>    <span class="n">sync_package_dependencies</span><span class="o">.</span><span class="n">replace_versions</span><span class="p">(</span><span class="n">path_lock</span><span class="o">=</span><span class="n">get_lock</span><span class="p">())</span>
+<span class="linenos" data-linenos="60 "></span><span class="sd">    Uses the current working directory and should be run after `uv update`.</span>
+<span class="linenos" data-linenos="61 "></span>
+<span class="linenos" data-linenos="62 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="63 "></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">corallium</span><span class="w"> </span><span class="kn">import</span> <span class="n">sync_dependencies</span>  <span class="c1"># noqa: PLC0415</span>
+<span class="linenos" data-linenos="64 "></span>
+<span class="linenos" data-linenos="65 "></span>    <span class="n">sync_dependencies</span><span class="o">.</span><span class="n">replace_versions</span><span class="p">(</span><span class="n">path_lock</span><span class="o">=</span><span class="n">get_lock</span><span class="p">())</span>
 </code></pre></div>
             </details>
     </div>

@@ -1185,34 +1185,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../can_skip/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Can skip
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../cli/" class="md-nav__link">
         
   
@@ -1269,34 +1241,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../file_search/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    File search
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../invoke_helpers/" class="md-nav__link">
         
   
@@ -1305,34 +1249,6 @@
     
   
     Invoke helpers
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../markdown_table/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Markdown table
   
 
     
@@ -1389,10 +1305,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_5" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_5" id="__nav_3_1_5_label" tabindex="0">
             
   
   
@@ -1410,8 +1326,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1477,34 +1393,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../experiments/sync_package_dependencies/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sync package dependencies
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1530,10 +1418,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_1_9" id="__nav_3_1_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_6" id="__nav_3_1_6_label" tabindex="0">
             
   
   
@@ -1551,8 +1439,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_1_9">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2097,53 +1985,94 @@
 
 
 <a href="#calcipy.tasks.tags.collect_code_tags" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">collect_code_tags</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">doc_sub_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag_order</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">collect_code_tags</span><span class="p">(</span>
+    <span class="n">ctx</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">base_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="n">doc_sub_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_order</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">regex</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">ignore_patterns</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">ignore_repo_root</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>Create a <code>CODE_TAG_SUMMARY.md</code> with a table for TODO- and FIXME-style code comments.</p>
+<p>Works in git/jj repositories (preferred) or standalone directories.
+Git blame links and timestamps available only in git repositories.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/tasks/tags.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="16 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="17 "></span>    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="linenos" data-linenos="18 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="19 "></span>        <span class="s1">&#39;base_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;Working Directory&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="20 "></span>        <span class="s1">&#39;doc_sub_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;Subdirectory for output of the code tag summary file&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="21 "></span>        <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;Code Tag Summary Filename&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="22 "></span>        <span class="s1">&#39;tag_order&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordered list of code tags to locate (Comma-separated)&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="23 "></span>        <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="s1">&#39;Custom Code Tag Regex. Must contain &quot;</span><span class="si">{tag}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="24 "></span>        <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">:</span> <span class="s1">&#39;Glob patterns to ignore files and directories when searching (Comma-separated)&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="25 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="26 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="27 "></span><span class="k">def</span><span class="w"> </span><span class="nf">collect_code_tags</span><span class="p">(</span>  <span class="c1"># noqa: PLR0917</span>
-<span class="linenos" data-linenos="28 "></span>    <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span>
-<span class="linenos" data-linenos="29 "></span>    <span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="30 "></span>    <span class="n">doc_sub_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="31 "></span>    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="linenos" data-linenos="32 "></span>    <span class="n">tag_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="33 "></span>    <span class="n">regex</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="34 "></span>    <span class="n">ignore_patterns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="35 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="36 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="37 "></span>    <span class="n">pth_base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-<span class="linenos" data-linenos="38 "></span>    <span class="n">pth_docs</span> <span class="o">=</span> <span class="n">pth_base_dir</span> <span class="o">/</span> <span class="n">doc_sub_dir</span> <span class="k">if</span> <span class="n">doc_sub_dir</span> <span class="k">else</span> <span class="n">get_doc_subdir</span><span class="p">()</span>
-<span class="linenos" data-linenos="39 "></span>    <span class="k">if</span> <span class="n">filename</span> <span class="ow">and</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
-<span class="linenos" data-linenos="40 "></span>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unexpected slash in filename. You should consider setting `--doc-sub-dir` instead&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="41 "></span>    <span class="n">path_tag_summary</span> <span class="o">=</span> <span class="n">pth_docs</span> <span class="o">/</span> <span class="p">(</span><span class="n">filename</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">))</span>
-<span class="linenos" data-linenos="42 "></span>    <span class="n">patterns</span> <span class="o">=</span> <span class="p">(</span><span class="n">ignore_patterns</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="n">paths_source</span> <span class="o">=</span> <span class="n">find_project_files</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="p">[</span><span class="n">pattern</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">patterns</span> <span class="k">if</span> <span class="n">pattern</span><span class="p">])</span>
-<span class="linenos" data-linenos="44 "></span>
-<span class="linenos" data-linenos="45 "></span>    <span class="n">write_code_tag_file</span><span class="p">(</span>
-<span class="linenos" data-linenos="46 "></span>        <span class="n">path_tag_summary</span><span class="o">=</span><span class="n">path_tag_summary</span><span class="p">,</span>
-<span class="linenos" data-linenos="47 "></span>        <span class="n">paths_source</span><span class="o">=</span><span class="n">paths_source</span><span class="p">,</span>
-<span class="linenos" data-linenos="48 "></span>        <span class="n">base_dir</span><span class="o">=</span><span class="n">pth_base_dir</span><span class="p">,</span>
-<span class="linenos" data-linenos="49 "></span>        <span class="n">regex</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span>
-<span class="linenos" data-linenos="50 "></span>        <span class="n">tags</span><span class="o">=</span><span class="n">tag_order</span><span class="p">,</span>
-<span class="linenos" data-linenos="51 "></span>        <span class="n">header</span><span class="o">=</span><span class="s1">&#39;# Collected Code Tags&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="52 "></span>    <span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="18 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="19 "></span>    <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="linenos" data-linenos="20 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="21 "></span>        <span class="s1">&#39;base_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;Working Directory&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="22 "></span>        <span class="s1">&#39;doc_sub_dir&#39;</span><span class="p">:</span> <span class="s1">&#39;Subdirectory for output of the code tag summary file&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="23 "></span>        <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;Code Tag Summary Filename&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="24 "></span>        <span class="s1">&#39;tag_order&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordered list of code tags to locate (Comma-separated)&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="25 "></span>        <span class="s1">&#39;regex&#39;</span><span class="p">:</span> <span class="s1">&#39;Custom Code Tag Regex. Must contain &quot;</span><span class="si">{tag}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="26 "></span>        <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">:</span> <span class="s1">&#39;Glob patterns to ignore files and directories when searching (Comma-separated). &#39;</span>
+<span class="linenos" data-linenos="27 "></span>        <span class="s1">&#39;When outside git repo, defaults to common build/cache directories.&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="28 "></span>        <span class="s1">&#39;ignore_repo_root&#39;</span><span class="p">:</span> <span class="s1">&#39;Ignore repository root check and use current directory as base&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="29 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="30 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="31 "></span><span class="k">def</span><span class="w"> </span><span class="nf">collect_code_tags</span><span class="p">(</span>
+<span class="linenos" data-linenos="32 "></span>    <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span>
+<span class="linenos" data-linenos="33 "></span>    <span class="o">*</span><span class="p">,</span>
+<span class="linenos" data-linenos="34 "></span>    <span class="n">base_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="35 "></span>    <span class="n">doc_sub_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="36 "></span>    <span class="n">filename</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="linenos" data-linenos="37 "></span>    <span class="n">tag_order</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="38 "></span>    <span class="n">regex</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="39 "></span>    <span class="n">ignore_patterns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="40 "></span>    <span class="n">ignore_repo_root</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="linenos" data-linenos="41 "></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="42 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.</span>
+<span class="linenos" data-linenos="43 "></span>
+<span class="linenos" data-linenos="44 "></span><span class="sd">    Works in git/jj repositories (preferred) or standalone directories.</span>
+<span class="linenos" data-linenos="45 "></span><span class="sd">    Git blame links and timestamps available only in git repositories.</span>
+<span class="linenos" data-linenos="46 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="47 "></span>    <span class="n">pth_base_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">base_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="linenos" data-linenos="48 "></span>
+<span class="linenos" data-linenos="49 "></span>    <span class="c1"># Find repository root (git or jj-vcs)</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="n">repo_root</span> <span class="o">=</span> <span class="n">find_repo_root</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">)</span>
+<span class="linenos" data-linenos="51 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">repo_root</span><span class="p">:</span>
+<span class="linenos" data-linenos="52 "></span>        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+<span class="linenos" data-linenos="53 "></span>            <span class="s1">&#39;Not in a repository. Using current directory as base. Git blame links will not be available.&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="54 "></span>            <span class="n">base_dir</span><span class="o">=</span><span class="n">pth_base_dir</span><span class="p">,</span>
+<span class="linenos" data-linenos="55 "></span>        <span class="p">)</span>
+<span class="linenos" data-linenos="56 "></span>        <span class="n">repo_root</span> <span class="o">=</span> <span class="n">pth_base_dir</span>
+<span class="linenos" data-linenos="57 "></span>
+<span class="linenos" data-linenos="58 "></span>    <span class="c1"># Use repo root as base directory unless ignore_repo_root flag is set</span>
+<span class="linenos" data-linenos="59 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore_repo_root</span><span class="p">:</span>
+<span class="linenos" data-linenos="60 "></span>        <span class="n">cwd</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="linenos" data-linenos="61 "></span>        <span class="k">if</span> <span class="n">cwd</span> <span class="o">!=</span> <span class="n">repo_root</span><span class="p">:</span>
+<span class="linenos" data-linenos="62 "></span>            <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+<span class="linenos" data-linenos="63 "></span>                <span class="s1">&#39;Running collect_code_tags from subdirectory. Output will be relative to repository root.&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="64 "></span>                <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">,</span>
+<span class="linenos" data-linenos="65 "></span>                <span class="n">repo_root</span><span class="o">=</span><span class="n">repo_root</span><span class="p">,</span>
+<span class="linenos" data-linenos="66 "></span>            <span class="p">)</span>
+<span class="linenos" data-linenos="67 "></span>        <span class="n">pth_base_dir</span> <span class="o">=</span> <span class="n">repo_root</span>
+<span class="linenos" data-linenos="68 "></span>
+<span class="linenos" data-linenos="69 "></span>    <span class="n">pth_docs</span> <span class="o">=</span> <span class="n">pth_base_dir</span> <span class="o">/</span> <span class="n">doc_sub_dir</span> <span class="k">if</span> <span class="n">doc_sub_dir</span> <span class="k">else</span> <span class="n">get_doc_subdir</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">)</span>
+<span class="linenos" data-linenos="70 "></span>    <span class="k">if</span> <span class="n">filename</span> <span class="ow">and</span> <span class="s1">&#39;/&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+<span class="linenos" data-linenos="71 "></span>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unexpected slash in filename. You should consider setting `--doc-sub-dir` instead&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="72 "></span>    <span class="n">path_tag_summary</span> <span class="o">=</span> <span class="n">pth_docs</span> <span class="o">/</span> <span class="p">(</span><span class="n">filename</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">))</span>
+<span class="linenos" data-linenos="73 "></span>    <span class="n">patterns</span> <span class="o">=</span> <span class="p">(</span><span class="n">ignore_patterns</span> <span class="ow">or</span> <span class="n">from_ctx</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore_patterns&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="74 "></span>    <span class="n">paths_source</span> <span class="o">=</span> <span class="n">find_project_files</span><span class="p">(</span><span class="n">pth_base_dir</span><span class="p">,</span> <span class="n">ignore_patterns</span><span class="o">=</span><span class="p">[</span><span class="n">pattern</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">patterns</span> <span class="k">if</span> <span class="n">pattern</span><span class="p">])</span>
+<span class="linenos" data-linenos="75 "></span>
+<span class="linenos" data-linenos="76 "></span>    <span class="n">write_code_tag_file</span><span class="p">(</span>
+<span class="linenos" data-linenos="77 "></span>        <span class="n">path_tag_summary</span><span class="o">=</span><span class="n">path_tag_summary</span><span class="p">,</span>
+<span class="linenos" data-linenos="78 "></span>        <span class="n">paths_source</span><span class="o">=</span><span class="n">paths_source</span><span class="p">,</span>
+<span class="linenos" data-linenos="79 "></span>        <span class="n">base_dir</span><span class="o">=</span><span class="n">pth_base_dir</span><span class="p">,</span>
+<span class="linenos" data-linenos="80 "></span>        <span class="n">regex</span><span class="o">=</span><span class="n">regex</span><span class="p">,</span>
+<span class="linenos" data-linenos="81 "></span>        <span class="n">tags</span><span class="o">=</span><span class="n">tag_order</span><span class="p">,</span>
+<span class="linenos" data-linenos="82 "></span>        <span class="n">header</span><span class="o">=</span><span class="s1">&#39;# Collected Code Tags&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="83 "></span>    <span class="p">)</span>
 </code></pre></div>
             </details>
     </div>

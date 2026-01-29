@@ -1185,34 +1185,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../can_skip/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Can skip
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../cli/" class="md-nav__link">
         
   
@@ -1269,34 +1241,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../file_search/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    File search
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../invoke_helpers/" class="md-nav__link">
         
   
@@ -1305,34 +1249,6 @@
     
   
     Invoke helpers
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../markdown_table/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Markdown table
   
 
     
@@ -1389,10 +1305,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_5" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_8" id="__nav_3_1_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_5" id="__nav_3_1_5_label" tabindex="0">
             
   
   
@@ -1410,8 +1326,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1477,34 +1393,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../experiments/sync_package_dependencies/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Sync package dependencies
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1530,10 +1418,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_1_9" id="__nav_3_1_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1_6" id="__nav_3_1_6_label" tabindex="0">
             
   
   
@@ -1551,8 +1439,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_1_9">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2231,15 +2119,15 @@
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="48 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="49 "></span>    <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">write</span><span class="p">],</span>
-<span class="linenos" data-linenos="50 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos" data-linenos="51 "></span>        <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;Specify prerelease suffix for version bump (alpha, beta, rc)&#39;</span><span class="p">,</span>
-<span class="linenos" data-linenos="52 "></span>    <span class="p">},</span>
-<span class="linenos" data-linenos="53 "></span><span class="p">)</span>
-<span class="linenos" data-linenos="54 "></span><span class="k">def</span><span class="w"> </span><span class="nf">bump</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="55 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="56 "></span>    <span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@task</span><span class="p">(</span>
+<span class="linenos" data-linenos="47 "></span>    <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">write</span><span class="p">],</span>
+<span class="linenos" data-linenos="48 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos" data-linenos="49 "></span>        <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;Specify prerelease suffix for version bump (alpha, beta, rc)&#39;</span><span class="p">,</span>
+<span class="linenos" data-linenos="50 "></span>    <span class="p">},</span>
+<span class="linenos" data-linenos="51 "></span><span class="p">)</span>
+<span class="linenos" data-linenos="52 "></span><span class="k">def</span><span class="w"> </span><span class="nf">bump</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="53 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="54 "></span>    <span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -2266,10 +2154,8 @@
               <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="40 "></span><span class="k">def</span><span class="w"> </span><span class="nf">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="linenos" data-linenos="41 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="42 "></span>    <span class="n">check_installed</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;gh&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">GH_MESSAGE</span><span class="p">)</span>
-<span class="linenos" data-linenos="43 "></span>
-<span class="linenos" data-linenos="44 "></span>    <span class="n">opt_cz_args</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39; --prerelease=</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">suffix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-<span class="linenos" data-linenos="45 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_m</span><span class="p">()</span><span class="si">}</span><span class="s1"> commitizen bump</span><span class="si">{</span><span class="n">opt_cz_args</span><span class="si">}</span><span class="s1"> --annotated-tag --no-verify --gpg-sign&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="42 "></span>    <span class="n">opt_cz_args</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39; --prerelease=</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">suffix</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+<span class="linenos" data-linenos="43 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_m</span><span class="p">()</span><span class="si">}</span><span class="s1"> commitizen bump</span><span class="si">{</span><span class="n">opt_cz_args</span><span class="si">}</span><span class="s1"> --annotated-tag --no-verify --gpg-sign&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
