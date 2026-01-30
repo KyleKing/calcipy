@@ -3,6 +3,7 @@
 import os
 import shutil
 from contextlib import contextmanager, suppress
+from dataclasses import dataclass
 from pathlib import Path
 from subprocess import CalledProcessError  # noqa: S404
 
@@ -27,41 +28,38 @@ def _in_directory(path: Path):
 
 
 def _init_git_repo(repo_dir: Path) -> None:
-    """Initialize a git repository with basic configuration."""
     capture_shell('git init', cwd=repo_dir)
     capture_shell('git config user.email "test@test.com"', cwd=repo_dir)
     capture_shell('git config user.name "Test"', cwd=repo_dir)
 
 
 def _commit_files(repo_dir: Path, message: str = 'initial') -> None:
-    """Stage and commit all files in repository."""
     capture_shell('git add .', cwd=repo_dir)
     capture_shell(f'git commit -m "{message}"', cwd=repo_dir)
 
 
-def _jj_available() -> bool:
-    """Check if jj is available on the system."""
-    return shutil.which('jj') is not None
-
-
 def _init_jj_repo(repo_dir: Path) -> None:
-    """Initialize a pure jj repository (no git colocation)."""
     capture_shell('jj git init --no-colocate', cwd=repo_dir)
     capture_shell('jj config set --repo user.email "test@test.com"', cwd=repo_dir)
     capture_shell('jj config set --repo user.name "Test"', cwd=repo_dir)
 
 
 def _jj_track_files(repo_dir: Path) -> None:
-    """Track and commit files in jj repository."""
     with suppress(CalledProcessError):
         capture_shell('jj new', cwd=repo_dir)
 
 
-@pytest.fixture
-def skip_if_no_jj():
-    """Skip test if jj is not available."""
-    if not _jj_available():
-        pytest.skip('jj not available on system')
+@dataclass(frozen=True)
+class _VcsSetup:
+    init: Callable[..., None]
+    snapshot: Callable[..., None]
+
+
+_GIT = _VcsSetup(init=_init_git_repo, snapshot=_commit_files)
+_JJ = _VcsSetup(init=_init_jj_repo, snapshot=_jj_track_files)
+
+_skip_no_jj = pytest.mark.skipif(not shutil.which('jj'), reason='jj not available')
+_vcs_params = [pytest.param(_GIT, id='git'), pytest.param(_JJ, id='jj', marks=_skip_no_jj)]
 
 
 def _merge_path_kwargs(kwargs: Dict) -> Path:
@@ -117,17 +115,18 @@ def test_tags(ctx, task, kwargs: Dict, validator: Callable[[Dict], None]):
     validator(kwargs)
 
 
-def test_collect_code_tags_from_subdirectory_uses_repo_root(ctx, tmp_path):
+@pytest.mark.parametrize('vcs', _vcs_params)
+def test_collect_code_tags_from_subdirectory_uses_repo_root(ctx, tmp_path, vcs):
     repo_dir = tmp_path / 'repo'
     repo_dir.mkdir()
     sub_dir = repo_dir / 'subdir'
     sub_dir.mkdir()
 
-    _init_git_repo(repo_dir)
+    vcs.init(repo_dir)
     (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
     (repo_dir / 'root.py').write_text('# TODO: root task')
     (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
-    _commit_files(repo_dir)
+    vcs.snapshot(repo_dir)
 
     docs_dir = repo_dir / 'docs' / 'docs'
     docs_dir.mkdir(parents=True)
@@ -137,6 +136,9 @@ def test_collect_code_tags_from_subdirectory_uses_repo_root(ctx, tmp_path):
 
         code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
         assert code_tag_file.is_file(), f'File should be created at repo root {code_tag_file}'
+        content = code_tag_file.read_text()
+        assert 'root task' in content
+        assert 'subdirectory task' in content
 
         sub_docs_dir = sub_dir / 'docs' / 'docs'
         if sub_docs_dir.exists():
@@ -145,16 +147,17 @@ def test_collect_code_tags_from_subdirectory_uses_repo_root(ctx, tmp_path):
         code_tag_file.unlink()
 
 
-def test_collect_code_tags_ignore_repo_root_flag(ctx, tmp_path):
+@pytest.mark.parametrize('vcs', _vcs_params)
+def test_collect_code_tags_ignore_repo_root_flag(ctx, tmp_path, vcs):
     repo_dir = tmp_path / 'repo'
     repo_dir.mkdir()
     sub_dir = repo_dir / 'subdir'
     sub_dir.mkdir()
 
-    _init_git_repo(repo_dir)
+    vcs.init(repo_dir)
     (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
     (sub_dir / '.copier-answers.yml').write_text('doc_dir: docs')
-    _commit_files(repo_dir)
+    vcs.snapshot(repo_dir)
 
     docs_dir = sub_dir / 'docs' / 'docs'
     docs_dir.mkdir(parents=True)
@@ -167,16 +170,17 @@ def test_collect_code_tags_ignore_repo_root_flag(ctx, tmp_path):
         code_tag_file.unlink()
 
 
-def test_collect_code_tags_copier_answers_at_repo_root(ctx, tmp_path):
+@pytest.mark.parametrize('vcs', _vcs_params)
+def test_collect_code_tags_copier_answers_at_repo_root(ctx, tmp_path, vcs):
     repo_dir = tmp_path / 'repo'
     repo_dir.mkdir()
     sub_dir = repo_dir / 'subdir'
     sub_dir.mkdir()
 
-    _init_git_repo(repo_dir)
+    vcs.init(repo_dir)
     (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
     (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
-    _commit_files(repo_dir)
+    vcs.snapshot(repo_dir)
 
     docs_dir = repo_dir / 'docs' / 'docs'
     docs_dir.mkdir(parents=True)
@@ -210,7 +214,8 @@ def test_collect_code_tags_jj_repo(ctx, tmp_path):
         code_tag_file.unlink()
 
 
-def test_collect_code_tags_pure_jj_repo(ctx, tmp_path, skip_if_no_jj):
+@_skip_no_jj
+def test_collect_code_tags_pure_jj_repo(ctx, tmp_path):
     repo_dir = tmp_path / 'pure_jj_repo'
     repo_dir.mkdir()
 
@@ -233,77 +238,8 @@ def test_collect_code_tags_pure_jj_repo(ctx, tmp_path, skip_if_no_jj):
         code_tag_file.unlink()
 
 
-def test_collect_code_tags_pure_jj_from_subdirectory(ctx, tmp_path, skip_if_no_jj):
-    repo_dir = tmp_path / 'jj_repo'
-    repo_dir.mkdir()
-    sub_dir = repo_dir / 'subdir'
-    sub_dir.mkdir()
-
-    _init_jj_repo(repo_dir)
-    (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
-    (repo_dir / 'root.py').write_text('# TODO: root task')
-    (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
-    _jj_track_files(repo_dir)
-
-    docs_dir = repo_dir / 'docs' / 'docs'
-    docs_dir.mkdir(parents=True)
-
-    with _in_directory(sub_dir):
-        collect_code_tags(ctx)
-
-        code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
-        assert code_tag_file.is_file(), f'File should be created at repo root {code_tag_file}'
-        content = code_tag_file.read_text()
-        assert 'root task' in content
-        assert 'subdirectory task' in content
-        code_tag_file.unlink()
-
-
-def test_collect_code_tags_ignore_repo_root_flag_jj(ctx, tmp_path, skip_if_no_jj):
-    repo_dir = tmp_path / 'repo'
-    repo_dir.mkdir()
-    sub_dir = repo_dir / 'subdir'
-    sub_dir.mkdir()
-
-    _init_jj_repo(repo_dir)
-    (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
-    (sub_dir / '.copier-answers.yml').write_text('doc_dir: docs')
-    _jj_track_files(repo_dir)
-
-    docs_dir = sub_dir / 'docs' / 'docs'
-    docs_dir.mkdir(parents=True)
-
-    with _in_directory(sub_dir):
-        collect_code_tags(ctx, ignore_repo_root=True)
-
-        code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
-        assert code_tag_file.is_file(), f'File should be created in subdirectory {code_tag_file}'
-        code_tag_file.unlink()
-
-
-def test_collect_code_tags_copier_answers_at_repo_root_jj(ctx, tmp_path, skip_if_no_jj):
-    repo_dir = tmp_path / 'repo'
-    repo_dir.mkdir()
-    sub_dir = repo_dir / 'subdir'
-    sub_dir.mkdir()
-
-    _init_jj_repo(repo_dir)
-    (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
-    (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
-    _jj_track_files(repo_dir)
-
-    docs_dir = repo_dir / 'docs' / 'docs'
-    docs_dir.mkdir(parents=True)
-
-    with _in_directory(sub_dir):
-        collect_code_tags(ctx, ignore_repo_root=True)
-
-        code_tag_file = sub_dir / 'docs' / 'docs' / 'CODE_TAG_SUMMARY.md'
-        assert code_tag_file.is_file(), f'File should be created {code_tag_file}'
-        code_tag_file.unlink()
-
-
-def test_find_repo_root_pure_jj(tmp_path, skip_if_no_jj):
+@_skip_no_jj
+def test_find_repo_root_pure_jj(tmp_path):
     repo_dir = tmp_path / 'jj_only'
     repo_dir.mkdir()
     _init_jj_repo(repo_dir)
@@ -314,24 +250,19 @@ def test_find_repo_root_pure_jj(tmp_path, skip_if_no_jj):
 
 
 def test_find_repo_root_from_nested_subdirectory(tmp_path):
-    """Test that find_repo_root works from deeply nested subdirectories."""
-    # Create nested directory structure
     repo_dir = tmp_path / 'project'
     repo_dir.mkdir()
     dist_dir = repo_dir / 'dist'
     dist_dir.mkdir()
 
-    # Create .git directory
     git_dir = repo_dir / '.git'
     git_dir.mkdir()
 
-    # Should find repo root from nested dir
     assert find_repo_root(dist_dir) == repo_dir
 
-    # Test with .jj
     jj_dir = repo_dir / '.jj'
     jj_dir.mkdir()
-    git_dir.rmdir()  # Remove .git to test .jj
+    git_dir.rmdir()
     assert find_repo_root(dist_dir) == repo_dir
 
 
