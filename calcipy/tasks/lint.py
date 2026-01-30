@@ -22,9 +22,9 @@ def _resolve_package_target() -> str:
     src_path = Path(f'./src/{pkg}')
     flat_path = Path(f'./{pkg}')
     if src_path.is_dir():
-        return f'"{src_path}"'
+        return f'"{src_path.as_posix()}"'
     if flat_path.is_dir():
-        return f'"{flat_path}"'
+        return f'"{flat_path.as_posix()}"'
     return '.'
 
 
