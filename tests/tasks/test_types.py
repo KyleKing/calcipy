@@ -3,7 +3,7 @@ from unittest.mock import call
 import pytest
 
 from calcipy.tasks.executable_utils import python_m
-from calcipy.tasks.types import mypy, pyright
+from calcipy.tasks.types import mypy, pyright, ty
 
 
 @pytest.mark.parametrize(
@@ -18,6 +18,7 @@ from calcipy.tasks.types import mypy, pyright
             ],
         ),
         (mypy, {}, [f'{python_m()} mypy']),
+        (ty, {}, ['ty check calcipy tests']),
     ],
 )
 def test_types(ctx, task, kwargs, commands):

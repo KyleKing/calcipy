@@ -226,6 +226,7 @@ Subcommands:
   types.mypy                      Run mypy.
   types.pyright                   Run pyright using the config in
                                   `pyproject.toml`.
+  types.ty                        Run ty type checker.
 
 Global Task Options:
 

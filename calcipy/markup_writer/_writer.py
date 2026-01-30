@@ -202,7 +202,7 @@ def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
             **{col: coverage_data['totals'][key] for col, key in col_key_map.items()},
         },
     )
-    records = [{**r_, 'Coverage': f'{round(r_["Coverage"], 1)}%'} for r_ in records]
+    records = [{**r_, 'Coverage': f'{round(float(r_["Coverage"]), 1)}%'} for r_ in records]
 
     delimiters = ['-', *(['-:'] * len(col_key_map))]
     lines_table = format_table(headers=['File', *col_key_map], records=records, delimiters=delimiters).split('\n')
