@@ -2248,7 +2248,7 @@ always relative to path_project.</p>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="20 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="linenos" data-linenos="21 "></span><span class="k">def</span><span class="w"> </span><span class="nf">use_pty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="linenos" data-linenos="22 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return False on Windows and some CI environments.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="23 "></span>    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+<span class="linenos" data-linenos="23 "></span>    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="linenos" data-linenos="24 "></span>        <span class="k">return</span> <span class="kc">False</span>
 <span class="linenos" data-linenos="25 "></span>    <span class="k">return</span> <span class="ow">not</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GITHUB_ACTION&#39;</span><span class="p">)</span>
 </code></pre></div>
