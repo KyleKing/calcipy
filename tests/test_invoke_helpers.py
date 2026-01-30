@@ -1,4 +1,3 @@
-from pathlib import Path
 
 from calcipy.invoke_helpers import get_doc_subdir
 

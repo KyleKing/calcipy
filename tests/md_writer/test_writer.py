@@ -8,13 +8,13 @@ from beartype.typing import List
 
 from calcipy.markup_writer._writer import (
     _CLI_ALLOWED_PREFIXES,
-    _ParseSkipError,
-    _ReplacementMachine,
     _format_cov_table,
     _handle_cli_output,
     _handle_coverage,
     _handle_source_file,
     _parse_var_comment,
+    _ParseSkipError,
+    _ReplacementMachine,
     write_template_formatted_sections,
 )
 from tests.configuration import TEST_DATA_DIR
