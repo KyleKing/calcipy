@@ -2099,17 +2099,12 @@
 - Create <code>testpypi</code> environment (no protection rules)
 - Create <code>pypi</code> environment with &ldquo;Required reviewers&rdquo; enabled</p>
 <p><strong>Register Trusted Publishers</strong></p>
-<p>TestPyPI: https://test.pypi.org/manage/account/publishing/
-- PyPI Project Name: <code>calcipy</code>
-- Owner: <code>kyleking</code>
-- Repository: <code>calcipy</code>
-- Workflow: <code>publish.yml</code>
-- Environment: <code>testpypi</code></p>
 <p>PyPI: https://pypi.org/manage/project/calcipy/settings/publishing/
 - Owner: <code>kyleking</code>
 - Repository: <code>calcipy</code>
 - Workflow: <code>publish.yml</code>
-- Environment: <code>pypi</code></p>
+- Environment: <code>pypi</code>
+    - Or environment <code>testpypi</code> (for <a href="https://test.pypi.org/manage/account/publishing">TestPyPI</a>)</p>
 <h3 id="manual-publishing">Manual Publishing<a class="headerlink" href="#manual-publishing" title="Permanent link">⚓︎</a></h3>
 <p>For emergency manual publish:</p>
 <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">export</span><span class="w"> </span><span class="nv">UV_PUBLISH_TOKEN</span><span class="o">=</span>pypi-...
