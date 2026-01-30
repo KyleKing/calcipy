@@ -1,7 +1,9 @@
-from unittest.mock import call
+from pathlib import Path
+from unittest.mock import call, patch
 
 import pytest
 
+from calcipy.collection import GlobalTaskOptions
 from calcipy.tasks.executable_utils import python_m
 from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, watch
 
@@ -11,6 +13,7 @@ from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commi
     [
         (check, {}, [f'{python_m()} ruff check "calcipy" ./tests']),
         (fix, {}, [f'{python_m()} ruff check "calcipy" ./tests --fix']),
+        (fix, {'unsafe': True}, [f'{python_m()} ruff check "calcipy" ./tests --fix --unsafe-fixes']),
         (watch, {}, [f'{python_m()} ruff check "calcipy" ./tests --watch']),
         (
             pre_commit,
@@ -28,3 +31,22 @@ def test_lint(ctx, task, kwargs, commands):
     task(ctx, **kwargs)
 
     ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
+
+
+def test_lint_check_with_file_args(ctx):
+    gto = GlobalTaskOptions(file_args=[Path('a.py'), Path('b.py')])
+    ctx.config.gto = gto
+
+    check(ctx)
+
+    ctx.run.assert_called_once_with(f'{python_m()} ruff check "a.py" "b.py"')
+
+
+def test_lint_check_src_layout(ctx, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / 'src' / 'mypkg').mkdir(parents=True)
+
+    with patch('calcipy.tasks.lint.read_package_name', return_value='mypkg'):
+        check(ctx)
+
+    ctx.run.assert_called_once_with(f'{python_m()} ruff check "src/mypkg" ./tests')

@@ -8,6 +8,8 @@ from beartype.typing import List
 
 from calcipy.markup_writer._writer import (
     _CLI_ALLOWED_PREFIXES,
+    _ParseSkipError,
+    _ReplacementMachine,
     _format_cov_table,
     _handle_cli_output,
     _handle_coverage,
@@ -136,6 +138,41 @@ def test_handle_cli_output_disallowed_command():
 
     with pytest.raises(Exception):  # noqa: B017, PT011
         _handle_cli_output(line, path_md)
+
+
+def test_handle_coverage_missing_file():
+    line = '<!-- {cts} COVERAGE test; -->'
+    path_md = Path('fake.md')
+
+    with pytest.raises(Exception):  # noqa: B017, PT011
+        _handle_coverage(line, path_md, path_coverage=Path('/nonexistent/coverage.json'))
+
+
+def test_write_template_formatted_sections_with_skip(fix_test_cache):
+    path_md = fix_test_cache / 'skip_test.md'
+    path_md.write_text(
+        '<!-- {cts} COVERAGE test; -->\nold content\n<!-- {cte} -->\n',
+    )
+
+    write_template_formatted_sections(
+        handler_lookup={'COVERAGE': _handle_coverage},
+        paths=[path_md],
+    )
+
+    content = path_md.read_text()
+    assert '<!-- {cts} COVERAGE test; -->' in content
+
+
+def test_replacement_machine_handler_skip():
+    def _skip_handler(line: str, path_file: Path) -> List[str]:
+        raise _ParseSkipError('skip')
+
+    machine = _ReplacementMachine()
+    lines = ['<!-- {cts} SKIP_ME test; -->', 'inner content', '<!-- {cte} -->']
+
+    result = machine.parse(lines, {'SKIP_ME': _skip_handler}, Path('test.md'))
+
+    assert result == ['<!-- {cts} SKIP_ME test; -->', 'inner content', '<!-- {cte} -->']
 
 
 def test_handle_cli_output_allowed_prefixes():

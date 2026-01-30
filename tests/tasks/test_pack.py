@@ -34,6 +34,21 @@ def test_bump_tag(ctx, monkeypatch):
     bump_mock.assert_called_once_with(pkg_name='test-package', tag='v1.2.2', tag_prefix='v')
 
 
+def test_lock_skips_when_can_skip(ctx):
+    mock_can_skip = patch('calcipy.tasks.pack.can_skip.can_skip', return_value=True)
+    mock_get_lock = patch('calcipy.tasks.pack.get_lock', return_value=Path('uv.lock'))
+
+    with mock_can_skip, mock_get_lock:
+        lock(ctx)
+
+    ctx.run.assert_not_called()
+
+
+def test_bump_tag_empty_tag(ctx):
+    with pytest.raises(ValueError, match='tag must not be empty'):
+        bump_tag(ctx, tag='')
+
+
 def test_sync_pyproject_versions(ctx):
     """Test sync_pyproject_versions function."""
     mock_replace = patch('corallium.sync_dependencies.replace_versions')

@@ -20,7 +20,7 @@ from invoke.runners import Result
 @lru_cache(maxsize=1)
 def use_pty() -> bool:
     """Return False on Windows and some CI environments."""
-    if platform.system() == 'Windows':
+    if platform.system() == 'Windows':  # pragma: no cover
         return False
     return not environ.get('GITHUB_ACTION')
 

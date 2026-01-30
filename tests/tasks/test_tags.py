@@ -266,6 +266,11 @@ def test_find_repo_root_from_nested_subdirectory(tmp_path):
     assert find_repo_root(dist_dir) == repo_dir
 
 
+def test_collect_code_tags_slash_in_filename(ctx):
+    with pytest.raises(RuntimeError, match='Unexpected slash in filename'):
+        collect_code_tags(ctx, filename='sub/file.md')
+
+
 def test_collect_code_tags_not_in_repo(ctx, tmp_path):
     non_repo_dir = tmp_path / 'not_repo'
     non_repo_dir.mkdir()

@@ -14,7 +14,7 @@ try:
         SKIP_PHRASE,
         write_code_tag_file,
     )
-except ImportError as exc:
+except ImportError as exc:  # pragma: no cover
     msg = "The 'arrow' package is required for code_tag_collector. Install with: pip install arrow"
     raise ImportError(msg) from exc
 

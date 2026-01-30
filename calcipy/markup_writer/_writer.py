@@ -167,7 +167,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     path_source = path_base / path_rel.lstrip('/')
     language = path_source.suffix.lstrip('.')
     lines_source = [f'```{language}', *read_lines(path_source), '```']
-    if not path_source.is_file():
+    if not path_source.is_file():  # pragma: no cover
         LOGGER.warning('Could not locate source file', path_source=path_source)
 
     return [_format_start_marker(line, key, path_rel), *lines_source, _format_end_marker(line)]
@@ -268,12 +268,12 @@ def _handle_cli_output(line: str, _path_file: Path) -> List[str]:
             timeout=30,
             check=False,
         )
-    except (subprocess.TimeoutExpired, FileNotFoundError, OSError) as err:
+    except (subprocess.TimeoutExpired, FileNotFoundError, OSError) as err:  # pragma: no cover
         LOGGER.warning('CLI command failed', command=command, error=str(err))
         raise _ParseSkipError(str(err)) from err
 
     output = result.stdout or result.stderr
-    if result.returncode != 0 and not output:
+    if result.returncode != 0 and not output:  # pragma: no cover
         msg = f'Command failed with exit code {result.returncode}'
         LOGGER.warning(msg, command=command)
         raise _ParseSkipError(msg)

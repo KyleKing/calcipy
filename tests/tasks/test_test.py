@@ -47,6 +47,12 @@ def test_test(ctx, task, kwargs, commands):
     ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
 
 
+def test_test_with_min_cover(ctx):
+    task_pytest(ctx, min_cover=80)
+
+    ctx.run.assert_called_once_with(f'{python_m()} pytest ./tests {_COV} --cov-fail-under=80')
+
+
 def test_test_check(ctx):
     with pytest.raises(RuntimeError, match=r'Duplicate test names.+test_intentional_duplicate.+'):
         check(ctx)

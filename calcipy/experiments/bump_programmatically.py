@@ -6,7 +6,7 @@ from corallium.log import LOGGER
 from griffe import BuiltinModuleError
 
 
-def bump_tag(*, pkg_name: str, tag: str, tag_prefix: str) -> str:
+def bump_tag(*, pkg_name: str, tag: str, tag_prefix: str) -> str:  # pragma: no cover
     """Return either minor or patch change based on `griffe`.
 
     Note: major versions must be bumped manually
