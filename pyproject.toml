@@ -94,6 +94,9 @@ test = [
   "pytest-randomly >=4.0.1",
   "pytest-watcher >=0.6.3",
 ]
+tool = [
+  "calcipy[lint,tags]",
+]
 types = [
   "mypy >=1.19.1",
   "ty >=0.0.14",
