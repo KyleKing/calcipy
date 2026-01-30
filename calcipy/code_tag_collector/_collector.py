@@ -19,11 +19,9 @@ from corallium.code_tag_collector._collector import (  # noqa: E402
     _format_from_blame,
     _format_record,
     _format_report,
-    _git_info,
     _search_files,
     _search_lines,
     _Tags,
-    github_blame_url,
     write_code_tag_file,
 )
 
@@ -37,9 +35,7 @@ __all__ = (
     '_format_from_blame',
     '_format_record',
     '_format_report',
-    '_git_info',
     '_search_files',
     '_search_lines',
-    'github_blame_url',
     'write_code_tag_file',
 )

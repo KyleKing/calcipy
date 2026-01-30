@@ -253,7 +253,7 @@ requires-dist = [
     { name = "beartype", specifier = ">=0.22.9" },
     { name = "calcipy", extras = ["doc", "lint", "nox", "tags", "test", "types"], marker = "extra == 'recommended'" },
     { name = "commitizen", marker = "extra == 'doc'", specifier = ">=4.12.1" },
-    { name = "corallium", specifier = ">=2.3.0rc0" },
+    { name = "corallium", specifier = ">=2.3.0rc1" },
     { name = "griffe", marker = "extra == 'experimental'", specifier = ">=1.15.0" },
     { name = "invoke", specifier = ">=2.2.1" },
     { name = "markdown-callouts", marker = "extra == 'doc'", specifier = ">=0.4.0" },
@@ -457,7 +457,7 @@ wheels = [
 
 [[package]]
 name = "corallium"
-version = "2.3.0rc0"
+version = "2.3.0rc1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beartype" },
@@ -465,9 +465,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/78/b7/4ddd74abcc9a4dd93aeb7fb8a00ad8976379c1c819055d2db11777b1b622/corallium-2.3.0rc0.tar.gz", hash = "sha256:6cc512ea1e06e481b152224e753e2869049f6c147abc0c6170d39119179c0344", size = 27247, upload-time = "2026-01-29T04:18:38.455Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/95/f8/90cab6bff9d8ef185360de137fff2152d2f9e911082ad0a7d0b8943e7554/corallium-2.3.0rc1.tar.gz", hash = "sha256:082b1190f582265fa23c67aa1bbdbf2e554ced35e540c5dcfecf0e2aab09f290", size = 29206, upload-time = "2026-01-30T14:52:55.058Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5a/f9/d00a34890d080cbcdf5f77be87540e54fb0ab082da0385ebc7c33b51ac0b/corallium-2.3.0rc0-py3-none-any.whl", hash = "sha256:061e7d8c68576f31f45409d22e413079a4f83fa57c7dde42bf911558a5902071", size = 31916, upload-time = "2026-01-29T04:18:36.873Z" },
+    { url = "https://files.pythonhosted.org/packages/b5/fb/2444decbcbb57ad4b2bd7bb05aba212fdabb1c670c6c0ca9df00fde45c3f/corallium-2.3.0rc1-py3-none-any.whl", hash = "sha256:e0f74ad68620855ed9711f3e26a3972f6e822a0b0b45d3e1eff72defe0895887", size = 35792, upload-time = "2026-01-30T14:52:53.679Z" },
 ]
 
 [[package]]

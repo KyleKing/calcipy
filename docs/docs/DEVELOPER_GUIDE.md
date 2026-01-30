@@ -115,7 +115,7 @@ uv publish
 | `calcipy/experiments/check_duplicate_test_names.py` | 33         | 0       | 2        | 98.2%    |
 | `calcipy/experiments/sync_package_dependencies.py`  | 4          | 0       | 0        | 100.0%   |
 | `calcipy/file_search.py`                            | 4          | 0       | 0        | 100.0%   |
-| `calcipy/invoke_helpers.py`                         | 37         | 3       | 0        | 86.7%    |
+| `calcipy/invoke_helpers.py`                         | 38         | 3       | 0        | 87.0%    |
 | `calcipy/markup_table.py`                           | 4          | 4       | 0        | 0.0%     |
 | `calcipy/markup_writer/__init__.py`                 | 5          | 2       | 0        | 60.0%    |
 | `calcipy/markup_writer/_writer.py`                  | 116        | 12      | 0        | 86.8%    |
@@ -134,8 +134,8 @@ uv publish
 | `calcipy/tasks/pack.py`                             | 24         | 2       | 0        | 83.3%    |
 | `calcipy/tasks/tags.py`                             | 29         | 1       | 0        | 94.6%    |
 | `calcipy/tasks/test.py`                             | 41         | 1       | 2        | 93.9%    |
-| `calcipy/tasks/types.py`                            | 11         | 0       | 0        | 100.0%   |
-| **Totals**                                          | 699        | 65      | 289      | 87.7%    |
+| `calcipy/tasks/types.py`                            | 14         | 0       | 0        | 100.0%   |
+| **Totals**                                          | 703        | 65      | 289      | 87.8%    |
 
-Generated on: 2026-01-28
+Generated on: 2026-01-30
 <!-- {cte} -->

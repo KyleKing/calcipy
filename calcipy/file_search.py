@@ -12,7 +12,6 @@ from corallium.file_search import (  # noqa: E402
     _get_all_files,
     _get_default_ignore_patterns,
     _walk_files,
-    _zsplit,
     find_project_files,
     find_project_files_by_suffix,
 )
@@ -22,7 +21,6 @@ __all__ = (
     '_get_all_files',
     '_get_default_ignore_patterns',
     '_walk_files',
-    '_zsplit',
     'find_project_files',
     'find_project_files_by_suffix',
 )

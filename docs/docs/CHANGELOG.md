@@ -1,5 +1,10 @@
 ## Unreleased
 
+### Feat
+
+- support jj repos
+- add ty type checker support (#140)
+
 ## 6.0.0b3 (2026-01-28)
 
 ### Feat

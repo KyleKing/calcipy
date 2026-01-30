@@ -7,8 +7,9 @@ from os import environ
 from pathlib import Path
 
 from beartype.typing import Any, Optional
-from corallium.file_helpers import COPIER_ANSWERS, find_repo_root, read_yaml_file
+from corallium.file_helpers import COPIER_ANSWERS, read_yaml_file
 from corallium.log import LOGGER
+from corallium.vcs import find_repo_root
 from invoke.context import Context
 from invoke.runners import Result
 

@@ -8,8 +8,8 @@ from subprocess import CalledProcessError  # noqa: S404
 
 import pytest
 from beartype.typing import Callable, Dict
-from corallium.file_helpers import find_repo_root
 from corallium.shell import capture_shell
+from corallium.vcs import find_repo_root
 
 from calcipy.tasks.tags import collect_code_tags
 from tests.configuration import APP_DIR, TEST_DATA_DIR
@@ -256,6 +256,50 @@ def test_collect_code_tags_pure_jj_from_subdirectory(ctx, tmp_path, skip_if_no_j
         content = code_tag_file.read_text()
         assert 'root task' in content
         assert 'subdirectory task' in content
+        code_tag_file.unlink()
+
+
+def test_collect_code_tags_ignore_repo_root_flag_jj(ctx, tmp_path, skip_if_no_jj):
+    repo_dir = tmp_path / 'repo'
+    repo_dir.mkdir()
+    sub_dir = repo_dir / 'subdir'
+    sub_dir.mkdir()
+
+    _init_jj_repo(repo_dir)
+    (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
+    (sub_dir / '.copier-answers.yml').write_text('doc_dir: docs')
+    _jj_track_files(repo_dir)
+
+    docs_dir = sub_dir / 'docs' / 'docs'
+    docs_dir.mkdir(parents=True)
+
+    with _in_directory(sub_dir):
+        collect_code_tags(ctx, ignore_repo_root=True)
+
+        code_tag_file = docs_dir / 'CODE_TAG_SUMMARY.md'
+        assert code_tag_file.is_file(), f'File should be created in subdirectory {code_tag_file}'
+        code_tag_file.unlink()
+
+
+def test_collect_code_tags_copier_answers_at_repo_root_jj(ctx, tmp_path, skip_if_no_jj):
+    repo_dir = tmp_path / 'repo'
+    repo_dir.mkdir()
+    sub_dir = repo_dir / 'subdir'
+    sub_dir.mkdir()
+
+    _init_jj_repo(repo_dir)
+    (repo_dir / '.copier-answers.yml').write_text('doc_dir: docs')
+    (sub_dir / 'sub.py').write_text('# TODO: subdirectory task')
+    _jj_track_files(repo_dir)
+
+    docs_dir = repo_dir / 'docs' / 'docs'
+    docs_dir.mkdir(parents=True)
+
+    with _in_directory(sub_dir):
+        collect_code_tags(ctx, ignore_repo_root=True)
+
+        code_tag_file = sub_dir / 'docs' / 'docs' / 'CODE_TAG_SUMMARY.md'
+        assert code_tag_file.is_file(), f'File should be created {code_tag_file}'
         code_tag_file.unlink()
 
 

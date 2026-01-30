@@ -39,7 +39,7 @@ classifiers = [
 ] # https://pypi.org/classifiers/
 dependencies = [
   "beartype >=0.22.9",
-  "corallium>=2.3.0rc0",
+  "corallium>=2.3.0rc1",
   "invoke >=2.2.1",
 ]
 description = "Python package to simplify development"
@@ -141,11 +141,6 @@ warn_unused_ignores = true
 include = ["calcipy", "tests"]
 pythonVersion = "3.10"
 
-[tool.ty]
-# Suppress warnings about type: ignore comments needed for mypy compatibility
-[tool.ty.rules]
-unused-ignore-comment = "ignore"
-
 [tool.ruff]
 # Docs: https://github.com/charliermarsh/ruff
 # Tip: uv run ruff rule RUF100
@@ -237,6 +232,12 @@ convention = "google"
 all = true
 in_place = true
 trailing_comma_inline_array = true
+
+[tool.ty]
+
+# Suppress warnings about type: ignore comments needed for mypy compatibility
+[tool.ty.rules]
+unused-ignore-comment = "ignore"
 
 [tool.uv]
 default-groups = ["ci", "ddict", "experimental", "recommended"]
