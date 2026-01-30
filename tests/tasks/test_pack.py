@@ -12,14 +12,14 @@ from calcipy.tasks.pack import bump_tag, lock, sync_pyproject_versions
         (lock, {}, [call('uv lock')]),
     ],
 )
-def test_pack(ctx, task, kwargs, commands, monkeypatch):
+def test_pack(ctx, task, kwargs, commands, monkeypatch, assert_run_commands):
     mock_can_skip = patch('calcipy.tasks.pack.can_skip.can_skip', return_value=False)
     mock_get_lock = patch('calcipy.tasks.pack.get_lock', return_value=Path('uv.lock'))
 
     with mock_can_skip, mock_get_lock:
         task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
+    assert_run_commands(ctx, commands)
 
 
 def test_bump_tag(ctx, monkeypatch):

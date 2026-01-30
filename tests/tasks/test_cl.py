@@ -1,4 +1,4 @@
-from unittest.mock import call, patch
+from unittest.mock import patch
 
 import pytest
 
@@ -18,10 +18,10 @@ from calcipy.tasks.executable_utils import python_m
         ),
     ],
 )
-def test_cl(ctx, task, kwargs, commands):
+def test_cl(ctx, task, kwargs, commands, assert_run_commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
+    assert_run_commands(ctx, commands)
 
 
 def test_write_moves_changelog(ctx, tmp_path):

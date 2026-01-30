@@ -1,5 +1,3 @@
-from unittest.mock import call
-
 import pytest
 
 from calcipy.tasks.all_tasks import main, other
@@ -12,7 +10,7 @@ from calcipy.tasks.all_tasks import main, other
         (other, {}, []),
     ],
 )
-def test_all_tasks(ctx, task, kwargs, commands):
+def test_all_tasks(ctx, task, kwargs, commands, assert_run_commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
+    assert_run_commands(ctx, commands)

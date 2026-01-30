@@ -41,10 +41,10 @@ _FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
         'coverage',
     ],
 )
-def test_test(ctx, task, kwargs, commands):
+def test_test(ctx, task, kwargs, commands, assert_run_commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
+    assert_run_commands(ctx, commands)
 
 
 def test_test_with_min_cover(ctx):

@@ -21,7 +21,7 @@ from calcipy.tasks.types import mypy, pyright, ty
         (ty, {}, ['ty check calcipy tests']),
     ],
 )
-def test_types(ctx, task, kwargs, commands):
+def test_types(ctx, task, kwargs, commands, assert_run_commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
+    assert_run_commands(ctx, commands)

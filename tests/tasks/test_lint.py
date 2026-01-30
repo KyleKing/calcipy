@@ -27,10 +27,10 @@ from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commi
         ),
     ],
 )
-def test_lint(ctx, task, kwargs, commands):
+def test_lint(ctx, task, kwargs, commands, assert_run_commands):
     task(ctx, **kwargs)
 
-    ctx.run.assert_has_calls([call(cmd) if isinstance(cmd, str) else cmd for cmd in commands])
+    assert_run_commands(ctx, commands)
 
 
 def test_lint_check_with_file_args(ctx):
