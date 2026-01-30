@@ -60,3 +60,6 @@ jobs:
       - name: Add Virtual Environment to Path for pyright
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - uses: jakebailey/pyright-action@v2
+
+      - name: Run ty type checker
+        run: uv run calcipy-types types.ty

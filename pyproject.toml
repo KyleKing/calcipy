@@ -96,6 +96,7 @@ test = [
 ]
 types = [
   "mypy >=1.19.1",
+  "ty >=0.0.14",
 ]
 
 [project.scripts] # Docs: https://setuptools.pypa.io/en/latest/userguide/entry_point.html#console-scripts
@@ -139,6 +140,11 @@ warn_unused_ignores = true
 [tool.pyright]
 include = ["calcipy", "tests"]
 pythonVersion = "3.10"
+
+[tool.ty]
+# Suppress warnings about type: ignore comments needed for mypy compatibility
+[tool.ty.rules]
+unused-ignore-comment = "ignore"
 
 [tool.ruff]
 # Docs: https://github.com/charliermarsh/ruff

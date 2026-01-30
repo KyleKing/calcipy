@@ -19,3 +19,9 @@ def pyright(ctx: Context) -> None:
 def mypy(ctx: Context) -> None:
     """Run mypy."""
     run(ctx, f'{python_m()} mypy')
+
+
+@task()
+def ty(ctx: Context) -> None:
+    """Run ty type checker."""
+    run(ctx, 'ty check calcipy tests')
