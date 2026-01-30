@@ -58,7 +58,7 @@ Install with: `uv tool install 'calcipy[tool]'` or use via `uvx --from 'calcipy[
 - Works across multiple projects
 
 **Limitations:**
-- Cannot access project-specific configuration deeply
+- Cannot fully access project-specific configuration
 - May make assumptions about project structure
 
 ### Project Dependency Mode
