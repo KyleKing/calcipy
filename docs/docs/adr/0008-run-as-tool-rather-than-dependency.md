@@ -43,8 +43,13 @@ We document which tasks work in each mode:
 Install with: `uv tool install 'calcipy[tool]'` or use via `uvx --from 'calcipy[tool]' calcipy-lint`
 
 **Supported tasks:**
-- ✅ **calcipy-lint** - Linting with ruff (minimal assumptions about project structure)
+- ✅ **calcipy-lint** - Linting with ruff
+  - Works with explicit file arguments: `calcipy-lint lint.check file.py`
+  - Works in projects with pyproject.toml: `calcipy-lint lint.check`
+  - Limitation: Without explicit files and without pyproject.toml, will fail trying to detect package
 - ✅ **calcipy-tags** - Code tag collection (works on any directory)
+  - Use `--ignore-repo-root` flag for non-git directories
+  - Example: `calcipy-tags tags --base-dir=/path/to/project --ignore-repo-root`
 
 **Benefits of tool mode:**
 - No dependency conflicts with project
