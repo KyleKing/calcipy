@@ -2122,37 +2122,37 @@ always relative to path_project.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="47 "></span><span class="k">def</span><span class="w"> </span><span class="nf">get_doc_subdir</span><span class="p">(</span><span class="n">path_project</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="linenos" data-linenos="48 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the documentation directory from the copier answer file.</span>
-<span class="linenos" data-linenos="49 "></span>
-<span class="linenos" data-linenos="50 "></span><span class="sd">    Searches for `.copier-answers.yml` at path_project first, then at repo root if not found.</span>
-<span class="linenos" data-linenos="51 "></span><span class="sd">    The doc_dir config is read from wherever the file is found, but the returned path is</span>
-<span class="linenos" data-linenos="52 "></span><span class="sd">    always relative to path_project.</span>
-<span class="linenos" data-linenos="53 "></span>
-<span class="linenos" data-linenos="54 "></span><span class="sd">    Args:</span>
-<span class="linenos" data-linenos="55 "></span><span class="sd">        path_project: Path to the project directory with contains `.copier-answers.yml`</span>
-<span class="linenos" data-linenos="56 "></span>
-<span class="linenos" data-linenos="57 "></span><span class="sd">    Returns:</span>
-<span class="linenos" data-linenos="58 "></span><span class="sd">        Path: to the source documentation directory</span>
-<span class="linenos" data-linenos="59 "></span>
-<span class="linenos" data-linenos="60 "></span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="61 "></span>    <span class="n">base_path</span> <span class="o">=</span> <span class="n">path_project</span> <span class="ow">or</span> <span class="n">get_project_path</span><span class="p">()</span>
-<span class="linenos" data-linenos="62 "></span>    <span class="n">path_copier</span> <span class="o">=</span> <span class="n">base_path</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
-<span class="linenos" data-linenos="63 "></span>
-<span class="linenos" data-linenos="64 "></span>    <span class="c1"># If not found at base_path, try repo root</span>
-<span class="linenos" data-linenos="65 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">path_copier</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-<span class="linenos" data-linenos="66 "></span>        <span class="n">repo_root</span> <span class="o">=</span> <span class="n">find_repo_root</span><span class="p">(</span><span class="n">base_path</span><span class="p">)</span>
-<span class="linenos" data-linenos="67 "></span>        <span class="k">if</span> <span class="n">repo_root</span><span class="p">:</span>
-<span class="linenos" data-linenos="68 "></span>            <span class="n">path_copier_at_root</span> <span class="o">=</span> <span class="n">repo_root</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
-<span class="linenos" data-linenos="69 "></span>            <span class="k">if</span> <span class="n">path_copier_at_root</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-<span class="linenos" data-linenos="70 "></span>                <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Found .copier-answers.yml at repo root&#39;</span><span class="p">,</span> <span class="n">repo_root</span><span class="o">=</span><span class="n">repo_root</span><span class="p">)</span>
-<span class="linenos" data-linenos="71 "></span>                <span class="n">path_copier</span> <span class="o">=</span> <span class="n">path_copier_at_root</span>
-<span class="linenos" data-linenos="72 "></span>            <span class="k">else</span><span class="p">:</span>
-<span class="linenos" data-linenos="73 "></span>                <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;.copier-answers.yml not found at repo root&#39;</span><span class="p">,</span> <span class="n">repo_root</span><span class="o">=</span><span class="n">repo_root</span><span class="p">)</span>
-<span class="linenos" data-linenos="74 "></span>
-<span class="linenos" data-linenos="75 "></span>    <span class="n">doc_dir</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">path_copier</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doc_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;docs&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="76 "></span>    <span class="c1"># Always return path relative to base_path, not where copier answers was found</span>
-<span class="linenos" data-linenos="77 "></span>    <span class="k">return</span> <span class="n">base_path</span> <span class="o">/</span> <span class="n">doc_dir</span> <span class="o">/</span> <span class="s1">&#39;docs&#39;</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="48 "></span><span class="k">def</span><span class="w"> </span><span class="nf">get_doc_subdir</span><span class="p">(</span><span class="n">path_project</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="linenos" data-linenos="49 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve the documentation directory from the copier answer file.</span>
+<span class="linenos" data-linenos="50 "></span>
+<span class="linenos" data-linenos="51 "></span><span class="sd">    Searches for `.copier-answers.yml` at path_project first, then at repo root if not found.</span>
+<span class="linenos" data-linenos="52 "></span><span class="sd">    The doc_dir config is read from wherever the file is found, but the returned path is</span>
+<span class="linenos" data-linenos="53 "></span><span class="sd">    always relative to path_project.</span>
+<span class="linenos" data-linenos="54 "></span>
+<span class="linenos" data-linenos="55 "></span><span class="sd">    Args:</span>
+<span class="linenos" data-linenos="56 "></span><span class="sd">        path_project: Path to the project directory with contains `.copier-answers.yml`</span>
+<span class="linenos" data-linenos="57 "></span>
+<span class="linenos" data-linenos="58 "></span><span class="sd">    Returns:</span>
+<span class="linenos" data-linenos="59 "></span><span class="sd">        Path: to the source documentation directory</span>
+<span class="linenos" data-linenos="60 "></span>
+<span class="linenos" data-linenos="61 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="62 "></span>    <span class="n">base_path</span> <span class="o">=</span> <span class="n">path_project</span> <span class="ow">or</span> <span class="n">get_project_path</span><span class="p">()</span>
+<span class="linenos" data-linenos="63 "></span>    <span class="n">path_copier</span> <span class="o">=</span> <span class="n">base_path</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
+<span class="linenos" data-linenos="64 "></span>
+<span class="linenos" data-linenos="65 "></span>    <span class="c1"># If not found at base_path, try repo root</span>
+<span class="linenos" data-linenos="66 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">path_copier</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+<span class="linenos" data-linenos="67 "></span>        <span class="n">repo_root</span> <span class="o">=</span> <span class="n">find_repo_root</span><span class="p">(</span><span class="n">base_path</span><span class="p">)</span>
+<span class="linenos" data-linenos="68 "></span>        <span class="k">if</span> <span class="n">repo_root</span><span class="p">:</span>
+<span class="linenos" data-linenos="69 "></span>            <span class="n">path_copier_at_root</span> <span class="o">=</span> <span class="n">repo_root</span> <span class="o">/</span> <span class="n">COPIER_ANSWERS</span>
+<span class="linenos" data-linenos="70 "></span>            <span class="k">if</span> <span class="n">path_copier_at_root</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+<span class="linenos" data-linenos="71 "></span>                <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Found .copier-answers.yml at repo root&#39;</span><span class="p">,</span> <span class="n">repo_root</span><span class="o">=</span><span class="n">repo_root</span><span class="p">)</span>
+<span class="linenos" data-linenos="72 "></span>                <span class="n">path_copier</span> <span class="o">=</span> <span class="n">path_copier_at_root</span>
+<span class="linenos" data-linenos="73 "></span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos" data-linenos="74 "></span>                <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;.copier-answers.yml not found at repo root&#39;</span><span class="p">,</span> <span class="n">repo_root</span><span class="o">=</span><span class="n">repo_root</span><span class="p">)</span>
+<span class="linenos" data-linenos="75 "></span>
+<span class="linenos" data-linenos="76 "></span>    <span class="n">doc_dir</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">path_copier</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;doc_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;docs&#39;</span><span class="p">)</span>
+<span class="linenos" data-linenos="77 "></span>    <span class="c1"># Always return path relative to base_path, not where copier answers was found</span>
+<span class="linenos" data-linenos="78 "></span>    <span class="k">return</span> <span class="n">base_path</span> <span class="o">/</span> <span class="n">doc_dir</span> <span class="o">/</span> <span class="s1">&#39;docs&#39;</span>
 </code></pre></div>
             </details>
     </div>
@@ -2181,10 +2181,10 @@ always relative to path_project.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="41 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos" data-linenos="42 "></span><span class="k">def</span><span class="w"> </span><span class="nf">get_project_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="linenos" data-linenos="43 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the `cwd`.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="44 "></span>    <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="42 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos" data-linenos="43 "></span><span class="k">def</span><span class="w"> </span><span class="nf">get_project_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="linenos" data-linenos="44 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the `cwd`.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="45 "></span>    <span class="k">return</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span>
 </code></pre></div>
             </details>
     </div>
@@ -2209,14 +2209,14 @@ always relative to path_project.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="27 "></span><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="n">run_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Result</span><span class="p">]:</span>
-<span class="linenos" data-linenos="28 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return wrapped `invoke.run` to run within the `working_dir`.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="29 "></span>    <span class="n">working_dir</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
-<span class="linenos" data-linenos="30 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
-<span class="linenos" data-linenos="31 "></span>        <span class="n">working_dir</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">working_dir</span>
-<span class="linenos" data-linenos="32 "></span>
-<span class="linenos" data-linenos="33 "></span>    <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="n">working_dir</span><span class="p">):</span>
-<span class="linenos" data-linenos="34 "></span>        <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">run_args</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="28 "></span><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="n">run_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Result</span><span class="p">]:</span>
+<span class="linenos" data-linenos="29 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return wrapped `invoke.run` to run within the `working_dir`.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="30 "></span>    <span class="n">working_dir</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+<span class="linenos" data-linenos="31 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">):</span>
+<span class="linenos" data-linenos="32 "></span>        <span class="n">working_dir</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">gto</span><span class="o">.</span><span class="n">working_dir</span>
+<span class="linenos" data-linenos="33 "></span>
+<span class="linenos" data-linenos="34 "></span>    <span class="k">with</span> <span class="n">ctx</span><span class="o">.</span><span class="n">cd</span><span class="p">(</span><span class="n">working_dir</span><span class="p">):</span>
+<span class="linenos" data-linenos="35 "></span>        <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="n">run_args</span><span class="p">,</span> <span class="o">**</span><span class="n">run_kwargs</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
@@ -2245,12 +2245,12 @@ always relative to path_project.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/invoke_helpers.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="19 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos" data-linenos="20 "></span><span class="k">def</span><span class="w"> </span><span class="nf">use_pty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="linenos" data-linenos="21 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return False on Windows and some CI environments.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="22 "></span>    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
-<span class="linenos" data-linenos="23 "></span>        <span class="k">return</span> <span class="kc">False</span>
-<span class="linenos" data-linenos="24 "></span>    <span class="k">return</span> <span class="ow">not</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GITHUB_ACTION&#39;</span><span class="p">)</span>
+              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="20 "></span><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos" data-linenos="21 "></span><span class="k">def</span><span class="w"> </span><span class="nf">use_pty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="linenos" data-linenos="22 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return False on Windows and some CI environments.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="23 "></span>    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
+<span class="linenos" data-linenos="24 "></span>        <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos" data-linenos="25 "></span>    <span class="k">return</span> <span class="ow">not</span> <span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GITHUB_ACTION&#39;</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
