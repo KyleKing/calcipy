@@ -40,22 +40,34 @@ We document which tasks work in each mode:
 
 ### Tool Mode (Standalone via `uvx` or `uv tool install`)
 
-Install with: `uv tool install 'calcipy[tool]'` or use via `uvx --from 'calcipy[tool]' calcipy-lint`
+Install with individual extras for efficiency:
+- `uv tool install 'calcipy[lint]'` - For linting only
+- `uv tool install 'calcipy[tags]'` - For code tag collection only
+- `uv tool install 'calcipy[experimental]'` - For experimental features
+- `uv tool install 'calcipy[lint,tags]'` - For multiple features
+
+Or use transiently via uvx:
+- `uvx --from 'calcipy[lint]' calcipy-lint lint.check file.py`
+- `uvx --from 'calcipy[tags]' calcipy-tags tags --base-dir=.`
 
 **Supported tasks:**
-- ✅ **calcipy-lint** - Linting with ruff
+- ✅ **calcipy-lint** - Linting with ruff (requires `[lint]` extra)
   - Works with explicit file arguments: `calcipy-lint lint.check file.py`
   - Works in projects with pyproject.toml: `calcipy-lint lint.check`
   - Limitation: Without explicit files and without pyproject.toml, will fail trying to detect package
-- ✅ **calcipy-tags** - Code tag collection (works on any directory)
-  - Use `--ignore-repo-root` flag for non-git directories
+- ✅ **calcipy-tags** - Code tag collection (requires `[tags]` extra)
+  - Works on any directory (use `--ignore-repo-root` flag for non-git directories)
   - Example: `calcipy-tags tags --base-dir=/path/to/project --ignore-repo-root`
+- ✅ **calcipy-experiments** - Experimental features (requires `[experimental]` extra)
+  - `bump-tag` - Suggest version bump using griffe to detect breaking changes
+  - `sync-pyproject-versions` - Sync pyproject.toml versions from uv.lock
 
 **Benefits of tool mode:**
 - No dependency conflicts with project
 - calcipy can use newer Python features independently
 - Faster to try out without modifying project
 - Works across multiple projects
+- Composable extras allow installing only what you need
 
 **Limitations:**
 - Cannot fully access project-specific configuration
@@ -69,7 +81,7 @@ Install with: `uv add --dev 'calcipy[recommended]'` or specific extras
 - ❌ **calcipy-test** - Requires project's test dependencies and package name
 - ❌ **calcipy-types** - Requires project's type stubs and code
 - ❌ **calcipy-docs** - Requires project's documentation dependencies and structure
-- ⚠️ **calcipy-pack** - Most tasks require project context (lock is standalone)
+- ⚠️ **calcipy-pack** - Most tasks require project context
 - ⚠️ **calcipy (full)** - Main task pipeline requires project context
 
 **Benefits of dependency mode:**
@@ -78,30 +90,31 @@ Install with: `uv add --dev 'calcipy[recommended]'` or specific extras
 - Coordinated version management
 - All tasks available
 
-### Tool Extra Definition
+### Composable Extras Design
 
-The `[tool]` extra includes minimal dependencies for standalone usage:
+Instead of a monolithic `[tool]` extra, calcipy uses composable extras that users can mix and match:
 
-```toml
-[project.optional-dependencies]
-tool = [
-  "calcipy[lint,tags]",
-]
-```
+- `[lint]` - Minimal linting (ruff only)
+- `[tags]` - Code tag collection (arrow, pyyaml)
+- `[experimental]` - Experimental features (griffe, semver)
+- `[test]` - Testing tools (pytest, coverage)
+- `[types]` - Type checking (mypy, ty)
+- `[doc]` - Documentation (mkdocs and plugins)
+- `[recommended]` - All common development tools
 
-This installs:
-- Core: beartype, corallium, invoke
-- Lint: ruff
-- Tags: arrow, pyyaml
+Users install only what they need:
+- Tool mode: `calcipy[lint]` or `calcipy[lint,tags]`
+- Dev dependency: `calcipy[recommended]` or custom combinations
 
 ### Consequences
 
 - Good, because reduces dependency conflicts for tool-mode usage
 - Good, because calcipy can drop Python version support independently
 - Good, because clear documentation prevents confusion
-- Good, because lightweight tool installation for lint/tags
+- Good, because composable extras allow installing only what you need
 - Good, because adopters can try calcipy without committing
 - Good, because supports both use cases based on actual capabilities
+- Good, because experimental features exposed as tool without project dependency
 - Bad, because maintains complexity of two installation modes
 - Bad, because some tasks still require project installation
 - Neutral, because requires user to understand which mode for which task
@@ -134,7 +147,8 @@ Potential improvements (not part of this minimal implementation):
 
 ## More Information
 
-- Tool extra configuration: `/pyproject.toml` under `[project.optional-dependencies]`
+- Composable extras configuration: `/pyproject.toml` under `[project.optional-dependencies]`
+- CLI entry points: `/pyproject.toml` under `[project.scripts]`
 - Installation examples: `/docs/README.md` Installation section
 - Related: ADR-0007 (Multiple CLI Entry Points)
 - Future roadmap: `/wip-tooling-refactor.md`
