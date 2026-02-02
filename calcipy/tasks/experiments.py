@@ -1,5 +1,7 @@
 """Experimental features CLI."""
 
+from pathlib import Path
+
 from corallium import file_helpers
 from corallium.file_helpers import get_lock
 from corallium.log import LOGGER
@@ -50,3 +52,21 @@ def sync_pyproject_versions(ctx: Context) -> None:  # noqa: ARG001
     from corallium import sync_dependencies  # noqa: PLC0415
 
     sync_dependencies.replace_versions(path_lock=get_lock())
+
+
+@task(
+    help={
+        'test_path': 'Path to test directory (default: ./tests)',
+    },
+)
+def check_duplicate_tests(ctx: Context, *, test_path: str = 'tests') -> None:  # noqa: ARG001
+    """Check for duplicate test names in test suite.
+
+    Raises:
+        RuntimeError: if duplicate tests found
+
+    """
+    from calcipy.experiments import check_duplicate_test_names  # noqa: PLC0415
+
+    if duplicates := check_duplicate_test_names.run(Path(test_path)):
+        raise RuntimeError(f'Duplicate test names found ({duplicates}). See log output above for details.')  # noqa: EM102

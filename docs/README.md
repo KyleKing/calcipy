@@ -52,6 +52,9 @@ calcipy-experiments bump-tag --help
 - ✅ `calcipy-lint` - Lint any Python codebase (requires `[lint]` extra)
 - ✅ `calcipy-tags` - Collect code tags from any directory (requires `[tags]` extra)
 - ✅ `calcipy-experiments` - Experimental features like version bumping (requires `[experimental]` extra)
+  - `bump-tag` - Auto-suggest version bumps
+  - `sync-pyproject-versions` - Sync dependency versions
+  - `check-duplicate-tests` - Find duplicate test names
 - ⚠️ Other commands require project context (see below)
 
 ### 2. As a Project Dependency (Full Development Environment)

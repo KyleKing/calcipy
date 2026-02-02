@@ -61,6 +61,7 @@ Or use transiently via uvx:
 - ✅ **calcipy-experiments** - Experimental features (requires `[experimental]` extra)
   - `bump-tag` - Suggest version bump using griffe to detect breaking changes
   - `sync-pyproject-versions` - Sync pyproject.toml versions from uv.lock
+  - `check-duplicate-tests` - Check for duplicate test names in test suite
 
 **Benefits of tool mode:**
 - No dependency conflicts with project
