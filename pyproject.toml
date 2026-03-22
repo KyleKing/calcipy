@@ -137,6 +137,10 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = ["griffe"]
+
 [tool.pyright]
 include = ["calcipy", "tests"]
 pythonVersion = "3.10"
