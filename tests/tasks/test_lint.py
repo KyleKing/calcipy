@@ -22,7 +22,7 @@ from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commi
                 call('which prek', warn=True, hide=True),
                 'prek install',
                 'prek autoupdate',
-                'prek run --all-files ' + ' '.join(f'--hook-stage {stg}' for stg in ALL_PRE_COMMIT_HOOK_STAGES),
+                *[f'prek run --all-files --hook-stage {stg}' for stg in ALL_PRE_COMMIT_HOOK_STAGES],
             ],
         ),
     ],

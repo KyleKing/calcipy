@@ -105,5 +105,5 @@ def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     if not no_update:
         run(ctx, 'prek autoupdate')
 
-    stages_cli = ' '.join(f'--hook-stage {stg}' for stg in ALL_PRE_COMMIT_HOOK_STAGES)
-    run(ctx, f'prek run --all-files {stages_cli}')
+    for stage in ALL_PRE_COMMIT_HOOK_STAGES:
+        run(ctx, f'prek run --all-files --hook-stage {stage}')
