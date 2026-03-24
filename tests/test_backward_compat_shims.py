@@ -67,7 +67,9 @@ def _assert_reexports(module, reexports):
 
 @pytest.mark.parametrize(('module_path', 'target', 'reexports'), _SHIM_PARAMS)
 def test_backward_compat_shim(module_path, target, reexports):
-    module = importlib.import_module(module_path)
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=DeprecationWarning)
+        module = importlib.import_module(module_path)
     _assert_deprecation_warning(module, target)
     _assert_reexports(module, reexports)
 
