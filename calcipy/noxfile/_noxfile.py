@@ -28,7 +28,7 @@ import shlex
 from functools import lru_cache
 
 from beartype.typing import Any, Dict, List, Union
-from corallium.file_helpers import get_tool_versions, read_package_name, read_pyproject
+from corallium.file_helpers import get_tool_versions, read_pyproject
 from nox import Session as NoxSession
 from nox import session as nox_session
 
@@ -56,27 +56,15 @@ def _has_ci_group(pyproject_data: Union[Dict[str, Any], None] = None) -> bool:
 def _install_local(session: NoxSession) -> None:  # pragma: no cover
     """Install project dependencies using uv sync.
 
-    Uses uv's dependency groups and extras for isolation.
-    For calcipy itself, installs all extras to test the full package.
-    For other projects, installs test extras and ci group if available.
-
-    Modern pattern (2026): Use uv sync with --group flag to install dependency groups,
-    which automatically handles dependencies from uv.lock if present.
+    Uses uv's dependency groups and extras for isolation. If a 'ci' group exists,
+    installs only that group; otherwise installs all extras to include test dependencies.
 
     """
     sync_args = ['uv', 'sync']
-
-    if read_package_name() == 'calcipy':
-        # Install all extras for comprehensive testing of calcipy itself
-        sync_args.append('--all-extras')
-    else:
-        # Install test extras for downstream projects
-        sync_args.extend(['--extra=test'])
-
-    # Add ci dependency group if it exists
     if _has_ci_group():
         sync_args.extend(['--group=ci', '--no-default-groups'])
-
+    else:
+        sync_args.append('--all-extras')
     session.run_install(
         *sync_args,
         env={'UV_PROJECT_ENVIRONMENT': session.virtualenv.location},

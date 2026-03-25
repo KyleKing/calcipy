@@ -4,7 +4,7 @@ requires = ["uv_build>=0.9.26"]
 
 [dependency-groups]
 ci = [
-  "calcipy[lint,test,types]",
+  "calcipy[recommended]",
   "duty>=1.6.3",
   "hypothesis >=6.151.4", # Use CLI with: "uv run hypothesis write calcipy.dot_dict.ddict"
   "pytest-asyncio >=1.3.0",
