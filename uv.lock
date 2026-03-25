@@ -101,7 +101,7 @@ wheels = [
 
 [[package]]
 name = "calcipy"
-version = "6.0.0rc0"
+version = "6.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "beartype" },
