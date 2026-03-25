@@ -65,6 +65,7 @@ def with_progress(items: Any, offset: int = 0) -> TaskList:
 
 _MAIN_TASKS = [
     lint.fix,
+    types.ty,
     types.mypy,
     types.pyright,
     test.coverage,

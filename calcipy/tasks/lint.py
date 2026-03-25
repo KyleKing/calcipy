@@ -77,8 +77,7 @@ def watch(ctx: Context) -> None:
 # ==============================================================================
 # prek
 
-ALL_PRE_COMMIT_HOOK_STAGES = [
-    'commit-msg',
+PRE_COMMIT_HOOK_STAGES = [
     'manual',
     'post-checkout',
     'post-commit',
@@ -88,7 +87,6 @@ ALL_PRE_COMMIT_HOOK_STAGES = [
     'pre-merge-commit',
     'pre-push',
     'pre-rebase',
-    'prepare-commit-msg',
 ]
 
 
@@ -105,5 +103,5 @@ def pre_commit(ctx: Context, *, no_update: bool = False) -> None:
     if not no_update:
         run(ctx, 'prek autoupdate')
 
-    for stage in ALL_PRE_COMMIT_HOOK_STAGES:
+    for stage in PRE_COMMIT_HOOK_STAGES:
         run(ctx, f'prek run --all-files --hook-stage {stage}')

@@ -4,7 +4,7 @@ requires = ["uv_build>=0.9.26"]
 
 [dependency-groups]
 ci = [
-  "calcipy[recommended]",
+  "calcipy[ddict,experimental,recommended]",
   "duty>=1.6.3",
   "hypothesis >=6.151.4", # Use CLI with: "uv run hypothesis write calcipy.dot_dict.ddict"
   "pytest-asyncio >=1.3.0",
@@ -72,7 +72,7 @@ doc = [
   "tomli>=2.4.0; python_version < '3.11'", # PLANNED: When >=3.11, drop
 ]
 experimental = [
-  "griffe >=1.15.0",
+  "griffe >=2.0.1",
   "semver >=3.0.4",
 ]
 lint = [
@@ -138,8 +138,9 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
-ignore_missing_imports = true
-module = ["griffe"]
+# griffe v2 appears to be missing type annotations and not longer passes
+disable_error_code = ["attr-defined"]
+module = ["calcipy.experiments.bump_programmatically"]
 
 [tool.pyright]
 include = ["calcipy", "tests"]

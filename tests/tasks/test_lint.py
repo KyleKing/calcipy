@@ -5,7 +5,7 @@ import pytest
 
 from calcipy.collection import GlobalTaskOptions
 from calcipy.tasks.executable_utils import python_m
-from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, watch
+from calcipy.tasks.lint import PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, watch
 
 
 @pytest.mark.parametrize(
@@ -22,7 +22,7 @@ from calcipy.tasks.lint import ALL_PRE_COMMIT_HOOK_STAGES, check, fix, pre_commi
                 call('which prek', warn=True, hide=True),
                 'prek install',
                 'prek autoupdate',
-                *[f'prek run --all-files --hook-stage {stg}' for stg in ALL_PRE_COMMIT_HOOK_STAGES],
+                *[f'prek run --all-files --hook-stage {stg}' for stg in PRE_COMMIT_HOOK_STAGES],
             ],
         ),
     ],

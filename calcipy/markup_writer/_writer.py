@@ -293,7 +293,7 @@ def write_template_formatted_sections(
         'SOURCE_FILE=': _handle_source_file,
     }
 
-    markup_paths = paths or find_project_files_by_suffix(get_project_path()).get('md') or []
+    markup_paths: list[Path] = paths or find_project_files_by_suffix(get_project_path()).get('md') or []  # type: ignore[assignment]
     for path in markup_paths:
         LOGGER.text_debug('Processing', path=path)
         if lines := _ReplacementMachine().parse(read_lines(path), lookup, path):

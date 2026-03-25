@@ -1,6 +1,6 @@
 """Experiment with bumping the git tag using `griffe`."""
 
-import griffe
+import griffe  # type: ignore[import-untyped]
 import semver
 from corallium.log import LOGGER
 from griffe import BuiltinModuleError
