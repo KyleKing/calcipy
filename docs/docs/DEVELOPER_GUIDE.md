@@ -134,8 +134,8 @@ uv publish
 | `calcipy/tasks/pack.py`                             | 24         | 0       | 0        | 96.7%    |
 | `calcipy/tasks/tags.py`                             | 29         | 0       | 0        | 100.0%   |
 | `calcipy/tasks/test.py`                             | 41         | 0       | 2        | 98.0%    |
-| `calcipy/tasks/types.py`                            | 14         | 0       | 0        | 100.0%   |
-| **Totals**                                          | 665        | 0       | 322      | 98.1%    |
+| `calcipy/tasks/types.py`                            | 16         | 0       | 0        | 100.0%   |
+| **Totals**                                          | 667        | 0       | 322      | 98.1%    |
 
 Generated on: 2026-03-24
 <!-- {cte} -->

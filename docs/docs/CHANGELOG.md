@@ -1,7 +1,8 @@
-## Unreleased
+## 6.0.0 (2026-03-24)
 
 ### Fix
 
+- split ty-specific ignores from mypy
 - resolve mypy, nox, and other errors
 - simplifynox test extras logic
 - merge all pre-commit hook stages for prek
