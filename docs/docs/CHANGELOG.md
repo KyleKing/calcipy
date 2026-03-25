@@ -1,3 +1,10 @@
+## Unreleased
+
+### Fix
+
+- limit commitizen changes
+- dynamically load the ty package name
+
 ## 6.0.0 (2026-03-24)
 
 ### Fix
