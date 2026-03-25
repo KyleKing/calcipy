@@ -115,7 +115,7 @@ calcipy-types = "calcipy.scripts:start_types"
 
 [tool.commitizen]
 version = "6.0.0"
-version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version", "uv.lock:^version"]
+version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
 [tool.mypy]
 check_untyped_defs = true
