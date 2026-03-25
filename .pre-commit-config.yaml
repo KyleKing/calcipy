@@ -42,7 +42,7 @@ repos:
       - id: trailing-whitespace
         exclude: __snapshots__/.*\.ambr
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.12.1
+    rev: v4.13.9
     hooks:
       - id: commitizen
   - repo: https://github.com/executablebooks/mdformat
@@ -74,7 +74,7 @@ repos:
         types_or: [css, html, javascript, json, shell, yaml]
         stages: ["pre-commit"]
   - repo: https://github.com/pappasam/toml-sort
-    rev: v0.24.3
+    rev: v0.24.4
     hooks:
       - id: toml-sort-fix
         exclude: uv\.lock

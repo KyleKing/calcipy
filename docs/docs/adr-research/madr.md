@@ -117,7 +117,7 @@ Examples:
 
 **Complex Projects**: Use subdirectories for categorization:
 
-```
+```text
 docs/adr/
   backend/
     0001-use-postgresql.md
