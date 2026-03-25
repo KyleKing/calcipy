@@ -30,5 +30,5 @@ def ctx() -> MockContext:
     Documentation: https://docs.pyinvoke.org/en/stable/concepts/testing.html
 
     """
-    MockContext.run_command = property(lambda self: self.run.call_args[0][0])  # type: ignore[attr-defined,unresolved-attribute]
+    MockContext.run_command = property(lambda self: self.run.call_args[0][0])  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
     return MockContext(run=True)

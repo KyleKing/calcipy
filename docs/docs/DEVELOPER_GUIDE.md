@@ -120,7 +120,7 @@ uv publish
 | `calcipy/markup_writer/__init__.py`                 | 3          | 0       | 2        | 100.0%   |
 | `calcipy/markup_writer/_writer.py`                  | 107        | 0       | 9        | 96.9%    |
 | `calcipy/noxfile/__init__.py`                       | 3          | 0       | 2        | 100.0%   |
-| `calcipy/noxfile/_noxfile.py`                       | 12         | 0       | 46       | 100.0%   |
+| `calcipy/noxfile/_noxfile.py`                       | 12         | 0       | 34       | 100.0%   |
 | `calcipy/scripts.py`                                | 6          | 0       | 51       | 100.0%   |
 | `calcipy/tasks/__init__.py`                         | 0          | 0       | 0        | 100.0%   |
 | `calcipy/tasks/all_tasks.py`                        | 37         | 0       | 0        | 100.0%   |
@@ -128,14 +128,14 @@ uv publish
 | `calcipy/tasks/defaults.py`                         | 17         | 0       | 0        | 94.7%    |
 | `calcipy/tasks/doc.py`                              | 29         | 0       | 8        | 100.0%   |
 | `calcipy/tasks/executable_utils.py`                 | 31         | 0       | 0        | 97.1%    |
-| `calcipy/tasks/lint.py`                             | 48         | 0       | 0        | 95.0%    |
+| `calcipy/tasks/lint.py`                             | 48         | 0       | 0        | 93.5%    |
 | `calcipy/tasks/most_tasks.py`                       | 29         | 0       | 0        | 100.0%   |
 | `calcipy/tasks/nox.py`                              | 8          | 0       | 0        | 100.0%   |
 | `calcipy/tasks/pack.py`                             | 24         | 0       | 0        | 96.7%    |
 | `calcipy/tasks/tags.py`                             | 29         | 0       | 0        | 100.0%   |
 | `calcipy/tasks/test.py`                             | 41         | 0       | 2        | 98.0%    |
 | `calcipy/tasks/types.py`                            | 14         | 0       | 0        | 100.0%   |
-| **Totals**                                          | 665        | 0       | 334      | 98.2%    |
+| **Totals**                                          | 665        | 0       | 322      | 98.1%    |
 
-Generated on: 2026-01-30
+Generated on: 2026-03-24
 <!-- {cte} -->

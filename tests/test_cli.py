@@ -7,4 +7,4 @@ def test_task_decorator_without_parens():
         pass
 
     assert callable(my_task)
-    assert my_task.__wrapped__.__name__ == 'my_task'  # type: ignore[attr-defined,unresolved-attribute]
+    assert my_task.__wrapped__.__name__ == 'my_task'  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]

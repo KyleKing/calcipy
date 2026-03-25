@@ -1,3 +1,11 @@
+## Unreleased
+
+### Fix
+
+- resolve mypy, nox, and other errors
+- simplifynox test extras logic
+- merge all pre-commit hook stages for prek
+
 ## 6.0.0rc0 (2026-01-30)
 
 ### Feat

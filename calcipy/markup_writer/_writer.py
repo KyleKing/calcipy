@@ -287,13 +287,13 @@ def write_template_formatted_sections(
     paths: Optional[List[Path]] = None,
 ) -> None:
     """Populate the template-formatted sections of markup files with user-configured logic."""
-    lookup: HandlerLookupT = handler_lookup or {
+    lookup: HandlerLookupT = handler_lookup or {  # ty: ignore[invalid-assignment]
         'CLI_OUTPUT=': _handle_cli_output,
         'COVERAGE ': _handle_coverage,
         'SOURCE_FILE=': _handle_source_file,
     }
 
-    markup_paths: list[Path] = paths or find_project_files_by_suffix(get_project_path()).get('md') or []  # type: ignore[assignment]
+    markup_paths: list[Path] = paths or find_project_files_by_suffix(get_project_path()).get('md') or []
     for path in markup_paths:
         LOGGER.text_debug('Processing', path=path)
         if lines := _ReplacementMachine().parse(read_lines(path), lookup, path):

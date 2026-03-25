@@ -121,8 +121,8 @@ def _build_task(task: DeferredTask) -> Task:  # type: ignore[type-arg]  # pragma
         show_task_info = kwargs.pop('show_task_info', None) or False
         pre = [_build_task(pre) for pre in kwargs.pop('pre', None) or []]
         post = [_build_task(post) for post in kwargs.pop('post', None) or []]
-        return Task(inner, *getattr(task, TASK_ARGS_ATTR), pre=pre, post=post, **kwargs)  # type: ignore[misc,arg-type,invalid-argument-type]
-    return task  # type: ignore[return-value]
+        return Task(inner, *getattr(task, TASK_ARGS_ATTR), pre=pre, post=post, **kwargs)  # type: ignore[misc,arg-type]  # ty: ignore[invalid-argument-type]
+    return task  # type: ignore[return-value]  # ty: ignore[invalid-return-type]
 
 
 class Collection(InvokeCollection):
