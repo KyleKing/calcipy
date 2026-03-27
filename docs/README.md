@@ -21,14 +21,21 @@ Use `calcipy` as a standalone tool without adding it as a dependency. This is id
 
 - **Linting**: Running `ruff` on any Python codebase
 - **Code Tag Collection**: Creating TODO/FIXME summaries for any project
+- **Experimental Features**: Version bumping and dependency syncing
 
 ```sh
-# Install as a tool (minimal dependencies)
-uv tool install 'calcipy[tool]'
+# Install individual tools (most efficient)
+uv tool install 'calcipy[lint]'      # Linting only
+uv tool install 'calcipy[tags]'      # Code tags only
+uv tool install 'calcipy[experimental]'  # Experimental features
+
+# Or combine multiple features
+uv tool install 'calcipy[lint,tags]'
 
 # Or use without installing via uvx
-uvx --from 'calcipy[tool]' calcipy-lint --help
-uvx --from 'calcipy[tool]' calcipy-tags --help
+uvx --from 'calcipy[lint]' calcipy-lint lint.check file.py
+uvx --from 'calcipy[tags]' calcipy-tags tags --base-dir=.
+uvx --from 'calcipy[experimental]' calcipy-experiments bump-tag --tag=v1.0.0
 
 # Examples
 calcipy-lint lint --help
@@ -36,12 +43,18 @@ calcipy-lint lint  # Lint current directory
 
 calcipy-tags tags --help
 calcipy-tags tags --base-dir=~/path/to/my_project
+
+calcipy-experiments bump-tag --help
 ```
 
 **Tool Mode Capabilities:**
 
-- ✅ `calcipy-lint` - Lint any Python codebase
-- ✅ `calcipy-tags` - Collect code tags from any directory
+- ✅ `calcipy-lint` - Lint any Python codebase (requires `[lint]` extra)
+- ✅ `calcipy-tags` - Collect code tags from any directory (requires `[tags]` extra)
+- ✅ `calcipy-experiments` - Experimental features like version bumping (requires `[experimental]` extra)
+  - `bump-tag` - Auto-suggest version bumps
+  - `sync-pyproject-versions` - Sync dependency versions
+  - `check-duplicate-tests` - Find duplicate test names
 - ⚠️ Other commands require project context (see below)
 
 ### 2. As a Project Dependency (Full Development Environment)
