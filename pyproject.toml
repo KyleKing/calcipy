@@ -114,6 +114,7 @@ calcipy-types = "calcipy.scripts:start_types"
 "Repository" = "https://github.com/kyleking/calcipy"
 
 [tool.commitizen]
+pre_bump_hooks = ["uv lock"]
 version = "6.0.1"
 version_files = ["calcipy/__init__.py:^__version", "pyproject.toml:^version"]
 
