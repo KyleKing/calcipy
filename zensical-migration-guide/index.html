@@ -1,0 +1,3179 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="calcipy project documentation">
+      
+      
+        <meta name="author" content="Kyle King">
+      
+      
+        <link rel="canonical" href="https://calcipy.kyleking.me/zensical-migration-guide/">
+      
+      
+        <link rel="prev" href="./..">
+      
+      
+        <link rel="next" href="../docs/CHANGELOG/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.46">
+    
+    
+      
+        <title>Zensical Migration Guide (MkDocs + Material → Zensical) - calcipy</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.19d3147f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../_styles/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#zensical-migration-guide-mkdocs-material-zensical" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            calcipy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Zensical Migration Guide (MkDocs + Material → Zensical)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    calcipy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kyleking/calcipy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  calcipy
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Zensical Migration Guide (MkDocs + Material → Zensical)
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Zensical Migration Guide (MkDocs + Material → Zensical)
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TL;DR
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-dependency-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Dependency Changes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Dependency Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Remove
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Add
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins-check-each-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugins — check each one
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugins — check each one">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-highest-priority-expected-to-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tier 1 — highest priority, expected to work
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-secondary-priority-may-have-partial-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tier 2 — secondary priority, may have partial support
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unknown-not-in-the-supported-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Unknown / not in the supported list
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configuration-mkdocsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Configuration (<code>mkdocs.yml</code>)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configuration (mkdocs.yml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-incompatibilities-to-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Known incompatibilities to verify
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#this-projects-mkdocsymljinja-items-to-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        This project&rsquo;s <code>mkdocs.yml.jinja</code> — items to verify
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cli-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. CLI Changes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. CLI Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commands-that-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commands that work
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flags-removed-or-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flags removed or changed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands-not-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commands not implemented
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-template-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Template Overrides
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Template Overrides">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-minijinja-vs-jinja2-differences-to-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Known MiniJinja vs Jinja2 differences to audit
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Audit steps
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cicd-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. CI/CD Changes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. CI&#x2f;CD Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GitHub Actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-migration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Migration Checklist
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Migration Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-a-dependency-swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase A — Dependency swap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-b-plugin-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase B — Plugin verification
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-c-template-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase C — Template overrides
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-d-cli-and-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase D — CLI and CI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-e-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase E — Validation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-known-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7. Known Risks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-rollback-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8. Rollback Plan
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Docs
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Docs
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CHANGELOG
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/CODE_TAG_SUMMARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collected Code Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/DEVELOPER_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Developer Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/MIGRATION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Migration Guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/STYLE_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Personal Style Guides
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adr
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Adr
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Architecture Decision Records
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/0001-record-architecture-decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Record Architecture Decisions
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/0002-use-invoke-for-task-automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Use Invoke for Task Automation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Use Ruff for Linting and Formatting
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Switch to uv for Dependency Management
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Use Beartype for Runtime Type Checking
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/0006-use-hatchling-for-build-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Use Hatchling for Build Backend
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr/0007-provide-multiple-cli-entry-points/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Provide Multiple CLI Entry Points
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adr research
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Adr research
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ADR Research and Documentation
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/ai-guidance-for-adrs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AI Guidance for Writing and Reviewing Architecture Decision Records
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/aws-adr-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  AWS Architecture Decision Records (ADRs) Guide
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/comparison-and-recommendations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ADR Approaches: Comparison and Recommendations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/ethereum-eips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Ethereum EIPs - Ethereum Improvement Proposals
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/log4brains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  log4brains - Architecture Decision Records Management Tool
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/madr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MADR - Markdown Architectural Decision Records
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/prefect-pins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Prefect PINs - Prefect Improvement Notices
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/real-world-examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Real-World ADR Examples and Implementations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/adr-research/y-statements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Y-Statements - Abbreviated Architecture Decision Format
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Reference
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Reference
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Calcipy
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Calcipy
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cli
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/collection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Collection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/invoke_helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Invoke helpers
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Scripts
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_5" id="__nav_4_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Experiments
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Experiments
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/experiments/bump_programmatically/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Bump programmatically
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/experiments/check_duplicate_test_names/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Check duplicate test names
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1_6" id="__nav_4_1_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tasks
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Tasks
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/all_tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  All tasks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/cl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Cl
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/defaults/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Defaults
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/doc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Doc
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/executable_utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Executable utils
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/lint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Lint
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/nox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Nox
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Pack
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Tags
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Test
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/calcipy/tasks/types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Types
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Superpowers
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Superpowers
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plans
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Plans
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Replace Nox with uv Multi-Version Testing Implementation Plan
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        TL;DR
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-dependency-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        1. Dependency Changes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Dependency Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#remove" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Remove
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Add
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugins-check-each-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Plugins — check each one
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plugins — check each one">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-highest-priority-expected-to-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tier 1 — highest priority, expected to work
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-secondary-priority-may-have-partial-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tier 2 — secondary priority, may have partial support
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unknown-not-in-the-supported-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Unknown / not in the supported list
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configuration-mkdocsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        2. Configuration (<code>mkdocs.yml</code>)
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configuration (mkdocs.yml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-incompatibilities-to-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Known incompatibilities to verify
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#this-projects-mkdocsymljinja-items-to-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        This project&rsquo;s <code>mkdocs.yml.jinja</code> — items to verify
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cli-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        3. CLI Changes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. CLI Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commands-that-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commands that work
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flags-removed-or-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flags removed or changed
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commands-not-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Commands not implemented
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-template-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        4. Template Overrides
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Template Overrides">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#known-minijinja-vs-jinja2-differences-to-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Known MiniJinja vs Jinja2 differences to audit
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Audit steps
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cicd-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        5. CI/CD Changes
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. CI&#x2f;CD Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        GitHub Actions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-migration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        6. Migration Checklist
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Migration Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-a-dependency-swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase A — Dependency swap
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-b-plugin-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase B — Plugin verification
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-c-template-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase C — Template overrides
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-d-cli-and-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase D — CLI and CI
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-e-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Phase E — Validation
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-known-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        7. Known Risks
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-rollback-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        8. Rollback Plan
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        References
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+  
+  
+
+
+<h1 id="zensical-migration-guide-mkdocs-material-zensical">Zensical Migration Guide (MkDocs + Material → Zensical)<a class="headerlink" href="#zensical-migration-guide-mkdocs-material-zensical" title="Permanent link">⚓︎</a></h1>
+<blockquote>
+<p><strong>AI context</strong>: This guide is written for an AI agent assisting with migration. It covers the full surface area: what changes are required, what is compatible as-is, what needs verification, and what is not yet supported. Source: https://zensical.org/compatibility/ (fetched 2026-03-24).</p>
+<p>Zensical is built by the creators of Material for MkDocs and is designed as a drop-in replacement consolidating MkDocs, Material theming, and plugins into a single package.</p>
+</blockquote>
+<hr />
+<h2 id="tldr">TL;DR<a class="headerlink" href="#tldr" title="Permanent link">⚓︎</a></h2>
+<p>For most projects the migration is:</p>
+<ol>
+<li>Replace <code>mkdocs</code> + <code>mkdocs-material</code> (and most plugins) with <code>zensical</code> in dependencies</li>
+<li>Run <code>zensical build</code> or <code>zensical serve</code> — your existing <code>mkdocs.yml</code> works as-is</li>
+<li>Fix any Jinja2 → MiniJinja template syntax if you have custom overrides</li>
+<li>Replace <code>gh-deploy</code> CI step with the Zensical publishing workflow</li>
+</ol>
+<hr />
+<h2 id="1-dependency-changes">1. Dependency Changes<a class="headerlink" href="#1-dependency-changes" title="Permanent link">⚓︎</a></h2>
+<h3 id="remove">Remove<a class="headerlink" href="#remove" title="Permanent link">⚓︎</a></h3>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdocs
+mkdocs-material
+mkdocs-material-extensions   # bundled in zensical
+</code></pre></div></td></tr></table></div>
+
+<h3 id="add">Add<a class="headerlink" href="#add" title="Permanent link">⚓︎</a></h3>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>zensical
+</code></pre></div></td></tr></table></div>
+
+<h3 id="plugins-check-each-one">Plugins — check each one<a class="headerlink" href="#plugins-check-each-one" title="Permanent link">⚓︎</a></h3>
+<p>Zensical natively supports 27 plugins via its module system. When listed in <code>mkdocs.yml</code>, they are automatically mapped to Zensical modules with no config changes needed.</p>
+<h4 id="tier-1-highest-priority-expected-to-work">Tier 1 — highest priority, expected to work<a class="headerlink" href="#tier-1-highest-priority-expected-to-work" title="Permanent link">⚓︎</a></h4>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mkdocs-autorefs</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-awesome-nav</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-exclude</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-glightbox</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-literate-nav</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-macros-plugin</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-meta-plugin</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mike</code></td>
+<td>Supported (versioning)</td>
+</tr>
+<tr>
+<td><code>mkdocs-minify-plugin</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocstrings</code> / <code>mkdocstrings-python</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-offline-plugin</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-redirects</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>mkdocs-search</code></td>
+<td>Supported (built-in)</td>
+</tr>
+<tr>
+<td><code>mkdocs-tags-plugin</code></td>
+<td>Supported</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tier-2-secondary-priority-may-have-partial-support">Tier 2 — secondary priority, may have partial support<a class="headerlink" href="#tier-2-secondary-priority-may-have-partial-support" title="Permanent link">⚓︎</a></h4>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mkdocs-audio</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-blog</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-gen-files</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-git-authors-plugin</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-git-committers-plugin</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-git-revision-date-localized-plugin</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-optimize-plugin</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-privacy-plugin</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-rss-plugin</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-social</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-static-i18n</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-table-reader-plugin</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td><code>mkdocs-video</code></td>
+<td>Planned</td>
+</tr>
+</tbody>
+</table>
+<h4 id="unknown-not-in-the-supported-list">Unknown / not in the supported list<a class="headerlink" href="#unknown-not-in-the-supported-list" title="Permanent link">⚓︎</a></h4>
+<p>Any plugin <strong>not listed above</strong> has no stated compatibility. Before removing it, verify:</p>
+<ul>
+<li>Does Zensical have a built-in equivalent feature?</li>
+<li>Is the plugin maintained and likely to add Zensical support?</li>
+<li>Can the plugin functionality be replicated in content or configuration?</li>
+</ul>
+<hr />
+<h2 id="2-configuration-mkdocsyml">2. Configuration (<code>mkdocs.yml</code>)<a class="headerlink" href="#2-configuration-mkdocsyml" title="Permanent link">⚓︎</a></h2>
+<p><strong>No changes required.</strong> Zensical reads <code>mkdocs.yml</code> directly. Plugin entries are automatically mapped to Zensical modules.</p>
+<h3 id="known-incompatibilities-to-verify">Known incompatibilities to verify<a class="headerlink" href="#known-incompatibilities-to-verify" title="Permanent link">⚓︎</a></h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>theme: name: material</code></td>
+<td>Supported — Zensical ships the Material theme</td>
+</tr>
+<tr>
+<td><code>theme: features: [...]</code></td>
+<td>Supported — full Material feature parity claimed</td>
+</tr>
+<tr>
+<td><code>pymdownx.*</code> extensions</td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>!!python/name:</code> YAML tags (e.g., emoji index)</td>
+<td><strong>Verify</strong> — these call Python callables at build time; confirm Zensical handles them or replace with built-in equivalents</td>
+</tr>
+<tr>
+<td><code>extra_css</code> / <code>extra_javascript</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>watch:</code></td>
+<td>Supported</td>
+</tr>
+<tr>
+<td><code>edit_uri:</code></td>
+<td>Supported</td>
+</tr>
+</tbody>
+</table>
+<h3 id="this-projects-mkdocsymljinja-items-to-verify">This project&rsquo;s <code>mkdocs.yml.jinja</code> — items to verify<a class="headerlink" href="#this-projects-mkdocsymljinja-items-to-verify" title="Permanent link">⚓︎</a></h3>
+<p>The template uses:</p>
+<ul>
+<li><code>pymdownx.emoji</code> with <code>!!python/name:material.extensions.emoji.twemoji</code> — the callable references <code>material.*</code>; confirm Zensical bundles this or provides a replacement path</li>
+<li><code>codehilite</code> + <code>pymdownx.highlight</code> — both are listed; this is redundant in MkDocs too, but confirm Zensical does not error on duplicate highlighters</li>
+<li><code>gen-files</code> (Tier 2) — used to generate API reference nav; verify this works before removing it</li>
+<li><code>mkdocstrings</code> (Tier 1) — should work, but test Python handler options (<code>docstring_section_style</code>, <code>separate_signature</code>, etc.)</li>
+</ul>
+<hr />
+<h2 id="3-cli-changes">3. CLI Changes<a class="headerlink" href="#3-cli-changes" title="Permanent link">⚓︎</a></h2>
+<h3 id="commands-that-work">Commands that work<a class="headerlink" href="#commands-that-work" title="Permanent link">⚓︎</a></h3>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>zensical<span class="w"> </span>build<span class="w">       </span><span class="c1"># replaces: mkdocs build</span>
+zensical<span class="w"> </span>serve<span class="w">       </span><span class="c1"># replaces: mkdocs serve</span>
+</code></pre></div></td></tr></table></div>
+
+<h3 id="flags-removed-or-changed">Flags removed or changed<a class="headerlink" href="#flags-removed-or-changed" title="Permanent link">⚓︎</a></h3>
+<table>
+<thead>
+<tr>
+<th>MkDocs flag</th>
+<th>Zensical behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--theme</code> / <code>-t</code></td>
+<td>Not supported — single theme only</td>
+</tr>
+<tr>
+<td><code>--use-directory-urls</code> / <code>--no-directory-urls</code></td>
+<td>Not supported as flags — set <code>use_directory_urls</code> in <code>mkdocs.yml</code> instead</td>
+</tr>
+<tr>
+<td><code>--site-dir</code></td>
+<td>Not supported as flag — set <code>site_dir</code> in config</td>
+</tr>
+<tr>
+<td><code>--strict</code></td>
+<td>Currently ignored — validation planned for future</td>
+</tr>
+<tr>
+<td><code>serve --dirty</code></td>
+<td>Unnecessary — Zensical caches by default</td>
+</tr>
+</tbody>
+</table>
+<h3 id="commands-not-implemented">Commands not implemented<a class="headerlink" href="#commands-not-implemented" title="Permanent link">⚓︎</a></h3>
+<table>
+<thead>
+<tr>
+<th>MkDocs command</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mkdocs gh-deploy</code></td>
+<td>Use Zensical publishing guide; update CI/CD workflow</td>
+</tr>
+<tr>
+<td><code>mkdocs get-deps</code></td>
+<td>Declare deps in <code>pyproject.toml</code> directly</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-template-overrides">4. Template Overrides<a class="headerlink" href="#4-template-overrides" title="Permanent link">⚓︎</a></h2>
+<p>Zensical uses <strong>MiniJinja</strong> instead of Jinja2. HTML structure is preserved, but syntax differences require adjustments.</p>
+<h3 id="known-minijinja-vs-jinja2-differences-to-audit">Known MiniJinja vs Jinja2 differences to audit<a class="headerlink" href="#known-minijinja-vs-jinja2-differences-to-audit" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li><code>{% set ns = namespace(x=0) %}</code> — <code>namespace()</code> may not exist; use direct variable reassignment patterns supported by MiniJinja</li>
+<li>Filters: most standard Jinja2 filters work; custom filters registered via MkDocs hooks will not</li>
+<li><code>{% call(arg) macro_name() %}</code> — block calls with arguments differ; verify any custom macros</li>
+<li><code>loop.cycle()</code> — verify availability</li>
+<li><code>{% trans %}</code> i18n blocks — verify if used</li>
+<li><code>{{ super() }}</code> in block overrides — should work but confirm</li>
+</ul>
+<h3 id="audit-steps">Audit steps<a class="headerlink" href="#audit-steps" title="Permanent link">⚓︎</a></h3>
+<ol>
+<li>Find all template overrides: <code>find docs/ -name "*.html" -path "*/overrides/*"</code></li>
+<li>Search for Python-specific Jinja2 constructs: <code>grep -r "namespace\|import\|from.*import" docs/</code></li>
+<li>Run <code>zensical build</code> and inspect any template rendering errors</li>
+</ol>
+<hr />
+<h2 id="5-cicd-changes">5. CI/CD Changes<a class="headerlink" href="#5-cicd-changes" title="Permanent link">⚓︎</a></h2>
+<h3 id="github-actions">GitHub Actions<a class="headerlink" href="#github-actions" title="Permanent link">⚓︎</a></h3>
+<p>Replace the deploy step:</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs gh-deploy --force</span>
+
+<span class="c1"># After — consult https://zensical.org/docs/ for current publishing guide</span>
+<span class="c1"># Likely: build with zensical, then deploy the site_dir artifact</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zensical build</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peaceiris/actions-gh-pages@v3</span>
+<span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+<span class="w">      </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./releases/site</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Update any pinned dependency installs:</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before</span>
+<span class="l l-Scalar l-Scalar-Plain">pip install mkdocs mkdocs-material</span>
+
+<span class="l l-Scalar l-Scalar-Plain"># After</span>
+<span class="l l-Scalar l-Scalar-Plain">pip install zensical</span>
+<span class="l l-Scalar l-Scalar-Plain"># or with uv</span><span class="p p-Indicator">:</span>
+<span class="l l-Scalar l-Scalar-Plain">uv add --dev zensical</span>
+</code></pre></div></td></tr></table></div>
+
+<hr />
+<h2 id="6-migration-checklist">6. Migration Checklist<a class="headerlink" href="#6-migration-checklist" title="Permanent link">⚓︎</a></h2>
+<p>Work through these in order. Each item should pass before moving to the next.</p>
+<h3 id="phase-a-dependency-swap">Phase A — Dependency swap<a class="headerlink" href="#phase-a-dependency-swap" title="Permanent link">⚓︎</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Remove <code>mkdocs</code>, <code>mkdocs-material</code>, <code>mkdocs-material-extensions</code> from <code>pyproject.toml</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Add <code>zensical</code> as a dev dependency</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Run <code>zensical build</code> — confirm no errors</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirm output in <code>releases/site/</code> matches prior build visually</li>
+</ul>
+<h3 id="phase-b-plugin-verification">Phase B — Plugin verification<a class="headerlink" href="#phase-b-plugin-verification" title="Permanent link">⚓︎</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Audit every plugin in <code>mkdocs.yml</code> against the Tier 1/2 lists above</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> For Tier 2 plugins, test each feature (gen-files API nav, git dates, etc.)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> For unlisted plugins, evaluate replacement or removal</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Remove plugin packages that are now bundled in Zensical</li>
+</ul>
+<h3 id="phase-c-template-overrides">Phase C — Template overrides<a class="headerlink" href="#phase-c-template-overrides" title="Permanent link">⚓︎</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Locate any custom <code>overrides/</code> HTML files</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Audit for Jinja2 constructs incompatible with MiniJinja (see Section 4)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Fix syntax issues and re-run <code>zensical build</code></li>
+</ul>
+<h3 id="phase-d-cli-and-ci">Phase D — CLI and CI<a class="headerlink" href="#phase-d-cli-and-ci" title="Permanent link">⚓︎</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Update <code>Makefile</code> / <code>noxfile.py</code> / <code>run</code> scripts: <code>mkdocs</code> → <code>zensical</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Remove <code>--dirty</code>, <code>--strict</code>, <code>--site-dir</code> flags from build commands if used</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Replace <code>mkdocs gh-deploy</code> in CI with Zensical-compatible deploy step</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Update <code>pyproject.toml</code> dependency groups and lock file</li>
+</ul>
+<h3 id="phase-e-validation">Phase E — Validation<a class="headerlink" href="#phase-e-validation" title="Permanent link">⚓︎</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Full <code>zensical build --strict</code> equivalent (when available) with zero warnings</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Check rendered site: navigation, search, code blocks, diagrams, API reference</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Verify <code>pymdownx.emoji</code> renders correctly (callable path may need updating)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Verify link validation (if previously using <code>--strict</code>)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Deploy to staging and confirm URLs are unchanged</li>
+</ul>
+<hr />
+<h2 id="7-known-risks">7. Known Risks<a class="headerlink" href="#7-known-risks" title="Permanent link">⚓︎</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Severity</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!!python/name:material.extensions.emoji.*</code> callables</td>
+<td>Medium</td>
+<td>Test early; Zensical may remap these or require a config update</td>
+</tr>
+<tr>
+<td><code>gen-files</code> (Tier 2) for API nav generation</td>
+<td>Medium</td>
+<td>Test before committing to migration; have a fallback nav strategy</td>
+</tr>
+<tr>
+<td>Unlisted plugins with no Zensical equivalent</td>
+<td>High</td>
+<td>Inventory all plugins first; find alternatives before starting</td>
+</tr>
+<tr>
+<td>MiniJinja template incompatibilities</td>
+<td>Low–Medium</td>
+<td>Only affects projects with custom <code>overrides/</code> HTML</td>
+</tr>
+<tr>
+<td><code>gh-deploy</code> removal</td>
+<td>Low</td>
+<td>Well-documented alternatives exist</td>
+</tr>
+<tr>
+<td>Zensical Tier 2 plugins incomplete</td>
+<td>Medium</td>
+<td>Zensical is early-stage; check GitHub issues for current status</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-rollback-plan">8. Rollback Plan<a class="headerlink" href="#8-rollback-plan" title="Permanent link">⚓︎</a></h2>
+<p>Zensical reads <code>mkdocs.yml</code> unchanged, so rollback is straightforward:</p>
+<ol>
+<li>Reinstall <code>mkdocs</code> + <code>mkdocs-material</code> + original plugins</li>
+<li>Run <code>mkdocs build</code> — no config changes needed to revert</li>
+</ol>
+<p>Keep the original <code>pyproject.toml</code> lockfile committed on a branch until migration is fully validated in production.</p>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li>Zensical compatibility overview: https://zensical.org/compatibility/</li>
+<li>Configuration compatibility: https://zensical.org/compatibility/configuration/</li>
+<li>Feature parity: https://zensical.org/compatibility/features/</li>
+<li>Plugin compatibility: https://zensical.org/compatibility/plugins/</li>
+<li>CLI compatibility: https://zensical.org/compatibility/cli/</li>
+<li>Getting started / install: https://zensical.org/docs/get-started/</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["toc.autohide"],"search":"../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ee611ef6.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.6.0/tablesort.min.js"></script>
+      
+        <script src="../_javascript/tables.js"></script>
+      
+    
+  </body>
+</html>

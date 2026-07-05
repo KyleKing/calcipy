@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="zensical-0.0.46">
     
     
       
@@ -33,10 +33,15 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.19d3147f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
       
       
 
@@ -50,16 +55,14 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
       
     
     
-      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
-    
       <link rel="stylesheet" href="../../../_styles/mkdocstrings.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
 
@@ -80,7 +83,7 @@
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
     <div data-md-component="skip">
       
         
@@ -103,12 +106,12 @@
     <a href="../../.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
 
     </a>
-    <label class="md-header__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navigation">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -133,7 +136,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
     
   
 </form>
@@ -146,57 +149,30 @@
     
       
       
-        <label class="md-header__button md-icon" for="__search">
+        <label class="md-header__button md-icon" for="__search" aria-label="Search">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
         </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
 </div>
       
     
-    
-      <div class="md-header__source">
+    <div class="md-header__source">
+      
         <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     kyleking/calcipy
   </div>
 </a>
-      </div>
-    
+      
+    </div>
   </nav>
   
 </header>
@@ -225,7 +201,7 @@
     <a href="../../.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
 
     </a>
     calcipy
@@ -235,7 +211,7 @@
       <a href="https://github.com/kyleking/calcipy" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
     kyleking/calcipy
@@ -259,8 +235,33 @@
   <span class="md-ellipsis">
     
   
-    calcipy
+  calcipy
+
+    
+  </span>
   
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zensical-migration-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Zensical Migration Guide (MkDocs + Material → Zensical)
 
     
   </span>
@@ -289,18 +290,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Docs
-  
+  Docs
 
     
   </span>
@@ -310,13 +310,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Docs
-  
+  Docs
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
@@ -335,8 +334,7 @@
   <span class="md-ellipsis">
     
   
-    CHANGELOG
-  
+  CHANGELOG
 
     
   </span>
@@ -363,8 +361,7 @@
   <span class="md-ellipsis">
     
   
-    Collected Code Tags
-  
+  Collected Code Tags
 
     
   </span>
@@ -391,8 +388,7 @@
   <span class="md-ellipsis">
     
   
-    Developer Notes
-  
+  Developer Notes
 
     
   </span>
@@ -419,8 +415,7 @@
   <span class="md-ellipsis">
     
   
-    Migration Guide
-  
+  Migration Guide
 
     
   </span>
@@ -447,8 +442,7 @@
   <span class="md-ellipsis">
     
   
-    Personal Style Guides
-  
+  Personal Style Guides
 
     
   </span>
@@ -476,18 +470,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
         
           
-          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Adr
-  
+  Adr
 
     
   </span>
@@ -497,13 +490,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Adr
-  
+  Adr
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
@@ -522,8 +514,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture Decision Records
-  
+  Architecture Decision Records
 
     
   </span>
@@ -550,8 +541,7 @@
   <span class="md-ellipsis">
     
   
-    Record Architecture Decisions
-  
+  Record Architecture Decisions
 
     
   </span>
@@ -578,8 +568,7 @@
   <span class="md-ellipsis">
     
   
-    Use Invoke for Task Automation
-  
+  Use Invoke for Task Automation
 
     
   </span>
@@ -606,8 +595,7 @@
   <span class="md-ellipsis">
     
   
-    Use Ruff for Linting and Formatting
-  
+  Use Ruff for Linting and Formatting
 
     
   </span>
@@ -634,8 +622,7 @@
   <span class="md-ellipsis">
     
   
-    Switch to uv for Dependency Management
-  
+  Switch to uv for Dependency Management
 
     
   </span>
@@ -662,8 +649,7 @@
   <span class="md-ellipsis">
     
   
-    Use Beartype for Runtime Type Checking
-  
+  Use Beartype for Runtime Type Checking
 
     
   </span>
@@ -690,8 +676,7 @@
   <span class="md-ellipsis">
     
   
-    Use Hatchling for Build Backend
-  
+  Use Hatchling for Build Backend
 
     
   </span>
@@ -718,8 +703,7 @@
   <span class="md-ellipsis">
     
   
-    Provide Multiple CLI Entry Points
-  
+  Provide Multiple CLI Entry Points
 
     
   </span>
@@ -757,18 +741,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Adr research
-  
+  Adr research
 
     
   </span>
@@ -778,13 +761,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Adr research
-  
+  Adr research
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
@@ -803,8 +785,7 @@
   <span class="md-ellipsis">
     
   
-    ADR Research and Documentation
-  
+  ADR Research and Documentation
 
     
   </span>
@@ -827,7 +808,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
       
       
         
@@ -840,8 +821,7 @@
   <span class="md-ellipsis">
     
   
-    AI Guidance for Writing and Reviewing Architecture Decision Records
-  
+  AI Guidance for Writing and Reviewing Architecture Decision Records
 
     
   </span>
@@ -851,15 +831,14 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="./" class="md-nav__link md-nav__link--active">
+      <a href="././" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    AI Guidance for Writing and Reviewing Architecture Decision Records
-  
+  AI Guidance for Writing and Reviewing Architecture Decision Records
 
     
   </span>
@@ -870,7 +849,8 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -879,16 +859,16 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Purpose
-      
+      </span>
     </span>
   </a>
   
@@ -897,9 +877,9 @@
         <li class="md-nav__item">
   <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Quick Reference
-      
+      </span>
     </span>
   </a>
   
@@ -909,9 +889,9 @@
           <li class="md-nav__item">
   <a href="#when-to-create-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         When to Create an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -920,9 +900,9 @@
           <li class="md-nav__item">
   <a href="#when-not-to-create-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         When NOT to Create an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -936,9 +916,9 @@
         <li class="md-nav__item">
   <a href="#understanding-the-project-context" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding the Project Context
-      
+      </span>
     </span>
   </a>
   
@@ -948,9 +928,9 @@
           <li class="md-nav__item">
   <a href="#1-project-size-and-team" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         1. Project Size and Team
-      
+      </span>
     </span>
   </a>
   
@@ -959,9 +939,9 @@
           <li class="md-nav__item">
   <a href="#2-existing-adr-practice" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         2. Existing ADR Practice
-      
+      </span>
     </span>
   </a>
   
@@ -970,9 +950,9 @@
           <li class="md-nav__item">
   <a href="#3-decision-scope" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         3. Decision Scope
-      
+      </span>
     </span>
   </a>
   
@@ -986,9 +966,9 @@
         <li class="md-nav__item">
   <a href="#template-selection" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Template Selection
-      
+      </span>
     </span>
   </a>
   
@@ -998,9 +978,9 @@
           <li class="md-nav__item">
   <a href="#decision-tree-for-template-choice" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Decision Tree for Template Choice
-      
+      </span>
     </span>
   </a>
   
@@ -1009,9 +989,9 @@
           <li class="md-nav__item">
   <a href="#y-statement-template" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Y-Statement Template
-      
+      </span>
     </span>
   </a>
   
@@ -1020,9 +1000,9 @@
           <li class="md-nav__item">
   <a href="#madr-minimal-template" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         MADR Minimal Template
-      
+      </span>
     </span>
   </a>
   
@@ -1031,9 +1011,9 @@
           <li class="md-nav__item">
   <a href="#madr-full-template" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         MADR Full Template
-      
+      </span>
     </span>
   </a>
   
@@ -1047,9 +1027,9 @@
         <li class="md-nav__item">
   <a href="#writing-effective-adrs" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Writing Effective ADRs
-      
+      </span>
     </span>
   </a>
   
@@ -1059,9 +1039,9 @@
           <li class="md-nav__item">
   <a href="#1-title" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         1. Title
-      
+      </span>
     </span>
   </a>
   
@@ -1070,9 +1050,9 @@
           <li class="md-nav__item">
   <a href="#2-context-and-problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         2. Context and Problem Statement
-      
+      </span>
     </span>
   </a>
   
@@ -1081,9 +1061,9 @@
           <li class="md-nav__item">
   <a href="#3-decision-drivers" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         3. Decision Drivers
-      
+      </span>
     </span>
   </a>
   
@@ -1092,9 +1072,9 @@
           <li class="md-nav__item">
   <a href="#4-considered-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         4. Considered Options
-      
+      </span>
     </span>
   </a>
   
@@ -1103,9 +1083,9 @@
           <li class="md-nav__item">
   <a href="#5-decision-outcome" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         5. Decision Outcome
-      
+      </span>
     </span>
   </a>
   
@@ -1114,9 +1094,9 @@
           <li class="md-nav__item">
   <a href="#6-consequences" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         6. Consequences
-      
+      </span>
     </span>
   </a>
   
@@ -1125,9 +1105,9 @@
           <li class="md-nav__item">
   <a href="#7-pros-and-cons-of-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         7. Pros and Cons of Options
-      
+      </span>
     </span>
   </a>
   
@@ -1136,9 +1116,9 @@
           <li class="md-nav__item">
   <a href="#8-validationconfirmation-optional-but-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         8. Validation/Confirmation (Optional but Recommended)
-      
+      </span>
     </span>
   </a>
   
@@ -1152,9 +1132,9 @@
         <li class="md-nav__item">
   <a href="#ai-assistant-review-checklist" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         AI Assistant Review Checklist
-      
+      </span>
     </span>
   </a>
   
@@ -1164,9 +1144,9 @@
           <li class="md-nav__item">
   <a href="#completeness" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Completeness
-      
+      </span>
     </span>
   </a>
   
@@ -1175,9 +1155,9 @@
           <li class="md-nav__item">
   <a href="#quality" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Quality
-      
+      </span>
     </span>
   </a>
   
@@ -1186,9 +1166,9 @@
           <li class="md-nav__item">
   <a href="#style" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Style
-      
+      </span>
     </span>
   </a>
   
@@ -1197,9 +1177,9 @@
           <li class="md-nav__item">
   <a href="#content-issues-to-flag" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Content Issues to Flag
-      
+      </span>
     </span>
   </a>
   
@@ -1213,9 +1193,9 @@
         <li class="md-nav__item">
   <a href="#common-pitfalls-and-how-to-avoid-them" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Common Pitfalls and How to Avoid Them
-      
+      </span>
     </span>
   </a>
   
@@ -1225,9 +1205,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-1-writing-a-proposal-instead-of-a-record" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 1: Writing a Proposal Instead of a Record
-      
+      </span>
     </span>
   </a>
   
@@ -1236,9 +1216,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-2-assuming-context" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 2: Assuming Context
-      
+      </span>
     </span>
   </a>
   
@@ -1247,9 +1227,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-3-solution-first-thinking" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 3: Solution-First Thinking
-      
+      </span>
     </span>
   </a>
   
@@ -1258,9 +1238,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-4-vague-decision-drivers" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 4: Vague Decision Drivers
-      
+      </span>
     </span>
   </a>
   
@@ -1269,9 +1249,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-5-ignoring-trade-offs" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 5: Ignoring Trade-offs
-      
+      </span>
     </span>
   </a>
   
@@ -1280,9 +1260,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-6-analysis-paralysis" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 6: Analysis Paralysis
-      
+      </span>
     </span>
   </a>
   
@@ -1291,9 +1271,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-7-straw-man-alternatives" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 7: Straw Man Alternatives
-      
+      </span>
     </span>
   </a>
   
@@ -1307,9 +1287,9 @@
         <li class="md-nav__item">
   <a href="#asking-good-questions" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Asking Good Questions
-      
+      </span>
     </span>
   </a>
   
@@ -1319,9 +1299,9 @@
           <li class="md-nav__item">
   <a href="#understanding-the-problem" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding the Problem
-      
+      </span>
     </span>
   </a>
   
@@ -1330,9 +1310,9 @@
           <li class="md-nav__item">
   <a href="#understanding-constraints" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Constraints
-      
+      </span>
     </span>
   </a>
   
@@ -1341,9 +1321,9 @@
           <li class="md-nav__item">
   <a href="#understanding-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Options
-      
+      </span>
     </span>
   </a>
   
@@ -1352,9 +1332,9 @@
           <li class="md-nav__item">
   <a href="#understanding-trade-offs" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Trade-offs
-      
+      </span>
     </span>
   </a>
   
@@ -1363,9 +1343,9 @@
           <li class="md-nav__item">
   <a href="#understanding-validation" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Validation
-      
+      </span>
     </span>
   </a>
   
@@ -1379,9 +1359,9 @@
         <li class="md-nav__item">
   <a href="#example-helping-write-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Example: Helping Write an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -1391,9 +1371,9 @@
           <li class="md-nav__item">
   <a href="#user-query" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         User Query
-      
+      </span>
     </span>
   </a>
   
@@ -1402,9 +1382,9 @@
           <li class="md-nav__item">
   <a href="#good-ai-response-process" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Good AI Response Process
-      
+      </span>
     </span>
   </a>
   
@@ -1418,9 +1398,9 @@
         <li class="md-nav__item">
   <a href="#example-reviewing-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Example: Reviewing an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -1430,9 +1410,9 @@
           <li class="md-nav__item">
   <a href="#user-submission-problematic" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         User Submission (Problematic)
-      
+      </span>
     </span>
   </a>
   
@@ -1441,9 +1421,9 @@
           <li class="md-nav__item">
   <a href="#good-ai-review-response" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Good AI Review Response
-      
+      </span>
     </span>
   </a>
   
@@ -1457,9 +1437,9 @@
         <li class="md-nav__item">
   <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Conclusion
-      
+      </span>
     </span>
   </a>
   
@@ -1488,8 +1468,7 @@
   <span class="md-ellipsis">
     
   
-    AWS Architecture Decision Records (ADRs) Guide
-  
+  AWS Architecture Decision Records (ADRs) Guide
 
     
   </span>
@@ -1516,8 +1495,7 @@
   <span class="md-ellipsis">
     
   
-    ADR Approaches: Comparison and Recommendations
-  
+  ADR Approaches: Comparison and Recommendations
 
     
   </span>
@@ -1544,8 +1522,7 @@
   <span class="md-ellipsis">
     
   
-    Ethereum EIPs - Ethereum Improvement Proposals
-  
+  Ethereum EIPs - Ethereum Improvement Proposals
 
     
   </span>
@@ -1572,8 +1549,7 @@
   <span class="md-ellipsis">
     
   
-    log4brains - Architecture Decision Records Management Tool
-  
+  log4brains - Architecture Decision Records Management Tool
 
     
   </span>
@@ -1600,8 +1576,7 @@
   <span class="md-ellipsis">
     
   
-    MADR - Markdown Architectural Decision Records
-  
+  MADR - Markdown Architectural Decision Records
 
     
   </span>
@@ -1628,8 +1603,7 @@
   <span class="md-ellipsis">
     
   
-    Prefect PINs - Prefect Improvement Notices
-  
+  Prefect PINs - Prefect Improvement Notices
 
     
   </span>
@@ -1656,8 +1630,7 @@
   <span class="md-ellipsis">
     
   
-    Real-World ADR Examples and Implementations
-  
+  Real-World ADR Examples and Implementations
 
     
   </span>
@@ -1684,8 +1657,7 @@
   <span class="md-ellipsis">
     
   
-    Y-Statements - Abbreviated Architecture Decision Format
-  
+  Y-Statements - Abbreviated Architecture Decision Format
 
     
   </span>
@@ -1728,18 +1700,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Reference
-  
+  Reference
 
     
   </span>
@@ -1749,13 +1720,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Reference
-  
+  Reference
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
@@ -1775,18 +1745,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
         
           
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Calcipy
-  
+  Calcipy
 
     
   </span>
@@ -1796,13 +1765,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Calcipy
-  
+  Calcipy
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
@@ -1821,8 +1789,7 @@
   <span class="md-ellipsis">
     
   
-    Cli
-  
+  Cli
 
     
   </span>
@@ -1849,8 +1816,7 @@
   <span class="md-ellipsis">
     
   
-    Collection
-  
+  Collection
 
     
   </span>
@@ -1877,8 +1843,7 @@
   <span class="md-ellipsis">
     
   
-    Invoke helpers
-  
+  Invoke helpers
 
     
   </span>
@@ -1905,8 +1870,7 @@
   <span class="md-ellipsis">
     
   
-    Scripts
-  
+  Scripts
 
     
   </span>
@@ -1934,18 +1898,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_5" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_5" id="__nav_3_1_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_1_5" id="__nav_4_1_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Experiments
-  
+  Experiments
 
     
   </span>
@@ -1955,13 +1918,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_5">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Experiments
-  
+  Experiments
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
@@ -1980,8 +1942,7 @@
   <span class="md-ellipsis">
     
   
-    Bump programmatically
-  
+  Bump programmatically
 
     
   </span>
@@ -2008,8 +1969,7 @@
   <span class="md-ellipsis">
     
   
-    Check duplicate test names
-  
+  Check duplicate test names
 
     
   </span>
@@ -2045,18 +2005,17 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" >
         
           
-          <label class="md-nav__link" for="__nav_3_1_6" id="__nav_3_1_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_1_6" id="__nav_4_1_6_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Tasks
-  
+  Tasks
 
     
   </span>
@@ -2066,13 +2025,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_6">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1_6">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tasks
-  
+  Tasks
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
@@ -2091,8 +2049,7 @@
   <span class="md-ellipsis">
     
   
-    All tasks
-  
+  All tasks
 
     
   </span>
@@ -2119,8 +2076,7 @@
   <span class="md-ellipsis">
     
   
-    Cl
-  
+  Cl
 
     
   </span>
@@ -2147,8 +2103,7 @@
   <span class="md-ellipsis">
     
   
-    Defaults
-  
+  Defaults
 
     
   </span>
@@ -2175,8 +2130,7 @@
   <span class="md-ellipsis">
     
   
-    Doc
-  
+  Doc
 
     
   </span>
@@ -2203,8 +2157,7 @@
   <span class="md-ellipsis">
     
   
-    Executable utils
-  
+  Executable utils
 
     
   </span>
@@ -2231,8 +2184,7 @@
   <span class="md-ellipsis">
     
   
-    Lint
-  
+  Lint
 
     
   </span>
@@ -2259,8 +2211,7 @@
   <span class="md-ellipsis">
     
   
-    Nox
-  
+  Nox
 
     
   </span>
@@ -2287,8 +2238,7 @@
   <span class="md-ellipsis">
     
   
-    Pack
-  
+  Pack
 
     
   </span>
@@ -2315,8 +2265,7 @@
   <span class="md-ellipsis">
     
   
-    Tags
-  
+  Tags
 
     
   </span>
@@ -2343,8 +2292,7 @@
   <span class="md-ellipsis">
     
   
-    Test
-  
+  Test
 
     
   </span>
@@ -2371,8 +2319,7 @@
   <span class="md-ellipsis">
     
   
-    Types
-  
+  Types
 
     
   </span>
@@ -2388,6 +2335,138 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Superpowers
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Superpowers
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Plans
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+  Plans
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Replace Nox with uv Multi-Version Testing Implementation Plan
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2418,10 +2497,24 @@
               
               <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                      
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
   
   
   
@@ -2430,16 +2523,16 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      On this page
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Purpose
-      
+      </span>
     </span>
   </a>
   
@@ -2448,9 +2541,9 @@
         <li class="md-nav__item">
   <a href="#quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Quick Reference
-      
+      </span>
     </span>
   </a>
   
@@ -2460,9 +2553,9 @@
           <li class="md-nav__item">
   <a href="#when-to-create-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         When to Create an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -2471,9 +2564,9 @@
           <li class="md-nav__item">
   <a href="#when-not-to-create-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         When NOT to Create an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -2487,9 +2580,9 @@
         <li class="md-nav__item">
   <a href="#understanding-the-project-context" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding the Project Context
-      
+      </span>
     </span>
   </a>
   
@@ -2499,9 +2592,9 @@
           <li class="md-nav__item">
   <a href="#1-project-size-and-team" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         1. Project Size and Team
-      
+      </span>
     </span>
   </a>
   
@@ -2510,9 +2603,9 @@
           <li class="md-nav__item">
   <a href="#2-existing-adr-practice" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         2. Existing ADR Practice
-      
+      </span>
     </span>
   </a>
   
@@ -2521,9 +2614,9 @@
           <li class="md-nav__item">
   <a href="#3-decision-scope" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         3. Decision Scope
-      
+      </span>
     </span>
   </a>
   
@@ -2537,9 +2630,9 @@
         <li class="md-nav__item">
   <a href="#template-selection" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Template Selection
-      
+      </span>
     </span>
   </a>
   
@@ -2549,9 +2642,9 @@
           <li class="md-nav__item">
   <a href="#decision-tree-for-template-choice" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Decision Tree for Template Choice
-      
+      </span>
     </span>
   </a>
   
@@ -2560,9 +2653,9 @@
           <li class="md-nav__item">
   <a href="#y-statement-template" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Y-Statement Template
-      
+      </span>
     </span>
   </a>
   
@@ -2571,9 +2664,9 @@
           <li class="md-nav__item">
   <a href="#madr-minimal-template" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         MADR Minimal Template
-      
+      </span>
     </span>
   </a>
   
@@ -2582,9 +2675,9 @@
           <li class="md-nav__item">
   <a href="#madr-full-template" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         MADR Full Template
-      
+      </span>
     </span>
   </a>
   
@@ -2598,9 +2691,9 @@
         <li class="md-nav__item">
   <a href="#writing-effective-adrs" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Writing Effective ADRs
-      
+      </span>
     </span>
   </a>
   
@@ -2610,9 +2703,9 @@
           <li class="md-nav__item">
   <a href="#1-title" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         1. Title
-      
+      </span>
     </span>
   </a>
   
@@ -2621,9 +2714,9 @@
           <li class="md-nav__item">
   <a href="#2-context-and-problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         2. Context and Problem Statement
-      
+      </span>
     </span>
   </a>
   
@@ -2632,9 +2725,9 @@
           <li class="md-nav__item">
   <a href="#3-decision-drivers" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         3. Decision Drivers
-      
+      </span>
     </span>
   </a>
   
@@ -2643,9 +2736,9 @@
           <li class="md-nav__item">
   <a href="#4-considered-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         4. Considered Options
-      
+      </span>
     </span>
   </a>
   
@@ -2654,9 +2747,9 @@
           <li class="md-nav__item">
   <a href="#5-decision-outcome" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         5. Decision Outcome
-      
+      </span>
     </span>
   </a>
   
@@ -2665,9 +2758,9 @@
           <li class="md-nav__item">
   <a href="#6-consequences" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         6. Consequences
-      
+      </span>
     </span>
   </a>
   
@@ -2676,9 +2769,9 @@
           <li class="md-nav__item">
   <a href="#7-pros-and-cons-of-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         7. Pros and Cons of Options
-      
+      </span>
     </span>
   </a>
   
@@ -2687,9 +2780,9 @@
           <li class="md-nav__item">
   <a href="#8-validationconfirmation-optional-but-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         8. Validation/Confirmation (Optional but Recommended)
-      
+      </span>
     </span>
   </a>
   
@@ -2703,9 +2796,9 @@
         <li class="md-nav__item">
   <a href="#ai-assistant-review-checklist" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         AI Assistant Review Checklist
-      
+      </span>
     </span>
   </a>
   
@@ -2715,9 +2808,9 @@
           <li class="md-nav__item">
   <a href="#completeness" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Completeness
-      
+      </span>
     </span>
   </a>
   
@@ -2726,9 +2819,9 @@
           <li class="md-nav__item">
   <a href="#quality" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Quality
-      
+      </span>
     </span>
   </a>
   
@@ -2737,9 +2830,9 @@
           <li class="md-nav__item">
   <a href="#style" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Style
-      
+      </span>
     </span>
   </a>
   
@@ -2748,9 +2841,9 @@
           <li class="md-nav__item">
   <a href="#content-issues-to-flag" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Content Issues to Flag
-      
+      </span>
     </span>
   </a>
   
@@ -2764,9 +2857,9 @@
         <li class="md-nav__item">
   <a href="#common-pitfalls-and-how-to-avoid-them" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Common Pitfalls and How to Avoid Them
-      
+      </span>
     </span>
   </a>
   
@@ -2776,9 +2869,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-1-writing-a-proposal-instead-of-a-record" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 1: Writing a Proposal Instead of a Record
-      
+      </span>
     </span>
   </a>
   
@@ -2787,9 +2880,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-2-assuming-context" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 2: Assuming Context
-      
+      </span>
     </span>
   </a>
   
@@ -2798,9 +2891,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-3-solution-first-thinking" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 3: Solution-First Thinking
-      
+      </span>
     </span>
   </a>
   
@@ -2809,9 +2902,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-4-vague-decision-drivers" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 4: Vague Decision Drivers
-      
+      </span>
     </span>
   </a>
   
@@ -2820,9 +2913,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-5-ignoring-trade-offs" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 5: Ignoring Trade-offs
-      
+      </span>
     </span>
   </a>
   
@@ -2831,9 +2924,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-6-analysis-paralysis" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 6: Analysis Paralysis
-      
+      </span>
     </span>
   </a>
   
@@ -2842,9 +2935,9 @@
           <li class="md-nav__item">
   <a href="#pitfall-7-straw-man-alternatives" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Pitfall 7: Straw Man Alternatives
-      
+      </span>
     </span>
   </a>
   
@@ -2858,9 +2951,9 @@
         <li class="md-nav__item">
   <a href="#asking-good-questions" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Asking Good Questions
-      
+      </span>
     </span>
   </a>
   
@@ -2870,9 +2963,9 @@
           <li class="md-nav__item">
   <a href="#understanding-the-problem" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding the Problem
-      
+      </span>
     </span>
   </a>
   
@@ -2881,9 +2974,9 @@
           <li class="md-nav__item">
   <a href="#understanding-constraints" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Constraints
-      
+      </span>
     </span>
   </a>
   
@@ -2892,9 +2985,9 @@
           <li class="md-nav__item">
   <a href="#understanding-options" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Options
-      
+      </span>
     </span>
   </a>
   
@@ -2903,9 +2996,9 @@
           <li class="md-nav__item">
   <a href="#understanding-trade-offs" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Trade-offs
-      
+      </span>
     </span>
   </a>
   
@@ -2914,9 +3007,9 @@
           <li class="md-nav__item">
   <a href="#understanding-validation" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Understanding Validation
-      
+      </span>
     </span>
   </a>
   
@@ -2930,9 +3023,9 @@
         <li class="md-nav__item">
   <a href="#example-helping-write-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Example: Helping Write an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -2942,9 +3035,9 @@
           <li class="md-nav__item">
   <a href="#user-query" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         User Query
-      
+      </span>
     </span>
   </a>
   
@@ -2953,9 +3046,9 @@
           <li class="md-nav__item">
   <a href="#good-ai-response-process" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Good AI Response Process
-      
+      </span>
     </span>
   </a>
   
@@ -2969,9 +3062,9 @@
         <li class="md-nav__item">
   <a href="#example-reviewing-an-adr" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Example: Reviewing an ADR
-      
+      </span>
     </span>
   </a>
   
@@ -2981,9 +3074,9 @@
           <li class="md-nav__item">
   <a href="#user-submission-problematic" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         User Submission (Problematic)
-      
+      </span>
     </span>
   </a>
   
@@ -2992,9 +3085,9 @@
           <li class="md-nav__item">
   <a href="#good-ai-review-response" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Good AI Review Response
-      
+      </span>
     </span>
   </a>
   
@@ -3008,9 +3101,9 @@
         <li class="md-nav__item">
   <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
-      
+      <span class="md-typeset">
         Conclusion
-      
+      </span>
     </span>
   </a>
   
@@ -3030,8 +3123,6 @@
               <article class="md-content__inner md-typeset">
                 
                   
-
-
   
   
 
@@ -3062,178 +3153,328 @@
 <h2 id="understanding-the-project-context">Understanding the Project Context<a class="headerlink" href="#understanding-the-project-context" title="Permanent link">⚓︎</a></h2>
 <p>Before helping with an ADR, determine:</p>
 <h3 id="1-project-size-and-team">1. Project Size and Team<a class="headerlink" href="#1-project-size-and-team" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Questions to ask:
-<span class="linenos" data-linenos="2 "></span>- How many developers?
-<span class="linenos" data-linenos="3 "></span>- How long has the project existed?
-<span class="linenos" data-linenos="4 "></span>- What&#39;s the expected lifetime?
-<span class="linenos" data-linenos="5 "></span>- Internal or open source?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>Questions to ask:
+- How many developers?
+- How long has the project existed?
+- What&#39;s the expected lifetime?
+- Internal or open source?
+</code></pre></div></td></tr></table></div>
+
 <p>This determines formality level needed.</p>
 <h3 id="2-existing-adr-practice">2. Existing ADR Practice<a class="headerlink" href="#2-existing-adr-practice" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Questions to ask:
-<span class="linenos" data-linenos="2 "></span>- Do you have existing ADRs?
-<span class="linenos" data-linenos="3 "></span>- What template do you use?
-<span class="linenos" data-linenos="4 "></span>- Where are ADRs stored?
-<span class="linenos" data-linenos="5 "></span>- What&#39;s your review process?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">Questions</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">ask</span>:
+<span class="o">-</span><span class="w"> </span><span class="k">Do</span><span class="w"> </span><span class="nv">you</span><span class="w"> </span><span class="nv">have</span><span class="w"> </span><span class="nv">existing</span><span class="w"> </span><span class="nv">ADRs</span>?
+<span class="o">-</span><span class="w"> </span><span class="nv">What</span><span class="w"> </span><span class="nv">template</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nv">you</span><span class="w"> </span><span class="nv">use</span>?
+<span class="o">-</span><span class="w"> </span><span class="nv">Where</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">ADRs</span><span class="w"> </span><span class="nv">stored</span>?
+<span class="o">-</span><span class="w"> </span><span class="nv">What</span><span class="err">&#39;s your review process?</span>
+</code></pre></div></td></tr></table></div>
+
 <p>Match existing conventions or help establish new ones.</p>
 <h3 id="3-decision-scope">3. Decision Scope<a class="headerlink" href="#3-decision-scope" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Questions to assess:
-<span class="linenos" data-linenos="2 "></span>- Who is affected by this decision?
-<span class="linenos" data-linenos="3 "></span>- What&#39;s the impact if we&#39;re wrong?
-<span class="linenos" data-linenos="4 "></span>- How expensive is it to change later?
-<span class="linenos" data-linenos="5 "></span>- Are there regulatory/compliance concerns?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">Questions</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="nl">assess:</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Who</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">decision</span><span class="o">?</span>
+<span class="o">-</span><span class="w"> </span><span class="n">What</span><span class="p">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">impact</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">we</span><span class="p">&#39;</span><span class="n">re</span><span class="w"> </span><span class="n">wrong</span><span class="o">?</span>
+<span class="o">-</span><span class="w"> </span><span class="n">How</span><span class="w"> </span><span class="n">expensive</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">change</span><span class="w"> </span><span class="n">later</span><span class="o">?</span>
+<span class="o">-</span><span class="w"> </span><span class="n">Are</span><span class="w"> </span><span class="n">there</span><span class="w"> </span><span class="n">regulatory</span><span class="o">/</span><span class="n">compliance</span><span class="w"> </span><span class="n">concerns</span><span class="o">?</span>
+</code></pre></div></td></tr></table></div>
+
 <p>This determines detail level needed.</p>
 <h2 id="template-selection">Template Selection<a class="headerlink" href="#template-selection" title="Permanent link">⚓︎</a></h2>
 <h3 id="decision-tree-for-template-choice">Decision Tree for Template Choice<a class="headerlink" href="#decision-tree-for-template-choice" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>1. Quick decision, small team?
-<span class="linenos" data-linenos=" 2 "></span>   → Use Y-Statement format
-<span class="linenos" data-linenos=" 3 "></span>
-<span class="linenos" data-linenos=" 4 "></span>2. Following existing ADR practice?
-<span class="linenos" data-linenos=" 5 "></span>   → Use their template
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span>3. Starting fresh, medium team?
-<span class="linenos" data-linenos=" 8 "></span>   → Use MADR (Minimal for starters, Full as needed)
-<span class="linenos" data-linenos=" 9 "></span>
-<span class="linenos" data-linenos="10 "></span>4. Enterprise/compliance needs?
-<span class="linenos" data-linenos="11 "></span>   → Use AWS ADR Guide template
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span>5. Open source with community input?
-<span class="linenos" data-linenos="14 "></span>   → Consider PIN-style proposal
-<span class="linenos" data-linenos="15 "></span>
-<span class="linenos" data-linenos="16 "></span>6. Protocol/standards development?
-<span class="linenos" data-linenos="17 "></span>   → Use EIP-style rigorous template
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Quick</span><span class="w"> </span><span class="n">decision</span><span class="p">,</span><span class="w"> </span><span class="n">small</span><span class="w"> </span><span class="n">team</span><span class="err">?</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">Use</span><span class="w"> </span><span class="n">Y</span><span class="o">-</span><span class="n">Statement</span><span class="w"> </span><span class="kr">for</span><span class="n">mat</span>
+
+<span class="mf">2.</span><span class="w"> </span><span class="n">Following</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">ADR</span><span class="w"> </span><span class="n">practice</span><span class="err">?</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">Use</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">template</span>
+
+<span class="mf">3.</span><span class="w"> </span><span class="n">Starting</span><span class="w"> </span><span class="nb">fre</span><span class="n">sh</span><span class="p">,</span><span class="w"> </span><span class="n">medium</span><span class="w"> </span><span class="n">team</span><span class="err">?</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">Use</span><span class="w"> </span><span class="n">MADR</span><span class="w"> </span><span class="p">(</span><span class="n">Minimal</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">starters</span><span class="p">,</span><span class="w"> </span><span class="n">Full</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">needed</span><span class="p">)</span>
+
+<span class="mf">4.</span><span class="w"> </span><span class="n">Enterprise</span><span class="o">/</span><span class="n">compliance</span><span class="w"> </span><span class="n">needs</span><span class="err">?</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">Use</span><span class="w"> </span><span class="n">AWS</span><span class="w"> </span><span class="n">ADR</span><span class="w"> </span><span class="n">Guide</span><span class="w"> </span><span class="n">template</span>
+
+<span class="mf">5.</span><span class="w"> </span><span class="kr">Open</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">community</span><span class="w"> </span><span class="kr">input</span><span class="err">?</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">Consider</span><span class="w"> </span><span class="n">PIN</span><span class="o">-</span><span class="n">style</span><span class="w"> </span><span class="n">proposal</span>
+
+<span class="mf">6.</span><span class="w"> </span><span class="n">Protocol</span><span class="o">/</span><span class="n">standards</span><span class="w"> </span><span class="n">development</span><span class="err">?</span>
+<span class="w">   </span><span class="err">→</span><span class="w"> </span><span class="n">Use</span><span class="w"> </span><span class="n">EIP</span><span class="o">-</span><span class="n">style</span><span class="w"> </span><span class="n">rigorous</span><span class="w"> </span><span class="n">template</span>
+</code></pre></div></td></tr></table></div>
+
 <h3 id="y-statement-template">Y-Statement Template<a class="headerlink" href="#y-statement-template" title="Permanent link">⚓︎</a></h3>
 <p>Use when: Quick capture, small teams, lightweight documentation</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## [Decision Title]</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>In the context of [use case/user story],
-<span class="linenos" data-linenos="4 "></span>facing [concern/problem],
-<span class="linenos" data-linenos="5 "></span>we decided for [option chosen]
-<span class="linenos" data-linenos="6 "></span>and against [alternatives not chosen],
-<span class="linenos" data-linenos="7 "></span>to achieve [desired quality/benefit],
-<span class="linenos" data-linenos="8 "></span>accepting [downside/trade-off].
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## [Decision Title]</span>
+
+In the context of [use case/user story],
+facing [concern/problem],
+we decided for [option chosen]
+and against [alternatives not chosen],
+to achieve [desired quality/benefit],
+accepting [downside/trade-off].
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Use PostgreSQL for Primary Database</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>In the context of our multi-tenant SaaS application,
-<span class="linenos" data-linenos="4 "></span>facing the need for reliable ACID transactions and complex queries,
-<span class="linenos" data-linenos="5 "></span>we decided for PostgreSQL
-<span class="linenos" data-linenos="6 "></span>and against MongoDB and MySQL,
-<span class="linenos" data-linenos="7 "></span>to achieve data consistency and rich query capabilities,
-<span class="linenos" data-linenos="8 "></span>accepting increased operational complexity and infrastructure costs.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Use PostgreSQL for Primary Database</span>
+
+In the context of our multi-tenant SaaS application,
+facing the need for reliable ACID transactions and complex queries,
+we decided for PostgreSQL
+and against MongoDB and MySQL,
+to achieve data consistency and rich query capabilities,
+accepting increased operational complexity and infrastructure costs.
+</code></pre></div></td></tr></table></div>
+
 <h3 id="madr-minimal-template">MADR Minimal Template<a class="headerlink" href="#madr-minimal-template" title="Permanent link">⚓︎</a></h3>
 <p>Use when: Most projects, balances detail with simplicity</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="gh"># [Short Title]</span>
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="gu">## Context and Problem Statement</span>
-<span class="linenos" data-linenos=" 4 "></span>
-<span class="linenos" data-linenos=" 5 "></span>[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in the form of a question.]
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="gu">## Decision Drivers</span>
-<span class="linenos" data-linenos=" 8 "></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="k">*</span><span class="w"> </span>[decision driver 1, e.g., a force, facing concern, ...]
-<span class="linenos" data-linenos="10 "></span><span class="k">*</span><span class="w"> </span>[decision driver 2, e.g., a force, facing concern, ...]
-<span class="linenos" data-linenos="11 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span><span class="gu">## Considered Options</span>
-<span class="linenos" data-linenos="14 "></span>
-<span class="linenos" data-linenos="15 "></span><span class="k">*</span><span class="w"> </span>[option 1]
-<span class="linenos" data-linenos="16 "></span><span class="k">*</span><span class="w"> </span>[option 2]
-<span class="linenos" data-linenos="17 "></span><span class="k">*</span><span class="w"> </span>[option 3]
-<span class="linenos" data-linenos="18 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="19 "></span>
-<span class="linenos" data-linenos="20 "></span><span class="gu">## Decision Outcome</span>
-<span class="linenos" data-linenos="21 "></span>
-<span class="linenos" data-linenos="22 "></span>Chosen option: &quot;[option 1]&quot;, because [justification. e.g., only option that meets k.o. criterion decision driver 1 | which resolves force 2 | ...].
-<span class="linenos" data-linenos="23 "></span>
-<span class="linenos" data-linenos="24 "></span><span class="gu">### Consequences</span>
-<span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span><span class="k">*</span><span class="w"> </span>Good, because [positive consequence, e.g., improvement of quality attribute satisfaction, follow-up decisions required, ...]
-<span class="linenos" data-linenos="27 "></span><span class="k">*</span><span class="w"> </span>Bad, because [negative consequence, e.g., compromising quality attribute, follow-up decisions required, ...]
-<span class="linenos" data-linenos="28 "></span><span class="k">*</span><span class="w"> </span>...
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gh"># [Short Title]</span>
+
+<span class="gu">## Context and Problem Statement</span>
+
+[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in the form of a question.]
+
+<span class="gu">## Decision Drivers</span>
+
+<span class="k">*</span><span class="w"> </span>[decision driver 1, e.g., a force, facing concern, ...]
+<span class="k">*</span><span class="w"> </span>[decision driver 2, e.g., a force, facing concern, ...]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">## Considered Options</span>
+
+<span class="k">*</span><span class="w"> </span>[option 1]
+<span class="k">*</span><span class="w"> </span>[option 2]
+<span class="k">*</span><span class="w"> </span>[option 3]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">## Decision Outcome</span>
+
+Chosen option: &quot;[option 1]&quot;, because [justification. e.g., only option that meets k.o. criterion decision driver 1 | which resolves force 2 | ...].
+
+<span class="gu">### Consequences</span>
+
+<span class="k">*</span><span class="w"> </span>Good, because [positive consequence, e.g., improvement of quality attribute satisfaction, follow-up decisions required, ...]
+<span class="k">*</span><span class="w"> </span>Bad, because [negative consequence, e.g., compromising quality attribute, follow-up decisions required, ...]
+<span class="k">*</span><span class="w"> </span>...
+</code></pre></div></td></tr></table></div>
+
 <h3 id="madr-full-template">MADR Full Template<a class="headerlink" href="#madr-full-template" title="Permanent link">⚓︎</a></h3>
 <p>Use when: Complex decisions, larger teams, need comprehensive documentation</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="gh"># [Short Title]</span>
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="k">*</span><span class="w"> </span>Status: [<span class="nt">proposed | rejected | accepted | deprecated | superseded by [ADR-0005</span>](<span class="na">0005-example.md</span>)]
-<span class="linenos" data-linenos=" 4 "></span><span class="k">*</span><span class="w"> </span>Date: [YYYY-MM-DD when the decision was last updated]
-<span class="linenos" data-linenos=" 5 "></span><span class="k">*</span><span class="w"> </span>Deciders: [list everyone involved in the decision]
-<span class="linenos" data-linenos=" 6 "></span><span class="k">*</span><span class="w"> </span>Consulted: [list anyone consulted]
-<span class="linenos" data-linenos=" 7 "></span><span class="k">*</span><span class="w"> </span>Informed: [list anyone informed]
-<span class="linenos" data-linenos=" 8 "></span>
-<span class="linenos" data-linenos=" 9 "></span><span class="gu">## Context and Problem Statement</span>
-<span class="linenos" data-linenos="10 "></span>
-<span class="linenos" data-linenos="11 "></span>[Describe the context and problem statement]
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span><span class="gu">## Decision Drivers</span>
-<span class="linenos" data-linenos="14 "></span>
-<span class="linenos" data-linenos="15 "></span><span class="k">*</span><span class="w"> </span>[decision driver 1]
-<span class="linenos" data-linenos="16 "></span><span class="k">*</span><span class="w"> </span>[decision driver 2]
-<span class="linenos" data-linenos="17 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="18 "></span>
-<span class="linenos" data-linenos="19 "></span><span class="gu">## Considered Options</span>
-<span class="linenos" data-linenos="20 "></span>
-<span class="linenos" data-linenos="21 "></span><span class="k">*</span><span class="w"> </span>[option 1]
-<span class="linenos" data-linenos="22 "></span><span class="k">*</span><span class="w"> </span>[option 2]
-<span class="linenos" data-linenos="23 "></span><span class="k">*</span><span class="w"> </span>[option 3]
-<span class="linenos" data-linenos="24 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span><span class="gu">## Decision Outcome</span>
-<span class="linenos" data-linenos="27 "></span>
-<span class="linenos" data-linenos="28 "></span>Chosen option: &quot;[option 1]&quot;, because [justification].
-<span class="linenos" data-linenos="29 "></span>
-<span class="linenos" data-linenos="30 "></span><span class="gu">### Consequences</span>
-<span class="linenos" data-linenos="31 "></span>
-<span class="linenos" data-linenos="32 "></span><span class="k">*</span><span class="w"> </span>Good, because [positive consequence]
-<span class="linenos" data-linenos="33 "></span><span class="k">*</span><span class="w"> </span>Bad, because [negative consequence]
-<span class="linenos" data-linenos="34 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="35 "></span>
-<span class="linenos" data-linenos="36 "></span><span class="gu">## Validation</span>
-<span class="linenos" data-linenos="37 "></span>
-<span class="linenos" data-linenos="38 "></span>[How will we validate the decision is correct? How will we know if we need to revisit?]
-<span class="linenos" data-linenos="39 "></span>
-<span class="linenos" data-linenos="40 "></span><span class="gu">## Pros and Cons of the Options</span>
-<span class="linenos" data-linenos="41 "></span>
-<span class="linenos" data-linenos="42 "></span><span class="gu">### [option 1]</span>
-<span class="linenos" data-linenos="43 "></span>
-<span class="linenos" data-linenos="44 "></span>[example | description | pointer to more information | ...]
-<span class="linenos" data-linenos="45 "></span>
-<span class="linenos" data-linenos="46 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 1]
-<span class="linenos" data-linenos="47 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 2]
-<span class="linenos" data-linenos="48 "></span><span class="k">*</span><span class="w"> </span>Neutral, because [argument 3]
-<span class="linenos" data-linenos="49 "></span><span class="k">*</span><span class="w"> </span>Bad, because [argument 4]
-<span class="linenos" data-linenos="50 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="51 "></span>
-<span class="linenos" data-linenos="52 "></span><span class="gu">### [option 2]</span>
-<span class="linenos" data-linenos="53 "></span>
-<span class="linenos" data-linenos="54 "></span>[example | description | pointer to more information | ...]
-<span class="linenos" data-linenos="55 "></span>
-<span class="linenos" data-linenos="56 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 1]
-<span class="linenos" data-linenos="57 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 2]
-<span class="linenos" data-linenos="58 "></span><span class="k">*</span><span class="w"> </span>Neutral, because [argument 3]
-<span class="linenos" data-linenos="59 "></span><span class="k">*</span><span class="w"> </span>Bad, because [argument 4]
-<span class="linenos" data-linenos="60 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="61 "></span>
-<span class="linenos" data-linenos="62 "></span><span class="gu">### [option 3]</span>
-<span class="linenos" data-linenos="63 "></span>
-<span class="linenos" data-linenos="64 "></span>[example | description | pointer to more information | ...]
-<span class="linenos" data-linenos="65 "></span>
-<span class="linenos" data-linenos="66 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 1]
-<span class="linenos" data-linenos="67 "></span><span class="k">*</span><span class="w"> </span>Good, because [argument 2]
-<span class="linenos" data-linenos="68 "></span><span class="k">*</span><span class="w"> </span>Neutral, because [argument 3]
-<span class="linenos" data-linenos="69 "></span><span class="k">*</span><span class="w"> </span>Bad, because [argument 4]
-<span class="linenos" data-linenos="70 "></span><span class="k">*</span><span class="w"> </span>...
-<span class="linenos" data-linenos="71 "></span>
-<span class="linenos" data-linenos="72 "></span><span class="gu">## More Information</span>
-<span class="linenos" data-linenos="73 "></span>
-<span class="linenos" data-linenos="74 "></span>[Any additional information, links, or context]
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gh"># [Short Title]</span>
+
+<span class="k">*</span><span class="w"> </span>Status: [<span class="nt">proposed | rejected | accepted | deprecated | superseded by [ADR-0005</span>](<span class="na">0005-example.md</span>)]
+<span class="k">*</span><span class="w"> </span>Date: [YYYY-MM-DD when the decision was last updated]
+<span class="k">*</span><span class="w"> </span>Deciders: [list everyone involved in the decision]
+<span class="k">*</span><span class="w"> </span>Consulted: [list anyone consulted]
+<span class="k">*</span><span class="w"> </span>Informed: [list anyone informed]
+
+<span class="gu">## Context and Problem Statement</span>
+
+[Describe the context and problem statement]
+
+<span class="gu">## Decision Drivers</span>
+
+<span class="k">*</span><span class="w"> </span>[decision driver 1]
+<span class="k">*</span><span class="w"> </span>[decision driver 2]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">## Considered Options</span>
+
+<span class="k">*</span><span class="w"> </span>[option 1]
+<span class="k">*</span><span class="w"> </span>[option 2]
+<span class="k">*</span><span class="w"> </span>[option 3]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">## Decision Outcome</span>
+
+Chosen option: &quot;[option 1]&quot;, because [justification].
+
+<span class="gu">### Consequences</span>
+
+<span class="k">*</span><span class="w"> </span>Good, because [positive consequence]
+<span class="k">*</span><span class="w"> </span>Bad, because [negative consequence]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">## Validation</span>
+
+[How will we validate the decision is correct? How will we know if we need to revisit?]
+
+<span class="gu">## Pros and Cons of the Options</span>
+
+<span class="gu">### [option 1]</span>
+
+[example | description | pointer to more information | ...]
+
+<span class="k">*</span><span class="w"> </span>Good, because [argument 1]
+<span class="k">*</span><span class="w"> </span>Good, because [argument 2]
+<span class="k">*</span><span class="w"> </span>Neutral, because [argument 3]
+<span class="k">*</span><span class="w"> </span>Bad, because [argument 4]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">### [option 2]</span>
+
+[example | description | pointer to more information | ...]
+
+<span class="k">*</span><span class="w"> </span>Good, because [argument 1]
+<span class="k">*</span><span class="w"> </span>Good, because [argument 2]
+<span class="k">*</span><span class="w"> </span>Neutral, because [argument 3]
+<span class="k">*</span><span class="w"> </span>Bad, because [argument 4]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">### [option 3]</span>
+
+[example | description | pointer to more information | ...]
+
+<span class="k">*</span><span class="w"> </span>Good, because [argument 1]
+<span class="k">*</span><span class="w"> </span>Good, because [argument 2]
+<span class="k">*</span><span class="w"> </span>Neutral, because [argument 3]
+<span class="k">*</span><span class="w"> </span>Bad, because [argument 4]
+<span class="k">*</span><span class="w"> </span>...
+
+<span class="gu">## More Information</span>
+
+[Any additional information, links, or context]
+</code></pre></div></td></tr></table></div>
+
 <h2 id="writing-effective-adrs">Writing Effective ADRs<a class="headerlink" href="#writing-effective-adrs" title="Permanent link">⚓︎</a></h2>
 <h3 id="1-title">1. Title<a class="headerlink" href="#1-title" title="Permanent link">⚓︎</a></h3>
 <p><strong>Good titles</strong>:</p>
@@ -3266,24 +3507,39 @@
 <li>Missing the &ldquo;why now?&rdquo;</li>
 </ul>
 <p><strong>Good example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="gu">## Context and Problem Statement</span>
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span>Our monolithic application has grown to 500K LOC with 15 developers working on it.
-<span class="linenos" data-linenos=" 4 "></span>Deployment takes 2 hours and any bug requires redeploying the entire application.
-<span class="linenos" data-linenos=" 5 "></span>Teams are blocked waiting for others to finish features in shared modules.
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span>We need to improve development velocity, reduce deployment risk, and enable teams
-<span class="linenos" data-linenos=" 8 "></span>to work independently. However, we have limited DevOps resources and our team has
-<span class="linenos" data-linenos=" 9 "></span>minimal microservices experience.
-<span class="linenos" data-linenos="10 "></span>
-<span class="linenos" data-linenos="11 "></span>How should we restructure our application to improve development velocity while
-<span class="linenos" data-linenos="12 "></span>managing operational complexity?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Context and Problem Statement</span>
+
+Our monolithic application has grown to 500K LOC with 15 developers working on it.
+Deployment takes 2 hours and any bug requires redeploying the entire application.
+Teams are blocked waiting for others to finish features in shared modules.
+
+We need to improve development velocity, reduce deployment risk, and enable teams
+to work independently. However, we have limited DevOps resources and our team has
+minimal microservices experience.
+
+How should we restructure our application to improve development velocity while
+managing operational complexity?
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Bad example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Context</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>We should use microservices because they&#39;re better.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Context</span>
+
+We should use microservices because they&#39;re better.
+</code></pre></div></td></tr></table></div>
+
 <h3 id="3-decision-drivers">3. Decision Drivers<a class="headerlink" href="#3-decision-drivers" title="Permanent link">⚓︎</a></h3>
 <p><strong>What makes a good decision driver</strong>:</p>
 <ul>
@@ -3300,22 +3556,35 @@
 <li><strong>Compliance</strong>: Regulatory, legal, policy requirements</li>
 </ul>
 <p><strong>Good example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Decision Drivers</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>Must support 10,000 concurrent users (current: 1,000)
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>Team has strong Python expertise, limited Java/Go experience
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>Budget constraint: max $5,000/month infrastructure cost
-<span class="linenos" data-linenos="6 "></span><span class="k">*</span><span class="w"> </span>Must comply with HIPAA security requirements
-<span class="linenos" data-linenos="7 "></span><span class="k">*</span><span class="w"> </span>Prefer open-source to avoid vendor lock-in
-<span class="linenos" data-linenos="8 "></span><span class="k">*</span><span class="w"> </span>Need to deploy within 3 months
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Decision Drivers</span>
+
+<span class="k">*</span><span class="w"> </span>Must support 10,000 concurrent users (current: 1,000)
+<span class="k">*</span><span class="w"> </span>Team has strong Python expertise, limited Java/Go experience
+<span class="k">*</span><span class="w"> </span>Budget constraint: max $5,000/month infrastructure cost
+<span class="k">*</span><span class="w"> </span>Must comply with HIPAA security requirements
+<span class="k">*</span><span class="w"> </span>Prefer open-source to avoid vendor lock-in
+<span class="k">*</span><span class="w"> </span>Need to deploy within 3 months
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Bad example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Decision Drivers</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>Performance
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>Cost
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>Easy to use
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Decision Drivers</span>
+
+<span class="k">*</span><span class="w"> </span>Performance
+<span class="k">*</span><span class="w"> </span>Cost
+<span class="k">*</span><span class="w"> </span>Easy to use
+</code></pre></div></td></tr></table></div>
+
 <h3 id="4-considered-options">4. Considered Options<a class="headerlink" href="#4-considered-options" title="Permanent link">⚓︎</a></h3>
 <p><strong>Best practices</strong>:</p>
 <ul>
@@ -3325,19 +3594,29 @@
 <li>Link to detailed analysis if extensive</li>
 </ul>
 <p><strong>Good example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Considered Options</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>PostgreSQL with read replicas - Industry-standard RDBMS, strong consistency
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>MongoDB - Document database, flexible schema
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>DynamoDB - Managed NoSQL, serverless pricing
-<span class="linenos" data-linenos="6 "></span><span class="k">*</span><span class="w"> </span>Cassandra - Distributed database, eventual consistency
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Considered Options</span>
+
+<span class="k">*</span><span class="w"> </span>PostgreSQL with read replicas - Industry-standard RDBMS, strong consistency
+<span class="k">*</span><span class="w"> </span>MongoDB - Document database, flexible schema
+<span class="k">*</span><span class="w"> </span>DynamoDB - Managed NoSQL, serverless pricing
+<span class="k">*</span><span class="w"> </span>Cassandra - Distributed database, eventual consistency
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Bad example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Considered Options</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>PostgreSQL
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>Everything else (rejected because PostgreSQL is better)
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Considered Options</span>
+
+<span class="k">*</span><span class="w"> </span>PostgreSQL
+<span class="k">*</span><span class="w"> </span>Everything else (rejected because PostgreSQL is better)
+</code></pre></div></td></tr></table></div>
+
 <h3 id="5-decision-outcome">5. Decision Outcome<a class="headerlink" href="#5-decision-outcome" title="Permanent link">⚓︎</a></h3>
 <p><strong>Structure</strong>:</p>
 <ol>
@@ -3346,19 +3625,29 @@
 <li>Reference decision drivers satisfied</li>
 </ol>
 <p><strong>Good example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Decision Outcome</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>Chosen option: &quot;PostgreSQL with read replicas&quot;, because it best satisfies
-<span class="linenos" data-linenos="4 "></span>our needs for ACID transactions and complex queries while leveraging our
-<span class="linenos" data-linenos="5 "></span>team&#39;s existing SQL expertise. Read replicas address our scaling concerns
-<span class="linenos" data-linenos="6 "></span>for the 10,000 concurrent users requirement at a predictable cost within
-<span class="linenos" data-linenos="7 "></span>our $5,000/month budget.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Decision Outcome</span>
+
+Chosen option: &quot;PostgreSQL with read replicas&quot;, because it best satisfies
+our needs for ACID transactions and complex queries while leveraging our
+team&#39;s existing SQL expertise. Read replicas address our scaling concerns
+for the 10,000 concurrent users requirement at a predictable cost within
+our $5,000/month budget.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Bad example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Decision Outcome</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>We chose PostgreSQL because it&#39;s good.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Decision Outcome</span>
+
+We chose PostgreSQL because it&#39;s good.
+</code></pre></div></td></tr></table></div>
+
 <h3 id="6-consequences">6. Consequences<a class="headerlink" href="#6-consequences" title="Permanent link">⚓︎</a></h3>
 <p><strong>What to include</strong>:</p>
 <ul>
@@ -3369,21 +3658,33 @@
 </ul>
 <p><strong>Be honest</strong>: Don&rsquo;t hide downsides. Future you will thank you.</p>
 <p><strong>Good example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">### Consequences</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>Good, because PostgreSQL ACID guarantees ensure data consistency
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>Good, because team already has SQL expertise, minimal learning curve
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>Good, because rich ecosystem of tools and libraries
-<span class="linenos" data-linenos="6 "></span><span class="k">*</span><span class="w"> </span>Bad, because we&#39;ll need to implement caching layer for read-heavy workloads
-<span class="linenos" data-linenos="7 "></span><span class="k">*</span><span class="w"> </span>Bad, because horizontal scaling is more complex than with NoSQL options
-<span class="linenos" data-linenos="8 "></span><span class="k">*</span><span class="w"> </span>Neutral, because we&#39;ll need to establish backup and recovery procedures
-<span class="linenos" data-linenos="9 "></span><span class="k">*</span><span class="w"> </span>Follow-up, because we need to decide on caching strategy (Redis vs. Memcached)
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">### Consequences</span>
+
+<span class="k">*</span><span class="w"> </span>Good, because PostgreSQL ACID guarantees ensure data consistency
+<span class="k">*</span><span class="w"> </span>Good, because team already has SQL expertise, minimal learning curve
+<span class="k">*</span><span class="w"> </span>Good, because rich ecosystem of tools and libraries
+<span class="k">*</span><span class="w"> </span>Bad, because we&#39;ll need to implement caching layer for read-heavy workloads
+<span class="k">*</span><span class="w"> </span>Bad, because horizontal scaling is more complex than with NoSQL options
+<span class="k">*</span><span class="w"> </span>Neutral, because we&#39;ll need to establish backup and recovery procedures
+<span class="k">*</span><span class="w"> </span>Follow-up, because we need to decide on caching strategy (Redis vs. Memcached)
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Bad example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">### Consequences</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>It will be great!
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">### Consequences</span>
+
+<span class="k">*</span><span class="w"> </span>It will be great!
+</code></pre></div></td></tr></table></div>
+
 <h3 id="7-pros-and-cons-of-options">7. Pros and Cons of Options<a class="headerlink" href="#7-pros-and-cons-of-options" title="Permanent link">⚓︎</a></h3>
 <p>For each considered option:</p>
 <ul>
@@ -3392,27 +3693,47 @@
 <li><strong>Neutral</strong>: Facts without judgment</li>
 </ul>
 <p><strong>Good example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="gu">### PostgreSQL with Read Replicas</span>
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="k">*</span><span class="w"> </span>Good, because mature, battle-tested technology with 25+ years of development
-<span class="linenos" data-linenos=" 4 "></span><span class="k">*</span><span class="w"> </span>Good, because strong ACID guarantees prevent data inconsistency issues
-<span class="linenos" data-linenos=" 5 "></span><span class="k">*</span><span class="w"> </span>Good, because team has 5 years of PostgreSQL experience
-<span class="linenos" data-linenos=" 6 "></span><span class="k">*</span><span class="w"> </span>Good, because rich support for JSON columns provides schema flexibility
-<span class="linenos" data-linenos=" 7 "></span><span class="k">*</span><span class="w"> </span>Bad, because read replicas add operational complexity (monitoring, lag)
-<span class="linenos" data-linenos=" 8 "></span><span class="k">*</span><span class="w"> </span>Bad, because vertical scaling limits on single-node writes
-<span class="linenos" data-linenos=" 9 "></span><span class="k">*</span><span class="w"> </span>Bad, because replication lag can cause read-after-write inconsistency
-<span class="linenos" data-linenos="10 "></span><span class="k">*</span><span class="w"> </span>Neutral, because requires managed hosting or dedicated DBA time
-<span class="linenos" data-linenos="11 "></span>
-<span class="linenos" data-linenos="12 "></span><span class="gu">### MongoDB</span>
-<span class="linenos" data-linenos="13 "></span>
-<span class="linenos" data-linenos="14 "></span><span class="k">*</span><span class="w"> </span>Good, because flexible schema enables rapid iteration
-<span class="linenos" data-linenos="15 "></span><span class="k">*</span><span class="w"> </span>Good, because horizontal scaling built into architecture
-<span class="linenos" data-linenos="16 "></span><span class="k">*</span><span class="w"> </span>Good, because JSON-native storage matches API format
-<span class="linenos" data-linenos="17 "></span><span class="k">*</span><span class="w"> </span>Bad, because team has no MongoDB production experience (hiring/training cost)
-<span class="linenos" data-linenos="18 "></span><span class="k">*</span><span class="w"> </span>Bad, because eventual consistency model complicates some use cases
-<span class="linenos" data-linenos="19 "></span><span class="k">*</span><span class="w"> </span>Bad, because smaller ecosystem than PostgreSQL for our language (Python)
-<span class="linenos" data-linenos="20 "></span><span class="k">*</span><span class="w"> </span>Neutral, because requires learning new query language and patterns
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">### PostgreSQL with Read Replicas</span>
+
+<span class="k">*</span><span class="w"> </span>Good, because mature, battle-tested technology with 25+ years of development
+<span class="k">*</span><span class="w"> </span>Good, because strong ACID guarantees prevent data inconsistency issues
+<span class="k">*</span><span class="w"> </span>Good, because team has 5 years of PostgreSQL experience
+<span class="k">*</span><span class="w"> </span>Good, because rich support for JSON columns provides schema flexibility
+<span class="k">*</span><span class="w"> </span>Bad, because read replicas add operational complexity (monitoring, lag)
+<span class="k">*</span><span class="w"> </span>Bad, because vertical scaling limits on single-node writes
+<span class="k">*</span><span class="w"> </span>Bad, because replication lag can cause read-after-write inconsistency
+<span class="k">*</span><span class="w"> </span>Neutral, because requires managed hosting or dedicated DBA time
+
+<span class="gu">### MongoDB</span>
+
+<span class="k">*</span><span class="w"> </span>Good, because flexible schema enables rapid iteration
+<span class="k">*</span><span class="w"> </span>Good, because horizontal scaling built into architecture
+<span class="k">*</span><span class="w"> </span>Good, because JSON-native storage matches API format
+<span class="k">*</span><span class="w"> </span>Bad, because team has no MongoDB production experience (hiring/training cost)
+<span class="k">*</span><span class="w"> </span>Bad, because eventual consistency model complicates some use cases
+<span class="k">*</span><span class="w"> </span>Bad, because smaller ecosystem than PostgreSQL for our language (Python)
+<span class="k">*</span><span class="w"> </span>Neutral, because requires learning new query language and patterns
+</code></pre></div></td></tr></table></div>
+
 <h3 id="8-validationconfirmation-optional-but-recommended">8. Validation/Confirmation (Optional but Recommended)<a class="headerlink" href="#8-validationconfirmation-optional-but-recommended" title="Permanent link">⚓︎</a></h3>
 <p><strong>Include for important decisions</strong>:</p>
 <ul>
@@ -3422,22 +3743,37 @@
 <li>How will we enforce this decision?</li>
 </ul>
 <p><strong>Good example</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="gu">## Validation</span>
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span>We will validate this decision after 6 months by measuring:
-<span class="linenos" data-linenos=" 4 "></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="k">*</span><span class="w"> </span>Query performance: 95th percentile &lt; 100ms (baseline: 150ms)
-<span class="linenos" data-linenos=" 6 "></span><span class="k">*</span><span class="w"> </span>System uptime: 99.9% (baseline: 99.5%)
-<span class="linenos" data-linenos=" 7 "></span><span class="k">*</span><span class="w"> </span>Developer productivity: Story cycle time reduced by 20%
-<span class="linenos" data-linenos=" 8 "></span><span class="k">*</span><span class="w"> </span>Infrastructure cost: Remains under $5,000/month
-<span class="linenos" data-linenos=" 9 "></span>
-<span class="linenos" data-linenos="10 "></span>We will revisit this decision if:
-<span class="linenos" data-linenos="11 "></span>
-<span class="linenos" data-linenos="12 "></span><span class="k">*</span><span class="w"> </span>Query performance degrades below baseline despite optimization
-<span class="linenos" data-linenos="13 "></span><span class="k">*</span><span class="w"> </span>Infrastructure costs exceed $7,500/month (50% over budget)
-<span class="linenos" data-linenos="14 "></span><span class="k">*</span><span class="w"> </span>Team grows beyond 25 developers (scaling concerns)
-<span class="linenos" data-linenos="15 "></span><span class="k">*</span><span class="w"> </span>Regulatory requirements change (ACID may not be sufficient)
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Validation</span>
+
+We will validate this decision after 6 months by measuring:
+
+<span class="k">*</span><span class="w"> </span>Query performance: 95th percentile &lt; 100ms (baseline: 150ms)
+<span class="k">*</span><span class="w"> </span>System uptime: 99.9% (baseline: 99.5%)
+<span class="k">*</span><span class="w"> </span>Developer productivity: Story cycle time reduced by 20%
+<span class="k">*</span><span class="w"> </span>Infrastructure cost: Remains under $5,000/month
+
+We will revisit this decision if:
+
+<span class="k">*</span><span class="w"> </span>Query performance degrades below baseline despite optimization
+<span class="k">*</span><span class="w"> </span>Infrastructure costs exceed $7,500/month (50% over budget)
+<span class="k">*</span><span class="w"> </span>Team grows beyond 25 developers (scaling concerns)
+<span class="k">*</span><span class="w"> </span>Regulatory requirements change (ACID may not be sufficient)
+</code></pre></div></td></tr></table></div>
+
 <h2 id="ai-assistant-review-checklist">AI Assistant Review Checklist<a class="headerlink" href="#ai-assistant-review-checklist" title="Permanent link">⚓︎</a></h2>
 <p>When reviewing an ADR, check:</p>
 <h3 id="completeness">Completeness<a class="headerlink" href="#completeness" title="Permanent link">⚓︎</a></h3>
@@ -3484,74 +3820,111 @@
 <h3 id="pitfall-1-writing-a-proposal-instead-of-a-record">Pitfall 1: Writing a Proposal Instead of a Record<a class="headerlink" href="#pitfall-1-writing-a-proposal-instead-of-a-record" title="Permanent link">⚓︎</a></h3>
 <p><strong>Problem</strong>: ADR written in future tense, sounds like a proposal</p>
 <p><strong>Wrong</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>We should use React because it will be better.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>We should use React because it will be better.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Right</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>We decided to use React because our team has 3 years of React experience
-<span class="linenos" data-linenos="2 "></span>and it best supports our need for complex interactive UIs.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>We decided to use React because our team has 3 years of React experience
+and it best supports our need for complex interactive UIs.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>AI Guidance</strong>: Ensure ADR is written in past tense documenting a decision made, not proposing a decision to make.</p>
 <h3 id="pitfall-2-assuming-context">Pitfall 2: Assuming Context<a class="headerlink" href="#pitfall-2-assuming-context" title="Permanent link">⚓︎</a></h3>
 <p><strong>Problem</strong>: ADR assumes reader knows the background</p>
 <p><strong>Wrong</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Context</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>The current situation isn&#39;t working.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Context</span>
+
+The current situation isn&#39;t working.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Right</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Context</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>Our current REST API serves 50 endpoints across 10 resources. Each client
-<span class="linenos" data-linenos="4 "></span>makes an average of 15 requests per page load, causing poor mobile performance.
-<span class="linenos" data-linenos="5 "></span>Our mobile team has requested a more efficient data fetching mechanism.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Context</span>
+
+Our current REST API serves 50 endpoints across 10 resources. Each client
+makes an average of 15 requests per page load, causing poor mobile performance.
+Our mobile team has requested a more efficient data fetching mechanism.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>AI Guidance</strong>: Ask questions to extract context. Who? What? When? Why now?</p>
 <h3 id="pitfall-3-solution-first-thinking">Pitfall 3: Solution-First Thinking<a class="headerlink" href="#pitfall-3-solution-first-thinking" title="Permanent link">⚓︎</a></h3>
 <p><strong>Problem</strong>: Starting with the solution instead of the problem</p>
 <p><strong>Wrong</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Problem</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>We need to use Kubernetes.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Problem</span>
+
+We need to use Kubernetes.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Right</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Problem</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>Our application experiences unpredictable traffic spikes (10x baseline)
-<span class="linenos" data-linenos="4 "></span>during events, causing outages. Manual scaling takes 30+ minutes,
-<span class="linenos" data-linenos="5 "></span>resulting in lost revenue and poor user experience.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Problem</span>
+
+Our application experiences unpredictable traffic spikes (10x baseline)
+during events, causing outages. Manual scaling takes 30+ minutes,
+resulting in lost revenue and poor user experience.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>AI Guidance</strong>: Ask &ldquo;What problem are we solving?&rdquo; before discussing solutions.</p>
 <h3 id="pitfall-4-vague-decision-drivers">Pitfall 4: Vague Decision Drivers<a class="headerlink" href="#pitfall-4-vague-decision-drivers" title="Permanent link">⚓︎</a></h3>
 <p><strong>Problem</strong>: Decision drivers too generic to be useful</p>
 <p><strong>Wrong</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">*</span><span class="w"> </span>Good performance
-<span class="linenos" data-linenos="2 "></span><span class="k">*</span><span class="w"> </span>Low cost
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>Easy to use
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">*</span><span class="w"> </span>Good performance
+<span class="k">*</span><span class="w"> </span>Low cost
+<span class="k">*</span><span class="w"> </span>Easy to use
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Right</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">*</span><span class="w"> </span>Must handle 10,000 requests/second (current: 1,000)
-<span class="linenos" data-linenos="2 "></span><span class="k">*</span><span class="w"> </span>Infrastructure cost must stay under $5,000/month
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>Team should be productive within 2 weeks of learning
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">*</span><span class="w"> </span>Must handle 10,000 requests/second (current: 1,000)
+<span class="k">*</span><span class="w"> </span>Infrastructure cost must stay under $5,000/month
+<span class="k">*</span><span class="w"> </span>Team should be productive within 2 weeks of learning
+</code></pre></div></td></tr></table></div>
+
 <p><strong>AI Guidance</strong>: Ask for specifics. &ldquo;How much?&rdquo; &ldquo;By when?&rdquo; &ldquo;Compared to what?&rdquo;</p>
 <h3 id="pitfall-5-ignoring-trade-offs">Pitfall 5: Ignoring Trade-offs<a class="headerlink" href="#pitfall-5-ignoring-trade-offs" title="Permanent link">⚓︎</a></h3>
 <p><strong>Problem</strong>: Only listing benefits, hiding downsides</p>
 <p><strong>Wrong</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">### Consequences</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>Good, because Kubernetes is great
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>Good, because everyone uses it
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>Good, because it scales
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">### Consequences</span>
+
+<span class="k">*</span><span class="w"> </span>Good, because Kubernetes is great
+<span class="k">*</span><span class="w"> </span>Good, because everyone uses it
+<span class="k">*</span><span class="w"> </span>Good, because it scales
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Right</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">### Consequences</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>Good, because handles our traffic spikes automatically
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>Good, because enables zero-downtime deployments
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>Bad, because adds significant operational complexity
-<span class="linenos" data-linenos="6 "></span><span class="k">*</span><span class="w"> </span>Bad, because requires 6 months for team to become proficient
-<span class="linenos" data-linenos="7 "></span><span class="k">*</span><span class="w"> </span>Bad, because increases infrastructure costs by $3,000/month
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">### Consequences</span>
+
+<span class="k">*</span><span class="w"> </span>Good, because handles our traffic spikes automatically
+<span class="k">*</span><span class="w"> </span>Good, because enables zero-downtime deployments
+<span class="k">*</span><span class="w"> </span>Bad, because adds significant operational complexity
+<span class="k">*</span><span class="w"> </span>Bad, because requires 6 months for team to become proficient
+<span class="k">*</span><span class="w"> </span>Bad, because increases infrastructure costs by $3,000/month
+</code></pre></div></td></tr></table></div>
+
 <p><strong>AI Guidance</strong>: Explicitly ask &ldquo;What are the downsides of this decision?&rdquo;</p>
 <h3 id="pitfall-6-analysis-paralysis">Pitfall 6: Analysis Paralysis<a class="headerlink" href="#pitfall-6-analysis-paralysis" title="Permanent link">⚓︎</a></h3>
 <p><strong>Problem</strong>: Too much detail, loses the forest for the trees</p>
@@ -3561,19 +3934,29 @@
 <h3 id="pitfall-7-straw-man-alternatives">Pitfall 7: Straw Man Alternatives<a class="headerlink" href="#pitfall-7-straw-man-alternatives" title="Permanent link">⚓︎</a></h3>
 <p><strong>Problem</strong>: Listing unrealistic options to make choice obvious</p>
 <p><strong>Wrong</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Options</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>PostgreSQL - mature, reliable
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>Building our own database from scratch in PHP - terrible idea
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>Using Excel files on a shared drive - obviously won&#39;t work
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Options</span>
+
+<span class="k">*</span><span class="w"> </span>PostgreSQL - mature, reliable
+<span class="k">*</span><span class="w"> </span>Building our own database from scratch in PHP - terrible idea
+<span class="k">*</span><span class="w"> </span>Using Excel files on a shared drive - obviously won&#39;t work
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Right</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Options</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="k">*</span><span class="w"> </span>PostgreSQL - mature RDBMS, strong consistency
-<span class="linenos" data-linenos="4 "></span><span class="k">*</span><span class="w"> </span>MongoDB - flexible schema, horizontal scaling
-<span class="linenos" data-linenos="5 "></span><span class="k">*</span><span class="w"> </span>DynamoDB - managed service, serverless pricing
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Options</span>
+
+<span class="k">*</span><span class="w"> </span>PostgreSQL - mature RDBMS, strong consistency
+<span class="k">*</span><span class="w"> </span>MongoDB - flexible schema, horizontal scaling
+<span class="k">*</span><span class="w"> </span>DynamoDB - managed service, serverless pricing
+</code></pre></div></td></tr></table></div>
+
 <p><strong>AI Guidance</strong>: Ensure alternatives are realistic options actually considered.</p>
 <h2 id="asking-good-questions">Asking Good Questions<a class="headerlink" href="#asking-good-questions" title="Permanent link">⚓︎</a></h2>
 <p>As an AI assistant, ask questions to extract information:</p>
@@ -3622,110 +4005,202 @@
 </blockquote>
 <h3 id="good-ai-response-process">Good AI Response Process<a class="headerlink" href="#good-ai-response-process" title="Permanent link">⚓︎</a></h3>
 <p><strong>Step 1: Understand Context</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>I&#39;ll help you write an ADR for choosing React. First, let me understand
-<span class="linenos" data-linenos="2 "></span>the context:
-<span class="linenos" data-linenos="3 "></span>
-<span class="linenos" data-linenos="4 "></span>1. What problem are you solving that led to choosing React?
-<span class="linenos" data-linenos="5 "></span>2. What other frameworks did you consider (Vue, Angular, Svelte, etc.)?
-<span class="linenos" data-linenos="6 "></span>3. What are your team&#39;s constraints (expertise, timeline, budget)?
-<span class="linenos" data-linenos="7 "></span>4. Are there specific requirements driving this decision (performance,
-<span class="linenos" data-linenos="8 "></span>   ecosystem, hiring, etc.)?
-<span class="linenos" data-linenos="9 "></span>5. What&#39;s your project size and expected team size?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">I</span><span class="s1">&#39;ll help you write an ADR for choosing React. First, let me understand</span>
+<span class="n">the</span><span class="w"> </span><span class="n">context</span><span class="p">:</span>
+
+<span class="mf">1.</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="n">problem</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">solving</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">led</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">choosing</span><span class="w"> </span><span class="n">React</span><span class="err">?</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">frameworks</span><span class="w"> </span><span class="n">did</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">consider</span><span class="w"> </span><span class="p">(</span><span class="n">Vue</span><span class="p">,</span><span class="w"> </span><span class="n">Angular</span><span class="p">,</span><span class="w"> </span><span class="n">Svelte</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="o">.</span><span class="p">)</span><span class="err">?</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">team</span><span class="s1">&#39;s constraints (expertise, timeline, budget)?</span>
+<span class="mf">4.</span><span class="w"> </span><span class="n">Are</span><span class="w"> </span><span class="n">there</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">requirements</span><span class="w"> </span><span class="n">driving</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">decision</span><span class="w"> </span><span class="p">(</span><span class="n">performance</span><span class="p">,</span>
+<span class="w">   </span><span class="n">ecosystem</span><span class="p">,</span><span class="w"> </span><span class="n">hiring</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="o">.</span><span class="p">)</span><span class="err">?</span>
+<span class="mf">5.</span><span class="w"> </span><span class="n">What</span><span class="s1">&#39;s your project size and expected team size?</span>
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Step 2: Extract Decision Drivers</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>Based on your answers, it sounds like your key decision drivers are:
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span>* Team already has 2 React developers, 0 for other frameworks
-<span class="linenos" data-linenos="4 "></span>* Need to hire 3 more developers (React hiring pool larger)
-<span class="linenos" data-linenos="5 "></span>* Application requires complex interactive UI with state management
-<span class="linenos" data-linenos="6 "></span>* Timeline: must launch in 6 months
-<span class="linenos" data-linenos="7 "></span>* Prefer strong TypeScript support
-<span class="linenos" data-linenos="8 "></span>
-<span class="linenos" data-linenos="9 "></span>Does that capture it? Any other important factors?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>Based on your answers, it sounds like your key decision drivers are:
+
+<span class="k">*</span> Team already has 2 React developers, 0 for other frameworks
+<span class="k">*</span> Need to hire 3 more developers (React hiring pool larger)
+<span class="k">*</span> Application requires complex interactive UI with state management
+<span class="k">*</span> Timeline: must launch in 6 months
+<span class="k">*</span> Prefer strong TypeScript support
+
+Does that capture it? Any other important factors?
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Step 3: Identify Trade-offs</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>What are the downsides of choosing React over the alternatives?
-<span class="linenos" data-linenos="2 "></span>For example:
-<span class="linenos" data-linenos="3 "></span>* Does React&#39;s frequent breaking changes concern you?
-<span class="linenos" data-linenos="4 "></span>* Are you worried about the learning curve for Redux/state management?
-<span class="linenos" data-linenos="5 "></span>* Any concerns about bundle size compared to lighter alternatives?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>What are the downsides of choosing React over the alternatives?
+For example:
+<span class="gs">* Does React&#39;s frequent breaking changes concern you?</span>
+<span class="gs">*</span> Are you worried about the learning curve for Redux/state management?
+<span class="k">*</span> Any concerns about bundle size compared to lighter alternatives?
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Step 4: Draft ADR</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>Here&#39;s a draft ADR. Let me know what needs adjustment:
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span># Use React for Web Application Frontend
-<span class="linenos" data-linenos=" 4 "></span>
-<span class="linenos" data-linenos=" 5 "></span>## Context and Problem Statement
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span>We are building a new web application for [purpose] that requires
-<span class="linenos" data-linenos=" 8 "></span>[specific UI requirements]. Our current team has [team composition]
-<span class="linenos" data-linenos=" 9 "></span>and we need to hire [number] additional frontend developers within
-<span class="linenos" data-linenos="10 "></span>[timeline].
-<span class="linenos" data-linenos="11 "></span>
-<span class="linenos" data-linenos="12 "></span>We need to choose a frontend framework that enables us to deliver
-<span class="linenos" data-linenos="13 "></span>a production application in 6 months while setting us up for long-term
-<span class="linenos" data-linenos="14 "></span>maintainability and team growth.
-<span class="linenos" data-linenos="15 "></span>
-<span class="linenos" data-linenos="16 "></span>## Decision Drivers
-<span class="linenos" data-linenos="17 "></span>
-<span class="linenos" data-linenos="18 "></span>* Team has 2 developers with React experience, 0 with other frameworks
-<span class="linenos" data-linenos="19 "></span>* Must hire 3 developers within 6 months (hiring market considerations)
-<span class="linenos" data-linenos="20 "></span>* Requires complex state management for [specific features]
-<span class="linenos" data-linenos="21 "></span>* Need strong TypeScript support for type safety
-<span class="linenos" data-linenos="22 "></span>* Timeline pressure: 6 months to production
-<span class="linenos" data-linenos="23 "></span>
-<span class="linenos" data-linenos="24 "></span>[... rest of ADR ...]
-<span class="linenos" data-linenos="25 "></span>
-<span class="linenos" data-linenos="26 "></span>Does this accurately capture your decision? What should I adjust?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">Here</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">draft</span><span class="w"> </span><span class="n">ADR</span><span class="p">.</span><span class="w"> </span><span class="n">Let</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="n">know</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="n">needs</span><span class="w"> </span><span class="n">adjustment</span><span class="o">:</span>
+
+<span class="cp"># Use React for Web Application Frontend</span>
+
+<span class="cp">## Context and Problem Statement</span>
+
+<span class="n">We</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">building</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">application</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">[</span><span class="n">purpose</span><span class="p">]</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">requires</span>
+<span class="p">[</span><span class="n">specific</span><span class="w"> </span><span class="n">UI</span><span class="w"> </span><span class="n">requirements</span><span class="p">].</span><span class="w"> </span><span class="n">Our</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="n">team</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="p">[</span><span class="n">team</span><span class="w"> </span><span class="n">composition</span><span class="p">]</span>
+<span class="n">and</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">hire</span><span class="w"> </span><span class="p">[</span><span class="n">number</span><span class="p">]</span><span class="w"> </span><span class="n">additional</span><span class="w"> </span><span class="n">frontend</span><span class="w"> </span><span class="n">developers</span><span class="w"> </span><span class="n">within</span>
+<span class="p">[</span><span class="n">timeline</span><span class="p">].</span>
+
+<span class="n">We</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">choose</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">frontend</span><span class="w"> </span><span class="n">framework</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">enables</span><span class="w"> </span><span class="n">us</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">deliver</span>
+<span class="n">a</span><span class="w"> </span><span class="n">production</span><span class="w"> </span><span class="n">application</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="n">months</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="n">setting</span><span class="w"> </span><span class="n">us</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="kt">long</span><span class="o">-</span><span class="n">term</span>
+<span class="n">maintainability</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">team</span><span class="w"> </span><span class="n">growth</span><span class="p">.</span>
+
+<span class="cp">## Decision Drivers</span>
+
+<span class="o">*</span><span class="w"> </span><span class="n">Team</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">developers</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">React</span><span class="w"> </span><span class="n">experience</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">frameworks</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Must</span><span class="w"> </span><span class="n">hire</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">developers</span><span class="w"> </span><span class="n">within</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="n">months</span><span class="w"> </span><span class="p">(</span><span class="n">hiring</span><span class="w"> </span><span class="n">market</span><span class="w"> </span><span class="n">considerations</span><span class="p">)</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Requires</span><span class="w"> </span><span class="k">complex</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">management</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">[</span><span class="n">specific</span><span class="w"> </span><span class="n">features</span><span class="p">]</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Need</span><span class="w"> </span><span class="k">strong</span><span class="w"> </span><span class="n">TypeScript</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">safety</span>
+<span class="o">*</span><span class="w"> </span><span class="n">Timeline</span><span class="w"> </span><span class="n">pressure</span><span class="o">:</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="n">months</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">production</span>
+
+<span class="p">[...</span><span class="w"> </span><span class="n">rest</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">ADR</span><span class="w"> </span><span class="p">...]</span>
+
+<span class="n">Does</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">accurately</span><span class="w"> </span><span class="n">capture</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">decision</span><span class="o">?</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">adjust</span><span class="o">?</span>
+</code></pre></div></td></tr></table></div>
+
 <h2 id="example-reviewing-an-adr">Example: Reviewing an ADR<a class="headerlink" href="#example-reviewing-an-adr" title="Permanent link">⚓︎</a></h2>
 <h3 id="user-submission-problematic">User Submission (Problematic)<a class="headerlink" href="#user-submission-problematic" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="gh"># Use Microservices</span>
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span><span class="gu">## Context</span>
-<span class="linenos" data-linenos=" 4 "></span>
-<span class="linenos" data-linenos=" 5 "></span>Our app is slow.
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="gu">## Decision</span>
-<span class="linenos" data-linenos=" 8 "></span>
-<span class="linenos" data-linenos=" 9 "></span>We decided to use microservices because they&#39;re better and Netflix uses them.
-<span class="linenos" data-linenos="10 "></span>
-<span class="linenos" data-linenos="11 "></span><span class="gu">## Consequences</span>
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span><span class="k">*</span><span class="w"> </span>Everything will be faster
-<span class="linenos" data-linenos="14 "></span><span class="k">*</span><span class="w"> </span>It will scale better
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gh"># Use Microservices</span>
+
+<span class="gu">## Context</span>
+
+Our app is slow.
+
+<span class="gu">## Decision</span>
+
+We decided to use microservices because they&#39;re better and Netflix uses them.
+
+<span class="gu">## Consequences</span>
+
+<span class="k">*</span><span class="w"> </span>Everything will be faster
+<span class="k">*</span><span class="w"> </span>It will scale better
+</code></pre></div></td></tr></table></div>
+
 <h3 id="good-ai-review-response">Good AI Review Response<a class="headerlink" href="#good-ai-review-response" title="Permanent link">⚓︎</a></h3>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>I&#39;ve reviewed your ADR and have several suggestions to make it more useful:
-<span class="linenos" data-linenos=" 2 "></span>
-<span class="linenos" data-linenos=" 3 "></span>**Missing Context**:
-<span class="linenos" data-linenos=" 4 "></span>* What specifically is slow? (API response times? Deployment? Development?)
-<span class="linenos" data-linenos=" 5 "></span>* How slow? (Quantify: &quot;API p95 is 2s, need &lt; 500ms&quot;)
-<span class="linenos" data-linenos=" 6 "></span>* Why is this a priority now?
-<span class="linenos" data-linenos=" 7 "></span>* What&#39;s your current architecture? (Monolith? Distributed? Size?)
-<span class="linenos" data-linenos=" 8 "></span>
-<span class="linenos" data-linenos=" 9 "></span>**Vague Decision**:
-<span class="linenos" data-linenos="10 "></span>* What specific microservices architecture? (How many services? Boundaries?)
-<span class="linenos" data-linenos="11 "></span>* What alternatives did you consider? (Modular monolith? Serverless? Different service boundaries?)
-<span class="linenos" data-linenos="12 "></span>* What criteria led to this choice beyond &quot;better&quot;?
-<span class="linenos" data-linenos="13 "></span>
-<span class="linenos" data-linenos="14 "></span>**Missing Decision Drivers**:
-<span class="linenos" data-linenos="15 "></span>* What requirements must the solution meet?
-<span class="linenos" data-linenos="16 "></span>* What constraints do you have? (Team size, skills, budget, timeline)
-<span class="linenos" data-linenos="17 "></span>* What qualities matter most? (Development velocity? Scalability? Reliability?)
-<span class="linenos" data-linenos="18 "></span>
-<span class="linenos" data-linenos="19 "></span>**Unrealistic Consequences**:
-<span class="linenos" data-linenos="20 "></span>* &quot;Everything will be faster&quot; - What specific improvements do you expect?
-<span class="linenos" data-linenos="21 "></span>* Missing trade-offs - What will be harder? (Deployment? Debugging? Distributed transactions?)
-<span class="linenos" data-linenos="22 "></span>* No concrete metrics or validation plan
-<span class="linenos" data-linenos="23 "></span>
-<span class="linenos" data-linenos="24 "></span>**Comparison Issues**:
-<span class="linenos" data-linenos="25 "></span>* &quot;Netflix uses them&quot; - Netflix has very different scale and challenges
-<span class="linenos" data-linenos="26 "></span>* No evaluation of whether your needs match Netflix&#39;s situation
-<span class="linenos" data-linenos="27 "></span>
-<span class="linenos" data-linenos="28 "></span>Would you like help filling in these gaps? Let&#39;s start with: What specific
-<span class="linenos" data-linenos="29 "></span>problem led to this decision?
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nx">I</span><span class="err">&#39;</span><span class="nx">ve</span><span class="w"> </span><span class="nx">reviewed</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">ADR</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">several</span><span class="w"> </span><span class="nx">suggestions</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">make</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">more</span><span class="w"> </span><span class="nx">useful</span><span class="p">:</span>
+
+<span class="o">**</span><span class="nx">Missing</span><span class="w"> </span><span class="nx">Context</span><span class="o">**</span><span class="p">:</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">specifically</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">slow</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">API</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="nx">times</span><span class="p">?</span><span class="w"> </span><span class="nx">Deployment</span><span class="p">?</span><span class="w"> </span><span class="nx">Development</span><span class="p">?)</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">How</span><span class="w"> </span><span class="nx">slow</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">Quantify</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;API p95 is 2s, need &lt; 500ms&quot;</span><span class="p">)</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">Why</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">priority</span><span class="w"> </span><span class="nx">now</span><span class="p">?</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="err">&#39;</span><span class="nx">s</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">current</span><span class="w"> </span><span class="nx">architecture</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">Monolith</span><span class="p">?</span><span class="w"> </span><span class="nx">Distributed</span><span class="p">?</span><span class="w"> </span><span class="nx">Size</span><span class="p">?)</span>
+
+<span class="o">**</span><span class="nx">Vague</span><span class="w"> </span><span class="nx">Decision</span><span class="o">**</span><span class="p">:</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">specific</span><span class="w"> </span><span class="nx">microservices</span><span class="w"> </span><span class="nx">architecture</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">How</span><span class="w"> </span><span class="nx">many</span><span class="w"> </span><span class="nx">services</span><span class="p">?</span><span class="w"> </span><span class="nx">Boundaries</span><span class="p">?)</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">alternatives</span><span class="w"> </span><span class="nx">did</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">consider</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">Modular</span><span class="w"> </span><span class="nx">monolith</span><span class="p">?</span><span class="w"> </span><span class="nx">Serverless</span><span class="p">?</span><span class="w"> </span><span class="nx">Different</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">boundaries</span><span class="p">?)</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">criteria</span><span class="w"> </span><span class="nx">led</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="kd">choice</span><span class="w"> </span><span class="nx">beyond</span><span class="w"> </span><span class="s">&quot;better&quot;</span><span class="p">?</span>
+
+<span class="o">**</span><span class="nx">Missing</span><span class="w"> </span><span class="nx">Decision</span><span class="w"> </span><span class="nx">Drivers</span><span class="o">**</span><span class="p">:</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">requirements</span><span class="w"> </span><span class="nx">must</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">solution</span><span class="w"> </span><span class="nx">meet</span><span class="p">?</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">constraints</span><span class="w"> </span><span class="nx">do</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">have</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">Team</span><span class="w"> </span><span class="nx">size</span><span class="p">,</span><span class="w"> </span><span class="nx">skills</span><span class="p">,</span><span class="w"> </span><span class="nx">budget</span><span class="p">,</span><span class="w"> </span><span class="nx">timeline</span><span class="p">)</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">qualities</span><span class="w"> </span><span class="nx">matter</span><span class="w"> </span><span class="nx">most</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">Development</span><span class="w"> </span><span class="nx">velocity</span><span class="p">?</span><span class="w"> </span><span class="nx">Scalability</span><span class="p">?</span><span class="w"> </span><span class="nx">Reliability</span><span class="p">?)</span>
+
+<span class="o">**</span><span class="nx">Unrealistic</span><span class="w"> </span><span class="nx">Consequences</span><span class="o">**</span><span class="p">:</span>
+<span class="o">*</span><span class="w"> </span><span class="s">&quot;Everything will be faster&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">specific</span><span class="w"> </span><span class="nx">improvements</span><span class="w"> </span><span class="nx">do</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">expect</span><span class="p">?</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">Missing</span><span class="w"> </span><span class="nx">trade</span><span class="o">-</span><span class="nx">offs</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">harder</span><span class="p">?</span><span class="w"> </span><span class="p">(</span><span class="nx">Deployment</span><span class="p">?</span><span class="w"> </span><span class="nx">Debugging</span><span class="p">?</span><span class="w"> </span><span class="nx">Distributed</span><span class="w"> </span><span class="nx">transactions</span><span class="p">?)</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">No</span><span class="w"> </span><span class="nx">concrete</span><span class="w"> </span><span class="nx">metrics</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">validation</span><span class="w"> </span><span class="nx">plan</span>
+
+<span class="o">**</span><span class="nx">Comparison</span><span class="w"> </span><span class="nx">Issues</span><span class="o">**</span><span class="p">:</span>
+<span class="o">*</span><span class="w"> </span><span class="s">&quot;Netflix uses them&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">Netflix</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">very</span><span class="w"> </span><span class="nx">different</span><span class="w"> </span><span class="nx">scale</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">challenges</span>
+<span class="o">*</span><span class="w"> </span><span class="nx">No</span><span class="w"> </span><span class="nx">evaluation</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">whether</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">needs</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="nx">Netflix</span><span class="err">&#39;</span><span class="nx">s</span><span class="w"> </span><span class="nx">situation</span>
+
+<span class="nx">Would</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="nx">help</span><span class="w"> </span><span class="nx">filling</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">these</span><span class="w"> </span><span class="nx">gaps</span><span class="p">?</span><span class="w"> </span><span class="nx">Let</span><span class="err">&#39;</span><span class="nx">s</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="nx">with</span><span class="p">:</span><span class="w"> </span><span class="nx">What</span><span class="w"> </span><span class="nx">specific</span>
+<span class="nx">problem</span><span class="w"> </span><span class="nx">led</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">decision</span><span class="p">?</span>
+</code></pre></div></td></tr></table></div>
+
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">⚓︎</a></h2>
 <p>When helping with ADRs, remember:</p>
 <ol>
@@ -3758,6 +4233,8 @@
 
 
 
+
+
                 
               </article>
             </div>
@@ -3776,8 +4253,8 @@
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
     </a>
   
 </div>
@@ -3795,10 +4272,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["toc.autohide"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["toc.autohide"],"search":"../../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ee611ef6.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.6.0/tablesort.min.js"></script>
       
