@@ -75,6 +75,23 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Generate changelog notes
+        id: changelog
+        run: |
+          NOTES=$(uv run --with commitizen cz changelog --dry-run | awk -v ver="${GITHUB_REF_NAME}" '
+            /^## / && index($0, ver) { found=1 }
+            found && /^## / && !index($0, ver) { exit }
+            found { print }
+          ')
+          printf 'notes<<EOF\n%s\nEOF\n' "$NOTES" >> "$GITHUB_OUTPUT"
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -85,4 +102,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*
-          generate_release_notes: true
+          body: ${{ steps.changelog.outputs.notes }}
