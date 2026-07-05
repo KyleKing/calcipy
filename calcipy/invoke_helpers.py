@@ -71,7 +71,18 @@ def get_doc_subdir(path_project: Optional[Path] = None) -> Path:
                 LOGGER.debug('Found .copier-answers.yml at repo root', repo_root=repo_root)
                 path_copier = path_copier_at_root
             else:
-                LOGGER.debug('.copier-answers.yml not found at repo root', repo_root=repo_root)
+                LOGGER.debug(
+                    '.copier-answers.yml not found; defaulting doc_dir to "docs". '
+                    'Pass --doc-sub-dir to override.',
+                    base_path=base_path,
+                    repo_root=repo_root,
+                )
+        else:
+            LOGGER.debug(
+                '.copier-answers.yml not found and no repository root detected; defaulting doc_dir to "docs". '
+                'Pass --doc-sub-dir to override.',
+                base_path=base_path,
+            )
 
     doc_dir = read_yaml_file(path_copier).get('doc_dir', 'docs')
     # Always return path relative to base_path, not where copier answers was found
