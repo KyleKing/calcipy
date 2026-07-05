@@ -79,11 +79,28 @@ repos:
       - id: toml-sort-fix
         exclude: uv\.lock
         stages: ["pre-commit"]
-  # - repo: https://github.com/KyleKing/calcipy
-  #   rev: 6.0.0
-  #   hooks:
-  #     - id: copier-forbidden-files
-  #     - id: lint-fix
-  #       stages: ["pre-commit"]
-  #     - id: tags
-  #       stages: ["pre-push"]
+  - repo: local
+    hooks:
+      - id: copier-forbidden-files
+        entry: |
+          Found copier update rejection files; review them and remove them
+          (https://copier.readthedocs.io/en/stable/updating/)
+        files: \.rej$
+        language: fail
+        name: Copier Forbidden Files
+      - id: lint-fix
+        description: "Run ruff and apply fixes"
+        entry: uv run calcipy-lint lint.fix
+        language: system
+        name: Lint-Fix
+        require_serial: true
+        stages: ["pre-commit"]
+        types: [python]
+      - id: tags
+        description: "Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments"
+        entry: uv run calcipy-tags tags
+        language: system
+        name: Tags
+        pass_filenames: false
+        require_serial: true
+        stages: ["pre-push"]
