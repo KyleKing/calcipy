@@ -56,19 +56,18 @@ ddict = [
 ]
 doc = [
   "commitizen >=4.12.1",
+  "ghp-import >=2.1.0", # Used by doc.deploy to publish to gh-pages (replaces mkdocs gh-deploy)
   "markdown-callouts>=0.4.0",
   "markdown-exec>=1.12.1",
-  "mkdocs >=1.6.1",
   "mkdocs-coverage>=2.0.0",
-  "mkdocs-gen-files >=0.6.0",
   "mkdocs-git-revision-date-localized-plugin>=1.5.1",
   "mkdocs-llmstxt>=0.5.0",
-  "mkdocs-material >=9.7.1",
   "mkdocs-minify-plugin>=0.8.0",
   "mkdocs-section-index>=0.3.10",
   "mkdocstrings[python] >=1.0.2",
   "pymdown-extensions >=10.20.1",
   "tomli>=2.4.0; python_version < '3.11'", # PLANNED: When >=3.11, drop
+  "zensical >=0.0.46",
 ]
 experimental = [
   "griffe >=2.0.1",

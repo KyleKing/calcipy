@@ -16,7 +16,7 @@ from calcipy.cli import task
 from calcipy.invoke_helpers import get_project_path, run
 from calcipy.markup_writer import write_template_formatted_sections
 
-from .executable_utils import python_m
+from .executable_utils import python_m, resolve_python
 
 
 def get_out_dir() -> Path:
@@ -25,11 +25,22 @@ def get_out_dir() -> Path:
     return Path(mkdocs_config.get('site_dir', 'releases/site'))
 
 
+def _get_doc_dir() -> str:
+    mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
+    return mkdocs_config.get('docs_dir', 'docs')
+
+
+def _gen_reference(ctx: Context) -> None:
+    """Generate the API reference stubs that Zensical does not build via mkdocs-gen-files."""
+    run(ctx, f'{resolve_python()} {_get_doc_dir()}/gen_ref_nav.py')
+
+
 @task()
 def build(ctx: Context) -> None:
-    """Build documentation with mkdocs."""
+    """Build documentation with Zensical."""
     write_template_formatted_sections()
-    run(ctx, f'{python_m()} mkdocs build --site-dir {get_out_dir()}')
+    _gen_reference(ctx)
+    run(ctx, f'{python_m()} zensical build')
 
 
 def _is_mkdocs_local() -> bool:
@@ -55,7 +66,8 @@ def watch(ctx: Context) -> None:
         open_in_browser(path_doc_index)
     else:  # pragma: no cover
         webbrowser.open('http://localhost:8000')
-        run(ctx, f'{python_m()} mkdocs serve --dirtyreload')
+        _gen_reference(ctx)
+        run(ctx, f'{python_m()} zensical serve')
 
 
 @task()
@@ -65,7 +77,7 @@ def deploy(ctx: Context) -> None:
         raise NotImplementedError('Not yet configured to deploy documentation without "use_directory_urls"')
 
     with suppress(UnexpectedExit):
-        run(ctx, 'prek uninstall')  # To prevent prek failures when mkdocs calls push
-    run(ctx, f'{python_m()} mkdocs gh-deploy --force')
+        run(ctx, 'prek uninstall')  # To prevent prek failures when the deploy pushes
+    run(ctx, f'{python_m()} ghp_import --no-jekyll --push --force --message "Deployed docs" {get_out_dir()}')
     with suppress(UnexpectedExit):
         run(ctx, 'prek install')  # Restore prek

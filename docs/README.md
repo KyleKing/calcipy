@@ -159,6 +159,7 @@ repos:
 ```
 
 <!-- {cts} CLI_OUTPUT=./run --help; -->
+
 ```txt
 Usage: calcipy [--core-opts] <subcommand> [--subcommand-opts] ...
 
@@ -201,7 +202,7 @@ Subcommands:
                                   settings in pyproject.toml.
   cl.write                        Write a Changelog file with the raw Git
                                   history.
-  doc.build                       Build documentation with mkdocs.
+  doc.build                       Build documentation with Zensical.
   doc.deploy                      Deploy docs to the Github `gh-pages` branch.
   doc.watch                       Serve local documentation for local editing.
   lint.check (lint)               Run ruff as check-only.
@@ -238,6 +239,7 @@ Global Task Options:
   -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most
                          verbose)
 ```
+
 <!-- {cte} -->
 
 Tip: running pre-commit with prek is recommended for performance: https://pypi.org/project/prek
