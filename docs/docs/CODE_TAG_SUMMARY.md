@@ -2,7 +2,7 @@
 
 | Type    | Comment             | Last Edit  | Source File                                                                                                                                      |
 |---------|---------------------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| PLANNED | When >=3.11, drop   | 2026-01-28 | [pyproject.toml:72](https://github.com/KyleKing/calcipy/blame/cb0471b79a13e6092ab0a58194689f4b1e54ed29/pyproject.toml#L94)                       |
+| PLANNED | When >=3.11, drop   | 2026-01-28 | [pyproject.toml:69](https://github.com/KyleKing/calcipy/blame/cb0471b79a13e6092ab0a58194689f4b1e54ed29/pyproject.toml#L94)                       |
 | TODO    | root task')         | 2026-01-28 | [tests/tasks/test_tags.py:127](https://github.com/KyleKing/calcipy/blame/89fac604c244e45608fadebaac5d0b94c4b7927d/tests/tasks/test_tags.py#L88)  |
 | TODO    | subdirectory task') | 2026-01-28 | [tests/tasks/test_tags.py:128](https://github.com/KyleKing/calcipy/blame/89fac604c244e45608fadebaac5d0b94c4b7927d/tests/tasks/test_tags.py#L89)  |
 | TODO    | subdirectory task') | 2026-01-28 | [tests/tasks/test_tags.py:158](https://github.com/KyleKing/calcipy/blame/89fac604c244e45608fadebaac5d0b94c4b7927d/tests/tasks/test_tags.py#L133) |
