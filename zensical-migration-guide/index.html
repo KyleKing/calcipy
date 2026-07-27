@@ -2698,17 +2698,13 @@
 <hr />
 <h2 id="1-dependency-changes">1. Dependency Changes<a class="headerlink" href="#1-dependency-changes" title="Permanent link">⚓︎</a></h2>
 <h3 id="remove">Remove<a class="headerlink" href="#remove" title="Permanent link">⚓︎</a></h3>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdocs
-mkdocs-material
-mkdocs-material-extensions   # bundled in zensical
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mkdocs
+<span class="linenos" data-linenos="2 "></span>mkdocs-material
+<span class="linenos" data-linenos="3 "></span>mkdocs-material-extensions   # bundled in zensical
+</code></pre></div>
 <h3 id="add">Add<a class="headerlink" href="#add" title="Permanent link">⚓︎</a></h3>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>zensical
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zensical
+</code></pre></div>
 <h3 id="plugins-check-each-one">Plugins — check each one<a class="headerlink" href="#plugins-check-each-one" title="Permanent link">⚓︎</a></h3>
 <p>Zensical natively supports 27 plugins via its module system. When listed in <code>mkdocs.yml</code>, they are automatically mapped to Zensical modules with no config changes needed.</p>
 <h4 id="tier-1-highest-priority-expected-to-work">Tier 1 — highest priority, expected to work<a class="headerlink" href="#tier-1-highest-priority-expected-to-work" title="Permanent link">⚓︎</a></h4>
@@ -2901,11 +2897,9 @@ mkdocs-material-extensions   # bundled in zensical
 <hr />
 <h2 id="3-cli-changes">3. CLI Changes<a class="headerlink" href="#3-cli-changes" title="Permanent link">⚓︎</a></h2>
 <h3 id="commands-that-work">Commands that work<a class="headerlink" href="#commands-that-work" title="Permanent link">⚓︎</a></h3>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>zensical<span class="w"> </span>build<span class="w">       </span><span class="c1"># replaces: mkdocs build</span>
-zensical<span class="w"> </span>serve<span class="w">       </span><span class="c1"># replaces: mkdocs serve</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>zensical<span class="w"> </span>build<span class="w">       </span><span class="c1"># replaces: mkdocs build</span>
+<span class="linenos" data-linenos="2 "></span>zensical<span class="w"> </span>serve<span class="w">       </span><span class="c1"># replaces: mkdocs serve</span>
+</code></pre></div>
 <h3 id="flags-removed-or-changed">Flags removed or changed<a class="headerlink" href="#flags-removed-or-changed" title="Permanent link">⚓︎</a></h3>
 <table>
 <thead>
@@ -2978,43 +2972,26 @@ zensical<span class="w"> </span>serve<span class="w">       </span><span class="
 <h2 id="5-cicd-changes">5. CI/CD Changes<a class="headerlink" href="#5-cicd-changes" title="Permanent link">⚓︎</a></h2>
 <h3 id="github-actions">GitHub Actions<a class="headerlink" href="#github-actions" title="Permanent link">⚓︎</a></h3>
 <p>Replace the deploy step:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs gh-deploy --force</span>
-
-<span class="c1"># After — consult https://zensical.org/docs/ for current publishing guide</span>
-<span class="c1"># Likely: build with zensical, then deploy the site_dir artifact</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zensical build</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peaceiris/actions-gh-pages@v3</span>
-<span class="w">    </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
-<span class="w">      </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./releases/site</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Before</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs gh-deploy --force</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="c1"># After — consult https://zensical.org/docs/ for current publishing guide</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="c1"># Likely: build with zensical, then deploy the site_dir artifact</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zensical build</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peaceiris/actions-gh-pages@v3</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="w">      </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+<span class="linenos" data-linenos="10 "></span><span class="w">      </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./releases/site</span>
+</code></pre></div>
 <p>Update any pinned dependency installs:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before</span>
-<span class="l l-Scalar l-Scalar-Plain">pip install mkdocs mkdocs-material</span>
-
-<span class="l l-Scalar l-Scalar-Plain"># After</span>
-<span class="l l-Scalar l-Scalar-Plain">pip install zensical</span>
-<span class="l l-Scalar l-Scalar-Plain"># or with uv</span><span class="p p-Indicator">:</span>
-<span class="l l-Scalar l-Scalar-Plain">uv add --dev zensical</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Before</span>
+<span class="linenos" data-linenos="2 "></span><span class="l l-Scalar l-Scalar-Plain">pip install mkdocs mkdocs-material</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="l l-Scalar l-Scalar-Plain"># After</span>
+<span class="linenos" data-linenos="5 "></span><span class="l l-Scalar l-Scalar-Plain">pip install zensical</span>
+<span class="linenos" data-linenos="6 "></span><span class="l l-Scalar l-Scalar-Plain"># or with uv</span><span class="p p-Indicator">:</span>
+<span class="linenos" data-linenos="7 "></span><span class="l l-Scalar l-Scalar-Plain">uv add --dev zensical</span>
+</code></pre></div>
 <hr />
 <h2 id="6-migration-checklist">6. Migration Checklist<a class="headerlink" href="#6-migration-checklist" title="Permanent link">⚓︎</a></h2>
 <p>Work through these in order. Each item should pass before moving to the next.</p>

@@ -2608,87 +2608,51 @@
 <h3 id="migration-path-for-users">Migration Path for Users<a class="headerlink" href="#migration-path-for-users" title="Permanent link">⚓︎</a></h3>
 <p>If you&rsquo;re using Calcipy in your project and want to migrate from Poetry to UV:</p>
 <h4 id="1-update-package-manager">1. Update Package Manager<a class="headerlink" href="#1-update-package-manager" title="Permanent link">⚓︎</a></h4>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Install uv</span>
-curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-
-<span class="c1"># Or with brew</span>
-brew<span class="w"> </span>install<span class="w"> </span>uv
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Install uv</span>
+<span class="linenos" data-linenos="2 "></span>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Or with brew</span>
+<span class="linenos" data-linenos="5 "></span>brew<span class="w"> </span>install<span class="w"> </span>uv
+</code></pre></div>
 <h4 id="2-convert-pyprojecttoml">2. Convert pyproject.toml<a class="headerlink" href="#2-convert-pyprojecttoml" title="Permanent link">⚓︎</a></h4>
 <p>Your <code>pyproject.toml</code> needs these changes:</p>
 <p><strong>Before (Poetry):</strong></p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">[build-system]</span>
-<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;poetry-core&quot;</span><span class="p">]</span>
-<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;poetry.core.masonry.api&quot;</span>
-
-<span class="k">[tool.poetry]</span>
-<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-package&quot;</span>
-<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;^3.10&quot;</span><span class="w"> </span><span class="p">}</span>
-
-<span class="k">[tool.poetry.group.dev.dependencies]</span>
-<span class="n">pytest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;^7.0&quot;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">[build-system]</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;poetry-core&quot;</span><span class="p">]</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;poetry.core.masonry.api&quot;</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="k">[tool.poetry]</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-package&quot;</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;^3.10&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="k">[tool.poetry.group.dev.dependencies]</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">pytest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;^7.0&quot;</span>
+</code></pre></div>
 <p><strong>After (UV):</strong></p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">[build-system]</span>
-<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uv_build&gt;=0.9.7&quot;</span><span class="p">]</span>
-<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;uv_build&quot;</span>
-
-<span class="k">[project]</span>
-<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-package&quot;</span>
-<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
-<span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.10&quot;</span>
-<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
-
-<span class="k">[dependency-groups]</span>
-<span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;pytest&gt;=7.0&quot;</span><span class="p">]</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">[build-system]</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uv_build&gt;=0.9.7&quot;</span><span class="p">]</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;uv_build&quot;</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="k">[project]</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-package&quot;</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.10&quot;</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="linenos" data-linenos="10 "></span>
+<span class="linenos" data-linenos="11 "></span><span class="k">[dependency-groups]</span>
+<span class="linenos" data-linenos="12 "></span><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;pytest&gt;=7.0&quot;</span><span class="p">]</span>
+</code></pre></div>
 <h4 id="3-migrate-lock-file">3. Migrate Lock File<a class="headerlink" href="#3-migrate-lock-file" title="Permanent link">⚓︎</a></h4>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Remove old poetry files</span>
-rm<span class="w"> </span>poetry.lock
-
-<span class="c1"># Create new uv lock file</span>
-uv<span class="w"> </span>lock
-
-<span class="c1"># Install dependencies</span>
-uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Remove old poetry files</span>
+<span class="linenos" data-linenos="2 "></span>rm<span class="w"> </span>poetry.lock
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Create new uv lock file</span>
+<span class="linenos" data-linenos="5 "></span>uv<span class="w"> </span>lock
+<span class="linenos" data-linenos="6 "></span>
+<span class="linenos" data-linenos="7 "></span><span class="c1"># Install dependencies</span>
+<span class="linenos" data-linenos="8 "></span>uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
+</code></pre></div>
 <h4 id="4-update-cicd">4. Update CI/CD<a class="headerlink" href="#4-update-cicd" title="Permanent link">⚓︎</a></h4>
 <p>Replace poetry commands with uv equivalents:</p>
 <table>
@@ -2722,111 +2686,66 @@ uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
 </tbody>
 </table>
 <h4 id="5-update-github-actions">5. Update GitHub Actions<a class="headerlink" href="#5-update-github-actions" title="Permanent link">⚓︎</a></h4>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
-<span class="w">    </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Poetry</span>
-<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipx install poetry</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
-<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">poetry install</span>
-
-<span class="c1"># After</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v5</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
-<span class="w">    </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
-<span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uv sync --all-extras</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Before</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="w">      </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Poetry</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipx install poetry</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">poetry install</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="c1"># After</span>
+<span class="linenos" data-linenos="11 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v5</span>
+<span class="linenos" data-linenos="12 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
+<span class="linenos" data-linenos="13 "></span><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+<span class="linenos" data-linenos="14 "></span><span class="w">      </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
+<span class="linenos" data-linenos="15 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="linenos" data-linenos="16 "></span><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uv sync --all-extras</span>
+</code></pre></div>
 <h3 id="python-version-management-mise-uv-nox">Python Version Management: mise + uv + nox<a class="headerlink" href="#python-version-management-mise-uv-nox" title="Permanent link">⚓︎</a></h3>
 <p>Calcipy uses a powerful combination of tools for managing Python versions:</p>
 <h4 id="mise-version-manager">mise (Version Manager)<a class="headerlink" href="#mise-version-manager" title="Permanent link">⚓︎</a></h4>
 <p><a href="https://mise.jdx.dev/">mise</a> (formerly rtx) is a polyglot version manager that replaces <code>asdf</code>, <code>pyenv</code>, <code>nvm</code>, etc.</p>
 <p><strong>Setup mise:</strong></p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Install mise</span>
-curl<span class="w"> </span>https://mise.run<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-
-<span class="c1"># Or with brew</span>
-brew<span class="w"> </span>install<span class="w"> </span>mise
-
-<span class="c1"># Add to your shell (e.g., ~/.bashrc or ~/.zshrc)</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;eval &quot;$(mise activate bash)&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Install mise</span>
+<span class="linenos" data-linenos="2 "></span>curl<span class="w"> </span>https://mise.run<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Or with brew</span>
+<span class="linenos" data-linenos="5 "></span>brew<span class="w"> </span>install<span class="w"> </span>mise
+<span class="linenos" data-linenos="6 "></span>
+<span class="linenos" data-linenos="7 "></span><span class="c1"># Add to your shell (e.g., ~/.bashrc or ~/.zshrc)</span>
+<span class="linenos" data-linenos="8 "></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;eval &quot;$(mise activate bash)&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</code></pre></div>
 <p><strong>Configure Python versions:</strong></p>
 <p>Create <code>mise.toml</code>:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">[tools]</span>
-<span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;3.12.5&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;3.10.16&quot;</span><span class="p">]</span>
-
-<span class="k">[env]</span>
-<span class="n">_</span><span class="p">.</span><span class="n">python</span><span class="p">.</span><span class="n">venv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;.venv&quot;</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">[tools]</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;3.12.5&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;3.10.16&quot;</span><span class="p">]</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="k">[env]</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">_</span><span class="p">.</span><span class="n">python</span><span class="p">.</span><span class="n">venv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;.venv&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
 <p><strong>Use mise:</strong></p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Install Python versions from mise.toml</span>
-mise<span class="w"> </span>install
-
-<span class="c1"># Verify installation</span>
-mise<span class="w"> </span>which<span class="w"> </span>python
-python<span class="w"> </span>--version
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Install Python versions from mise.toml</span>
+<span class="linenos" data-linenos="2 "></span>mise<span class="w"> </span>install
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Verify installation</span>
+<span class="linenos" data-linenos="5 "></span>mise<span class="w"> </span>which<span class="w"> </span>python
+<span class="linenos" data-linenos="6 "></span>python<span class="w"> </span>--version
+</code></pre></div>
 <h4 id="integration-with-nox">Integration with nox<a class="headerlink" href="#integration-with-nox" title="Permanent link">⚓︎</a></h4>
 <p>Calcipy&rsquo;s noxfile automatically reads Python versions from <code>mise.toml</code>:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># From src/calcipy/noxfile/_noxfile.py</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">_get_pythons</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return python versions from supported configuration files.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ver</span><span class="p">)</span> <span class="k">for</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">get_tool_versions</span><span class="p">()[</span><span class="s1">&#39;python&#39;</span><span class="p">]}]</span>
-
-
-<span class="nd">@nox_session</span><span class="p">(</span><span class="n">venv_backend</span><span class="o">=</span><span class="s1">&#39;uv&#39;</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">(),</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">tests</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">NoxSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tests for all specified Python versions.&quot;&quot;&quot;</span>
-    <span class="o">...</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># From src/calcipy/noxfile/_noxfile.py</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="k">def</span><span class="w"> </span><span class="nf">_get_pythons</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return python versions from supported configuration files.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos=" 4 "></span>    <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">ver</span><span class="p">)</span> <span class="k">for</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">get_tool_versions</span><span class="p">()[</span><span class="s1">&#39;python&#39;</span><span class="p">]}]</span>
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span>
+<span class="linenos" data-linenos=" 7 "></span><span class="nd">@nox_session</span><span class="p">(</span><span class="n">venv_backend</span><span class="o">=</span><span class="s1">&#39;uv&#39;</span><span class="p">,</span> <span class="n">python</span><span class="o">=</span><span class="n">_get_pythons</span><span class="p">(),</span> <span class="n">reuse_venv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="k">def</span><span class="w"> </span><span class="nf">tests</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">NoxSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run tests for all specified Python versions.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="10 "></span>    <span class="o">...</span>
+</code></pre></div>
 <p>This reads from:</p>
 <ol>
 <li><code>mise.lock</code> (resolved versions)</li>
@@ -2834,23 +2753,15 @@ python<span class="w"> </span>--version
 <li><code>.tool-versions</code> (legacy asdf format)</li>
 </ol>
 <p><strong>Run nox tests:</strong></p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># List available sessions</span>
-uv<span class="w"> </span>run<span class="w"> </span>nox<span class="w"> </span>-l
-
-<span class="c1"># Run tests for all Python versions</span>
-uv<span class="w"> </span>run<span class="w"> </span>nox
-
-<span class="c1"># Run tests for specific version</span>
-uv<span class="w"> </span>run<span class="w"> </span>nox<span class="w"> </span>-s<span class="w"> </span>tests-3.12
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># List available sessions</span>
+<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>run<span class="w"> </span>nox<span class="w"> </span>-l
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Run tests for all Python versions</span>
+<span class="linenos" data-linenos="5 "></span>uv<span class="w"> </span>run<span class="w"> </span>nox
+<span class="linenos" data-linenos="6 "></span>
+<span class="linenos" data-linenos="7 "></span><span class="c1"># Run tests for specific version</span>
+<span class="linenos" data-linenos="8 "></span>uv<span class="w"> </span>run<span class="w"> </span>nox<span class="w"> </span>-s<span class="w"> </span>tests-3.12
+</code></pre></div>
 <h4 id="benefits-of-this-setup">Benefits of this Setup<a class="headerlink" href="#benefits-of-this-setup" title="Permanent link">⚓︎</a></h4>
 <ol>
 <li><strong>Version Consistency</strong>: Same Python versions for development, testing, and CI</li>
@@ -2862,81 +2773,55 @@ uv<span class="w"> </span>run<span class="w"> </span>nox<span class="w"> </span>
 <h4 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">⚓︎</a></h4>
 <p><strong>Problem</strong>: <code>nox</code> can&rsquo;t find Python version</p>
 <p><strong>Solution</strong>: Ensure mise installed all versions:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>mise<span class="w"> </span>install
-mise<span class="w"> </span>which<span class="w"> </span>python3.9
-mise<span class="w"> </span>which<span class="w"> </span>python3.12
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mise<span class="w"> </span>install
+<span class="linenos" data-linenos="2 "></span>mise<span class="w"> </span>which<span class="w"> </span>python3.9
+<span class="linenos" data-linenos="3 "></span>mise<span class="w"> </span>which<span class="w"> </span>python3.12
+</code></pre></div>
 <p><strong>Problem</strong>: Different versions between local and CI</p>
 <p><strong>Solution</strong>: Use <code>mise.lock</code> to pin exact versions:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>mise<span class="w"> </span>lock
-git<span class="w"> </span>add<span class="w"> </span>mise.lock
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>mise<span class="w"> </span>lock
+<span class="linenos" data-linenos="2 "></span>git<span class="w"> </span>add<span class="w"> </span>mise.lock
+</code></pre></div>
 <h3 id="tool-vs-dependency-usage">Tool vs Dependency Usage<a class="headerlink" href="#tool-vs-dependency-usage" title="Permanent link">⚓︎</a></h3>
 <p>With v6, Calcipy now has clear modes:</p>
 <p><strong>Tool Mode</strong> (New in v6):</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Minimal installation for linting and code analysis</span>
-uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span>
-calcipy-lint<span class="w"> </span>lint
-calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>./my-project
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Minimal installation for linting and code analysis</span>
+<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span>
+<span class="linenos" data-linenos="3 "></span>calcipy-lint<span class="w"> </span>lint
+<span class="linenos" data-linenos="4 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>./my-project
+</code></pre></div>
 <p><strong>Dependency Mode</strong> (Traditional):</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Full development environment</span>
-uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[dev]&#39;</span>
-uv<span class="w"> </span>run<span class="w"> </span>calcipy<span class="w"> </span><span class="nb">test</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Full development environment</span>
+<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[dev]&#39;</span>
+<span class="linenos" data-linenos="3 "></span>uv<span class="w"> </span>run<span class="w"> </span>calcipy<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
 <p>See <a href="../../">README</a> for detailed usage examples.</p>
 <h2 id="v5"><code>v5</code><a class="headerlink" href="#v5" title="Permanent link">⚓︎</a></h2>
 <p>The breaking changes include removing <code>stale</code> and <code>pack.check_license</code></p>
 <h3 id="speed-test">Speed Test<a class="headerlink" href="#speed-test" title="Permanent link">⚓︎</a></h3>
 <p>After further reduction of dependencies, the CLI performance has continued to improve:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>&gt;<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
-<span class="m">79</span>
-</code></pre></div></td></tr></table></div>
-
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">397</span>.1<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">12</span>.2<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">268</span>.4<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">57</span>.0<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">385</span>.9<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">421</span>.5<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+<span class="linenos" data-linenos="2 "></span><span class="m">79</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
+<span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
+<span class="linenos" data-linenos="3 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">397</span>.1<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">12</span>.2<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">268</span>.4<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">57</span>.0<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="4 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">385</span>.9<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">421</span>.5<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+</code></pre></div>
 <h2 id="v4"><code>v4</code><a class="headerlink" href="#v4" title="Permanent link">⚓︎</a></h2>
 <p>The total number of dependencies was reduce even further by replacing flake8, isort, and other tooling with ruff; fewer mkdocs plugins; and fewer steps in the <code>main</code> run task to speed up normal usage.</p>
 <p>The only breaking <a href="https://github.com/KyleKing/recipes/commit/b3fcf8136af77ccf1bd3ee1fb4297b79dd7e86ea#diff-4bf564fcd9dbaec9e9807f16f649791c1e333f89db8160ad715d3c0c09a1a65c">change impacted <code>recipes</code></a> when <code>write_autoformatted_md_sections</code> was renamed to <code>write_template_formatted_md_sections</code>.</p>
 <h3 id="speed-test_1">Speed Test<a class="headerlink" href="#speed-test_1" title="Permanent link">⚓︎</a></h3>
 <p>Following up on performance checks from the <code>v2</code> migration. The performance is comparable, but you will see savings in cache size and poetry install and when running <code>main</code> (<code>./run main</code> for Calcipy, currently takes ~20s)</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">863</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">10</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">550</span>.7<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">102</span>.3<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">848</span>.5<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">885</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy-tags&quot;</span>
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy-tags
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">770</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">5</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">470</span>.6<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">89</span>.5<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">760</span>.1<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">780</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
+<span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
+<span class="linenos" data-linenos="3 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">863</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">10</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">550</span>.7<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">102</span>.3<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="4 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">848</span>.5<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">885</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+<span class="linenos" data-linenos="5 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy-tags&quot;</span>
+<span class="linenos" data-linenos="6 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy-tags
+<span class="linenos" data-linenos="7 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">770</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">5</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">470</span>.6<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">89</span>.5<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="8 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">760</span>.1<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">780</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+</code></pre></div>
 <h2 id="v3"><code>v3</code><a class="headerlink" href="#v3" title="Permanent link">⚓︎</a></h2>
 <p>Replaced features from flake8 and plugins with corresponding checks from ruff, however both are still used in parallel.</p>
 <h2 id="v2"><code>v2</code><a class="headerlink" href="#v2" title="Permanent link">⚓︎</a></h2>
@@ -2953,268 +2838,142 @@ Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>
 <p>While refactoring, the global configuration was mostly removed (<code>DoitGlobals</code>) along with a few tasks, but the main functionality is still present. Any project dependent on <code>calcipy</code> will need substantial changes. The easiest way to start migrating is to run <code>copier copy gh:KyleKing/calcipy_template .</code> for <a href="https://github.com/KyleKing/calcipy_template">calcipy_template</a></p>
 <h3 id="speed-test_2">Speed Test<a class="headerlink" href="#speed-test_2" title="Permanent link">⚓︎</a></h3>
 <p>It turns out that switching to <code>invoke</code> appears to have only saved 100ms</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">863</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">10</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">550</span>.7<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">102</span>.3<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">848</span>.5<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">885</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy-tags&quot;</span>
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy-tags
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">770</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">5</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">470</span>.6<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">89</span>.5<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">760</span>.1<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">780</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-</code></pre></div></td></tr></table></div>
-
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run python -c &#39;print(1)&#39;&quot;</span>
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;print(1)&#39;</span>
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">377</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">3</span>.1<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">235</span>.0<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">61</span>.8<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">372</span>.7<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">384</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">936</span>.0<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">26</span>.9<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">1548</span>.2<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">1687</span>.7<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">896</span>.4<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">1009</span>.4<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy_tags&quot;</span>
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy_tags
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">618</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">29</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">1536</span>.8<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">1066</span>.2<span class="w"> </span>ms<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">578</span>.2<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">694</span>.9<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run doit list&quot;</span>
-Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>doit<span class="w"> </span>list
-Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">      </span><span class="m">1</span>.002<span class="w"> </span>s<span class="w"> </span>±<span class="w">  </span><span class="m">0</span>.015<span class="w"> </span>s<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">1</span>.643<span class="w"> </span>s,<span class="w"> </span>System:<span class="w"> </span><span class="m">1</span>.682<span class="w"> </span>s<span class="o">]</span>
-Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">    </span><span class="m">0</span>.974<span class="w"> </span>s<span class="w"> </span>…<span class="w">  </span><span class="m">1</span>.023<span class="w"> </span>s<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
+<span class="linenos" data-linenos="2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
+<span class="linenos" data-linenos="3 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">863</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">10</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">550</span>.7<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">102</span>.3<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="4 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">848</span>.5<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">885</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+<span class="linenos" data-linenos="5 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy-tags&quot;</span>
+<span class="linenos" data-linenos="6 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy-tags
+<span class="linenos" data-linenos="7 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">770</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">5</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">470</span>.6<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">89</span>.5<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="8 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">760</span>.1<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">780</span>.3<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run python -c &#39;print(1)&#39;&quot;</span>
+<span class="linenos" data-linenos=" 2 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;print(1)&#39;</span>
+<span class="linenos" data-linenos=" 3 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">377</span>.9<span class="w"> </span>ms<span class="w"> </span>±<span class="w">   </span><span class="m">3</span>.1<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">235</span>.0<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">61</span>.8<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos=" 4 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">372</span>.7<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">384</span>.0<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+<span class="linenos" data-linenos=" 5 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span>./run
+<span class="linenos" data-linenos=" 6 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>./run
+<span class="linenos" data-linenos=" 7 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">936</span>.0<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">26</span>.9<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">1548</span>.2<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">1687</span>.7<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos=" 8 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">896</span>.4<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">1009</span>.4<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+<span class="linenos" data-linenos=" 9 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run calcipy_tags&quot;</span>
+<span class="linenos" data-linenos="10 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>calcipy_tags
+<span class="linenos" data-linenos="11 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">     </span><span class="m">618</span>.5<span class="w"> </span>ms<span class="w"> </span>±<span class="w">  </span><span class="m">29</span>.7<span class="w"> </span>ms<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">1536</span>.8<span class="w"> </span>ms,<span class="w"> </span>System:<span class="w"> </span><span class="m">1066</span>.2<span class="w"> </span>ms<span class="o">]</span>
+<span class="linenos" data-linenos="12 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">   </span><span class="m">578</span>.2<span class="w"> </span>ms<span class="w"> </span>…<span class="w"> </span><span class="m">694</span>.9<span class="w"> </span>ms<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+<span class="linenos" data-linenos="13 "></span>&gt;<span class="w"> </span>hyperfine<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span>--warmup<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;poetry run doit list&quot;</span>
+<span class="linenos" data-linenos="14 "></span>Benchmark<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>doit<span class="w"> </span>list
+<span class="linenos" data-linenos="15 "></span>Time<span class="w"> </span><span class="o">(</span>mean<span class="w"> </span>±<span class="w"> </span>σ<span class="o">)</span>:<span class="w">      </span><span class="m">1</span>.002<span class="w"> </span>s<span class="w"> </span>±<span class="w">  </span><span class="m">0</span>.015<span class="w"> </span>s<span class="w">    </span><span class="o">[</span>User:<span class="w"> </span><span class="m">1</span>.643<span class="w"> </span>s,<span class="w"> </span>System:<span class="w"> </span><span class="m">1</span>.682<span class="w"> </span>s<span class="o">]</span>
+<span class="linenos" data-linenos="16 "></span>Range<span class="w"> </span><span class="o">(</span>min<span class="w"> </span>…<span class="w"> </span>max<span class="o">)</span>:<span class="w">    </span><span class="m">0</span>.974<span class="w"> </span>s<span class="w"> </span>…<span class="w">  </span><span class="m">1</span>.023<span class="w"> </span>s<span class="w">    </span><span class="m">20</span><span class="w"> </span>runs
+</code></pre></div>
 <p>Additionally, the major decrease in dependencies will make install and update actions much faster. With the recommended extras installed, <code>calcipy-v1</code> has 124 dependencies (with all extras, 164) vs. <code>calcipy-v0</code>&rsquo;s 259. Counted with: <code>cat .calcipy_packaging.lock | jq 'keys' | wc -l</code></p>
 <h3 id="code-comparison">Code Comparison<a class="headerlink" href="#code-comparison" title="Permanent link">⚓︎</a></h3>
 <p>Accounting for code extracted to <code>corallium</code>, the overall number of lines decreased from 1772 to 1550 or only 12%, while increasing the CLI and <code>pre-commit</code> capabilities.</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code>~/calcipy-v0<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>calcipy
--------------------------------------------------------------------------------
-Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
--------------------------------------------------------------------------------
-Python<span class="w">                          </span><span class="m">26</span><span class="w">            </span><span class="m">942</span><span class="w">           </span><span class="m">1075</span><span class="w">           </span><span class="m">1772</span>
--------------------------------------------------------------------------------
-SUM:<span class="w">                            </span><span class="m">26</span><span class="w">            </span><span class="m">942</span><span class="w">           </span><span class="m">1075</span><span class="w">           </span><span class="m">1772</span>
--------------------------------------------------------------------------------
-~/calcipy<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>calcipy
--------------------------------------------------------------------------------
-Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
--------------------------------------------------------------------------------
-Python<span class="w">                          </span><span class="m">27</span><span class="w">            </span><span class="m">454</span><span class="w">            </span><span class="m">438</span><span class="w">           </span><span class="m">1185</span>
--------------------------------------------------------------------------------
-SUM:<span class="w">                            </span><span class="m">27</span><span class="w">            </span><span class="m">454</span><span class="w">            </span><span class="m">438</span><span class="w">           </span><span class="m">1185</span>
--------------------------------------------------------------------------------
-~/corallium<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>corallium
--------------------------------------------------------------------------------
-Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
--------------------------------------------------------------------------------
-Python<span class="w">                           </span><span class="m">7</span><span class="w">            </span><span class="m">176</span><span class="w">            </span><span class="m">149</span><span class="w">            </span><span class="m">365</span>
--------------------------------------------------------------------------------
-SUM:<span class="w">                             </span><span class="m">7</span><span class="w">            </span><span class="m">176</span><span class="w">            </span><span class="m">149</span><span class="w">            </span><span class="m">365</span>
--------------------------------------------------------------------------------
-
-~/calcipy<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>tests
--------------------------------------------------------------------------------
-Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
--------------------------------------------------------------------------------
-YAML<span class="w">                             </span><span class="m">2</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">            </span><span class="m">580</span>
-Python<span class="w">                          </span><span class="m">19</span><span class="w">            </span><span class="m">176</span><span class="w">             </span><span class="m">68</span><span class="w">            </span><span class="m">578</span>
-JSON<span class="w">                             </span><span class="m">2</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">             </span><span class="m">60</span>
-Markdown<span class="w">                         </span><span class="m">3</span><span class="w">              </span><span class="m">9</span><span class="w">             </span><span class="m">10</span><span class="w">              </span><span class="m">8</span>
-Text<span class="w">                             </span><span class="m">1</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">2</span>
--------------------------------------------------------------------------------
-SUM:<span class="w">                            </span><span class="m">27</span><span class="w">            </span><span class="m">185</span><span class="w">             </span><span class="m">78</span><span class="w">           </span><span class="m">1228</span>
--------------------------------------------------------------------------------
-~/calcipy-v0<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>tests
--------------------------------------------------------------------------------
-Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
--------------------------------------------------------------------------------
-JSON<span class="w">                            </span><span class="m">30</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">            </span><span class="m">762</span>
-YAML<span class="w">                             </span><span class="m">2</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">            </span><span class="m">580</span>
-Python<span class="w">                          </span><span class="m">24</span><span class="w">            </span><span class="m">314</span><span class="w">            </span><span class="m">186</span><span class="w">            </span><span class="m">578</span>
-Markdown<span class="w">                         </span><span class="m">3</span><span class="w">              </span><span class="m">9</span><span class="w">             </span><span class="m">10</span><span class="w">              </span><span class="m">8</span>
--------------------------------------------------------------------------------
-SUM:<span class="w">                            </span><span class="m">59</span><span class="w">            </span><span class="m">323</span><span class="w">            </span><span class="m">196</span><span class="w">           </span><span class="m">1928</span>
--------------------------------------------------------------------------------
-~/corallium<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>tests
--------------------------------------------------------------------------------
-Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
--------------------------------------------------------------------------------
-Python<span class="w">                           </span><span class="m">6</span><span class="w">             </span><span class="m">36</span><span class="w">             </span><span class="m">15</span><span class="w">             </span><span class="m">69</span>
-Markdown<span class="w">                         </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">2</span>
--------------------------------------------------------------------------------
-SUM:<span class="w">                             </span><span class="m">7</span><span class="w">             </span><span class="m">37</span><span class="w">             </span><span class="m">15</span><span class="w">             </span><span class="m">71</span>
--------------------------------------------------------------------------------
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>~/calcipy-v0<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>calcipy
+<span class="linenos" data-linenos=" 2 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos=" 3 "></span>Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
+<span class="linenos" data-linenos=" 4 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos=" 5 "></span>Python<span class="w">                          </span><span class="m">26</span><span class="w">            </span><span class="m">942</span><span class="w">           </span><span class="m">1075</span><span class="w">           </span><span class="m">1772</span>
+<span class="linenos" data-linenos=" 6 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos=" 7 "></span>SUM:<span class="w">                            </span><span class="m">26</span><span class="w">            </span><span class="m">942</span><span class="w">           </span><span class="m">1075</span><span class="w">           </span><span class="m">1772</span>
+<span class="linenos" data-linenos=" 8 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos=" 9 "></span>~/calcipy<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>calcipy
+<span class="linenos" data-linenos="10 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="11 "></span>Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
+<span class="linenos" data-linenos="12 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="13 "></span>Python<span class="w">                          </span><span class="m">27</span><span class="w">            </span><span class="m">454</span><span class="w">            </span><span class="m">438</span><span class="w">           </span><span class="m">1185</span>
+<span class="linenos" data-linenos="14 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="15 "></span>SUM:<span class="w">                            </span><span class="m">27</span><span class="w">            </span><span class="m">454</span><span class="w">            </span><span class="m">438</span><span class="w">           </span><span class="m">1185</span>
+<span class="linenos" data-linenos="16 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="17 "></span>~/corallium<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>corallium
+<span class="linenos" data-linenos="18 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="19 "></span>Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
+<span class="linenos" data-linenos="20 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="21 "></span>Python<span class="w">                           </span><span class="m">7</span><span class="w">            </span><span class="m">176</span><span class="w">            </span><span class="m">149</span><span class="w">            </span><span class="m">365</span>
+<span class="linenos" data-linenos="22 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="23 "></span>SUM:<span class="w">                             </span><span class="m">7</span><span class="w">            </span><span class="m">176</span><span class="w">            </span><span class="m">149</span><span class="w">            </span><span class="m">365</span>
+<span class="linenos" data-linenos="24 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="25 "></span>
+<span class="linenos" data-linenos="26 "></span>~/calcipy<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>tests
+<span class="linenos" data-linenos="27 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="28 "></span>Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
+<span class="linenos" data-linenos="29 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="30 "></span>YAML<span class="w">                             </span><span class="m">2</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">            </span><span class="m">580</span>
+<span class="linenos" data-linenos="31 "></span>Python<span class="w">                          </span><span class="m">19</span><span class="w">            </span><span class="m">176</span><span class="w">             </span><span class="m">68</span><span class="w">            </span><span class="m">578</span>
+<span class="linenos" data-linenos="32 "></span>JSON<span class="w">                             </span><span class="m">2</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">             </span><span class="m">60</span>
+<span class="linenos" data-linenos="33 "></span>Markdown<span class="w">                         </span><span class="m">3</span><span class="w">              </span><span class="m">9</span><span class="w">             </span><span class="m">10</span><span class="w">              </span><span class="m">8</span>
+<span class="linenos" data-linenos="34 "></span>Text<span class="w">                             </span><span class="m">1</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">2</span>
+<span class="linenos" data-linenos="35 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="36 "></span>SUM:<span class="w">                            </span><span class="m">27</span><span class="w">            </span><span class="m">185</span><span class="w">             </span><span class="m">78</span><span class="w">           </span><span class="m">1228</span>
+<span class="linenos" data-linenos="37 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="38 "></span>~/calcipy-v0<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>tests
+<span class="linenos" data-linenos="39 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="40 "></span>Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
+<span class="linenos" data-linenos="41 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="42 "></span>JSON<span class="w">                            </span><span class="m">30</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">            </span><span class="m">762</span>
+<span class="linenos" data-linenos="43 "></span>YAML<span class="w">                             </span><span class="m">2</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">0</span><span class="w">            </span><span class="m">580</span>
+<span class="linenos" data-linenos="44 "></span>Python<span class="w">                          </span><span class="m">24</span><span class="w">            </span><span class="m">314</span><span class="w">            </span><span class="m">186</span><span class="w">            </span><span class="m">578</span>
+<span class="linenos" data-linenos="45 "></span>Markdown<span class="w">                         </span><span class="m">3</span><span class="w">              </span><span class="m">9</span><span class="w">             </span><span class="m">10</span><span class="w">              </span><span class="m">8</span>
+<span class="linenos" data-linenos="46 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="47 "></span>SUM:<span class="w">                            </span><span class="m">59</span><span class="w">            </span><span class="m">323</span><span class="w">            </span><span class="m">196</span><span class="w">           </span><span class="m">1928</span>
+<span class="linenos" data-linenos="48 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="49 "></span>~/corallium<span class="w"> </span>&gt;<span class="w"> </span>cloc<span class="w"> </span>tests
+<span class="linenos" data-linenos="50 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="51 "></span>Language<span class="w">                     </span>files<span class="w">          </span>blank<span class="w">        </span>comment<span class="w">           </span>code
+<span class="linenos" data-linenos="52 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="53 "></span>Python<span class="w">                           </span><span class="m">6</span><span class="w">             </span><span class="m">36</span><span class="w">             </span><span class="m">15</span><span class="w">             </span><span class="m">69</span>
+<span class="linenos" data-linenos="54 "></span>Markdown<span class="w">                         </span><span class="m">1</span><span class="w">              </span><span class="m">1</span><span class="w">              </span><span class="m">0</span><span class="w">              </span><span class="m">2</span>
+<span class="linenos" data-linenos="55 "></span>-------------------------------------------------------------------------------
+<span class="linenos" data-linenos="56 "></span>SUM:<span class="w">                             </span><span class="m">7</span><span class="w">             </span><span class="m">37</span><span class="w">             </span><span class="m">15</span><span class="w">             </span><span class="m">71</span>
+<span class="linenos" data-linenos="57 "></span>-------------------------------------------------------------------------------
+</code></pre></div>
 <h3 id="doit-output">doit output<a class="headerlink" href="#doit-output" title="Permanent link">⚓︎</a></h3>
 <p>I would like to restore the <code>doit</code> task summary, but <code>invoke</code>&rsquo;s architecture doesn&rsquo;t really make this possible. The <code>--continue</code> option was extremely useful, but that also might not be achievable.</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code>&gt;<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>doit<span class="w"> </span>run
-.<span class="w">  </span>format_recipes<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
-<span class="w">        </span>Python:<span class="w"> </span><span class="k">function</span><span class="w"> </span>format_recipes
-<span class="o">]</span>
-
-<span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.954<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/breakfast
-<span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.957<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/rice
-<span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.959<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/meals
-<span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.964<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/seafood
-<span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.967<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/pizza
-<span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.969<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/poultry
-<span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.972<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/sushi
-.<span class="w">  </span>collect_code_tags<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
-<span class="w">        </span>Python:<span class="w"> </span><span class="k">function</span><span class="w"> </span>write_code_tag_file
-<span class="o">]</span>
-
-.<span class="w">  </span>cl_write<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
-<span class="w">        </span>Cmd:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>cz<span class="w"> </span>changelog
-<span class="w">        </span>Python:<span class="w"> </span><span class="k">function</span><span class="w"> </span>_move_cl
-<span class="o">]</span>
-
-.<span class="w">  </span>lock<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
-<span class="w">        </span>Cmd:<span class="w"> </span>poetry<span class="w"> </span>lock<span class="w"> </span>--no-update
-<span class="o">]</span>
-
-Resolving<span class="w"> </span>dependencies...
-.<span class="w">  </span>nox_coverage<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
-<span class="w">        </span>Cmd:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>nox<span class="w"> </span>--error-on-missing-interpreters<span class="w"> </span>--session<span class="w"> </span>coverage
-<span class="o">]</span>
-
-...
-
-doit&gt;<span class="w"> </span>Summary:
-doit&gt;<span class="w"> </span>format_recipes<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>collect_code_tags<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>cl_write<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>lock<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>nox_coverage<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>auto_format<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>document<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>check_for_stale_packages<span class="w"> </span>was<span class="w"> </span>successful
-doit&gt;<span class="w"> </span>pre_commit_hooks<span class="w"> </span>failed<span class="w"> </span><span class="o">(</span>red<span class="o">)</span>
-doit&gt;<span class="w"> </span>lint_project<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
-doit&gt;<span class="w"> </span>static_checks<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
-doit&gt;<span class="w"> </span>security_checks<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
-doit&gt;<span class="w"> </span>check_types<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
-</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt;<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>doit<span class="w"> </span>run
+<span class="linenos" data-linenos=" 2 "></span>.<span class="w">  </span>format_recipes<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
+<span class="linenos" data-linenos=" 3 "></span><span class="w">        </span>Python:<span class="w"> </span><span class="k">function</span><span class="w"> </span>format_recipes
+<span class="linenos" data-linenos=" 4 "></span><span class="o">]</span>
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span><span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.954<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/breakfast
+<span class="linenos" data-linenos=" 7 "></span><span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.957<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/rice
+<span class="linenos" data-linenos=" 8 "></span><span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.959<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/meals
+<span class="linenos" data-linenos=" 9 "></span><span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.964<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/seafood
+<span class="linenos" data-linenos="10 "></span><span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.967<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/pizza
+<span class="linenos" data-linenos="11 "></span><span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.969<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/poultry
+<span class="linenos" data-linenos="12 "></span><span class="m">2023</span>-02-19<span class="w"> </span><span class="m">10</span>:40:23.972<span class="w"> </span><span class="p">|</span><span class="w"> </span>INFO<span class="w">     </span><span class="p">|</span><span class="w"> </span>recipes.formatter:_write_toc:287<span class="w"> </span>-<span class="w"> </span>Creating<span class="w"> </span>TOC<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>./recipes/docs/sushi
+<span class="linenos" data-linenos="13 "></span>.<span class="w">  </span>collect_code_tags<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
+<span class="linenos" data-linenos="14 "></span><span class="w">        </span>Python:<span class="w"> </span><span class="k">function</span><span class="w"> </span>write_code_tag_file
+<span class="linenos" data-linenos="15 "></span><span class="o">]</span>
+<span class="linenos" data-linenos="16 "></span>
+<span class="linenos" data-linenos="17 "></span>.<span class="w">  </span>cl_write<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
+<span class="linenos" data-linenos="18 "></span><span class="w">        </span>Cmd:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>cz<span class="w"> </span>changelog
+<span class="linenos" data-linenos="19 "></span><span class="w">        </span>Python:<span class="w"> </span><span class="k">function</span><span class="w"> </span>_move_cl
+<span class="linenos" data-linenos="20 "></span><span class="o">]</span>
+<span class="linenos" data-linenos="21 "></span>
+<span class="linenos" data-linenos="22 "></span>.<span class="w">  </span>lock<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
+<span class="linenos" data-linenos="23 "></span><span class="w">        </span>Cmd:<span class="w"> </span>poetry<span class="w"> </span>lock<span class="w"> </span>--no-update
+<span class="linenos" data-linenos="24 "></span><span class="o">]</span>
+<span class="linenos" data-linenos="25 "></span>
+<span class="linenos" data-linenos="26 "></span>Resolving<span class="w"> </span>dependencies...
+<span class="linenos" data-linenos="27 "></span>.<span class="w">  </span>nox_coverage<span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>
+<span class="linenos" data-linenos="28 "></span><span class="w">        </span>Cmd:<span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>nox<span class="w"> </span>--error-on-missing-interpreters<span class="w"> </span>--session<span class="w"> </span>coverage
+<span class="linenos" data-linenos="29 "></span><span class="o">]</span>
+<span class="linenos" data-linenos="30 "></span>
+<span class="linenos" data-linenos="31 "></span>...
+<span class="linenos" data-linenos="32 "></span>
+<span class="linenos" data-linenos="33 "></span>doit&gt;<span class="w"> </span>Summary:
+<span class="linenos" data-linenos="34 "></span>doit&gt;<span class="w"> </span>format_recipes<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="35 "></span>doit&gt;<span class="w"> </span>collect_code_tags<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="36 "></span>doit&gt;<span class="w"> </span>cl_write<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="37 "></span>doit&gt;<span class="w"> </span>lock<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="38 "></span>doit&gt;<span class="w"> </span>nox_coverage<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="39 "></span>doit&gt;<span class="w"> </span>auto_format<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="40 "></span>doit&gt;<span class="w"> </span>document<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="41 "></span>doit&gt;<span class="w"> </span>check_for_stale_packages<span class="w"> </span>was<span class="w"> </span>successful
+<span class="linenos" data-linenos="42 "></span>doit&gt;<span class="w"> </span>pre_commit_hooks<span class="w"> </span>failed<span class="w"> </span><span class="o">(</span>red<span class="o">)</span>
+<span class="linenos" data-linenos="43 "></span>doit&gt;<span class="w"> </span>lint_project<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
+<span class="linenos" data-linenos="44 "></span>doit&gt;<span class="w"> </span>static_checks<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
+<span class="linenos" data-linenos="45 "></span>doit&gt;<span class="w"> </span>security_checks<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
+<span class="linenos" data-linenos="46 "></span>doit&gt;<span class="w"> </span>check_types<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>run
+</code></pre></div>
 
 
 
