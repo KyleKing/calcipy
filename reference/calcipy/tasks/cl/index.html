@@ -2204,19 +2204,25 @@
     <div class="doc doc-contents ">
 
         <p>Bumps project version based on commits &amp; settings in pyproject.toml.</p>
+<p>The changelog is written afterwards so that it covers the tag this creates. Written before, every
+release would file its own commits under <code>Unreleased</code>.</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>calcipy/tasks/cl.py</code></summary>
               <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="46 "></span><span class="nd">@task</span><span class="p">(</span>
-<span class="linenos" data-linenos="47 "></span>    <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">write</span><span class="p">],</span>
+<span class="linenos" data-linenos="47 "></span>    <span class="n">post</span><span class="o">=</span><span class="p">[</span><span class="n">write</span><span class="p">],</span>
 <span class="linenos" data-linenos="48 "></span>    <span class="n">help</span><span class="o">=</span><span class="p">{</span>
 <span class="linenos" data-linenos="49 "></span>        <span class="s1">&#39;suffix&#39;</span><span class="p">:</span> <span class="s1">&#39;Specify prerelease suffix for version bump (alpha, beta, rc)&#39;</span><span class="p">,</span>
 <span class="linenos" data-linenos="50 "></span>    <span class="p">},</span>
 <span class="linenos" data-linenos="51 "></span><span class="p">)</span>
 <span class="linenos" data-linenos="52 "></span><span class="k">def</span><span class="w"> </span><span class="nf">bump</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="n">SuffixT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="53 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="54 "></span>    <span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
+<span class="linenos" data-linenos="53 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Bumps project version based on commits &amp; settings in pyproject.toml.</span>
+<span class="linenos" data-linenos="54 "></span>
+<span class="linenos" data-linenos="55 "></span><span class="sd">    The changelog is written afterwards so that it covers the tag this creates. Written before, every</span>
+<span class="linenos" data-linenos="56 "></span><span class="sd">    release would file its own commits under `Unreleased`.</span>
+<span class="linenos" data-linenos="57 "></span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="58 "></span>    <span class="n">bumpz</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
 </code></pre></div>
             </details>
     </div>
