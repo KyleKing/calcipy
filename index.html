@@ -2276,33 +2276,20 @@
 <li><strong>Linting</strong>: Running <code>ruff</code> on any Python codebase</li>
 <li><strong>Code Tag Collection</strong>: Creating TODO/FIXME summaries for any project</li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Install as a tool (minimal dependencies)</span>
-uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span>
-
-<span class="c1"># Or use without installing via uvx</span>
-uvx<span class="w"> </span>--from<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span><span class="w"> </span>calcipy-lint<span class="w"> </span>--help
-uvx<span class="w"> </span>--from<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span><span class="w"> </span>calcipy-tags<span class="w"> </span>--help
-
-<span class="c1"># Examples</span>
-calcipy-lint<span class="w"> </span>lint<span class="w"> </span>--help
-calcipy-lint<span class="w"> </span>lint<span class="w">  </span><span class="c1"># Lint current directory</span>
-
-calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
-calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Install as a tool (minimal dependencies)</span>
+<span class="linenos" data-linenos=" 2 "></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="c1"># Or use without installing via uvx</span>
+<span class="linenos" data-linenos=" 5 "></span>uvx<span class="w"> </span>--from<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span><span class="w"> </span>calcipy-lint<span class="w"> </span>--help
+<span class="linenos" data-linenos=" 6 "></span>uvx<span class="w"> </span>--from<span class="w"> </span><span class="s1">&#39;calcipy[tool]&#39;</span><span class="w"> </span>calcipy-tags<span class="w"> </span>--help
+<span class="linenos" data-linenos=" 7 "></span>
+<span class="linenos" data-linenos=" 8 "></span><span class="c1"># Examples</span>
+<span class="linenos" data-linenos=" 9 "></span>calcipy-lint<span class="w"> </span>lint<span class="w"> </span>--help
+<span class="linenos" data-linenos="10 "></span>calcipy-lint<span class="w"> </span>lint<span class="w">  </span><span class="c1"># Lint current directory</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--help
+<span class="linenos" data-linenos="13 "></span>calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span class="o">=</span>~/path/to/my_project
+</code></pre></div>
 <p><strong>Tool Mode Capabilities:</strong></p>
 <ul>
 <li>✅ <code>calcipy-lint</code> - Lint any Python codebase</li>
@@ -2313,35 +2300,22 @@ calcipy-tags<span class="w"> </span>tags<span class="w"> </span>--base-dir<span 
 <p>Add <code>calcipy</code> to your project for the complete development workflow including testing, documentation, type-checking, and more.</p>
 <h4 id="quick-start-with-template">Quick Start with Template<a class="headerlink" href="#quick-start-with-template" title="Permanent link">⚓︎</a></h4>
 <p>Calcipy works best with its companion template project: <a href="https://github.com/KyleKing/calcipy_template/">kyleking/calcipy_template</a></p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Create a new project from template</span>
-uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>new_project
-<span class="nb">cd</span><span class="w"> </span>new_project
-
-<span class="c1"># Or add to existing project</span>
-<span class="nb">cd</span><span class="w"> </span>my_project
-uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>.
-uvx<span class="w"> </span>copier<span class="w"> </span>update
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Create a new project from template</span>
+<span class="linenos" data-linenos="2 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>new_project
+<span class="linenos" data-linenos="3 "></span><span class="nb">cd</span><span class="w"> </span>new_project
+<span class="linenos" data-linenos="4 "></span>
+<span class="linenos" data-linenos="5 "></span><span class="c1"># Or add to existing project</span>
+<span class="linenos" data-linenos="6 "></span><span class="nb">cd</span><span class="w"> </span>my_project
+<span class="linenos" data-linenos="7 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>copy<span class="w"> </span>gh:KyleKing/calcipy_template<span class="w"> </span>.
+<span class="linenos" data-linenos="8 "></span>uvx<span class="w"> </span>copier<span class="w"> </span>update
+</code></pre></div>
 <h4 id="manual-installation">Manual Installation<a class="headerlink" href="#manual-installation" title="Permanent link">⚓︎</a></h4>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Add as development dependency with all tools</span>
-uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[dev]&#39;</span>
-
-<span class="c1"># Or install specific extras</span>
-uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[test,doc,types]&#39;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Add as development dependency with all tools</span>
+<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[dev]&#39;</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Or install specific extras</span>
+<span class="linenos" data-linenos="5 "></span>uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[test,doc,types]&#39;</span>
+</code></pre></div>
 <p><strong>Project Mode Capabilities:</strong></p>
 <ul>
 <li><code>calcipy-test</code> - Run pytest with coverage</li>
@@ -2351,297 +2325,154 @@ uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </spa
 <li><code>calcipy</code> - Full task automation</li>
 </ul>
 <p>Note: the CLI output below is compressed for readability, but you can try running each of these commands locally to see the most up-to-date documentation and the full set of options. The &ldquo;Usage&rdquo;, &ldquo;Core options&rdquo;, and &ldquo;Global Task Options&rdquo; are the same for each subsequent command, so they are excluded for brevity.</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="n">calcipy</span><span class="o">-</span><span class="n">lint</span>
-<span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">calcipy</span><span class="o">-</span><span class="n">lint</span><span class="w"> </span><span class="o">[</span><span class="n">--core-opts</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;</span><span class="n">subcommand</span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">--subcommand-opts</span><span class="o">]</span><span class="w"> </span><span class="p">...</span>
-
-<span class="n">Core</span><span class="w"> </span><span class="nl">options</span><span class="p">:</span>
-
-<span class="w">  </span><span class="c1">--complete                         Print tab-completion candidates for given parse remainder.</span>
-<span class="w">  </span><span class="c1">--hide=STRING                      Set default value of run()&#39;s &#39;hide&#39; kwarg.</span>
-<span class="w">  </span><span class="c1">--print-completion-script=STRING   Print the tab-completion script for your preferred shell (bash|zsh|fish).</span>
-<span class="w">  </span><span class="c1">--prompt-for-sudo-password         Prompt user at start of session for the sudo.password config value.</span>
-<span class="w">  </span><span class="c1">--write-pyc                        Enable creation of .pyc files.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="c1">--debug                        Enable debug output.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">D</span><span class="w"> </span><span class="nc">INT</span><span class="p">,</span><span class="w"> </span><span class="c1">--list-depth=INT           When listing tasks, only show the first INT levels.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="c1">--echo                         Echo executed commands before running.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="c1">--config=STRING         Runtime configuration file to use.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">F</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="c1">--list-format=STRING    Change the display format used when listing tasks. Should be one of: flat (default), nested, json.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="o">[</span><span class="n">STRING</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="c1">--help[=STRING]       Show core or per-task help and exit.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="o">[</span><span class="n">STRING</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="c1">--list[=STRING]       List available tasks, optionally limited to a namespace.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="c1">--pty                          Use a pty when executing shell commands.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="c1">--dry                          Echo commands instead of running.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">T</span><span class="w"> </span><span class="nc">INT</span><span class="p">,</span><span class="w"> </span><span class="c1">--command-timeout=INT      Specify a global command execution timeout, in seconds.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">V</span><span class="p">,</span><span class="w"> </span><span class="c1">--version                      Show version and exit.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="c1">--warn-only                    Warn, instead of failing, when shell commands fail.</span>
-
-<span class="nl">Subcommands</span><span class="p">:</span>
-
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">lint</span><span class="p">)</span><span class="w">   </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">check</span><span class="o">-</span><span class="k">only</span><span class="p">.</span>
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">fix</span><span class="w">            </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="n">fixes</span><span class="p">.</span>
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">prek</span><span class="w">           </span><span class="n">Run</span><span class="w"> </span><span class="n">prek</span><span class="p">.</span>
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">watch</span><span class="w">          </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">check</span><span class="o">-</span><span class="k">only</span><span class="p">.</span>
-
-<span class="k">Global</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="nl">Options</span><span class="p">:</span>
-
-<span class="w">  </span><span class="o">*</span><span class="n">file_args</span><span class="w">             </span><span class="n">List</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">Paths</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="n">globally</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="w"> </span><span class="n">Will</span><span class="w"> </span><span class="n">resolve</span><span class="w"> </span><span class="n">paths</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">working_dir</span>
-<span class="w">  </span><span class="c1">--keep-going           Continue running tasks even on failure</span>
-<span class="w">  </span><span class="c1">--working_dir=STRING   Set the cwd for the program. Example: &quot;../run --working-dir .. lint test&quot;</span>
-<span class="w">  </span><span class="o">-</span><span class="n">v</span><span class="p">,</span><span class="o">-</span><span class="n">vv</span><span class="p">,</span><span class="o">-</span><span class="n">vvv</span><span class="w">            </span><span class="n">Globally</span><span class="w"> </span><span class="n">configure</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="n">verbosity</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">vvv</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">most</span><span class="w"> </span><span class="n">verbose</span><span class="p">)</span>
-
-<span class="o">&gt;</span><span class="w"> </span><span class="n">calcipy</span><span class="o">-</span><span class="n">pack</span>
-
-<span class="nl">Subcommands</span><span class="p">:</span>
-
-<span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">bump</span><span class="o">-</span><span class="n">tag</span><span class="w">                  </span><span class="n">Experiment</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">bumping</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="err">`</span><span class="n">griffe</span><span class="err">`</span><span class="w"> </span><span class="p">(</span><span class="n">experimental</span><span class="p">).</span>
-<span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">lock</span><span class="w">                      </span><span class="k">Update</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">manager</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="k">file</span><span class="p">.</span>
-<span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">publish</span><span class="w">                   </span><span class="n">Build</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">distributed</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">publish</span><span class="p">.</span>
-<span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">sync</span><span class="o">-</span><span class="n">pyproject</span><span class="o">-</span><span class="n">versions</span><span class="w">   </span><span class="n">Experiment</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">setting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">pyproject</span><span class="p">.</span><span class="n">toml</span><span class="w"> </span><span class="n">dependencies</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">uv</span><span class="p">.</span><span class="n">lock</span><span class="w"> </span><span class="p">(</span><span class="n">experimental</span><span class="p">).</span>
-
-<span class="o">&gt;</span><span class="w"> </span><span class="n">calcipy</span><span class="o">-</span><span class="n">tags</span>
-
-<span class="nl">Subcommands</span><span class="p">:</span>
-
-<span class="w">  </span><span class="n">tags</span><span class="p">.</span><span class="k">collect</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">tags</span><span class="w"> </span><span class="p">(</span><span class="n">tags</span><span class="p">)</span><span class="w">   </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="err">`</span><span class="n">CODE_TAG_SUMMARY</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nc">table</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">TODO</span><span class="o">-</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">FIXME</span><span class="o">-</span><span class="n">style</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span>
-
-<span class="o">&gt;</span><span class="w"> </span><span class="n">calcipy</span><span class="o">-</span><span class="n">types</span>
-
-<span class="nl">Subcommands</span><span class="p">:</span>
-
-<span class="w">  </span><span class="n">types</span><span class="p">.</span><span class="n">mypy</span><span class="w">      </span><span class="n">Run</span><span class="w"> </span><span class="n">mypy</span><span class="p">.</span>
-<span class="w">  </span><span class="n">types</span><span class="p">.</span><span class="n">pyright</span><span class="w">   </span><span class="n">Run</span><span class="w"> </span><span class="n">pyright</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="err">`</span><span class="n">pyproject</span><span class="p">.</span><span class="n">toml</span><span class="err">`</span><span class="p">.</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>&gt; calcipy-lint
+<span class="linenos" data-linenos=" 2 "></span>Usage: calcipy-lint [--core-opts] &lt;subcommand&gt; [--subcommand-opts] ...
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span>Core options:
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span>  --complete                         Print tab-completion candidates for given parse remainder.
+<span class="linenos" data-linenos=" 7 "></span>  --hide=STRING                      Set default value of run()&#39;s &#39;hide&#39; kwarg.
+<span class="linenos" data-linenos=" 8 "></span>  --print-completion-script=STRING   Print the tab-completion script for your preferred shell (bash|zsh|fish).
+<span class="linenos" data-linenos=" 9 "></span>  --prompt-for-sudo-password         Prompt user at start of session for the sudo.password config value.
+<span class="linenos" data-linenos="10 "></span>  --write-pyc                        Enable creation of .pyc files.
+<span class="linenos" data-linenos="11 "></span>  -d, --debug                        Enable debug output.
+<span class="linenos" data-linenos="12 "></span>  -D INT, --list-depth=INT           When listing tasks, only show the first INT levels.
+<span class="linenos" data-linenos="13 "></span>  -e, --echo                         Echo executed commands before running.
+<span class="linenos" data-linenos="14 "></span>  -f STRING, --config=STRING         Runtime configuration file to use.
+<span class="linenos" data-linenos="15 "></span>  -F STRING, --list-format=STRING    Change the display format used when listing tasks. Should be one of: flat (default), nested, json.
+<span class="linenos" data-linenos="16 "></span>  -h [STRING], --help[=STRING]       Show core or per-task help and exit.
+<span class="linenos" data-linenos="17 "></span>  -l [STRING], --list[=STRING]       List available tasks, optionally limited to a namespace.
+<span class="linenos" data-linenos="18 "></span>  -p, --pty                          Use a pty when executing shell commands.
+<span class="linenos" data-linenos="19 "></span>  -R, --dry                          Echo commands instead of running.
+<span class="linenos" data-linenos="20 "></span>  -T INT, --command-timeout=INT      Specify a global command execution timeout, in seconds.
+<span class="linenos" data-linenos="21 "></span>  -V, --version                      Show version and exit.
+<span class="linenos" data-linenos="22 "></span>  -w, --warn-only                    Warn, instead of failing, when shell commands fail.
+<span class="linenos" data-linenos="23 "></span>
+<span class="linenos" data-linenos="24 "></span>Subcommands:
+<span class="linenos" data-linenos="25 "></span>
+<span class="linenos" data-linenos="26 "></span>  lint.check (lint)   Run ruff as check-only.
+<span class="linenos" data-linenos="27 "></span>  lint.fix            Run ruff and apply fixes.
+<span class="linenos" data-linenos="28 "></span>  lint.prek           Run prek.
+<span class="linenos" data-linenos="29 "></span>  lint.watch          Run ruff as check-only.
+<span class="linenos" data-linenos="30 "></span>
+<span class="linenos" data-linenos="31 "></span>Global Task Options:
+<span class="linenos" data-linenos="32 "></span>
+<span class="linenos" data-linenos="33 "></span>  *file_args             List of Paths available globally to all tasks. Will resolve paths with working_dir
+<span class="linenos" data-linenos="34 "></span>  --keep-going           Continue running tasks even on failure
+<span class="linenos" data-linenos="35 "></span>  --working_dir=STRING   Set the cwd for the program. Example: &quot;../run --working-dir .. lint test&quot;
+<span class="linenos" data-linenos="36 "></span>  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most verbose)
+<span class="linenos" data-linenos="37 "></span>
+<span class="linenos" data-linenos="38 "></span>&gt; calcipy-pack
+<span class="linenos" data-linenos="39 "></span>
+<span class="linenos" data-linenos="40 "></span>Subcommands:
+<span class="linenos" data-linenos="41 "></span>
+<span class="linenos" data-linenos="42 "></span>  pack.bump-tag                  Experiment with bumping the git tag using `griffe` (experimental).
+<span class="linenos" data-linenos="43 "></span>  pack.lock                      Update package manager lock file.
+<span class="linenos" data-linenos="44 "></span>  pack.publish                   Build the distributed format(s) and publish.
+<span class="linenos" data-linenos="45 "></span>  pack.sync-pyproject-versions   Experiment with setting the pyproject.toml dependencies to the version from uv.lock (experimental).
+<span class="linenos" data-linenos="46 "></span>
+<span class="linenos" data-linenos="47 "></span>&gt; calcipy-tags
+<span class="linenos" data-linenos="48 "></span>
+<span class="linenos" data-linenos="49 "></span>Subcommands:
+<span class="linenos" data-linenos="50 "></span>
+<span class="linenos" data-linenos="51 "></span>  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments.
+<span class="linenos" data-linenos="52 "></span>
+<span class="linenos" data-linenos="53 "></span>&gt; calcipy-types
+<span class="linenos" data-linenos="54 "></span>
+<span class="linenos" data-linenos="55 "></span>Subcommands:
+<span class="linenos" data-linenos="56 "></span>
+<span class="linenos" data-linenos="57 "></span>  types.mypy      Run mypy.
+<span class="linenos" data-linenos="58 "></span>  types.pyright   Run pyright using the config in `pyproject.toml`.
+</code></pre></div>
 <h3 id="calcipy-pre-commit">Calcipy Pre-Commit<a class="headerlink" href="#calcipy-pre-commit" title="Permanent link">⚓︎</a></h3>
 <p><code>calcipy</code> can also be used as a <code>pre-commit</code> task by adding the below snippet to your <code>pre-commit</code> file:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">repos</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/KyleKing/calcipy</span>
-<span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
-<span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tags</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lint-fix</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">types</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nt">repos</span><span class="p">:</span>
+<span class="linenos" data-linenos="2 "></span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/KyleKing/calcipy</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="linenos" data-linenos="4 "></span><span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="linenos" data-linenos="5 "></span><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tags</span>
+<span class="linenos" data-linenos="6 "></span><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lint-fix</span>
+<span class="linenos" data-linenos="7 "></span><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">types</span>
+</code></pre></div>
 <!-- {cts} CLI_OUTPUT=./run --help; -->
-
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">calcipy</span><span class="w"> </span><span class="o">[</span><span class="n">--core-opts</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;</span><span class="n">subcommand</span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">--subcommand-opts</span><span class="o">]</span><span class="w"> </span><span class="p">...</span>
-
-<span class="n">Core</span><span class="w"> </span><span class="nl">options</span><span class="p">:</span>
-
-<span class="w">  </span><span class="c1">--complete                         Print tab-completion candidates for given</span>
-<span class="w">                                     </span><span class="nf">parse</span><span class="w"> </span><span class="n">remainder</span><span class="p">.</span>
-<span class="w">  </span><span class="c1">--hide=STRING                      Set default value of run()&#39;s &#39;hide&#39; kwarg.</span>
-<span class="w">  </span><span class="c1">--print-completion-script=STRING   Print the tab-completion script for your</span>
-<span class="w">                                     </span><span class="n">preferred</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="p">(</span><span class="n">bash</span><span class="o">|</span><span class="n">zsh</span><span class="o">|</span><span class="n">fish</span><span class="p">).</span>
-<span class="w">  </span><span class="c1">--prompt-for-sudo-password         Prompt user at start of session for the</span>
-<span class="w">                                     </span><span class="n">sudo</span><span class="p">.</span><span class="n">password</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="k">value</span><span class="p">.</span>
-<span class="w">  </span><span class="c1">--write-pyc                        Enable creation of .pyc files.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="c1">--debug                        Enable debug output.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">D</span><span class="w"> </span><span class="nc">INT</span><span class="p">,</span><span class="w"> </span><span class="c1">--list-depth=INT           When listing tasks, only show the first</span>
-<span class="w">                                     </span><span class="nc">INT</span><span class="w"> </span><span class="n">levels</span><span class="p">.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="c1">--echo                         Echo executed commands before running.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="c1">--config=STRING         Runtime configuration file to use.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">F</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="c1">--list-format=STRING    Change the display format used when</span>
-<span class="w">                                     </span><span class="n">listing</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="k">of</span><span class="err">:</span><span class="w"> </span><span class="n">flat</span>
-<span class="w">                                     </span><span class="p">(</span><span class="k">default</span><span class="p">),</span><span class="w"> </span><span class="n">nested</span><span class="p">,</span><span class="w"> </span><span class="n">json</span><span class="p">.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">h</span><span class="w"> </span><span class="o">[</span><span class="n">STRING</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="c1">--help[=STRING]       Show core or per-task help and exit.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="o">[</span><span class="n">STRING</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="c1">--list[=STRING]       List available tasks, optionally limited</span>
-<span class="w">                                     </span><span class="k">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">namespace</span><span class="p">.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="c1">--pty                          Use a pty when executing shell commands.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="c1">--dry                          Echo commands instead of running.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">T</span><span class="w"> </span><span class="nc">INT</span><span class="p">,</span><span class="w"> </span><span class="c1">--command-timeout=INT      Specify a global command execution</span>
-<span class="w">                                     </span><span class="n">timeout</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">seconds</span><span class="p">.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">V</span><span class="p">,</span><span class="w"> </span><span class="c1">--version                      Show version and exit.</span>
-<span class="w">  </span><span class="o">-</span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="c1">--warn-only                    Warn, instead of failing, when shell</span>
-<span class="w">                                     </span><span class="n">commands</span><span class="w"> </span><span class="n">fail</span><span class="p">.</span>
-
-<span class="nl">Subcommands</span><span class="p">:</span>
-
-<span class="w">  </span><span class="n">main</span><span class="w">                            </span><span class="n">Run</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="n">pipeline</span><span class="p">.</span>
-<span class="w">  </span><span class="n">other</span><span class="w">                           </span><span class="n">Run</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">otherwise</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">exercised</span><span class="w"> </span><span class="ow">in</span>
-<span class="w">                                  </span><span class="n">main</span><span class="p">.</span>
-<span class="w">  </span><span class="k">release</span><span class="w">                         </span><span class="n">Run</span><span class="w"> </span><span class="k">release</span><span class="w"> </span><span class="n">pipeline</span><span class="p">.</span>
-<span class="w">  </span><span class="n">cl</span><span class="p">.</span><span class="n">bump</span><span class="w">                         </span><span class="n">Bumps</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">commits</span><span class="w"> </span><span class="o">&amp;</span>
-<span class="w">                                  </span><span class="n">settings</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">pyproject</span><span class="p">.</span><span class="n">toml</span><span class="p">.</span>
-<span class="w">  </span><span class="n">cl</span><span class="p">.</span><span class="k">write</span><span class="w">                        </span><span class="k">Write</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Changelog</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">raw</span><span class="w"> </span><span class="n">Git</span>
-<span class="w">                                  </span><span class="n">history</span><span class="p">.</span>
-<span class="w">  </span><span class="n">doc</span><span class="p">.</span><span class="n">build</span><span class="w">                       </span><span class="n">Build</span><span class="w"> </span><span class="n">documentation</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">Zensical</span><span class="p">.</span>
-<span class="w">  </span><span class="n">doc</span><span class="p">.</span><span class="n">deploy</span><span class="w">                      </span><span class="n">Deploy</span><span class="w"> </span><span class="n">docs</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Github</span><span class="w"> </span><span class="err">`</span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="err">`</span><span class="w"> </span><span class="n">branch</span><span class="p">.</span>
-<span class="w">  </span><span class="n">doc</span><span class="p">.</span><span class="n">watch</span><span class="w">                       </span><span class="n">Serve</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">documentation</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">editing</span><span class="p">.</span>
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">lint</span><span class="p">)</span><span class="w">               </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">check</span><span class="o">-</span><span class="k">only</span><span class="p">.</span>
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">fix</span><span class="w">                        </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="n">fixes</span><span class="p">.</span>
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">pre</span><span class="o">-</span><span class="k">commit</span><span class="w">                 </span><span class="n">Run</span><span class="w"> </span><span class="n">prek</span><span class="p">.</span>
-<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">watch</span><span class="w">                      </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">check</span><span class="o">-</span><span class="k">only</span><span class="p">.</span>
-<span class="w">  </span><span class="n">nox</span><span class="p">.</span><span class="n">noxfile</span><span class="w"> </span><span class="p">(</span><span class="n">nox</span><span class="p">)</span><span class="w">               </span><span class="n">Run</span><span class="w"> </span><span class="n">nox</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">noxfile</span><span class="p">.</span>
-<span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">bump</span><span class="o">-</span><span class="n">tag</span><span class="w">                   </span><span class="n">Experiment</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">bumping</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="k">using</span>
-<span class="w">                                  </span><span class="err">`</span><span class="n">griffe</span><span class="err">`</span><span class="w"> </span><span class="p">(</span><span class="n">experimental</span><span class="p">).</span>
-<span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">lock</span><span class="w">                       </span><span class="k">Update</span><span class="w"> </span><span class="n">package</span><span class="w"> </span><span class="n">manager</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="k">file</span><span class="p">.</span>
-<span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">sync</span><span class="o">-</span><span class="n">pyproject</span><span class="o">-</span><span class="n">versions</span><span class="w">    </span><span class="n">Experiment</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">setting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">pyproject</span><span class="p">.</span><span class="n">toml</span>
-<span class="w">                                  </span><span class="n">dependencies</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">uv</span><span class="p">.</span><span class="n">lock</span>
-<span class="w">                                  </span><span class="p">(</span><span class="n">experimental</span><span class="p">).</span>
-<span class="w">  </span><span class="n">tags</span><span class="p">.</span><span class="k">collect</span><span class="o">-</span><span class="n">code</span><span class="o">-</span><span class="n">tags</span><span class="w"> </span><span class="p">(</span><span class="n">tags</span><span class="p">)</span><span class="w">   </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="err">`</span><span class="n">CODE_TAG_SUMMARY</span><span class="p">.</span><span class="n">md</span><span class="err">`</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nc">table</span>
-<span class="w">                                  </span><span class="k">for</span><span class="w"> </span><span class="n">TODO</span><span class="o">-</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">FIXME</span><span class="o">-</span><span class="n">style</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span>
-<span class="w">  </span><span class="n">test</span><span class="p">.</span><span class="k">check</span><span class="w">                      </span><span class="n">Run</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="n">checks</span><span class="p">,</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">identifying</span><span class="p">.</span>
-<span class="w">  </span><span class="n">test</span><span class="p">.</span><span class="n">coverage</span><span class="w">                   </span><span class="n">Generate</span><span class="w"> </span><span class="n">useful</span><span class="w"> </span><span class="n">coverage</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="k">after</span>
-<span class="w">                                  </span><span class="n">running</span><span class="w"> </span><span class="n">pytest</span><span class="p">.</span>
-<span class="w">  </span><span class="n">test</span><span class="p">.</span><span class="n">pytest</span><span class="w"> </span><span class="p">(</span><span class="n">test</span><span class="p">)</span><span class="w">              </span><span class="n">Run</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">arguments</span><span class="p">.</span>
-<span class="w">  </span><span class="n">test</span><span class="p">.</span><span class="n">watch</span><span class="w">                      </span><span class="n">Run</span><span class="w"> </span><span class="n">pytest</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">polling</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">optimized</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">stop</span>
-<span class="w">                                  </span><span class="k">on</span><span class="w"> </span><span class="k">first</span><span class="w"> </span><span class="n">error</span><span class="p">.</span>
-<span class="w">  </span><span class="n">types</span><span class="p">.</span><span class="n">mypy</span><span class="w">                      </span><span class="n">Run</span><span class="w"> </span><span class="n">mypy</span><span class="p">.</span>
-<span class="w">  </span><span class="n">types</span><span class="p">.</span><span class="n">pyright</span><span class="w">                   </span><span class="n">Run</span><span class="w"> </span><span class="n">pyright</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="ow">in</span>
-<span class="w">                                  </span><span class="err">`</span><span class="n">pyproject</span><span class="p">.</span><span class="n">toml</span><span class="err">`</span><span class="p">.</span>
-<span class="w">  </span><span class="n">types</span><span class="p">.</span><span class="n">ty</span><span class="w">                        </span><span class="n">Run</span><span class="w"> </span><span class="n">ty</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">checker</span><span class="p">.</span>
-
-<span class="k">Global</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="nl">Options</span><span class="p">:</span>
-
-<span class="w">  </span><span class="o">*</span><span class="n">file_args</span><span class="w">             </span><span class="n">List</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">Paths</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="n">globally</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="w"> </span><span class="n">Will</span>
-<span class="w">                         </span><span class="n">resolve</span><span class="w"> </span><span class="n">paths</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">working_dir</span>
-<span class="w">  </span><span class="c1">--keep-going           Continue running tasks even on failure</span>
-<span class="w">  </span><span class="c1">--working_dir=STRING   Set the cwd for the program. Example: &quot;../run</span>
-<span class="w">                         </span><span class="c1">--working-dir .. lint test&quot;</span>
-<span class="w">  </span><span class="o">-</span><span class="n">v</span><span class="p">,</span><span class="o">-</span><span class="n">vv</span><span class="p">,</span><span class="o">-</span><span class="n">vvv</span><span class="w">            </span><span class="n">Globally</span><span class="w"> </span><span class="n">configure</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="n">verbosity</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">vvv</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">most</span>
-<span class="w">                         </span><span class="n">verbose</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>Usage: calcipy [--core-opts] &lt;subcommand&gt; [--subcommand-opts] ...
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span>Core options:
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span>  --complete                         Print tab-completion candidates for given
+<span class="linenos" data-linenos=" 6 "></span>                                     parse remainder.
+<span class="linenos" data-linenos=" 7 "></span>  --hide=STRING                      Set default value of run()&#39;s &#39;hide&#39; kwarg.
+<span class="linenos" data-linenos=" 8 "></span>  --print-completion-script=STRING   Print the tab-completion script for your
+<span class="linenos" data-linenos=" 9 "></span>                                     preferred shell (bash|zsh|fish).
+<span class="linenos" data-linenos="10 "></span>  --prompt-for-sudo-password         Prompt user at start of session for the
+<span class="linenos" data-linenos="11 "></span>                                     sudo.password config value.
+<span class="linenos" data-linenos="12 "></span>  --write-pyc                        Enable creation of .pyc files.
+<span class="linenos" data-linenos="13 "></span>  -d, --debug                        Enable debug output.
+<span class="linenos" data-linenos="14 "></span>  -D INT, --list-depth=INT           When listing tasks, only show the first
+<span class="linenos" data-linenos="15 "></span>                                     INT levels.
+<span class="linenos" data-linenos="16 "></span>  -e, --echo                         Echo executed commands before running.
+<span class="linenos" data-linenos="17 "></span>  -f STRING, --config=STRING         Runtime configuration file to use.
+<span class="linenos" data-linenos="18 "></span>  -F STRING, --list-format=STRING    Change the display format used when
+<span class="linenos" data-linenos="19 "></span>                                     listing tasks. Should be one of: flat
+<span class="linenos" data-linenos="20 "></span>                                     (default), nested, json.
+<span class="linenos" data-linenos="21 "></span>  -h [STRING], --help[=STRING]       Show core or per-task help and exit.
+<span class="linenos" data-linenos="22 "></span>  -l [STRING], --list[=STRING]       List available tasks, optionally limited
+<span class="linenos" data-linenos="23 "></span>                                     to a namespace.
+<span class="linenos" data-linenos="24 "></span>  -p, --pty                          Use a pty when executing shell commands.
+<span class="linenos" data-linenos="25 "></span>  -R, --dry                          Echo commands instead of running.
+<span class="linenos" data-linenos="26 "></span>  -T INT, --command-timeout=INT      Specify a global command execution
+<span class="linenos" data-linenos="27 "></span>                                     timeout, in seconds.
+<span class="linenos" data-linenos="28 "></span>  -V, --version                      Show version and exit.
+<span class="linenos" data-linenos="29 "></span>  -w, --warn-only                    Warn, instead of failing, when shell
+<span class="linenos" data-linenos="30 "></span>                                     commands fail.
+<span class="linenos" data-linenos="31 "></span>
+<span class="linenos" data-linenos="32 "></span>Subcommands:
+<span class="linenos" data-linenos="33 "></span>
+<span class="linenos" data-linenos="34 "></span>  main                            Run main task pipeline.
+<span class="linenos" data-linenos="35 "></span>  other                           Run tasks that are otherwise not exercised in
+<span class="linenos" data-linenos="36 "></span>                                  main.
+<span class="linenos" data-linenos="37 "></span>  release                         Run release pipeline.
+<span class="linenos" data-linenos="38 "></span>  cl.bump                         Bumps project version based on commits &amp;
+<span class="linenos" data-linenos="39 "></span>                                  settings in pyproject.toml.
+<span class="linenos" data-linenos="40 "></span>  cl.write                        Write a Changelog file with the raw Git
+<span class="linenos" data-linenos="41 "></span>                                  history.
+<span class="linenos" data-linenos="42 "></span>  doc.build                       Build documentation with Zensical.
+<span class="linenos" data-linenos="43 "></span>  doc.deploy                      Deploy docs to the Github `gh-pages` branch.
+<span class="linenos" data-linenos="44 "></span>  doc.watch                       Serve local documentation for local editing.
+<span class="linenos" data-linenos="45 "></span>  lint.check (lint)               Run ruff as check-only.
+<span class="linenos" data-linenos="46 "></span>  lint.fix                        Run ruff and apply fixes.
+<span class="linenos" data-linenos="47 "></span>  lint.pre-commit                 Run prek.
+<span class="linenos" data-linenos="48 "></span>  lint.watch                      Run ruff as check-only.
+<span class="linenos" data-linenos="49 "></span>  nox.noxfile (nox)               Run nox from the local noxfile.
+<span class="linenos" data-linenos="50 "></span>  pack.bump-tag                   Experiment with bumping the git tag using
+<span class="linenos" data-linenos="51 "></span>                                  `griffe` (experimental).
+<span class="linenos" data-linenos="52 "></span>  pack.lock                       Update package manager lock file.
+<span class="linenos" data-linenos="53 "></span>  pack.sync-pyproject-versions    Experiment with setting the pyproject.toml
+<span class="linenos" data-linenos="54 "></span>                                  dependencies to the version from uv.lock
+<span class="linenos" data-linenos="55 "></span>                                  (experimental).
+<span class="linenos" data-linenos="56 "></span>  tags.collect-code-tags (tags)   Create a `CODE_TAG_SUMMARY.md` with a table
+<span class="linenos" data-linenos="57 "></span>                                  for TODO- and FIXME-style code comments.
+<span class="linenos" data-linenos="58 "></span>  test.check                      Run pytest checks, such as identifying.
+<span class="linenos" data-linenos="59 "></span>  test.coverage                   Generate useful coverage outputs after
+<span class="linenos" data-linenos="60 "></span>                                  running pytest.
+<span class="linenos" data-linenos="61 "></span>  test.pytest (test)              Run pytest with default arguments.
+<span class="linenos" data-linenos="62 "></span>  test.watch                      Run pytest with polling and optimized to stop
+<span class="linenos" data-linenos="63 "></span>                                  on first error.
+<span class="linenos" data-linenos="64 "></span>  types.mypy                      Run mypy.
+<span class="linenos" data-linenos="65 "></span>  types.pyright                   Run pyright using the config in
+<span class="linenos" data-linenos="66 "></span>                                  `pyproject.toml`.
+<span class="linenos" data-linenos="67 "></span>  types.ty                        Run ty type checker.
+<span class="linenos" data-linenos="68 "></span>
+<span class="linenos" data-linenos="69 "></span>Global Task Options:
+<span class="linenos" data-linenos="70 "></span>
+<span class="linenos" data-linenos="71 "></span>  *file_args             List of Paths available globally to all tasks. Will
+<span class="linenos" data-linenos="72 "></span>                         resolve paths with working_dir
+<span class="linenos" data-linenos="73 "></span>  --keep-going           Continue running tasks even on failure
+<span class="linenos" data-linenos="74 "></span>  --working_dir=STRING   Set the cwd for the program. Example: &quot;../run
+<span class="linenos" data-linenos="75 "></span>                         --working-dir .. lint test&quot;
+<span class="linenos" data-linenos="76 "></span>  -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most
+<span class="linenos" data-linenos="77 "></span>                         verbose)
+</code></pre></div>
 <!-- {cte} -->
 
 <p>Tip: running pre-commit with prek is recommended for performance: https://pypi.org/project/prek</p>

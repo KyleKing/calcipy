@@ -2210,96 +2210,67 @@
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 1: Write the failing test</strong></li>
 </ul>
 <p>In <code>tests/tasks/test_test.py</code>, add at the top of the parametrize list and add a standalone test (because <code>get_tool_versions</code> needs mocking — easier as its own test than in the parametrize fixture):</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">call</span><span class="p">,</span> <span class="n">patch</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">call</span><span class="p">,</span> <span class="n">patch</span>
+</code></pre></div>
 <p>Merge <code>multi</code> into the existing import line (do not add a third <code>from calcipy.tasks.test import ...</code> line):</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before (line 6):</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">calcipy.tasks.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">watch</span>
-
-<span class="c1"># After:</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">calcipy.tasks.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">multi</span><span class="p">,</span> <span class="n">watch</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Before (line 6):</span>
+<span class="linenos" data-linenos="2 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">calcipy.tasks.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">watch</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># After:</span>
+<span class="linenos" data-linenos="5 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">calcipy.tasks.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">multi</span><span class="p">,</span> <span class="n">watch</span>
+</code></pre></div>
 <p>Then add a new test function after the existing <code>test_test_with_min_cover</code>:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_multi</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
-    <span class="n">versions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;3.10.11&#39;</span><span class="p">,</span> <span class="s1">&#39;3.13.11&#39;</span><span class="p">]</span>
-    <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;calcipy.tasks.test.get_tool_versions&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;python&#39;</span><span class="p">:</span> <span class="n">versions</span><span class="p">}):</span>
-        <span class="n">multi</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-
-    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">assert_has_calls</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="n">call</span><span class="p">(</span><span class="s1">&#39;uv run --python 3.10.11 pytest ./tests&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UV_PROJECT_ENVIRONMENT&#39;</span><span class="p">:</span> <span class="s1">&#39;.uv-tests/py3.10&#39;</span><span class="p">}),</span>
-            <span class="n">call</span><span class="p">(</span><span class="s1">&#39;uv run --python 3.13.11 pytest ./tests&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UV_PROJECT_ENVIRONMENT&#39;</span><span class="p">:</span> <span class="s1">&#39;.uv-tests/py3.13&#39;</span><span class="p">}),</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="k">def</span><span class="w"> </span><span class="nf">test_multi</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+<span class="linenos" data-linenos=" 2 "></span>    <span class="n">versions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;3.10.11&#39;</span><span class="p">,</span> <span class="s1">&#39;3.13.11&#39;</span><span class="p">]</span>
+<span class="linenos" data-linenos=" 3 "></span>    <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;calcipy.tasks.test.get_tool_versions&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;python&#39;</span><span class="p">:</span> <span class="n">versions</span><span class="p">}):</span>
+<span class="linenos" data-linenos=" 4 "></span>        <span class="n">multi</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 5 "></span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">ctx</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">assert_has_calls</span><span class="p">(</span>
+<span class="linenos" data-linenos=" 7 "></span>        <span class="p">[</span>
+<span class="linenos" data-linenos=" 8 "></span>            <span class="n">call</span><span class="p">(</span><span class="s1">&#39;uv run --python 3.10.11 pytest ./tests&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UV_PROJECT_ENVIRONMENT&#39;</span><span class="p">:</span> <span class="s1">&#39;.uv-tests/py3.10&#39;</span><span class="p">}),</span>
+<span class="linenos" data-linenos=" 9 "></span>            <span class="n">call</span><span class="p">(</span><span class="s1">&#39;uv run --python 3.13.11 pytest ./tests&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UV_PROJECT_ENVIRONMENT&#39;</span><span class="p">:</span> <span class="s1">&#39;.uv-tests/py3.13&#39;</span><span class="p">}),</span>
+<span class="linenos" data-linenos="10 "></span>        <span class="p">]</span>
+<span class="linenos" data-linenos="11 "></span>    <span class="p">)</span>
+</code></pre></div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 2: Run test to verify it fails</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_test.py::test_multi<span class="w"> </span>-v
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_test.py::test_multi<span class="w"> </span>-v
+</code></pre></div>
 <p>Expected: <code>ImportError</code> or <code>AttributeError</code> — <code>multi</code> does not exist yet.</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 3: Implement <code>multi</code> in <code>calcipy/tasks/test.py</code></strong></li>
 </ul>
 <p>Add import at the top of <code>calcipy/tasks/test.py</code> (with existing imports):</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">corallium.file_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tool_versions</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">corallium.file_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tool_versions</span>
+</code></pre></div>
 <p>Add task after the <code>watch</code> task and before <code>coverage</code>:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@task</span><span class="p">()</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">multi</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pytest against all configured Python versions using uv.&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">ver</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">get_tool_versions</span><span class="p">()[</span><span class="s1">&#39;python&#39;</span><span class="p">]):</span>
-        <span class="n">major_minor</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ver</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;uv run --python </span><span class="si">{</span><span class="n">ver</span><span class="si">}</span><span class="s1"> pytest ./tests&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UV_PROJECT_ENVIRONMENT&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;.uv-tests/py</span><span class="si">{</span><span class="n">major_minor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nd">@task</span><span class="p">()</span>
+<span class="linenos" data-linenos="2 "></span><span class="k">def</span><span class="w"> </span><span class="nf">multi</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run pytest against all configured Python versions using uv.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="4 "></span>    <span class="k">for</span> <span class="n">ver</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">get_tool_versions</span><span class="p">()[</span><span class="s1">&#39;python&#39;</span><span class="p">]):</span>
+<span class="linenos" data-linenos="5 "></span>        <span class="n">major_minor</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ver</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">])</span>
+<span class="linenos" data-linenos="6 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;uv run --python </span><span class="si">{</span><span class="n">ver</span><span class="si">}</span><span class="s1"> pytest ./tests&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UV_PROJECT_ENVIRONMENT&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;.uv-tests/py</span><span class="si">{</span><span class="n">major_minor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
+</code></pre></div>
 <p>Note: <code>dict.fromkeys()</code> deduplicates while preserving order, matching the noxfile&rsquo;s set-dedup behavior.</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 4: Run test to verify it passes</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_test.py::test_multi<span class="w"> </span>-v
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_test.py::test_multi<span class="w"> </span>-v
+</code></pre></div>
 <p>Expected: PASS</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 5: Run full test suite to check for regressions</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_test.py<span class="w"> </span>-v
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_test.py<span class="w"> </span>-v
+</code></pre></div>
 <p>Expected: all PASS</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 6: Commit</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>calcipy/tasks/test.py<span class="w"> </span>tests/tasks/test_test.py
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add test.multi task for uv-based multi-python testing&quot;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>git<span class="w"> </span>add<span class="w"> </span>calcipy/tasks/test.py<span class="w"> </span>tests/tasks/test_test.py
+<span class="linenos" data-linenos="2 "></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add test.multi task for uv-based multi-python testing&quot;</span>
+</code></pre></div>
 <hr />
 <h3 id="task-2-wire-testmulti-into-all_taskspy">Task 2: Wire <code>test.multi</code> into <code>all_tasks.py</code><a class="headerlink" href="#task-2-wire-testmulti-into-all_taskspy" title="Permanent link">⚓︎</a></h3>
 <p><strong>Files:</strong></p>
@@ -2311,68 +2282,43 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 1: Update <code>_OTHER_TASKS</code> in <code>calcipy/tasks/all_tasks.py</code></strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before:</span>
-<span class="n">_OTHER_TASKS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">lint</span><span class="o">.</span><span class="n">pre_commit</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">no_update</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
-    <span class="n">nox</span><span class="o">.</span><span class="n">noxfile</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="s1">&#39;tests&#39;</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
-    <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
-    <span class="n">tags</span><span class="o">.</span><span class="n">collect_code_tags</span><span class="p">,</span>
-    <span class="n">test</span><span class="o">.</span><span class="n">check</span><span class="p">,</span>  <span class="c1"># Expected to fail for calcipy</span>
-<span class="p">]</span>
-
-<span class="c1"># After:</span>
-<span class="n">_OTHER_TASKS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">lint</span><span class="o">.</span><span class="n">pre_commit</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">no_update</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
-    <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
-    <span class="n">tags</span><span class="o">.</span><span class="n">collect_code_tags</span><span class="p">,</span>
-    <span class="n">test</span><span class="o">.</span><span class="n">check</span><span class="p">,</span>  <span class="c1"># Expected to fail for calcipy</span>
-    <span class="n">test</span><span class="o">.</span><span class="n">multi</span><span class="p">,</span>
-<span class="p">]</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Before:</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="n">_OTHER_TASKS</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos" data-linenos=" 3 "></span>    <span class="n">lint</span><span class="o">.</span><span class="n">pre_commit</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">no_update</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
+<span class="linenos" data-linenos=" 4 "></span>    <span class="n">nox</span><span class="o">.</span><span class="n">noxfile</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="s1">&#39;tests&#39;</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
+<span class="linenos" data-linenos=" 5 "></span>    <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="n">tags</span><span class="o">.</span><span class="n">collect_code_tags</span><span class="p">,</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="n">test</span><span class="o">.</span><span class="n">check</span><span class="p">,</span>  <span class="c1"># Expected to fail for calcipy</span>
+<span class="linenos" data-linenos=" 8 "></span><span class="p">]</span>
+<span class="linenos" data-linenos=" 9 "></span>
+<span class="linenos" data-linenos="10 "></span><span class="c1"># After:</span>
+<span class="linenos" data-linenos="11 "></span><span class="n">_OTHER_TASKS</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos" data-linenos="12 "></span>    <span class="n">lint</span><span class="o">.</span><span class="n">pre_commit</span><span class="o">.</span><span class="n">with_kwargs</span><span class="p">(</span><span class="n">no_update</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="c1"># pyright: ignore[reportFunctionMemberAccess]</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="n">pack</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="n">tags</span><span class="o">.</span><span class="n">collect_code_tags</span><span class="p">,</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="n">test</span><span class="o">.</span><span class="n">check</span><span class="p">,</span>  <span class="c1"># Expected to fail for calcipy</span>
+<span class="linenos" data-linenos="16 "></span>    <span class="n">test</span><span class="o">.</span><span class="n">multi</span><span class="p">,</span>
+<span class="linenos" data-linenos="17 "></span><span class="p">]</span>
+</code></pre></div>
 <p>Also remove the <code>nox</code> import from the import line at the top if <code>nox</code> is no longer referenced:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before:</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">cl</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">lint</span><span class="p">,</span> <span class="n">nox</span><span class="p">,</span> <span class="n">pack</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">types</span>
-
-<span class="c1"># After:</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">cl</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">lint</span><span class="p">,</span> <span class="n">pack</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">types</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Before:</span>
+<span class="linenos" data-linenos="2 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">cl</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">lint</span><span class="p">,</span> <span class="n">nox</span><span class="p">,</span> <span class="n">pack</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">types</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># After:</span>
+<span class="linenos" data-linenos="5 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">cl</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">lint</span><span class="p">,</span> <span class="n">pack</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">types</span>
+</code></pre></div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 2: Run tests to verify nothing broke</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_all_tasks.py<span class="w"> </span>tests/tasks/test_nox.py<span class="w"> </span>-v
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_all_tasks.py<span class="w"> </span>tests/tasks/test_nox.py<span class="w"> </span>-v
+</code></pre></div>
 <p>Expected: all PASS (<code>test_nox.py</code> tests <code>nox.py</code> directly and doesn&rsquo;t depend on <code>all_tasks.py</code>)</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 3: Commit</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>calcipy/tasks/all_tasks.py
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;refactor: replace nox.noxfile with test.multi in other task pipeline&quot;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>git<span class="w"> </span>add<span class="w"> </span>calcipy/tasks/all_tasks.py
+<span class="linenos" data-linenos="2 "></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;refactor: replace nox.noxfile with test.multi in other task pipeline&quot;</span>
+</code></pre></div>
 <hr />
 <h3 id="task-3-deprecate-calcipytasksnoxpy-and-calcipynoxfile">Task 3: Deprecate <code>calcipy/tasks/nox.py</code> and <code>calcipy/noxfile/</code><a class="headerlink" href="#task-3-deprecate-calcipytasksnoxpy-and-calcipynoxfile" title="Permanent link">⚓︎</a></h3>
 <p><strong>Files:</strong></p>
@@ -2384,55 +2330,38 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 1: Add deprecation note to <code>calcipy/tasks/nox.py</code></strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before:</span>
-<span class="sd">&quot;&quot;&quot;Nox CLI.&quot;&quot;&quot;</span>
-
-<span class="c1"># After:</span>
-<span class="sd">&quot;&quot;&quot;Nox CLI.</span>
-
-<span class="sd">Deprecated: Use `calcipy test.multi` instead, which runs pytest across all</span>
-<span class="sd">configured Python versions via `uv run --python` without requiring nox.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Before:</span>
+<span class="linenos" data-linenos="2 "></span><span class="sd">&quot;&quot;&quot;Nox CLI.&quot;&quot;&quot;</span>
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># After:</span>
+<span class="linenos" data-linenos="5 "></span><span class="sd">&quot;&quot;&quot;Nox CLI.</span>
+<span class="linenos" data-linenos="6 "></span>
+<span class="linenos" data-linenos="7 "></span><span class="sd">Deprecated: Use `calcipy test.multi` instead, which runs pytest across all</span>
+<span class="linenos" data-linenos="8 "></span><span class="sd">configured Python versions via `uv run --python` without requiring nox.</span>
+<span class="linenos" data-linenos="9 "></span><span class="sd">&quot;&quot;&quot;</span>
+</code></pre></div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 2: Add deprecation note to <code>calcipy/noxfile/_noxfile.py</code></strong></li>
 </ul>
 <p>At the top of the module docstring:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="s2">&quot;&quot;&quot;nox with uv backend configuration.</span>
-
-<span class="s2">Deprecated: New projects should use `calcipy test.multi` instead.</span>
-<span class="s2">This module is retained for projects that still have a noxfile.py.</span>
-<span class="s2">...</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="s2">&quot;&quot;&quot;nox with uv backend configuration.</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="s2">Deprecated: New projects should use `calcipy test.multi` instead.</span>
+<span class="linenos" data-linenos="4 "></span><span class="s2">This module is retained for projects that still have a noxfile.py.</span>
+<span class="linenos" data-linenos="5 "></span><span class="s2">...</span>
+</code></pre></div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 3: Verify tests still pass</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_nox.py<span class="w"> </span>tests/noxfile/<span class="w"> </span>-v
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/tasks/test_nox.py<span class="w"> </span>tests/noxfile/<span class="w"> </span>-v
+</code></pre></div>
 <p>Expected: all PASS</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 4: Commit</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>calcipy/tasks/nox.py<span class="w"> </span>calcipy/noxfile/_noxfile.py
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;deprecate: mark nox task and noxfile module as superseded by test.multi&quot;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>git<span class="w"> </span>add<span class="w"> </span>calcipy/tasks/nox.py<span class="w"> </span>calcipy/noxfile/_noxfile.py
+<span class="linenos" data-linenos="2 "></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;deprecate: mark nox task and noxfile module as superseded by test.multi&quot;</span>
+</code></pre></div>
 <hr />
 <h3 id="task-4-update-pyprojecttoml-and-gitignore">Task 4: Update <code>pyproject.toml</code> and <code>.gitignore</code><a class="headerlink" href="#task-4-update-pyprojecttoml-and-gitignore" title="Permanent link">⚓︎</a></h3>
 <p><strong>Files:</strong></p>
@@ -2444,25 +2373,16 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 1: Remove <code>nox</code> from <code>recommended</code> in <code>pyproject.toml</code></strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Before:</span>
-<span class="n">recommended</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">  </span><span class="s2">&quot;calcipy[doc,lint,nox,tags,test,types]&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="c1"># After:</span>
-<span class="n">recommended</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
-<span class="w">  </span><span class="s2">&quot;calcipy[doc,lint,tags,test,types]&quot;</span><span class="p">,</span>
-<span class="p">]</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Before:</span>
+<span class="linenos" data-linenos="2 "></span><span class="n">recommended</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos" data-linenos="3 "></span><span class="w">  </span><span class="s2">&quot;calcipy[doc,lint,nox,tags,test,types]&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="4 "></span><span class="p">]</span>
+<span class="linenos" data-linenos="5 "></span>
+<span class="linenos" data-linenos="6 "></span><span class="c1"># After:</span>
+<span class="linenos" data-linenos="7 "></span><span class="n">recommended</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos" data-linenos="8 "></span><span class="w">  </span><span class="s2">&quot;calcipy[doc,lint,tags,test,types]&quot;</span><span class="p">,</span>
+<span class="linenos" data-linenos="9 "></span><span class="p">]</span>
+</code></pre></div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 2: Add <code>.uv-tests/</code> to <code>.gitignore</code></strong></li>
 </ul>
@@ -2470,18 +2390,15 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 3: Verify the project still installs cleanly</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>sync
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>uv<span class="w"> </span>sync
+</code></pre></div>
 <p>Expected: no errors</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 4: Commit</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>pyproject.toml<span class="w"> </span>.gitignore
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: remove nox from recommended extra, ignore .uv-tests/&quot;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>git<span class="w"> </span>add<span class="w"> </span>pyproject.toml<span class="w"> </span>.gitignore
+<span class="linenos" data-linenos="2 "></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: remove nox from recommended extra, ignore .uv-tests/&quot;</span>
+</code></pre></div>
 <hr />
 <h3 id="task-5-update-calcipy_template-separate-repo">Task 5: Update <code>calcipy_template</code> (separate repo)<a class="headerlink" href="#task-5-update-calcipy_template-separate-repo" title="Permanent link">⚓︎</a></h3>
 <p><strong>Files (in <code>../calcipy_template/</code>):</strong></p>
@@ -2493,33 +2410,27 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 1: Check for other references to <code>noxfile.py</code> in the template repo</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;noxfile&quot;</span><span class="w"> </span>../calcipy_template/<span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.py&quot;</span><span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.toml&quot;</span><span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.yml&quot;</span><span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.yaml&quot;</span><span class="w"> </span>-l
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;noxfile&quot;</span><span class="w"> </span>../calcipy_template/<span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.py&quot;</span><span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.toml&quot;</span><span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.yml&quot;</span><span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.yaml&quot;</span><span class="w"> </span>-l
+</code></pre></div>
 <p>Expected: only the two noxfile.py files themselves. If other files reference them, update those first.</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 2: Delete both noxfile templates</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>rm<span class="w"> </span>../calcipy_template/package_template/noxfile.py
-rm<span class="w"> </span>../calcipy_template/.ctt/default/noxfile.py
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>rm<span class="w"> </span>../calcipy_template/package_template/noxfile.py
+<span class="linenos" data-linenos="2 "></span>rm<span class="w"> </span>../calcipy_template/.ctt/default/noxfile.py
+</code></pre></div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 2: Verify the template still renders correctly with ctt</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>../calcipy_template<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>ctt
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">cd</span><span class="w"> </span>../calcipy_template<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>ctt
+</code></pre></div>
 <p>Expected: no errors referencing missing noxfile</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 3: Commit (in calcipy_template repo)</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>-A
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: remove noxfile.py - use calcipy test.multi instead&quot;</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>git<span class="w"> </span>add<span class="w"> </span>-A
+<span class="linenos" data-linenos="2 "></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: remove noxfile.py - use calcipy test.multi instead&quot;</span>
+</code></pre></div>
 <hr />
 <h3 id="task-6-update-docsreadmemd">Task 6: Update <code>docs/README.md</code><a class="headerlink" href="#task-6-update-docsreadmemd" title="Permanent link">⚓︎</a></h3>
 <p><strong>Files:</strong></p>
@@ -2532,24 +2443,18 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 </li>
 </ul>
 <p>Find any documentation referring to <code>nox -s tests</code> or <code>calcipy nox</code> and update to:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Run tests across all configured Python versions</span>
-calcipy<span class="w"> </span>test.multi
-
-<span class="c1"># Or directly with uv</span>
-uv<span class="w"> </span>run<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.13<span class="w"> </span>pytest<span class="w"> </span>./tests
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># Run tests across all configured Python versions</span>
+<span class="linenos" data-linenos="2 "></span>calcipy<span class="w"> </span>test.multi
+<span class="linenos" data-linenos="3 "></span>
+<span class="linenos" data-linenos="4 "></span><span class="c1"># Or directly with uv</span>
+<span class="linenos" data-linenos="5 "></span>uv<span class="w"> </span>run<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.13<span class="w"> </span>pytest<span class="w"> </span>./tests
+</code></pre></div>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Step 2: Commit</strong></li>
 </ul>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/README.md
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: replace nox instructions with test.multi / uv run pattern&quot;</span>
-</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>git<span class="w"> </span>add<span class="w"> </span>docs/README.md
+<span class="linenos" data-linenos="2 "></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: replace nox instructions with test.multi / uv run pattern&quot;</span>
+</code></pre></div>
 
 
 
