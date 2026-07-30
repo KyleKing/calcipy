@@ -1,4 +1,25 @@
-## Unreleased
+## 6.1.0rc0 (2026-07-29)
+
+### Fix
+
+- **cl**: write the changelog after the bump so it covers the new tag
+- **deps**: bump pytest to 9.1.1
+- **deps**: bump soupsieve to 2.9.1
+- **deps**: bump gitpython to 3.1.57
+
+## 6.1.0b0 (2026-07-05)
+
+### Feat
+
+- **docs**: migrate from MkDocs+Material to Zensical
+
+### Fix
+
+- log guidance when .copier-answers.yml is not found
+- **release**: regenerate uv.lock via pre_bump_hooks during version bump
+- **ci**: generate changelog notes from commitizen for GitHub release
+
+## 6.0.1 (2026-03-24)
 
 ### Fix
 
