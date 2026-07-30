@@ -57,6 +57,12 @@ uv lock --upgrade
 uv sync --all-extras
 ```
 
+### Known follow-ups
+
+`doc.build` rewrites the `{cts}` blocks in `docs/README.md`, and mdformat then reformats what it wrote, so the file shows as modified after every `./run main` or `./run release` even when no content changed. Committing or discarding it is equally safe. The fix is to have the cts writer emit the spacing mdformat expects, rather than leaving the two to disagree on every build.
+
+ADR-0008 (pin ruff versions for the lint-fix hook) is proposed, not implemented. It calls for bounding ruff to `>=0.16.0,<0.17.0` on the `lint` extra and having calcipy_template write a matching `required-version` under `[tool.ruff]` in each child, so that a hook binary outside a child's window exits with a version error instead of rewriting files the child's pinned ruff cannot parse. Landing it costs a calcipy release, a calcipy_template release, and a copier rollout across the children, so it needs planning rather than a spare afternoon.
+
 ## Publishing
 
 Publishing is automated via GitHub Actions using PyPI Trusted Publishing. Tag creation triggers automated publishing.
