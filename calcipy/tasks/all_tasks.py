@@ -95,6 +95,7 @@ def other(_ctx: Context) -> None:
     help=cl.bump.help,  # pyright: ignore[reportFunctionMemberAccess]
     post=with_progress(
         [
+            cl.write,
             pack.lock,
             doc.build,
             doc.deploy,
@@ -103,7 +104,11 @@ def other(_ctx: Context) -> None:
     ),
 )
 def release(ctx: Context, *, suffix: cl.SuffixT = None) -> None:
-    """Run release pipeline."""
+    """Run release pipeline.
+
+    The changelog is written after the bump so that it covers the new tag, which means it lands as
+    an uncommitted change for the caller to commit alongside the push.
+    """
     cl.bumpz(ctx, suffix=suffix)
 
 

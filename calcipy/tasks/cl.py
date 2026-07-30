@@ -44,11 +44,15 @@ def bumpz(ctx: Context, *, suffix: SuffixT = None) -> None:
 
 
 @task(
-    pre=[write],
+    post=[write],
     help={
         'suffix': 'Specify prerelease suffix for version bump (alpha, beta, rc)',
     },
 )
 def bump(ctx: Context, *, suffix: SuffixT = None) -> None:
-    """Bumps project version based on commits & settings in pyproject.toml."""
+    """Bumps project version based on commits & settings in pyproject.toml.
+
+    The changelog is written afterwards so that it covers the tag this creates. Written before, every
+    release would file its own commits under `Unreleased`.
+    """
     bumpz(ctx, suffix=suffix)
