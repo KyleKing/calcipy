@@ -473,6 +473,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#known-follow-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Known follow-ups
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2066,6 +2077,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#known-follow-ups" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Known follow-ups
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2141,48 +2163,77 @@
 
 <h1 id="developer-notes">Developer Notes<a class="headerlink" href="#developer-notes" title="Permanent link">⚓︎</a></h1>
 <h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permanent link">⚓︎</a></h2>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kyleking/calcipy.git
-<span class="linenos" data-linenos=" 2 "></span><span class="nb">cd</span><span class="w"> </span>calcipy
-<span class="linenos" data-linenos=" 3 "></span>uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
-<span class="linenos" data-linenos=" 4 "></span>
-<span class="linenos" data-linenos=" 5 "></span><span class="c1"># See the available tasks</span>
-<span class="linenos" data-linenos=" 6 "></span>uv<span class="w"> </span>run<span class="w"> </span>calcipy
-<span class="linenos" data-linenos=" 7 "></span><span class="c1"># Or use a local &#39;run&#39; file (so that &#39;calcipy&#39; can be extended)</span>
-<span class="linenos" data-linenos=" 8 "></span>./run
-<span class="linenos" data-linenos=" 9 "></span>
-<span class="linenos" data-linenos="10 "></span><span class="c1"># Run the default task list (lint, auto-format, test coverage, etc.)</span>
-<span class="linenos" data-linenos="11 "></span>./run<span class="w"> </span>main
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span><span class="c1"># Make code changes and run specific tasks as needed:</span>
-<span class="linenos" data-linenos="14 "></span>./run<span class="w"> </span>lint.fix<span class="w"> </span><span class="nb">test</span>
-<span class="linenos" data-linenos="15 "></span>
-<span class="linenos" data-linenos="16 "></span><span class="c1"># Install globally</span>
-<span class="linenos" data-linenos="17 "></span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;.[ddict,doc,experimental,lint,nox,tags,test,types]&quot;</span><span class="w"> </span>--force<span class="w"> </span>--editable
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/kyleking/calcipy.git
+<span class="nb">cd</span><span class="w"> </span>calcipy
+uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
+
+<span class="c1"># See the available tasks</span>
+uv<span class="w"> </span>run<span class="w"> </span>calcipy
+<span class="c1"># Or use a local &#39;run&#39; file (so that &#39;calcipy&#39; can be extended)</span>
+./run
+
+<span class="c1"># Run the default task list (lint, auto-format, test coverage, etc.)</span>
+./run<span class="w"> </span>main
+
+<span class="c1"># Make code changes and run specific tasks as needed:</span>
+./run<span class="w"> </span>lint.fix<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Install globally</span>
+uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;.[ddict,doc,experimental,lint,nox,tags,test,types]&quot;</span><span class="w"> </span>--force<span class="w"> </span>--editable
+</code></pre></div></td></tr></table></div>
+
 <h3 id="shell-completion">Shell Completion<a class="headerlink" href="#shell-completion" title="Permanent link">⚓︎</a></h3>
 <p>Calcipy supports shell completion via Invoke&rsquo;s built-in completion scripts.</p>
 <p><strong>Zsh:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>calcipy<span class="w"> </span>--print-completion-script<span class="w"> </span>zsh<span class="w"> </span>&gt;<span class="w"> </span>~/.calcipy-completion.zsh
-<span class="linenos" data-linenos="2 "></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/.calcipy-completion.zsh&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>calcipy<span class="w"> </span>--print-completion-script<span class="w"> </span>zsh<span class="w"> </span>&gt;<span class="w"> </span>~/.calcipy-completion.zsh
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/.calcipy-completion.zsh&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Bash:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>calcipy<span class="w"> </span>--print-completion-script<span class="w"> </span>bash<span class="w"> </span>&gt;<span class="w"> </span>~/.calcipy-completion.bash
-<span class="linenos" data-linenos="2 "></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/.calcipy-completion.bash&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>calcipy<span class="w"> </span>--print-completion-script<span class="w"> </span>bash<span class="w"> </span>&gt;<span class="w"> </span>~/.calcipy-completion.bash
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/.calcipy-completion.bash&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Fish:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>calcipy<span class="w"> </span>--print-completion-script<span class="w"> </span>fish<span class="w"> </span>&gt;<span class="w"> </span>~/.config/fish/completions/calcipy.fish
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>calcipy<span class="w"> </span>--print-completion-script<span class="w"> </span>fish<span class="w"> </span>&gt;<span class="w"> </span>~/.config/fish/completions/calcipy.fish
+</code></pre></div></td></tr></table></div>
+
 <p>For projects using <code>./run</code> as the entry point, replace <code>calcipy</code> with the appropriate script name.</p>
 <h3 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">⚓︎</a></h3>
 <p>Dependency upgrades can be accomplished with:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>uv<span class="w"> </span>lock<span class="w"> </span>--upgrade
-<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>uv<span class="w"> </span>lock<span class="w"> </span>--upgrade
+uv<span class="w"> </span>sync<span class="w"> </span>--all-extras
+</code></pre></div></td></tr></table></div>
+
+<h3 id="known-follow-ups">Known follow-ups<a class="headerlink" href="#known-follow-ups" title="Permanent link">⚓︎</a></h3>
+<p><code>doc.build</code> rewrites the <code>{cts}</code> blocks in <code>docs/README.md</code>, and mdformat then reformats what it wrote, so the file shows as modified after every <code>./run main</code> or <code>./run release</code> even when no content changed. Committing or discarding it is equally safe. The fix is to have the cts writer emit the spacing mdformat expects, rather than leaving the two to disagree on every build.</p>
+<p>ADR-0008 (pin ruff versions for the lint-fix hook) is proposed, not implemented. It calls for bounding ruff to <code>&gt;=0.16.0,&lt;0.17.0</code> on the <code>lint</code> extra and having calcipy_template write a matching <code>required-version</code> under <code>[tool.ruff]</code> in each child, so that a hook binary outside a child&rsquo;s window exits with a version error instead of rewriting files the child&rsquo;s pinned ruff cannot parse. Landing it costs a calcipy release, a calcipy_template release, and a copier rollout across the children, so it needs planning rather than a spare afternoon.</p>
 <h2 id="publishing">Publishing<a class="headerlink" href="#publishing" title="Permanent link">⚓︎</a></h2>
 <p>Publishing is automated via GitHub Actions using PyPI Trusted Publishing. Tag creation triggers automated publishing.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./run<span class="w"> </span>release<span class="w">              </span><span class="c1"># Bumps version, creates tag, pushes → triggers publish</span>
-<span class="linenos" data-linenos="2 "></span>./run<span class="w"> </span>release<span class="w"> </span>--suffix<span class="o">=</span>rc<span class="w">  </span><span class="c1"># For pre-releases</span>
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>./run<span class="w"> </span>release<span class="w">              </span><span class="c1"># Bumps version, creates tag, pushes → triggers publish</span>
+./run<span class="w"> </span>release<span class="w"> </span>--suffix<span class="o">=</span>rc<span class="w">  </span><span class="c1"># For pre-releases</span>
+</code></pre></div></td></tr></table></div>
+
 <h3 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">⚓︎</a></h3>
 <p>One-time setup to enable PyPI Trusted Publishing:</p>
 <p><strong>Configure GitHub Environments</strong></p>
@@ -2198,10 +2249,13 @@
     - Or environment <code>testpypi</code> (for <a href="https://test.pypi.org/manage/account/publishing">TestPyPI</a>)</p>
 <h3 id="manual-publishing">Manual Publishing<a class="headerlink" href="#manual-publishing" title="Permanent link">⚓︎</a></h3>
 <p>For emergency manual publish:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nb">export</span><span class="w"> </span><span class="nv">UV_PUBLISH_TOKEN</span><span class="o">=</span>pypi-...
-<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>build
-<span class="linenos" data-linenos="3 "></span>uv<span class="w"> </span>publish
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">UV_PUBLISH_TOKEN</span><span class="o">=</span>pypi-...
+uv<span class="w"> </span>build
+uv<span class="w"> </span>publish
+</code></pre></div></td></tr></table></div>
+
 <h2 id="current-status">Current Status<a class="headerlink" href="#current-status" title="Permanent link">⚓︎</a></h2>
 <!-- {cts} COVERAGE -->
 <table>
