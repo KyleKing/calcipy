@@ -1,0 +1,16 @@
+## 2026-08-01
+
+Stashed pre-existing uncommitted work before the freshen pass so the gates ran on a
+clean tree. Stash message: `freshen 672bb50f: pre-existing WIP` (do not drop it).
+Recover with `git stash apply` (not `pop`) once you have decided on each file below.
+
+- docs/README.md — modified. The diff is blank-line churn inside the `{cts}`
+  CLI_OUTPUT block from a `./run --help` re-render. Next step: decide whether the cts
+  build should stop emitting the trailing blank line, or just accept the render and
+  commit it as `docs: re-render cts CLI output`.
+- docs/docs/adr/0008-pin-ruff-versions-for-the-lint-fix-hook.md — staged, new. ADR
+  proposing `[tool.ruff] required-version` in calcipy_template, paired with a
+  `>=0.16.0,<0.17.0` range on calcipy's `lint` extra. Next step: accept or reject the
+  recommendation, then flip Status from `proposed` to `accepted` and land it together
+  with the two pyproject changes it calls for (the extra's ceiling here, the
+  `required-version` line in calcipy_template).
