@@ -96,6 +96,14 @@ repos:
         require_serial: true
         stages: ["pre-commit"]
         types: [python]
+      - id: prose
+        description: "(beta) Run vale with the ai-tells style to flag AI-generated prose tells. Requires vale installed separately"
+        entry: uv run calcipy-lint lint.prose
+        language: system
+        name: Prose
+        pass_filenames: false
+        require_serial: true
+        stages: ["manual"]
       - id: tags
         description: "Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments"
         entry: uv run calcipy-tags tags

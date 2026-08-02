@@ -160,7 +160,6 @@ repos:
 ```
 
 <!-- {cts} CLI_OUTPUT=./run --help; -->
-
 ```txt
 Usage: calcipy [--core-opts] <subcommand> [--subcommand-opts] ...
 
@@ -209,6 +208,8 @@ Subcommands:
   lint.check (lint)               Run ruff as check-only.
   lint.fix                        Run ruff and apply fixes.
   lint.pre-commit                 Run prek.
+  lint.prose                      Run vale with the ai-tells style to flag AI-
+                                  generated prose tells (beta).
   lint.watch                      Run ruff as check-only.
   nox.noxfile (nox)               Run nox from the local noxfile.
   pack.bump-tag                   Experiment with bumping the git tag using
@@ -240,7 +241,6 @@ Global Task Options:
   -v,-vv,-vvv            Globally configure logger verbosity (-vvv for most
                          verbose)
 ```
-
 <!-- {cte} -->
 
 Tip: running pre-commit with prek is recommended for performance: https://pypi.org/project/prek

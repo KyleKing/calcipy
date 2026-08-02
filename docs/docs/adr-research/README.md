@@ -21,6 +21,12 @@ Each document provides a comprehensive overview of a specific ADR approach or to
 1. **[Comparison and Recommendations](comparison-and-recommendations.md)** - Side-by-side comparison with recommendations for different project scales
 1. **[AI Guidance for ADRs](ai-guidance-for-adrs.md)** - Comprehensive guide for AI assistants to write and review ADRs
 
+### Research Backing Specific Decisions
+
+Unlike the ADR-methodology research above, these documents back a single numbered ADR and stay alongside it as supporting context.
+
+1. **[AI Slop Detection](ai-slop-detection.md)** - Landscape of offline prose linters and provenance detectors, backing [ADR-0008](../adr/0008-adopt-vale-ai-tells-for-prose-linting.md)
+
 ## Quick Decision Guide
 
 ### Choose by Project Size

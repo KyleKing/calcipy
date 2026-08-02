@@ -10,7 +10,7 @@ from invoke.context import Context
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 
-from .executable_utils import PRE_COMMIT_MESSAGE, check_installed, python_dir, python_m
+from .executable_utils import PRE_COMMIT_MESSAGE, VALE_MESSAGE, check_installed, python_dir, python_m
 
 # ==============================================================================
 # Linting
@@ -72,6 +72,34 @@ def fix(ctx: Context, *, unsafe: bool = False) -> None:
 def watch(ctx: Context) -> None:
     """Run ruff as check-only."""
     _inner_task(ctx, command='ruff check', cli_args='--watch')
+
+
+# ==============================================================================
+# Prose
+
+
+@task(
+    help={
+        'target': 'Space-separated directories or files to lint. Defaults to the whole repository',
+        'glob': "Filter the files under `target` (for example, '*.md'). Passed to `vale --glob`",
+        'no_sync': 'Skip `vale sync`, which pulls the ai-tells style package',
+    },
+)
+def prose(ctx: Context, *, target: str = '.', glob: str = '', no_sync: bool = False) -> None:
+    """Run vale with the ai-tells style to flag AI-generated prose tells (beta).
+
+    Requires a `.vale.ini` with `ai-tells` as a `BasedOnStyles` entry. See
+    https://github.com/tbhb/vale-ai-tells for the style package and rule list.
+
+    A glob given as a `target` would be read as a file path and silently linted as empty stdin,
+    so patterns must go through `--glob` instead.
+
+    """
+    check_installed(ctx, executable='vale', message=VALE_MESSAGE)
+    if not no_sync:
+        run(ctx, 'vale sync')
+    cli_args = f" --glob='{glob}'" if glob else ''
+    run(ctx, f'vale{cli_args} {target}')
 
 
 # ==============================================================================

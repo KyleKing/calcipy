@@ -4,8 +4,8 @@ from unittest.mock import call, patch
 import pytest
 
 from calcipy.collection import GlobalTaskOptions
-from calcipy.tasks.executable_utils import python_m
-from calcipy.tasks.lint import PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, watch
+from calcipy.tasks.executable_utils import _EXECUTABLE_CACHE, python_m
+from calcipy.tasks.lint import PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, prose, watch
 
 
 @pytest.mark.parametrize(
@@ -25,9 +25,36 @@ from calcipy.tasks.lint import PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, w
                 *[f'prek run --all-files --hook-stage {stg}' for stg in PRE_COMMIT_HOOK_STAGES],
             ],
         ),
+        (
+            prose,
+            {},
+            [
+                call('which vale', warn=True, hide=True),
+                'vale sync',
+                'vale .',
+            ],
+        ),
+        (
+            prose,
+            {'target': 'docs', 'no_sync': True},
+            [
+                call('which vale', warn=True, hide=True),
+                'vale docs',
+            ],
+        ),
+        (
+            prose,
+            {'target': 'docs .github', 'glob': '*.md', 'no_sync': True},
+            [
+                call('which vale', warn=True, hide=True),
+                "vale --glob='*.md' docs .github",
+            ],
+        ),
     ],
 )
 def test_lint(ctx, task, kwargs, commands, assert_run_commands):
+    _EXECUTABLE_CACHE.pop('vale', None)
+
     task(ctx, **kwargs)
 
     assert_run_commands(ctx, commands)

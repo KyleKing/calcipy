@@ -41,6 +41,10 @@ PYRIGHT_MESSAGE = """
 `pyright` was not found and must be installed separately (such as 'brew install pyright' on Mac).
     See the online documentation for your system: https://microsoft.github.io/pyright/#/installation
 """
+VALE_MESSAGE = """
+`vale` was not found and must be installed separately (such as 'brew install vale' on Mac).
+    See the online documentation for your system: https://vale.sh/docs/vale-cli/installation
+"""
 
 _EXECUTABLE_CACHE: dict[str, Optional[Result]] = {}
 """Runtime cache of executables."""

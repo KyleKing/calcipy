@@ -20,6 +20,16 @@
   name: Lint-Fix
   require_serial: true
   types: [python]
+- id: prose
+  additional_dependencies: [".[lint]"]
+  description: "(beta) Run vale with the ai-tells style to flag AI-generated prose tells. Requires vale installed separately"
+  entry: calcipy-lint lint.prose
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  name: Prose
+  pass_filenames: false
+  require_serial: true
+  stages: [manual]
 - id: tags
   additional_dependencies: [".[tags]"]
   description: "Create a `CODE_TAG_SUMMARY.md` with a table for TODO- and FIXME-style code comments"

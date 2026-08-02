@@ -123,6 +123,9 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+# vale sync target
+.vale/styles
+
 # Environments
 .env
 .venv
