@@ -46,6 +46,8 @@ Perplexity detectors and commercial classifiers answer provenance, which is not 
 
 slop-forensics is not adopted as a hook, but the ADR-research writeup keeps it as a documented option: it builds a corpus-specific word list from your own output, which is the only mechanism found that survives a model version change. It is a candidate for an occasional batch job, not a per-commit check.
 
+A second, separate beta task ships alongside `lint.prose`: `lint.slop-export` writes the Markdown-to-JSONL adapter slop-forensics needs (front matter, fences, links, and headings stripped, documents under 150 words dropped). The adapter is first-party Python with no heavy dependencies, so it lives in calcipy directly. Running the profiler itself still requires a separate slop-forensics checkout with its own `nltk`/`wordfreq` venv, which `lint.slop-export` does not attempt to install or wrap; it prints the follow-up command instead.
+
 ### Consequences
 
 - Good, because the check is deterministic and reproducible, no model inference
@@ -109,9 +111,101 @@ We will revisit this decision if:
 ## More Information
 
 - Research and demo runs: `docs/docs/adr-research/ai-slop-detection.md`
-- Task implementation: `calcipy/tasks/lint.py` (`prose` task)
+- Task implementation: `calcipy/tasks/lint.py` (`prose`, `slop-export` tasks)
+- Corpus adapter: `calcipy/experiments/slop_corpus_export.py`
 - Hook registration: `.pre-commit-hooks.yaml`, `.pre-commit-config.yaml` (`prose`, `manual` stage)
 - Repo-level config: `.vale.ini`
 - vale-ai-tells: https://github.com/tbhb/vale-ai-tells
 - slop-forensics: https://github.com/sam-paech/slop-forensics
 - awesome-slop catalog: https://github.com/hwajongpark/awesome-slop
+
+## Appendix: Tool Catalog
+
+Full landscape survey, checked as of 2026-08-01. **Checked** says how far the research went: *ran* means installed and used, *read* means the project's own docs were read, *cited* means the claim rests on a search-result summary or third-party source.
+
+### Prose linters
+
+Answer "does this read like machine boilerplate". Deterministic, offline, and hook-friendly.
+
+| Tool                                                                                | Checked | Description                                                                                                                                                                                                      |
+| ----------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [vale-ai-tells](https://github.com/tbhb/vale-ai-tells)                              | ran     | Vale package, 77 rules. Goes past word lists into participial padding, contrastive negation, count-forecasting lead-ins, verb tricolons, and anthropomorphic clichés. Separate opt-in style for commit messages. |
+| [slop-gate](https://github.com/hwajongpark/slop-gate)                               | read    | Zero-dependency npm CLI. ~40 English tells plus translationese packs for Korean, Russian, Vietnamese, Chinese, and Filipino. Exits 1 for CI, and `--baseline` grandfathers existing tells.                       |
+| [Signs of AI Writing](https://ammil.industries/signs-of-ai-writing-a-vale-ruleset/) | read    | Vale ruleset built from Wikipedia's field guide of patterns editors actually flagged on real articles.                                                                                                           |
+| [Vale](https://github.com/vale-cli/vale)                                            | ran     | The prose linter itself. Everything above is a package for it.                                                                                                                                                   |
+| [proselint](https://github.com/amperser/proselint)                                  | cited   | General style-guide linter. Predates the AI question, still catches overlapping tics.                                                                                                                            |
+| [write-good](https://github.com/btford/write-good)                                  | cited   | Flags weak, passive, and wordy phrasing.                                                                                                                                                                         |
+| [alex](https://github.com/get-alex/alex)                                            | cited   | Insensitive-language linter. Adjacent rather than slop-focused.                                                                                                                                                  |
+| [LanguageTool](https://languagetool.org)                                            | cited   | Open-source multilingual grammar and style checker.                                                                                                                                                              |
+
+### Corpus profilers
+
+Build the word list instead of bundling one, the only escape from list staleness.
+
+| Tool                                                          | Checked | Description                                                                                                                                                                                                                                                                                                        |
+| ------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [slop-forensics](https://github.com/sam-paech/slop-forensics) | ran     | Computes over-represented words and n-grams against a human baseline to produce a per-corpus fingerprint, plus a scalar `slop_score` (weighted hits per 1000 tokens). Also clusters models phylogenetically by lexical habit. Needs a JSONL adapter for arbitrary text, which is what `lint.slop-export` provides. |
+| [EQ-Bench Slop Score](https://eqbench.com/slop-score.html)    | cited   | Public leaderboard scoring frontier models on slop. Same author as slop-forensics.                                                                                                                                                                                                                                 |
+| [Antislop framework](https://arxiv.org/pdf/2510.15061)        | cited   | ICLR 2026 paper on identifying and suppressing slop patterns. Reports overuse ratios up to 85,000x human frequency.                                                                                                                                                                                                |
+
+### Zero-shot detectors
+
+Answer "was this generated by a model", a different question and mostly not the one this project needs answered. Both degrade against post-2023 models and heavy editing.
+
+| Tool                                                               | Checked | Description                                                                                                                                                                                                                                             |
+| ------------------------------------------------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Binoculars](https://github.com/ahans30/Binoculars)                | read    | ICML 2024. Ratio of a text's log-perplexity under an observer model to the cross-perplexity between observer and performer, which cancels the prompt-difficulty confound. Claims >90% detection at 0.01% false positives. Wants two 7B models resident. |
+| [Fast-DetectGPT](https://github.com/baoguangsheng/fast-detect-gpt) | read    | ICLR 2024. Conditional probability curvature, replacing DetectGPT's perturbation step with sampling. Claims ~75% relative improvement over DetectGPT at 340x the speed, and works black-box.                                                            |
+
+### Commercial classifiers
+
+API-only, no official CLI, though each is a single POST.
+
+| Tool                                     | Checked | Description                                                                                                                                                                                                                                     |
+| ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Pangram](https://www.pangram.com)       | cited   | Claims ~0.004% false positives. [Chicago Booth](https://www.pangram.com/blog/third-party-pangram-evals) found it the only detector meeting a 0.5% policy cap without losing detection power, and a 2026 VUB paper reached a similar conclusion. |
+| [GPTZero](https://gptzero.me)            | cited   | Education-focused. Claims 1% false positives, where Pangram's benchmark measured 2.01%. GPTZero's own [comparison](https://gptzero.me/news/gptzero-vs-pangram/) reverses the ranking. Read both as marketing.                                   |
+| [Originality.ai](https://originality.ai) | cited   | AI detection bundled with plagiarism checking.                                                                                                                                                                                                  |
+
+### Code slop linters
+
+Different target: what coding agents leave behind in source, rather than prose.
+
+| Tool                                                                 | Checked | Description                                                                                                                                                                                                                                          |
+| -------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [AI-SLOP-Detector](https://github.com/flamehaven01/ai-slop-detector) | cited   | 50+ rules across 8 languages. Targets code that looks finished and is not, from empty function bodies to imports of packages that do not exist to docs that oversell what the code does. Also on [PyPI](https://pypi.org/project/ai-slop-detector/). |
+| [antislop](https://github.com/skew202/antislop)                      | cited   | Multi-language linter for lazily generated code, deferrals, hedging, and placeholders.                                                                                                                                                               |
+| [grain](https://github.com/mmartoccia/grain)                         | cited   | Configurable rules for obvious comments, naked excepts, hedge words, and vague TODOs, including markdown hedge detection.                                                                                                                            |
+
+### Agent-side editing skills
+
+Rewrite rather than report, so they belong in the drafting loop rather than a hook. Worth reading for their pattern catalogs even if never installed.
+
+| Tool                                                                     | Checked | Description                                                                                                                         |
+| ------------------------------------------------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| [no-ai-slop](https://github.com/petergyang/no-ai-slop)                   | cited   | MIT skill for Claude Code, Codex, and others. Edits out 20+ patterns, and has an audit mode that quotes each hit without rewriting. |
+| [stop-slop](https://github.com/hardikpandya/stop-slop)                   | cited   | Cuts filler, throat-clearing openers, emphasis crutches, and adverbs.                                                               |
+| [anti-ai-slop-writing](https://github.com/jalaalrd/anti-ai-slop-writing) | cited   | Same idea, targeting 8+ agent harnesses.                                                                                            |
+| [antislop-sampler](https://github.com/sam-paech/antislop-sampler)        | cited   | Suppresses known phrases at generation time rather than editing after.                                                              |
+| [im-not-ai](https://github.com/epoko77-ai/im-not-ai)                     | cited   | Claude Code skill removing Korean translationese.                                                                                   |
+
+### Catalogs and word lists
+
+| Resource                                                                                      | Checked | Description                                                                                                                                     |
+| --------------------------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| [awesome-slop](https://github.com/hwajongpark/awesome-slop)                                   | read    | The index for this whole space: tools, research, and per-language word lists with suggested fixes.                                              |
+| [Wikipedia: Signs of AI Writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) | cited   | Living field guide maintained by editors from articles they flagged. The most grounded list, because it comes from cases rather than intuition. |
+| [avoid-slop](https://github.com/shannhk/avoid-slop)                                           | cited   | Curated directory covering text, code, and design.                                                                                              |
+
+### Research worth citing
+
+| Finding                                                                                          | Source                        |
+| ------------------------------------------------------------------------------------------------ | ----------------------------- |
+| Present participial clauses appear at 527% of the human rate, the strongest single discriminator | PNAS, via vale-ai-tells       |
+| "Delve" rose ~1,500% in 15M biomedical abstracts, 2022 to 2024                                   | Science Advances (2025)       |
+| "Realm", "intricate", and "showcasing" surged post-2023 across a million papers                  | Nature Human Behaviour (2025) |
+| Taxonomy of slop from expert annotations                                                         | Shaib et al. (2025)           |
+
+### Picking one
+
+vale-ai-tells does the most work per unit of setup for prose in this repo, and its rules line up with the existing voice rules in CLAUDE.md. slop-gate is the faster answer for `npx` and nothing else. slop-forensics is the batch job that keeps the word list from going stale, which is why it backs the second beta task (`lint.slop-export`) rather than the pre-commit hook. Everything under zero-shot detectors and commercial classifiers answers a question this project does not have.

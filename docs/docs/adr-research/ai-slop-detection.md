@@ -140,3 +140,5 @@ Wire vale-ai-tells into hk as a prose step with `ColonUsage` off, `EmDashUsage` 
 Keep slop-forensics as an occasional batch job rather than a hook. Regenerating a custom Vale vocabulary from recent output every few months solves the staleness problem that kills every static rule pack.
 
 Skip the perplexity detectors and the commercial classifiers. They answer the provenance question, and I already know the answer.
+
+calcipy now ships both as beta tasks: `lint.prose` wraps vale-ai-tells for the pre-commit step, and `lint.slop-export` writes the JSONL adapter slop-forensics needs for the batch job. The full tool landscape, including the tools not adopted, moved to [ADR-0008's appendix](../adr/0008-adopt-vale-ai-tells-for-prose-linting.md#appendix-tool-catalog).

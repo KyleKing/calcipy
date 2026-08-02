@@ -210,6 +210,9 @@ Subcommands:
   lint.pre-commit                 Run prek.
   lint.prose                      Run vale with the ai-tells style to flag AI-
                                   generated prose tells (beta).
+  lint.slop-export                Export a Markdown corpus as slop-forensics
+                                  JSONL, the occasional-batch-job companion to
+                                  `lint.prose` (beta).
   lint.watch                      Run ruff as check-only.
   nox.noxfile (nox)               Run nox from the local noxfile.
   pack.bump-tag                   Experiment with bumping the git tag using

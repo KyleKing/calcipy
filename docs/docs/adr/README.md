@@ -51,7 +51,7 @@ ADRs help us:
 - [ADR-0008](0008-adopt-vale-ai-tells-for-prose-linting.md) - Adopt vale-ai-tells for Prose Linting (Beta)
 
     - Status: **proposed**
-    - Offline AI-slop prose linting, wired in as a beta `lint.prose` task
+    - Offline AI-slop prose linting, wired in as beta `lint.prose` and `lint.slop-export` tasks
 
 ### Packaging and Dependencies
 

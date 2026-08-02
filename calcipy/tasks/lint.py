@@ -5,6 +5,8 @@ from pathlib import Path
 
 from beartype.typing import Optional
 from corallium.file_helpers import read_package_name
+from corallium.file_search import find_project_files_by_suffix
+from corallium.log import LOGGER
 from invoke.context import Context
 
 from calcipy.cli import task
@@ -100,6 +102,33 @@ def prose(ctx: Context, *, target: str = '.', glob: str = '', no_sync: bool = Fa
         run(ctx, 'vale sync')
     cli_args = f" --glob='{glob}'" if glob else ''
     run(ctx, f'vale{cli_args} {target}')
+
+
+@task(
+    help={
+        'target': 'Directory to search for Markdown files. Defaults to the whole repository',
+        'output_dir': 'Directory to write the `generated_<source>.jsonl` corpus file into',
+        'source': 'Corpus label used for the `model`/`source` fields and the output filename',
+    },
+)
+def slop_export(_ctx: Context, *, target: str = '.', output_dir: str = 'out/slop-corpus', source: str = 'repo') -> None:
+    """Export a Markdown corpus as slop-forensics JSONL, the occasional-batch-job companion to `lint.prose` (beta).
+
+    Strips fences, front matter, inline code, links, and headings, then keeps documents over 150
+    words. Building the corpus-specific word list is the piece that survives a model version
+    change, unlike `lint.prose`'s fixed rule pack, but the profiling step itself needs a separate
+    checkout of https://github.com/sam-paech/slop-forensics (its own venv with nltk/wordfreq/etc).
+
+    """
+    from calcipy.experiments.slop_corpus_export import write_corpus_jsonl  # noqa: PLC0415
+
+    paths = sorted(find_project_files_by_suffix(Path(target)).get('md', []))
+    corpus_path = write_corpus_jsonl(paths, Path(output_dir), source=source)
+    LOGGER.text(
+        f'Wrote {corpus_path}. Run slop-forensics against it with:\n'
+        f'    python scripts/slop_profile.py --input-dir {output_dir} '
+        '--analysis-output-dir out/analysis --combined-output-file out/results.json',
+    )
 
 
 # ==============================================================================
