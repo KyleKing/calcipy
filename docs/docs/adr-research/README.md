@@ -26,6 +26,7 @@ Each document provides a comprehensive overview of a specific ADR approach or to
 Unlike the ADR-methodology research above, these documents back a single numbered ADR and stay alongside it as supporting context.
 
 1. **[AI Slop Detection](ai-slop-detection.md)** - Landscape of offline prose linters and provenance detectors, backing [ADR-0008](../adr/0008-adopt-vale-ai-tells-for-prose-linting.md)
+1. **[Docs Site Generator](docs-site-generator.md)** - Why the copier-template family's docs sites moved off MkDocs to Zensical. No numbered ADR yet
 
 ## Quick Decision Guide
 
