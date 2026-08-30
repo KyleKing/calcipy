@@ -53,6 +53,11 @@ ADRs help us:
     - Status: **proposed**
     - Offline AI-slop prose linting, wired in as beta `lint.prose` and `lint.slop-export` tasks
 
+- [ADR-0009](0009-pin-ruff-versions-for-the-lint-fix-hook.md) - Pin Ruff Versions for the Lint-Fix Hook
+
+    - Status: **proposed**
+    - Keeps the shipped `lint-fix` hook's ruff from drifting ahead of each child repo's pinned ruff
+
 ### Packaging and Dependencies
 
 - [ADR-0004](0004-switch-to-uv-for-dependency-management.md) - Switch to uv for Dependency Management
