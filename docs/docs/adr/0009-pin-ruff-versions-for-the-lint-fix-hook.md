@@ -1,6 +1,6 @@
 # Pin Ruff Versions for the Lint-Fix Hook
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-27
 - Deciders: KyleKing
 - Consulted: calcipy_template child repositories

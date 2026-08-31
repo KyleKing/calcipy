@@ -74,7 +74,8 @@ experimental = [
   "semver >=3.0.4",
 ]
 lint = [
-  "ruff >=0.16.0",
+  # TODO: Track this ceiling as a doneram hold so it fails loudly instead of going stale
+  "ruff >=0.16.0,<0.17.0", # ADR-0009: bounds what the lint-fix hook can pull ahead of a child's pinned ruff
 ]
 nox = [
   "nox >=2025.11.12",

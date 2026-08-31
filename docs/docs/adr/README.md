@@ -55,7 +55,7 @@ ADRs help us:
 
 - [ADR-0009](0009-pin-ruff-versions-for-the-lint-fix-hook.md) - Pin Ruff Versions for the Lint-Fix Hook
 
-    - Status: **proposed**
+    - Status: **accepted**
     - Keeps the shipped `lint-fix` hook's ruff from drifting ahead of each child repo's pinned ruff
 
 ### Packaging and Dependencies
