@@ -68,7 +68,7 @@ uvx copier update
 
 ```sh
 # Add as development dependency with all tools
-uv add --dev 'calcipy[dev]'
+uv add --dev 'calcipy[recommended]'
 
 # Or install specific extras
 uv add --dev 'calcipy[test,doc,types]'

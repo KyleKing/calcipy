@@ -159,6 +159,11 @@ test = [
     { name = "pytest-randomly" },
     { name = "pytest-watcher" },
 ]
+tool = [
+    { name = "arrow" },
+    { name = "pyyaml" },
+    { name = "ruff" },
+]
 types = [
     { name = "mypy" },
     { name = "ty" },
@@ -192,6 +197,7 @@ requires-dist = [
     { name = "arrow", marker = "extra == 'tags'", specifier = ">=1.4.0" },
     { name = "beartype", specifier = ">=0.22.9" },
     { name = "calcipy", extras = ["doc", "lint", "nox", "tags", "test", "types"], marker = "extra == 'recommended'" },
+    { name = "calcipy", extras = ["lint", "tags"], marker = "extra == 'tool'" },
     { name = "commitizen", marker = "extra == 'doc'", specifier = ">=4.12.1" },
     { name = "corallium", specifier = ">=2.3.0rc1" },
     { name = "ghp-import", marker = "extra == 'doc'", specifier = ">=2.1.0" },
@@ -220,7 +226,7 @@ requires-dist = [
     { name = "ty", marker = "extra == 'types'", specifier = ">=0.0.14" },
     { name = "zensical", marker = "extra == 'doc'", specifier = ">=0.0.46" },
 ]
-provides-extras = ["ddict", "doc", "experimental", "lint", "nox", "recommended", "tags", "test", "types"]
+provides-extras = ["ddict", "doc", "experimental", "lint", "nox", "recommended", "tags", "test", "tool", "types"]
 
 [package.metadata.requires-dev]
 ci = [
