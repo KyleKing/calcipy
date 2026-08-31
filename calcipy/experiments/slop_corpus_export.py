@@ -25,7 +25,12 @@ def to_prose(raw: str) -> str:
     return HEADING_MARK.sub('', text).strip()
 
 
-def build_corpus(paths: Iterable[Path], *, source: str, min_word_count: int = MIN_WORD_COUNT) -> Iterable[dict]:
+def build_corpus(
+    paths: Iterable[Path],
+    *,
+    source: str,
+    min_word_count: int = MIN_WORD_COUNT,
+) -> Iterable[dict[str, str]]:
     """Yield slop-forensics records (`model`, `source`, `id`, `output`) for each qualifying file."""
     for path in paths:
         body = to_prose(path.read_text())
