@@ -101,12 +101,14 @@ We will validate this decision by:
 
 - Running `lint.prose` at the `manual` stage on calcipy's own docs for at least one release cycle before considering the `pre-commit` or `pre-push` stage
 - Tracking whether the per-repo disable list (`ColonUsage` off in `.vale.ini`) stays small; a growing disable list signals the style pack doesn't fit this project's docs conventions
+- Judging `lint.slop-export` against a real corpus before it leaves beta. calcipy's own docs export to 33 documents and 33,182 words, which is thin for the n-gram fingerprinting slop-forensics does, so the open question is whether a repo this size yields a stable word list at all
 
 We will revisit this decision if:
 
 - The false-positive rate stays high enough that the check gets ignored rather than acted on
 - calcipy's scope-reduction effort (moving wrapper tasks to template-distributed tooling) reaches linting tasks, in which case `lint.prose` moves to the template instead of shipping inside calcipy
 - A model-agnostic provenance question becomes the actual need, which would reopen the perplexity/classifier options
+- `lint.prose` stays unusable in template children. vale exits with a runtime error when no `.vale.ini` is present and calcipy ships none, so the task only runs in repos that hand-wrote the config. Closing that means either passing `--config` with a packaged default or distributing the file from calcipy_template
 
 ## More Information
 
