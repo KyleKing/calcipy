@@ -27,6 +27,7 @@
   <!-- {cte} -->
   
   <!-- {cts} COVERAGE_TEST -->
+  
   | File                              | Statements | Missing | Excluded | Coverage |
   |-----------------------------------|-----------:|--------:|---------:|---------:|
   | `calcipy/doit_tasks/base.py`      | 22         | 2       | 3        | 90.9%    |
@@ -34,9 +35,11 @@
   | **Totals**                        | 97         | 46      | 3        | 52.6%    |
   
   Generated on: 2021-06-03
+  
   <!-- {cte} -->
   
   <!-- {cts} SOURCE_FILE_TEST=/tests/test_zz_calcipy.py; -->
+  
   ```py
   """Final test alphabetically (zz) to catch general integration cases."""
   
@@ -55,6 +58,7 @@
   
       assert result == __version__
   ```
+  
   <!-- {cte} -->
   
   '''

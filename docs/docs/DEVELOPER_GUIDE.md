@@ -104,6 +104,7 @@ uv publish
 ## Current Status
 
 <!-- {cts} COVERAGE -->
+
 | File                                                | Statements | Missing | Excluded | Coverage |
 |-----------------------------------------------------|-----------:|--------:|---------:|---------:|
 | `calcipy/__init__.py`                               | 4          | 0       | 0        | 100.0%   |
@@ -144,4 +145,5 @@ uv publish
 | **Totals**                                          | 667        | 0       | 322      | 98.1%    |
 
 Generated on: 2026-03-24
+
 <!-- {cte} -->

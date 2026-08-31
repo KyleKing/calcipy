@@ -151,6 +151,11 @@ def _format_end_marker(line: str) -> str:
     return '{% [cte] %}'
 
 
+def _wrap_section(start: str, body: List[str], end: str) -> List[str]:
+    """Pad the body with the blank lines mdformat requires, so the two tools stop undoing each other."""
+    return [start, '', *body, '', end]
+
+
 def _handle_source_file(line: str, path_file: Path) -> List[str]:
     """Replace commented sections in README with linked file contents.
 
@@ -170,7 +175,7 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
     if not path_source.is_file():  # pragma: no cover
         LOGGER.warning('Could not locate source file', path_source=path_source)
 
-    return [_format_start_marker(line, key, path_rel), *lines_source, _format_end_marker(line)]
+    return _wrap_section(_format_start_marker(line, key, path_rel), lines_source, _format_end_marker(line))
 
 
 def _format_cov_table(coverage_data: Dict[str, Any]) -> List[str]:
@@ -232,7 +237,7 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
         raise _ParseSkipError(msg)
     coverage_data = json.loads(path_coverage.read_text())
     lines_cov = _format_cov_table(coverage_data)
-    return [line, *lines_cov, _format_end_marker(line)]
+    return _wrap_section(line, lines_cov, _format_end_marker(line))
 
 
 _CLI_ALLOWED_PREFIXES = ('./run', 'uv ', 'python -m ', 'python3 -m ')
@@ -279,7 +284,7 @@ def _handle_cli_output(line: str, _path_file: Path) -> List[str]:
         raise _ParseSkipError(msg)
 
     lines_output = ['```txt', *output.rstrip().split('\n'), '```']
-    return [_format_start_marker(line, 'CLI_OUTPUT', command), *lines_output, _format_end_marker(line)]
+    return _wrap_section(_format_start_marker(line, 'CLI_OUTPUT', command), lines_output, _format_end_marker(line))
 
 
 def write_template_formatted_sections(

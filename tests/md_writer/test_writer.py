@@ -126,9 +126,11 @@ def test_handle_cli_output_echo():
     result = _handle_cli_output(line, path_md)
 
     assert result[0] == '<!-- {cts} CLI_OUTPUT=python -m calcipy --help; -->'
-    assert result[1] == '```txt'
+    assert not result[1]
+    assert result[2] == '```txt'
     assert result[-1] == '<!-- {cte} -->'
-    assert result[-2] == '```'
+    assert not result[-2]
+    assert result[-3] == '```'
     assert any('calcipy' in line.lower() for line in result)
 
 
