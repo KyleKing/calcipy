@@ -4,4 +4,4 @@ from pprint import pprint
 
 from calcipy import replace_me
 
-pprint(locals())  # noqa: T203
+pprint(locals())  # ruff:ignore[p-print]

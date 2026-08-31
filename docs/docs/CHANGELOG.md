@@ -1,3 +1,17 @@
+## Unreleased
+
+### Feat
+
+- **lint**: bound the lint extra's ruff to the range children can parse
+- beta general slop detection feature
+- **vale**: add vale for prose linting
+
+### Fix
+
+- **types**: parameterize build_corpus's dict return
+- **markup-writer**: pad generated sections so mdformat stops reverting them
+- keep the CLI usable when an optional extra is not installed
+
 ## 6.1.0rc0 (2026-07-29)
 
 ### Fix
