@@ -2260,8 +2260,8 @@
 
         <p>Experiment with bumping the git tag using <code>griffe</code> (experimental).</p>
 <p>Example for <code>calcipy</code>:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>./run<span class="w"> </span>pack.bump-tag<span class="w"> </span>--tag<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>git<span class="w"> </span>tag<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>--tag-prefix<span class="o">=</span><span class="s2">&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>./run<span class="w"> </span>pack.bump-tag<span class="w"> </span>--tag<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>git<span class="w"> </span>tag<span class="w"> </span>-l<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>--tag-prefix<span class="o">=</span><span class="s2">&quot;&quot;</span>
+</code></pre></div>
 
 
             <details class="mkdocstrings-source">

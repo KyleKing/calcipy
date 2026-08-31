@@ -2665,42 +2665,26 @@
 <h3 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">⚓︎</a></h3>
 <p><strong>Simple Projects</strong>: Store all ADRs in a single directory (e.g., <code>docs/adr/</code>)</p>
 <p><strong>Complex Projects</strong>: Use subdirectories for categorization:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>docs/adr/
-  backend/
-    0001-use-postgresql.md
-    0002-implement-caching.md
-  frontend/
-    0001-choose-react.md
-    0002-state-management.md
-  infrastructure/
-    0001-use-kubernetes.md
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>docs/adr/
+<span class="linenos" data-linenos="2 "></span>  backend/
+<span class="linenos" data-linenos="3 "></span>    0001-use-postgresql.md
+<span class="linenos" data-linenos="4 "></span>    0002-implement-caching.md
+<span class="linenos" data-linenos="5 "></span>  frontend/
+<span class="linenos" data-linenos="6 "></span>    0001-choose-react.md
+<span class="linenos" data-linenos="7 "></span>    0002-state-management.md
+<span class="linenos" data-linenos="8 "></span>  infrastructure/
+<span class="linenos" data-linenos="9 "></span>    0001-use-kubernetes.md
+</code></pre></div>
 <h3 id="yaml-front-matter">YAML Front Matter<a class="headerlink" href="#yaml-front-matter" title="Permanent link">⚓︎</a></h3>
 <p>MADR supports metadata using YAML front matter:</p>
-<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nn">---</span>
-<span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accepted</span>
-<span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024-01-15</span>
-<span class="nt">deciders</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Alice</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Bob</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Carol</span><span class="p p-Indicator">]</span>
-<span class="nt">consulted</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Dave</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Eve</span><span class="p p-Indicator">]</span>
-<span class="nt">informed</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Frank</span><span class="p p-Indicator">]</span>
-<span class="nn">---</span>
-</code></pre></div></td></tr></table></div>
-
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="nn">---</span>
+<span class="linenos" data-linenos="2 "></span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">accepted</span>
+<span class="linenos" data-linenos="3 "></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024-01-15</span>
+<span class="linenos" data-linenos="4 "></span><span class="nt">deciders</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Alice</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Bob</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Carol</span><span class="p p-Indicator">]</span>
+<span class="linenos" data-linenos="5 "></span><span class="nt">consulted</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Dave</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Eve</span><span class="p p-Indicator">]</span>
+<span class="linenos" data-linenos="6 "></span><span class="nt">informed</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">Frank</span><span class="p p-Indicator">]</span>
+<span class="linenos" data-linenos="7 "></span><span class="nn">---</span>
+</code></pre></div>
 <h2 id="what-makes-madr-distinctive">What Makes MADR Distinctive<a class="headerlink" href="#what-makes-madr-distinctive" title="Permanent link">⚓︎</a></h2>
 <h3 id="1-accessibility">1. Accessibility<a class="headerlink" href="#1-accessibility" title="Permanent link">⚓︎</a></h3>
 <p>Uses Markdown files stored in projects rather than external tools. Developers work where they already are.</p>
