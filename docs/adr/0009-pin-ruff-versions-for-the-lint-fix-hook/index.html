@@ -12,36 +12,36 @@
         <meta name="author" content="Kyle King">
       
       
-        <link rel="canonical" href="https://calcipy.kyleking.me/reference/calcipy/tasks/doc/">
+        <link rel="canonical" href="https://calcipy.kyleking.me/docs/adr/0009-pin-ruff-versions-for-the-lint-fix-hook/">
       
       
-        <link rel="prev" href="../defaults/">
+        <link rel="prev" href="../0008-adopt-vale-ai-tells-for-prose-linting/">
       
       
-        <link rel="next" href="../executable_utils/">
+        <link rel="next" href="../../adr-research/">
       
       
         
       
       
-      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="zensical-0.0.46">
     
     
       
-        <title>Doc - calcipy</title>
+        <title>Pin Ruff Versions for the Lint-Fix Hook - calcipy</title>
       
     
     
       
         
       
-      <link rel="stylesheet" href="../../../../assets/stylesheets/modern/main.19d3147f.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.19d3147f.min.css">
       
         
           
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
       
       
 
@@ -60,9 +60,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../../_styles/mkdocstrings.css">
+      <link rel="stylesheet" href="../../../_styles/mkdocstrings.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
 
@@ -87,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#calcipy.tasks.doc" class="md-skip">
+        <a href="#pin-ruff-versions-for-the-lint-fix-hook" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
+    <a href="../../.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Doc
+              Pin Ruff Versions for the Lint-Fix Hook
             
           </span>
         </div>
@@ -198,7 +198,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
+    <a href="../../.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
@@ -228,7 +228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -254,7 +254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../zensical-migration-guide/" class="md-nav__link">
+      <a href="../../../zensical-migration-guide/" class="md-nav__link">
         
   
   
@@ -277,18 +277,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -308,7 +310,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -325,7 +327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/CHANGELOG/" class="md-nav__link">
+      <a href="../../CHANGELOG/" class="md-nav__link">
         
   
   
@@ -352,7 +354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/CODE_TAG_SUMMARY/" class="md-nav__link">
+      <a href="../../CODE_TAG_SUMMARY/" class="md-nav__link">
         
   
   
@@ -379,7 +381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/DEVELOPER_GUIDE/" class="md-nav__link">
+      <a href="../../DEVELOPER_GUIDE/" class="md-nav__link">
         
   
   
@@ -406,7 +408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/MIGRATION/" class="md-nav__link">
+      <a href="../../MIGRATION/" class="md-nav__link">
         
   
   
@@ -433,7 +435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/STYLE_GUIDE/" class="md-nav__link">
+      <a href="../../STYLE_GUIDE/" class="md-nav__link">
         
   
   
@@ -457,18 +459,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
         
           
           <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
@@ -488,7 +492,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -505,7 +509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -532,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0001-record-architecture-decisions/" class="md-nav__link">
+      <a href="../0001-record-architecture-decisions/" class="md-nav__link">
         
   
   
@@ -559,7 +563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0002-use-invoke-for-task-automation/" class="md-nav__link">
+      <a href="../0002-use-invoke-for-task-automation/" class="md-nav__link">
         
   
   
@@ -586,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
+      <a href="../0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
         
   
   
@@ -613,7 +617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
+      <a href="../0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
         
   
   
@@ -640,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
+      <a href="../0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
         
   
   
@@ -667,7 +671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0006-use-hatchling-for-build-backend/" class="md-nav__link">
+      <a href="../0006-use-hatchling-for-build-backend/" class="md-nav__link">
         
   
   
@@ -694,7 +698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0007-provide-multiple-cli-entry-points/" class="md-nav__link">
+      <a href="../0007-provide-multiple-cli-entry-points/" class="md-nav__link">
         
   
   
@@ -721,7 +725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr/0008-adopt-vale-ai-tells-for-prose-linting/" class="md-nav__link">
+      <a href="../0008-adopt-vale-ai-tells-for-prose-linting/" class="md-nav__link">
         
   
   
@@ -745,10 +749,36 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../../docs/adr/0009-pin-ruff-versions-for-the-lint-fix-hook/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Pin Ruff Versions for the Lint-Fix Hook
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
         
   
   
@@ -763,6 +793,132 @@
   
 
       </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context-and-problem-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Context and Problem Statement
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decision Drivers
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verified-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verified Facts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considered-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Considered Options
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decision Outcome
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision Outcome">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Consequences
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-chosen-and-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Not chosen, and why
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Validation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More Information
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -828,7 +984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/" class="md-nav__link">
+      <a href="../../adr-research/" class="md-nav__link">
         
   
   
@@ -855,7 +1011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/ai-guidance-for-adrs/" class="md-nav__link">
+      <a href="../../adr-research/ai-guidance-for-adrs/" class="md-nav__link">
         
   
   
@@ -882,7 +1038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/ai-slop-detection/" class="md-nav__link">
+      <a href="../../adr-research/ai-slop-detection/" class="md-nav__link">
         
   
   
@@ -909,7 +1065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/aws-adr-guide/" class="md-nav__link">
+      <a href="../../adr-research/aws-adr-guide/" class="md-nav__link">
         
   
   
@@ -936,7 +1092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/comparison-and-recommendations/" class="md-nav__link">
+      <a href="../../adr-research/comparison-and-recommendations/" class="md-nav__link">
         
   
   
@@ -963,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/docs-site-generator/" class="md-nav__link">
+      <a href="../../adr-research/docs-site-generator/" class="md-nav__link">
         
   
   
@@ -990,7 +1146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/ethereum-eips/" class="md-nav__link">
+      <a href="../../adr-research/ethereum-eips/" class="md-nav__link">
         
   
   
@@ -1017,7 +1173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/log4brains/" class="md-nav__link">
+      <a href="../../adr-research/log4brains/" class="md-nav__link">
         
   
   
@@ -1044,7 +1200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/madr/" class="md-nav__link">
+      <a href="../../adr-research/madr/" class="md-nav__link">
         
   
   
@@ -1071,7 +1227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/prefect-pins/" class="md-nav__link">
+      <a href="../../adr-research/prefect-pins/" class="md-nav__link">
         
   
   
@@ -1098,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/real-world-examples/" class="md-nav__link">
+      <a href="../../adr-research/real-world-examples/" class="md-nav__link">
         
   
   
@@ -1125,7 +1281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../docs/adr-research/y-statements/" class="md-nav__link">
+      <a href="../../adr-research/y-statements/" class="md-nav__link">
         
   
   
@@ -1164,20 +1320,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1197,7 +1351,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1211,20 +1365,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
         
           
           <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
@@ -1244,7 +1396,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1261,7 +1413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cli/" class="md-nav__link">
+      <a href="../../../reference/calcipy/cli/" class="md-nav__link">
         
   
   
@@ -1288,7 +1440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../collection/" class="md-nav__link">
+      <a href="../../../reference/calcipy/collection/" class="md-nav__link">
         
   
   
@@ -1315,7 +1467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../invoke_helpers/" class="md-nav__link">
+      <a href="../../../reference/calcipy/invoke_helpers/" class="md-nav__link">
         
   
   
@@ -1342,7 +1494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scripts/" class="md-nav__link">
+      <a href="../../../reference/calcipy/scripts/" class="md-nav__link">
         
   
   
@@ -1414,7 +1566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../experiments/bump_programmatically/" class="md-nav__link">
+      <a href="../../../reference/calcipy/experiments/bump_programmatically/" class="md-nav__link">
         
   
   
@@ -1441,7 +1593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../experiments/check_duplicate_test_names/" class="md-nav__link">
+      <a href="../../../reference/calcipy/experiments/check_duplicate_test_names/" class="md-nav__link">
         
   
   
@@ -1468,7 +1620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../experiments/slop_corpus_export/" class="md-nav__link">
+      <a href="../../../reference/calcipy/experiments/slop_corpus_export/" class="md-nav__link">
         
   
   
@@ -1500,20 +1652,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1_6" >
         
           
           <label class="md-nav__link" for="__nav_4_1_6" id="__nav_4_1_6_label" tabindex="0">
@@ -1533,7 +1683,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_1_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_1_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1550,7 +1700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../all_tasks/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/all_tasks/" class="md-nav__link">
         
   
   
@@ -1577,7 +1727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cl/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/cl/" class="md-nav__link">
         
   
   
@@ -1604,7 +1754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../defaults/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/defaults/" class="md-nav__link">
         
   
   
@@ -1628,34 +1778,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Doc
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="././" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../reference/calcipy/tasks/doc/" class="md-nav__link">
         
   
   
@@ -1670,97 +1796,6 @@
   
 
       </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        doc
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Functions
-      </span>
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Functions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.build" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        build
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.deploy" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        deploy
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.get_out_dir" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        get_out_dir
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.watch" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        watch
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1773,7 +1808,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../executable_utils/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/executable_utils/" class="md-nav__link">
         
   
   
@@ -1800,7 +1835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lint/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/lint/" class="md-nav__link">
         
   
   
@@ -1827,7 +1862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nox/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/nox/" class="md-nav__link">
         
   
   
@@ -1854,7 +1889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pack/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/pack/" class="md-nav__link">
         
   
   
@@ -1881,7 +1916,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tags/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/tags/" class="md-nav__link">
         
   
   
@@ -1908,7 +1943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../test/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/test/" class="md-nav__link">
         
   
   
@@ -1935,7 +1970,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../types/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/types/" class="md-nav__link">
         
   
   
@@ -2075,7 +2110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
+      <a href="../../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
         
   
   
@@ -2124,6 +2159,8 @@
                     
                     
                     
+                      
+                    
                     
                       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
                       <div class="md-sidebar-button__wrapper">
@@ -2139,6 +2176,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2147,10 +2186,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc" class="md-nav__link">
+  <a href="#context-and-problem-statement" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        doc
+        Context and Problem Statement
       </span>
     </span>
   </a>
@@ -2158,22 +2197,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc-functions" class="md-nav__link">
+  <a href="#decision-drivers" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Functions
+        Decision Drivers
       </span>
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verified-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verified Facts
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considered-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Considered Options
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Decision Outcome
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision Outcome">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.build" class="md-nav__link">
+  <a href="#consequences" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        build
+        Consequences
       </span>
     </span>
   </a>
@@ -2181,32 +2253,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.deploy" class="md-nav__link">
+  <a href="#not-chosen-and-why" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        deploy
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.get_out_dir" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        get_out_dir
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#calcipy.tasks.doc.watch" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        watch
+        Not chosen, and why
       </span>
     </span>
   </a>
@@ -2215,6 +2265,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Validation
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        More Information
+      </span>
+    </span>
+  </a>
   
 </li>
       
@@ -2236,171 +2308,161 @@
   
 
 
-  <h1 id="__skip">Doc</h1>
-
-<div class="doc doc-object doc-module">
-
-
-
-<a id="calcipy.tasks.doc"></a>
-    <div class="doc doc-contents first">
-
-        <p>Document CLI.</p>
-
-
-
-
-
-
-
-
-
-
-<div class="doc doc-children">
-
-
-
-
-
-
-
-
-<h2 id="calcipy.tasks.doc-functions">Functions<a href="#calcipy.tasks.doc-functions" class="headerlink" title="Permanent link">⚓︎</a></h2>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="calcipy.tasks.doc.build" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">build</span>
-
-
-<a href="#calcipy.tasks.doc.build" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">build</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Build documentation with Zensical.</p>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="38 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="39 "></span><span class="k">def</span><span class="w"> </span><span class="nf">build</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="40 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build documentation with Zensical.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="41 "></span>    <span class="n">write_template_formatted_sections</span><span class="p">()</span>
-<span class="linenos" data-linenos="42 "></span>    <span class="n">_gen_reference</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-<span class="linenos" data-linenos="43 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_m</span><span class="p">()</span><span class="si">}</span><span class="s1"> zensical build&#39;</span><span class="p">)</span>
-</code></pre></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="calcipy.tasks.doc.deploy" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">deploy</span>
-
-
-<a href="#calcipy.tasks.doc.deploy" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">deploy</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Deploy docs to the Github <code>gh-pages</code> branch.</p>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="73 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="74 "></span><span class="k">def</span><span class="w"> </span><span class="nf">deploy</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="75 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Deploy docs to the Github `gh-pages` branch.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="76 "></span>    <span class="k">if</span> <span class="n">_is_mkdocs_local</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="77 "></span>        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Not yet configured to deploy documentation without &quot;use_directory_urls&quot;&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="78 "></span>
-<span class="linenos" data-linenos="79 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">UnexpectedExit</span><span class="p">):</span>
-<span class="linenos" data-linenos="80 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;prek uninstall&#39;</span><span class="p">)</span>  <span class="c1"># To prevent prek failures when the deploy pushes</span>
-<span class="linenos" data-linenos="81 "></span>    <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_m</span><span class="p">()</span><span class="si">}</span><span class="s1"> ghp_import --no-jekyll --push --force --message &quot;Deployed docs&quot; </span><span class="si">{</span><span class="n">get_out_dir</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="82 "></span>    <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">UnexpectedExit</span><span class="p">):</span>
-<span class="linenos" data-linenos="83 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;prek install&#39;</span><span class="p">)</span>  <span class="c1"># Restore prek</span>
-</code></pre></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="calcipy.tasks.doc.get_out_dir" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">get_out_dir</span>
-
-
-<a href="#calcipy.tasks.doc.get_out_dir" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_out_dir</span><span class="p">()</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Returns the mkdocs-specified site directory.</p>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="22 "></span><span class="k">def</span><span class="w"> </span><span class="nf">get_out_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="linenos" data-linenos="23 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the mkdocs-specified site directory.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="24 "></span>    <span class="n">mkdocs_config</span> <span class="o">=</span> <span class="n">read_yaml_file</span><span class="p">(</span><span class="n">get_project_path</span><span class="p">()</span> <span class="o">/</span> <span class="n">MKDOCS_CONFIG</span><span class="p">)</span>
-<span class="linenos" data-linenos="25 "></span>    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">mkdocs_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_dir&#39;</span><span class="p">,</span> <span class="s1">&#39;releases/site&#39;</span><span class="p">))</span>
-</code></pre></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="calcipy.tasks.doc.watch" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">watch</span>
-
-
-<a href="#calcipy.tasks.doc.watch" class="headerlink" title="Permanent link">⚓︎</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Serve local documentation for local editing.</p>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>calcipy/tasks/doc.py</code></summary>
-              <div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="61 "></span><span class="nd">@task</span><span class="p">()</span>
-<span class="linenos" data-linenos="62 "></span><span class="k">def</span><span class="w"> </span><span class="nf">watch</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos" data-linenos="63 "></span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Serve local documentation for local editing.&quot;&quot;&quot;</span>
-<span class="linenos" data-linenos="64 "></span>    <span class="k">if</span> <span class="n">_is_mkdocs_local</span><span class="p">():</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="65 "></span>        <span class="n">path_doc_index</span> <span class="o">=</span> <span class="n">get_out_dir</span><span class="p">()</span> <span class="o">/</span> <span class="s1">&#39;index.html&#39;</span>
-<span class="linenos" data-linenos="66 "></span>        <span class="n">open_in_browser</span><span class="p">(</span><span class="n">path_doc_index</span><span class="p">)</span>
-<span class="linenos" data-linenos="67 "></span>    <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-<span class="linenos" data-linenos="68 "></span>        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;http://localhost:8000&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos="69 "></span>        <span class="n">_gen_reference</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
-<span class="linenos" data-linenos="70 "></span>        <span class="n">run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">python_m</span><span class="p">()</span><span class="si">}</span><span class="s1"> zensical serve&#39;</span><span class="p">)</span>
-</code></pre></div>
-            </details>
-    </div>
-
-</div>
-
-
-
-  </div>
-
-    </div>
-
-</div>
+<h1 id="pin-ruff-versions-for-the-lint-fix-hook">Pin Ruff Versions for the Lint-Fix Hook<a class="headerlink" href="#pin-ruff-versions-for-the-lint-fix-hook" title="Permanent link">⚓︎</a></h1>
+<ul>
+<li>Status: accepted</li>
+<li>Date: 2026-07-27</li>
+<li>Deciders: KyleKing</li>
+<li>Consulted: calcipy_template child repositories</li>
+<li>Informed: calcipy users</li>
+</ul>
+<h2 id="context-and-problem-statement">Context and Problem Statement<a class="headerlink" href="#context-and-problem-statement" title="Permanent link">⚓︎</a></h2>
+<p>calcipy ships <code>.pre-commit-hooks.yaml</code>, and every repo generated from <code>calcipy_template</code> runs its <code>lint-fix</code> hook. The hook resolves ruff through calcipy&rsquo;s <code>lint</code> extra with a floor and no ceiling, and the template&rsquo;s hook invocation resolves calcipy the same way (<code>uvx --from 'calcipy[recommended]&gt;=6.0.1'</code>), so the hook always installs whatever ruff is newest at the moment it runs. Meanwhile each child&rsquo;s lockfile pins ruff to a specific 0.15.x. On 2026-07-27 that gap opened: the hook picked up a ruff new enough to have RUF105, calcipy selects <code>ALL</code> rules with <code>preview = true</code>, so RUF105 activated the day it shipped and rewrote <code># noqa: X</code> comments into <code># ruff: ignore[X]</code>. The children&rsquo;s older pinned ruff could not parse what the hook had written, and the fix loop stopped converging. The interim patch (add <code>RUF105</code> to the template&rsquo;s ignore list, raise the <code>lint</code> extra floor to <code>ruff &gt;=0.16.0</code>) closed this one hole and made it worse in a small way, because on ruff 0.15.7 and 0.15.8 an unrecognized selector in the ignore list is a hard startup failure rather than a warning. The decision here is what to change structurally so that the next preview rule Astral ships does not reopen the same hole.</p>
+<p>The cost of getting this wrong is high and slow to undo. Any change to the hook needs a calcipy release, then a calcipy_template release, then a copier update rolled out across every child. A per-child configuration lever can move without that chain; a lever baked into the hook cannot.</p>
+<h2 id="decision-drivers">Decision Drivers<a class="headerlink" href="#decision-drivers" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li>The hook binary and the child&rsquo;s pinned binary must never disagree silently; if they disagree, the run must fail loudly and immediately</li>
+<li>Failures must be legible, so a message naming the version mismatch beats a diff that will not converge</li>
+<li>Whatever is chosen applies to every calcipy_template child, so the blast radius of a bad choice is the whole fleet</li>
+<li>A child should be able to move at its own pace without waiting on a calcipy release</li>
+<li>calcipy deliberately runs <code>select = ['ALL']</code> with <code>preview = true</code>, which auto-enrolls the project in every new preview rule on the day it lands</li>
+<li>ruff&rsquo;s own policy permits preview rules to appear and to change behavior in a patch release, so there is no version range that makes preview churn go away</li>
+<li>Maintenance must stay low; a scheme requiring a hand-edit on every ruff release will rot</li>
+</ul>
+<h2 id="verified-facts">Verified Facts<a class="headerlink" href="#verified-facts" title="Permanent link">⚓︎</a></h2>
+<p>Primary sources, checked on 2026-07-27:</p>
+<ul>
+<li>ruff&rsquo;s <a href="https://docs.astral.sh/ruff/versioning/">versioning policy</a> puts &ldquo;A rule is added in preview&rdquo;, &ldquo;The scope of a rule is increased in preview&rdquo;, and &ldquo;The behavior of a preview rule is changed&rdquo; under <strong>patch</strong> releases. Only stable-rule behavior changes and stable promotions require a minor bump. Pinning <code>&gt;=0.16,&lt;0.17</code> therefore constrains stable behavior and does nothing at all for preview behavior</li>
+<li><a href="https://docs.astral.sh/ruff/settings/#required-version"><code>required-version</code></a> is a <code>[tool.ruff]</code> string that accepts a PEP 440 specifier (&ldquo;like <code>==0.3.1</code> or <code>&gt;=0.3.1</code>&rdquo;). If the running ruff does not satisfy it, &ldquo;Ruff will exit with an error.&rdquo; calcipy does not currently set it; the <code>required-version</code> at <code>pyproject.toml:250</code> is under <code>[tool.uv]</code> and constrains uv, not ruff</li>
+<li>RUF105 is <a href="https://docs.astral.sh/ruff/rules/noqa-comments/"><code>noqa-comments</code></a>, in preview since <strong>0.15.22</strong> (2026-07-16), not 0.16. Its siblings RUF106 (<code>rule-codes-in-suppression-comments</code>) and RUF201 (<code>rule-codes-in-selectors</code>) shipped in the same patch release. The rule docs call it &ldquo;opinionated, stylistic&rdquo;, state that <code>noqa</code> comments remain fully supported, and say you are &ldquo;free to disable this rule if you simply prefer <code>noqa</code> comments&rdquo;</li>
+<li>ruff <a href="https://github.com/astral-sh/ruff/releases/tag/0.15.20">0.15.20</a> (2026-06-25) changed unknown rule selectors to &ldquo;Emit a warning instead of an error&rdquo;. This is the release boundary that explains why the severity varied across the fleet</li>
+<li>ruff <a href="https://github.com/astral-sh/ruff/releases/tag/0.16.0">0.16.0</a> (2026-07-23) expanded the default rule set from 59 to 413 rules, made <code>ruff: ignore</code> valid at end of line, and under Rule changes shipped &ldquo;Insert a space after the colon in Ruff suppression comments&rdquo;, which is itself a rewrite of already-rewritten comments</li>
+<li>The <a href="https://astral.sh/blog/ruff-v0.16.0">0.16 blog post</a> presents <code>ruff: ignore</code> as complementary to <code>noqa</code> and keeps human-readable rule names behind <code>--preview</code>. There is no announcement that codes-to-names becomes the default</li>
+<li><a href="https://github.com/astral-sh/ruff-pre-commit">ruff-pre-commit</a> and ruff&rsquo;s <a href="https://docs.astral.sh/ruff/integrations/">pre-commit integration docs</a> both use a concrete <code>rev: v0.16.0</code> in every example and offer no guidance on syncing the hook version against the project&rsquo;s pinned ruff</li>
+<li>pre-commit&rsquo;s <a href="https://pre-commit.com/">docs</a> require <code>rev</code> to be an immutable ref: &ldquo;pre-commit assumes that the value of <code>rev</code> is an immutable ref (such as a tag or SHA) and will cache based on that&rdquo;, and using a branch name &ldquo;is not supported&rdquo;. Upgrades happen through <code>pre-commit autoupdate</code>, which moves to the latest tag. The framework has no &ldquo;always latest&rdquo; mode by design</li>
+<li>black&rsquo;s <a href="https://black.readthedocs.io/en/stable/the_black_code_style/index.html">stability policy</a> guarantees identical output across a calendar year, so <code>black ~= 26.0</code> is safe, and its <code>--required-version</code> (also settable in <code>pyproject.toml</code>) accepts a bare major/year. <code>--preview</code> output carries &ldquo;no guarantees around the stability of the output&rdquo;</li>
+<li><a href="https://prettier.io/docs/install">prettier</a> tells users to install an exact version with <code>--save-exact</code>, because &ldquo;Even a patch release of Prettier can result in slightly different formatting&rdquo;</li>
+<li><a href="https://golangci-lint.run/docs/welcome/install/ci/">golangci-lint</a> recommends installing a specific released version, calling out that adding a linter or upgrading an upstream one can &ldquo;start to fail all builds at the same time&rdquo;</li>
+</ul>
+<p>Not verified from primary sources, flagged so a future reader does not treat these as settled:</p>
+<ul>
+<li>That 0.15.7 and 0.15.8 surface an unknown selector specifically as a <strong>TOML parse</strong> error. The 0.15.20 changelog confirms the error-to-warning switch, and the exact error class on the older versions comes from observing the fleet</li>
+<li>Whether Astral intends <code>ruff: ignore</code> and human-readable names to become the default. Nothing in the docs, the rule pages, or the 0.16 post says so; the current signal points the other way</li>
+<li>That Astral publishes any recommendation on pinning ruff at all. Nothing was found across the settings, versioning, and integrations pages or the 0.16 post, so the absence is inferred from having looked, not from a statement</li>
+</ul>
+<h2 id="considered-options">Considered Options<a class="headerlink" href="#considered-options" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li>Pin an exact ruff version in the hook (<code>ruff ==0.16.3</code>)</li>
+<li>Pin a compatible range in the hook (<code>ruff &gt;=0.16,&lt;0.17</code>)</li>
+<li>Set <code>[tool.ruff] required-version</code> in the template so config and binary cannot drift</li>
+<li>Keep the hook unpinned and absorb the churn (status quo)</li>
+<li>Disable <code>preview = true</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What breaks</th>
+<th>Who acts on a ruff release</th>
+<th>Blast radius across children</th>
+<th>Maintenance cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exact pin in hook (<code>==0.16.3</code>)</td>
+<td>Nothing drifts, but the hook and a child&rsquo;s own lockfile still pin independently, so they can still disagree, just deterministically</td>
+<td>KyleKing, on every release worth taking; children get nothing until calcipy plus template plus copier lands</td>
+<td>Uniform. Every child moves at once or not at all</td>
+<td>High. A three-repo release chain for each bump</td>
+</tr>
+<tr>
+<td>Compatible range in hook (<code>&gt;=0.16,&lt;0.17</code>)</td>
+<td>Stable-rule churn is contained. Preview rules and preview behavior changes still land freely, because ruff allows both in a patch</td>
+<td>KyleKing, once per ruff minor. Nobody acts on patches, which is where the RUF105 class of break lives</td>
+<td>Uniform, and the failure mode is exactly the one already seen</td>
+<td>Medium, and it does not solve the reported problem</td>
+</tr>
+<tr>
+<td><code>required-version</code> in the template</td>
+<td>The mismatch itself breaks, on purpose. A hook binary outside the child&rsquo;s declared window refuses to start with a version message instead of rewriting files</td>
+<td>The child, when its own bound goes stale. calcipy is not in the loop</td>
+<td>Per child. Each repo fails independently and recovers independently</td>
+<td>Low for calcipy, small and recurring for each child, and it rides the existing copier and lockfile bump flow</td>
+</tr>
+<tr>
+<td>Unpinned (status quo)</td>
+<td>Any preview rule with a fix can rewrite files a pinned ruff cannot parse. Non-convergent fix loops, fleet-wide, with no warning</td>
+<td>Nobody until it breaks, then KyleKing under time pressure</td>
+<td>Fleet-wide and simultaneous, which is exactly what happened</td>
+<td>Low until an incident, then very high</td>
+</tr>
+<tr>
+<td>Disable <code>preview = true</code></td>
+<td>Loses preview rules and preview fixes across calcipy and every child. Does not stop stable-rule churn, and 0.16 shows a minor release can move 354 rules into the default set</td>
+<td>KyleKing, on minor releases only</td>
+<td>Uniform, and it is a behavior regression everyone notices</td>
+<td>Low, at a real cost in coverage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="decision-outcome">Decision Outcome<a class="headerlink" href="#decision-outcome" title="Permanent link">⚓︎</a></h2>
+<p>Chosen option: <strong>set <code>[tool.ruff] required-version</code> in the template</strong>, paired with keeping a compatible range on calcipy&rsquo;s <code>lint</code> extra, because it is the only lever that converts a silent divergence into a loud failure and the only one that lets a child move without a three-repo release chain.</p>
+<p>The concrete shape:</p>
+<ul>
+<li>calcipy&rsquo;s <code>lint</code> extra carries <code>ruff &gt;=0.16.0,&lt;0.17.0</code>. This bounds what the hook can pull without pretending it solves preview churn</li>
+<li>calcipy_template writes <code>required-version = "&gt;=0.16.0,&lt;0.17.0"</code> under <code>[tool.ruff]</code> in each child&rsquo;s <code>pyproject.toml</code>, alongside the existing lockfile pin. The child owns this line and can widen or narrow it on its own schedule</li>
+<li>The two are allowed to disagree, and that is the point. When the hook resolves a ruff outside the child&rsquo;s window, ruff exits with a version error before it edits a single file</li>
+</ul>
+<p>The reasoning is that no version range can prevent this class of break. ruff&rsquo;s policy explicitly permits a preview rule to be added or to change behavior in a <strong>patch</strong> release, and calcipy opts into every one of them through <code>select = ['ALL']</code> with <code>preview = true</code>. Chasing the range is chasing a moving target. What is actually needed is a guarantee that the binary doing the rewriting is the same binary that will later read the result, and <code>required-version</code> is the mechanism ruff itself provides for that. It is also the same shape black settled on with <code>--required-version</code>, and the same instinct behind prettier&rsquo;s exact pin and golangci-lint&rsquo;s warning about all builds failing at once.</p>
+<p>The per-child ownership matters as much as the mechanism. A ceiling living only in calcipy&rsquo;s <code>lint</code> extra means every adjustment costs a calcipy release, a template release, and a fleet rollout. A <code>required-version</code> line in the child&rsquo;s own <code>pyproject.toml</code> costs one line in one repo, and a child that is ready to move to 0.17 does not have to wait for the slowest child in the fleet.</p>
+<p>Preview mode stays on. Turning it off would trade a narrow, now-understood failure for a broad loss of coverage, and 0.16 (59 default rules to 413 in a single minor) shows that stable releases move plenty on their own.</p>
+<h3 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Good, because a hook/lockfile mismatch fails in the first second with a message naming the versions, rather than producing a fix loop that never converges</li>
+<li>Good, because the failure is per child, so one stale repo does not block the fleet and a fleet-wide incident becomes a fleet-wide set of independent, individually fixable errors</li>
+<li>Good, because children set their own bound and can upgrade without a calcipy or template release</li>
+<li>Good, because <code>required-version</code> is ruff&rsquo;s own supported mechanism, so it needs no wrapper logic in calcipy and cannot be bypassed by a different invocation path</li>
+<li>Good, because it composes with the compatible range instead of replacing it; the range narrows the window, <code>required-version</code> enforces it</li>
+<li>Bad, because a child whose bound has gone stale sees a hard hook failure and must act, which is more visible friction than today&rsquo;s silent drift</li>
+<li>Bad, because the bound is one more thing to keep current in each child, and a fleet of repos with stale bounds is a real possibility</li>
+<li>Bad, because it does not stop a preview rule from changing behavior <em>within</em> the allowed window; two ruff versions that both satisfy <code>&gt;=0.16,&lt;0.17</code> can still disagree about RUF105-style rewrites</li>
+<li>Neutral, because the interim RUF105 ignore stays. The rule is stylistic by its own docs, <code>noqa</code> remains supported, and cross-tool compatibility is worth keeping</li>
+<li>Neutral, because rolling this out is one template change plus a copier update, roughly the cost of any other template field</li>
+</ul>
+<h3 id="not-chosen-and-why">Not chosen, and why<a class="headerlink" href="#not-chosen-and-why" title="Permanent link">⚓︎</a></h3>
+<p><code>select = ['ALL']</code> with <code>preview = true</code> is the deeper cause; it enrolls the fleet in every preview rule the day it ships. Narrowing to explicit rule families would remove the auto-enrollment, and it was left out of this decision because it is a much larger change to calcipy&rsquo;s linting identity and deserves its own ADR. It should be revisited if <code>required-version</code> proves to be a bandage on a wound that keeps reopening.</p>
+<h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">⚓︎</a></h2>
+<p>This decision holds if, over the next two ruff minor releases:</p>
+<ul>
+<li>No child produces a non-convergent fix loop</li>
+<li>Any hook/lockfile mismatch surfaces as a ruff version error and nothing else</li>
+<li>Children that fall behind their bound are individually recoverable, without a calcipy release</li>
+</ul>
+<p>We will revisit this decision if:</p>
+<ul>
+<li>ruff changes <code>required-version</code> semantics or removes it</li>
+<li>Stale bounds across the fleet become a bigger operational burden than the drift they prevent</li>
+<li>ruff stabilizes <code>ruff: ignore</code> as the default suppression form, which would make the RUF105 ignore a migration to schedule rather than a preference to hold</li>
+<li>Preview rules keep causing incidents inside an allowed window, which would point at <code>select = ['ALL']</code> with <code>preview = true</code> as the thing to change instead</li>
+</ul>
+<h2 id="more-information">More Information<a class="headerlink" href="#more-information" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li>ruff versioning policy: https://docs.astral.sh/ruff/versioning/</li>
+<li>ruff <code>required-version</code>: https://docs.astral.sh/ruff/settings/#required-version</li>
+<li>ruff <code>preview</code>: https://docs.astral.sh/ruff/preview/</li>
+<li>RUF105 <code>noqa-comments</code>: https://docs.astral.sh/ruff/rules/noqa-comments/</li>
+<li>ruff 0.15.20 release (unknown selectors become warnings): https://github.com/astral-sh/ruff/releases/tag/0.15.20</li>
+<li>ruff 0.15.22 release (RUF105, RUF106, RUF201): https://github.com/astral-sh/ruff/releases/tag/0.15.22</li>
+<li>ruff 0.16.0 release: https://github.com/astral-sh/ruff/releases/tag/0.16.0</li>
+<li>ruff 0.16 blog post: https://astral.sh/blog/ruff-v0.16.0</li>
+<li>ruff-pre-commit: https://github.com/astral-sh/ruff-pre-commit</li>
+<li>pre-commit <code>rev</code> and <code>autoupdate</code>: https://pre-commit.com/</li>
+<li>black stability policy: https://black.readthedocs.io/en/stable/the_black_code_style/index.html</li>
+<li>prettier install guidance: https://prettier.io/docs/install</li>
+<li>golangci-lint CI install guidance: https://golangci-lint.run/docs/welcome/install/ci/</li>
+<li>Related: <a href="../0003-use-ruff-for-linting-and-formatting/">ADR-0003</a> - Use Ruff for Linting and Formatting</li>
+</ul>
 
 
 
@@ -2452,14 +2514,14 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate":null,"base":"../../../..","features":["toc.autohide"],"search":"../../../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["toc.autohide"],"search":"../../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.ee611ef6.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ee611ef6.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.6.0/tablesort.min.js"></script>
       
-        <script src="../../../../_javascript/tables.js"></script>
+        <script src="../../../_javascript/tables.js"></script>
       
     
   </body>

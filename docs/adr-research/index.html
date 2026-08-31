@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://calcipy.kyleking.me/docs/adr-research/">
       
       
-        <link rel="prev" href="../adr/0007-provide-multiple-cli-entry-points/">
+        <link rel="prev" href="../adr/0009-pin-ruff-versions-for-the-lint-fix-hook/">
       
       
         <link rel="next" href="./ai-guidance-for-adrs/">
@@ -716,6 +716,60 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0008-adopt-vale-ai-tells-for-prose-linting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adopt vale-ai-tells for Prose Linting (Beta)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0009-pin-ruff-versions-for-the-lint-fix-hook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Pin Ruff Versions for the Lint-Fix Hook
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -864,6 +918,17 @@
     <span class="md-ellipsis">
       <span class="md-typeset">
         Comparison and Guidance
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#research-backing-specific-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Research Backing Specific Decisions
       </span>
     </span>
   </a>
@@ -1179,6 +1244,33 @@
   
   
     <li class="md-nav__item">
+      <a href="./ai-slop-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Detecting AI slop in prose
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./aws-adr-guide/" class="md-nav__link">
         
   
@@ -1214,6 +1306,33 @@
     
   
   ADR Approaches: Comparison and Recommendations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./docs-site-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Successor to MkDocs for package docs
 
     
   </span>
@@ -1688,6 +1807,33 @@
     
   
   Check duplicate test names
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/calcipy/experiments/slop_corpus_export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Slop corpus export
 
     
   </span>
@@ -2279,6 +2425,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#research-backing-specific-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Research Backing Specific Decisions
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2581,6 +2738,12 @@
 <ol>
 <li><strong><a href="comparison-and-recommendations/">Comparison and Recommendations</a></strong> - Side-by-side comparison with recommendations for different project scales</li>
 <li><strong><a href="ai-guidance-for-adrs/">AI Guidance for ADRs</a></strong> - Comprehensive guide for AI assistants to write and review ADRs</li>
+</ol>
+<h3 id="research-backing-specific-decisions">Research Backing Specific Decisions<a class="headerlink" href="#research-backing-specific-decisions" title="Permanent link">⚓︎</a></h3>
+<p>Unlike the ADR-methodology research above, these documents back a single numbered ADR and stay alongside it as supporting context.</p>
+<ol>
+<li><strong><a href="ai-slop-detection/">AI Slop Detection</a></strong> - Landscape of offline prose linters and provenance detectors, backing <a href="../adr/0008-adopt-vale-ai-tells-for-prose-linting/">ADR-0008</a></li>
+<li><strong><a href="docs-site-generator/">Docs Site Generator</a></strong> - Why the copier-template family&rsquo;s docs sites moved off MkDocs to Zensical. No numbered ADR yet</li>
 </ol>
 <h2 id="quick-decision-guide">Quick Decision Guide<a class="headerlink" href="#quick-decision-guide" title="Permanent link">⚓︎</a></h2>
 <h3 id="choose-by-project-size">Choose by Project Size<a class="headerlink" href="#choose-by-project-size" title="Permanent link">⚓︎</a></h3>

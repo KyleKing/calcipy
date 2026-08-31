@@ -909,6 +909,60 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./docs/adr/0008-adopt-vale-ai-tells-for-prose-linting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Adopt vale-ai-tells for Prose Linting (Beta)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./docs/adr/0009-pin-ruff-versions-for-the-lint-fix-hook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Pin Ruff Versions for the Lint-Fix Hook
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1023,6 +1077,33 @@
   
   
     <li class="md-nav__item">
+      <a href="./docs/adr-research/ai-slop-detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Detecting AI slop in prose
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./docs/adr-research/aws-adr-guide/" class="md-nav__link">
         
   
@@ -1058,6 +1139,33 @@
     
   
   ADR Approaches: Comparison and Recommendations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./docs/adr-research/docs-site-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Successor to MkDocs for package docs
 
     
   </span>
@@ -1532,6 +1640,33 @@
     
   
   Check duplicate test names
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./reference/calcipy/experiments/slop_corpus_export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Slop corpus export
 
     
   </span>
@@ -2336,7 +2471,7 @@ uvx<span class="w"> </span>copier<span class="w"> </span>update
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Add as development dependency with all tools</span>
-uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[dev]&#39;</span>
+uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[recommended]&#39;</span>
 
 <span class="c1"># Or install specific extras</span>
 uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </span><span class="s1">&#39;calcipy[test,doc,types]&#39;</span>
@@ -2563,7 +2698,12 @@ uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </spa
 <span class="normal">74</span>
 <span class="normal">75</span>
 <span class="normal">76</span>
-<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">calcipy</span><span class="w"> </span><span class="o">[</span><span class="n">--core-opts</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;</span><span class="n">subcommand</span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">--subcommand-opts</span><span class="o">]</span><span class="w"> </span><span class="p">...</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">calcipy</span><span class="w"> </span><span class="o">[</span><span class="n">--core-opts</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;</span><span class="n">subcommand</span><span class="o">&gt;</span><span class="w"> </span><span class="o">[</span><span class="n">--subcommand-opts</span><span class="o">]</span><span class="w"> </span><span class="p">...</span>
 
 <span class="n">Core</span><span class="w"> </span><span class="nl">options</span><span class="p">:</span>
 
@@ -2610,6 +2750,11 @@ uv<span class="w"> </span>add<span class="w"> </span>--dev<span class="w"> </spa
 <span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">lint</span><span class="p">)</span><span class="w">               </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">check</span><span class="o">-</span><span class="k">only</span><span class="p">.</span>
 <span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">fix</span><span class="w">                        </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="n">fixes</span><span class="p">.</span>
 <span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">pre</span><span class="o">-</span><span class="k">commit</span><span class="w">                 </span><span class="n">Run</span><span class="w"> </span><span class="n">prek</span><span class="p">.</span>
+<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">prose</span><span class="w">                      </span><span class="n">Run</span><span class="w"> </span><span class="n">vale</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">ai</span><span class="o">-</span><span class="n">tells</span><span class="w"> </span><span class="n">style</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="n">AI</span><span class="o">-</span>
+<span class="w">                                  </span><span class="n">generated</span><span class="w"> </span><span class="n">prose</span><span class="w"> </span><span class="n">tells</span><span class="w"> </span><span class="p">(</span><span class="n">beta</span><span class="p">).</span>
+<span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">slop</span><span class="o">-</span><span class="n">export</span><span class="w">                </span><span class="n">Export</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Markdown</span><span class="w"> </span><span class="n">corpus</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">slop</span><span class="o">-</span><span class="n">forensics</span>
+<span class="w">                                  </span><span class="n">JSONL</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">occasional</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">job</span><span class="w"> </span><span class="n">companion</span><span class="w"> </span><span class="k">to</span>
+<span class="w">                                  </span><span class="err">`</span><span class="n">lint</span><span class="p">.</span><span class="n">prose</span><span class="err">`</span><span class="w"> </span><span class="p">(</span><span class="n">beta</span><span class="p">).</span>
 <span class="w">  </span><span class="n">lint</span><span class="p">.</span><span class="n">watch</span><span class="w">                      </span><span class="n">Run</span><span class="w"> </span><span class="n">ruff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">check</span><span class="o">-</span><span class="k">only</span><span class="p">.</span>
 <span class="w">  </span><span class="n">nox</span><span class="p">.</span><span class="n">noxfile</span><span class="w"> </span><span class="p">(</span><span class="n">nox</span><span class="p">)</span><span class="w">               </span><span class="n">Run</span><span class="w"> </span><span class="n">nox</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="n">noxfile</span><span class="p">.</span>
 <span class="w">  </span><span class="n">pack</span><span class="p">.</span><span class="n">bump</span><span class="o">-</span><span class="n">tag</span><span class="w">                   </span><span class="n">Experiment</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">bumping</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="k">using</span>

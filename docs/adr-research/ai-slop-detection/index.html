@@ -12,36 +12,36 @@
         <meta name="author" content="Kyle King">
       
       
-        <link rel="canonical" href="https://calcipy.kyleking.me/docs/STYLE_GUIDE/">
+        <link rel="canonical" href="https://calcipy.kyleking.me/docs/adr-research/ai-slop-detection/">
       
       
-        <link rel="prev" href="../MIGRATION/">
+        <link rel="prev" href="../ai-guidance-for-adrs/">
       
       
-        <link rel="next" href="../adr/">
+        <link rel="next" href="../aws-adr-guide/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="zensical-0.0.46">
     
     
       
-        <title>Personal Style Guides - calcipy</title>
+        <title>Detecting AI slop in prose - calcipy</title>
       
     
     
       
         
       
-      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.19d3147f.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/modern/main.19d3147f.min.css">
       
         
           
         
-        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/modern/palette.dfe2e883.min.css">
       
       
 
@@ -60,9 +60,9 @@
       
     
     
-      <link rel="stylesheet" href="../../_styles/mkdocstrings.css">
+      <link rel="stylesheet" href="../../../_styles/mkdocstrings.css">
     
-    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    <script>__md_scope=new URL("../../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
     
       
 
@@ -87,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#personal-style-guides" class="md-skip">
+        <a href="#detecting-ai-slop-in-prose" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +103,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
+    <a href="../../.." title="calcipy" class="md-header__button md-logo" aria-label="calcipy" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Personal Style Guides
+              Detecting AI slop in prose
             
           </span>
         </div>
@@ -198,7 +198,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
+    <a href="../../.." title="calcipy" class="md-nav__button md-logo" aria-label="calcipy" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
@@ -228,7 +228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -254,7 +254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../zensical-migration-guide/" class="md-nav__link">
+      <a href="../../../zensical-migration-guide/" class="md-nav__link">
         
   
   
@@ -327,7 +327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CHANGELOG/" class="md-nav__link">
+      <a href="../../CHANGELOG/" class="md-nav__link">
         
   
   
@@ -354,7 +354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CODE_TAG_SUMMARY/" class="md-nav__link">
+      <a href="../../CODE_TAG_SUMMARY/" class="md-nav__link">
         
   
   
@@ -381,7 +381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../DEVELOPER_GUIDE/" class="md-nav__link">
+      <a href="../../DEVELOPER_GUIDE/" class="md-nav__link">
         
   
   
@@ -408,7 +408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../MIGRATION/" class="md-nav__link">
+      <a href="../../MIGRATION/" class="md-nav__link">
         
   
   
@@ -432,36 +432,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Personal Style Guides
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="././" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../STYLE_GUIDE/" class="md-nav__link">
         
   
   
@@ -476,110 +450,6 @@
   
 
       </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#git" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Git
-      </span>
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Git">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#commitizen-types-and-scopes" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Commitizen Types and Scopes
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git-description-guidelines" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Git Description Guidelines
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#issue-labels-and-milestones" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Issue Labels and Milestones
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#external-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        External Links
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Python
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adrs" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        ADRs
-      </span>
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -637,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/" class="md-nav__link">
+      <a href="../../adr/" class="md-nav__link">
         
   
   
@@ -664,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0001-record-architecture-decisions/" class="md-nav__link">
+      <a href="../../adr/0001-record-architecture-decisions/" class="md-nav__link">
         
   
   
@@ -691,7 +561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0002-use-invoke-for-task-automation/" class="md-nav__link">
+      <a href="../../adr/0002-use-invoke-for-task-automation/" class="md-nav__link">
         
   
   
@@ -718,7 +588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
+      <a href="../../adr/0003-use-ruff-for-linting-and-formatting/" class="md-nav__link">
         
   
   
@@ -745,7 +615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
+      <a href="../../adr/0004-switch-to-uv-for-dependency-management/" class="md-nav__link">
         
   
   
@@ -772,7 +642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
+      <a href="../../adr/0005-use-beartype-for-runtime-type-checking/" class="md-nav__link">
         
   
   
@@ -799,7 +669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0006-use-hatchling-for-build-backend/" class="md-nav__link">
+      <a href="../../adr/0006-use-hatchling-for-build-backend/" class="md-nav__link">
         
   
   
@@ -826,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0007-provide-multiple-cli-entry-points/" class="md-nav__link">
+      <a href="../../adr/0007-provide-multiple-cli-entry-points/" class="md-nav__link">
         
   
   
@@ -853,7 +723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0008-adopt-vale-ai-tells-for-prose-linting/" class="md-nav__link">
+      <a href="../../adr/0008-adopt-vale-ai-tells-for-prose-linting/" class="md-nav__link">
         
   
   
@@ -880,7 +750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/0009-pin-ruff-versions-for-the-lint-fix-hook/" class="md-nav__link">
+      <a href="../../adr/0009-pin-ruff-versions-for-the-lint-fix-hook/" class="md-nav__link">
         
   
   
@@ -912,18 +782,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
         
           
           <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
@@ -943,7 +815,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -960,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -987,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/ai-guidance-for-adrs/" class="md-nav__link">
+      <a href="../ai-guidance-for-adrs/" class="md-nav__link">
         
   
   
@@ -1011,10 +883,36 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../adr-research/ai-slop-detection/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Detecting AI slop in prose
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1029,6 +927,138 @@
   
 
       </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        The problem
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Landscape
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Landscape">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-the-perplexity-methods-are-a-dead-end-for-me" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Why the perplexity methods are a dead end for me
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-the-word-list-from-your-own-corpus" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Building the word list from your own corpus
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-1-vale-ai-tells" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Demo 1: vale-ai-tells
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-2-slop-forensics" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Demo 2: slop-forensics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#false-positives-to-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        False positives to expect
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-id-adopt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What I&rsquo;d adopt
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1041,7 +1071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/aws-adr-guide/" class="md-nav__link">
+      <a href="../aws-adr-guide/" class="md-nav__link">
         
   
   
@@ -1068,7 +1098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/comparison-and-recommendations/" class="md-nav__link">
+      <a href="../comparison-and-recommendations/" class="md-nav__link">
         
   
   
@@ -1095,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/docs-site-generator/" class="md-nav__link">
+      <a href="../docs-site-generator/" class="md-nav__link">
         
   
   
@@ -1122,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/ethereum-eips/" class="md-nav__link">
+      <a href="../ethereum-eips/" class="md-nav__link">
         
   
   
@@ -1149,7 +1179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/log4brains/" class="md-nav__link">
+      <a href="../log4brains/" class="md-nav__link">
         
   
   
@@ -1176,7 +1206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/madr/" class="md-nav__link">
+      <a href="../madr/" class="md-nav__link">
         
   
   
@@ -1203,7 +1233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/prefect-pins/" class="md-nav__link">
+      <a href="../prefect-pins/" class="md-nav__link">
         
   
   
@@ -1230,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/real-world-examples/" class="md-nav__link">
+      <a href="../real-world-examples/" class="md-nav__link">
         
   
   
@@ -1257,7 +1287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr-research/y-statements/" class="md-nav__link">
+      <a href="../y-statements/" class="md-nav__link">
         
   
   
@@ -1389,7 +1419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/cli/" class="md-nav__link">
+      <a href="../../../reference/calcipy/cli/" class="md-nav__link">
         
   
   
@@ -1416,7 +1446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/collection/" class="md-nav__link">
+      <a href="../../../reference/calcipy/collection/" class="md-nav__link">
         
   
   
@@ -1443,7 +1473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/invoke_helpers/" class="md-nav__link">
+      <a href="../../../reference/calcipy/invoke_helpers/" class="md-nav__link">
         
   
   
@@ -1470,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/scripts/" class="md-nav__link">
+      <a href="../../../reference/calcipy/scripts/" class="md-nav__link">
         
   
   
@@ -1542,7 +1572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/experiments/bump_programmatically/" class="md-nav__link">
+      <a href="../../../reference/calcipy/experiments/bump_programmatically/" class="md-nav__link">
         
   
   
@@ -1569,7 +1599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/experiments/check_duplicate_test_names/" class="md-nav__link">
+      <a href="../../../reference/calcipy/experiments/check_duplicate_test_names/" class="md-nav__link">
         
   
   
@@ -1596,7 +1626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/experiments/slop_corpus_export/" class="md-nav__link">
+      <a href="../../../reference/calcipy/experiments/slop_corpus_export/" class="md-nav__link">
         
   
   
@@ -1676,7 +1706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/all_tasks/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/all_tasks/" class="md-nav__link">
         
   
   
@@ -1703,7 +1733,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/cl/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/cl/" class="md-nav__link">
         
   
   
@@ -1730,7 +1760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/defaults/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/defaults/" class="md-nav__link">
         
   
   
@@ -1757,7 +1787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/doc/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/doc/" class="md-nav__link">
         
   
   
@@ -1784,7 +1814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/executable_utils/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/executable_utils/" class="md-nav__link">
         
   
   
@@ -1811,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/lint/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/lint/" class="md-nav__link">
         
   
   
@@ -1838,7 +1868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/nox/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/nox/" class="md-nav__link">
         
   
   
@@ -1865,7 +1895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/pack/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/pack/" class="md-nav__link">
         
   
   
@@ -1892,7 +1922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/tags/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/tags/" class="md-nav__link">
         
   
   
@@ -1919,7 +1949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/test/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/test/" class="md-nav__link">
         
   
   
@@ -1946,7 +1976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/calcipy/tasks/types/" class="md-nav__link">
+      <a href="../../../reference/calcipy/tasks/types/" class="md-nav__link">
         
   
   
@@ -2086,7 +2116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
+      <a href="../../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
         
   
   
@@ -2162,22 +2192,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#git" class="md-nav__link">
+  <a href="#the-problem" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Git
+        The problem
       </span>
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Git">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Landscape
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Landscape">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#commitizen-types-and-scopes" class="md-nav__link">
+  <a href="#why-the-perplexity-methods-are-a-dead-end-for-me" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Commitizen Types and Scopes
+        Why the perplexity methods are a dead end for me
       </span>
     </span>
   </a>
@@ -2185,32 +2226,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#git-description-guidelines" class="md-nav__link">
+  <a href="#building-the-word-list-from-your-own-corpus" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Git Description Guidelines
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#issue-labels-and-milestones" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        Issue Labels and Milestones
-      </span>
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#external-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      <span class="md-typeset">
-        External Links
+        Building the word list from your own corpus
       </span>
     </span>
   </a>
@@ -2223,10 +2242,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#python" class="md-nav__link">
+  <a href="#demo-1-vale-ai-tells" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        Python
+        Demo 1: vale-ai-tells
       </span>
     </span>
   </a>
@@ -2234,10 +2253,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#adrs" class="md-nav__link">
+  <a href="#demo-2-slop-forensics" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        ADRs
+        Demo 2: slop-forensics
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Results
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#false-positives-to-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        False positives to expect
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-id-adopt" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        What I&rsquo;d adopt
       </span>
     </span>
   </a>
@@ -2262,198 +2320,206 @@
   
 
 
-<h1 id="personal-style-guides">Personal Style Guides<a class="headerlink" href="#personal-style-guides" title="Permanent link">⚓︎</a></h1>
-<h2 id="git">Git<a class="headerlink" href="#git" title="Permanent link">⚓︎</a></h2>
-<p>We use <a href="https://github.com/commitizen-tools/commitizen">Commitizen</a> to manage both an auto-generated <a href="https://keepachangelog.com/en/1.0.0/">Changelog</a> and incrementing the release version following <a href="https://semver.org/">semver</a>. For both of these automated outputs to work well, please follow the <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> style, which is described in more detail below.</p>
-<h3 id="commitizen-types-and-scopes">Commitizen Types and Scopes<a class="headerlink" href="#commitizen-types-and-scopes" title="Permanent link">⚓︎</a></h3>
+<h1 id="detecting-ai-slop-in-prose">Detecting AI slop in prose<a class="headerlink" href="#detecting-ai-slop-in-prose" title="Permanent link">⚓︎</a></h1>
+<p>Research backing <a href="../../adr/0008-adopt-vale-ai-tells-for-prose-linting/">ADR-0008: Adopt vale-ai-tells for Prose Linting</a>.</p>
+<h2 id="the-problem">The problem<a class="headerlink" href="#the-problem" title="Permanent link">⚓︎</a></h2>
+<p>Word lists go stale. Ban &ldquo;delve&rdquo;, then &ldquo;tapestry&rdquo;, then em dashes, and the next model release brings a new set. What I want is tooling that catches the <em>class</em> of tell, runs offline, and fits in a pre-commit hook.</p>
+<p>The phrase &ldquo;AI slop detection&rdquo; covers separate questions, and the tooling splits along that line:</p>
+<ul>
+<li><strong>Provenance</strong> (was this generated by a model) is what classifiers and perplexity methods answer</li>
+<li><strong>Quality</strong> (does this read like machine boilerplate) is what prose linters answer</li>
+</ul>
+<p>For my own writing the second question is the useful one. Provenance detectors will flag an edited-from-an-AI-draft paragraph the same as pure slop, which tells me nothing I want to act on.</p>
+<h2 id="landscape">Landscape<a class="headerlink" href="#landscape" title="Permanent link">⚓︎</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Kind</th>
+<th>Runs</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/tbhb/vale-ai-tells">vale-ai-tells</a></td>
+<td>Prose linter</td>
+<td>Offline</td>
+<td>77 rules, structural not just lexical</td>
+</tr>
+<tr>
+<td><a href="https://github.com/hwajongpark/slop-gate">slop-gate</a></td>
+<td>Prose linter</td>
+<td>Offline</td>
+<td><code>npx</code>, ~40 tells, <code>--baseline</code> mode</td>
+</tr>
+<tr>
+<td><a href="https://ammil.industries/signs-of-ai-writing-a-vale-ruleset/">Signs of AI Writing</a></td>
+<td>Vale ruleset</td>
+<td>Offline</td>
+<td>Derived from Wikipedia&rsquo;s field guide</td>
+</tr>
+<tr>
+<td><a href="https://github.com/sam-paech/slop-forensics">slop-forensics</a></td>
+<td>Corpus profiler</td>
+<td>Offline</td>
+<td>Builds word lists from your own corpus</td>
+</tr>
+<tr>
+<td><a href="https://github.com/ahans30/Binoculars">Binoculars</a></td>
+<td>Perplexity detector</td>
+<td>2x 7B models</td>
+<td>ICML 2024, needs a GPU</td>
+</tr>
+<tr>
+<td><a href="https://github.com/baoguangsheng/fast-detect-gpt">Fast-DetectGPT</a></td>
+<td>Perplexity detector</td>
+<td>1 local model</td>
+<td>ICLR 2024, 340x faster than DetectGPT</td>
+</tr>
+<tr>
+<td><a href="https://www.pangram.com">Pangram</a></td>
+<td>Commercial classifier</td>
+<td>API</td>
+<td>Lowest published false-positive rate</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/hwajongpark/awesome-slop">awesome-slop</a> catalogs the rest, including per-language word lists.</p>
+<h3 id="why-the-perplexity-methods-are-a-dead-end-for-me">Why the perplexity methods are a dead end for me<a class="headerlink" href="#why-the-perplexity-methods-are-a-dead-end-for-me" title="Permanent link">⚓︎</a></h3>
+<p>Binoculars scores the ratio of a text&rsquo;s log-perplexity under an observer model against the cross-perplexity between an observer and a performer model. That normalization cancels the prompt-difficulty confound that makes raw perplexity useless on technical writing, which is a clever fix. Reported numbers are</p>
 <blockquote>
-<p><code>type(scope): description</code></p>
+<p>90% detection at 0.01% false positives.</p>
 </blockquote>
-<ul>
-<li><strong>Types</strong><ul>
-<li><em>fix</em>: A bug fix</li>
-<li><em>feat</em>: A new feature</li>
-<li><em>docs</em>: Documentation-only changes (code comments, separate docs)</li>
-<li><em>style</em>: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons)</li>
-<li><em>perf</em>: A code change that improves performance</li>
-<li><em>refactor</em>: A change to production code that is not a <em>fix</em>, <em>feat</em>, or <em>perf</em></li>
-<li><em>test</em>: Adding missing or correcting existing tests</li>
-<li><em>build</em>: Changes that affect the build system or external dependencies</li>
-<li><em>ci</em>: Changes to our CI configuration files and scripts</li>
-<li>A <code>!</code> can be used to indicate a breaking change (<code>refactor!: drop support for Node 6</code>)</li>
-<li><strong>SemVer Rules</strong><ul>
-<li>Based on commit type, the version will be auto-incremented: <code>fix : PATCH // feat : MINOR // BREAKING CHANGE : MAJOR</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Scopes</strong><ul>
-<li>A Class, File name, Issue Number, other appropriate noun. As examples: <code>build(uv): bump requests to v3</code> or <code>style(#32): add missing type annotations</code></li>
-</ul>
-</li>
-<li><strong>Tips</strong><ul>
-<li>What if a commit fits multiple types?<ul>
-<li>Go back and make multiple commits whenever possible. Part of the benefit of Conventional Commits is the focus on more organized and intentional changes</li>
-</ul>
-</li>
-<li>Use <code>git rebase -i</code> to fix commit names prior to merging if incorrect types/scopes are used</li>
-</ul>
-</li>
-</ul>
-<h3 id="git-description-guidelines">Git Description Guidelines<a class="headerlink" href="#git-description-guidelines" title="Permanent link">⚓︎</a></h3>
-<ul>
-<li><a href="https://writingfordevelopers.substack.com/p/how-to-write-a-commit-message">Commit message guidelines</a><ul>
-<li>Full sentence with verb (<em>lowercase</em>) and concise description. Below are modified examples for Conventional Commits<ul>
-<li><code>fix(roles): bug in admin role permissions</code></li>
-<li><code>feat(ui): implement new button design</code></li>
-<li><code>build(pip): upgrade package to remove vulnerabilities</code></li>
-<li><code>refactor: file structure to improve code readability</code></li>
-<li><code>perf(cli): rewrite methods</code></li>
-<li><code>feat(api): endpoints to implement new customer dashboard</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://chris.beams.io/posts/git-commit/">How to write a good commit message</a><ul>
-<li>A diff will tell you what changed, but only the commit message can properly tell you why.</li>
-<li>Keep in mind: <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">This</a> <a href="https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines">has</a> <a href="https://github.com/torvalds/subsurface-for-dirk/blob/master/README.md#contributing">all</a> <a href="http://who-t.blogspot.co.at/2009/12/on-commit-messages.html">been</a> <a href="https://github.com/erlang/otp/wiki/writing-good-commit-messages">said</a> <a href="https://github.com/spring-projects/spring-framework/blob/30bce7/CONTRIBUTING.md#format-commit-messages">before</a>.</li>
-<li>From the seven rules of a great Git commit message:<ul>
-<li>(2) <a href="https://chris.beams.io/posts/git-commit/#limit-50">Try for 50 characters, but consider 72 the hard limit</a></li>
-<li>(7) <a href="https://chris.beams.io/posts/git-commit/#why-not-how">Use the body to explain what and why vs. how</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="issue-labels-and-milestones">Issue Labels and Milestones<a class="headerlink" href="#issue-labels-and-milestones" title="Permanent link">⚓︎</a></h3>
-<p>Personal Guide</p>
-<ul>
-<li>For Issue Labels, see [labels.yml][labels]</li>
-<li>Milestones<ul>
-<li><strong>Current Tasks</strong>: main milestone (<em>name could change based on a specific project, sprint, or month</em>)</li>
-<li><strong>Next Tasks</strong></li>
-<li><strong>Blue Sky</strong></li>
-</ul>
-</li>
-</ul>
-<details>
-<summary>Research</summary>
-<ul>
-<li>[Sane GitHub Labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63) and see [sensible-github-labels](https://github.com/Relequestual/sensible-github-labels) for full descriptions of each</li>
-    <ul>
-        <li>“it is much more helpful to see the status and type of all issues at a glance.”</li>
-        <li>One of each:</li>
-        <ul>
-            <li>Status: …</li>
-                <ul><li>Abandoned, Accepted, Available, Blocked, Completed, In Progress, On Hold, Pending, Review Needed, Revision Needed</li></ul>
-            <li>Type: …</li>
-                <ul><li>Bug, Maintenance, Question, Enhancement</li></ul>
-            <li>Priority: …</li>
-                <ul><li>Critical, High, Medium, Low</li></ul>
-        </ul>
-    </ul>
-    <li>[Britecharts](https://britecharts.github.io/britecharts/github-labels.html)</li>
-    <ul>
-        <li>Status: …</li>
-            <ul>
-                <li>On Review – Request that we are pondering if including or not</li>
-                <li>Needs Reproducing – For bugs that need to be reproduced in order to get fixed</li>
-                <li>Needs Design – Feature that needs a design</li>
-                <li>Ready to Go – Issue that has been defined and is ready to get started with</li>
-                <li>In Progress – Issue that is being worked on right now.</li>
-                <li>Completed – Finished feature or fix</li>
-            </ul>
-        <li>Type: …</li>
-            <ul>
-                <li>Bug – An unexpected problem or unintended behavior</li>
-                <li>Feature – A new feature request</li>
-                <li>Maintenance – A regular maintenance chore or task, including refactors, build system, CI, performance improvements</li>
-                <li>Documentation – A documentation improvement task</li>
-                <li>Question – An issue or PR that needs more information or a user question</li>
-            </ul>
-        <li>Not Included</li>
-            <ul>
-                <li>Priority: They would add complexity and overhead due to the discussions, but could help with the roadmap</li>
-                <li>Technology Labels: It can create too much overhead, as properly tag with technologies all the issues could be time consuming</li>
-            </ul>
-        </ul>
-    </ul>
-    <li>[Ian Bicking Blog](https://www.ianbicking.org/blog/2014/03/use-github-issues-to-organize-a-project.html)</li>
-    <ul>
-        <li>Milestone Overview</li>
-        <ul>
-            <li>What are we doing right now?</li>
-            <li>What aren’t we doing right now?</li>
-                <ul>
-                    <li>2a. Stuff we’ll probably do soon</li>
-                    <li>2b. Stuff we probably won’t do soon</li>
-                </ul>
-            <li>What aren’t we sure about?</li>
-        </ul>
-        <li>Milestone Descriptions</li>
-        <ul>
-            <li>Stuff we are doing right now: this is the “main” milestone. We give it a name (like Alpha 2 or Strawberry Rhubarb Pie) and we write down what we are trying to accomplish with the milestone. We create a new milestone when we are ready for the next iteration.</li>
-            <li>Stuff we’ll probably do soon: this is a standing “**Next Tasks**” milestone. We never change or rename this milestone.</li>
-                <ul><li>We use a permanent “Next Tasks” milestone (as opposed to renaming it to “Alpha 3” or actual-next-iteration milestone) because we don’t want to presume or default to including something in the real next iteration. When we’re ready to start planning the next iteration we’ll create a new milestone, and only deliberately move things into that milestone.</li></ul>
-            <li>Stuff we probably won’t do soon: this is a standing “**Blue Sky**” milestone. We refer to these tickets and sometimes look through them, but they are easy to ignore, somewhat intentionally ignored.</li>
-            <li>What aren’t we sure about?: issues with no milestone.</li>
-        </ul>
-        <li>Label: “Needs Discussion” - (addressed in a triage meeting) - use liberally for either big or small tickets</li>
-        <li>“It’s better to give people more power: it’s actually helpful if people can overreach because it is an opportunity to establish where the limits really are and what purpose those limits have”</li>
-    </ul>
-</ul>
-</details>
+<p>Both it and Fast-DetectGPT were tuned on 2023-era generations and degrade against newer models, heavy editing, and prompted style. They also answer the provenance question. Two 7B models resident to learn that a doc I already know I drafted with Claude was drafted with Claude is not a trade I want.</p>
+<h3 id="building-the-word-list-from-your-own-corpus">Building the word list from your own corpus<a class="headerlink" href="#building-the-word-list-from-your-own-corpus" title="Permanent link">⚓︎</a></h3>
+<p>slop-forensics is the interesting one. Instead of a fixed word list it computes over-representation of words and n-grams against a human baseline, producing a &ldquo;slop fingerprint&rdquo; per corpus. Point it at my own output and it generates a word list specific to whatever model I actually use, which is the only way out of the staleness problem.</p>
+<h2 id="demo-1-vale-ai-tells">Demo 1: vale-ai-tells<a class="headerlink" href="#demo-1-vale-ai-tells" title="Permanent link">⚓︎</a></h2>
+<p>Vale is already on the box. The package is a release zip and a <code>vale sync</code>.</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># .vale.ini</span>
+<span class="na">StylesPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">styles</span>
+<span class="na">MinAlertLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">suggestion</span>
+<span class="na">Packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://github.com/tbhb/vale-ai-tells/releases/download/v1.27.2/ai-tells.zip</span>
 
-<h3 id="external-links">External Links<a class="headerlink" href="#external-links" title="Permanent link">⚓︎</a></h3>
-<p>Additional resources for Git best practices and commit message conventions.</p>
+<span class="k">[*.md]</span>
+<span class="na">BasedOnStyles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ai-tells</span>
+</code></pre></div></td></tr></table></div>
+
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>vale<span class="w"> </span>sync<span class="w">                                    </span><span class="c1"># pulls 77 rule files into styles/ai-tells</span>
+vale<span class="w"> </span>--output<span class="o">=</span>JSON<span class="w"> </span>README.md<span class="w"> </span>docs/<span class="w"> </span>&gt;<span class="w"> </span>out.json
+</code></pre></div></td></tr></table></div>
+
+<p>Exit code is 1 when alerts fire, so it drops into hk or CI unchanged.</p>
+<p>The rules worth having go past vocabulary. <code>CataphoricForecasting</code> catches &ldquo;Three markers:&rdquo; announcing a count before the items. <code>ContrastiveNegation</code> catches &ldquo;no letter counts, no positions, no rhymes&rdquo;. <code>AnthropomorphicJustification</code> catches &ldquo;load-bearing&rdquo;. <code>VerbTricolon</code> catches three-verb enumerations clustered in one paragraph. <code>MicDrop</code> catches the isolated two-word closer. <code>LabelAndExplain</code> catches &ldquo;The problem:&rdquo; as a bullet lead-in.</p>
+<h2 id="demo-2-slop-forensics">Demo 2: slop-forensics<a class="headerlink" href="#demo-2-slop-forensics" title="Permanent link">⚓︎</a></h2>
+<p><code>slop_profile.py</code> reads JSONL of model generations, so an arbitrary corpus of Markdown needs an adapter. Records need <code>model</code>, <code>source</code>, <code>id</code>, and <code>output</code>, in a file named <code>generated_&lt;name&gt;.jsonl</code>.</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/sam-paech/slop-forensics.git
+uv<span class="w"> </span>venv<span class="w"> </span>venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--python<span class="w"> </span>venv/bin/python<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>nltk<span class="w"> </span>regex<span class="w"> </span>wordfreq<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>scipy<span class="w"> </span>tqdm<span class="w"> </span>python-dotenv<span class="w"> </span>requests<span class="w"> </span>joblib
+venv/bin/python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import nltk; [nltk.download(p) for p in (&#39;punkt&#39;,&#39;punkt_tab&#39;,&#39;stopwords&#39;,&#39;cmudict&#39;)]&quot;</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Watch for two things during install. <code>requirements.txt</code> pulls <code>ete3</code> and <code>PyQt5</code>, which are needed only for the phylogeny charts, so skip them. NLTK&rsquo;s import hardening blocks any module that resolves inside the current working directory, which means the venv must live outside the directory you run from, and anything under <code>/tmp</code> fails because <code>/tmp</code> resolves through <code>/private/tmp</code>.</p>
+<p>The adapter strips fenced code, front matter, inline code, link targets, and heading marks, then keeps documents over 150 words:</p>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">FENCE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^```.*?^```&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+<span class="n">FRONTMATTER</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\A---\n.*?\n---\n&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+<span class="n">INLINE_CODE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;`[^`]+`&#39;</span><span class="p">)</span>
+<span class="n">LINK</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\[([^\]]*)\]\([^)]*\)&#39;</span><span class="p">)</span>
+<span class="n">HEADING_MARK</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^#{1,6}\s+&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">to_prose</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">FRONTMATTER</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">raw</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">FENCE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">INLINE_CODE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">LINK</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HEADING_MARK</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;repo&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">rel_path</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span> <span class="n">to_prose</span><span class="p">(</span><span class="n">body</span><span class="p">)}</span>
+</code></pre></div></td></tr></table></div>
+
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>python<span class="w"> </span>scripts/slop_profile.py<span class="w"> </span>--input-dir<span class="w"> </span>~/.cache/aidetect/datasets<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--analysis-output-dir<span class="w"> </span>out/analysis<span class="w"> </span>--combined-output-file<span class="w"> </span>out/results.json<span class="w"> </span>--top-n<span class="w"> </span><span class="m">12</span>
+</code></pre></div></td></tr></table></div>
+
+<p><code>slop_score</code> is weighted hits per 1000 tokens against the bundled lists of 1000 words, 200 bigrams, and 200 trigrams, with bigrams counted double and trigrams counted 8x.</p>
+<h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">⚓︎</a></h2>
+<p>Run against <code>calcipy</code> (26 prose files, 30,369 words) and <code>boardgame-teaches</code> (18 files, 16,676 words).</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>calcipy</th>
+<th>boardgame-teaches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vale alerts per 1k words</td>
+<td>23.4</td>
+<td>20.1</td>
+</tr>
+<tr>
+<td>Same, excluding <code>ColonUsage</code></td>
+<td>6.7</td>
+<td>18.7</td>
+</tr>
+<tr>
+<td>slop-forensics <code>slop_score</code></td>
+<td>0.13</td>
+<td>1.08</td>
+</tr>
+<tr>
+<td><code>repetition_score</code></td>
+<td>16.4</td>
+<td>26.9</td>
+</tr>
+</tbody>
+</table>
+<p>The raw Vale counts say the two repos are about equal. They are not. 510 of calcipy&rsquo;s 712 alerts are <code>ColonUsage</code>, a capitalization rule that fires on every <code>**Label:** Sentence</code> bullet, which is a docs convention rather than a tell. Drop that one rule and calcipy sits at a third of boardgame-teaches. slop_score agrees at 8x, computed by a completely independent method, which is the part that makes me trust the ranking.</p>
+<p>That fits how the two were written. calcipy&rsquo;s prose is mostly changelog, migration notes, and ADRs. boardgame-teaches is drafted long-form and the tells cluster in <code>exports/</code>.</p>
+<p>Per-repo top rules, excluding <code>ColonUsage</code>:</p>
 <ul>
-<li>[Git: The Simple Guide][simple_git]</li>
-<li>[Commit Messages][gcmsg] and <a href="https://news.ycombinator.com/item?id=8874177">why use the present tense</a></li>
-<li><a href="https://github.com/erlang/otp/wiki/Writing-good-commit-messages">GitHub&rsquo;s Advice on GitHub</a></li>
-<li><a href="https://chris.beams.io/posts/git-commit/">Most Comprehensive Guide</a></li>
-<li><a href="https://git-scm.com/book/en/v2">Git Pro Book (free)</a><ul>
-<li><a href="https://git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash">Bash Tab-Completion Snippet</a></li>
+<li>calcipy leans lexical, with <code>FormalRegister</code> (72) and <code>OverusedVocabulary</code> (55) carrying most of it, concentrated in <code>docs/docs/adr-research/</code></li>
+<li>boardgame-teaches leans structural, with <code>EmDashUsage</code> (140), <code>VerbTricolon</code> (44), <code>CataphoricForecasting</code> (16), and <code>LabelAndExplain</code> (15)</li>
 </ul>
-</li>
-</ul>
-<h2 id="python">Python<a class="headerlink" href="#python" title="Permanent link">⚓︎</a></h2>
-<p>This project follows standard Python conventions and uses automated tools for code quality.</p>
-<ul>
-<li><strong>Automated Tools</strong>: We use <code>ruff</code> for linting and formatting, configured in <code>pyproject.toml</code></li>
-<li><strong>Type Hints</strong>: Use type annotations where appropriate to improve code clarity and catch errors early</li>
-<li><strong>Docstrings</strong>: Follow standard conventions for documenting modules, classes, and functions</li>
-</ul>
-<p><strong>Additional Style Guide References</strong>:
-- <a href="https://gist.github.com/sloria/7001839">https://gist.github.com/sloria/7001839</a>
-- <a href="http://www.nilunder.com/blog/2013/08/03/pythonic-sensibilities/">http://www.nilunder.com/blog/2013/08/03/pythonic-sensibilities/</a>
-- <a href="https://innoq.github.io/cards42org_en/">https://innoq.github.io/cards42org_en/</a>
-- <a href="https://docs.openstack.org/hacking/latest/user/hacking.html#styleguide">https://docs.openstack.org/hacking/latest/user/hacking.html#styleguide</a>
-- <a href="https://www.python.org/doc/humor/">https://www.python.org/doc/humor/</a>
-- <a href="https://docs.python-guide.org/writing/reading/">https://docs.python-guide.org/writing/reading/</a>
-- <a href="https://realpython.com/python-refactoring/">https://realpython.com/python-refactoring/</a></p>
-<h2 id="adrs">ADRs<a class="headerlink" href="#adrs" title="Permanent link">⚓︎</a></h2>
-<p>Architecture Decision Records (ADRs) document important architectural decisions and their context. Use ADRs when making significant technical decisions that will impact the project long-term.</p>
-<p><strong>When to Create an ADR</strong>:
-- Choosing between major architectural patterns or frameworks
-- Adopting new technologies or deprecating existing ones
-- Making decisions that affect multiple components or the system as a whole
-- Resolving technical debates that need documentation for future reference</p>
-<p><strong>ADR Approaches</strong>:
-    - <a href="https://infraeng.dev/tech-spec">https://infraeng.dev/tech-spec</a> Template (And <a href="https://infraeng.dev/tech-spec-review/">associated review</a>) vs. <a href="https://infraeng.dev/decision-log/">https://infraeng.dev/decision-log/</a>
-    - Y-Statements: <a href="https://medium.com/olzzio/y-statements-10eb07b5a177">abbreviated shorthand</a>. Add this as a one-line decision option if a full ADR isn&rsquo;t needed (or when referencing an existing ADR) (<a href="https://scribe.rip/@docsoc/y-statements-10eb07b5a177">https://scribe.rip/@docsoc/y-statements-10eb07b5a177</a>)
-    - https://adr.github.io
-    - More formal implementation of <a href="https://adr.github.io/madr/">ADRs (MADR) that this is based on</a>. Template: <a href="https://github.com/adr/madr/blob/97fb8edec60b8dc70b8166ef62de34c4e26b46c0/template/adr-template.md">https://github.com/adr/madr/blob/97fb8edec60b8dc70b8166ef62de34c4e26b46c0/template/adr-template.md</a>
-    - <a href="https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-5639.md">https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-5639.md</a>
-- Examples
-    - <a href="https://github.com/pawamoy/mkdocstrings/issues/28">https://github.com/pawamoy/mkdocstrings/issues/28</a>
-    - <a href="https://github.com/arachne-framework/architecture/blob/060a956277a5ad71df93da49fee52463408841af/adr-002-configuration.md">https://github.com/arachne-framework/architecture/blob/060a956277a5ad71df93da49fee52463408841af/adr-002-configuration.md</a>
-    - <a href="https://github.com/arachne-framework/architecture/tree/060a956277a5ad71df93da49fee52463408841af">https://github.com/arachne-framework/architecture/tree/060a956277a5ad71df93da49fee52463408841af</a>
-    - <a href="https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-1010.md">https://github.com/ethereum/EIPs/blob/confluenceuser/EIPS/eip-1010.md</a>
-    - <a href="https://docs-v1.prefect.io/core/pins/pin-01-introduce-pins.html">https://docs-v1.prefect.io/core/pins/pin-01-introduce-pins.html</a>
-    - <a href="https://peps.python.org/pep-0387">https://peps.python.org/pep-0387/</a>
-    - <a href="https://github.com/AICoE/aicoe-ci/blob/39de02af86a0d1f9dcd395fa88b858f1c6880411/docs/adr/0000-use-markdown-architectural-decision-records.md">https://github.com/AICoE/aicoe-ci/blob/39de02af86a0d1f9dcd395fa88b858f1c6880411/docs/adr/0000-use-markdown-architectural-decision-records.md</a>
-    - And many others!</p>
-<p>&lt;&ndash; Links &ndash;&gt;</p>
+<p>The <code>adr-research/</code> files in calcipy are the worst offenders (89, 76, and 72 alerts), which is unsurprising for research summaries. <code>docs/docs/STYLE_GUIDE.md:133</code> says &ldquo;Comprehensive Guide&rdquo; and <code>:81</code> opens with &ldquo;ready to get started&rdquo;.</p>
+<p>slop-forensics&rsquo; over-represented word lists were the least useful output. Measured against a general English baseline, calcipy&rsquo;s top words are <code>madr</code>, <code>linting</code>, <code>adrs</code>, <code>pypi</code>, and the MIT license boilerplate, while boardgame-teaches returns <code>encryptor</code>, <code>pamir</code>, <code>rulebook</code>, and <code>rupees</code>. That is domain vocabulary, not slop. The scalar <code>slop_score</code> is the signal. The word lists only become interesting when you profile several corpora written the same way and diff them.</p>
+<h3 id="false-positives-to-expect">False positives to expect<a class="headerlink" href="#false-positives-to-expect" title="Permanent link">⚓︎</a></h3>
+<p>Game vocabulary trips the figurative-verb rules. &ldquo;Dial lands on&rdquo; in Wavelength and &ldquo;Trophy wins.&rdquo; in Looot are literal, and the rule docs say as much (&ldquo;disable this rule for athletics&rdquo;). <code>ShipOveruse</code> fires on the software sense of ship. Any adopted config needs a per-repo disable list.</p>
+<p>This file trips its own linter seven times, all of them quoted examples of tells. Vale skips inline code, so wrap quoted examples in backticks if you want a doc about slop to come back clean.</p>
+<h2 id="what-id-adopt">What I&rsquo;d adopt<a class="headerlink" href="#what-id-adopt" title="Permanent link">⚓︎</a></h2>
+<p>Wire vale-ai-tells into hk as a prose step with <code>ColonUsage</code> off, <code>EmDashUsage</code> on (it matches my own rule), and the figurative-verb rules off in <code>boardgame-teaches/exports/</code>. It is deterministic, offline, and fast enough for a pre-commit hook, and it encodes most of my voice rules mechanically.</p>
+<p>Keep slop-forensics as an occasional batch job rather than a hook. Regenerating a custom Vale vocabulary from recent output every few months solves the staleness problem that kills every static rule pack.</p>
+<p>Skip the perplexity detectors and the commercial classifiers. They answer the provenance question, and I already know the answer.</p>
+<p>calcipy now ships both as beta tasks: <code>lint.prose</code> wraps vale-ai-tells for the pre-commit step, and <code>lint.slop-export</code> writes the JSONL adapter slop-forensics needs for the batch job. The full tool landscape, including the tools not adopted, moved to <a href="../../adr/0008-adopt-vale-ai-tells-for-prose-linting/#appendix-tool-catalog">ADR-0008&rsquo;s appendix</a>.</p>
 
 
 
@@ -2505,14 +2571,14 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["toc.autohide"],"search":"../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../..","features":["toc.autohide"],"search":"../../../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.ee611ef6.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ee611ef6.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.6.0/tablesort.min.js"></script>
       
-        <script src="../../_javascript/tables.js"></script>
+        <script src="../../../_javascript/tables.js"></script>
       
     
   </body>

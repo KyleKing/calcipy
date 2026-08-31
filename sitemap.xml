@@ -46,16 +46,28 @@
         <loc>https://calcipy.kyleking.me/docs/adr/0007-provide-multiple-cli-entry-points/</loc>
       </url>
       <url>
+        <loc>https://calcipy.kyleking.me/docs/adr/0008-adopt-vale-ai-tells-for-prose-linting/</loc>
+      </url>
+      <url>
+        <loc>https://calcipy.kyleking.me/docs/adr/0009-pin-ruff-versions-for-the-lint-fix-hook/</loc>
+      </url>
+      <url>
         <loc>https://calcipy.kyleking.me/docs/adr-research/</loc>
       </url>
       <url>
         <loc>https://calcipy.kyleking.me/docs/adr-research/ai-guidance-for-adrs/</loc>
       </url>
       <url>
+        <loc>https://calcipy.kyleking.me/docs/adr-research/ai-slop-detection/</loc>
+      </url>
+      <url>
         <loc>https://calcipy.kyleking.me/docs/adr-research/aws-adr-guide/</loc>
       </url>
       <url>
         <loc>https://calcipy.kyleking.me/docs/adr-research/comparison-and-recommendations/</loc>
+      </url>
+      <url>
+        <loc>https://calcipy.kyleking.me/docs/adr-research/docs-site-generator/</loc>
       </url>
       <url>
         <loc>https://calcipy.kyleking.me/docs/adr-research/ethereum-eips/</loc>
@@ -92,6 +104,9 @@
       </url>
       <url>
         <loc>https://calcipy.kyleking.me/reference/calcipy/experiments/check_duplicate_test_names/</loc>
+      </url>
+      <url>
+        <loc>https://calcipy.kyleking.me/reference/calcipy/experiments/slop_corpus_export/</loc>
       </url>
       <url>
         <loc>https://calcipy.kyleking.me/reference/calcipy/tasks/all_tasks/</loc>
