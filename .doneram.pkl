@@ -64,7 +64,7 @@ tools: Mapping<String, Tool> = new {
     resolverName = "actions/checkout"
     sites = new {
       actionPin("actions/checkout", ciYml, 3)
-      actionPin("actions/checkout", publishYml, 1)
+      actionPin("actions/checkout", publishYml, 2)
       actionPin("actions/checkout", docsYml, 1)
       actionPin("actions/checkout", freshnessYml, 1)
     }
@@ -124,7 +124,7 @@ tools: Mapping<String, Tool> = new {
     resolver = "github-action"
     resolverName = "astral-sh/setup-uv"
     sites = new {
-      actionPin("astral-sh/setup-uv", publishYml, 2)
+      actionPin("astral-sh/setup-uv", publishYml, 3)
       actionPin("astral-sh/setup-uv", setupAction, 1)
       actionPin("astral-sh/setup-uv", freshnessYml, 1)
     }
