@@ -2,6 +2,7 @@
 
 | Type    | Comment                                                                        | Last Edit  | Source File                                                                                                                                      |
 |---------|--------------------------------------------------------------------------------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| TODO    | root task`, `# TODO: include`, and friends).                                   | 2026-09-01 | [ROADMAP.md:161](https://github.com/KyleKing/calcipy/blame/c1754e336e5e9ee7dd4f6d90b24d3a335d0f0b65/ROADMAP.md#L161)                             |
 | PLANNED | When >=3.11, drop                                                              | 2026-01-28 | [pyproject.toml:69](https://github.com/KyleKing/calcipy/blame/cb0471b79a13e6092ab0a58194689f4b1e54ed29/pyproject.toml#L94)                       |
 | TODO    | Track this ceiling as a doneram hold so it fails loudly instead of going stale | 2026-08-31 | [pyproject.toml:77](https://github.com/KyleKing/calcipy/blame/dc9852346b0a85e3c7ac06e226f39d229ce227dd/pyproject.toml#L77)                       |
 | TODO    | root task')                                                                    | 2026-01-28 | [tests/tasks/test_tags.py:127](https://github.com/KyleKing/calcipy/blame/89fac604c244e45608fadebaac5d0b94c4b7927d/tests/tasks/test_tags.py#L88)  |
@@ -14,6 +15,6 @@
 | TODO    | include')                                                                      | 2026-01-29 | [tests/tasks/test_tags.py:297](https://github.com/KyleKing/calcipy/blame/53a9873ed0f34d247336f35782c0edfe2d8b3c02/tests/tasks/test_tags.py#L232) |
 | TODO    | exclude')                                                                      | 2026-01-29 | [tests/tasks/test_tags.py:298](https://github.com/KyleKing/calcipy/blame/53a9873ed0f34d247336f35782c0edfe2d8b3c02/tests/tasks/test_tags.py#L233) |
 
-Found code tags for TODO (10), PLANNED (1)
+Found code tags for TODO (11), PLANNED (1)
 
 <!-- corallium_skip_tags -->
