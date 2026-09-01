@@ -1974,138 +1974,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Superpowers
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-  Superpowers
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Plans
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-  Plans
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Replace Nox with uv Multi-Version Testing Implementation Plan
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -2301,32 +2169,57 @@
 </ul>
 <p>Rendered side by side, mkdocstrings gives collapsible source blocks, annotated signatures, and short headings. griffe2md gives fully qualified headings, summary bullets, and no source links. The gap is templates, not data: griffe already holds source spans, annotations, and inherited members.</p>
 <p>The spike script (kept out of the repo, reproduced here for the record):</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
-<span class="linenos" data-linenos=" 2 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="linenos" data-linenos=" 3 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">griffe</span>
-<span class="linenos" data-linenos=" 4 "></span><span class="kn">from</span><span class="w"> </span><span class="nn">griffe2md._internal.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_object_docs</span>
-<span class="linenos" data-linenos=" 5 "></span>
-<span class="linenos" data-linenos=" 6 "></span><span class="n">pkg</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Path</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="linenos" data-linenos=" 7 "></span><span class="n">loader</span> <span class="o">=</span> <span class="n">griffe</span><span class="o">.</span><span class="n">GriffeLoader</span><span class="p">(</span><span class="n">docstring_parser</span><span class="o">=</span><span class="n">griffe</span><span class="o">.</span><span class="n">Parser</span><span class="o">.</span><span class="n">google</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 8 "></span><span class="n">root</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pkg</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 9 "></span><span class="n">loader</span><span class="o">.</span><span class="n">resolve_aliases</span><span class="p">(</span><span class="n">external</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="10 "></span><span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;heading_level&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;show_submodules&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;members_order&quot;</span><span class="p">:</span> <span class="s2">&quot;alphabetical&quot;</span><span class="p">,</span> <span class="s2">&quot;line_length&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">}</span>
-<span class="linenos" data-linenos="11 "></span>
-<span class="linenos" data-linenos="12 "></span><span class="k">def</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="n">mod</span><span class="p">):</span>
-<span class="linenos" data-linenos="13 "></span>    <span class="k">yield</span> <span class="n">mod</span>
-<span class="linenos" data-linenos="14 "></span>    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-<span class="linenos" data-linenos="15 "></span>        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">is_alias</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">is_module</span><span class="p">:</span>
-<span class="linenos" data-linenos="16 "></span>            <span class="k">yield from</span> <span class="n">walk</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="linenos" data-linenos="17 "></span>
-<span class="linenos" data-linenos="18 "></span><span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">walk</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
-<span class="linenos" data-linenos="19 "></span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">mod</span><span class="o">.</span><span class="n">is_public</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">is_public</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">is_alias</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">is_module</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-<span class="linenos" data-linenos="20 "></span>        <span class="k">continue</span>
-<span class="linenos" data-linenos="21 "></span>    <span class="n">parts</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
-<span class="linenos" data-linenos="22 "></span>    <span class="n">dest</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">,</span> <span class="s2">&quot;index.md&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">mod</span><span class="o">.</span><span class="n">is_package</span> <span class="k">else</span> <span class="n">out</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span>
-<span class="linenos" data-linenos="23 "></span>    <span class="n">dest</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="linenos" data-linenos="24 "></span>    <span class="n">md</span> <span class="o">=</span> <span class="n">render_object_docs</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-<span class="linenos" data-linenos="25 "></span>    <span class="n">dest</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(#+ `([\w.]+)`)$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1 { #\2 }&quot;</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">M</span><span class="p">))</span>
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="o">,</span><span class="w"> </span><span class="nn">shutil</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">griffe</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">griffe2md._internal.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_object_docs</span>
+
+<span class="n">pkg</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Path</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="n">griffe</span><span class="o">.</span><span class="n">GriffeLoader</span><span class="p">(</span><span class="n">docstring_parser</span><span class="o">=</span><span class="n">griffe</span><span class="o">.</span><span class="n">Parser</span><span class="o">.</span><span class="n">google</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pkg</span><span class="p">)</span>
+<span class="n">loader</span><span class="o">.</span><span class="n">resolve_aliases</span><span class="p">(</span><span class="n">external</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;heading_level&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;show_submodules&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;members_order&quot;</span><span class="p">:</span> <span class="s2">&quot;alphabetical&quot;</span><span class="p">,</span> <span class="s2">&quot;line_length&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="n">mod</span><span class="p">):</span>
+    <span class="k">yield</span> <span class="n">mod</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">is_alias</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">is_module</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="n">walk</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">walk</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mod</span><span class="o">.</span><span class="n">is_public</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">is_public</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">is_alias</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">is_module</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="k">continue</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">dest</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">,</span> <span class="s2">&quot;index.md&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">mod</span><span class="o">.</span><span class="n">is_package</span> <span class="k">else</span> <span class="n">out</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span>
+    <span class="n">dest</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">md</span> <span class="o">=</span> <span class="n">render_object_docs</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+    <span class="n">dest</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(#+ `([\w.]+)`)$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1 { #\2 }&quot;</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">M</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+
 <h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">⚓︎</a></h2>
 <p>Keep Zensical as the site generator and move the API reference off mkdocstrings onto a griffe-based Markdown emitter.</p>
 <p>The site generator is a commodity for this content. What ranks first is look and feel, and Material is the look technical users already know. Zensical keeps it, keeps the pymdownx dialect the mdformat plugins target, needs no Node, and costs nothing to keep. Its risks are real (alpha, plugin API behind a paid tier, a planned parser change) but they are risks to a layer that is cheap to swap as long as the content stays plain Markdown. Starlight is the exit if Zensical stalls, at the price of Node in ten repos and an admonition rewrite. Sphinx is the exit if I want the most boring option and accept MyST directives.</p>

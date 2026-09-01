@@ -2340,138 +2340,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Superpowers
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-  Superpowers
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Plans
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-  Plans
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Replace Nox with uv Multi-Version Testing Implementation Plan
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -3284,12 +3152,17 @@
 <li>Easy to evolve</li>
 </ul>
 <p><strong>Implementation</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="gu">## Architecture Decisions</span>
-<span class="linenos" data-linenos="2 "></span>
-<span class="linenos" data-linenos="3 "></span><span class="gu">### Use SQLite for storage (2024-01-15)</span>
-<span class="linenos" data-linenos="4 "></span>
-<span class="linenos" data-linenos="5 "></span>In the context of local data storage, facing the need for simple persistence, we decided for SQLite and against PostgreSQL, to achieve zero-configuration deployment, accepting that we&#39;re limited to single-server deployment.
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="gu">## Architecture Decisions</span>
+
+<span class="gu">### Use SQLite for storage (2024-01-15)</span>
+
+In the context of local data storage, facing the need for simple persistence, we decided for SQLite and against PostgreSQL, to achieve zero-configuration deployment, accepting that we&#39;re limited to single-server deployment.
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Pros</strong>:</p>
 <ul>
 <li>No process overhead</li>
@@ -3313,13 +3186,19 @@
 <li>Industry standard</li>
 </ul>
 <p><strong>Implementation</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>project/
-<span class="linenos" data-linenos="2 "></span>├── docs/
-<span class="linenos" data-linenos="3 "></span>│   └── adr/
-<span class="linenos" data-linenos="4 "></span>│       ├── 0001-record-architecture-decisions.md
-<span class="linenos" data-linenos="5 "></span>│       ├── 0002-use-pytest-for-testing.md
-<span class="linenos" data-linenos="6 "></span>│       └── 0003-implement-rest-api.md
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nx">project</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">docs</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">adr</span><span class="o">/</span>
+<span class="err">│</span><span class="w">       </span><span class="err">├──</span><span class="w"> </span><span class="mi">0001</span><span class="o">-</span><span class="nx">record</span><span class="o">-</span><span class="nx">architecture</span><span class="o">-</span><span class="nx">decisions</span><span class="p">.</span><span class="nx">md</span>
+<span class="err">│</span><span class="w">       </span><span class="err">├──</span><span class="w"> </span><span class="mi">0002</span><span class="o">-</span><span class="nx">use</span><span class="o">-</span><span class="nx">pytest</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="nx">testing</span><span class="p">.</span><span class="nx">md</span>
+<span class="err">│</span><span class="w">       </span><span class="err">└──</span><span class="w"> </span><span class="mi">0003</span><span class="o">-</span><span class="nx">implement</span><span class="o">-</span><span class="nx">rest</span><span class="o">-</span><span class="kn">api</span><span class="p">.</span><span class="nx">md</span>
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Template</strong>: Use MADR minimal template</p>
 <p><strong>Process</strong>:</p>
 <ol>
@@ -3351,17 +3230,27 @@
 <li>More stakeholders</li>
 </ul>
 <p><strong>Implementation</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>project/
-<span class="linenos" data-linenos=" 2 "></span>├── docs/
-<span class="linenos" data-linenos=" 3 "></span>│   ├── adr/
-<span class="linenos" data-linenos=" 4 "></span>│   │   ├── README.md (index)
-<span class="linenos" data-linenos=" 5 "></span>│   │   ├── backend/
-<span class="linenos" data-linenos=" 6 "></span>│   │   │   ├── 0001-database-selection.md
-<span class="linenos" data-linenos=" 7 "></span>│   │   │   └── 0002-api-framework.md
-<span class="linenos" data-linenos=" 8 "></span>│   │   └── frontend/
-<span class="linenos" data-linenos=" 9 "></span>│   │       ├── 0001-react-vs-vue.md
-<span class="linenos" data-linenos="10 "></span>│   │       └── 0002-state-management.md
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>project/
+├── docs/
+│   ├── adr/
+│   │   ├── README.md (index)
+│   │   ├── backend/
+│   │   │   ├── 0001-database-selection.md
+│   │   │   └── 0002-api-framework.md
+│   │   └── frontend/
+│   │       ├── 0001-react-vs-vue.md
+│   │       └── 0002-state-management.md
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Template</strong>: Full MADR or AWS ADR template</p>
 <p><strong>Process</strong>:</p>
 <ol>
@@ -3401,29 +3290,49 @@
 <li>Onboarding needs</li>
 </ul>
 <p><strong>Implementation Option 1: log4brains</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="c1"># Initialize</span>
-<span class="linenos" data-linenos=" 2 "></span>npx<span class="w"> </span>log4brains<span class="w"> </span>init
-<span class="linenos" data-linenos=" 3 "></span>
-<span class="linenos" data-linenos=" 4 "></span><span class="c1"># Create ADR</span>
-<span class="linenos" data-linenos=" 5 "></span>npx<span class="w"> </span>log4brains<span class="w"> </span>adr<span class="w"> </span>new
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span><span class="c1"># Preview</span>
-<span class="linenos" data-linenos=" 8 "></span>npx<span class="w"> </span>log4brains<span class="w"> </span>preview
-<span class="linenos" data-linenos=" 9 "></span>
-<span class="linenos" data-linenos="10 "></span><span class="c1"># Build site</span>
-<span class="linenos" data-linenos="11 "></span>npx<span class="w"> </span>log4brains<span class="w"> </span>build
-<span class="linenos" data-linenos="12 "></span>
-<span class="linenos" data-linenos="13 "></span><span class="c1"># Deploy to GitHub Pages</span>
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Initialize</span>
+npx<span class="w"> </span>log4brains<span class="w"> </span>init
+
+<span class="c1"># Create ADR</span>
+npx<span class="w"> </span>log4brains<span class="w"> </span>adr<span class="w"> </span>new
+
+<span class="c1"># Preview</span>
+npx<span class="w"> </span>log4brains<span class="w"> </span>preview
+
+<span class="c1"># Build site</span>
+npx<span class="w"> </span>log4brains<span class="w"> </span>build
+
+<span class="c1"># Deploy to GitHub Pages</span>
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Implementation Option 2: MADR + MkDocs</strong></p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>project/
-<span class="linenos" data-linenos="2 "></span>├── docs/
-<span class="linenos" data-linenos="3 "></span>│   ├── adr/
-<span class="linenos" data-linenos="4 "></span>│   │   ├── index.md
-<span class="linenos" data-linenos="5 "></span>│   │   ├── 0001-*.md
-<span class="linenos" data-linenos="6 "></span>│   │   └── ...
-<span class="linenos" data-linenos="7 "></span>│   └── mkdocs.yml
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>project/
+├── docs/
+│   ├── adr/
+│   │   ├── index.md
+│   │   ├── 0001-*.md
+│   │   └── ...
+│   └── mkdocs.yml
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Process</strong>:</p>
 <ol>
 <li>ADR template in repo</li>
@@ -3467,17 +3376,27 @@
 <li>Audit and compliance needs</li>
 </ul>
 <p><strong>Implementation</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>organization/
-<span class="linenos" data-linenos=" 2 "></span>├── adr-templates/
-<span class="linenos" data-linenos=" 3 "></span>│   ├── standard-adr.md
-<span class="linenos" data-linenos=" 4 "></span>│   ├── security-adr.md
-<span class="linenos" data-linenos=" 5 "></span>│   └── data-adr.md
-<span class="linenos" data-linenos=" 6 "></span>├── projects/
-<span class="linenos" data-linenos=" 7 "></span>│   ├── project-a/
-<span class="linenos" data-linenos=" 8 "></span>│   │   └── docs/adr/
-<span class="linenos" data-linenos=" 9 "></span>│   ├── project-b/
-<span class="linenos" data-linenos="10 "></span>│   │   └── docs/adr/
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>organization/
+├── adr-templates/
+│   ├── standard-adr.md
+│   ├── security-adr.md
+│   └── data-adr.md
+├── projects/
+│   ├── project-a/
+│   │   └── docs/adr/
+│   ├── project-b/
+│   │   └── docs/adr/
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Infrastructure</strong>:</p>
 <ul>
 <li><strong>Central repository</strong>: ADR templates and guidelines</li>
@@ -3531,14 +3450,21 @@
 <li>Build trust</li>
 </ul>
 <p><strong>Implementation</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>project/
-<span class="linenos" data-linenos="2 "></span>├── docs/
-<span class="linenos" data-linenos="3 "></span>│   ├── adr/
-<span class="linenos" data-linenos="4 "></span>│   │   └── *.md (published to docs site)
-<span class="linenos" data-linenos="5 "></span>├── .github/
-<span class="linenos" data-linenos="6 "></span>│   ├── ISSUE_TEMPLATE/
-<span class="linenos" data-linenos="7 "></span>│   │   └── pin.md
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>project/
+├── docs/
+│   ├── adr/
+│   │   └── *.md (published to docs site)
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   └── pin.md
+</code></pre></div></td></tr></table></div>
+
 <p><strong>Process</strong>:</p>
 <ol>
 <li>Community member opens issue/PR with proposal</li>
@@ -3661,28 +3587,49 @@
 <li>Standards and patterns</li>
 </ul>
 <h2 id="selection-decision-tree">Selection Decision Tree<a class="headerlink" href="#selection-decision-tree" title="Permanent link">⚓︎</a></h2>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span>Start: Need to document a decision?
-<span class="linenos" data-linenos=" 2 "></span>│
-<span class="linenos" data-linenos=" 3 "></span>├─ Is it trivial/reversible? → No documentation needed
-<span class="linenos" data-linenos=" 4 "></span>│
-<span class="linenos" data-linenos=" 5 "></span>├─ Small team (&lt; 5) + fast iteration?
-<span class="linenos" data-linenos=" 6 "></span>│  └─ → Y-Statements
-<span class="linenos" data-linenos=" 7 "></span>│
-<span class="linenos" data-linenos=" 8 "></span>├─ Open source + community input?
-<span class="linenos" data-linenos=" 9 "></span>│  └─ → PIN-style proposal
-<span class="linenos" data-linenos="10 "></span>│
-<span class="linenos" data-linenos="11 "></span>├─ Protocol/standard development?
-<span class="linenos" data-linenos="12 "></span>│  └─ → EIP-style rigorous process
-<span class="linenos" data-linenos="13 "></span>│
-<span class="linenos" data-linenos="14 "></span>├─ Need searchable website?
-<span class="linenos" data-linenos="15 "></span>│  └─ → log4brains
-<span class="linenos" data-linenos="16 "></span>│
-<span class="linenos" data-linenos="17 "></span>├─ Enterprise/compliance needs?
-<span class="linenos" data-linenos="18 "></span>│  └─ → AWS ADR Guide
-<span class="linenos" data-linenos="19 "></span>│
-<span class="linenos" data-linenos="20 "></span>└─ Most other cases?
-<span class="linenos" data-linenos="21 "></span>   └─ → MADR (start minimal, grow as needed)
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code>Start: Need to document a decision?
+│
+├─ Is it trivial/reversible? → No documentation needed
+│
+├─ Small team (&lt; 5) + fast iteration?
+│  └─ → Y-Statements
+│
+├─ Open source + community input?
+│  └─ → PIN-style proposal
+│
+├─ Protocol/standard development?
+│  └─ → EIP-style rigorous process
+│
+├─ Need searchable website?
+│  └─ → log4brains
+│
+├─ Enterprise/compliance needs?
+│  └─ → AWS ADR Guide
+│
+└─ Most other cases?
+   └─ → MADR (start minimal, grow as needed)
+</code></pre></div></td></tr></table></div>
+
 <h2 id="common-pitfalls-to-avoid">Common Pitfalls to Avoid<a class="headerlink" href="#common-pitfalls-to-avoid" title="Permanent link">⚓︎</a></h2>
 <h3 id="1-too-much-process-too-soon">1. Too Much Process Too Soon<a class="headerlink" href="#1-too-much-process-too-soon" title="Permanent link">⚓︎</a></h3>
 <p><strong>Symptom</strong>: Team resists creating ADRs</p>

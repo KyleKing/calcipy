@@ -2019,138 +2019,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Superpowers
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-  Superpowers
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
-        
-          
-          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Plans
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_1">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-  Plans
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../superpowers/plans/2026-03-24-replace-nox-with-uv/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-  Replace Nox with uv Multi-Version Testing Implementation Plan
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -2396,48 +2264,79 @@
 <p>slop-forensics is the interesting one. Instead of a fixed word list it computes over-representation of words and n-grams against a human baseline, producing a &ldquo;slop fingerprint&rdquo; per corpus. Point it at my own output and it generates a word list specific to whatever model I actually use, which is the only way out of the staleness problem.</p>
 <h2 id="demo-1-vale-ai-tells">Demo 1: vale-ai-tells<a class="headerlink" href="#demo-1-vale-ai-tells" title="Permanent link">⚓︎</a></h2>
 <p>Vale is already on the box. The package is a release zip and a <code>vale sync</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="c1"># .vale.ini</span>
-<span class="linenos" data-linenos="2 "></span><span class="na">StylesPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">styles</span>
-<span class="linenos" data-linenos="3 "></span><span class="na">MinAlertLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">suggestion</span>
-<span class="linenos" data-linenos="4 "></span><span class="na">Packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://github.com/tbhb/vale-ai-tells/releases/download/v1.27.2/ai-tells.zip</span>
-<span class="linenos" data-linenos="5 "></span>
-<span class="linenos" data-linenos="6 "></span><span class="k">[*.md]</span>
-<span class="linenos" data-linenos="7 "></span><span class="na">BasedOnStyles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ai-tells</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>vale<span class="w"> </span>sync<span class="w">                                    </span><span class="c1"># pulls 77 rule files into styles/ai-tells</span>
-<span class="linenos" data-linenos="2 "></span>vale<span class="w"> </span>--output<span class="o">=</span>JSON<span class="w"> </span>README.md<span class="w"> </span>docs/<span class="w"> </span>&gt;<span class="w"> </span>out.json
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># .vale.ini</span>
+<span class="na">StylesPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">styles</span>
+<span class="na">MinAlertLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">suggestion</span>
+<span class="na">Packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://github.com/tbhb/vale-ai-tells/releases/download/v1.27.2/ai-tells.zip</span>
+
+<span class="k">[*.md]</span>
+<span class="na">BasedOnStyles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ai-tells</span>
+</code></pre></div></td></tr></table></div>
+
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>vale<span class="w"> </span>sync<span class="w">                                    </span><span class="c1"># pulls 77 rule files into styles/ai-tells</span>
+vale<span class="w"> </span>--output<span class="o">=</span>JSON<span class="w"> </span>README.md<span class="w"> </span>docs/<span class="w"> </span>&gt;<span class="w"> </span>out.json
+</code></pre></div></td></tr></table></div>
+
 <p>Exit code is 1 when alerts fire, so it drops into hk or CI unchanged.</p>
 <p>The rules worth having go past vocabulary. <code>CataphoricForecasting</code> catches &ldquo;Three markers:&rdquo; announcing a count before the items. <code>ContrastiveNegation</code> catches &ldquo;no letter counts, no positions, no rhymes&rdquo;. <code>AnthropomorphicJustification</code> catches &ldquo;load-bearing&rdquo;. <code>VerbTricolon</code> catches three-verb enumerations clustered in one paragraph. <code>MicDrop</code> catches the isolated two-word closer. <code>LabelAndExplain</code> catches &ldquo;The problem:&rdquo; as a bullet lead-in.</p>
 <h2 id="demo-2-slop-forensics">Demo 2: slop-forensics<a class="headerlink" href="#demo-2-slop-forensics" title="Permanent link">⚓︎</a></h2>
 <p><code>slop_profile.py</code> reads JSONL of model generations, so an arbitrary corpus of Markdown needs an adapter. Records need <code>model</code>, <code>source</code>, <code>id</code>, and <code>output</code>, in a file named <code>generated_&lt;name&gt;.jsonl</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/sam-paech/slop-forensics.git
-<span class="linenos" data-linenos="2 "></span>uv<span class="w"> </span>venv<span class="w"> </span>venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--python<span class="w"> </span>venv/bin/python<span class="w"> </span><span class="se">\</span>
-<span class="linenos" data-linenos="3 "></span><span class="w">    </span>nltk<span class="w"> </span>regex<span class="w"> </span>wordfreq<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>scipy<span class="w"> </span>tqdm<span class="w"> </span>python-dotenv<span class="w"> </span>requests<span class="w"> </span>joblib
-<span class="linenos" data-linenos="4 "></span>venv/bin/python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import nltk; [nltk.download(p) for p in (&#39;punkt&#39;,&#39;punkt_tab&#39;,&#39;stopwords&#39;,&#39;cmudict&#39;)]&quot;</span>
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/sam-paech/slop-forensics.git
+uv<span class="w"> </span>venv<span class="w"> </span>venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--python<span class="w"> </span>venv/bin/python<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>nltk<span class="w"> </span>regex<span class="w"> </span>wordfreq<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>scipy<span class="w"> </span>tqdm<span class="w"> </span>python-dotenv<span class="w"> </span>requests<span class="w"> </span>joblib
+venv/bin/python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import nltk; [nltk.download(p) for p in (&#39;punkt&#39;,&#39;punkt_tab&#39;,&#39;stopwords&#39;,&#39;cmudict&#39;)]&quot;</span>
+</code></pre></div></td></tr></table></div>
+
 <p>Watch for two things during install. <code>requirements.txt</code> pulls <code>ete3</code> and <code>PyQt5</code>, which are needed only for the phylogeny charts, so skip them. NLTK&rsquo;s import hardening blocks any module that resolves inside the current working directory, which means the venv must live outside the directory you run from, and anything under <code>/tmp</code> fails because <code>/tmp</code> resolves through <code>/private/tmp</code>.</p>
 <p>The adapter strips fenced code, front matter, inline code, link targets, and heading marks, then keeps documents over 150 words:</p>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="n">FENCE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^```.*?^```&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 2 "></span><span class="n">FRONTMATTER</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\A---\n.*?\n---\n&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 3 "></span><span class="n">INLINE_CODE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;`[^`]+`&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 4 "></span><span class="n">LINK</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\[([^\]]*)\]\([^)]*\)&#39;</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 5 "></span><span class="n">HEADING_MARK</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^#{1,6}\s+&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
-<span class="linenos" data-linenos=" 6 "></span>
-<span class="linenos" data-linenos=" 7 "></span>
-<span class="linenos" data-linenos=" 8 "></span><span class="k">def</span><span class="w"> </span><span class="nf">to_prose</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="linenos" data-linenos=" 9 "></span>    <span class="n">text</span> <span class="o">=</span> <span class="n">FRONTMATTER</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">raw</span><span class="p">)</span>
-<span class="linenos" data-linenos="10 "></span>    <span class="n">text</span> <span class="o">=</span> <span class="n">FENCE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-<span class="linenos" data-linenos="11 "></span>    <span class="n">text</span> <span class="o">=</span> <span class="n">INLINE_CODE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-<span class="linenos" data-linenos="12 "></span>    <span class="n">text</span> <span class="o">=</span> <span class="n">LINK</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-<span class="linenos" data-linenos="13 "></span>    <span class="k">return</span> <span class="n">HEADING_MARK</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-<span class="linenos" data-linenos="14 "></span>
-<span class="linenos" data-linenos="15 "></span>
-<span class="linenos" data-linenos="16 "></span><span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;repo&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">rel_path</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span> <span class="n">to_prose</span><span class="p">(</span><span class="n">body</span><span class="p">)}</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span>python<span class="w"> </span>scripts/slop_profile.py<span class="w"> </span>--input-dir<span class="w"> </span>~/.cache/aidetect/datasets<span class="w"> </span><span class="se">\</span>
-<span class="linenos" data-linenos="2 "></span><span class="w">    </span>--analysis-output-dir<span class="w"> </span>out/analysis<span class="w"> </span>--combined-output-file<span class="w"> </span>out/results.json<span class="w"> </span>--top-n<span class="w"> </span><span class="m">12</span>
-</code></pre></div>
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">FENCE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^```.*?^```&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+<span class="n">FRONTMATTER</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\A---\n.*?\n---\n&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+<span class="n">INLINE_CODE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;`[^`]+`&#39;</span><span class="p">)</span>
+<span class="n">LINK</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\[([^\]]*)\]\([^)]*\)&#39;</span><span class="p">)</span>
+<span class="n">HEADING_MARK</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^#{1,6}\s+&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">to_prose</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">FRONTMATTER</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">raw</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">FENCE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">INLINE_CODE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">LINK</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\1&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HEADING_MARK</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+
+<span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;repo&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">rel_path</span><span class="p">,</span> <span class="s1">&#39;output&#39;</span><span class="p">:</span> <span class="n">to_prose</span><span class="p">(</span><span class="n">body</span><span class="p">)}</span>
+</code></pre></div></td></tr></table></div>
+
+<div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>python<span class="w"> </span>scripts/slop_profile.py<span class="w"> </span>--input-dir<span class="w"> </span>~/.cache/aidetect/datasets<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--analysis-output-dir<span class="w"> </span>out/analysis<span class="w"> </span>--combined-output-file<span class="w"> </span>out/results.json<span class="w"> </span>--top-n<span class="w"> </span><span class="m">12</span>
+</code></pre></div></td></tr></table></div>
+
 <p><code>slop_score</code> is weighted hits per 1000 tokens against the bundled lists of 1000 words, 200 bigrams, and 200 trigrams, with bigrams counted double and trigrams counted 8x.</p>
 <h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">⚓︎</a></h2>
 <p>Run against <code>calcipy</code> (26 prose files, 30,369 words) and <code>boardgame-teaches</code> (18 files, 16,676 words).</p>
