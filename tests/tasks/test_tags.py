@@ -90,7 +90,7 @@ def _check_output(kwargs: Dict) -> None:
                 'filename': 'test_tags.md.rej',
                 'tag_order': 'FIXME,TODO',
                 'regex': '',
-                'ignore_patterns': '*.py,*.yaml,docs/docs/*.md,*.toml',
+                'ignore_patterns': '*.py,*.yaml,*.md,*.toml',
             },
             _check_no_write,
         ),
