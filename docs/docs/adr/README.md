@@ -36,6 +36,11 @@ ADRs help us:
     - Status: **accepted**
     - Multiple specialized commands (calcipy-lint, calcipy-test, etc.) vs single monolithic CLI
 
+- [ADR-0008](0008-run-as-tool-rather-than-dependency.md) - Run as Tool Rather Than Dependency
+
+    - Status: **accepted**
+    - Hybrid approach supporting both standalone tool usage (uvx/pipx) and project dependency installation
+
 ### Code Quality Tools
 
 - [ADR-0003](0003-use-ruff-for-linting-and-formatting.md) - Use Ruff for Linting and Formatting

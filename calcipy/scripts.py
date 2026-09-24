@@ -75,3 +75,10 @@ def start_types() -> None:  # pragma: no cover
     from .tasks import types  # noqa: PLC0415
 
     _start_subset([types])
+
+
+def start_experiments() -> None:  # pragma: no cover
+    """Run CLI with only the experiments namespace."""
+    from .tasks import experiments  # noqa: PLC0415
+
+    _start_subset([experiments])
