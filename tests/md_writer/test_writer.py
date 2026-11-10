@@ -181,3 +181,17 @@ def test_handle_cli_output_allowed_prefixes():
     assert './run' in _CLI_ALLOWED_PREFIXES
     assert 'uv ' in _CLI_ALLOWED_PREFIXES
     assert 'python -m ' in _CLI_ALLOWED_PREFIXES
+
+
+def test_handle_source_file_without_variables_skips():
+    with pytest.raises(_ParseSkipError):
+        _handle_source_file('{% [cts] SOURCE_FILE= %}', Path('fake.md'))
+
+
+def test_replacement_machine_source_file_without_variables():
+    machine = _ReplacementMachine()
+    lines = ['{% [cts] SOURCE_FILE= %}', 'old body', '{% [cte] %}']
+
+    result = machine.parse(lines, {'SOURCE_FILE=': _handle_source_file}, Path('fake.md'))
+
+    assert result == lines
