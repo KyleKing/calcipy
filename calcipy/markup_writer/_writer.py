@@ -167,7 +167,11 @@ def _handle_source_file(line: str, path_file: Path) -> List[str]:
         List[str]: list of template-formatted text
 
     """
-    key, path_rel = next(iter(_parse_var_comment(line).items()))
+    parsed = _parse_var_comment(line)
+    if len(parsed) != 1:
+        msg = f'Could not parse SOURCE_FILE marker: {line.strip()}'
+        raise _ParseSkipError(msg)
+    key, path_rel = next(iter(parsed.items()))
     path_base = get_project_path() if path_rel.startswith('/') else path_file.resolve().parent
     path_source = path_base / path_rel.lstrip('/')
     language = path_source.suffix.lstrip('.')
