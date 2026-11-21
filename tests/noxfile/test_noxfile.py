@@ -1,36 +1,49 @@
-from typing import Any
+from unittest.mock import Mock, call
 
-from calcipy.noxfile._noxfile import _has_ci_group
+import pytest
+from nox.sessions import Session
 
-
-def test__has_ci_group_with_ci():
-    """Test that _has_ci_group returns True when ci group exists."""
-    pyproject_data = {
-        'dependency-groups': {
-            'ci': [
-                'hypothesis[cli] >=6.112.4',
-                'pytest-asyncio >=0.24.0',
-                'types-setuptools >=75.1.0.20240917',
-            ],
-        },
-    }
-
-    assert _has_ci_group(pyproject_data)
+from calcipy.noxfile import _noxfile
+from calcipy.noxfile._noxfile import _get_pythons, _has_ci_group
 
 
-def test__has_ci_group_without_ci():
-    """Test that _has_ci_group returns False when ci group doesn't exist."""
-    pyproject_data = {
-        'dependency-groups': {
-            'docs': ['mkdocs >=1.6.1'],
-        },
-    }
+@pytest.mark.parametrize(
+    ('pyproject_data', 'expected'),
+    [
+        ({'dependency-groups': {'ci': ['hypothesis[cli] >=6.112.4', 'pytest-asyncio >=0.24.0']}}, True),
+        ({'dependency-groups': {'ci': []}}, False),
+        ({'dependency-groups': {'docs': ['mkdocs >=1.6.1']}}, False),
+        ({}, False),
+    ],
+)
+def test_has_ci_group(pyproject_data, expected):
+    assert _has_ci_group(pyproject_data) is expected
 
-    assert not _has_ci_group(pyproject_data)
+
+@pytest.mark.parametrize(
+    ('pyproject_toml', 'sync_args'),
+    [
+        ('[dependency-groups]\nci = ["pytest"]\n', ('uv', 'sync', '--group=ci', '--no-default-groups')),
+        ('[project]\nname = "mypkg"\n', ('uv', 'sync', '--all-extras')),
+    ],
+)
+def test_tests_session_installs_then_runs_pytest(tmp_project, pyproject_toml, sync_args):
+    (tmp_project / 'pyproject.toml').write_text(pyproject_toml)
+    session = Mock(spec=Session)
+    session.virtualenv.location = '/venv'
+
+    _noxfile.tests(session)
+
+    assert session.mock_calls == [
+        call.run_install(*sync_args, env={'UV_PROJECT_ENVIRONMENT': '/venv'}),
+        call.run('pytest', './tests', stdout=True, env={'RUNTIME_TYPE_CHECKING_MODE': 'WARNING'}),
+    ]
 
 
-def test__has_ci_group_no_groups():
-    """Test that _has_ci_group returns False when no dependency groups exist."""
-    pyproject_data: dict[str, Any] = {}
-
-    assert not _has_ci_group(pyproject_data)
+def test_get_pythons(monkeypatch):
+    monkeypatch.setattr(_noxfile, 'get_tool_versions', Mock(return_value={'python': ['3.10', '3.12', '3.10']}))
+    _get_pythons.cache_clear()
+    try:
+        assert sorted(_get_pythons()) == ['3.10', '3.12']
+    finally:
+        _get_pythons.cache_clear()

@@ -1,50 +1,50 @@
 import json
 
+import pytest
+
 from calcipy.experiments.slop_corpus_export import build_corpus, to_prose, write_corpus_jsonl
 
 
-def test_to_prose_strips_markdown_structure():
-    raw = """---
-title: x
----
-# Heading
-
-Some `inline code` and a [link](https://example.com) survive as prose.
-
-```python
-dropped()
-```
-"""
-
-    prose = to_prose(raw)
-
-    assert 'title: x' not in prose
-    assert 'dropped()' not in prose
-    assert '`inline code`' not in prose
-    assert 'link' in prose
-    assert 'https://example.com' not in prose
+@pytest.mark.parametrize(
+    ('raw', 'expected'),
+    [
+        (
+            (
+                '---\ntitle: x\n---\n# Heading\n\n'
+                'Some `inline code` and a [link](https://example.com) survive as prose.\n\n```python\ndropped()\n```\n'
+            ),
+            'Heading\n\nSome  and a link survive as prose.',
+        ),
+        ('Intro\n\n---\nnot: frontmatter\n---\n', 'Intro\n\n---\nnot: frontmatter\n---'),
+        ('###### Deep\n####### Seven', 'Deep\n####### Seven'),
+        ('a [](empty) b `x` c', 'a  b  c'),
+    ],
+    ids=['all-structure', 'rule-not-at-start', 'heading-levels', 'inline'],
+)
+def test_to_prose(raw, expected):
+    assert to_prose(raw) == expected
 
 
-def test_build_corpus_drops_short_documents(tmp_path):
-    short = tmp_path / 'short.md'
-    short.write_text('Too short.')
-    long_ = tmp_path / 'long.md'
-    long_.write_text(' '.join(['word'] * 200))
+def test_build_corpus_honors_min_word_count(tmp_path):
+    short, long_ = tmp_path / 'short.md', tmp_path / 'long.md'
+    short.write_text('one two')
+    long_.write_text('# one two `x` three')
 
-    records = list(build_corpus([short, long_], source='repo', min_word_count=150))
+    records = list(build_corpus([short, long_], source='src', min_word_count=3))
 
-    assert [r['id'] for r in records] == [long_.as_posix()]
-    assert records[0]['model'] == 'repo'
-    assert records[0]['source'] == 'repo'
+    assert records == [{'model': 'src', 'source': 'src', 'id': long_.as_posix(), 'output': 'one two  three'}]
 
 
 def test_write_corpus_jsonl(tmp_path):
-    doc = tmp_path / 'doc.md'
-    doc.write_text(' '.join(['word'] * 200))
-    output_dir = tmp_path / 'out'
+    kept, dropped = tmp_path / 'kept.md', tmp_path / 'dropped.md'
+    kept.write_text(' '.join(['word'] * 150))
+    dropped.write_text(' '.join(['word'] * 149))
+    output_dir = tmp_path / 'nested' / 'out'
 
-    target = write_corpus_jsonl([doc], output_dir, source='repo')
+    write_corpus_jsonl([kept], output_dir, source='other')
+    target = write_corpus_jsonl([dropped, kept], output_dir, source='repo')
 
     assert target == output_dir / 'generated_repo.jsonl'
-    record = json.loads(target.read_text().splitlines()[0])
-    assert record['id'] == doc.as_posix()
+    record = {'model': 'repo', 'source': 'repo', 'id': kept.as_posix(), 'output': ' '.join(['word'] * 150)}
+    assert target.read_text() == json.dumps(record) + '\n'
+    assert sorted(p.name for p in output_dir.iterdir()) == ['generated_other.jsonl', 'generated_repo.jsonl']

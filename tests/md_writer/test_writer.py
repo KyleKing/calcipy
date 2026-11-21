@@ -1,13 +1,16 @@
 import json
+import shlex
 import shutil
+import subprocess  # noqa: S404
 from functools import partial
 from pathlib import Path
+from unittest.mock import Mock
 
 import pytest
 from beartype.typing import List
 
+from calcipy.invoke_helpers import get_project_path
 from calcipy.markup_writer._writer import (
-    _CLI_ALLOWED_PREFIXES,
     _format_cov_table,
     _handle_cli_output,
     _handle_coverage,
@@ -88,6 +91,9 @@ def test_write_template_formatted_sections(fix_test_cache, snapshot):
         ('<!-- {cts} rating=1; (User can specify rating on scale of 1-5) -->', {'rating': '1'}),
         ('<!-- {cts} path_image=imgs/image_filename.png; -->', {'path_image': 'imgs/image_filename.png'}),
         ('<!-- {cts} tricky_var_3=-11e-21; -->', {'tricky_var_3': '-11e-21'}),
+        ('  {% [cts] key=value; %}', {'key': 'value'}),
+        ('<!-- {cts} COVERAGE table; -->', {}),
+        ('text <!-- {cts} key=value; -->', {}),
     ],
 )
 def test_parse_var_comment(line, match):
@@ -119,65 +125,119 @@ def test_write_template_formatted_sections_custom(fix_test_cache):
     )
 
 
-def test_handle_cli_output_echo():
-    line = '<!-- {cts} CLI_OUTPUT=python -m calcipy --help; -->'
-    path_md = Path('fake.md')
-
-    result = _handle_cli_output(line, path_md)
-
-    assert result[0] == '<!-- {cts} CLI_OUTPUT=python -m calcipy --help; -->'
-    assert not result[1]
-    assert result[2] == '```txt'
-    assert result[-1] == '<!-- {cte} -->'
-    assert not result[-2]
-    assert result[-3] == '```'
-    assert any('calcipy' in line.lower() for line in result)
+_LOOKUP = {'KEY=': lambda _line, _path: ['NEW']}
 
 
-def test_handle_cli_output_disallowed_command():
-    line = '<!-- {cts} CLI_OUTPUT=rm -rf /; -->'
-    path_md = Path('fake.md')
-
-    with pytest.raises(Exception):  # noqa: B017, PT011
-        _handle_cli_output(line, path_md)
+def _skip(line: str, path_file: Path) -> List[str]:
+    raise _ParseSkipError('skip')
 
 
-def test_handle_coverage_missing_file():
-    line = '<!-- {cts} COVERAGE test; -->'
-    path_md = Path('fake.md')
+@pytest.mark.parametrize(
+    ('lines', 'lookup', 'expected'),
+    [
+        (['a', 'b'], _LOOKUP, ['a', 'b']),
+        (['a', '<!-- {cts} KEY=1; -->', 'old', '<!-- {cte} -->', 'b'], _LOOKUP, ['a', 'NEW', 'b']),
+        (['{% [cts] KEY=1; %}', 'old', '{% [cte] %}', '{% [cte] %}'], _LOOKUP, ['NEW', '{% [cte] %}']),
+        (
+            ['<!-- {cts} OTHER=1; -->', 'old', '<!-- {cte} -->'],
+            _LOOKUP,
+            ['<!-- {cts} OTHER=1; -->', 'old', '<!-- {cte} -->'],
+        ),
+        (
+            ['<!-- {cts} KEY=1; -->', 'old', '<!-- {cte} -->'],
+            {**_LOOKUP, 'KEY': _LOOKUP['KEY=']},
+            ['<!-- {cts} KEY=1; -->', 'old', '<!-- {cte} -->'],
+        ),
+        (
+            ['<!-- {cts} KEY=1; -->', 'old', '<!-- {cte} -->'],
+            {'KEY=': _skip},
+            ['<!-- {cts} KEY=1; -->', 'old', '<!-- {cte} -->'],
+        ),
+    ],
+    ids=['no-markers', 'replaced', 'jinja-and-stray-end', 'no-handler', 'ambiguous-handlers', 'handler-skips'],
+)
+def test_replacement_machine(lines, lookup, expected):
+    assert _ReplacementMachine().parse(lines, lookup, Path('test.md')) == expected
 
-    with pytest.raises(Exception):  # noqa: B017, PT011
-        _handle_coverage(line, path_md, path_coverage=Path('/nonexistent/coverage.json'))
 
-
-def test_write_template_formatted_sections_with_skip(fix_test_cache):
+def test_write_template_formatted_sections_skips_missing_coverage(fix_test_cache):
     path_md = fix_test_cache / 'skip_test.md'
-    path_md.write_text(
-        '<!-- {cts} COVERAGE test; -->\nold content\n<!-- {cte} -->\n',
+    original = '# Doc\n<!-- {cts} COVERAGE test; -->\nold content\n<!-- {cte} -->\n'
+    path_md.write_text(original)
+    handler = partial(_handle_coverage, path_coverage=fix_test_cache / 'missing.json')
+
+    write_template_formatted_sections(handler_lookup={'COVERAGE': handler}, paths=[path_md])
+
+    assert path_md.read_text() == original
+
+
+@pytest.mark.parametrize(
+    ('start', 'end'),
+    [
+        ('<!-- {cts} SOURCE_FILE=src/code.py; -->', '<!-- {cte} -->'),
+        ('{% [cts] SOURCE_FILE=src/code.py; %}', '{% [cte] %}'),
+    ],
+)
+def test_handle_source_file_relative_to_markdown(tmp_path, start, end):
+    (tmp_path / 'src').mkdir()
+    (tmp_path / 'src' / 'code.py').write_text('a = 1\nb = 2\n')
+    path_md = tmp_path / 'doc.md'
+    path_md.write_text(f'{start}\nstale\n{end}\n')
+
+    write_template_formatted_sections(handler_lookup={'SOURCE_FILE=': _handle_source_file}, paths=[path_md])
+
+    assert path_md.read_text() == f'{start}\n\n```py\na = 1\nb = 2\n```\n\n{end}\n'
+
+
+def _completed(returncode=0, stdout='', stderr=''):
+    return subprocess.CompletedProcess(args=[], returncode=returncode, stdout=stdout, stderr=stderr)
+
+
+@pytest.mark.parametrize(
+    ('line', 'result', 'output'),
+    [
+        (
+            '<!-- {cts} CLI_OUTPUT=./run --help; -->',
+            _completed(stdout='usage\n  detail\n\n'),
+            ['usage', '  detail'],
+        ),
+        ('<!-- {cts} CLI_OUTPUT=uv run "a b"; -->', _completed(returncode=1, stderr='failed\n'), ['failed']),
+        ('{% [cts] CLI_OUTPUT=python -m pkg; %}', _completed(stdout='out', stderr='err'), ['out']),
+        ('<!-- {cts} CLI_OUTPUT=python3 -m pkg; -->', _completed(), ['']),
+    ],
+    ids=['run', 'uv-stderr', 'python-jinja', 'python3-empty'],
+)
+def test_handle_cli_output(monkeypatch, line, result, output):
+    subprocess_run = Mock(return_value=result)
+    monkeypatch.setattr(subprocess, 'run', subprocess_run)
+    command = _parse_var_comment(line)['CLI_OUTPUT']
+    html = line.startswith('<!--')
+
+    lines = _handle_cli_output(line, Path('fake.md'))
+
+    start = f'<!-- {{cts}} CLI_OUTPUT={command}; -->' if html else f'{{% [cts] CLI_OUTPUT={command}; %}}'
+    end = '<!-- {cte} -->' if html else '{% [cte] %}'
+    assert lines == [start, '', '```txt', *output, '```', '', end]
+    subprocess_run.assert_called_once_with(
+        shlex.split(command), capture_output=True, text=True, cwd=get_project_path(), timeout=30, check=False
     )
 
-    write_template_formatted_sections(
-        handler_lookup={'COVERAGE': _handle_coverage},
-        paths=[path_md],
-    )
 
-    content = path_md.read_text()
-    assert '<!-- {cts} COVERAGE test; -->' in content
+@pytest.mark.parametrize(
+    ('line', 'side_effect', 'match'),
+    [
+        ('<!-- {cts} CLI_OUTPUT=rm -rf /; -->', None, 'Command not allowed'),
+        ('<!-- {cts} CLI_OUTPUT=uvx tool; -->', None, 'Command not allowed'),
+        ('<!-- {cts} CLI_OUTPUT_MISSING; -->', None, 'Command not allowed'),
+        ('<!-- {cts} CLI_OUTPUT=uv run x; -->', [_completed(returncode=2)], 'Command failed with exit code 2'),
+        ('<!-- {cts} CLI_OUTPUT=uv run x; -->', subprocess.TimeoutExpired('uv', 30), 'timed out'),
+    ],
+)
+def test_handle_cli_output_skips(monkeypatch, line, side_effect, match):
+    subprocess_run = Mock(side_effect=side_effect)
+    monkeypatch.setattr(subprocess, 'run', subprocess_run)
 
+    with pytest.raises(_ParseSkipError, match=match):
+        _handle_cli_output(line, Path('fake.md'))
 
-def test_replacement_machine_handler_skip():
-    def _skip_handler(line: str, path_file: Path) -> List[str]:
-        raise _ParseSkipError('skip')
-
-    machine = _ReplacementMachine()
-    lines = ['<!-- {cts} SKIP_ME test; -->', 'inner content', '<!-- {cte} -->']
-
-    result = machine.parse(lines, {'SKIP_ME': _skip_handler}, Path('test.md'))
-
-    assert result == ['<!-- {cts} SKIP_ME test; -->', 'inner content', '<!-- {cte} -->']
-
-
-def test_handle_cli_output_allowed_prefixes():
-    assert './run' in _CLI_ALLOWED_PREFIXES
-    assert 'uv ' in _CLI_ALLOWED_PREFIXES
-    assert 'python -m ' in _CLI_ALLOWED_PREFIXES
+    assert subprocess_run.call_count == (0 if side_effect is None else 1)

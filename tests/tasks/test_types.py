@@ -7,21 +7,14 @@ from calcipy.tasks.types import mypy, pyright, ty
 
 
 @pytest.mark.parametrize(
-    ('task', 'kwargs', 'commands'),
+    ('task', 'commands'),
     [
-        (
-            pyright,
-            {},
-            [
-                call('which pyright', warn=True, hide=True),
-                'pyright',
-            ],
-        ),
-        (mypy, {}, [f'{python_m()} mypy']),
-        (ty, {}, ['ty check calcipy tests']),
+        (pyright, [call('which pyright', warn=True, hide=True), 'pyright']),
+        (mypy, [f'{python_m()} mypy']),
+        (ty, ['ty check mypkg tests']),
     ],
 )
-def test_types(ctx, task, kwargs, commands, assert_run_commands):
-    task(ctx, **kwargs)
+def test_types(ctx, tmp_project, task, commands, assert_run_commands):
+    task(ctx)
 
     assert_run_commands(ctx, commands)

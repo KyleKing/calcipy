@@ -1,46 +1,35 @@
-from pathlib import Path
-from unittest.mock import call, patch
+import os
+from unittest.mock import Mock
 
 import pytest
 
 from calcipy.tasks.pack import bump_tag, lock, sync_pyproject_versions
 
 
-@pytest.mark.parametrize(
-    ('task', 'kwargs', 'commands'),
-    [
-        (lock, {}, [call('uv lock')]),
-    ],
-)
-def test_pack(ctx, task, kwargs, commands, monkeypatch, assert_run_commands):
-    mock_can_skip = patch('calcipy.tasks.pack.can_skip.can_skip', return_value=False)
-    mock_get_lock = patch('calcipy.tasks.pack.get_lock', return_value=Path('uv.lock'))
+@pytest.mark.parametrize(('lock_is_newer', 'commands'), [(False, ['uv lock']), (True, [])])
+def test_lock_runs_only_when_pyproject_is_newer(ctx, tmp_project, assert_run_commands, lock_is_newer, commands):
+    path_lock = tmp_project / 'uv.lock'
+    path_lock.write_text('')
+    older, newer = 1_000_000, 2_000_000
+    os.utime(path_lock, (newer, newer) if lock_is_newer else (older, older))
+    os.utime(tmp_project / 'pyproject.toml', (older, older) if lock_is_newer else (newer, newer))
 
-    with mock_can_skip, mock_get_lock:
-        task(ctx, **kwargs)
+    lock(ctx)
 
     assert_run_commands(ctx, commands)
 
 
-def test_bump_tag(ctx, monkeypatch):
-    """Test bump_tag function."""
-    mock_pyproject = {'project': {'name': 'test-package'}}
-    mock_bump = patch('calcipy.experiments.bump_programmatically.bump_tag', return_value='1.2.3')
-    mock_read_pyproject = patch('calcipy.tasks.pack.file_helpers.read_pyproject', return_value=mock_pyproject)
+@pytest.mark.parametrize(('pkg_name', 'expected_name'), [('', 'mypkg'), ('other', 'other')])
+def test_bump_tag(ctx, tmp_project, monkeypatch, pkg_name, expected_name):
+    bump = Mock(return_value='v1.2.3')
+    logger = Mock()
+    monkeypatch.setattr('calcipy.experiments.bump_programmatically.bump_tag', bump)
+    monkeypatch.setattr('calcipy.tasks.pack.LOGGER', logger)
 
-    with mock_read_pyproject, mock_bump as bump_mock:
-        bump_tag(ctx, tag='v1.2.2', tag_prefix='v')
+    bump_tag(ctx, tag='v1.2.2', tag_prefix='v', pkg_name=pkg_name)
 
-    bump_mock.assert_called_once_with(pkg_name='test-package', tag='v1.2.2', tag_prefix='v')
-
-
-def test_lock_skips_when_can_skip(ctx):
-    mock_can_skip = patch('calcipy.tasks.pack.can_skip.can_skip', return_value=True)
-    mock_get_lock = patch('calcipy.tasks.pack.get_lock', return_value=Path('uv.lock'))
-
-    with mock_can_skip, mock_get_lock:
-        lock(ctx)
-
+    bump.assert_called_once_with(pkg_name=expected_name, tag='v1.2.2', tag_prefix='v')
+    logger.text.assert_called_once_with('v1.2.3')
     ctx.run.assert_not_called()
 
 
@@ -49,13 +38,12 @@ def test_bump_tag_empty_tag(ctx):
         bump_tag(ctx, tag='')
 
 
-def test_sync_pyproject_versions(ctx):
-    """Test sync_pyproject_versions function."""
-    mock_replace = patch('corallium.sync_dependencies.replace_versions')
-    mock_get_lock = patch('calcipy.tasks.pack.get_lock', return_value=Path('uv.lock'))
+def test_sync_pyproject_versions(ctx, tmp_project, monkeypatch):
+    (tmp_project / 'uv.lock').write_text('')
+    replace_versions = Mock()
+    monkeypatch.setattr('corallium.sync_dependencies.replace_versions', replace_versions)
 
-    with mock_replace as replace_mock, mock_get_lock as get_lock_mock:
-        sync_pyproject_versions(ctx)
+    sync_pyproject_versions(ctx)
 
-    get_lock_mock.assert_called_once()
-    replace_mock.assert_called_once_with(path_lock=Path('uv.lock'))
+    replace_versions.assert_called_once_with(path_lock=tmp_project / 'uv.lock')
+    ctx.run.assert_not_called()
