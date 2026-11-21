@@ -22,7 +22,7 @@ def test_task_decorator_records_invoke_arguments():
 
     assert bare('ctx', value=2) == ('ctx', 2)
     assert bare.__wrapped__.__name__ == 'bare'  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
-    assert (bare.dev_kwargs, bare.help) == ({}, {})  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
+    assert (bare.dev_args, bare.dev_kwargs, bare.help) == ((), {}, {})  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
     assert configured('ctx') == 'ctx'
     assert configured.dev_args == ('positional',)  # pyright: ignore[reportFunctionMemberAccess]  # ty: ignore[unresolved-attribute]
     assert configured.dev_kwargs == {'default': True, 'post': ['after']}  # pyright: ignore[reportFunctionMemberAccess]  # ty: ignore[unresolved-attribute]

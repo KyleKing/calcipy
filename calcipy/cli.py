@@ -144,6 +144,7 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-ar
 
     # Handle the case when the decorator is called without arguments
     if len(dec_args) == 1 and callable(dec_args[0]) and not hasattr(dec_args[0], TASK_ARGS_ATTR):
-        return wrapper(dec_args[0])
+        func, dec_args = dec_args[0], ()
+        return wrapper(func)
 
     return wrapper

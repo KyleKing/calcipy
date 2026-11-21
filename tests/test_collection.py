@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from types import ModuleType
 from unittest.mock import Mock
 
 import pytest
@@ -145,3 +146,16 @@ def test_built_task_can_be_built_twice(hook):
     built = [_build_task(sample) for _ in range(2)]
 
     assert [[t.name for t in getattr(b, hook)] for b in built] == [['other'], ['other']]
+
+
+@pytest.mark.parametrize('decorator', [task, task()], ids=['bare', 'called'])
+def test_from_module_builds_decorated_tasks(decorator):
+    def sample(ctx):
+        """Sample task."""
+
+    module = ModuleType('sample_tasks')
+    module.__dict__['sample'] = decorator(sample)
+
+    collection = Collection.from_module(module)
+
+    assert collection.task_names == {'sample': []}
