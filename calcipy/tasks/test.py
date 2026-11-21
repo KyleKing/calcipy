@@ -111,7 +111,8 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
     cov_dir.mkdir(exist_ok=True, parents=True)
     print()  # noqa: T201
 
-    fail_under = f' --fail-under={min_cover}' if min_cover > 0 else ''
+    fail_under_value = min_cover or int(from_ctx(ctx, 'test', 'min_cover'))
+    fail_under = f' --fail-under={fail_under_value}' if fail_under_value > 0 else ''
     for cli_args in (
         f'report --show-missing{fail_under}',  # Write to STDOUT
         f'html --directory={cov_dir}',  # Write to HTML

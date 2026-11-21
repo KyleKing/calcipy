@@ -59,6 +59,28 @@ _COVERAGE = f'{python_m()} coverage'
                 f'{_COVERAGE} json',
             ],
         ),
+        (
+            coverage,
+            {},
+            {'min_cover': 75, 'out_dir': '.cover'},
+            [
+                f'{_COVERAGE} run --branch --source=mypkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing --fail-under=75',
+                f'{_COVERAGE} html --directory=.cover',
+                f'{_COVERAGE} json',
+            ],
+        ),
+        (
+            coverage,
+            {'min_cover': 90},
+            {'min_cover': 75, 'out_dir': '.cover'},
+            [
+                f'{_COVERAGE} run --branch --source=mypkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing --fail-under=90',
+                f'{_COVERAGE} html --directory=.cover',
+                f'{_COVERAGE} json',
+            ],
+        ),
     ],
 )
 def test_test(ctx, tmp_project, task, kwargs, config, commands, assert_run_commands):
