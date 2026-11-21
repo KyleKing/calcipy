@@ -56,13 +56,12 @@ def _assert_deprecation_warning(module, target):
         assert any(target in str(x.message) for x in deprecation_warnings)
 
 
-def _assert_reexports(module, reexports):
+def _assert_reexports(module, target, reexports):
+    target_module = importlib.import_module(target)
     for attr, expected_type in reexports:
         obj = getattr(module, attr)
-        if expected_type is None:
-            assert callable(obj)
-        else:
-            assert isinstance(obj, expected_type)
+        assert obj is getattr(target_module, attr)
+        assert callable(obj) if expected_type is None else isinstance(obj, expected_type)
 
 
 @pytest.mark.parametrize(('module_path', 'target', 'reexports'), _SHIM_PARAMS)
@@ -71,7 +70,7 @@ def test_backward_compat_shim(module_path, target, reexports):
         warnings.filterwarnings('ignore', category=DeprecationWarning)
         module = importlib.import_module(module_path)
     _assert_deprecation_warning(module, target)
-    _assert_reexports(module, reexports)
+    _assert_reexports(module, target, reexports)
 
 
 # calcipy_skip_tags

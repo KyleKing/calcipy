@@ -19,14 +19,18 @@ from calcipy.markup_writer import write_template_formatted_sections
 from .executable_utils import python_m, resolve_python
 
 
+def _read_mkdocs_config() -> dict:  # type: ignore[type-arg]
+    return read_yaml_file(get_project_path() / MKDOCS_CONFIG) or {}
+
+
 def get_out_dir() -> Path:
     """Returns the mkdocs-specified site directory."""
-    mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
+    mkdocs_config = _read_mkdocs_config()
     return Path(mkdocs_config.get('site_dir', 'releases/site'))
 
 
 def _get_doc_dir() -> str:
-    mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
+    mkdocs_config = _read_mkdocs_config()
     return mkdocs_config.get('docs_dir', 'docs')
 
 
@@ -54,7 +58,7 @@ def _is_mkdocs_local() -> bool:
         bool: True if configured for local file output rather than hosted
 
     """
-    mkdocs_config = read_yaml_file(get_project_path() / MKDOCS_CONFIG)
+    mkdocs_config = _read_mkdocs_config()
     return mkdocs_config.get('use_directory_urls') is False
 
 

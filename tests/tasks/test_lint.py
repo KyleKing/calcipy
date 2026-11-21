@@ -1,84 +1,76 @@
 import json
 from pathlib import Path
-from unittest.mock import call, patch
+from unittest.mock import call
 
 import pytest
+from corallium import file_helpers
 from corallium.shell import capture_shell
 
 from calcipy.collection import GlobalTaskOptions
-from calcipy.tasks.executable_utils import _EXECUTABLE_CACHE, python_m
+from calcipy.tasks.executable_utils import python_m
 from calcipy.tasks.lint import PRE_COMMIT_HOOK_STAGES, check, fix, pre_commit, prose, slop_export, watch
+
+_RUFF = f'{python_m()} ruff check'
+_PREK_RUNS = [f'prek run --all-files --hook-stage {stg}' for stg in PRE_COMMIT_HOOK_STAGES]
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (check, {}, [f'{python_m()} ruff check "calcipy" ./tests']),
-        (fix, {}, [f'{python_m()} ruff check "calcipy" ./tests --fix']),
-        (fix, {'unsafe': True}, [f'{python_m()} ruff check "calcipy" ./tests --fix --unsafe-fixes']),
-        (watch, {}, [f'{python_m()} ruff check "calcipy" ./tests --watch']),
+        (check, {}, [f'{_RUFF} "calcipy" ./tests']),
+        (fix, {}, [f'{_RUFF} "calcipy" ./tests --fix']),
+        (fix, {'unsafe': True}, [f'{_RUFF} "calcipy" ./tests --fix --unsafe-fixes']),
+        (watch, {}, [f'{_RUFF} "calcipy" ./tests --watch']),
         (
             pre_commit,
             {},
-            [
-                call('which prek', warn=True, hide=True),
-                'prek install',
-                'prek autoupdate',
-                *[f'prek run --all-files --hook-stage {stg}' for stg in PRE_COMMIT_HOOK_STAGES],
-            ],
+            [call('which prek', warn=True, hide=True), 'prek install', 'prek autoupdate', *_PREK_RUNS],
         ),
-        (
-            prose,
-            {},
-            [
-                call('which vale', warn=True, hide=True),
-                'vale sync',
-                'vale .',
-            ],
-        ),
-        (
-            prose,
-            {'target': 'docs', 'no_sync': True},
-            [
-                call('which vale', warn=True, hide=True),
-                'vale docs',
-            ],
-        ),
+        (pre_commit, {'no_update': True}, [call('which prek', warn=True, hide=True), 'prek install', *_PREK_RUNS]),
+        (prose, {}, [call('which vale', warn=True, hide=True), 'vale sync', 'vale .']),
+        (prose, {'target': 'docs', 'no_sync': True}, [call('which vale', warn=True, hide=True), 'vale docs']),
         (
             prose,
             {'target': 'docs .github', 'glob': '*.md', 'no_sync': True},
-            [
-                call('which vale', warn=True, hide=True),
-                "vale --glob='*.md' docs .github",
-            ],
+            [call('which vale', warn=True, hide=True), "vale --glob='*.md' docs .github"],
+        ),
+        (
+            prose,
+            {'glob': '*.md'},
+            [call('which vale', warn=True, hide=True), 'vale sync', "vale --glob='*.md' ."],
         ),
     ],
 )
 def test_lint(ctx, task, kwargs, commands, assert_run_commands):
-    _EXECUTABLE_CACHE.pop('vale', None)
-
     task(ctx, **kwargs)
 
     assert_run_commands(ctx, commands)
 
 
-def test_lint_check_with_file_args(ctx):
-    gto = GlobalTaskOptions(file_args=[Path('a.py'), Path('b.py')])
-    ctx.config.gto = gto
+@pytest.mark.parametrize(
+    ('name', 'dirs', 'file_args', 'target'),
+    [
+        ('mypkg', ['src/mypkg', 'mypkg'], [], '"src/mypkg" ./tests'),
+        ('mypkg', ['mypkg'], [], '"mypkg" ./tests'),
+        ('mypkg', [], [], '. ./tests'),
+        ('mypkg', ['mypkg'], [Path('a.py'), Path('b c.py')], '"a.py" "b c.py"'),
+        ('my-pkg', ['src/my_pkg'], [], '"src/my_pkg" ./tests'),
+        ('my-pkg', ['my_pkg'], [], '"my_pkg" ./tests'),
+    ],
+    ids=['src-layout', 'flat-layout', 'no-package-dir', 'file-args', 'dashed-src-layout', 'dashed-flat-layout'],
+)
+def test_lint_check_target(ctx, tmp_project, name, dirs, file_args, target):
+    (tmp_project / 'pyproject.toml').write_text(f'[project]\nname = "{name}"\n', encoding='utf-8')
+    file_helpers.read_pyproject.cache_clear()
+    file_helpers.read_package_name.cache_clear()
+    for dir_name in dirs:
+        (tmp_project / dir_name).mkdir(parents=True)
+    if file_args:
+        ctx.config.gto = GlobalTaskOptions(file_args=file_args)
 
     check(ctx)
 
-    ctx.run.assert_called_once_with(f'{python_m()} ruff check "a.py" "b.py"')
-
-
-def test_lint_check_src_layout(ctx, tmp_path, monkeypatch):
-    monkeypatch.chdir(tmp_path)
-    (tmp_path / 'src' / 'mypkg').mkdir(parents=True)
-
-    with patch('calcipy.tasks.lint.read_package_name', return_value='mypkg'):
-        check(ctx)
-
-    ctx.run.assert_called_once_with(f'{python_m()} ruff check "src/mypkg" ./tests')
+    ctx.run.assert_called_once_with(f'{_RUFF} {target}')
 
 
 def test_lint_slop_export(ctx, tmp_path):
@@ -93,5 +85,5 @@ def test_lint_slop_export(ctx, tmp_path):
     slop_export(ctx, target=str(tmp_path), output_dir=str(output_dir), source='repo')
 
     records = [json.loads(line) for line in (output_dir / 'generated_repo.jsonl').read_text().splitlines()]
-    assert [Path(r['id']).name for r in records] == ['doc.md']
+    assert [(Path(r['id']).name, r['source'], r['model']) for r in records] == [('doc.md', 'repo', 'repo')]
     ctx.run.assert_not_called()

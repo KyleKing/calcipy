@@ -1,12 +1,12 @@
 """Types CLI."""
 
-from corallium.file_helpers import read_package_name
 from invoke.context import Context
 
 from calcipy.cli import task
 from calcipy.invoke_helpers import run
 
 from .executable_utils import PYRIGHT_MESSAGE, check_installed, python_m
+from .lint import _resolve_package_target
 
 
 @task()
@@ -25,5 +25,4 @@ def mypy(ctx: Context) -> None:
 @task()
 def ty(ctx: Context) -> None:
     """Run ty type checker."""
-    pkg = read_package_name()
-    run(ctx, f'ty check {pkg} tests')
+    run(ctx, f'ty check {_resolve_package_target()} tests')

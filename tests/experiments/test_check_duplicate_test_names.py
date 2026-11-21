@@ -1,6 +1,7 @@
-from pathlib import Path
+import pytest
 
 from calcipy.experiments.check_duplicate_test_names import run
+from tests.configuration import run_in_ascii_locale
 
 
 class ClassTest:
@@ -18,7 +19,51 @@ def test_intentional_duplicate():
     """Intentional duplicate of a test function with the same name."""
 
 
-def test_check_duplicate_test_names():
-    duplicates = run(Path(__file__).parents[1])
+@pytest.mark.parametrize(
+    ('files', 'expected'),
+    [
+        ({'test_a.py': 'def test_x(): ...\ndef test_x(): ...\n'}, [['test_x']]),
+        ({'test_a.py': 'def test_x(): ...\n', 'sub/test_b.py': 'def test_x(): ...\n'}, [['test_x']]),
+        ({f'test_{n}.py': 'def test_x(): ...\n' for n in 'abc'}, [['test_x', 'test_x']]),
+        ({'test_a.py': 'def helper(): ...\n', 'test_b.py': 'def helper(): ...\n'}, [[]]),
+        ({'test_a.py': 'def test_x(): ...\n', 'helper.py': 'def test_x(): ...\n'}, [[]]),
+        (
+            {
+                'test_a.py': 'class TestA:\n    def test_a(self): ...\ndef test_b(): ...\n',
+                'test_b.py': 'class TestB:\n    def test_b(self): ...\ndef test_a(): ...\n',
+            },
+            [['test_a'], ['test_b']],
+        ),
+        (
+            {
+                'test_a.py': 'def outer():\n    def test_a(): ...\ndef test_b(): ...\n',
+                'test_b.py': 'def outer2():\n    def test_b(): ...\ndef test_a(): ...\n',
+            },
+            [['test_a'], ['test_b']],
+        ),
+    ],
+    ids=['same-file', 'across-files', 'three-files', 'non-test-helpers', 'non-test-module', 'methods', 'nested'],
+)
+def test_run_reports_duplicate_test_names(tmp_path, files, expected):
+    """With nested names, the file read first decides which top-level name repeats one already seen."""
+    for name, content in files.items():
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content)
 
-    assert duplicates == ['test_intentional_duplicate']
+    assert run(tmp_path) in expected
+
+
+def test_run_reads_utf8_in_ascii_locale(tmp_path):
+    (tmp_path / 'tests').mkdir()
+    source = 'def test_caf\u00e9(): ...\n' * 2
+    (tmp_path / 'tests' / 'test_a.py').write_text(source, encoding='utf-8')
+    script = (
+        'from pathlib import Path\n'
+        'from calcipy.experiments.check_duplicate_test_names import run\n'
+        "print(ascii(run(Path('tests'))))\n"
+    )
+
+    result = run_in_ascii_locale(script, cwd=tmp_path)
+
+    assert (result.returncode, result.stdout.splitlines()[-1]) == (0, "['test_caf\\xe9']")

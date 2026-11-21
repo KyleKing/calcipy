@@ -122,15 +122,16 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-ar
 
         def _with_kwargs(**extra_kwargs: Any) -> Callable:  # type: ignore[type-arg] # nosem
             """Support building partial tasks."""
-            if extra_kwargs:
-                # Set a unique name when 'extra_kwargs' was provided
-                # https://github.com/pyinvoke/invoke/blob/07b836f2663bb073a7bcef3d6c454e1dc6b867ae/invoke/tasks.py#L81-L104
-                encoded = b64encode(str(extra_kwargs).encode())
-                func.__name__ = f'{func.__name__}_{encoded.decode().rstrip("=")}'
 
             @wraps(func)  # nosem
             def _with_kwargs_inner(*args: Any, **kwargs: Any) -> Any:
                 return func(*args, **kwargs, **extra_kwargs)
+
+            if extra_kwargs:
+                # Set a unique name when 'extra_kwargs' was provided
+                # https://github.com/pyinvoke/invoke/blob/07b836f2663bb073a7bcef3d6c454e1dc6b867ae/invoke/tasks.py#L81-L104
+                encoded = b64encode(str(extra_kwargs).encode())
+                _with_kwargs_inner.__name__ = f'{func.__name__}_{encoded.decode().rstrip("=")}'
 
             return _with_kwargs_inner
 
@@ -144,6 +145,7 @@ def task(*dec_args: Any, **dec_kwargs: Any) -> Callable:  # type: ignore[type-ar
 
     # Handle the case when the decorator is called without arguments
     if len(dec_args) == 1 and callable(dec_args[0]) and not hasattr(dec_args[0], TASK_ARGS_ATTR):
-        return wrapper(dec_args[0])
+        func, dec_args = dec_args[0], ()
+        return wrapper(func)
 
     return wrapper

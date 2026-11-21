@@ -5,12 +5,13 @@ from calcipy.tasks.nox import noxfile
 
 
 @pytest.mark.parametrize(
-    ('task', 'kwargs', 'commands'),
+    ('kwargs', 'command'),
     [
-        (noxfile, {}, [f'{python_m()} nox --error-on-missing-interpreters ']),
+        ({}, f'{python_m()} nox --error-on-missing-interpreters '),
+        ({'session': 'tests'}, f'{python_m()} nox --error-on-missing-interpreters --session tests'),
     ],
 )
-def test_nox(ctx, task, kwargs, commands, assert_run_commands):
-    task(ctx, **kwargs)
+def test_nox(ctx, kwargs, command):
+    noxfile(ctx, **kwargs)
 
-    assert_run_commands(ctx, commands)
+    ctx.run.assert_called_once_with(command)

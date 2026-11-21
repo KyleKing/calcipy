@@ -25,7 +25,7 @@ def run(test_path: Path) -> List[str]:  # noqa: C901
 
     for path_test in test_path.rglob('test_*.py'):
         LOGGER.info(path_test.as_posix())
-        parsed_ast = ast.parse(path_test.read_text())
+        parsed_ast = ast.parse(path_test.read_text(encoding='utf-8'))
 
         for node in parsed_ast.body:
             if isinstance(node, ast.FunctionDef):

@@ -33,7 +33,7 @@ def build_corpus(
 ) -> Iterable[dict[str, str]]:
     """Yield slop-forensics records (`model`, `source`, `id`, `output`) for each qualifying file."""
     for path in paths:
-        body = to_prose(path.read_text())
+        body = to_prose(path.read_text(encoding='utf-8'))
         if len(body.split()) < min_word_count:
             continue
         yield {'model': source, 'source': source, 'id': path.as_posix(), 'output': body}
@@ -49,7 +49,7 @@ def write_corpus_jsonl(paths: Iterable[Path], output_dir: Path, *, source: str) 
     output_dir.mkdir(parents=True, exist_ok=True)
     target = output_dir / f'generated_{source}.jsonl'
     records = list(build_corpus(paths, source=source))
-    with target.open('w') as handle:
+    with target.open('w', encoding='utf-8') as handle:
         for record in records:
             handle.write(json.dumps(record) + '\n')
     return target

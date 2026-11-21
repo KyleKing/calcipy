@@ -1,58 +1,147 @@
-from unittest.mock import call
-
 import pytest
+from corallium import file_helpers
 
 from calcipy.tasks.executable_utils import python_dir, python_m
 from calcipy.tasks.test import check, coverage, watch
 from calcipy.tasks.test import pytest as task_pytest
 
-_COV = '--cov=calcipy --cov-branch --cov-report=term-missing --durations=25 --durations-min="0.1"'
+_COV = (
+    f'{python_m()} pytest ./tests --cov=mypkg --cov-branch --cov-report=term-missing '
+    '--durations=25 --durations-min="0.1"'
+)
 _MARKERS = 'mark1 and not mark 2'
-_FAILFIRST = '--failed-first --new-first --exitfirst -vv --no-cov'
+_PTW = f'{(python_dir() / "ptw").as_posix()} . --now ./tests --failed-first --new-first --exitfirst -vv --no-cov'
+_COVERAGE = f'{python_m()} coverage'
+
+
+@pytest.mark.parametrize(
+    ('task', 'kwargs', 'config', 'commands'),
+    [
+        (task_pytest, {}, {}, [_COV]),
+        (task_pytest, {'keyword': 'test'}, {}, [f'{_COV} -k "test"']),
+        (task_pytest, {'marker': _MARKERS}, {}, [f'{_COV} -m "{_MARKERS}"']),
+        (task_pytest, {'keyword': 'kw', 'marker': 'mk'}, {}, [f'{_COV} -k "kw" -m "mk"']),
+        (task_pytest, {'min_cover': 80}, {}, [f'{_COV} --cov-fail-under=80']),
+        (task_pytest, {}, {'min_cover': 75}, [f'{_COV} --cov-fail-under=75']),
+        (task_pytest, {'min_cover': 80}, {'min_cover': 75}, [f'{_COV} --cov-fail-under=80']),
+        (watch, {}, {}, [_PTW]),
+        (watch, {'keyword': 'kw', 'marker': _MARKERS}, {}, [f'{_PTW} -k "kw" -m "{_MARKERS}"']),
+        (
+            coverage,
+            {'out_dir': '.cover'},
+            {},
+            [
+                f'{_COVERAGE} run --branch --source=mypkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing',
+                f'{_COVERAGE} html --directory=.cover',
+                f'{_COVERAGE} json',
+            ],
+        ),
+        (
+            coverage,
+            {'min_cover': 90},
+            {},
+            [
+                f'{_COVERAGE} run --branch --source=mypkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing --fail-under=90',
+                f'{_COVERAGE} html --directory=releases/tests',
+                f'{_COVERAGE} json',
+            ],
+        ),
+        (
+            coverage,
+            {},
+            {'out_dir': 'cov/html'},
+            [
+                f'{_COVERAGE} run --branch --source=mypkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing',
+                f'{_COVERAGE} html --directory=cov/html',
+                f'{_COVERAGE} json',
+            ],
+        ),
+        (
+            coverage,
+            {},
+            {'min_cover': 75, 'out_dir': '.cover'},
+            [
+                f'{_COVERAGE} run --branch --source=mypkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing --fail-under=75',
+                f'{_COVERAGE} html --directory=.cover',
+                f'{_COVERAGE} json',
+            ],
+        ),
+        (
+            coverage,
+            {'min_cover': 90},
+            {'min_cover': 75, 'out_dir': '.cover'},
+            [
+                f'{_COVERAGE} run --branch --source=mypkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing --fail-under=90',
+                f'{_COVERAGE} html --directory=.cover',
+                f'{_COVERAGE} json',
+            ],
+        ),
+    ],
+)
+def test_test(ctx, tmp_project, task, kwargs, config, commands, assert_run_commands):
+    if config:
+        ctx.config['test'] = config
+
+    task(ctx, **kwargs)
+
+    assert_run_commands(ctx, commands)
+    if task is coverage:
+        html_dir = commands[2].split('--directory=')[1]
+        assert (tmp_project / html_dir).is_dir()
 
 
 @pytest.mark.parametrize(
     ('task', 'kwargs', 'commands'),
     [
-        (task_pytest, {}, [f'{python_m()} pytest ./tests {_COV}']),
-        (task_pytest, {'keyword': 'test'}, [f'{python_m()} pytest ./tests {_COV} -k "test"']),
-        (task_pytest, {'marker': _MARKERS}, [f'{python_m()} pytest ./tests {_COV} -m "{_MARKERS}"']),
-        (
-            watch,
-            {'marker': _MARKERS},
-            [f'{(python_dir() / "ptw").as_posix()} . --now ./tests {_FAILFIRST} -m "{_MARKERS}"'],
-        ),
+        (task_pytest, {}, [_COV.replace('--cov=mypkg', '--cov=my_pkg')]),
         (
             coverage,
             {'out_dir': '.cover'},
             [
-                f'{python_m()} coverage run --branch --source=calcipy --module pytest ./tests',
-                call(f'{python_m()} coverage report --show-missing'),
-                call(f'{python_m()} coverage html --directory=.cover'),
-                call(f'{python_m()} coverage json'),
+                f'{_COVERAGE} run --branch --source=my_pkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing',
+                f'{_COVERAGE} html --directory=.cover',
+                f'{_COVERAGE} json',
             ],
         ),
     ],
-    ids=[
-        'Default test',
-        'Default test with keyword',
-        'Default test with marker',
-        'watch',
-        'coverage',
-    ],
 )
-def test_test(ctx, task, kwargs, commands, assert_run_commands):
+def test_test_dashed_project_name(ctx, tmp_project, task, kwargs, commands, assert_run_commands):
+    (tmp_project / 'pyproject.toml').write_text('[project]\nname = "my-pkg"\n', encoding='utf-8')
+    file_helpers.read_pyproject.cache_clear()
+    file_helpers.read_package_name.cache_clear()
+
     task(ctx, **kwargs)
 
     assert_run_commands(ctx, commands)
 
 
-def test_test_with_min_cover(ctx):
-    task_pytest(ctx, min_cover=80)
+@pytest.mark.parametrize(
+    ('files', 'error'),
+    [
+        ({'test_a.py': 'def test_one(): ...\n', 'sub/test_b.py': 'def test_two(): ...\n'}, None),
+        (
+            {'test_a.py': 'def test_same(): ...\n', 'sub/test_b.py': 'def test_same(): ...\n'},
+            "Duplicate test names found (['test_same']). See above for details.",
+        ),
+    ],
+)
+def test_test_check(ctx, tmp_project, files, error):
+    for name, content in files.items():
+        path = tmp_project / 'tests' / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content)
 
-    ctx.run.assert_called_once_with(f'{python_m()} pytest ./tests {_COV} --cov-fail-under=80')
-
-
-def test_test_check(ctx):
-    with pytest.raises(RuntimeError, match=r'Duplicate test names.+test_intentional_duplicate.+'):
+    if error:
+        with pytest.raises(RuntimeError) as exc_info:
+            check(ctx)
+        assert str(exc_info.value) == error
+    else:
         check(ctx)
+
+    ctx.run.assert_not_called()
