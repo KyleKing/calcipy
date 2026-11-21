@@ -38,10 +38,11 @@ def test_task_with_kwargs(extra_kwargs, suffix):
     def partial_task(ctx, *, value=0):
         return (ctx, value)
 
-    bound = partial_task.with_kwargs(**extra_kwargs)  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
+    bound, again = (partial_task.with_kwargs(**extra_kwargs) for _ in range(2))  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
 
     assert bound('ctx') == ('ctx', extra_kwargs.get('value', 0))
-    assert bound.__name__ == f'partial_task{suffix}'
+    assert (bound.__name__, again.__name__) == (f'partial_task{suffix}', f'partial_task{suffix}')
+    assert partial_task.__wrapped__.__name__ == 'partial_task'  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
     assert bound.dev_kwargs == {}
 
 
