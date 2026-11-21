@@ -3,6 +3,7 @@ from pathlib import Path
 from unittest.mock import call
 
 import pytest
+from corallium import file_helpers
 from corallium.shell import capture_shell
 
 from calcipy.collection import GlobalTaskOptions
@@ -47,16 +48,21 @@ def test_lint(ctx, task, kwargs, commands, assert_run_commands):
 
 
 @pytest.mark.parametrize(
-    ('dirs', 'file_args', 'target'),
+    ('name', 'dirs', 'file_args', 'target'),
     [
-        (['src/mypkg', 'mypkg'], [], '"src/mypkg" ./tests'),
-        (['mypkg'], [], '"mypkg" ./tests'),
-        ([], [], '. ./tests'),
-        (['mypkg'], [Path('a.py'), Path('b c.py')], '"a.py" "b c.py"'),
+        ('mypkg', ['src/mypkg', 'mypkg'], [], '"src/mypkg" ./tests'),
+        ('mypkg', ['mypkg'], [], '"mypkg" ./tests'),
+        ('mypkg', [], [], '. ./tests'),
+        ('mypkg', ['mypkg'], [Path('a.py'), Path('b c.py')], '"a.py" "b c.py"'),
+        ('my-pkg', ['src/my_pkg'], [], '"src/my_pkg" ./tests'),
+        ('my-pkg', ['my_pkg'], [], '"my_pkg" ./tests'),
     ],
-    ids=['src-layout', 'flat-layout', 'no-package-dir', 'file-args'],
+    ids=['src-layout', 'flat-layout', 'no-package-dir', 'file-args', 'dashed-src-layout', 'dashed-flat-layout'],
 )
-def test_lint_check_target(ctx, tmp_project, dirs, file_args, target):
+def test_lint_check_target(ctx, tmp_project, name, dirs, file_args, target):
+    (tmp_project / 'pyproject.toml').write_text(f'[project]\nname = "{name}"\n', encoding='utf-8')
+    file_helpers.read_pyproject.cache_clear()
+    file_helpers.read_package_name.cache_clear()
     for dir_name in dirs:
         (tmp_project / dir_name).mkdir(parents=True)
     if file_args:

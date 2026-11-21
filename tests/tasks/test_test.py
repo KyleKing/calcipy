@@ -1,4 +1,5 @@
 import pytest
+from corallium import file_helpers
 
 from calcipy.tasks.executable_utils import python_dir, python_m
 from calcipy.tasks.test import check, coverage, watch
@@ -70,6 +71,32 @@ def test_test(ctx, tmp_project, task, kwargs, config, commands, assert_run_comma
     if task is coverage:
         html_dir = commands[2].split('--directory=')[1]
         assert (tmp_project / html_dir).is_dir()
+
+
+@pytest.mark.parametrize(
+    ('task', 'kwargs', 'commands'),
+    [
+        (task_pytest, {}, [_COV.replace('--cov=mypkg', '--cov=my_pkg')]),
+        (
+            coverage,
+            {'out_dir': '.cover'},
+            [
+                f'{_COVERAGE} run --branch --source=my_pkg --module pytest ./tests',
+                f'{_COVERAGE} report --show-missing',
+                f'{_COVERAGE} html --directory=.cover',
+                f'{_COVERAGE} json',
+            ],
+        ),
+    ],
+)
+def test_test_dashed_project_name(ctx, tmp_project, task, kwargs, commands, assert_run_commands):
+    (tmp_project / 'pyproject.toml').write_text('[project]\nname = "my-pkg"\n', encoding='utf-8')
+    file_helpers.read_pyproject.cache_clear()
+    file_helpers.read_package_name.cache_clear()
+
+    task(ctx, **kwargs)
+
+    assert_run_commands(ctx, commands)
 
 
 @pytest.mark.parametrize(

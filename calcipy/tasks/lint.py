@@ -20,7 +20,7 @@ from .executable_utils import PRE_COMMIT_MESSAGE, VALE_MESSAGE, check_installed,
 
 def _resolve_package_target() -> str:
     """Resolve package directory for src or flat layouts."""
-    pkg = read_package_name()
+    pkg = read_package_name().replace('-', '_')
     src_path = Path(f'./src/{pkg}')
     flat_path = Path(f'./{pkg}')
     if src_path.is_dir():

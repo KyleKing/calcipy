@@ -67,7 +67,7 @@ def pytest(ctx: Context, *, keyword: str = '', marker: str = '', min_cover: int 
     Additional arguments can be set in the environment variable 'PYTEST_ADDOPTS'
 
     """
-    pkg_name = read_package_name()
+    pkg_name = read_package_name().replace('-', '_')
     durations = '--durations=25 --durations-min="0.1"'
     _inner_task(
         ctx,
@@ -104,7 +104,7 @@ def coverage(ctx: Context, *, min_cover: int = 0, out_dir: Optional[str] = None,
     Creates `coverage.json` used in `doc.build`
 
     """
-    pkg_name = read_package_name()
+    pkg_name = read_package_name().replace('-', '_')
     run(ctx, f'{python_m()} coverage run --branch --source={pkg_name} --module pytest ./tests')
 
     cov_dir = Path(out_dir or from_ctx(ctx, 'test', 'out_dir'))
