@@ -3,6 +3,7 @@ import json
 import pytest
 
 from calcipy.experiments.slop_corpus_export import build_corpus, to_prose, write_corpus_jsonl
+from tests.configuration import run_in_ascii_locale
 
 
 @pytest.mark.parametrize(
@@ -48,3 +49,20 @@ def test_write_corpus_jsonl(tmp_path):
     record = {'model': 'repo', 'source': 'repo', 'id': kept.as_posix(), 'output': ' '.join(['word'] * 150)}
     assert target.read_text() == json.dumps(record) + '\n'
     assert sorted(p.name for p in output_dir.iterdir()) == ['generated_other.jsonl', 'generated_repo.jsonl']
+
+
+def test_write_corpus_jsonl_reads_utf8_in_ascii_locale(tmp_path):
+    body = ' '.join(['caf\u00e9'] * 150)
+    (tmp_path / 'doc.md').write_text(body, encoding='utf-8')
+    script = (
+        'from pathlib import Path\n'
+        'from calcipy.experiments.slop_corpus_export import write_corpus_jsonl\n'
+        "print(write_corpus_jsonl([Path('doc.md')], Path('out'), source='repo').read_text(encoding='utf-8'), end='')\n"
+    )
+
+    result = run_in_ascii_locale(script, cwd=tmp_path)
+
+    assert (result.returncode, result.stdout) == (
+        0,
+        json.dumps({'model': 'repo', 'source': 'repo', 'id': 'doc.md', 'output': body}) + '\n',
+    )

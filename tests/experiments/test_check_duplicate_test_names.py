@@ -1,6 +1,7 @@
 import pytest
 
 from calcipy.experiments.check_duplicate_test_names import run
+from tests.configuration import run_in_ascii_locale
 
 
 class ClassTest:
@@ -51,3 +52,18 @@ def test_run_reports_duplicate_test_names(tmp_path, files, expected):
         path.write_text(content)
 
     assert run(tmp_path) in expected
+
+
+def test_run_reads_utf8_in_ascii_locale(tmp_path):
+    (tmp_path / 'tests').mkdir()
+    source = 'def test_caf\u00e9(): ...\n' * 2
+    (tmp_path / 'tests' / 'test_a.py').write_text(source, encoding='utf-8')
+    script = (
+        'from pathlib import Path\n'
+        'from calcipy.experiments.check_duplicate_test_names import run\n'
+        "print(ascii(run(Path('tests'))))\n"
+    )
+
+    result = run_in_ascii_locale(script, cwd=tmp_path)
+
+    assert (result.returncode, result.stdout.splitlines()[-1]) == (0, "['test_caf\\xe9']")

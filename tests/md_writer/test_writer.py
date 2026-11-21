@@ -20,7 +20,7 @@ from calcipy.markup_writer._writer import (
     _ReplacementMachine,
     write_template_formatted_sections,
 )
-from tests.configuration import TEST_DATA_DIR
+from tests.configuration import TEST_DATA_DIR, run_in_ascii_locale
 
 SAMPLE_README_PATH = TEST_DATA_DIR / 'sample_doc_files' / 'README.md'
 
@@ -241,3 +241,19 @@ def test_handle_cli_output_skips(monkeypatch, line, side_effect, match):
         _handle_cli_output(line, Path('fake.md'))
 
     assert subprocess_run.call_count == (0 if side_effect is None else 1)
+
+
+def test_handle_coverage_reads_utf8_in_ascii_locale(tmp_path):
+    data = {**_COVERAGE_SAMPLE_DATA, 'files': {'calcipy/caf\u00e9.py': {'summary': _COVERAGE_SAMPLE_DATA['totals']}}}
+    path_cover = tmp_path / 'coverage.json'
+    path_cover.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+    line = '<!-- {cts} COVERAGE; -->'
+    script = (
+        'from pathlib import Path\n'
+        'from calcipy.markup_writer._writer import _handle_coverage\n'
+        f"print(ascii(_handle_coverage({line!r}, Path('x.md'), Path('coverage.json'))))\n"
+    )
+
+    result = run_in_ascii_locale(script, cwd=tmp_path)
+
+    assert (result.returncode, result.stdout) == (0, ascii(_handle_coverage(line, Path('x.md'), path_cover)) + '\n')

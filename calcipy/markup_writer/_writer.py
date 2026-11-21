@@ -235,7 +235,7 @@ def _handle_coverage(line: str, _path_file: Path, path_coverage: Optional[Path] 
     if not path_coverage.is_file():
         msg = f'Could not locate: {path_coverage}'
         raise _ParseSkipError(msg)
-    coverage_data = json.loads(path_coverage.read_text())
+    coverage_data = json.loads(path_coverage.read_text(encoding='utf-8'))
     lines_cov = _format_cov_table(coverage_data)
     return _wrap_section(line, lines_cov, _format_end_marker(line))
 
