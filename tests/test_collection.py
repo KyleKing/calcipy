@@ -130,3 +130,18 @@ def test_built_task_keeps_help(task_help, expected):
     built = _build(lambda value: value, help=task_help)
 
     assert built.help == expected
+
+
+@pytest.mark.parametrize('hook', ['pre', 'post'])
+def test_built_task_can_be_built_twice(hook):
+    @task()
+    def other(ctx):
+        """Other."""
+
+    @task(**{hook: [other]})
+    def sample(ctx):
+        """Sample task."""
+
+    built = [_build_task(sample) for _ in range(2)]
+
+    assert [[t.name for t in getattr(b, hook)] for b in built] == [['other'], ['other']]

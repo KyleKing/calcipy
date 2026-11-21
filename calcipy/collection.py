@@ -117,7 +117,7 @@ def _build_task(task: DeferredTask) -> Task:  # type: ignore[type-arg]  # pragma
         def inner(*args: Any, **kwargs: Any) -> Any:
             return _wrapped_task(*args, func=task, show_task_info=show_task_info, **kwargs)
 
-        kwargs = getattr(task, TASK_KWARGS_ATTR)
+        kwargs = dict(getattr(task, TASK_KWARGS_ATTR))
         show_task_info = kwargs.pop('show_task_info', None) or False
         pre = [_build_task(pre) for pre in kwargs.pop('pre', None) or []]
         post = [_build_task(post) for post in kwargs.pop('post', None) or []]
