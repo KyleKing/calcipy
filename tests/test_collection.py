@@ -117,3 +117,16 @@ def test_built_task_builds_pre_and_post():
 
     assert [t.name for t in cast(List[Task[Any]], built.pre)] == ['before']
     assert [t.name for t in cast(List[Task[Any]], built.post)] == ['after']
+
+
+@pytest.mark.parametrize(
+    ('task_help', 'expected'),
+    [
+        ({}, {}),
+        ({'value': 'The value'}, {'value': 'The value'}),
+    ],
+)
+def test_built_task_keeps_help(task_help, expected):
+    built = _build(lambda value: value, help=task_help)
+
+    assert built.help == expected
