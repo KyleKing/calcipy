@@ -91,12 +91,13 @@ def _fail_prek(command, *_args, **_kwargs):
         (None, _fail_prek, 'releases/site'),
         ('site_dir: public\nuse_directory_urls: true\n', None, 'public'),
         ('use_directory_urls: false\n', None, None),
+        ('', None, 'releases/site'),
     ],
-    ids=['defaults', 'prek-fails', 'hosted', 'local-urls'],
+    ids=['defaults', 'prek-fails', 'hosted', 'local-urls', 'empty-config'],
 )
 def test_deploy(ctx, tmp_project, assert_run_commands, mkdocs_yml, run_side_effect, site_dir):
     ctx.run.side_effect = run_side_effect
-    if mkdocs_yml:
+    if mkdocs_yml is not None:
         (tmp_project / 'mkdocs.yml').write_text(mkdocs_yml)
 
     if site_dir is None:
@@ -108,9 +109,17 @@ def test_deploy(ctx, tmp_project, assert_run_commands, mkdocs_yml, run_side_effe
         assert_run_commands(ctx, ['prek uninstall', _ghp_import(site_dir), 'prek install'])
 
 
-@pytest.mark.parametrize('local', [True, False])
-def test_watch(ctx, tmp_project, monkeypatch, assert_run_commands, local):
-    (tmp_project / 'mkdocs.yml').write_text(f'use_directory_urls: {str(not local).lower()}\nsite_dir: out\n')
+@pytest.mark.parametrize(
+    ('mkdocs_yml', 'local'),
+    [
+        ('use_directory_urls: false\nsite_dir: out\n', True),
+        ('use_directory_urls: true\nsite_dir: out\n', False),
+        ('', False),
+    ],
+    ids=['local-urls', 'hosted', 'empty-config'],
+)
+def test_watch(ctx, tmp_project, monkeypatch, assert_run_commands, mkdocs_yml, local):
+    (tmp_project / 'mkdocs.yml').write_text(mkdocs_yml)
     open_in_browser = Mock()
     open_url = Mock()
     monkeypatch.setattr('calcipy.tasks.doc.open_in_browser', open_in_browser)
