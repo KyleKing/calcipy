@@ -15,7 +15,11 @@ from calcipy.invoke_helpers import run
 @task()
 def lock(ctx: Context) -> None:
     """Update package manager lock file."""
-    if can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[get_lock()]):
+    try:
+        path_lock = get_lock()
+    except FileNotFoundError:
+        path_lock = None
+    if path_lock and can_skip.can_skip(prerequisites=[PROJECT_TOML], targets=[path_lock]):
         return  # Exit early
 
     run(ctx, 'uv lock')

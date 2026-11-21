@@ -6,13 +6,17 @@ import pytest
 from calcipy.tasks.pack import bump_tag, lock, sync_pyproject_versions
 
 
-@pytest.mark.parametrize(('lock_is_newer', 'commands'), [(False, ['uv lock']), (True, [])])
-def test_lock_runs_only_when_pyproject_is_newer(ctx, tmp_project, assert_run_commands, lock_is_newer, commands):
-    path_lock = tmp_project / 'uv.lock'
-    path_lock.write_text('')
+@pytest.mark.parametrize(
+    ('lock_state', 'commands'),
+    [('older', ['uv lock']), ('newer', []), ('missing', ['uv lock'])],
+)
+def test_lock_runs_only_when_pyproject_is_newer(ctx, tmp_project, assert_run_commands, lock_state, commands):
     older, newer = 1_000_000, 2_000_000
-    os.utime(path_lock, (newer, newer) if lock_is_newer else (older, older))
-    os.utime(tmp_project / 'pyproject.toml', (older, older) if lock_is_newer else (newer, newer))
+    if lock_state != 'missing':
+        path_lock = tmp_project / 'uv.lock'
+        path_lock.write_text('')
+        os.utime(path_lock, (newer, newer) if lock_state == 'newer' else (older, older))
+    os.utime(tmp_project / 'pyproject.toml', (older, older) if lock_state == 'newer' else (newer, newer))
 
     lock(ctx)
 
